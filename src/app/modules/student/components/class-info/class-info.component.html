@@ -1,0 +1,98 @@
+<app-student-nav></app-student-nav>
+<div class="class-info-list">
+  <div *ngIf="isLoad" class="container">
+    <div class="topbar-btn-title">
+      <span class="back-btn-wrapper">
+        <app-button classes="btn small-btn btn-secondary mr-4 icon-btn btn-back" [submit]="true"
+          routerLink="/student/student-landing">
+          <span aria-hidden="true">
+            <fa-icon [icon]="LeftArrow"></fa-icon>{{'common.back'| translate}}
+          </span>
+        </app-button>
+      </span>
+      <h6>{{'student.class-info.you-have-records'| translate :{count: classInfoList.length, label:'classes'} }}</h6>
+    </div>
+    <div class="row">
+      <div class="col-lg-4 col-md-4 col-sm-6 class-info-main" *ngFor="let item of classInfoList">
+        <div class="card-wihtout-header-white class-info-wrapper" (click)="onCardClick(item.id)">
+          <h6 class="name-and-class">
+            <span class="name">{{item.name}}</span>
+            <!-- <span class="class-no">Class:</span><span class="room-no">{{item.class}}</span> -->
+          </h6>
+          <div class="sub-info-and-logo">
+            <div class="sub-info">
+              <p class="sub-title">{{item.schoolName}}</p>
+              <p class="id">{{'district.district-schools.id'| translate}}: {{item.id}}</p>
+              <p class="grade">{{'school.class.add-class.grade-field' | translate}}: {{item.grade}}</p>
+            </div>
+            <div class="logo-status">
+              <div class="logo"><span><img src="{{ item.image }}" alt="" class="img-fluid" /></span></div>
+              <p [ngClass]="item.status=='Active'? 'active-status':'non-active-status'">{{item.status}}</p>
+            </div>
+          </div>
+          <div class="buttons-wrapper">
+            <app-button classes="btn student-small-btn btn-secondary mr-4 icon-btn btn-view-lessons" [submit]="true"
+              (click)=viewAssignedLessons(item.id)>
+              <!-- <fa-icon [icon]="PlusIcon"></fa-icon> -->
+              <span aria-hidden="true">{{'student.class-info.view-lessons-label' | translate}}<fa-icon
+                  [icon]="RightArrow"></fa-icon></span>
+            </app-button>
+            <!-- <span class="info-icon"><fa-icon [icon]="infoCircleIcon"></fa-icon></span> -->
+            <span class="info-icon" (click)="open(classDetailsModal,item)"><img src="./assets/images/info-icon.svg"
+                alt="" class="img-fluid" /></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #classDetailsModal let-modal>
+  <div class="modal-header class-details-header">
+    <h4 class="modal-title" id="modal-basic-title">{{ classDetails?.name }} {{'student.class-info.details-label'|
+      translate }}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <!-- <span aria-hidden="true">&times;</span> -->
+      <img src="./assets/images/close.png" alt="" class="img-fluid" />
+    </button>
+  </div>
+  <div class="modal-body class-details-body">
+    <div class="row">
+      <div class="col-5 details-heading">
+        <h6>{{'school.class.add-class.grade-field' | translate}}</h6>
+      </div>
+      <div class="col-7 details-value">
+        <h6>{{classDetails?.grade}}</h6>
+      </div>
+      <div class="col-5 details-heading">
+        <h6>{{'school.teacher.teacher-list.teacher-heading' | translate}}</h6>
+      </div>
+      <div class="col-7 details-value">
+        <h6>{{classDetails?.teachers}}</h6>
+      </div>
+      <div class="col-5 details-heading">
+        <h6>{{'student.class-info.class-standards'| translate }}</h6>
+      </div>
+      <div class="col-7 details-value">
+        <h6>{{classDetails?.standards}}</h6>
+      </div>
+      <div class="col-5 details-heading">
+        <h6>{{'student.class-info.class-title-label'|translate}}</h6>
+      </div>
+      <div class="col-7 details-value">
+        <h6>{{classDetails?.name}}</h6>
+      </div>
+      <div class="col-5 details-heading">
+        <h6>{{'school.teacher.add-teacher.status'|translate}}</h6>
+      </div>
+      <div class="col-7 details-value">
+        <h6>{{classDetails?.status}}</h6>
+        <p>{{ classDetails?.createdAt | date:'h:mm a , dd/MM/yyyy'}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer class-details-footer">
+    <button type="button" class="btn btn-secondary mr-4 icon-btn btn-view-lessons"
+      (click)="modal.close('Close click')">{{'common.close'|translate}}</button>
+  </div>
+</ng-template>

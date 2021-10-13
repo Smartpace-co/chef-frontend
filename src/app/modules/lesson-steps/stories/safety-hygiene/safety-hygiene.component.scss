@@ -1,0 +1,115 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+.hygiene-body{
+  padding-bottom: 10rem;
+  position: relative;
+  overflow: hidden;
+  min-height: calc(100vh - 24.2rem);
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  @include breakpoint(tabs){
+    padding-bottom: 5rem;
+  }
+  @include breakpoint(mobile) {
+    min-height: calc(100vh - 33rem);
+  }
+  .safety-audio{
+    display: flex;
+    justify-content: flex-end;
+    z-index: 1;
+  }
+  .container{
+    @include breakpoint(mobile){
+      padding: 0;
+    }
+    .hygiene-list-wrapper{
+      max-width: 50rem;
+      margin: 0 auto;
+      padding: 3rem;
+      position: relative;
+      @include breakpoint(mobile){
+        max-width: 30rem;
+        padding: 2rem;
+      }
+      ul{
+        padding: 0rem;
+        li{
+          margin: 3rem 0rem;
+          display: flex;
+          align-items: center;
+            &.hygiene-list{
+              input{
+                display: none;
+                &:checked ~ label{
+                  background-color: $yellow-shade-2;
+                  -ms-transform: scale(1.05);
+                  transform: scale(1.05);
+                }
+              }
+              label{
+                display: flex;
+                align-items: center;
+                padding: 4rem;
+                cursor: pointer;
+                box-shadow: 0 3px 19px 0 rgba(0, 0, 0, 0.31);
+                border: transparent;
+                @include breakpoint(mobile){
+                  padding: 2rem;
+                }
+                &:hover{
+                  background-color: $yellow-shade-2;
+                  -ms-transform: scale(1.05);
+                  transform: scale(1.05); 
+                }
+                .check-mark{
+                  .icon{
+                    display: inline-block;
+                    border: 3px solid #707070;
+                    border-radius: 50%;
+                    font-size: 5rem;
+                    width: 8rem;
+                    height: 8rem;
+                    text-align: center;
+                    background-color: $white;
+                    @include breakpoint(mobile){
+                      font-size: 4rem;
+                      width: 6rem;
+                      height: 6rem;
+                    }
+                  }
+                }
+                .discription{
+                  display: inline-block;
+                  padding-left: 4rem;
+                  margin: auto 0;
+                  @include breakpoint(mobile){
+                    h5{
+                      font-size: 1.6rem;
+                    }  
+                    padding-left: 2rem;
+                  }
+                }
+              }
+            }
+        }
+      }
+      .final-editaion-img-wrapper{
+        position: absolute;
+        bottom: -11rem;
+        right: 0;
+        transform: rotateY(180deg);
+        max-width: 32rem;
+        right: -22rem;
+        @include breakpoint(mobile){
+          max-width: 25rem;
+          right: -10rem;
+        }
+      }
+    }
+  }
+}
+.lessons-footer{
+  margin-top: unset;
+}

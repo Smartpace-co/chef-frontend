@@ -1,0 +1,25 @@
+<app-lessons-headerbar [isButtonSection]="isButtonSection" [showBackBtn]="false"></app-lessons-headerbar>
+<div class="active-action-body">
+  <div class="container">
+    <div class="final-editaion">
+      <div *ngIf="isLoad" class="content-wrapper">
+        <div class="card-wihtout-header-blue">
+          <div class="active-action-wrapper">
+            <p>{{ activity?.description }}</p>
+          </div>
+          <div class="submit-btn-wrapper">
+            <app-button classes="btn btn-secondary btn-action" [submit]="true" (click)="onNext()">
+              <span aria-hidden="true"><img src="./assets/images/boy-button.png" alt="">
+                {{'student.assigned-lessons.lesson-steps.take-action-activity'| translate }} </span>
+            </app-button>
+          </div>
+        </div>
+        <span class="final-editaion-img-wrapper">
+          <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+<app-lessons-footer [isVisibleNext]="!isLoad" [isVisiblePrevious]="isVisiblePrevious" (onNext)="onNext()" (onPrevious)="onPrevious()">
+</app-lessons-footer>

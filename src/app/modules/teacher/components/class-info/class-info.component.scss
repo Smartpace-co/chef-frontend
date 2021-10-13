@@ -1,0 +1,58 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+
+.ClassInfo{
+    margin-top:8rem;
+    margin-bottom:5rem;
+    legend{
+        display: inline-table;
+        transform: translate(50px, -50%);
+        @include breakpoint(mobile){
+            transform: translate(0, -50%);
+        }
+    }
+    .toggle-list{
+        max-width:calc(100% - 100px);
+        margin: auto;
+        @include breakpoint(mobile){
+            max-width:100%;
+        }
+        li{
+            display: flex;
+            justify-content: space-between;
+            margin-bottom:2.5rem;
+            font-size:1.8rem;
+            font-weight: bold;
+            label{
+                width: calc(100% - 6rem);
+            }
+            .switch{
+                width:4.8rem;
+            }
+            @include breakpoint(mobile){
+                font-size: 1.4rem;
+            }
+        }
+    }
+    .access-code{
+        max-width:calc(100% - 100px);
+        margin: auto;
+        padding: 0;
+        @include breakpoint(mobile){
+            max-width:100%;
+        }
+        .col-md-{
+            padding: 0;
+        }
+        label{
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: $light-blue-shade;
+            padding-left: 3rem;
+          }
+          .form-control[readonly] {
+            background-color: #313579;
+            opacity: 1;
+        }
+    }
+}

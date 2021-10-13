@@ -1,0 +1,153 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+  .active-action-body{
+    background:url("../../../../../assets/images/kitchen-bg.jpg") center no-repeat ,;
+    background-size: cover;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    flex-wrap: wrap;
+    .container{
+      @include breakpoint(tabs){
+        padding: 0;
+      }
+      .final-editaion{
+        margin-top: 16rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding-top: 0rem;
+        padding-bottom: 15rem;
+        overflow: hidden;
+        position: relative;
+        @include breakpoint(tabs) {
+          padding-top: 0rem;
+        }
+        @include breakpoint(mobile){
+          padding-bottom: 6rem;
+        }
+        .content-wrapper{
+          text-align: center;
+          flex: 0 0 100%;
+          max-width: 100%;
+          .card-wihtout-header-blue{
+            position: relative;
+            display: inline-block;
+            margin: 0 auto;
+            max-width: 53rem;
+            @include breakpoint(tabs){
+            //   max-width: 40rem;
+              padding: 2rem;
+            }
+            @include breakpoint(mobile){
+              padding-bottom: 12rem;
+            }
+            @include breakpoint(xtrasmallmobile){
+              max-width: 90%;
+            }
+            .active-action-wrapper{
+              margin-bottom: 2rem;
+              p{
+                font-size: 2.2rem;
+                font-weight: 700;
+                text-align: center;
+                padding: 0;
+                @include breakpoint(mobile){
+                  font-size: 1.8rem;
+                }
+              }
+            }
+            .drop-content{
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                .write-answer{
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 11rem;
+                    height: 9rem;
+                    background-color: $blue-shade-4;
+                    border-radius: 2rem;
+                    border: 0.2rem dashed $white;
+                    padding-bottom: 1rem;
+                    @include breakpoint(sm-mobile){
+                      margin: 0 1rem;
+                    }
+                    img{
+                      max-width: 85%;
+                      max-height: 100%;
+                    }
+                }
+                .label-wrapper{
+                  background: #22b2f2;
+                  border-radius: 2rem;
+                  transform: translate(0, -50%);
+                  .drop-label{
+                    margin: 0;
+                    color: #000000;
+                    font-size: 1rem;
+                    font-weight: 700;
+                    max-width: 11rem;
+                    line-height: 1rem;
+                    height: 3rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                  }
+                  &::before{
+                    width: 1rem;
+                    height: 0.5rem;
+                    background: #fff;
+                    content: "";
+                    position: absolute;
+                    z-index: 1;
+                    left: 5px;
+                    top: 4px;
+                    border-radius: 100%;
+                    transform: rotate(-45deg);
+                  }
+                }
+            }
+            .options{
+                margin-bottom: 3rem;
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                .card-white{
+                    display: flex;
+                    justify-content: center;
+                    width: 11rem;
+                    height: 9rem;
+                    background-color: $white;
+                    border-radius: 2rem;
+                    padding: 1rem;
+                    @include breakpoint(sm-mobile){
+                      margin: 1rem;
+                    }
+                    img{
+                      max-width: 85%;
+                    }
+                }
+            }
+          }
+          .final-editaion-img-wrapper{
+            max-width: 29rem;
+            position: absolute;
+            display:block;
+            margin-left: auto;
+            left: 0;
+            bottom: 0;
+            @include breakpoint(mobile){
+              max-width: 20rem;
+            }
+            @include breakpoint(mobile) {
+              left: -7rem;
+              bottom: -8rem;
+            }
+          }
+        }
+      }
+    }
+  }

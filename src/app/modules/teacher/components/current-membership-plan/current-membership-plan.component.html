@@ -1,0 +1,40 @@
+<div class="user-membership">
+  <div class="container">
+    <div class="membership-heading-wrapper">
+      <div class="heading">
+        <app-button classes="btn btn-secondary mr-3">
+          <span aria-hidden="true">Back</span>
+        </app-button>
+        <h4 class="notification-count">Your membership</h4>
+      </div>
+      <app-button classes="btn btn-primary icon-btn">
+        <span aria-hidden="true"><fa-icon [icon]="faEdit"></fa-icon>Edit Membership</span>
+      </app-button>
+    </div>
+    <div class="user-membership-wrapper legend-card">
+      <div class="row">
+        <div class="col-12 membership-sub-heading">
+          <h5>Current Plan Information</h5>
+        </div>
+        <div class="col-sm-5 col-12 membership-label">
+          <label>Subscription Type and Users</label>
+        </div>
+        <div class="col-sm-7 col-12 membership-info">
+          <p>Monthly , 200 Users</p>
+        </div>
+        <div class="col-sm-5 col-12 membership-label">
+          <label>Renew Date</label>
+        </div>
+        <div class="col-sm-7 col-12 membership-info">
+          <p>03/24/2020</p>
+          <p>$349.99 Monthly</p>
+        </div>
+      </div>
+      <div class="download-recipt">
+        <app-button classes="btn btn-primary">
+          <span aria-hidden="true">Download receipt</span>
+        </app-button>
+      </div>
+    </div>
+  </div>
+</div>

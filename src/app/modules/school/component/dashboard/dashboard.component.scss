@@ -1,0 +1,416 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+
+
+@keyframes RingProgress {
+    0% {
+        stroke-dasharray: 0 100;
+    }
+}
+
+.ActivityRings {
+    height: 100%;
+    width: 100%;
+    .ring {
+        transform-origin: 50%;
+    }
+    .completed {
+        animation: RingProgress 1s ease-in-out forwards;
+        stroke-linecap: round;
+    }
+    circle {
+        fill: none;
+    }
+}
+
+.ring1 {
+    .background {
+        stroke: transparentize($ring-red, 0.9);
+    }
+    .completed {
+        stroke: $ring-red;
+    }   
+}
+
+.ring2 {
+    .background {
+        stroke: transparentize($ring-yellow, 0.9);
+    }
+    .completed {
+        stroke: $ring-yellow;
+    }
+}
+
+.ring3 {
+    .background {
+        stroke: transparentize($ring-green,  0.9);
+    }
+    .completed {
+        stroke: $ring-green;
+    }
+}
+
+.ring4 {
+    .background {
+        stroke: transparentize($ring-blue, 0.9);
+    }
+    .completed {
+        stroke: $ring-blue;
+    }
+}
+.dashboard-head-info{
+    margin-top :2.5rem;
+    max-width: 95%;
+    @include breakpoint(iPad){
+        max-width: 100%;
+    }
+    h4{
+        margin-bottom: 2.5rem;
+    }
+    .col-md-4{
+        margin-bottom:2.5rem;
+    }
+    .data-card{
+        padding: 3rem 2rem 1rem;
+        
+        .data-wrapper{
+            display: flex;
+            // justify-content: space-between;
+            align-items: center;
+            .logo{
+                min-width: 8rem;
+                min-height: 8rem;
+                font-size: 4rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: $black;
+                background-color: $secondary;
+                border-radius: 50%;
+                @include breakpoint(mobile){
+                    min-width: 6rem;
+                    min-height: 6rem;
+                    font-size: 3rem;
+                }
+
+            }
+            .count{
+                margin: 0rem 2rem;
+                @include breakpoint(iPad){
+                    margin: 0rem 1rem;
+                }
+                h2{
+                    margin-bottom: 0;
+                    @include breakpoint(iPad){
+                        font-size: 2.2rem;
+                    }
+                }
+            }
+            .label{
+                font-weight: 700;
+                font-size: 1.4rem;
+                max-width: 7rem;
+            }
+        }
+        .add-btn{
+            margin-left: auto;
+            margin-top: -2rem;
+            @include breakpoint(mobile){
+                margin-top: 0rem;
+            }
+
+        }
+    }
+}
+.dashboard-main{
+    max-width: 95%;
+    @include breakpoint(iPad){
+        max-width: 100%;
+    }
+    margin-bottom: 2.5rem;
+    justify-content: center;
+    .user-name{
+        margin-bottom: 2.5rem;
+    }
+    // max-width: calc(100% - 10rem);
+    .card{
+        @include breakpoint(mobile){
+            margin-bottom: 2.5rem;
+        }
+    }
+}
+.class-chart{
+    .chart-title{
+        font-weight: bold;
+        text-align: center;
+        margin-bottom:2rem;
+    }
+    .chart{
+        max-width:85%;
+        margin: auto;
+        margin-bottom:3.5rem;
+        &.donut-chart {
+            margin-bottom: auto;
+            @include breakpoint(mobile) {
+                margin-bottom:3.5rem;
+            }
+            .donut {
+                transform: translate(0px, -2rem);
+                --donut-size: 22rem;
+                --donut-border-width: 3.5rem;
+                @include breakpoint(smallDesktop) {
+                    --donut-size: 18rem;
+                    --donut-border-width: 3rem;
+                }
+                @include breakpoint(tabs) {
+                    --donut-size: 16rem;
+                    --donut-border-width: 2.5rem;
+                }
+                @include breakpoint(mobile) {
+                    --donut-size: 25rem;
+                    --donut-border-width: 3rem;
+                    transform: unset;
+                }
+                @include breakpoint(smallmobile) {
+                    --donut-size: 20rem;
+                    --donut-border-width: 3rem;
+                }
+            }
+        }
+    }
+    .chart-info{
+        li{
+            display: flex;
+            align-items:flex-start;
+            margin-bottom: 1rem;
+            .chart-title{
+                margin-bottom: 0;
+                font-size: 1.2rem;
+                width:80%;
+                text-align: left;
+            }
+            .chart-indicator{
+                width:1.3rem;
+                height: 1.3rem;
+                background:$ring-blue;
+                display:inline-block;
+                margin-right:1.2rem;
+                &.green{
+                    background-color:$ring-green;
+                }
+                &.red{
+                    background-color:$ring-red;
+                }
+                &.yellow{
+                    background-color:$ring-yellow;
+                }
+            }
+            .chart-count{
+                margin-left: auto;
+                font-weight: bold;
+            }
+            .blue{
+                color:$ring-blue;
+            }
+            .green{
+                color: $ring-green;
+            }
+            .red{
+                color: $ring-red;
+            }
+            .yellow{
+                color: $ring-yellow;
+            }
+        }
+        &.time-spent {
+            min-height: 11.68rem;
+            @include breakpoint(mobile) {
+                min-height: unset;
+            }
+        }
+    }
+    .view-repots{
+        display: block;
+        margin-top: 2rem;
+        text-align: center;
+        color:$secondary;
+        font-weight: bold;
+    }
+}
+
+.class-info{
+    .class-info-header{
+        border-bottom: 1px solid $border-color;
+        padding-bottom:1.5rem;
+        margin-bottom: 2rem;
+        color:$secondary;
+        .student-counts{
+            font-size: 3rem;
+            font-weight: bold;
+            margin-right: 1rem;
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 2rem;
+            margin-top: 1rem;
+        }
+        .student-icon{
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+        h4{
+            margin-bottom: 0;
+            font-size:1.4rem;
+        }
+    }
+    .bullet-list{
+        li{
+            color: $secondary;
+            font-size:2.4rem;
+            line-height: 1.8rem;
+            span{
+                color: $white;
+                font-size:1.4rem;
+            }
+        }
+    }
+}
+
+#body-row {
+    margin-left:0;
+    margin-right:0;
+}
+#sidebar-container {
+    min-height: 100vh;   
+    background-color: #333;
+    padding: 0;
+}
+
+/* Sidebar sizes when expanded and expanded */
+.sidebar-expanded {
+    width: 230px;
+}
+.sidebar-collapsed {
+    width: 60px;
+}
+
+/* Menu item*/
+#sidebar-container .list-group a {
+    height: 50px;
+    color: white;
+}
+
+/* Submenu item*/
+#sidebar-container .list-group .sidebar-submenu a {
+    height: 45px;
+    padding-left: 30px;
+}
+.sidebar-submenu {
+    font-size: 0.9rem;
+}
+
+/* Separators */
+.sidebar-separator-title {
+    background-color: #333;
+    height: 35px;
+}
+.sidebar-separator {
+    background-color: #333;
+    height: 25px;
+}
+.logo-separator {
+    background-color: #333;    
+    height: 60px;
+}
+
+/* Closed submenu icon */
+#sidebar-container .list-group .list-group-item[aria-expanded="false"] .submenu-icon::after {
+  content: " \f0d7";
+  font-family: FontAwesome;
+  display: inline;
+  text-align: right;
+  padding-left: 10px;
+}
+/* Opened submenu icon */
+#sidebar-container .list-group .list-group-item[aria-expanded="true"] .submenu-icon::after {
+  content: " \f0da";
+  font-family: FontAwesome;
+  display: inline;
+  text-align: right;
+  padding-left: 10px;
+}
+.journal-body{
+    p{
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: 700;
+      padding: 2rem 0rem;
+    }
+    .Total{
+      text-align: center;
+    }
+    .month{
+      text-align: center;
+      font-weight: 700;
+      padding: 1rem 0rem 2rem;
+    }
+    .close-btn-wrapper{
+     text-align: center;
+    }
+  }
+  .membership-header{
+    border-bottom: none;
+    padding: 2rem 0rem;
+    .logo{
+      max-width: 8.5rem;
+      position: absolute;
+      top: -6rem;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+    }
+    h4{
+      margin: 0 auto;
+    }
+  }
+  .donut-chart{
+    svg {
+        width: 100%;
+        height: 100%;
+        border-radius:50%;
+        .circle1{
+            // stroke-dasharray: 50 100;
+            // stroke-dashoffset: 30;
+             stroke: $ring-yellow;
+        }
+        .circle2{
+            // stroke-dasharray: 25 100;
+            //  stroke-dashoffset: 40;
+             stroke:$ring-blue;
+        }
+        .circle3{
+            // stroke-dasharray: 57 100;  
+            //  stroke-dashoffset: 0;
+             stroke: $ring-green;
+        }
+        circle {
+            fill: transparent;
+        }
+        
+        .text {
+            font-weight: 700;
+            fill: $white;
+         .text-large{
+             font-size: 0.5rem;
+         }
+         .text-small{
+            font-size: 0.15rem;
+         }
+        }
+      }
+      
+}
+
+.ngx-donut .chart-wrapper path:hover {
+    cursor: pointer;
+    stroke-width: 55px;
+}

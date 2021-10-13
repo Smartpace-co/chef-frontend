@@ -1,0 +1,41 @@
+<app-lessons-headerbar [lessonHederConfig]="lessonHederConfig"></app-lessons-headerbar>
+<div class="story-body-10">
+  <div class="blur-bg">
+    <app-scroll-down></app-scroll-down>
+    <div class="container">
+      <div class="final-editaion">
+        <div class="content-wrapper">
+          <span class="final-editaion-img-wrapper">
+            <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
+            <div class="right-tooltip-wrapper">
+              <div class="speech-tooltip sm-tooltip left-bottom-tip">
+                <div class="speech-tooltip-inner">
+                  <p class="message">
+                    {{sensoryQuestionList?.message}}
+                  </p>
+                  <span class="tip">
+                    <img src="./assets/images/left-bottom-tip.svg" alt="" class="img-fluid" />
+                  </span>
+                </div>
+              </div>
+            </div>
+          </span>
+          <span class="question">
+            <h4>{{sensoryQuestionList?.question}}</h4>
+            <div *ngFor="let item of sensoryQuestionList?.options" class="answers">
+              <input type="radio" id="{{item?.name}}" name="selector" value="{{item?.value}}" (click)="onAnsItemChange($event)">
+              <label class="btn small-btn btn-secondary" for="{{item?.name}}">{{item?.value}}</label>
+            </div>
+          </span>
+        </div>
+        <div class="content-wrapper">
+          <span class="table-img-wrapper">
+            <img src="./assets/images/table.png" alt="" class="img-fluid" />
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-lessons-footer [isVisibleNext]="isVisibleNext" (onNext)="onNext()" (onPrevious)="onPrevious()">
+</app-lessons-footer>

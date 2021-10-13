@@ -1,0 +1,8 @@
+<app-lessons-headerbar [isButtonSection]="isButtonSection" [showBackBtn]="false"></app-lessons-headerbar>
+<div *ngIf="form!=undefined">
+    <app-dynamic-activity-questions #dynamicActionActivityQuestionsComponent (onSubmitActivity)="submitAnswer($event)"
+        [questionData]="form">
+    </app-dynamic-activity-questions>
+</div>
+<app-lessons-footer [isVisibleNext]="isVisibleNext" [isVisiblePrevious]="isVisiblePrevious" (onNext)="onNext()"
+    (onPrevious)="onPrevious()"></app-lessons-footer>

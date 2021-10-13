@@ -1,0 +1,153 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+
+.SigninStudent{
+    margin:8rem 0;
+    .signin-wraper{
+        display: flex;
+        @include breakpoint(mobile){
+            display: flex;
+            flex-direction: column;
+        }
+        .top-nav{
+            @include breakpoint(mobile){
+                margin-bottom: 2rem;
+            }
+        }
+    }
+    .form-wraper{
+        width: calc(100% - 20rem);
+        @include breakpoint(mobile){
+            width: calc(100%);
+        }
+        .SigninStudent__form{
+            background: $primary;
+            border:1px solid $border-color;
+            border-radius:3rem;
+            position: relative;
+            padding:8rem 4rem;
+            padding-top: 0;
+            @include breakpoint(mobile){
+                padding:4rem 2rem;
+                padding-top: 0;
+            }
+            fieldset{
+                padding-top: 1.5rem;
+                max-width:90%;
+                @include breakpoint(mobile){
+                    max-width:100%;
+                }
+                .general-wraper{
+                    align-items: center;
+                    .col-md-2{
+                        @include breakpoint(mobile){
+                            display: flex;
+                            justify-content: center;
+                        }
+                        .logo-wraper{
+                            max-width: 8rem;
+                        }
+                    }
+                    .col-md-10{
+                        @include breakpoint(mobile){
+                            margin-top: 2rem;
+                        }
+                        h3{
+                            font-size: 2rem;
+                        }
+                        .general{
+                            padding: 0;
+                            font-size: 1.6rem;
+                            font-weight: 700;
+                            .general-info{
+                                color: $yellow-shade-3;
+                            }
+                            .arrow{
+                                padding: 0 1rem;
+                                color: rgba($white, 0.5);
+                            }
+                            .member{
+                                color: rgba($white, 0.5);
+                            }
+                        }
+                    }
+                }
+                .form-start{
+                    margin-top: 5rem;
+                }
+                header{
+                    display: flex;
+                    align-items: center;
+                    margin-bottom:2rem;
+                    .logo{
+                        max-width:8.8rem;
+                    }
+                    .content{
+                      margin: auto 0;
+                      margin-left: 2rem;
+                      h5{
+                        margin-bottom: 0rem;
+                      }
+                      .breadcrumb{
+                        background-color: transparent;
+                        margin-bottom: 0rem;
+                        padding: 1rem 0rem 0rem;
+                        .breadcrumb-item{
+                          &::before{
+                            color: $yellow-shade-3;
+                            font-size: 1.3rem;
+                            margin: 0rem 1.2rem;
+                            font-weight: 600;
+                            display: flex;
+                            align-items: center;
+                          }
+                          a{
+                            color: $border-color;
+                            font-size: 1.6rem;
+                            font-weight: 600;
+                          }
+                          &.active{
+                            color: $yellow-shade-3;
+                            font-size: 1.6rem;
+                            font-weight: 600;
+                          }
+                        }
+                      }
+                    }
+                  }
+            }
+        }
+        label{
+            font-size: 1.4rem;
+            color: $light-blue-shade;
+            font-weight: 700;
+            padding-left: 3rem;
+          //   padding-left:3rem;
+          //   color:rgba($white, 0.5);
+          //   display: block;
+        }
+        h2{
+            font-size:2rem;
+            color:rgba($white, 0.5);
+            margin-bottom: 1.5rem;
+        }
+        .personal-info{
+            margin:4rem 0;
+        }
+        .medical-info{
+            margin-top: 4rem;
+            margin-bottom: 2rem;
+            @include breakpoint(tabs){
+                .row{
+                    &:last-child{
+                        margin-top:1.5rem;
+                    }
+                }
+            }
+            .allergy-btn{
+                display: flex;
+                align-items: center;
+            }
+        }
+    }
+}

@@ -1,0 +1,44 @@
+<div class="user-membership">
+  <div class="container">
+    
+    <div class="membership-heading-wrapper">
+      <h4 class="notification-count">Your membership</h4>
+      <!-- <app-button classes="btn btn-primary icon-btn" *ngIf="isEnabled" (click)="editMembership()">
+        <span aria-hidden="true"><fa-icon [icon]="faEdit"></fa-icon>Edit Membership</span>
+      </app-button> -->
+    </div>
+
+    <div class="top-nav">
+      <div class="back-button-wrapper">
+          <app-button classes="btn small-btn btn-secondary mr-4 icon-btn btn-back" [submit]="true"
+              [routerLink]="['/student/student-landing']">
+              <span aria-hidden="true">
+                  <fa-icon [icon]="LeftArrow"></fa-icon> Back
+              </span>
+          </app-button>
+      </div>
+     
+  </div>
+  
+    <div class="user-membership-wrapper legend-card" style="margin-top: 1.5%;">
+      <div class="row" *ngIf="packageDetails">
+        <div class="col-12 membership-sub-heading">
+          <h5>Current Plan Information</h5>
+        </div>
+        <div class="col-sm-5 col-12 membership-label">
+          <label>Subscription Type and Users</label>
+        </div>
+        <div class="col-sm-7 col-12 membership-info">
+          <p>{{packageDetails.packageTitle}} , {{packageDetails.maxUser}} Users</p>
+        </div>
+        <div class="col-sm-5 col-12 membership-label">
+          <label>Renew Date</label>
+        </div>
+        <div class="col-sm-7 col-12 membership-info">
+          <p>{{validityDate| date: 'MM/dd/yyyy' }}</p>
+          <p>${{packageDetails.price}} {{packageDetails.packageTitle}}</p>
+        </div>
+     </div>
+    </div>
+</div>
+</div>

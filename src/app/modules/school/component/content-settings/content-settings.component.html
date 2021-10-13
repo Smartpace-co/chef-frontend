@@ -1,0 +1,43 @@
+<div class="content-settings">
+    <div class="container">
+        <div class="content-settings-profile-wrapper legend-card">
+            <legend>{{'school.setting.content-setting.content-setting-label'|translate}}</legend>
+            <p class="settings-instructions">
+                {{'school.setting.content-setting.content-setting-desc'|translate}}.
+            </p>
+            <ul class="content-settings-list">
+                <li *ngFor="let item of settingList">
+                    <div class="settings-details">
+                        <p class="title">{{item.title}}</p>
+                        <div class="icon">
+                            <fa-icon [icon]="LockIcon" *ngIf="item.status == 'locked'"></fa-icon>
+                        </div>
+
+                        <ul class="grade-list" [ngClass]="item.status == 'locked' ? 'locked' : 'unlocked'">
+                            <li *ngIf="item.type == 'checkmark'">
+                                <div *ngFor="let option of item.options" class="check-wrapper">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id={{option.id}}
+                                            [disabled]="item.status == 'locked'" [ngModel]="option.isEnable"
+                                            [checked]="option.isEnable" (click)="onSettingsUpdate(item,option)">
+                                        <label class="custom-control-label" for={{option}}>{{option.menu}}</label>
+                                    </div>
+                                </div>
+                            </li>
+                            <li *ngIf="item.type == 'switch'">
+                                <div class="toggle-btn">
+                                    <label class="switch">
+                                        <input type="checkbox" [disabled]="item.status == 'locked'"
+                                            [ngModel]="item.isEnable" [checked]="item.isEnable"
+                                            (click)="onSettingsUpdate(item)">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

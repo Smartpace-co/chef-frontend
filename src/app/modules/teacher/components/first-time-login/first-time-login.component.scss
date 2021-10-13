@@ -1,0 +1,48 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+
+.first-time-body{
+  display: flex;
+  align-items: center;
+  min-height: calc(100vh - 9rem);
+  padding: 10rem 0rem;
+  .content-wrapper{
+    .start-again-card{
+        max-width: 64rem;
+        padding: 4rem;
+        margin: 0 auto;
+        border-radius: 3rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      .logo{
+        max-width: 7rem;
+      }
+      .start{
+          margin-top: 3.5rem;
+          margin-bottom: 1.3rem;
+          .start-text{
+              padding: 0;
+              text-align: center;
+              .start-highlight{
+                  color: $yellow-shade-6;
+              }
+          }
+      }
+      .creat{
+          max-width: 33rem;
+          margin-bottom: 3rem;
+          .creat-text{
+              font-size: 1.5rem;
+              font-weight: 700;
+              text-align: center;
+              padding: 0;
+          }
+      }
+    }
+    .start-btn-wrapper{
+      display: flex;
+      justify-content: center;
+    }
+  }
+}

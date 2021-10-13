@@ -1,0 +1,67 @@
+<div class="container">
+    <div class="ClassInfo legend-card class-setting">
+        <legend>{{'school.class.class-details.your-class-settings-label' | translate}}</legend>
+        <ul class="toggle-list" *ngFor="let item of settingsList">
+            <li>
+              <label>{{item.value}}</label>
+              <label class="switch">
+                <input type="checkbox" [ngModel]="item.isEnable" [checked]="item.isEnable"
+                  (click)="changeSetting(item)">
+                <span class="slider round"></span>
+              </label>
+            </li>
+          </ul>
+        <!-- <ul class="toggle-list">
+            <li>
+                <label>Show performance report to students</label>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                </label>
+            </li>
+            <li>
+                <label>Allow lesson exploration</label>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                </label>
+            </li>
+            <li>
+                <label>Points and levels</label>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                </label>
+            </li>
+            <li>
+                <label>Health and wellness activities</label>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                </label>
+            </li>
+            <li>
+                <label>Mini games </label>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                </label>
+            </li>
+        </ul> -->
+        <div class="row access-code">
+            <div class="col-md-4">
+                <form [formGroup]="accessCodeForm">
+                    <label>{{'school.class.add-class.access-code-label'|translate}}</label>
+                    <input
+                      class="form-control"
+                      placeholder="{{'school.class.add-class.access-code-label'|translate}}"
+                      fieldControl="accessCode"
+                      [value]="selctedClassAccessCode"
+                      readonly
+                    />
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>

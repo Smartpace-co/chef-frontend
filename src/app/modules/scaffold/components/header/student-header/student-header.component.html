@@ -1,0 +1,39 @@
+<header class="studentHeader">
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" routerLink="/">
+            <img src="./assets/images/logo.png" alt="" class="img-fluid" />
+        </a>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <!-- <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link"  routerLink="coming-soon">Programs</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link"  routerLink="coming-soon">Teachers</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link"  routerLink="coming-soon">Students</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link"  routerLink="coming-soon">Schools and Districts</a>
+            </li>
+          </ul> -->
+        </div>
+        <div class="signup">
+            <!-- <button class="navbar-toggler collapsed mr-4" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+            </button>
+          -->
+          <ng-container *ngIf="!loggedIn">
+            <app-button classes="btn btn-primary" [submit]="true" (click)="signIn()">
+                <span aria-hidden="true">Sign In</span>
+            </app-button>
+            <app-button classes="btn btn-primary ml-4" [submit]="true" (click)="signUp()">
+                <span aria-hidden="true">Sign Up</span>
+            </app-button>
+        </ng-container>
+        </div>
+      </nav>
+</header>

@@ -1,0 +1,60 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+
+.get-help {
+    padding: 5rem 0rem;
+    .help-heading-wrapper{
+        margin-bottom: 3rem;
+        @include breakpoint(sm-mobile) {
+          flex-wrap: wrap;
+        }
+        h4{
+          @include breakpoint(sm-mobile) {
+            margin-bottom: 2rem;
+          }
+        }
+      }
+
+      .help-item {
+        display: flex;
+        justify-content: space-between;
+        background: #4066cb;
+        border: 1px solid #c1c1c1;
+        border-radius: 1.2rem;
+        position: relative;
+        padding: 1.4rem 2rem 2.5rem 2.4rem;
+        min-height: 17rem;
+        margin-bottom: 3rem;
+
+        .contact-details {
+            width: calc(100% - 7rem);
+            ul {
+                margin-top: 1.2rem;
+                li {
+                    margin-bottom: 2rem;
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                    .title, label {
+                        font-size: 1.4rem;
+                        font-weight: 700;
+                        line-height: 1.29;
+                    }
+                    label {
+                        opacity: 0.56;
+                        margin-bottom: .7rem;
+                    }
+                    .email {
+                        font-size: 1.6rem;
+                        line-height: 1.19;
+                        word-break: break-all;
+                    }
+                    .contact {
+                        font-size: 1.4rem;
+                    }
+                }
+            }
+
+        }
+    }
+}

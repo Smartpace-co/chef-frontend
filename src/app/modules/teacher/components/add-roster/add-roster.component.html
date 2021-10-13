@@ -1,0 +1,206 @@
+<div class="add-roster-body">
+    <div class="container">
+        <div class="content-wrapper">
+          <div class="card-wihtout-header-blue">
+              <div class="add-roster">
+                  <div class="roster-image">
+                      <img src="./assets/images/roster.png" class="img-fluid" alt="">
+                  </div>
+                  <div class="roster-title">
+                      <h4 class="heading">Your class is empty.</h4>
+                      <p class="roster-para">Start adding students to your class either by uploading their information or by inviting them to this class.</p>
+                  </div>
+                  <div class="roster-btn-wrapper">
+                    <app-button classes="btn btn-small btn-primary btn-roster" [submit]="true">
+                      <span aria-hidden="true">Upload Student Info</span>
+                    </app-button>
+                  </div>
+                  <div class="choice"><span>or</span></div>
+                  <div class="roster-btn-wrapper">
+                    <app-button classes="btn btn-small btn-secondary btn-roster" (click)="open(createGroup)" [submit]="true">
+                      <span aria-hidden="true">Add Students</span>
+                    </app-button>
+                  </div>
+              </div>
+            
+          </div>
+        </div>
+    </div>
+  </div>
+
+  <ng-template #createGroup let-modal>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <img src="./assets/images/close.png" alt="" class="img-fluid" />
+    </button>
+    <div class="modal-body create-modal">
+      <div class="heading-wraper">
+        <h2 class="heading">Create Group</h2>
+      </div>
+         <form class="creat-form">
+            <fieldset>
+              <div class="row">
+                <div class="col-sm-4">
+                  <label>Group Color</label>
+                  <app-drop-down class="colorDropdown" [dropDownItemList]="classList">
+                  </app-drop-down>
+
+                </div>
+                
+                  <div class="col-sm-8 form-inputs">
+                      <label>Group Title</label>
+                      <app-input-field classes="form-control" types="text" ids="title" 
+                           placeholders="Group Title">                  
+                      </app-input-field>
+                  </div>
+              </div>
+              <div class="student-list">
+                <div class="group-heading">
+                  <h6 class="heading">Add Group Members</h6>
+                </div>
+                <ul class="list-wraper">
+                  <div class="list-header">
+                    <span class="heading">Invite New Members to the group</span>
+                  </div>
+                  <li class="list-content">
+                    <div class="student">
+                      <div class="student__photo">
+                        <img src="./assets/images/student.png" class="img-fluid" />
+                      </div>
+                      <div class="student__name">
+                        <h6>Samuel, Aaron</h6>
+                      </div>
+                    </div>
+                    <div class="checkbox-container">
+                        <label class="checkbox_wraper">
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                  </li>
+                  <li class="list-content">
+                    <div class="student">
+                      <div class="student__photo">
+                        <img src="./assets/images/student.png" class="img-fluid" />
+                      </div>
+                      <div class="student__name">
+                        <h6>Ruaz, Kevin</h6>
+                      </div>
+                    </div>
+                    <div class="checkbox-container">
+                        <label class="checkbox_wraper">
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                  </li>
+                  <li class="list-content">
+                    <div class="student">
+                      <div class="student__photo">
+                        <img src="./assets/images/student.png" class="img-fluid" />
+                      </div>
+                      <div class="student__name">
+                        <h6>Keil, Exie</h6>
+                      </div>
+                    </div>
+                    <div class="checkbox-container">
+                        <label class="checkbox_wraper">
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="profile-btns">
+                <app-button classes="btn btn-secondary" (click)="modal.dismiss('Cross click')">
+                  <span aria-hidden="true">Cancle</span>
+                </app-button>
+                <app-button classes="btn btn-primary icon-btn">
+                  <span aria-hidden="true">Create Group</span>
+                </app-button>
+              </div>
+            </fieldset>
+          </form>
+      </div>
+</ng-template>
+
+<div class="btn-wraper">
+  <div class="roster-btn-wrapper">
+    <app-button classes="btn btn-small btn-secondary" (click)="open(manageGroup)" [submit]="true">
+      <span aria-hidden="true">Manage Group</span>
+    </app-button>
+  </div>
+  <div class="roster-btn-wrapper">
+    <app-button classes="btn btn-small btn-secondary" (click)="open(studentList)" [submit]="true">
+      <span aria-hidden="true">Student List</span>
+    </app-button>
+  </div>
+
+</div>
+
+<ng-template #manageGroup let-modal>
+  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <img src="./assets/images/close.png" alt="" class="img-fluid" />
+  </button>
+  <div class="modal-body manage-modal">
+    <div class="header-wraper">
+        <h2 class="heading">Manage Groups</h2>
+        <span class="group-info">You have created 5 groups for this class.</span>
+    </div>
+    <div class="manage-content">
+        <ul class="manage-list-wraper">
+            <li class="manage-list" *ngFor="let item of managePopup">
+                <div class="group-color">
+                  <label>{{item.groupColor}}</label>
+                  <div class="color-shades {{item.groupColor}}"></div>
+                </div>
+                <div class="group-name">
+                  <span class="name">{{item.name}}</span>
+                </div>
+                <div class="group-edit">
+                  <a class="icon-bg">
+                      <fa-icon [icon]="pencil"></fa-icon>
+                  </a>
+                  <a class="icon-bg">
+                      <fa-icon [icon]="trash"></fa-icon>
+                  </a>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="manage-btn-wrapper">
+      <app-button classes="btn btn-small btn-secondary" (click)="closeOpenModal" [submit]="true">
+        <span aria-hidden="true">Cancel</span>
+      </app-button>
+    </div>
+    </div>
+</ng-template>
+
+
+<ng-template #studentList let-modal>
+<button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <img src="./assets/images/close.png" alt="" class="img-fluid" />
+</button>
+<div class="modal-body student-list-modal">
+  <div class="header-wraper">
+      <h2 class="heading">Student List</h2>
+  </div>
+  <div class="student-content">
+      <ul class="student-list-wraper">
+          <li class="student-list" *ngFor="let item of studentPopup">
+              <div class="student-photo">
+                <img src="./assets/images/student.png" class="img-fluid" alt="">
+              </div>
+              <div class="student-name">
+                <span class="name">{{item.name}}</span>
+              </div>
+          </li>
+      </ul>
+  </div>
+  <div class="student-btn-wrapper">
+    <app-button classes="btn btn-small btn-primary btn-list" [submit]="true">
+      <span aria-hidden="true">Ok</span>
+    </app-button>
+  </div>
+  </div>
+</ng-template>

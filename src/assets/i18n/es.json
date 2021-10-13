@@ -1,0 +1,632 @@
+{
+    "common": {
+        "save": "Guardar",
+        "close": "Cerrar",
+        "cancel": "Cancelar",
+        "update": "Update",
+        "ok": "Ok",
+        "submit": "Enviar",
+        "back": "Atrás",
+        "add": "Add",
+        "enter": "Enter",
+        "delete": "Delete",
+        "upload": "Upload",
+        "impersonate": "Impersonar",
+        "reset": "Reset",
+        "remove": "Eliminar",
+        "impersonate-to-superAdmin": "Saltar a super admin",
+        "no-data-found": "Sin datos",
+        "download": "Descargar",
+        "date-placeholder-1": "yyyy/dd/mm",
+        "date-placeholder-2": "dd-mm-yyyy",
+        "monday": "Lunes",
+        "tuesday": "Martes",
+        "wednesday": "Miércoles",
+        "thursday": "Jueves",
+        "friday": "Viernes",
+        "saturday": "Sábado",
+        "sunday": "Domingo",
+        "search": "Buscar",
+        "no-data-available": "Datos no disponibles",
+        "select-all-dropdownlabel": "Seleccionar todo",
+        "unselect-all-dropdownlabel": "Deseleccionar todo",
+        "success": "Éxito",
+        "warning": "Advertencia",
+        "info": "Informacion",
+        "error": "Error",
+        "date-pattern-error": "Fecha incorrecta"
+    },
+    "table-component": {
+        "show": "mostrar",
+        "you": "Tú",
+        "have": "tengo",
+        "entries": "entradas",
+        "search": "buscar",
+        "list-view": "Vista de la lista",
+        "tile-view": "Vista de mosaico",
+        "sort-by": "Ordenar por",
+        "first": "primero",
+        "prev": "anterior",
+        "next": "Siguiente",
+        "last": "último",
+        "no-record": "Ningún registro encontrado"
+    },
+    "table-search-filter-container": {
+        "search": "buscar",
+        "view": {
+            "list-view": "Vista de la lista",
+            "tile-view": "Vista de mosaico"
+        },
+        "sort-by-list": {
+            "sort-by": "Sort by",
+            "sort-by-name": "Sort by Name",
+            "sort-by-duration": "Sort by Duration",
+            "sort-by-student-id": "Sort by Student ID",
+            "sort-by-student-name": "Sort by Student Name"
+        },
+        "status": {
+            "all": "Todos {{label}}",
+            "active": "Activo",
+            "inactive": "Inactivo"
+        },
+        "sort-by": "Ordenar por"
+    },
+    "header-content": {
+        "app-title": {
+            "chef-koochooloo": "Chef Koochooloo"
+        },
+        "language": {
+            "english": "English",
+            "spanish": "Spanish"
+        },
+        "welcome": "Bienvenido",
+        "logout": "cerrar sesión"
+    },
+    "footer-component": {
+        "footer-title": {
+            "copyright": "Derechos reservados © 2021 Chef Koochooloo"
+        }
+    },
+    "forgot-Password-component": {
+        "forgot-Password-title": "Password olvidado",
+        "username-field-label": "Usuario"
+    },
+    "change-password-component": {
+        "change-password-title": "Cambiar la contraseña",
+        "change-pass-conf_text": "¿Estás seguro de que quieres cambiar tu contraseña?",
+        "current-pass-field": {
+            "current-pass-placeholder": "Escriba la contraseña actual",
+            "current-pass-required": "Se requiere contraseña actual"
+        },
+        "new-pass-field": {
+            "new-pass-placeholder": "Escribe una nueva contraseña",
+            "new-pass-required": "Se requiere nueva contraseña"
+        },
+        "confirm-pass-field": {
+            "confirm-pass-placeholder": "Confirmar Contraseña",
+            "confirm-pass-required": "Se requiere confirmación de contraseña",
+            "confirm-pass-match": "La contraseña y la contraseña de confirmación deben coincidir"
+        }
+    },
+    "district": {
+        "dashboard": {
+            "active-schools": "Escuelas Activas",
+            "total-classes": "Clases Totales",
+            "total-users": "Total de usuarios",
+            "amnt-of-practice": "Cantidad de práctica",
+            "time-spent": "Tiempo usado",
+            "view-full-report": "Ver informe completo",
+            "inactive-students": "Los estudiantes inactivos",
+            "std-with-below-avg-activity": "Estudiante con actividad por debajo del promedio",
+            "std-with-above-avg-activity": "Estudiantes con actividad superior a la media.",
+            "more": "Más",
+            "profile-menu": {
+                "profile": "Perfil",
+                "setting": "Configuración",
+                "help": "Ayuda",
+                "signout": "Desconectar"
+            }
+        },
+        "district-profile": {
+            "your-profile-title": "Tu perfil",
+            "edit-profile-title": "Editar perfil",
+            "edit-profile-pic": "Editar la imagen del perfil",
+            "district-component": {
+                "info-title": "Información del distrito",
+                "district-profile-title": "Actualizar el perfil del distrito",
+                "name-field": {
+                    "label": "Nombre del distrito",
+                    "placeholder": "Ingresar nombre del distrito",
+                    "required": "Nombre del distrito es requerido"
+                },
+                "display-name-field": {
+                    "label": "Nombre para mostrar",
+                    "placeholder": "Ingrese el nombre para mostrar",
+                    "required": "Nombre para mostrar requerido"
+                },
+                "address-field": {
+                    "label": "Dirección del distrito",
+                    "placeholder": "Ingresa Ingresa la dirección",
+                    "required": "Se requiere la dirección del distrito"
+                },
+                "phone-field": {
+                    "label": "Teléfono",
+                    "placeholder": "Ingresar número teléfonico",
+                    "required": "numero telefónico es necesario",
+                    "pattern": "El número de teléfono no es válido (formato - (000) -000-0000)",
+                    "minlength": "Numero de teléfono inválido( es necesario a 10 digitos)",
+                    "validate": "El numero de telefono ya existe"
+                },
+                "entity-type": "Tipo de entidad"
+            },
+            "agent-component": {
+                "info-title": "Información del agente",
+                "agent-profile-title": "Actualizar el perfil del agente",
+                "email-field": {
+                    "label": "Correo electrónico",
+                    "placeholder": "Ingresar correo electrónico",
+                    "required": "correo electronico es requerido"
+                },
+                "name-field": {
+                    "label": "Nombre",
+                    "placeholder": "Ingresar nombre",
+                    "required": "Se requiere el nombre"
+                },
+                "title-field": {
+                    "label": "Título",
+                    "placeholder": "Ingrese el título",
+                    "required": "El título es obligatorio",
+                    "valid": "Título no válido"
+                },
+                "role": "Función",
+                "gender-field": {
+                    "label": "Género",
+                    "male-label": "Masculino",
+                    "female-label": "Mujer",
+                    "required": "El género es obligatorio"
+                },
+                "phone-field": {
+                    "label": "Teléfono",
+                    "placeholder": "Ingresar número teléfonico",
+                    "required": "numero telefónico es necesario",
+                    "pattern": "El número de teléfono no es válido (formato - (000) -000-0000)",
+                    "minlength": "Numero de teléfono inválido( es necesario a 10 digitos)",
+                    "validate": "El numero de telefono ya existe"
+                }
+            }
+        },
+        "district-schools": {
+            "id": "Identificación",
+            "active-schools": "Escuelas Activas",
+            "add-schools": "Agregar escuela",
+            "all-schools": "Todas las escuelas",
+            "info-title": "Info",
+            "students-title": "Estudiantes",
+            "classes-title": "Classes",
+            "reports-title": "Informes"
+        }
+    },
+    "school": {
+        "dashboard": {
+            "active-classes": "Activas Classes",
+            "total-teachers": "Maestros totales",
+            "total-students": "Total de estudiantes"
+        },
+        "user-profile": {
+            "school-title": "Colegio",
+            "address-title": "Dirección",
+            "placeholder": "Entrar en la escuela",
+            "required": "Escuela requerida",
+            "pattern": "Escuela no valido",
+            "update-profile-label": "Actualización del perfil"
+        },
+        "school-profile": {
+            "school-information-label": "Información de la escuela",
+            "school-name-label": "Nombre de la escuela",
+            "school-address-label": "Dirección de la escuela",
+            "school-district-label": "Nombre del distrito",
+            "update-school-profile-label": "Actualizar el perfil de la escuela",
+            "district-label": "Distrito",
+            "agent": {
+                "label": "Agente"
+            }
+        },
+        "teacher": {
+            "teacher-heading": "Maestros",
+            "add-teacher": {
+                "personal-info-label": "Información personal",
+                "first-name": {
+                    "first-name-field": "Primer nombre",
+                    "placeholder": "Ingresar nombre",
+                    "valid": "Primer nombre no es valido",
+                    "required": "Primer nombre es requerido"
+                },
+                "last-name": {
+                    "last-name-field": "Apellido",
+                    "valid": "Apellido no es valido",
+                    "required": "Apellido es requerido"
+                },
+                "contact": {
+                    "label": "Numero de contacto",
+                    "placeholder": "Ingresar numero de contacto",
+                    "valid": "Numero de contacto no es valido (Formato - (000)-000-0000)",
+                    "length": "Numero de contacto no es valido(es necesario a 10 digitos)",
+                    "required": "Numero de contacto es requerido",
+                    "exist": "El número de contacto ya existe"
+                },
+                "status": "estado"
+            },
+            "teacher-list": {
+                "list-status": "estado",
+                "import-teachers": "Maestros importantes",
+                "teacher-heading": "Maestros",
+                "add-teacher-label": "Agregar maestro",
+                "teacher-id": "ID:",
+                "teacher-email": "Electrónico Id -",
+                "teacher-contact": "No. de contacto  -",
+                "teacher-role": "Rol -",
+                "records-label": "Ningún registro encontrado"
+            }
+        },
+        "student": {
+            "add-student": {
+                "student-label": "Estudiante",
+                "optional": "(Optional)",
+                "class": {
+                    "student-class": "Clase",
+                    "placeholder": "Seleccionar clase"
+                },
+                "personal-info": {
+                    "label": "Información personal",
+                    "birth-date": "Fecha de nacimiento",
+                    "date": "Seleccionar fecha",
+                    "ethnicity": "Etnia",
+                    "parent-guardian-label": "Tutor",
+                    "parent-menu": "Parent",
+                    "guardian-menu": "Guardian",
+                    "username": {
+                        "placeholder": "Ingresar nombre de usuario",
+                        "required": "Se requiere nombre de usuario",
+                        "exist": "Nombre de usuario ya existe"
+                    },
+                    "contact-info": {
+                        "label": "Información de contacto",
+                        "contact-relationship": "Relación de contacto",
+                        "contact-name": {
+                            "label": "Nombre de contacto",
+                            "required": "Nombre de contacto es requerido"
+                        },
+                        "email": {
+                            "label": "Correo electrónico del contacto",
+                            "required": "Correo electrónico del contacto es requerido",
+                            "valid": "Correo electrónico del contacto no valido"
+                        }
+                    },
+                    "medical-info": {
+                        "label": "Información médica",
+                        "allergens-label": {
+                            "label": "Alérgenos",
+                            "placeholder": "Seleecionar alérgenos"
+                        },
+                        "medical-conditions": {
+                            "label": "Condiciones médicas",
+                            "placeholder": "Seleccionar condiciones médicas"
+                        }
+                    }
+                }
+            }
+        },
+        "users": {
+            "add-user": {
+                "label": "Agregar usuario"
+            },
+            "import-users": {
+                "label": "Importar usuarios"
+            }
+        },
+        "roles": {
+            "role-list": {
+                "desc": "Los roles de usuario le permiten definir qué pueden very hacer los usuarios en diferentes roles, decidir, quémódulos pueden usar y qué derechos de acceso tienen",
+                "review": "Revisar",
+                "roles-label": "Roles"
+            },
+            "add-role": {
+                "label": "Nuevo rol",
+                "add-role-label": "Añadir roles",
+                "desc": "Cree un nuevo rol y otorgue permisos de la lista a continuación:",
+                "field": "Nombre del rol",
+                "placeholder": "Ingrese el nombre del rol",
+                "required": "Rol es requerido",
+                "valid": "Rol no es valido",
+                "hasAccessField": "tiene acceso a"
+            },
+            "update-role": {
+                "label": "Actualizar rol",
+                "desc": "Actualice el rol y otorgue permisos de la lista a continuación:"
+            }
+        },
+        "membership": {
+            "label": "Tu mebresía",
+            "your-membership-label": "Información del plan actual",
+            "subscription-type-and-users-label": "Tipos de subscripción y usuarios",
+            "users-label": "Usuarios",
+            "renew-date-label": "Renovar etiqueta de fecha"
+        },
+        "billing": {
+            "billing-desc": "Tu historial de facturación",
+            "change-payment-method": "Cambiar método de pago",
+            "print-report": "Imprimir reporte",
+            "success": "éxito",
+            "fail": "Fallar"
+        },
+        "edit-membership": {
+            "label": "Editar membresía",
+            "total-price-label": "Precio total",
+            "select-label": "Seleccione",
+            "proceed-label": "Continuar",
+            "membership-label": "Membresía",
+            "you-have-to-remove-label": "Tienes que eliminar",
+            "class-label": "clase",
+            "present-classes-label": "Clases actuales",
+            "max-classes-label": "Límite máximo de clases"
+        },
+        "class": {
+            "class-list": {
+                "you-have-label": "Tú tienes",
+                "active-classes-label": "active classes"
+            },
+            "add-class": {
+                "label": "Añadir clase",
+                "room-label": "Room",
+                "grade-field": "Grado",
+                "grade-field-placeholder": "Seleccionar grado",
+                "create-class-label": "Crear clase",
+                "class-teacher-label": "Maestro de la clase",
+                "grade-required": "Se requiere calificación",
+                "class-field": "Nombre de la clase",
+                "class-title-required": "El titulo de la clase es obligatorio",
+                "class-exist": "La clase ya existe",
+                "standards-field": "Estándares",
+                "access-code-label": "Código de acceso",
+                "access-code-desc": "Para ingresar a una clase, ingrese el código provisto por su maestro",
+                "exceeded-package-desc": "Ha excedido su paquete, porfavor actualice su paquete."
+            },
+            "class-details": {
+                "administrator-label": "administrator",
+                "setting-label": "Setting",
+                "your-class-settings-label": "Your class settings",
+                "your-class-reports": "Your class reports",
+                "class-owner-label": "Class Owner",
+                "search-placeholder": "Search for a student by ID or name",
+                "student-profile-label": "Student Profile",
+                "delete-class-label": "Delete Class",
+                "archive-label": "Archive",
+                "archive-class-label": "Archive Class",
+                "archive-class-confirmation": "Are you sure you want to archive this class",
+                "delete-class-confirmation": "Are you sure you want to delete this class",
+                "delete-class-desc": "This is an active class with 20 students and few active assignments. Deleting this class will result in loss of all the data"
+            }
+        },
+        "discussion-forum": {
+            "discussion-forum-label": "Discussion Forum",
+            "delete-comment-label": "Delete Comment",
+            "topic-confirmation": "Do you like this topic",
+            "comments-label": "Comments",
+            "reply-label": "Reply",
+            "comment-confirmation": "Are you sure you want to delete this Comment",
+            "add-new-topic": {
+                "add-new-topic-label": "Add New Topic",
+                "discussion-topic-label": "Discussion Topic",
+                "discussion-topic-placeholder": "Enter discussion topic",
+                "discussion-topic-required": "Discussion topic  is required",
+                "description-label": "Description",
+                "description-placeholder": "Enter description"
+            }
+        },
+        "report-issue": {
+            "report-issue-label": "Report an Issue",
+            "issue-label": "Issue",
+            "feedback-label": "Feedback",
+            "report-history-label": "Report History",
+            "report-issue-placeholder": "Please describe the issue you are experiencing"
+        },
+        "setting": {
+            "notification-label": "Notifications",
+            "data-privacy-label": "Data Privacy",
+            "language-label": "Language",
+            "set-languge-label": "Set your preferred language",
+            "content-setting": {
+                "content-setting-label": "Your content store settings",
+                "content-setting-desc": "Customize what your teachers and students can see while exploring lessons. Some of these setting might be pre-set based on your membership plan with Chef Koochooloo and cannot change. In case you would like to customize your membership plan, please contact your Chef Koochooloo representative"
+            }
+        },
+        "classSettings": {
+            "classShowPerformanceReportStudent": "Show performance report to students",
+            "classAllowLessonsExplorationsStudent": "Allow lesson exploration",
+            "classPointsLevelsStudent": "Points and levels",
+            "classHealthWellnessActivitiesStudent": "Health and wellness activities",
+            "classMiniGamesStudent": "Mini games"
+        },
+        "faq": {
+            "faq-label": "Frequently Asked Questions"
+        },
+        "get-help": {
+            "label": "Get Help"
+        }
+    },
+    "teacher": {
+        "dashboard": {
+            "assign-lessons": "Assign Lessons",
+            "assign-lesson-label": "Assign Lesson",
+            "student-performance": "Student Performance",
+            "notifications": "Notification",
+            "current-assignment": "Current Assignment",
+            "recommendations-desc": "Recommendations based on your activity",
+            "search-lessons": "Search Lessons",
+            "explore-lessons": "Explore Lessons",
+            "create-class": "Create a Class",
+            "more-action": "Mas acciones",
+            "class-setting": "Configuración de la clase",
+            "edit-class": "Editar clase",
+            "archive-class": "Clase de archivo",
+            "delete-class": "Eliminar clase",
+            "home": "Home",
+            "assignment": "Assignment",
+            "roster": "Roster",
+            "performance": "Performance",
+            "students-need-help": "Students need help",
+            "ccss": "CCSS",
+            "math": "Math",
+            "ela": "ELA",
+            "ngss": "NGSS",
+            "ncss": "NCSS",
+            "hrs-week": "hrs/week"
+        },
+        "profile-menu": {
+            "profile": "Perfil",
+            "billing": "Facturación",
+            "membership": "Afiliación",
+            "joinClass": "Únete a una clase",
+            "archivedClasses": "Clase archivada",
+            "settings": "Ajustes",
+            "discussionForum": "Foro de discusion",
+            "help": "Ayudar",
+            "signout": "Desconectar"
+        },
+        "assignment": {
+            "upcoming-assignment": "Upcoming Assignments",
+            "completed-assignment": "Completed Assignments",
+            "ongoing-assignment": "Ongoing Assignments",
+            "all-assignment": "All Assignments",
+            "this-week": "this week.",
+            "search-by": "Search By",
+            "starts-on": "Starts On",
+            "min-label": "Min",
+            "teacher-instructions": "Teacher’s Instructions",
+            "view-menu": "View",
+            "edit-menu": "Edit",
+            "assignment-delete-confirm": "Are you sure you want to delete Assignment?",
+            "report-label": "Report"
+        },
+        "explore-lessons": {
+            "filter": {
+                "contries": "Countries",
+                "culinary-technique": "Culinary Technique",
+                "cook-time": "Cook Time",
+                "seasonal": "Seasonal"
+            },
+            "lesson-title": "Lesson Title",
+            "recipe": "Recipe",
+            "heading-text": "Find your next delicious lesson",
+            "featured": "Featured",
+            "assign": "Assign",
+            "full": "Full",
+            "languages": "Languages",
+            "learning-objective": "Learning Objective",
+            "equipments": "Equipments",
+            "top-rated": "Top Rated",
+            "grades": "Grades",
+            "assignment-title": {
+                "assignment-title-field": "Assignment Title",
+                "placeholder": "Enter Assignment Title",
+                "valid": "Assignment Title already exists",
+                "required": "Assignment Title  Is Required"
+            },
+            "assign-to-class": "Assign to Class",
+            "assign-to-class-required": "Assign to Class is required",
+            "select-setting": "Select Setting",
+            "custom-settings": "Custom Settings",
+            "start-date": "Start Date",
+            "class-warning-text": "This is an active class with {{count }} students and few active assignments. Deleting this class will result in loss of all the data.",
+            "assign-the-lesson-confirm-text": "I’d still like to assign the lesson to my class.You can resolve the possible issue(s) after assigning the lesson.",
+            "apply-default-setting": "Apply my default customization settings.",
+            "advanced-customization": "Advanced Customization",
+            "search-explore-lesson-placeholder": "Try Common Core Math Grade 4 Measurement & Data",
+            "filter-options-label": "Filter Options",
+            "less": "Less"
+        },
+        "roster": {
+            "student-menu-title": "All Students",
+            "group-students": "Group Students",
+            "empty-class-label": "Your class is empty.",
+            "add-student-to-class": "Start adding students to your class either by uploading their information or by inviting them to this class.",
+            "upload-student-info-label": "Upload Student Info",
+            "in-this-class-label": "in this class.",
+            "create-a-group-label": "Create a Group",
+            "manage-groups-label": "Manage Groups",
+            "groups": "Groups",
+            "group-label": "Group",
+            "search-for-student-by-id-name": "Search for a student by ID or name",
+            "sign-in-info-label": "Sign-in Info",
+            "created-date-label": "Created Date",
+            "total-students-in-group": "Total students in group",
+            "remove-label": "Remove",
+            "create": "Create",
+            "color": "Color",
+            "invite-members-to-group": "Invite New Members to the group",
+            "interests-label": "Interests",
+            "date-label": "Date",
+            "text-label": "Text",
+            "print-label": "Print",
+            "use-access-code-label": "Use the access code or just scan the QR code on your right to sign-in into your class. The access code is not case sensitive.",
+            "app-url": "App URL",
+            "student-list": "Student List",
+            "delete-group-confirmation": "Are you sure you want to delete group?",
+            "you-have-created": "You have created",
+            "groups-for-this-class": "groups for this class."
+        },
+        "performance": {
+            "by-student": {
+                "advanced": "Advanced",
+                "proficient": "Proficient",
+                "emerging": "Emerging",
+                "making-progress": "Making Progress",
+                "needs-help": "Needs Help",
+                "not-started": "Not Started",
+                "actions-label": "Actions",
+                "overall-average-proficiency": "Overall Average Proficiency",
+                "average-proficiency-label": "Average Proficiency",
+                "standard-or-skill": "Standard / Skill",
+                "for-this-standards": "for this Standard",
+                "change-report-criteria": "Change Report Criteria",
+                "need-help-label": "Need Help",
+                "summary-label": "Summary",
+                "assignment-dates": "Assignment Dates",
+                "proficiency-spectrum": "Proficiency Spectrum",
+                "proficiency-label": "Proficiency",
+                "lesson-assigned-completed": "Lesson Assigned & Completed",
+                "growth-label": "Growth",
+                "coverage-label": "Coverage",
+                "how-to-read-report-label": "How to read this report?",
+                "skills-label": "Skills",
+                "this-year": "This Year",
+                "this-quarter": "This Quarter",
+                "this-month": "This Month",
+                "this-week": "This Week",
+                "performance-by-standards": "Desempeño por estándares",
+                "performance-by-assignments": "Desempeño por asignaciones",
+                "performance-by-students": "Desempeño por estudiante",
+                "your-class-performance": "Your class’s performance"
+            }
+        },
+        "settings": {
+            "notification": {
+                "notiStudentPerformanceAlerts": "Student performance alerts",
+                "notiAssignmentSubmissions": "Assignment submissions",
+                "notiOpenEndedQuestionResponsesToBeGraded": "Open ended question responses to be graded",
+                "notiReceiveAllNotificationsAsEmails": "Receive all notifications as emails"
+            },
+            "privacy": {
+                "dataPrivacyShowContactInformationStudent": "Show contact information to students",
+                "dataPrivacyAllowStudentsToEmailMe": "Allow students to email me"
+            }
+        },
+        "classSettings": {
+            "classShowPerformanceReportStudent": "Show performance report to students",
+            "classAllowLessonsExplorationsStudent": "Allow lesson exploration",
+            "classPointsLevelsStudent": "Points and levels",
+            "classHealthWellnessActivitiesStudent": "classHealthWellnessActivitiesStudent",
+            "classMiniGamesStudent": "Mini games"
+        }
+    }
+}

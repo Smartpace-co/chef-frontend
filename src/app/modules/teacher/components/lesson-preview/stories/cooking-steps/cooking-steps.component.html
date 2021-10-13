@@ -1,0 +1,116 @@
+<app-ingreditent-nav></app-ingreditent-nav>
+<app-lessons-headerbar [lessonHederConfig]="lessonHederConfig"></app-lessons-headerbar>
+<div class="cooking-step-1">
+  <!-- <app-scroll-down></app-scroll-down> -->
+  <div class="container">
+    <div class="final-editaion">
+      <div class="content-wrapper">
+        <ul class="card-wihtout-header-blue">
+          <li *ngFor="let item of cookingSteps">
+            <div>
+
+              <!-- <div [ngClass]="item.isChecked == true ? ' classCheck1 check-mark' : 'check-mark classCheck2'"> -->
+              <!-- <input type="checkbox" id="checkbox{{item.id}}" [checked]="item.isChecked" /> -->
+              <label [attr.for]="'checkbox' + item.id"></label>
+            </div>
+            <div class="legend-card-white btn-card-white cooking-preparation-wrapper">
+              <legend class="index">{{item.id}}</legend>
+              <div class="chef-label-wraper">
+              <legend *ngIf="item.isBigChef">{{'student.assigned-lessons.lesson-steps.big-chef'|
+                translate }}
+                <span class="profile-pic"><img src="{{item.isBigChef}}" alt="" class="img-fluid" /></span>
+              </legend>
+              <legend *ngIf="item.isLittleChef" class="legend-2">{{'student.assigned-lessons.lesson-steps.little-chef'| translate }}
+                <span class="profile-pic"><img src="{{item.isLittleChef}}" alt="" class="img-fluid" /></span>
+              </legend>
+            </div>
+            <ng-container *ngIf="item.video; else noVideo">
+              <div class="description with-video">
+                <div class="video">
+                  <iframe class="img-fluid" [src]="getSanitizeUrl(item.video)">
+                  </iframe>
+                </div>
+                <div class="description-info">
+                  <h6>{{item.info}}</h6>
+                </div>
+              </div>
+            </ng-container>
+            <ng-template #noVideo>
+              <div class="description" *ngIf="item.image">
+                <div class="image"><img src="{{item.image}}" alt="" class="img-fluid" /></div>
+                <span class="description-info">
+                  <h6>{{item.info}}</h6>
+                </span>
+              </div>
+            </ng-template>
+              <!-- <div class="description" *ngIf="item.image">
+                <div class="image"><img src="{{item.image}}" alt="" class="img-fluid" /></div>
+                <span class="description-info">
+                  <h6>{{item.info}}</h6>
+                </span>
+              </div>
+
+              <div class="description" *ngIf="!item.image">
+                <div *ngIf="item.video" class="description with-video">
+                  <div class="row video">
+                    <iframe class="video-play" [src]="getSanitizeUrl(item.video)">
+                    </iframe>
+                     <span class="col-7 description-info">
+                      <h6>{{item.info}}</h6>
+                    </span> 
+                  </div>
+                </div>
+                <span class="description-info">
+                  <h6>{{item.info}}</h6>
+                </span>
+              </div>
+              <div *ngIf="item.video" class="col-12 description with-video">
+                <div class="row video">
+                  <iframe class="col-5" [src]="getSanitizeUrl(item.video)">
+                  </iframe>
+                </div>
+              </div> -->
+            </div>
+          </li>
+        </ul>
+      </div>
+      <span class="final-editaion-img-wrapper">
+        <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
+      </span>
+    </div>
+  </div>
+</div>
+<app-lessons-footer (onNext)="onNext()" (onPrevious)="onPrevious()"></app-lessons-footer>
+
+
+
+
+
+<!-- -------------
+<div class="legend-card-white btn-card-white cooking-preparation-wrapper">
+  <legend class="index">{{item.id}}</legend>
+  <legend *ngIf="item.isBigChef">Big Chef
+    <span class="profile-pic"><img src="{{item.isBigChef}}" alt="" class="img-fluid" /></span>
+  </legend>
+  <legend *ngIf="item.isLittleChef" class="legend-2">Little Chef
+    <span class="profile-pic"><img src="{{item.isLittleChef}}" alt="" class="img-fluid" /></span>
+  </legend>
+  <div class="description" *ngIf="item.image">
+    <div class="image"><img src="{{item.image}}" alt="" class="img-fluid" /></div>
+    <span class="description-info">
+      <h6>{{item.info}}</h6>
+    </span>
+  </div>
+
+  <div class="description" *ngIf="!item.image">
+    <span class="description-info">
+      <h6>{{item.info}}</h6>
+    </span>
+  </div>
+  <div *ngIf="item.video" class="col-12 description with-video">
+    <div class="row video">
+      <iframe class="col-5" [src]="getSanitizeUrl(item.video)">
+      </iframe>
+    </div>
+  </div>
+</div> -->

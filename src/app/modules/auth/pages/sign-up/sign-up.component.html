@@ -1,0 +1,34 @@
+<main class="sign-up">
+  <div class="container-fluid">
+    <div class="left-sign-up">
+      <img src="./assets/images/kids-and-planet.png" class="img-fluid" />
+    </div>
+    <div class="sign-up-form">
+      <header>
+        <div class="logo">
+          <img src="./assets/images/logo.png" class="img-fluid" />
+        </div>
+        <h1 class="logo-title mt-3">Sign Up</h1>
+      </header>
+      <p>Select your role to sign up</p>
+        <div *ngIf="isLoad" class="role">
+        <div *ngFor="let item of roleDetails" class="option">
+          <input type="radio" id="{{ item.name }}" name="selector"value="{{item.value}}" (click)="getRole(item)">
+          <label for="{{item.name}}">
+              <div [ngClass]="item.alignment == 'bottom' ? 'card-wihtout-header-white bottom' : 'card-wihtout-header-white centered'">
+                <div class="option-image">
+                  <img src="{{item.img}}" alt="" class="img-fluid" />
+                </div>
+              </div>
+              <div class="role-btn">
+                <app-button classes="btn small-btn btn-light-green" [submit]="true">
+                  <span aria-hidden="true">{{item.value}}</span>
+                </app-button>
+              </div>
+          </label>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>

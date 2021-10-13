@@ -1,0 +1,54 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+
+.landing{
+    margin:2rem 0 0 0;
+    .container-fluid{
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height:100%;
+        @include breakpoint(tabs) {
+            flex-wrap: wrap;
+        }
+        .landing-content{
+            h1{
+                font-size:4rem;
+                @include breakpoint(mobile){
+                    font-size: 3rem;
+                }
+            }
+            p{
+                font-size:1.5rem;
+            }
+            @include breakpoint(tabs) {
+                text-align: center;
+            }
+        }
+        .right-landing{
+            width:40%;
+            img{
+                max-width:90%;
+            }
+            @include breakpoint(smallDesktop){
+                width: 35%;
+            }
+            @include breakpoint(tabs)  {
+                width: 100%;
+                margin:0 auto;
+                text-align: center;
+                img{
+                    max-width:50%;
+                    margin: auto;
+                }
+            }
+            @include breakpoint(smallmobile){
+                img{
+                    max-width: 80%;
+                }
+            }
+        }
+        
+    }
+}

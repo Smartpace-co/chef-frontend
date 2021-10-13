@@ -1,0 +1,308 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+.dist-header{
+//   height: 10rem;
+  background-color: $twilight-blue;
+  z-index: 1000;
+  min-height: 6rem;
+  .top-nav{
+    display: flex;
+    align-items: center;
+    width:100%;
+    .dist-name{
+        margin-left: 6rem;
+        a{
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        span{
+            display: inline-block;
+            margin-left: 1.2rem;
+        }
+    }
+    ul{
+        display: flex;
+        margin-left: auto;
+        align-items: center;
+        li{
+            // padding: 0 1rem;
+            margin-right: 3rem;
+            &.search{
+                padding: 0;
+                a{
+                    fa-icon{
+                        font-size: 2rem;
+                    }
+                }
+            }
+            a{
+                // padding:2rem 1rem 1.1rem;
+                display: block;
+                height:100%;
+                &:hover{
+                    background: $twilight-blue;
+                }
+                fa-icon{
+                    color:$secondary;
+                    margin-right:0.5rem;
+                    display: inline-block;
+                }
+            }
+        }
+        .notification{
+            position: relative;
+            img{
+                width: 2rem;
+            }
+            &__count{
+                position: absolute;
+                right:0.8rem;
+                top:-1rem;
+                right: -1rem;
+                background: $secondary;
+                width:1.8rem;
+                height: 1.8rem;
+                border-radius:2rem;
+                color:$navy-blue;
+                font-size: 1rem;
+                text-align: center;
+                line-height:1.8rem;
+            }
+        }
+    }
+    .seperator{
+        margin-right:3rem;
+        fa-icon{
+            font-size: 2rem;
+        }
+    }
+  }
+  .user-dropdown{
+    display: flex;
+    align-items: center;
+    .user-image{
+        width: 4.5rem;
+        height: 4.5rem;
+        margin: 0.75rem;
+        background:$secondary;
+        border-radius: 5rem;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        // align-items: flex-end;
+    }
+  }
+  .bottom-header{
+    height:auto;
+    @include breakpoint(tabs){
+        height: auto;
+    }
+    .container{
+        display: flex;
+        justify-content: space-between;
+    }
+    .bottom-nav{
+        display: flex;
+        // margin-left:8rem;
+        @include breakpoint(tabs){
+            margin-left: 0;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+        }
+        li{
+            padding: 0 1rem;
+            a{
+                fa-icon{
+                    display: inline-block;
+                    margin-right: 0.5rem;
+                }
+                padding:1rem 1rem 1.1rem;
+                display: block;
+                height:100%;
+                &.active{
+                    background: rgba($white, 0.2);
+                }
+                &:hover{
+                    background: rgba($white, 0.2);
+                }
+                @include breakpoint(tabs){
+                    padding-left: 0.5rem;
+                    padding-right: 0.5rem;
+                }
+            }
+        }
+    }
+   }
+}
+.navbar-toggler{
+  display: block;
+  border: none;
+  padding: 0;
+  position: relative;
+  z-index: 1000;
+  padding:0.5rem 1.5rem;
+  margin-left: auto;
+  @include breakpoint(tabsAbove){
+      display: none;
+  }
+  &:before,
+  &:after{
+      display: none;
+  }
+  &:focus{
+      outline: none;
+  }
+  .line{
+      width: 2.5rem;
+      height: 1px;
+      background-color:$white;
+      display: block;
+      margin: 5px auto;
+      -webkit-transition: all 0.3s ease-in-out;
+      -o-transition: all 0.3s ease-in-out;
+      transition: all 0.3s ease-in-out;
+  }
+ 
+  .line:nth-child(2){
+     opacity: 0;
+ }
+  .line:nth-child(1){
+      -webkit-transform: translateY(7px) rotate(45deg);
+      -ms-transform: translateY(7px) rotate(45deg);
+      -o-transform: translateY(7px) rotate(45deg);
+      transform: translateY(7px) rotate(45deg);
+  }
+  
+  .line:nth-child(3){
+      -webkit-transform: translateY(-5px) rotate(-45deg);
+      -ms-transform: translateY(-5px) rotate(-45deg);
+      -o-transform: translateY(-5px) rotate(-45deg);
+      transform: translateY(-5px) rotate(-45deg);
+  }
+  &.collapsed{
+      .line:nth-child(2){
+          opacity: 1;
+      }
+       .line:nth-child(1){
+           transform: none;
+       }
+       
+       .line:nth-child(3){
+          transform: none;
+       }
+  }
+}
+
+.mobile-nav{
+  background-color: $twilight-blue;
+  width: 80%;
+  height: 100vh;
+  position: fixed;
+  right: -100%;
+  transition: 0.3s ease all;
+  display: block !important;
+  font-size: 1.4rem;
+  overflow: auto;
+  z-index: 1000;
+  @include breakpoint(tabsAbove){
+      display: none !important;
+  }
+  &.show{
+      right:0;
+  }
+  .notification{
+      position: relative;
+      width: 2rem;
+      img{
+          max-width: 100%;
+      }
+      &__count{
+          position: absolute;
+          right:-0.6rem;
+          top:-1rem;
+          background: $secondary;
+          width:1.8rem;
+          height: 1.8rem;
+          border-radius:2rem;
+          color:$navy-blue;
+          font-size: 1rem;
+          text-align: center;
+          line-height:1.8rem;
+      }
+  }
+  .search{
+    padding: 0;
+    a{
+        fa-icon{
+            font-size: 2rem;
+        }
+    }
+}
+  .top-header{
+      display: flex;
+      padding:3rem 0;
+      padding-left:3.5rem;
+      border-bottom: 1px solid rgba(254, 214, 0, 0.5);
+      li{
+          margin:0 0.5rem;
+      }
+  }
+  .main-link{
+      border-top:1px solid rgba($secondary, 0.5);
+      border-bottom:1px solid rgba($secondary, 0.5);
+      padding:2rem 1rem;
+      padding-left:4rem;
+      li{
+          margin-bottom:1.5rem;
+          &:last-child{
+              margin-bottom: 0;
+          }
+          a{
+              fa-icon{
+                  color:$secondary;
+                  display: inline-block;
+                  margin-right:1rem;
+              }
+          }
+      }
+  }
+  .profile-nav{
+      padding:2rem 1rem;
+      padding-left:4rem;
+      .teacher-info{
+          display: flex;
+          align-items: center;
+          .teacher-image{
+              width: 4.5rem;
+              height: 4.5rem;
+              margin: 0.75rem;
+              background:$secondary;
+              border-radius: 5rem;
+              overflow: hidden;
+              img{
+                  max-width: 100%;
+              }
+          }
+      }
+      ul{
+          padding-left:2rem;
+          margin-top:3rem;
+          li{
+              margin-bottom:1.5rem;
+              &:last-child{
+                  margin-bottom: 0;
+              }
+              a{
+                  fa-icon{
+                      color:$white;
+                      display: inline-block;
+                      margin-right:1rem;
+                      font-size:1.4rem;
+                      width:2rem;
+                  }
+              }
+          }
+      }
+  }
+}

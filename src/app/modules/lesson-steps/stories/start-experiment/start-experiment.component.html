@@ -1,0 +1,44 @@
+<app-lessons-headerbar [isButtonSection]="isButtonSection" [showBackBtn]="false"></app-lessons-headerbar>
+<div class="science-experiment-body-2">
+    <div class="blur-bg">
+        <div class="container">
+            <div class="final-editaion">
+                <div class="content-wrapper">
+                    <div class="tooltip-wrapper">
+                        <div class="speech-tooltip xl-tooltip right-left-bottom-tip">
+                            <div class="speech-tooltip-inner">
+                                <p class="message">
+                                    <span>
+                                        <h6>{{'student.assigned-lessons.lesson-steps.start-experiment-text'| translate
+                                            }}</h6>
+                                    </span>
+                                </p>
+                                <span class="tip">
+                                    <img src="./assets/images/left-bottom-tip.svg" alt="" class="img-fluid" />
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="final-editaion-img-wrapper">
+                        <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
+                        <div class="left-btn-wrapper">
+                            <app-button classes="btn small-btn btn-secondary mr-4 recipe-btn" [submit]="true"
+                                (click)="onExperiment()">
+                                <span aria-hidden="true">{{'student.assigned-lessons.lesson-steps.go-exp-again'|
+                                    translate }} </span>
+                            </app-button>
+                        </div>
+                        <div class="right-btn-wrapper">
+                            <app-button classes="btn small-btn btn-secondary mr-4" [submit]="true" (click)="onNext()">
+                                <span aria-hidden="true">{{'student.assigned-lessons.lesson-steps.yes-iam-ready'|
+                                    translate }}</span>
+                            </app-button>
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-lessons-footer [isVisibleNext]="isVisibleNext" (onNext)="onNext()" (onPrevious)="onPrevious()">
+</app-lessons-footer>

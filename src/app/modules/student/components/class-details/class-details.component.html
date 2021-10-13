@@ -1,0 +1,70 @@
+<app-student-nav></app-student-nav>
+<div class="class-details">
+  <div class="container">
+    <div class="details-top topbar-btn-title">
+      <div class="back-btn-wrapper">
+        <app-button (click)="onBack()" classes="btn small-btn btn-secondary mr-4 icon-btn btn-back" [submit]="true">
+          <!-- <fa-icon [icon]="PlusIcon"></fa-icon> -->
+          <span aria-hidden="true">
+            <fa-icon [icon]="LeftArrow"></fa-icon>{{'common.back'| translate}}
+          </span>
+        </app-button>
+        <h6 class="heading">{{'student.class-info.class-information'| translate }}</h6>
+      </div>
+      <!-- <div class="details-btn">
+        <app-button classes="btn btn-primary" [submit]="true">
+          <span aria-hidden="true">
+            {{'student.class-info.details-btn-label'| translate }} </span>
+        </app-button>
+      </div> -->
+    </div>
+    <div *ngIf="isLoad" class="details-body">
+      <div class="row">
+        <div *ngIf="teacherDetails" class="col-sm-12 col-md-6 class-details-list">
+          <div class="legend-card-white">
+            <legend>{{'student.class-info.my-label'| translate }} {{'school.teacher.teacher-heading' | translate}}
+            </legend>
+            <div class="info-room">
+              <div class="class-details-pic">
+                <img src="{{teacherProfileImg}}" alt="" class="img-fluid" />
+              </div>
+              <h4>{{teacherDetails?.first_name}} {{teacherDetails?.last_name}}
+                <p>{{classDetails?.title}}</p>
+              </h4>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="schoolDetails" class="col-sm-12 col-md-6 class-details-list">
+          <div class="legend-card-white">
+            <legend>{{'student.class-info.my-label'| translate }} {{'school.user-profile.school-title' | translate}}
+            </legend>
+            <div class="info-room">
+              <div class="class-details-pic">
+                <img src="{{schoolProfileImg}}" alt="" class="img-fluid" />
+              </div>
+              <h4>{{schoolDetails?.name}}
+                <p>{{schoolDetails?.school_address}}</p>
+              </h4>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="legend-card-white classmates">
+        <legend>{{'student.class-info.my-label'| translate }} {{'student.class-info.classmates-label'| translate }}
+        </legend>
+        <div class="row classmates-wrapper">
+          <div class="col classmates-list" *ngFor="let item of classmates">
+            <span class="icon-favourites" *ngIf="item.favourite">
+              <img src="./assets/images/icon-favourites.png" alt="" class="img-fluid" />
+            </span>
+            <div [ngClass]="item.favourite == true ? 'fev-profile-pic' : 'profile-pic'">
+              <img src="{{item.icon}}" alt="" class="img-fluid" />
+            </div>
+            <!-- <div class="profile-pic" [ngStyle]="{'background': 'url(' + item.icon + ') center no-repeat '}"></div> -->
+            <p class="first-name">{{item.firstName}}</p>
+            <p class="last-name">{{item.lastName}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

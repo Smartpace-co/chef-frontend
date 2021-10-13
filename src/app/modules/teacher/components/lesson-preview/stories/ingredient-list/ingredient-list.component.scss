@@ -1,0 +1,97 @@
+@import "../../../../../../../assets/styles/helpers/variables";
+@import "../../../../../../../assets/styles/helpers/mixins";
+.ingredients-body-1{
+  min-height: calc(100vh - 10rem);
+  padding: 14rem 0;
+  position: relative;
+  @include breakpoint(tabs) {
+    padding-bottom: 5rem;
+  }
+  @include breakpoint(mobile) {
+    min-height: calc(100vh - 33rem);
+  }
+  .card-wihtout-header-white{
+    &.ingredients{
+      margin-bottom: 0rem;
+      .ingredients-wrapper{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: left;
+        @include breakpoint(tabs) {
+          justify-content: center;
+        }
+        .ingredients-list{
+          margin: 15px 5px;
+          display: flex;
+          flex-direction: column;
+          flex: 0 0 calc((100% - 5rem) / 4);
+          text-align: center;
+          justify-content: space-around;
+          p{
+            color: $black;
+            font-weight: 600;
+          }
+          .substitute-btn-wrapper{
+            padding-top: 1rem;
+            color: #001243;
+            a{
+              .icon{
+                width: 2rem;
+                height: 2rem;
+                border: 1px solid;
+                border-radius: 50%;
+                display: inline-block;
+                font-size: 1.2rem;
+                line-height: 1.7;
+              }
+              u{
+                font-size: 1.2rem;
+                padding-left: 0.5rem;
+                font-weight: 600;
+              }
+            }
+
+          }
+        }
+      }
+    } 
+  }
+}
+.substitute-header{
+  margin: 0 auto;
+  &.modal-header{
+    border-bottom: none;
+    .close{
+      @include breakpoint(mobile){
+        width: 6rem;
+      }
+    }
+    h4{
+      @include breakpoint(tabs){
+        font-size: 2.6rem;
+       }
+      @include breakpoint(mobile){
+       font-size: 2rem;
+      }
+    }
+  }
+}
+.substitute-footer{
+  &.modal-footer{
+    border-top: none;
+    justify-content: center;
+  }
+}
+.substitute-body{
+  text-align: center;
+  .substitute-img{
+    max-width: 9.6rem;
+    margin: 0 auto;
+  }
+  h6{
+    padding-top: 2rem;
+    @include breakpoint(mobile){
+      font-size: 1.6rem;
+     }
+  }
+}

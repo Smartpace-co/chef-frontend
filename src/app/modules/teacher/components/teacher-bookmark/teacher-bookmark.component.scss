@@ -1,0 +1,403 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+.assignment-header{
+  margin:3rem 0;
+  .assignment-header-main{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      h2{
+          font-size:2.5rem;
+          margin: 0;
+          span{
+              color:$secondary;
+          }
+          @include breakpoint(mobile){
+              font-size:1.8rem;
+              margin-bottom:1.5rem;
+          }
+      }
+  }
+}
+.assignment-filter{
+  background: $twilight-blue;
+  .container{
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+  }
+  form{
+      display: flex;
+      align-items: center;
+      .form-control{
+          background: transparent;
+      }
+  }
+  .filter-droplist{
+      display: flex;
+      margin-left: auto;
+      align-items: center;
+      @include breakpoint(mobile){
+          margin-left:0;
+          flex-wrap: wrap;
+      }
+  }
+}
+.teacher-bookmark{
+  margin-bottom: 5rem;
+  .lessonList{
+    margin-top:3rem;
+    &__item{
+        background: $primary;
+        border:1px solid $border-color;
+        border-radius:1.2rem;
+        display: flex;
+        flex-direction: column;
+        min-height: 100%;
+        justify-content: space-between;
+    }
+    &__image{
+        border-radius:1.2rem 1.2rem 0 0;
+        overflow: hidden;
+        position: relative;
+        background: $white;
+        text-align: center;
+        min-height: 10rem;
+    }
+    &__info{
+        padding:2rem;
+        display: flex;
+        flex-wrap: wrap;
+        &__left{
+            width:calc(100% - 7rem);
+            min-height:8rem;
+        }
+        &__right{
+            width: 7rem;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            .rating{
+                color: $secondary;
+                border:1px solid $secondary;
+                padding:0.2rem 0.5rem;
+                display: flex;
+                align-items:center;
+                font-size: 1rem;
+                border-radius: 0.3rem;
+                fa-icon{
+                    margin-left:0.5rem;
+                    display: inline-block;
+                    font-size: 0.8rem;
+                }
+            }
+            .bookmark{
+                color: $secondary;
+                font-size:1.6rem;
+                cursor: pointer;
+                .addBookmark{
+                    position: relative;
+                    // &:after{
+                    //     content: "+";
+                    //     position: absolute;
+                    //     right: -1rem;
+                    //     top: -1rem;
+                    //     font-size: 1.2rem;
+                    //     color: $navy-blue;
+                    //     width: 1.2rem;
+                    //     height: 1.2rem;
+                    //     border-radius: 1.5rem;
+                    //     line-height: 1.6rem;
+                    //     background: $secondary;
+                    //     display: flex;
+                    //     justify-content: center;
+                    //     /* align-items: center; */
+                    //     text-align: center;
+                    // }
+                }
+                &.active{
+                    .addBookmark{
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+    &__title{
+        font-size:1.6rem;
+    }
+    &__time{
+        font-weight: 600;
+        color: rgba($white, 0.5);
+    }
+    &__btns{
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        align-items: center;
+        width: 100%;
+        a{
+            font-weight: 700;
+            color: $secondary;
+            fa-icon{
+                margin-left:0.5rem;
+                display: inline-block;
+            }
+        }
+    }
+  }
+  .grade {
+    margin:0;
+    margin-left: auto;
+    width: 4.9rem;
+    height:3rem;
+    background:$secondary;
+    position: absolute;
+    right:2rem;
+    top:3rem;
+    padding:0.5rem 0;
+    text-align: center;
+    color: $navy-blue;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    line-height:1.5rem;
+    &:before {
+      content: "";
+      position: absolute;
+      top: -1.6rem;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 2.4rem solid transparent;
+      border-right: 2.5rem solid transparent;
+      border-bottom: 1.6rem solid $secondary;
+      
+    }
+    &:after {
+      content: "";
+      position: absolute;
+      bottom: -1.5rem;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left:  2.4rem solid transparent;
+      border-right: 2.5rem solid transparent;
+      border-top: 1.5rem solid $secondary;
+    }
+    .label{
+      font-weight: 700;
+      font-size: 1rem;
+      position: absolute;
+      left: 0.5rem;
+      top: -0.4rem;
+    }
+    .count{
+      font-weight: 700;
+      font-size: 1rem;
+      word-break: break-all;
+      line-height: 1rem;
+      margin-top: 0.5rem;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+.lesson-subcard{
+    .moreInfo{
+        background:$secondary;
+        margin:2rem 0;
+        padding:2rem;
+        border-radius: 1.2rem;
+        border:1px solid $black;
+        //width: calc((100vw / 4 - 1.5rem) * 3); 
+        color:$black;
+        //position: absolute;
+        position: relative;
+        z-index: 1;
+        &__title{
+            font-size:2.4rem;
+            margin-bottom: 0;
+        }
+        p,strong{
+            color: $light-grey;
+        }
+        &__header{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        &__tags{
+            display: flex;
+            flex-wrap: wrap;
+            li{
+                background:$black;
+                color:$white;
+                padding:0.5rem 1rem 0.3rem;
+                border-radius:0.5rem;
+                margin:0 0.5rem;
+                font-size: 1.1rem;
+                line-height:1.4rem;
+                font-weight: 600;
+                &:last-child{
+                    margin-right: 0;
+                }
+            }
+        }
+        &__primary{
+            margin-bottom:3rem;
+            margin-top:2rem;
+            li{
+                font-weight: 600;
+                margin-bottom:0.5rem;
+                color:$black;
+                label{
+                    font-size:1.5rem;
+                }
+                strong{
+                    font-weight: 600;
+                    font-size: 1.2rem;
+                }
+            }
+        }
+        &__secondary{
+            display: flex;
+            flex-wrap: wrap;
+            &__left{
+                padding-right:2rem;
+                border-right:1px solid $light-grey;
+                @include breakpoint(mobile){
+                    border-right: none;
+                    border-bottom:1px solid $light-grey;
+                }
+            }
+            &__left,
+            &__right{
+                width:50%;
+                @include breakpoint(mobile){
+                    width:100%;
+                }
+            }
+            &__right{
+                padding-left: 2rem;
+                @include breakpoint(mobile){
+                    margin-top: 2rem;
+                    padding-left: 0 ;
+                }
+            }
+            h6{
+                font-size:1.5rem;
+                margin: 0;
+            }
+            p, ol{
+                font-weight:600;
+                padding:0;
+                margin:0.5rem 0 2rem 0;
+                color:$light-grey;
+            }
+        }
+        &__btns{
+            display:flex;
+            justify-content: flex-end;
+            margin:1rem 0 0 0;
+        }
+    }
+}
+.assign-lesson-form{
+    .modal-title{
+        text-align: left;
+    }
+    .lesson_info{
+        display: flex;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        margin-bottom: 3rem;
+        &__image{
+            width:50%;
+            border-radius:0 1.2rem 1.2rem 0;
+            overflow: hidden;
+        }
+        &__content{
+            width:50%;
+            padding-left: 2rem;
+            &__top{
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                h6{
+                    width:calc(100% - 7rem);
+                }
+                .rating-bookmark{
+                    width: 7rem;
+                    display: flex;
+                    align-items: flex-start;
+                    justify-content: space-between;
+                    .rating{
+                        color: $secondary;
+                        border:1px solid $secondary;
+                        padding:0.2rem 0.5rem;
+                        display: flex;
+                        align-items:center;
+                        font-size: 1rem;
+                        fa-icon{
+                            margin-left:0.5rem;
+                            display: inline-block;
+                            font-size: 0.8rem;
+                        }
+                    }
+                    .bookmark{
+                        color: $secondary;
+                        font-size:1.6rem;
+                        cursor: pointer;
+                        .addBookmark{
+                            position: relative;
+                            &:after{
+                                content: "+";
+                                position: absolute;
+                                right: -1rem;
+                                top: -1rem;
+                                font-size: 1.2rem;
+                                color: $navy-blue;
+                                width: 1.2rem;
+                                height: 1.2rem;
+                                border-radius: 1.5rem;
+                                line-height: 1.6rem;
+                                background: $secondary;
+                                display: flex;
+                                justify-content: center;
+                                /* align-items: center; */
+                                text-align: center;
+                            }
+                        }
+                        &.active{
+                            .addBookmark{
+                                display: none;
+                            }
+                        }
+                    }
+                }
+            }
+            ul{
+                font-weight: 600;
+                li{
+                    color:rgba($white, 0.5);
+                    strong{
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+    }
+    .assign-lesson-checkbox{
+        .info-circle{
+            fa-icon{
+                font-size: 1.8rem;
+                color: $secondary;
+            }
+        }
+    }
+}

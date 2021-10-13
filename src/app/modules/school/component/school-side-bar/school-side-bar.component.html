@@ -1,0 +1,29 @@
+
+<nav id="sideNav" [ngClass]="utilityService.openMenu ? 'open-nav side-bar-nav' : 'close-nav side-bar-nav'"  >
+  <aside class="menu-side-bar">
+    <div class="logo">
+      <img src="./assets/images/logo.png" class="img-fluid" />
+    </div>
+    <ul class="menu-list" *ngIf='currentUser.role.title!=="School"'>
+      <li class="menu-list-item" *ngFor="let item of access">
+        <a (click)="onMenuClick()" [routerLink]="item?.link" routerLinkActive="active" class="menu" *ngIf="item.type == 'menu' && item.status == 1"><span class="icon"><fa-icon [icon]="item.icon"></fa-icon></span>
+        <span class="title" *ngIf="item.status == 1">{{item.name}}</span></a>
+        <h6 class="menu-heading" *ngIf="item.type == 'heading' && item.status == '1'">
+          {{item.name}}
+        </h6>
+        <span *ngIf="item.type == 'heading'" class="line"></span>
+      </li>
+    </ul>
+
+    <ul class="menu-list" *ngIf='currentUser.role.title==="School"'>
+      <li class="menu-list-item" *ngFor="let item of access">
+        <a (click)="onMenuClick()" [routerLink]="item?.link" routerLinkActive="active" class="menu" *ngIf="currentUser.isSubscriptionPause ==true ? item.type == 'menu' && item.status == '1' : item.type == 'menu'"><span class="icon"><fa-icon [icon]="item.icon"></fa-icon></span>
+        <span class="title">{{item.name}}</span></a>
+        <h6 class="menu-heading" *ngIf="currentUser.isSubscriptionPause ==true ? item.type == 'heading' && item.status == '1' : item.type == 'heading'">
+          {{item.name}}
+        </h6>
+        <span *ngIf="item.type == 'heading'" class="line"></span>
+      </li>
+    </ul>
+  </aside>
+</nav>

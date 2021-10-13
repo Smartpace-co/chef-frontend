@@ -1,0 +1,26 @@
+<app-lessons-headerbar [isButtonSection]="isButtonSection" [showBackBtn]="true" [isLessonInfo]="false"></app-lessons-headerbar>
+<div class="exercise-body ingredient-bg">
+<!--   <app-scroll-down></app-scroll-down>-->
+  <div class="container">
+    <div class="content-wrapper">
+      <span class="card-wihtout-header-blue">
+        <span class="profile-pic-wrapper">
+          <span class="profile-pic">
+            <img src="./assets/images/profile-icon-2.png" alt="" class="img-fluid" />
+          </span>
+        </span>
+        <div class="question-wrapper">
+          <h6>{{ questionData?.question}}</h6>
+        </div>
+        <p class="instuctions">{{'student.activities-and-games.health-and-wellness-activities.add-exercise-time-label'|translate }}</p>
+        <div class="input"><input class="form-control" type="text" [(ngModel)]="exerciseTime"/></div>
+      </span>
+    </div>
+  </div>
+  <div class="done-btn">
+    <app-button classes="btn btn-primary " [submit]="true" [disabled] = "isDoneDisable" (click)="saveExercisetime()">
+      <span aria-hidden="true">{{'student.activities-and-games.health-and-wellness-activities.done-label'|translate }}</span>
+    </app-button>
+  </div>
+</div>
+<div class="exercise-footer"></div>

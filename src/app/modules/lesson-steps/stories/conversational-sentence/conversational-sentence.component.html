@@ -1,0 +1,43 @@
+<app-lessons-headerbar [lessonHederConfig]="lessonHederConfig"></app-lessons-headerbar>
+<div *ngIf="isLoad" class="story-body-9"
+  [ngStyle]=" countryBgImg ? {background: ' url(' + countryBgImg + ')'} : {background: ' url(' + './assets/images/kitchen-bg-blur.jpg' + ')'}">
+  <app-scroll-down></app-scroll-down>
+  <div class="container">
+    <div class="final-editaion">
+      <div class="content-wrapper">
+        <span class="final-editaion-img-wrapper">
+          <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
+          <div class="left-tooltip-wrapper">
+            <div class="speech-tooltip md-tooltip right-bottom-tip">
+              <div class="speech-tooltip-inner">
+                <p class="message">
+                  {{ conversationText }} </p>
+                <span class="tip">
+                  <img src="./assets/images/right-bottom-tip.svg" alt="" class="img-fluid" />
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="left-btn-wrapper">
+            <app-button classes="btn small-btn btn-secondary recipe-btn" [submit]="true" (click)="onFirstPage()">
+              <span aria-hidden="true">{{'student.assigned-lessons.lesson-steps.go-over-the-recipe-again'| translate }}
+              </span>
+            </app-button>
+          </div>
+          <div class="right-btn-wrapper">
+            <app-button classes="btn small-btn btn-secondary" [submit]="true" (click)="onNext()">
+              <span aria-hidden="true">{{'student.assigned-lessons.lesson-steps.yes-iam-ready'| translate }}</span>
+            </app-button>
+          </div>
+        </span>
+      </div>
+      <div class="content-wrapper">
+        <span class="table-img-wrapper">
+          <img src="./assets/images/table.png" alt="" class="img-fluid" />
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+<app-lessons-footer [isVisibleNext]="isVisibleNext" (onNext)="onNext()" (onPrevious)="onPrevious()">
+</app-lessons-footer>

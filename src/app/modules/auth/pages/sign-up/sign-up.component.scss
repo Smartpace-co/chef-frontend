@@ -1,0 +1,136 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+
+.sign-up{
+    height: calc(100vh - 9rem);
+    .container-fluid{
+        padding: 0;
+        display: flex;
+        align-items: stretch;
+        align-content: center;
+        justify-content: center;
+        min-height: 100%;
+        @include breakpoint(tabs) {
+            flex-wrap: wrap;
+        }
+        .left-sign-up{
+            width:40%;
+            margin-left: auto;
+            margin-right: -10%;
+            padding-top: 5rem;
+            img{
+                max-width:85%;
+            }
+            @include breakpoint(smallDesktop){
+                width: 35%;
+                margin-left: auto;
+                margin-right: -10%;
+            }
+            @include breakpoint(tabs) {
+                width: 100%;
+                margin:0 auto 5rem;
+                text-align: center;
+                img{
+                    max-width:50%;
+                    margin: auto;
+                }
+            }
+            @include breakpoint(smallmobile){
+                img{
+                    max-width: 80%;
+                }
+            }
+        }
+        .sign-up-form{
+            background: url(../../../../../assets/images/login-bg.svg) 0 center no-repeat;
+            background-size: cover;
+            margin-left: auto;
+            display: flex;
+            flex-direction:column;
+            align-items: flex-end;
+            justify-content:center;
+            padding:0 3% 0 18%;
+            max-width:50%;
+            color:$white;
+            @include breakpoint(xtralarge){
+                max-width:60%;
+                padding:0 5% 0 25%;
+            }
+            @include breakpoint(smallDesktop){
+                max-width:60%;
+                padding:0 5% 0 25%;
+                margin-left: 0;
+            }
+            @include breakpoint(tabs) {
+                background: none;
+                padding: 0;
+                margin: auto;
+                min-height: inherit;
+                max-width:80%;
+            }
+            header{
+              display: block;
+              text-align: center;
+                .logo{
+                    max-width:20%;
+                    margin: 0 auto;
+                }
+            }
+            p{
+              text-align: center;
+              width: 100%;
+              font-weight: 700;
+              padding: 0;
+            }
+            .role{
+              display: flex;
+              justify-content: center;
+              flex-wrap: wrap;
+              margin: 0 auto;
+              input{
+                opacity: 0;
+                width: calc(12rem + 0rem);
+                height: calc(12rem + 5rem);
+                position: absolute;
+                left: 0;
+                right: 0;
+                z-index: 9;
+                cursor: pointer;
+                margin: 0 auto;
+              }
+              input[type=radio]{
+                opacity: 0;
+              }
+              .option{
+                flex: 0 0 calc((80% - 5rem) / 2);
+                margin: 1rem;
+                margin-bottom: 4rem;
+                position: relative;
+                text-align: center;
+                label{
+                  .card-wihtout-header-white{
+                    display: flex;
+                    align-items: flex-end;
+                    cursor: pointer;
+                    padding: 0;
+                    justify-content: center;
+                    width: 12rem;
+                    height: 12rem;
+                    &.centered{
+                      align-items: center;
+                      padding: 1rem;
+                    }
+                    .option-image{
+                      max-width: 90%;
+                    }
+                  }
+                  .role-btn{
+                    margin-top: 1rem;
+                    width: 100%;
+                  }
+                } 
+              }
+            }
+        }
+    }
+}

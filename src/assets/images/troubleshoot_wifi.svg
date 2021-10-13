@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="26.819" height="21.55" viewBox="0 0 26.819 21.55">
+    <defs>
+        <clipPath id="clip-path">
+            <path id="Path_678" d="M122.509-53.526l1.108 1.108a.751.751 0 0 0 .96.11 3.869 3.869 0 0 1 2.291-.748 3.869 3.869 0 0 1 2.291.748.751.751 0 0 0 .96-.11l1.108-1.108a.791.791 0 0 0-.093-1.187 6.967 6.967 0 0 0-4.267-1.454 6.967 6.967 0 0 0-4.267 1.454.791.791 0 0 0-.091 1.187z" class="cls-1" transform="translate(-122.283 56.167)"/>
+        </clipPath>
+        <clipPath id="clip-path-2">
+            <path id="Path_680" d="M61.9-138.176a.777.777 0 0 0-.017 1.125l1.1 1.1a.784.784 0 0 0 1.074.02 10.069 10.069 0 0 1 6.6-2.458 10.07 10.07 0 0 1 6.6 2.458.783.783 0 0 0 1.073-.02l1.1-1.1a.778.778 0 0 0-.017-1.125 13.171 13.171 0 0 0-8.759-3.324 13.171 13.171 0 0 0-8.754 3.324z" class="cls-1" transform="translate(-61.655 141.5)"/>
+        </clipPath>
+        <clipPath id="clip-path-3">
+            <path id="Path_682" d="M1.544-221.686a.783.783 0 0 0-.012 1.124l1.1 1.1a.77.77 0 0 0 1.071.012 16.274 16.274 0 0 1 11-4.273 16.274 16.274 0 0 1 11 4.273.77.77 0 0 0 1.071-.012l1.1-1.1a.783.783 0 0 0-.012-1.124 19.375 19.375 0 0 0-13.166-5.147 19.375 19.375 0 0 0-13.152 5.147z" class="cls-1" transform="translate(-1.3 226.833)"/>
+        </clipPath>
+        <style>
+            .cls-1{fill:#fff}
+        </style>
+    </defs>
+    <g id="Group_4141" transform="translate(-167.459 -250.45)">
+        <g id="Group_2459" transform="translate(166.158 477.283)">
+            <g id="Group_2456" clip-path="url(#clip-path)" transform="translate(10.124 -214.386)">
+                <path id="Path_677" d="M117.283-56.451v-4.716h9.9v4.716z" class="cls-1" transform="translate(-117.647 60.802)"/>
+            </g>
+            <g id="Group_2457" clip-path="url(#clip-path-2)" transform="translate(5.702 -220.61)">
+                <path id="Path_679" d="M56.654-140v-6.5H75.4v6.5z" class="cls-1" transform="translate(-57.019 146.135)"/>
+            </g>
+            <g id="Group_2458" clip-path="url(#clip-path-3)" transform="translate(1.3 -226.833)">
+                <path id="Path_681" d="M-3.7-223.508v-8.325h27.549v8.325z" class="cls-1" transform="translate(3.335 231.468)"/>
+            </g>
+        </g>
+        <circle id="Ellipse_276" cx="1.5" cy="1.5" r="1.5" class="cls-1" transform="translate(179.5 269)"/>
+    </g>
+</svg>

@@ -1,0 +1,273 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+
+.games-listing {
+  margin-bottom:4rem;
+  .games-listing-wrapper {
+    max-width:60%;
+    margin: 0 auto;
+    @include breakpoint(iPad){
+        max-width:70%;
+    }  
+    @include breakpoint(mobile){
+        max-width:80%;
+    }   
+    @include breakpoint(smallmobile){
+        max-width:90%;
+    }
+    .games-tab {
+      .nav-tabs {
+        display: flex;
+        justify-content: center;
+        border: none;
+        position: relative;
+        display: none;
+        .nav-item {
+          margin: 0;
+
+          .nav-link {
+            color: rgba($white, 0.5);
+            font-size: 2.2rem;
+            padding: 0.5rem 0;
+            position: relative;
+            border: none;
+            font-weight: 700;
+            &:after {
+              content: '';
+              width: calc(100%);
+              height: 0.2rem;
+              background: transparent;
+              position: absolute;
+              left: 0;
+              bottom: 0;
+              z-index: 1;
+
+              @include breakpoint(mobile) {
+                width: calc(100% + 4rem);
+                left: -2rem;
+              }
+            }
+
+            &:hover {
+              border: none;
+            }
+
+            &.active {
+              background: transparent;
+              color: $white;
+              border: none;
+
+              &:after {
+                background: $white;
+              }
+            }
+          }
+        }
+      }
+
+      @include breakpoint(mobile-min) {
+        .nav-tabs {
+          display: flex;
+        }
+
+        .panal-card {
+          border: none;
+
+          .panal-card-header {
+            display: none;
+          }
+
+          .collapse {
+            display: block;
+          }
+        }
+      }
+
+      @include breakpoint(mobile) {
+        .tab-content>.tab-pane {
+          display: block !important;
+          opacity: 1;
+        }
+
+        .panal-card {
+          .panal-card-header {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background-color: $blue-transferent;
+          }
+        }
+      }
+      .tab-content{
+        margin-top: 8rem;
+        @include breakpoint(mobile) {
+            margin-top: 4rem;
+          }
+        .col-md-6{
+            margin-bottom:6rem;
+            @include breakpoint(mobile-min) {
+              &:nth-child(odd){
+                .card{
+                  &--white{
+                    margin-left: auto;
+                  }
+                }
+              }
+              &:nth-child(even){
+                .card{
+                  &--white{
+                    margin-right: auto;
+                  }
+                }
+              }
+            }
+        }
+        .card{
+            &--white{
+                background: $white;
+                border:none;
+                border-radius:6rem;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+                height: 17rem;
+                max-width: 23rem;
+                @include breakpoint(mobile){
+                    border-radius:4rem;
+                    margin: 0 auto;
+                }
+                .track{
+                    padding-top: 4rem;
+                }
+                h6{
+                    margin: 0;
+                    padding: 1rem 0;
+                    color: $dark-grey;
+                    font-size: 1.4rem;
+                    text-align: center;
+                }
+                img{
+                    max-width:80%;
+                }
+            }
+            app-button{
+                position: absolute;
+                left:0;
+                bottom:-2rem;
+                width:100%;
+                display: flex;
+                justify-content: center;
+                margin: auto;            
+            }
+        }
+        .mini-details {
+          .col-md-6{
+            margin-bottom:6rem;
+            @include breakpoint(mobile-min) {
+              &:nth-child(odd){
+                .card{
+                  &--white{
+                    margin-left: auto;
+                  }
+                }
+              }
+              &:nth-child(even){
+                .card{
+                  &--white{
+                    margin-right: auto;
+                  }
+                }
+              }
+            }
+        }
+        .card{
+            &--white{
+                background: $white;
+                border:none;
+                border-radius:6rem;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+                height: 17rem;
+                max-width: 23rem;
+                @include breakpoint(mobile){
+                    border-radius:4rem;
+                    margin: 0 auto;
+                }
+                .track{
+                    padding-top: 4rem;
+                }
+                h6{
+                    margin: 0;
+                    padding: 1rem 0;
+                    color: $dark-grey;
+                    font-size: 1.4rem;
+                    text-align: center;
+                }
+                img{
+                    max-width:80%;
+                }
+            }
+            app-button{
+                position: absolute;
+                left:0;
+                bottom:-2rem;
+                width:100%;
+                display: flex;
+                justify-content: center;
+                margin: auto;            
+            }
+          }
+        }
+        .health-detail{
+          .col-md-4{
+            @include breakpoint(mobile){
+              margin-bottom: 6rem;
+            }
+          }
+          .card{
+            &--white{
+                background: $white;
+                border:none;
+                border-radius:6rem;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+                height: 17rem;
+                max-width: 23rem;
+                margin: 0 auto;
+                @include breakpoint(mobile){
+                    border-radius:4rem;
+                    margin: 0 auto;
+                }
+                .track{
+                    padding-top: 4rem;
+                }
+                h6{
+                    margin: 0;
+                    padding: 1rem 0;
+                    color: $dark-grey;
+                    font-size: 1.4rem;
+                    text-align: center;
+                }
+                img{
+                    max-width:80%;
+                }
+            }
+            app-button{
+                position: absolute;
+                left:0;
+                bottom:-2rem;
+                width:100%;
+                display: flex;
+                justify-content: center;
+                margin: auto;            
+            }
+          }
+        }
+    }
+
+    }
+  }
+}
+
+

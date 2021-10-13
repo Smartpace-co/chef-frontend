@@ -1,0 +1,183 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+  .active-action-body{
+    background:url("../../../../../assets/images/kitchen-bg.jpg") center no-repeat ,;
+    background-size: cover;
+    position: relative;
+    overflow: hidden;
+    .container{
+      @include breakpoint(tabs){
+        padding: 0;
+      }
+      .final-editaion{
+        margin-top: 16rem;
+        padding-bottom: 15rem;
+        overflow: hidden;
+        @include breakpoint(tabs) {
+          padding-top: 0rem;
+        }
+        @include breakpoint(mobile){
+          padding-bottom: 6rem;
+        }
+        .content-wrapper{
+          text-align: center;
+          .card-wihtout-header-blue{
+            position: relative;
+            display: inline-block;
+            margin: 0 auto;
+            max-width: 80rem;
+            @include breakpoint(tabs){
+              max-width: 60rem;
+              padding: 2rem;
+            }
+            @include breakpoint(xtrasmallmobile){
+              max-width: 90%;
+            }
+            .active-action-wrapper{
+                display: flex;
+                justify-content: space-between;
+                @include breakpoint(xtrasmallmobile){
+                    display: flex;
+                    flex-wrap: wrap;
+                }
+              p{
+                font-size: 1.9rem;
+                font-weight: 700;
+              }
+            }
+            .chef-hat{
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                margin: 3rem 0;
+                @include breakpoint(xtrasmallmobile){
+                    display: flex;
+                    justify-content: center;
+                }
+                .chef-hat-white{
+                  margin: 1rem;
+                  width: 15rem;
+                  height: 15rem;
+                  border: 0.2rem dashed $white;
+                  border-radius: 2rem;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  background-color: rgba($color: $white, $alpha: 0.2);
+                  .chef-hat-inner{
+                    position: relative;
+                    text-align: center;
+                    transition: transform 0.8s;
+                    transform-style: preserve-3d;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                  }
+                  
+                  .image-wraper{
+                      width: 9rem;
+                      height: 9rem;
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
+                      font-size: 1.6rem;
+                      font-weight: 700;
+                      color: $navy-blue;
+                  }
+                }
+               
+                .option{
+                  label{
+                    cursor: pointer;
+                  }
+                }
+         
+                .flip-white{
+                  background-color: $white;
+                }
+
+                .flip-white .chef-hat-inner {
+                  transform: rotateY(180deg);
+                }
+                
+                .flip-box-front, .flip-box-back {
+                  position: absolute;
+                  backface-visibility: hidden;
+                }
+                
+                .flip-box-back {
+                  transform: rotateY(180deg);
+                }
+                // .chef-hat-bg{
+                  
+                // }
+            }
+          }
+          .final-editaion-img-wrapper{
+            max-width: 29rem;
+            position: absolute;
+            display:block;
+            margin-left: auto;
+            left: 0;
+            bottom: -5rem;
+            @include breakpoint(mobile){
+              max-width: 20rem;
+            }
+            @include breakpoint(mobile) {
+              left: -7rem;
+              bottom: -8rem;
+            }
+          }
+        }
+      }
+    }
+  }
+  .response-header{
+    &.modal-header{
+      border-bottom: none;
+      padding: 0;
+    }
+  }
+  .response-footer{
+    &.modal-footer{
+      border-top: none;
+      justify-content: center;
+    }
+  }
+  .response-body{
+    .response-wrapper{
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      .check-mark{
+        flex-basis: 100%;
+        text-align: center;
+        .icon{
+          display: inline-block;
+          border: 0.8rem solid $white;
+          border-radius: 50%;
+          font-size: 5rem;
+          width: 8rem;
+          height: 8rem;
+          text-align: center;
+          background-color: $ring-blue;
+        }
+        &.wrong-ans{
+          .icon{
+            background-color: $alert;
+          }
+        }
+      }
+      h1{
+        padding: 2rem;
+        @include breakpoint(mobile) {
+          padding: 2rem 1rem;
+          font-size: 2.4rem;
+        }
+      }
+      .btn-wrapper{
+        flex-basis: 100%;
+        text-align: center;
+      }
+    }
+  }

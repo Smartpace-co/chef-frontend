@@ -1,0 +1,94 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+.register-teacher{
+  padding: 6rem 0rem;
+  .register-teacher-wrapper{
+    padding: 0rem 4rem 4rem;
+    @include breakpoint(mobile){
+      padding: 0rem 1.5rem 4rem;
+    }
+    legend{
+      @include breakpoint(mobile){
+        margin-bottom: 0;
+      } 
+    }
+    .register-teacher-form{
+      // width: 80%;
+      @include breakpoint(mobile){
+        width: 100%;
+      }
+      .department-heading{
+        margin-bottom: 1.5rem;
+        padding-left: 1.5rem;
+      }
+      label{
+        font-size: 1.4rem;
+        color: $light-blue-shade;
+        font-weight: 700;
+        padding-left: 3rem;
+      }
+      .lable-wrapper{
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        a{
+          text-decoration: underline;
+          font-size: 1.4rem;
+          color: $light-blue-shade;
+          font-weight: 600;
+          padding-left: 3rem;
+          margin-bottom: 0.5rem;
+        }
+      }
+      .radio-btn-wrapper{
+        label{
+          display: block;
+        }
+        .custom-radio{
+          display: inline-block;
+          margin-left:2rem;
+          margin-top:1rem;
+          label{
+              padding-left: 0;
+          }
+        }
+      }
+      
+    }
+    .form-btn-wrapper{
+      display: flex;
+      justify-content: center;
+      margin-top: 4rem;
+    }
+    .same-above-checkbox {
+      margin: 18px !important;
+    }
+    .custom-control-label {
+      padding-left: 2px !important;
+    }
+  }
+}
+.plan-details{
+  text-align: center;
+  .plan-details-wrapper{
+    border: 1px solid $border-color;
+    padding: 5rem 0rem;
+    border-radius: 2rem;
+    .plan-heading{
+      color: $azure;
+      margin-bottom: 0;
+      padding: 0;
+    }
+    .total-price{
+      font-size: 1.4rem;
+      font-weight: 700;
+      padding: 0;
+    }
+    .monthly-price{
+      font-size: 1.4rem;
+      font-weight: 700;
+      padding: 0;
+    }
+  }
+}
+

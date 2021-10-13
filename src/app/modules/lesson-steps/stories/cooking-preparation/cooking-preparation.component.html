@@ -1,0 +1,45 @@
+<app-lessons-headerbar [lessonHederConfig]="lessonHederConfig"></app-lessons-headerbar>
+<div class="cooking-preparation-1">
+  <app-scroll-down></app-scroll-down>
+  <div class="mr-4 cooking-audio">
+    <span *ngIf="audioTrack">
+      <audio controls autoplay controlsList="nodownload">
+        <source [src]="audioTrack" type="audio/mp3">
+      </audio>
+    </span>
+  </div>
+  <div class="container">
+    <div class="final-editaion">
+      <div class="content-wrapper card-wihtout-header-blue">
+        <ul class="">
+          <li *ngFor="let item of recipesPreparationList">
+            <div class="legend-card-white btn-card-white cooking-preparation-wrapper">
+              <div class="chef-label-wraper">
+                <legend *ngIf="item.isBigChef" class="legend-big">{{'student.assigned-lessons.lesson-steps.big-chef'|
+                  translate }}
+                  <span class="profile-pic"><img src="{{item.isBigChef}}" alt="" class="img-fluid" /></span>
+                </legend>
+                <legend *ngIf="item.isLittleChef" class="legend-little">
+                  {{'student.assigned-lessons.lesson-steps.little-chef'| translate }}
+                  <span class="profile-pic"><img src="{{item.isLittleChef}}" alt="" class="img-fluid" /></span>
+                </legend>
+              </div>
+              <div class="description">
+                <span class="image"><img src="{{item.image}}" alt="" class="img-fluid" /></span>
+                <span class="description-info">
+                  <h6>{{item.info}}</h6>
+                </span>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <span class="final-editaion-img-wrapper">
+        <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
+      </span>
+    </div>
+  </div>
+</div>
+
+<app-lessons-footer [isVisibleNext]="isVisibleNext" [isVisiblePrevious]="isVisiblePrevious" (onNext)="onNext()"
+  (onPrevious)="onPrevious()"></app-lessons-footer>

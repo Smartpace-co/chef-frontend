@@ -1,0 +1,115 @@
+<!-- <app-student-header></app-student-header> -->
+<main class="login">
+  <div class="container-fluid">
+    <div class="left-login">
+      <img src="./assets/images/kids-and-planet.png" class="img-fluid" />
+    </div>
+    <div class="login-form">
+      <header>
+        <div class="logo">
+          <img src="./assets/images/logo.png" class="img-fluid" />
+        </div>
+        <h3 class="logo-title">Sign In</h3>
+      </header>
+      <form [formGroup]="loginForm">
+        <app-input-field classes="form-control" types="email" placeholders="Email Address/Username" ids="email"
+          fieldControl="email" [form]="loginForm"
+          [ngClass]="{ 'is-invalid': formControl.email.touched && formControl.email.errors }"></app-input-field>
+        <div *ngIf="formControl.email.errors" class="invalid-feedback">
+          <div class="error" *ngIf="formControl.email.errors?.required">Email is required</div>
+        </div>
+        <app-input-field classes="form-control" types="password" placeholders="Password" ids="password"
+          fieldControl="password" [form]="loginForm"
+          [ngClass]="{ 'is-invalid': formControl.password.touched && formControl.password.errors }"></app-input-field>
+        <div *ngIf="formControl.password.errors" class="invalid-feedback">
+          <div class="error" *ngIf="formControl.password.errors?.required">Password is required</div>
+        </div>
+        <div class="remember-me">
+          <div class="custom-control custom-checkbox same-above-checkbox">
+            <input type="checkbox" class="custom-control-input" id="rememberMe" name="rememberMe" fieldControl="rememberMe">
+            <label class="custom-control-label login-remember">Remember Me</label>
+          </div>
+          <!-- <div class="custom-control custom-checkbox">
+            <app-input-field classes="custom-control-input" types="checkbox" ids="rememberMe" fieldControl="rememberMe"
+              [form]="loginForm"></app-input-field>
+            <label class="custom-control-label" for="RememberMe">Remember Me</label>
+          </div> -->
+          <a routerLink="/auth/forgot-password">Forgot Password</a>
+        </div>
+        <app-button classes="btn btn-primary btn-block" [submit]="true" (click)="login()"
+          [disabled]="loginForm.invalid">
+          <span aria-hidden="true">Sign In</span>
+        </app-button>
+       
+        <p class="dont-have-account">Don't have an account? <a routerLink="/auth/sign-up">Sign Up</a></p>
+      </form>
+    </div>
+  </div>
+</main>
+<ng-template #guideModal let-modal>
+  <div class="modal-header guide-header">
+    <h6>Request Guide</h6>
+  </div>
+  <div class="modal-body guide-body">
+    <form [formGroup]="guidForm">
+      <h6>General Details</h6>
+      <app-input-field classes="form-control" placeholders="Full Name" ids="fullName" fieldControl="fullName"
+        [form]="guidForm"></app-input-field>
+      <app-input-field classes="form-control" placeholders="Email Address" ids="email" fieldControl="email"
+        [form]="guidForm"></app-input-field>
+      <app-input-field classes="form-control" placeholders="Phone Number" ids="phoneNumber" fieldControl="phoneNumber"
+        [form]="guidForm"></app-input-field>
+      <app-input-field classes="form-control" placeholders="Select Your Role" ids="selectRole" fieldControl="selectRole"
+        [form]="guidForm"></app-input-field>
+      <h6>School or District Details</h6>
+      <app-input-field classes="form-control" placeholders="District or District Name" ids="distName"
+        fieldControl="fullName" [form]="guidForm"></app-input-field>
+      <app-drop-down fieldControl="" class="formDropdown" [dropDownButtonName]="countryTitle"
+        [dropDownItemList]="countryList"></app-drop-down>
+      <app-input-field classes="form-control" placeholders="Number of Students" ids="numberOfStudent"
+        fieldControl="numberOfStudent" [form]="guidForm"></app-input-field>
+      <textarea class="form-control" placeholder="Add Comments / Notes"></textarea>
+    </form>
+    <div class="close-btn-wrapper">
+      <app-button classes="btn btn-secondary" [submit]="true">
+        <span aria-hidden="true">Cancel</span>
+      </app-button>
+      <app-button classes="btn btn-primary" [submit]="true">
+        <span aria-hidden="true">Request Guide</span>
+      </app-button>
+    </div>
+  </div>
+</ng-template>
+<ng-template #requestModal let-modal>
+  <div class="modal-header request-header">
+    <div class="logo">
+      <img src="./assets/images/logo.png" class="img-fluid" />
+    </div>
+    <h4>Quote Request Sent</h4>
+  </div>
+  <div class="modal-body journal-body">
+    <p>Thank you for requesting a quote. Chef Koochooloo team will contact you soon. Phone 1-800-xxx-xxx</p>
+    <div class="close-btn-wrapper">
+      <app-button classes="btn btn-primary btn-request" [submit]="true" (click)="closeOpenModal()">
+        <span aria-hidden="true">Close</span>
+      </app-button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #paymentModal let-modal>
+  <div class="modal-header request-header">
+    <div class="logo">
+      <img src="./assets/images/logo.png" class="img-fluid" />
+    </div>
+    <h4>Payment Request</h4>
+  </div>
+  <div class="modal-body journal-body">
+    <p>Please complete subscription process</p>
+    <div class="close-btn-wrapper">
+      <app-button classes="btn btn-primary btn-request" [submit]="true" (click)="checkout()">
+        <span aria-hidden="true">Pay</span>
+      </app-button>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,24 @@
+<app-ingreditent-nav></app-ingreditent-nav>
+<app-lessons-headerbar [lessonHederConfig]="lessonHederConfig"></app-lessons-headerbar>
+<div class="assessment-body-1 kitchen-bg">
+    <!-- <app-scroll-down></app-scroll-down> -->
+    <div *ngIf="questionData" class="container">
+        <div class="content-wrapper">
+            <div class="card-wihtout-header-blue assessment-card">
+                <h6>{{questionData?.question}}</h6>
+                <div class="answer-wrapper">
+                    <div class="mt-2">
+                        <textarea class="form-control action-textarea" rows="10"
+                            (keyup)="onInputValueChange($event.target.value)"></textarea>
+                    </div>
+                </div>
+              
+            </div>
+            <span class="final-editaion-img-wrapper">
+                <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
+            </span>
+        </div>
+    </div>
+</div>
+<app-lessons-footer  (onNext)="onNext()" (onPrevious)="onPrevious()">
+</app-lessons-footer>

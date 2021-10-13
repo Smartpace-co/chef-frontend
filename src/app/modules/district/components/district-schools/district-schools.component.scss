@@ -1,0 +1,126 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+.district-school-landing{
+  display: flex;
+  height: calc(100vh - 10rem);
+  width: 100wh;
+  align-items: center;
+  justify-content: center;
+  .create-class{
+      background: $primary;
+      border:1px solid $border-color;
+      border-radius:3rem;
+      position: relative;
+      padding:5rem 3rem;
+      max-width:45%;
+      text-align: center;
+      h3{
+          font-size:2.3rem;
+          font-weight: bold;
+          margin-top: 3.5rem;
+          margin-bottom:1rem;
+          span{
+              color:$secondary;
+          }
+      }
+      p{
+          max-width: 60%;
+          margin: auto;
+          margin-bottom: 2rem;
+      }
+  }
+}
+.roster-list{
+  padding:2rem 0;
+  .roster-header{
+    margin-bottom: 2rem;
+      .roster-header-main{
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          flex-wrap: wrap;
+          h3{
+              font-size:2.1rem;
+              margin: 0;
+              span{
+                  color:$secondary;
+              }
+              @include breakpoint(mobile){
+                  font-size:1.8rem;
+                  margin-bottom:1.5rem;
+              }
+          }
+      }
+  }
+}
+.schoolList{
+  margin-top:3rem;
+  .schoolItem{
+      background: $primary;
+      border:1px solid $border-color;
+      border-radius:1.2rem;
+      position: relative;
+      padding:1.5rem;
+      min-height: 20rem;
+      margin-bottom: 3rem;
+      &__heading{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 3rem;
+        &__name{
+          margin: 0;
+        }
+        &__dots{
+          color: $secondary;
+          font-size: 1.4rem;
+          margin-left: 1rem;
+        }
+      }
+      &__info-wrapper{
+        display: flex;
+        align-items: center;
+        margin-bottom: 2.5rem;
+        &__photo{
+          width: 4.5rem;
+          margin-right: 1.5rem;
+        }
+        &__name-id{
+          &__name{
+            margin: 0;
+          }
+          &__id{
+            font-size: 1.4rem;
+            color:rgba($white, 0.6);
+            font-weight: 700;
+            padding: 0;
+            label{
+              margin: 0;
+            }
+          }
+        }
+      }
+      &__school-info{
+        margin-bottom: 4rem;
+        h6{
+          font-size: 1.6rem;
+        }
+      }
+      &__action{
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          li{
+              margin-right:1.2rem;
+              a{
+                  color:$secondary;
+                  font-weight: bold;
+              }
+              &:last-child{
+                  margin-right: 0;
+              }
+          }
+      }
+  }
+}

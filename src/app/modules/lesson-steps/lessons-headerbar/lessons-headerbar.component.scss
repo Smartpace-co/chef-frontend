@@ -1,0 +1,356 @@
+@import "../../../../assets/styles/helpers/variables";
+@import "../../../../assets/styles/helpers/mixins";
+.lessons-header {
+  padding: 1.5rem 0;
+  background-color: $blueblue;
+  position: relative;
+  z-index: 999;
+  min-height: 11.2rem;
+  display: flex;
+  align-items: center;
+  @include breakpoint(tabs) {
+    min-height: 20rem;
+  }
+  .top-nav {
+    display: flex;
+    justify-content: flex-start;
+    position: relative;
+    flex-wrap: wrap;
+    .heading-wrapper {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      h4 {
+        flex-basis: 100%;
+      }
+      p {
+        padding: 0;
+        flex-basis: 100%;
+        cursor: pointer;
+      }
+    }
+    .profile-pic-wrapper {
+      padding-left: 2.5rem;
+      margin-bottom: -4.4rem;
+      text-align: center;
+      .profile-pic {
+        width: 8rem;
+        height: 8rem;
+        border: 0.5rem solid $navy-blue;
+        border-radius: 50%;
+        background-color: $white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+        @include breakpoint(tabs) {
+          margin: unset;
+        }
+        img {
+          max-width: 100%;
+        }
+      }
+      @include breakpoint(tabs) {
+        text-align: center;
+        padding-left: 0rem;
+        display: flex;
+        flex-basis: 100%;
+        margin-bottom: 0rem;
+        justify-content: center;
+        align-items: center;
+        // margin-bottom: -5rem;
+      }
+      legend {
+        font-size: 1.4rem;
+        font-weight: bold;
+        color: $navy-blue;
+        background: $secondary;
+        padding: 1rem 1rem;
+        border-radius: 3.5rem;
+        // display: inline-table;
+        width: auto;
+        transform: translate(0, -14%);
+        bottom: -5.5rem;
+        left: 0;
+        text-transform: capitalize;
+        @include breakpoint(tabs) {
+          position: relative;
+          bottom: -0.7rem;
+          bottom: unset;
+          transform: unset;
+          margin-left: 1rem;
+        }
+      }
+      .footprint {
+        display: none;
+        @include breakpoint(tabs) {
+          display: inline-block;
+          margin-left: 1rem;
+        }
+      }
+    }
+    .step-board-wrapper {
+      @include breakpoint(tabs) {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .step-board {
+        width: 22rem;
+        height: 21rem;
+        position: absolute;
+        top: -4.5rem;
+        left: 0;
+        right: 0;
+        margin: auto;
+        @include breakpoint(tabs) {
+          top: 4rem;
+          margin: unset;
+          width: unset;
+          height: unset;
+          position: relative;
+          top: unset;
+        }
+        img {
+          @include breakpoint(tabs) {
+            display: none;
+          }
+        }
+        .step-description {
+          text-align: center;
+          margin-top: -14rem;
+          padding: 1.5rem 2rem 0rem;
+          @include breakpoint(tabs) {
+            margin-top: unset;
+            display: flex;
+            padding: 1rem 0rem;
+          }
+          .seperator {
+            display: none;
+            @include breakpoint(tabs) {
+              display: inline-block;
+              font-weight: 700;
+              font-size: 1.6rem;
+              padding: 0rem 1rem;
+            }
+          }
+          .step-img {
+            width: 2.9rem;
+            margin: 0rem auto 0.5rem;
+            @include breakpoint(tabs) {
+              display: none;
+            }
+          }
+          p {
+            &.step {
+              margin: 0;
+              font-size: 1.4rem;
+              font-weight: 700;
+              padding: 0;
+            }
+          }
+          h6 {
+            margin: 0;
+            padding: 0rem;
+            @include breakpoint(tabs) {
+              color: $white;
+            }
+          }
+        }
+      }
+      .footprint {
+        position: absolute;
+        top: 3rem;
+        left: 16rem;
+        right: 0;
+        display: inline-block;
+        margin: auto;
+        width: 5rem;
+        @include breakpoint(tabs) {
+          // top:unset;
+          // margin:unset;
+          // width: unset;
+          // height: unset;
+          // position: relative;
+          // top: unset;
+          // left: 1rem;
+          display: none;
+        }
+      }
+    }
+    .back-btn-wrapper {
+      padding-left: 2.5rem;
+      position: relative;
+      z-index: 1;
+      @include breakpoint(tabs) {
+        flex-basis: 100%;
+        text-align: center;
+        margin-bottom: 1rem;
+      }
+    }
+    .middle-heading-wrapper {
+      position: absolute;
+      left: 0;
+      right: 0;
+      margin: auto;
+      text-align: center;
+      @include breakpoint(tabs) {
+        margin-bottom: 1rem;
+        position: relative;
+      }
+      .sci-heading {
+        font-size: 2rem;
+        font-weight: 700;
+        position: relative;
+        padding: 1rem 3rem;
+        margin-right: 2rem;
+        cursor: default;
+        @include breakpoint(tabs) {
+          margin-right: 0rem;
+        }
+        @include breakpoint(xtrasmallmobile) {
+          font-size: 1.8rem;
+        }
+        &:hover {
+          border-color: #fed600;
+          background-color: #fed600;
+          color: #001243;
+          box-shadow: -1px 4px 0px -1px #f4871b;
+        }
+        .icon {
+          width: 3rem;
+          position: absolute;
+          top: -1rem;
+          left: -1rem;
+        }
+      }
+    }
+    ul.nav-menu {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: auto;
+      @include breakpoint(tabs) {
+        flex-basis: 100%;
+      }
+      li {
+        float: left;
+        padding-left: 3rem;
+        z-index: 1;
+        @include breakpoint(mobile) {
+          padding-left: 1rem;
+        }
+        .icon-bg {
+          border-radius: 50%;
+          position: relative;
+          border: none;
+          background: $secondary;
+          -webkit-box-shadow: 0px 4px 0px -1px rgba($orange, 1);
+          -moz-box-shadow: 0px 4px 0px -1px rgba($orange, 1);
+          box-shadow: 0px 4px 0px -1px rgba($orange, 1);
+          text-align: center;
+          height: 4.2rem;
+          width: 4.5rem;
+          padding: 0.9rem;
+          display: inline-block;
+          &:before {
+            width: 1rem;
+            height: 0.5rem;
+            background: $white;
+            content: "";
+            position: absolute;
+            z-index: 1;
+            left: 11px;
+            top: 7px;
+            border-radius: 100%;
+            transform: rotate(-45deg);
+            @include breakpoint(tabs) {
+              width: 0.8rem;
+              height: 0.4rem;
+            }
+          }
+          .ng-fa-icon {
+            font-size: 3.3rem;
+            color: $black;
+            line-height: 1.5;
+          }
+        }
+        &.print {
+          position: relative;
+          z-index: 10;
+          .icon-bg {
+            z-index: 11;
+          }
+          .menus-wrapper {
+            position: absolute;
+            z-index: 1;
+            right: 2px;
+            top: 15px;
+            ul {
+              li {
+                padding-left: 0;
+                h6 {
+                  font-size: 1.5rem;
+                  padding-top: 3rem;
+                  white-space: nowrap;
+                }
+              }
+            }
+          }
+        }
+        .icon-close {
+          img {
+            width: 4.5rem;
+          }
+        }
+        &.journal {
+          position: relative;
+          .icon-bg {
+            .journal-text {
+              position: absolute;
+              font-size: 1.6rem;
+              font-weight: 700;
+              color: $black;
+              top: 9rem;
+              min-width: 21rem;
+              left: -6rem;
+              display: none;
+              @include breakpoint(mobile) {
+                top: 8rem;
+              }
+            }
+            &:hover {
+              .journal-text {
+                display: block;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  span {
+    display: inline-block;
+  }
+}
+
+.bell-icon {
+  position: relative;
+  .bell-notifications {
+    position: absolute;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: $yellow-shade-5;
+    border: 0.2rem solid $black;
+    top: -1rem;
+    right: -1rem;
+    color: $black;
+    font-size: 1.4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+  }
+}

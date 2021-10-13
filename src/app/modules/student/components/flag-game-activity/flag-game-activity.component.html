@@ -1,0 +1,75 @@
+<app-lessons-headerbar [lessonHederConfig]="lessonHederConfig" [isButtonSection]="isButtonSection" [showBackBtn]="true" [isLessonInfo]="false" ></app-lessons-headerbar>
+<div class="active-action-body">
+  <div class="container">
+    <div class="final-editaion">
+      <div class="content-wrapper">
+        <div class="card-wihtout-header-blue">
+          <div class="active-action-wrapper">
+            <p>{{'student.assigned-lessons.lesson-steps.guess-the-flag'| translate | uppercase }} </p>
+          </div>
+          <div class="chef-hat">
+            <div *ngFor="let item of assignmentQuestion[i]?.optionFlags" class="option">
+              <label for="{{item.id}}">
+                <input type="radio" id="{{item.id}}" name="selector" value="{{item.id}}" (click)="getFlag(item)">
+                <div class="flag-image"><img width="140px" height="95px" src="{{item.image}}" class="img-fluid" alt=""></div>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="locker-lady">
+          <span class="final-editaion-img-wrapper">
+            <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
+          </span>
+          <div class="tooltip-wrapper">
+            <div class="speech-tooltip sm-tooltip left-bottom-tip">
+              <div class="speech-tooltip-inner">
+                <p class="message">
+                  {{'student.assigned-lessons.lesson-steps.flag-question'| translate }} {{assignmentQuestion[i]?.questionCountry.countryName}}?
+                </p>
+                <span class="tip">
+                  <img src="./assets/images/left-bottom-tip.svg" alt="" class="img-fluid" />
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-lessons-footer [isVisibleNext]="isVisibleNext" (onNext)="onNext()" (onPrevious)="onPrevious()">
+</app-lessons-footer>
+<ng-template #correctAnsModal let-modal>
+  <div class="modal-header response-header">
+  </div>
+  <div class="modal-body response-body">
+    <div class="response-wrapper">
+      <ng-container *ngIf="isRightAns; else remark">
+        <div class="check-mark">
+          <span class="icon">
+            <fa-icon [icon]="check"></fa-icon>
+          </span>
+        </div>
+      </ng-container>
+      <ng-template #remark>
+        <div class="check-mark wrong-ans">
+          <span class="icon">
+            <fa-icon [icon]="close"></fa-icon>
+          </span>
+        </div>
+      </ng-template>
+      <h1>{{ isRightAns ? 'Correct' : 'Incorrect'}} {{'student.assigned-lessons.lesson-steps.response'| translate }}
+      </h1>
+      <div class="btn-wrapper mt-3">
+        <app-button classes="btn btn-secondary icon-btn" [submit]="true" (click)="modal.close('Next')">
+          <ng-container *ngIf="isRightAns; else isNextBtn">
+            <span aria-hidden="true">{{'table-component.next'| translate}}<fa-icon [icon]="RightArrow"></fa-icon></span>
+          </ng-container>
+          <ng-template #isNextBtn>
+            <span aria-hidden="true">{{'common.close'| translate}}</span>
+          </ng-template>
+        </app-button>
+      </div>
+    </div>
+  </div>
+</ng-template>

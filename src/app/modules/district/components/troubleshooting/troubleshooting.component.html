@@ -1,0 +1,22 @@
+<div class="troubleshooting">
+    <div class="container">
+      <div class="troubleshooting-profile-wrapper legend-card">
+        <legend>{{'school.troubleshooting.troubleshooting-label'| translate}}</legend>
+        <h6 class="troubleshoot-label">{{'school.troubleshooting.troubleshoot-your-issues-label'| translate}}</h6>
+        <ul class="troubleshooting-list" >
+          <li *ngFor="let item of troubleshootingList">
+            <div class="troubleshooting-icon">
+              <a class="icon-bg">
+                <img src={{item.icon}} alt="" class="img-fluid" />
+              </a>
+            </div>
+            <div class="troubleshooting-details">
+              <p [ngClass]="item.status == 'visited' ? 'title visited' : 'title'">{{item.title}}</p>
+              <h6 [ngClass]="item.status == 'visited' ? 'message visited' : 'message'">{{item.message}}</h6>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,57 @@
+<app-lessons-headerbar [isButtonSection]="isButtonSection" [showBackBtn]="false"></app-lessons-headerbar>
+<app-scroll-down></app-scroll-down>
+<div class="mr-4 experiment-step-audio">
+    <span *ngIf="experimentData?.experimentStepsTrack">
+        <audio controls autoplay controlsList="nodownload">
+            <source [src]="experimentData?.experimentStepsTrack" type="audio/mp3">
+        </audio>
+    </span>
+</div>
+<div class="science-experiment-body-6">
+    <div class="container">
+        <div class="final-editaion">
+            <div class="content-wrapper">
+                <div class="content-heading-info">
+                    <div class="profile-pic-wrapper">
+                        <div class="profile-pic">
+                            <img src="./assets/images/profile-icon-2.png" alt="" class="img-fluid" />
+                        </div>
+                    </div>
+                    <h6>
+                        {{'student.assigned-lessons.lesson-steps.experiment-warning-label'| translate }} </h6>
+                </div>
+                <ul>
+                    <li *ngFor="let item of experimentSteps">
+                        <div class="legend-card-white btn-card-white cooking-preparation-wrapper">
+                            <legend class="index">{{item.id}}</legend>
+                            <div class="description">
+                                <span class="image" *ngIf="item.image"><img src="{{item.image}}" alt=""
+                                        class="img-fluid" /></span>
+                                <span class="description-info">
+                                    <h6>{{item.info}}</h6>
+                                </span>
+                                <!-- <span class="play-btn-wrapper" *ngIf="item.start">
+                                    <div class="play-btn">
+                                        <fa-icon [icon]="play"></fa-icon>
+                                    </div>
+                                </span> -->
+                                <span *ngIf="item.start" class="with-video">
+                                    <div class="video-wraper">
+                                        <iframe class="vedio" [src]="getSanitizeUrl(item.start)">
+                                        </iframe>
+                                    </div>
+                                </span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <span class="final-editaion-img-wrapper">
+                <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
+            </span>
+        </div>
+    </div>
+</div>
+<app-lessons-footer [isVisibleNext]="isVisibleNext" [showAddObservation]="true" (onAddObservation)="addObservation()"
+    (onNext)="onNext()" (onPrevious)="onPrevious()">
+</app-lessons-footer>

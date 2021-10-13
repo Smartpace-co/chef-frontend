@@ -1,0 +1,35 @@
+<div *ngIf="experimentData?.screenType ==='List'" class="science-experiment-body-5">
+    <!-- <app-scroll-down></app-scroll-down> -->
+    <div class="container">
+      <div class="final-editaion">
+        <div class="content-wrapper">
+          <div class="content-heading-info">
+            <div class="profile-pic-wrapper">
+              <div class="profile-pic">
+                <img src="./assets/images/profile-icon-2.png" alt="" class="img-fluid" />
+              </div>
+            </div>
+            <h6>
+              {{ experimentData?.desc }}
+            </h6>
+          </div>
+          <ul>
+            <li *ngFor="let item of experimentData?.recipesStepList">
+              <div class="legend-card-white btn-card-white cooking-preparation-wrapper">
+                <legend class="index">{{item.id}}</legend>
+                <div class="description">
+                  <span class="image" *ngIf="item.image"><img src="{{item.image}}" alt="" class="img-fluid" /></span>
+                  <span class="description-info">
+                    <h6>{{item.info}}</h6>
+                  </span>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <span class="final-editaion-img-wrapper">
+          <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
+        </span>
+      </div>
+    </div>
+  </div>

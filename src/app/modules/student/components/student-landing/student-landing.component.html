@@ -1,0 +1,89 @@
+<app-student-nav [userName]="true" [chefIcon]="true"></app-student-nav>
+<div class="container">
+    <div class="student-landing">
+        <div *ngIf="showBadgeNoti" class="student-info">
+            <span class="badge-icon"><img src="./assets/images/badge.png" /></span>
+            <p>{{'student.dashboard.badge-label'| translate }}</p>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card card--white" routerLink="/student/assignment">
+                    <img class="img-fluid" src="./assets/images/assign-lesson.png" alt="" />
+                    <app-button classes="btn btn-primary">
+                        <span aria-hidden="true">{{'student.dashboard.assigned-lessons-label'| translate }}</span>
+                        <fa-icon class="ml-3" [icon]="RightArrow"></fa-icon>
+                    </app-button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card card--white" routerLink="/student/explore-lesson">
+                    <img class="img-fluid" src="./assets/images/explore-lesson.png" alt="" />
+                    <app-button classes="btn btn-primary">
+                        <span aria-hidden="true">{{'student.dashboard.explore-lessons-label'| translate }}</span>
+                        <fa-icon class="ml-3" [icon]="RightArrow"></fa-icon>
+                    </app-button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card card--white">
+                    <div class="achievement-wraper">
+                        <span class="passport achievement">
+                            <a (click)="openPassportModal()">
+                                <img src="./assets/images/passport.svg" class="img-fluid" alt="">
+                            </a>
+                        </span>
+                        <span class="locker achievement">
+                            <a [routerLink]="['/student/locker-room']">
+                                <img src="./assets/images/locker-room.svg" class="img-fluid" alt="">
+                            </a>
+                        </span>
+                        <!-- <span class="report achievement">
+                            <a [routerLink]="['/student/performance']">
+                                <img src="./assets/images/reports.svg" class="img-fluid" alt="">
+                            </a>
+                        </span> -->
+                    </div>
+                    <app-button classes="btn btn-primary" (click)="openPassportModal()">
+                        <span aria-hidden="true">{{'student.dashboard.achievements-label'| translate }}</span>
+                        <fa-icon class="ml-3" [icon]="RightArrow"></fa-icon>
+                    </app-button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card card--white" [routerLink]="['/student/games-listing']">
+                    <img class="img-fluid" src="./assets/images/games.png" alt="" />
+                    <app-button classes="btn btn-primary">
+                        <span aria-hidden="true"> {{'student.dashboard.activities-and-games-label'| translate }}</span>
+                        <fa-icon class="ml-3" [icon]="RightArrow"></fa-icon>
+                    </app-button>
+                </div>
+            </div>
+            <div class="d-flex home-class-page">
+                <app-button classes="btn btn-primary" (click)="gotoHomePage()">
+                    <span aria-hidden="true">{{'student.dashboard.class-home-page-label'| translate | uppercase
+                        }}</span>
+                </app-button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #requestModal let-modal>
+    <div class="modal-header student-header">
+        <div class="logo profile-pic">
+            <img src="./assets/images/profile-icon-13.png" class="img-fluid" />
+        </div>
+        <h4>Not Kevin?</h4>
+    </div>
+    <div class="modal-body journal-body">
+        <p>Please sign in again using your access code</p>
+        <div class="close-btn-wrapper">
+            <app-button classes="btn btn-secondary mr-4" [submit]="true" (click)="closeOpenModal()">
+                <span aria-hidden="true">SIGN OUT</span>
+            </app-button>
+            <app-button classes="btn btn-primary btn-block" [submit]="true">
+                <span aria-hidden="true">CONTINUE</span>
+            </app-button>
+        </div>
+    </div>
+</ng-template>

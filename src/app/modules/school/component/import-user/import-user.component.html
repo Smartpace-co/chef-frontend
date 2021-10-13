@@ -1,0 +1,56 @@
+<div class="import-user">
+  <div class="container ">
+    <div class="back-button-wrapper">
+      <app-button classes="btn small-btn btn-secondary mr-4 icon-btn btn-back mt-4" [submit]="true"
+        (click)="onCancel()">
+        <span aria-hidden="true">
+          <fa-icon [icon]="LeftArrow"></fa-icon> {{'common.back'| translate}}
+        </span>
+      </app-button>
+    </div>
+    <div class="import-user-wrapper">
+      <div class="user-heading">
+        <h4>{{'school.users.import-users.label'|translate}}</h4>
+      </div>
+      <div class="card">
+        <div class="upload-or-drag-file" *ngIf="!selectedFileName" (dragover)="onDragOver($event)"
+          (drop)="onDrop($event)" (dragleave)="onDragLeave($event)">
+          <div class="import-logo"><img src="./assets/images/import.svg" alt="" class="img-fluid"></div>
+          <div class="import-File">
+            <input type="file" id="actual-btn" (change)="onFileSelected($event)" accept=".xlsx, .xls, .csv" hidden />
+            <label for="actual-btn">
+              <a><u>{{'school.users.import-users.browse-label'|translate}}</u></a> {{'school.users.import-users.browse-label-desc'|translate}}!
+            </label>
+          </div>
+        </div>
+        <div class="upload-in-progress" *ngIf="selectedFileName">
+          <span class="selected-file">
+            <fa-icon [icon]="fileIcon" class="mr-3"></fa-icon>{{selectedFileName}}
+          </span>
+          <div class="progress-bar-wrapper">
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
+                [style.width.%]="progress">
+                <span>{{progress}}%</span>
+              </div>
+            </div>
+            <a class="cancel-import ml-2">
+              <img src="./assets/images/close.png" alt="" class="img-fluid" (click)="clearFile()">
+            </a>
+          </div>
+          <div *ngIf="progress != 100 && progress > 0" class="uploading mt-5">
+            <span>{{'school.users.import-users.uploading-label'|translate}}…</span>
+          </div>
+        </div>
+      </div>
+      <div class="btn-wrappers">
+        <app-button classes="btn btn-secondary mr-3" (click)="onCancel()">
+          <span aria-hidden="true">{{'common.cancel'|translate}}</span>
+        </app-button>
+        <app-button classes="btn btn-primary" (click)="insertBulkRecords()" [disabled]="!fileNameToSave">
+          <span aria-hidden="true">{{'common.upload'|translate}}</span>
+        </app-button>
+      </div>
+    </div>
+  </div>
+</div>

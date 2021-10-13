@@ -1,0 +1,62 @@
+<div class="notifications">
+  <div class="container">
+    <div class="notifications-top topbar-btn-title">
+      <span class="back-btn-wrapper">
+        <app-button classes="btn small-btn btn-secondary mr-4 icon-btn btn-back" [submit]="true"
+          (click)="onNotificationBack()">
+          <span aria-hidden="true">
+            <fa-icon [icon]="LeftArrow"></fa-icon>{{'common.back'| translate}}
+          </span>
+        </app-button>
+      </span>
+      <h3 class="heading">{{ 'school.setting.notification-label' | translate }}</h3>
+    </div>
+
+    <div class="notifications-body">
+      <div class="row">
+        <div class="col-12">
+          <div class="legend-card-white">
+            <legend>{{ 'student.notification.my-noti-label' | translate }} <span class="count">{{ notificationCount
+                }}</span></legend>
+            <div class="notifications-List">
+              <ul>
+                <li *ngFor="let item of notificationList | slice: (page-1) * pageSize : page * pageSize"
+                  [ngClass]="{'disabled': item.isSeen}">
+                  <span class="icon-bg-yellow">
+                    <img src="./assets/images/bell-icon.png" alt="" class="img-fluid" />
+                  </span>
+                  <span class="description">
+                    <p class="sub-info  pb-2">{{item.notificationType.title}}</p>
+                    <p class="main-info  pb-2">{{item.description}}</p>
+                    <ng-container *ngIf="isSameDay(item); else diffDate">
+                      <p class="sub-info "> {{ item.createdAt |date:'h' }} {{ 'student.notification.hours-ago-label' |
+                        translate }} </p>
+                    </ng-container>
+                    <ng-template #diffDate>
+                      <p class="sub-info "> {{item.createdAt | date:'EEEE,MM/dd/yyyy'}} </p>
+                    </ng-template>
+                  </span>
+                  <!-- <span class="status-btn-wrapper" *ngIf="item.status">
+                      <app-button classes="btn small-btn btn-secondary mr-4" [submit]="true">
+                        <span aria-hidden="true">{{item.status}}</span>
+                      </app-button>
+                    </span> -->
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="table-pagination">
+            <ngb-pagination [collectionSize]="notificationList.length" [(page)]="page" [pageSize]="pageSize">
+              <ng-template ngbPaginationFirst class="first">{{'table-component.first'| translate}}</ng-template>
+              <ng-template ngbPaginationLast class="last">{{'table-component.last'| translate}}</ng-template>
+              <ng-template ngbPaginationPrevious class="previous">{{'table-component.prev'| translate}}</ng-template>
+              <ng-template ngbPaginationNext class="next">{{'table-component.next'| translate}}</ng-template>
+              <ng-template ngbPaginationEllipsis>...</ng-template>
+              <ng-template ngbPaginationNumber let-page>{{ page }}</ng-template>
+            </ngb-pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

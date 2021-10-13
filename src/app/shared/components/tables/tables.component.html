@@ -1,0 +1,62 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12 my-3">
+      <div class="pull-right">
+        <div class="btn-group"></div>
+      </div>
+    </div>
+  </div>
+  <ng-container *ngIf="dataSource.length > 0; else noData">
+    <div class="filter-short-by">
+      <span>{{'table-component.show'| translate}}</span>
+      <app-drop-down class="transparentbg" (registerDropdownValueChange)="changePageSize($event)"
+        [dropDownButtonName]="pageSize" [dropDownIcon]="" [dropDownItemList]="pageSizes"></app-drop-down>
+      <span>{{'table-component.entries'| translate}}</span>
+    </div>
+    <div class="table-responsive">
+      <table style="color: whitesmoke" class="table table-bordered  text-center">
+        <tr>
+          <th *ngFor="let col of tableHeaders" style="text-transform: uppercase;">
+            {{col.title}}
+          </th>
+        </tr>
+        <tr *ngFor="let data of dataSource | filter: term | slice: (page-1) * pageSize : page * pageSize"
+          (click)="onRowClick(data)">
+          <td *ngFor="let col of tableHeaders">
+            <span *ngIf="!col.isClickable && !col.isStarRating">{{data[col.data]}}</span>
+            <span *ngIf="col.isClickable">
+              <div *ngFor="let action of data[col.data]">
+                <a style="font-style: bold;color:#fed600" class="ml-2" (click)="onRowClick(data,action)">{{ action
+                  }}</a>
+              </div>
+            </span>
+            <span *ngIf="col.isStarRating">
+              <span *ngFor="let item of data[col.data]">
+                <ng-container *ngIf="item; else emptyStar">
+                  <fa-icon [icon]="star" style="color:#fddc02"></fa-icon>
+                </ng-container>
+                <ng-template #emptyStar>
+                  <fa-icon [icon]="starIcon"></fa-icon>
+                </ng-template>
+                </span>
+              </span>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="table-pagination">
+      <ngb-pagination [collectionSize]="dataSource.length" [(page)]="page" [pageSize]="pageSize">
+        <ng-template ngbPaginationFirst class="first">{{'table-component.first'| translate}}</ng-template>
+        <ng-template ngbPaginationLast class="last">{{'table-component.last'| translate}}</ng-template>
+        <ng-template ngbPaginationPrevious class="previous">{{'table-component.prev'| translate}}</ng-template>
+        <ng-template ngbPaginationNext class="next">{{'table-component.next'| translate}}</ng-template>
+        <ng-template ngbPaginationEllipsis>...</ng-template>
+        <ng-template ngbPaginationNumber let-page>{{ page }}</ng-template>
+      </ngb-pagination>
+    </div>
+  </ng-container>
+  <ng-template #noData>
+    <h5>{{'table-component.no-record'| translate}}.</h5>
+  </ng-template>
+  <!--   <table id="example" style="color: whitesmoke; font-weight: bold"  class="table table-bordered text-center">
+    </table> -->

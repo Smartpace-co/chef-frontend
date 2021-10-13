@@ -1,0 +1,687 @@
+<div *ngIf="StudentList?.length == 0" class="create-student-landing">
+  <div class="create-class">
+    <img src="./assets/images/class.svg" alt="" class="img-fluid" />
+    <h3>{{'teacher.roster.empty-class-label'|translate}}</h3>
+    <p>{{'teacher.roster.add-student-to-class'|translate}}</p>
+    <app-button classes="btn btn-primary w-50" [submit]="true" (click)="onUploadStudent()">
+      <span aria-hidden="true">{{'teacher.roster.upload-student-info-label'|translate}}</span>
+    </app-button>
+    <p class="mb-0">or</p>
+    <app-button classes="btn btn-secondary w-50" [submit]="true" (click)="AddStudent()">
+      <span aria-hidden="true">{{'school.student.add-student.add-student-label'|translate}}</span>
+    </app-button>
+  </div>
+</div>
+
+<div *ngIf="StudentList?.length > 0" class="roster-tabs">
+  <div class="roster-header">
+    <div class="container">
+      <div class="roster-header-main">
+        <h2 class="">
+          {{'school.class.class-list.you-have-label'|translate}} <span>{{ StudentList.length }}
+            {{'school.student.add-student.student-label' | translate | lowercase}} </span>
+          {{'teacher.roster.in-this-class-label'|translate}}
+        </h2>
+        <div class="roster-header-button">
+          <!-- <app-drop-down class="manageGroup" [dropDownButtonName]="manageGroupTitle" [dropDownIcon]="Cog"
+            [dropDownItemList]="manageGroupList"></app-drop-down> -->
+          <div class="creat-btn">
+            <app-button classes="btn btn-primary mr-4 icon-btn" *ngIf="studentBtn" (click)="openAddGroup(createGroup)"
+              [submit]="true">
+              <fa-icon [icon]="PlusIcon"></fa-icon>
+              <span aria-hidden="true">{{'teacher.roster.create-a-group-label'|translate}}</span>
+            </app-button>
+            <app-button classes="btn btn-primary btn-manage mr-4 icon-btn" *ngIf="manageBtn"
+              (click)="openGroupModal(manageGroup)" [submit]="true">
+              <fa-icon [icon]="Cog"></fa-icon>
+              <span aria-hidden="true">{{'teacher.roster.manage-groups-label'|translate}}</span>
+              <fa-icon class="down-arrow" [icon]="downArrow"></fa-icon>
+            </app-button>
+            <app-button classes="btn btn-creat icon-btn" *ngIf="manageBtn" (click)="openAddGroup(createGroup)"
+              [submit]="true">
+              <fa-icon [icon]="PlusIcon"></fa-icon>
+              <span aria-hidden="true">{{'teacher.roster.create-a-group-label'|translate}}</span>
+            </app-button>
+          </div>
+          <app-button classes="btn btn-primary icon-btn" [submit]="true" (click)="AddStudent()">
+            <fa-icon [icon]="PlusIcon"></fa-icon>
+            <span aria-hidden="true">{{'common.add'| translate}}
+              {{'district.district-schools.students-title'|translate}}</span>
+          </app-button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="notifications-wrapper">
+    <div class="notifications-tab">
+      <div class="container">
+        <ul id="tabs" class="nav nav-tabs" role="tablist">
+          <li class="nav-item">
+            <a id="students" href="#studentsNote" class="nav-link active" data-toggle="tab" role="tab"
+              (click)="studentClick()">{{'district.district-schools.students-title'|translate}}</a>
+          </li>
+          <li class="nav-item">
+            <a id="groups" href="#groupsNote" class="nav-link" data-toggle="tab" role="tab"
+              (click)="groupClick()">{{'teacher.roster.groups'|translate}}</a>
+          </li>
+        </ul>
+      </div>
+      <div class="roster-filter" *ngIf="showCriteria">
+        <div class="container">
+          <fa-icon [icon]="SearchIcon"></fa-icon>
+          <input id="table-filter" class="form-control transparentbg" type="text" name="term" [(ngModel)]="term"
+            placeholder="{{'teacher.roster.search-for-student-by-id-name'|translate}}" />
+
+          <div class="filter-droplist">
+            <app-drop-down class="transparentbg" [dropDownButtonName]="StudentMenuTitle" [dropDownIcon]=""
+              [dropDownItemList]="StudentMenuList" (registerDropdownValueChange)="sortGroupData($event)">
+            </app-drop-down>
+            <app-drop-down class="transparentbg" (registerDropdownValueChange)="changeView($event)"
+              [dropDownButtonName]="ViewTitle" [dropDownIcon]="ViewIcon" [dropDownItemList]="ViewList"></app-drop-down>
+            <app-drop-down class="transparentbg" [dropDownButtonName]="SortByTitle" [dropDownIcon]="SortByIcon"
+              [dropDownItemList]="SortByList" (registerDropdownValueChange)="sortData($event)"></app-drop-down>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div id="content" class="tab-content" role="tablist">
+          <div id="studentsNote" class="panal-card tab-pane fade show active" role="tabpanel"
+            aria-labelledby="students">
+            <div class="panal-card-header" role="tab" id="studentInfo">
+              <h5 class="mb-0">
+                <a data-toggle="collapse" href="#collapseInfo" aria-expanded="true" aria-controls="collapseInfo">
+                  {{'district.district-schools.students-title'|translate}}
+                </a>
+              </h5>
+            </div>
+            <div *ngIf="gridview" id="collapseInfo" class="collapse show" data-parent="#content" role="tabpanel"
+              aria-labelledby="studentInfo">
+              <div *ngIf="gridview" class="studentList">
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let item of StudentList | filter: term">
+                    <div class="studentItem">
+                      <div class="studentItem__photo">
+                        <img src="{{ item.studentPhoto }}" />
+                      </div>
+                      <h3 class="studentItem__name">{{ item.firstName}}</h3>
+                      <ul class="studentItem__info">
+                        <li class="studentItem__info__id">
+                          <label>{{'district.district-schools.id'| translate}}:</label>
+                          <span>{{ item.id }}</span>
+                        </li>
+                        <li class="studentItem__info__id">
+                          <label>{{'teacher.roster.group-label'|translate}}:</label>
+                          <span class="student-color" [ngStyle]="{'background-color': item?.hexCode}"></span>
+                          <span>{{ item?.colorName }}</span>
+                        </li>
+                      </ul>
+                      <!-- <div class="info">
+                              <span class="info-icon">
+                                <fa-icon [icon]="exclamationTriangle"></fa-icon>
+                              </span>
+                              <p>Allergens</p>
+                            </div> -->
+                      <ul class="studentItem__action">
+                        <!-- <li>
+                          <a (click)="open(signIn,item)">{{'teacher.roster.sign-in-info-label'|translate}} <fa-icon
+                              [icon]="rightArrow"></fa-icon></a>
+                        </li> -->
+                        <li>
+                          <a (click)="open(profile,item)">{{'student.profile.profile-label'| translate }} <fa-icon
+                              [icon]="rightArrow"></fa-icon></a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div *ngIf="listview">
+              <app-tables (rowClick)="open(profile,$event)" [dataSource]="StudentList" [tableHeaders]="studentHeaders"
+                [page]="1" [pageSize]="10"></app-tables>
+            </div>
+          </div>
+          <div id="groupsNote" class="panal-card tab-pane fade" role="tabpanel" aria-labelledby="groups">
+            <div class="panal-card-header" role="tab" id="groupsInfo">
+              <h5 class="mb-0">
+                <a class="collapsed" data-toggle="collapse" href="#collapseGroups" aria-expanded="false"
+                  aria-controls="collapseGroups">
+                  {{'teacher.roster.groups'|translate}}
+                </a>
+              </h5>
+            </div>
+            <div id="collapseGroups" class="collapse" data-parent="#content" role="tabpanel"
+              aria-labelledby="groupsInfo">
+              <div class="roster-group-list">
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let item of rosterGroup | filter: term">
+                    <div class="rosterItem card">
+                      <div class="rosterItem__info">
+                        <div class="group-wraper">
+                          <div class="heading-wraper">
+                            <h5 class="heading"><span class="group-color"
+                                [ngStyle]="{'background-color': item.groupColor?.hexCode}"></span>
+                              {{'teacher.roster.group-label'|translate}} - {{item.groupColor?.colorName}}</h5>
+                            <div class="times-wraper">
+                              <fa-icon [icon]="times"></fa-icon>
+                            </div>
+                          </div>
+                          <div class="details-wraper">
+                            <div class="date-wraper">
+                              <span class="date">{{'teacher.roster.created-date-label'|translate}}: {{item.createdAt |
+                                date: 'dd/MM/yyyy'}}</span>
+                            </div>
+                            <div class="total-wraper">
+                              <span class="number">{{item.groupStudents.length}}</span>
+                              <span class="text">{{'teacher.roster.total-students-in-group'|translate}}</span>
+                            </div>
+                          </div>
+                        </div>
+                        <ul class="rosterItem__links">
+                          <li>
+                            <a (click)="openStudentList(studentList,item)">{{'teacher.assignment.view-menu'|translate}}
+                              {{'district.district-schools.students-title'|translate}}</a>
+                          </li>
+                          <li>
+                            <a
+                              (click)="editGroupModel(createGroup,item)">{{'teacher.assignment.edit-menu'|translate}}</a>
+                          </li>
+                          <li>
+                            <a
+                              (click)="openDeleteModel(deletegroup,item)">{{'teacher.roster.remove-label'|translate}}</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Create Class Modal-->
+<ng-template #createGroup let-modal>
+  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <img src="./assets/images/close.png" alt="" class="img-fluid" />
+  </button>
+  <div class="modal-body create-modal">
+    <!-- <div class="create-class-form"> -->
+    <div class="heading-wraper">
+      <h2 class="heading" *ngIf="classLabel == 'create'"> {{'teacher.roster.create'|translate}}
+        {{'teacher.roster.group-label'|translate}}</h2>
+      <h2 class="heading" *ngIf="classLabel == 'edit'"> {{'teacher.assignment.edit-menu'|translate}}
+        {{'teacher.roster.group-label'|translate}}</h2>
+    </div>
+    <form [formGroup]="createClass" class="creat-form">
+      <fieldset>
+        <div class="row">
+          <div class="col-sm-4">
+            <label>{{'teacher.roster.group-label'|translate}} {{'teacher.roster.color'|translate}}</label>
+            <!-- <div class="colorDropdown"></div> -->
+            <ngx-select-dropdown class="colorDropdown" [ngStyle]="{'background-color':colorvalue}"
+              (change)="selectionChanged($event)" formControlName="groupColorId" [multiple]="false" [config]="config"
+              [options]="dropdownOptions"></ngx-select-dropdown>
+
+            <!-- <app-drop-down class="colorDropdown" [dropDownIcon]="" fieldControl="groupColorId"
+                [dropDownItemList]="colorList" [ngStyle]="{'background-color':colorvalue}"
+                (registerDropdownValueChange)="onColorChange($event)">
+              </app-drop-down> -->
+
+          </div>
+          <div class="col-sm-8">
+            <label>{{'teacher.roster.group-label'|translate}}
+              {{'district.district-profile.agent-component.title-field.label'| translate}}</label>
+            <app-input-field classes="form-control" types="text" ids="title" fieldControl="title"
+              placeholders="{{'teacher.roster.group-label'|translate}} Title" [form]="createClass">
+            </app-input-field>
+          </div>
+        </div>
+
+        <div class="student-list">
+          <div class="group-heading">
+            <h6 class="heading">{{'common.add'| translate}} {{'teacher.roster.group-label'|translate}} Members</h6>
+          </div>
+          <ul class="list-wraper">
+            <div class="list-header">
+              <span class="heading">{{'teacher.roster.invite-members-to-group'|translate}}</span>
+            </div>
+            <li class="list-content" *ngFor="let item of StudentList ; let i=index;">
+              <div class="student">
+                <div class="student__photo">
+                  <img src="./assets/images/student.png" class="img-fluid" />
+                </div>
+                <div class="student__name">
+                  <h6>{{item.firstName}} , {{item.lastName}}</h6>
+                </div>
+              </div>
+              <div class="checkbox-container">
+                <label class="checkbox_wraper">
+                  <input type="checkbox" (change)="onStudentChange(i,$event)" [checked]="item?.checked">
+                  <span class="checkmark"></span>
+                </label>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="custom-control custom-radio">
+              <app-radio classes="custom-control-input" types="radio" fieldControl="status" [form]="createClass"
+                names="status" [values]="true">
+              </app-radio>
+              <label class="custom-control-label" for="Active">{{'table-search-filter-container.status.active'|
+                translate}}</label>
+            </div>
+            <div class="custom-control custom-radio">
+              <app-radio classes="custom-control-input" types="radio" fieldControl="status" [form]="createClass"
+                names="status" [values]="false">
+              </app-radio>
+              <label class="custom-control-label" for="Inactive">{{'table-search-filter-container.status.inactive'|
+                translate}}</label>
+            </div>
+          </div>
+        </div>
+        <div class="profile-btns">
+          <app-button classes="btn btn-secondary" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">{{'common.cancel'| translate}}</span>
+          </app-button>
+          <app-button classes="btn btn-primary icon-btn" [submit]="true" (click)="addGroup()"
+            [disabled]="createClass.invalid">
+            <span aria-hidden="true" *ngIf="classLabel == 'create'">{{'teacher.roster.create'|translate}}
+              {{'teacher.roster.group-label'|translate}}</span>
+            <span aria-hidden="true" *ngIf="classLabel == 'edit'">{{'common.update'| translate}}
+              {{'teacher.roster.group-label'|translate}}</span>
+            <!-- <span aria-hidden="true">Create Group</span> -->
+          </app-button>
+        </div>
+      </fieldset>
+    </form>
+    <!-- </div> -->
+  </div>
+</ng-template>
+
+<!-- Profile Info Modal -->
+<ng-template #profile let-modal id="profile">
+  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <img src="./assets/images/close.png" alt="" class="img-fluid" />
+  </button>
+  <div class="modal-body profile-modal">
+    <div class="profile-header">
+      <h4>{{'school.class.class-details.student-profile-label' | translate}}</h4>
+      <a (click)="getNextStudentInfo()">{{'table-component.next'| translate}}
+        {{'school.student.add-student.student-label' | translate}} <fa-icon [icon]="NextArrow"></fa-icon></a>
+    </div>
+    <ul class="student-profile">
+      <li class="student-photo"><img src="./assets/images/student-info.svg" /></li>
+      <li class="student-name">
+        <label>{{'school.teacher.add-teacher.last-name.last-name-field' | translate}}</label>
+        <strong>{{profileInfo.lastName}}</strong>
+      </li>
+      <li class="student-name">
+        <label>{{'school.teacher.add-teacher.first-name.first-name-field' | translate}}</label>
+        <strong>{{profileInfo.firstName}}</strong>
+      </li>
+      <li class="student-name">
+        <label>{{'school.student.add-student.student-label' | translate}} {{'district.district-schools.id'|
+          translate}}</label>
+        <strong>{{profileInfo.id}}</strong>
+      </li>
+    </ul>
+    <div class="information-wrapper">
+      <div class="information-tab">
+        <ul id="tabs" class="nav nav-tabs" role="tablist">
+          <li class="nav-item">
+            <a id="personal_info" href="#personalInfo" class="nav-link active" data-toggle="tab"
+              role="tab">{{'school.teacher.add-teacher.personal-info-label' | translate}} </a>
+          </li>
+          <li class="nav-item">
+            <a id="contact_info" href="#contactInfo" class="nav-link" data-toggle="tab"
+              role="tab">{{'school.student.add-student.personal-info.contact-info.label' | translate}}</a>
+          </li>
+          <li class="nav-item">
+            <a id="medical_info" href="#medicalInfo" class="nav-link" data-toggle="tab"
+              role="tab">{{'school.student.add-student.personal-info.medical-info.label' | translate}}</a>
+          </li>
+          <li class="nav-item">
+            <a id="journal_info" href="#journalInfo" class="nav-link" data-toggle="tab"
+              role="tab">{{'student.journal.journal-label'| translate }}</a>
+          </li>
+        </ul>
+        <div id="content" class="tab-content" role="tablist">
+          <div id="personalInfo" class="panal-card tab-pane fade show active" role="tabpanel"
+            aria-labelledby="personal_info">
+            <div class="panal-card-header" role="tab" id="personal-info">
+              <h5 class="mb-0">
+                <a data-toggle="collapse" href="#collapsePersonal" aria-expanded="true"
+                  aria-controls="collapsePersonal">
+                  {{'school.teacher.add-teacher.personal-info-label' | translate}} </a>
+              </h5>
+            </div>
+            <div id="collapsePersonal" class="collapse show" data-parent="#content" role="tabpanel"
+              aria-labelledby="personal-info">
+              <ul class="student-details">
+                <li class="dob w-50">
+                  <label>{{'school.student.add-student.personal-info.birth-date' | translate}}</label>
+                  <strong>{{profileInfo?.dob | date: 'MM/dd/yyyy'}}</strong>
+                </li>
+                <li class="gender w-50">
+                  <label>{{'district.district-profile.agent-component.gender-field.label'| translate}}</label>
+                  <strong>{{profileInfo?.gender}}</strong>
+                </li>
+                <li class="ethnicity w-50">
+                  <label>{{'school.student.add-student.personal-info.ethnicity' | translate}}</label>
+                  <strong>{{profileInfo.ethnicity?.title}}</strong>
+                </li>
+                <li class="grade w-50">
+                  <label>{{'school.class.add-class.grade-field' | translate}}</label>
+                  <strong>{{profileInfo.grade?.grade}}</strong>
+                </li>
+                <li class="email w-100">
+                  <label>{{'district.district-profile.agent-component.email-field.label'|translate}}</label>
+                  <strong>{{profileInfo?.contactPersonEmail}}</strong>
+                </li>
+                <li class="interests  w-100">
+                  <label>{{'teacher.roster.interests-label'|translate}}</label>
+                  <strong>{{profileInfo.interests}}</strong>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="contactInfo" class="panal-card tab-pane fade" role="tabpanel" aria-labelledby="contact_info">
+            <div class="panal-card-header" role="tab" id="contact-info">
+              <h5 class="mb-0">
+                <a class="collapsed" data-toggle="collapse" href="#collapseContact" aria-expanded="false"
+                  aria-controls="collapseContact">
+                  {{'school.student.add-student.personal-info.contact-info.label' | translate}} </a>
+              </h5>
+            </div>
+            <div id="collapseContact" class="collapse" data-parent="#content" role="tabpanel"
+              aria-labelledby="contact-info">
+              <ul class="student-details">
+                <li class="contact-name w-100">
+                  <label>{{'school.student.add-student.personal-info.contact-info.contact-name.label' |
+                    translate}}</label>
+                  <strong>{{profileInfo?.contactPersonName}}</strong>
+                </li>
+                <li class="contact-relation w-100">
+                  <label>{{'school.student.add-student.personal-info.contact-info.contact-relationship' |
+                    translate}}</label>
+                  <strong>{{profileInfo.relation?.title}}</strong>
+                </li>
+                <li class="contact-email w-100">
+                  <label>{{'school.student.add-student.personal-info.contact-info.email.label' | translate}}</label>
+                  <strong>{{profileInfo?.contactPersonEmail}}</strong>
+                </li>
+                <li class="contact-number w-100">
+                  <label>{{'school.teacher.add-teacher.contact.placeholder' | translate}}</label>
+                  <strong>{{profileInfo?.contactPersonNumber}}</strong>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="medicalInfo" class="panal-card tab-pane fade" role="tabpanel" aria-labelledby="medical_info">
+            <div class="panal-card-header" role="tab" id="medical-info">
+              <h5 class="mb-0">
+                <a class="collapsed" data-toggle="collapse" href="#collapseMedical" aria-expanded="false"
+                  aria-controls="collapseMedical">
+                  {{'school.student.add-student.personal-info.medical-info.label' | translate}} </a>
+              </h5>
+            </div>
+            <div id="collapseMedical" class="collapse" data-parent="#content" role="tabpanel"
+              aria-labelledby="medical-info">
+              <ul class="student-details">
+                <li class="Allergens w-100">
+                  <label>{{'school.student.add-student.personal-info.medical-info.allergens-label.label' |
+                    translate}}</label>
+                  <strong>{{allergens}}</strong>
+                </li>
+                <li class="gender w-100">
+                  <label>{{'school.student.add-student.personal-info.medical-info.medical-conditions.label' |
+                    translate}}</label>
+                  <strong>{{medicalCondition}} </strong>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="journalInfo" class="panal-card tab-pane fade" role="tabpanel" aria-labelledby="journal_info">
+            <div class="panal-card-header" role="tab" id="journal-info">
+              <h5 class="mb-0">
+                <a class="collapsed" data-toggle="collapse" href="#collapseJournal" aria-expanded="false"
+                  aria-controls="collapseJournal">
+                  {{'student.journal.journal-label'| translate }}
+                </a>
+              </h5>
+            </div>
+            <div id="collapseJournal" class="collapse" data-parent="#content" role="tabpanel"
+              aria-labelledby="journal-info">
+              <div class="journal">
+                <div class="form-journal">
+                  <form>
+                    <div class="search-section">
+                      <div class="search-icon">
+                        <fa-icon class="ml-3" [icon]="SearchIcon"></fa-icon>
+                      </div>
+                      <input type="search" placeholder="Search" class="search-input">
+                      <div class="calender-icon">
+                        <fa-icon class="ml-3" [icon]="Calendar"></fa-icon>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <ul class="journal-info">
+                  <li class="info-list" *ngFor="let item of journalInfo; let i = index;">
+                    <div class="row">
+                      <div class="col-sm-3 info-wraper">
+                        <span class="info-label">{{'teacher.roster.date-label'|translate}}</span>
+                        <span class="info-details"> {{item.createdAt | date: 'HH:mm a'}},
+                          {{item.createdAt | date: 'dd/MM/yyyy'}}
+                        </span>
+                      </div>
+                      <div class="col-sm-9 info-wraper">
+                        <span class="info-label">
+                          {{'teacher.roster.text-label'|translate}}
+                        </span>
+                        <span class="info-details">
+                          {{item.note}}
+                        </span>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="profile-btns">
+        <app-button classes="btn btn-secondary btn-close" (click)="closeOpenModal()">
+          <span aria-hidden="true">{{'common.close'|translate}}</span>
+        </app-button>
+        <app-button classes="btn btn-primary icon-btn">
+          <span class="icon"><img src="./assets/images/print.svg" /></span>
+          <span aria-hidden="true">{{'teacher.roster.print-label'|translate}} </span>
+        </app-button>
+        <app-button classes="btn btn-primary icon-btn" (click)="editStudentInfo(profileInfo)">
+          <span class="icon"><img src="./assets/images/edit.svg" /></span>
+          <span aria-hidden="true">{{'teacher.assignment.edit-menu'|translate}}</span>
+        </app-button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
+<!-- sign-in pop-up -->
+<ng-template #signIn let-modal id="signIn">
+  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <img src="./assets/images/close.png" alt="" class="img-fluid" />
+  </button>
+  <div class="modal-body signIn-modal">
+    <div class="signIn-header">
+      <h4>{{'school.class.class-details.student-profile-label' | translate}}</h4>
+    </div>
+    <div class="student">
+      <div class="student__photo">
+        <img src="./assets/images/student.png" />
+      </div>
+      <div class="student__name">
+        <h2>Samuel, Aaron</h2>
+        <span class="student-id">{{'district.district-schools.id'| translate}}: 36272
+        </span>
+      </div>
+    </div>
+    <div class="student-main">
+      <div class="row">
+        <div class="col-sm-6 main-wraper">
+          <p class="main-para">{{'teacher.roster.use-access-code-label'|translate}}
+          </p>
+          <h3 class="main-heading">SAMUEL36271</h3>
+        </div>
+        <div class="col-sm-6">
+          <div class="qr-code">
+            <img src="./assets/images/qr-code.png" class="img-fluid" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="email-wraper">
+      <div class="app-url">
+        <label for="homepage">{{'teacher.roster.app-url'|translate}}</label>
+        <a class="email">https://app. chefkoochooloo.com/signin/student</a>
+      </div>
+    </div>
+    <div class="profile-btns">
+      <app-button classes="btn btn-secondary btn-close" (click)="closeOpenModal()">
+        <span aria-hidden="true">{{'common.close'|translate}}</span>
+      </app-button>
+      <app-button classes="btn btn-primary icon-btn">
+        <span class="icon"><img src="./assets/images/print.svg" /></span>
+        <span aria-hidden="true">{{'teacher.roster.print-label'|translate}}
+          {{'teacher.roster.sign-in-info-label'|translate}}</span>
+      </app-button>
+      <app-button classes="btn btn-primary icon-btn">
+        <span class="icon print"><img src="./assets/images/print.svg" /></span>
+      </app-button>
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-template #studentList let-modal>
+  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <img src="./assets/images/close.png" alt="" class="img-fluid" />
+  </button>
+  <div class="modal-body student-list-modal">
+    <div class="header-wraper">
+      <h2 class="heading">{{'teacher.roster.student-list'|translate}}</h2>
+    </div>
+    <div class="student-content">
+      <ul class="student-list-wraper">
+        <li class="student-list" *ngFor="let item of groupStudentList">
+          <div class="student-photo">
+            <img src="./assets/images/student.png" class="img-fluid" alt="">
+          </div>
+          <div class="student-name">
+            <span class="name">{{item.student?.firstName}} , {{item.student?.lastName}}</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="student-btn-wrapper">
+      <app-button classes="btn btn-small btn-primary btn-list" (click)="modal.dismiss('Cross click')" [submit]="true">
+        <span aria-hidden="true">{{'common.ok'| translate}}</span>
+      </app-button>
+    </div>
+  </div>
+</ng-template>
+
+<!-- group delete Modal -->
+<ng-template #deletegroup let-modal id="deletegroup">
+  <button type="button" class="close" aria-label="Close" (click)="closeOpenModal()">
+    <img src="./assets/images/close.png" alt="" class="img-fluid" />
+  </button>
+  <div class="modal-body">
+    <div class="delete-class">
+      <h2 class="modal-title">{{'common.delete'| translate}} {{'teacher.roster.group-label'|translate}}</h2>
+      <h4>{{'teacher.roster.delete-group-confirmation'|translate}}</h4>
+      <div class="d-flex justify-content-between">
+        <app-button classes="btn btn-secondary mr-4" [submit]="true" (click)="closeOpenModal()">
+          <span aria-hidden="true">{{'common.cancel'| translate}}</span>
+        </app-button>
+        <app-button classes="btn btn-primary btn-block" [submit]="true" (click)="deleteGroup(groupId)">
+          <span aria-hidden="true">{{'common.delete'| translate}}</span>
+        </app-button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #manageGroup let-modal>
+  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <img src="./assets/images/close.png" alt="" class="img-fluid" />
+  </button>
+  <div class="modal-body manage-modal">
+    <div class="header-wraper">
+      <h2 class="heading">{{'teacher.roster.manage-groups-label'|translate}}</h2>
+      <span class="group-info">{{'teacher.roster.you-have-created'|translate}} {{rosterGroup.length}}
+        {{'teacher.roster.groups-for-this-class'|translate}}</span>
+    </div>
+    <div class="manage-content">
+      <ul class="manage-list-wraper" *ngFor="let item of rosterGroup">
+        <label>{{item.groupColor?.colorName}}</label>
+        <li class="manage-list">
+          <div class="group-color">
+            <!-- <label>{{item.groupColor?.colorName}}</label> -->
+            <div class="color-shades" [ngStyle]="{'background-color': item.groupColor?.hexCode}"></div>
+          </div>
+          <div class="group-name">
+            <span class="name">{{item?.students}}</span>
+          </div>
+          <div class="group-edit">
+            <a class="icon-bg" (click)="editGroupModel(createGroup,item)">
+              <fa-icon [icon]="pencil"></fa-icon>
+            </a>
+            <a class="icon-bg" (click)="openDeleteModel(deletegroup,item)">
+              <fa-icon [icon]="trash"></fa-icon>
+            </a>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="manage-btn-wrapper">
+      <app-button classes="btn btn-small btn-secondary" (click)="modal.dismiss('Cross click')" [submit]="true">
+        <span aria-hidden="true">{{'common.cancel'| translate}}</span>
+      </app-button>
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-template #proceedMembershipClassModal let-modal>
+  <button type="button" class="close" aria-label="Close" (click)="closePopup()">
+    <img src="./assets/images/close.png" alt="" class="img-fluid" />
+  </button>
+  <div class="modal-header membership-header">
+    <div class="logo">
+      <img src="./assets/images/logo.png" class="img-fluid" />
+    </div>
+  </div>
+  <div class="modal-body journal-body">
+    <h6 class="Total">{{'school.class.add-class.exceeded-package-desc'|translate}}</h6>
+    <div class="close-btn-wrapper">
+      <app-button classes="btn btn-primary membership-close-btn" [submit]="true" (click)="onProceed()">
+        <span aria-hidden="true">{{'school.edit-membership.proceed-label'|translate}}</span>
+      </app-button>
+    </div>
+  </div>
+</ng-template>

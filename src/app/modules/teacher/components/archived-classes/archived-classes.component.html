@@ -1,0 +1,113 @@
+<div class="archived-header">
+    <div class="container">
+      <div class="archived-header-main">
+        <h2 class="">
+          {{'school.class.class-list.you-have-label'|translate}} <span>{{ archivedClassesList.length }}</span> {{'teacher.archived-classes.archived-class-label'|translate}}
+        </h2>
+      </div>
+    </div>
+  </div>
+  <div class="archived-filter">
+    <div class="container">
+      <fa-icon [icon]="SearchIcon"></fa-icon>
+      <input id="table-filter" class="form-control transparentbg" type="text" name="term" [(ngModel)]="term"
+        placeholder="Search" />
+      <div class="filter-droplist">
+        <app-drop-down class="transparentbg" (registerDropdownValueChange)="changeView($event)"
+          [dropDownButtonName]="ViewTitle" [dropDownIcon]="ViewIcon" [dropDownItemList]="ViewList"></app-drop-down>
+        <!-- <app-drop-down class="transparentbg" [dropDownButtonName]="archivedFilterTitle" [dropDownIcon]=""
+          [dropDownItemList]="archivedFilterList" (registerDropdownValueChange)="sortData($event)"></app-drop-down> -->
+        <app-drop-down class="transparentbg" [dropDownButtonName]="SortByTitle" [dropDownIcon]="SortByIcon"
+          [dropDownItemList]="SortByList" (registerDropdownValueChange)="sortData($event)"></app-drop-down>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="gridview" class="archived-classes-list">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let item of archivedClassesList| filter: term">
+          <div class="archivedItem card">
+            <div class="archivedItem__image">
+              <img src="{{ item.image }}" alt="" class="img-fluid" />
+            </div>
+            <div class="archivedItem__info">
+              <h2 class="archivedItem__name">{{ (item.title.length>50)? (item.title | slice:0:50)+'..':(item.title) }}</h2>
+              <ul class="archivedItem__details">
+                <li>
+                  <label>{{'teacher.archived-classes.created-label'|translate}}: </label>
+                  <span>{{item.archived_at | date: 'dd/MM/yyyy'}}</span>
+                </li>
+                <li>
+                  <label>{{item.number_of_students}} {{'teacher.archived-classes.members-label'|translate}}</label>
+                </li>
+              </ul>
+              <ul class="archivedItem__links">
+                <li>
+                  <a (click)="open(classView,item)">{{'teacher.assignment.view-menu'|translate}} <fa-icon [icon]="RightArrow" ></fa-icon></a>
+                </li>
+                <li>
+                  <a (click)="unArchiveClass(item.id)">{{'common.delete'| translate}} <fa-icon [icon]="RightArrow"></fa-icon></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="listview">
+    <app-tables [term]="term" [dataSource]="archivedClassesList" [page]="1" [pageSize]="10"
+      [tableHeaders]="archivedListHeaders"></app-tables>
+  </div>
+
+<!-- Create Class Modal-->
+<ng-template #classView let-modal>
+  <button type="button" class="close" aria-label="Close" (click)="closeOpenModal()">
+      <img src="./assets/images/close.png" alt="" class="img-fluid" />
+  </button>
+  <div class="modal-body">
+      <div class="create-class-form">
+          <h2 class="modal-title"> {{'school.student.add-student.class.student-class' | translate}} {{'district.district-schools.info-title' | translate}}</h2>
+              <div class="row">
+                  <div class="col-md-6">
+                      <label>{{'school.class.add-class.class-field'|translate}} :</label>
+                      
+                  </div>
+
+                  <div class="col-md-6">
+                    <label>{{classInfo.title}} </label>
+                  </div>
+
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                    <label>{{'school.class.add-class.grade-field' | translate}}  :</label>  
+                </div>
+                <div class="col-md-6">
+                    <label>{{classInfo.grade?.grade}} </label>
+                </div>
+            </div>
+              <div class="row">
+                  <div class="col-md-6">
+                      <label>{{'school.class.add-class.standards-field'|translate}}  :</label>
+                  </div>
+                  <div class="col-md-6">
+                    <label>{{classStandards}}</label>
+                </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-6">
+                    <label>{{'school.teacher.add-teacher.status' | translate}}  :</label>
+                  </div>
+                  <div class="col-md-6">
+                    <label>{{classStatus}}</label>
+                  </div>
+              </div>
+              <div class="footer-btns">
+                  <app-button classes="btn btn-secondary" [submit]="true" (click)="closeOpenModal()">
+                      <span aria-hidden="true">{{'common.cancel'| translate}}</span>
+                  </app-button>
+              </div>
+      </div>
+  </div>
+</ng-template>

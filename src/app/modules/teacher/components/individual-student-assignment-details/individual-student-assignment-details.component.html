@@ -1,0 +1,104 @@
+<div class="individual-student-assignment-details">
+    <div class="container">
+        <div class="individual-header">
+            <app-button classes="btn btn-secondary" (click)="backToExploreList()">
+                <fa-icon [icon]="backArrow" class="mr-2"></fa-icon>
+                <span aria-hidden="true">Back</span>
+            </app-button>
+            <h3>Samuel, Aaron</h3>
+        </div>
+        <div class="card">
+            <ul class="individual-list-header">
+                <li class="start-date">
+                    <label>
+                        <span>Start And</span>
+                        <span>End Date</span>
+                    </label>
+                    <div class="value">
+                        <ul class="bullet-list">
+                            <li>
+                                <span>12:54 PM</span>,
+                                <span>10/20/2020</span>
+                            </li>
+                            <li>
+                                <span>12:59 PM</span>,
+                                <span>10/20/2020</span>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <label>
+                        <span>Status +</span>
+                        <span>Skill Proficiency</span>
+                    </label>
+                    <div class="value">
+                        <span>Completed</span>
+                    </div>
+                </li>
+            </ul>
+            <ul class="questions" *ngFor="let item of questionsList, let i = index">
+                <!-- <li *ngfor="let item of questionsList"> -->
+                <li *ngIf="!item.status">
+                    <div class="question">
+                        <label>Questions</label>
+                        <strong>{{item.question}}</strong>
+                    </div>
+                    <div class="answer">
+                        <label>Answer</label>
+                        <strong>{{item.answer}}</strong>
+                    </div>
+                    <div class="attempt">
+                        <div class="correct">
+                            <label>Incorrect Attempts</label>
+                            <strong>{{item.incorrect_attempts}}</strong>
+                        </div>
+                        <div class="incorrect">
+                            <label>Number of Attempts</label>
+                            <strong>{{item.number_of_attempts}}</strong>
+                        </div>
+                    </div>
+                </li>
+                <li *ngIf="item.status">
+                    <div class="question">
+                        <label>Questions</label>
+                        <strong>{{item.question}}</strong>
+                    </div>
+                    <div class="answer">
+                        <label>Answer</label>
+                        <strong>{{item.answer}}</strong>
+                    </div>
+                    <div class="attempt">
+                        <div class="correct">
+                            <label>Correct</label>
+                            <strong class="correct"></strong>
+                        </div>
+                        <div class="incorrect">
+                            <label>Incorrect</label>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <ul class="questions">
+                <li>
+                    <label>Performed experiment and activities</label>
+                    <ul class="inline-bullet-list" *ngFor="let item of experiments">
+                        <li>
+                            <span>{{item.activity1}}</span>
+                        </li>
+                        <li>
+                            <span>{{item.activity2}}</span>
+                        </li>
+                        <li>
+                            <span>{{item.activity3}}</span>
+                        </li>
+                        <li>
+                            <span>{{item.activity4}}</span>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="individual-list-footer"></div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,79 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+  .active-action-body{
+    background:url("../../../../../assets/images/kitchen-bg.jpg") center no-repeat ,;
+    background-size: cover;
+    min-height: calc(100vh - 24.2rem);
+    position: relative;
+    overflow: hidden;
+    @include breakpoint(mobile) {
+      min-height: calc(100vh - 33rem);
+    }
+    .container{
+      @include breakpoint(tabs){
+        padding: 0;
+      }
+      .final-editaion{
+        margin-top: 12rem;
+        padding-bottom: 15rem;
+        overflow: hidden;
+        position: relative;
+        @include breakpoint(tabs) {
+          padding-top: 0rem;
+        }
+        @include breakpoint(mobile){
+          padding-bottom: 6rem;
+        }
+        .content-wrapper{
+          text-align: center;
+          max-width: 100%;
+          .card-wihtout-header-blue{
+            position: relative;
+            display: inline-block;
+            margin: 0 auto;
+            max-width: 60rem;
+            text-align: left;
+            @include breakpoint(tabs){
+              max-width: 40rem;
+              padding: 2rem;
+            }
+            @include breakpoint(mobile){  
+              padding-bottom: 14rem;
+            }
+            @include breakpoint(xtrasmallmobile){
+              max-width: 90%;
+            }
+            .active-action-wrapper{
+              p{
+                font-size: 2.4rem;
+                font-weight: 700;
+                text-align: center;
+                @include breakpoint(mobile){  
+                  font-size: 1.8rem;
+                }
+              }
+            }
+            .submit-btn-wrapper{
+              margin-top: 3.5rem;
+              text-align: center;
+            }
+          }
+          .final-editaion-img-wrapper{
+            max-width: 29rem;
+            position: absolute;
+            display:block;
+            margin-left: auto;
+            left: 0;
+            bottom: -5rem;
+            @include breakpoint(mobile){
+              max-width: 20rem;
+            }
+            @include breakpoint(mobile) {
+              left: -7rem;
+              bottom: -8rem;
+            }
+          }
+        }
+      }
+    }
+  }

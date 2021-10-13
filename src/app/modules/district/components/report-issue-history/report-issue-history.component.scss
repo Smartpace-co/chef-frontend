@@ -1,0 +1,145 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+
+.discussion-forum {
+    padding: 5rem 0rem;
+
+    .discussion-forum-profile-wrapper {
+        padding: 0rem 7rem 3rem 4rem;
+        position: relative;
+
+        @include breakpoint(mobile) {
+            padding: 0rem 2rem;
+            width: 100%;
+        }
+
+        .roster-header-button {
+            position: absolute;
+            top: 0;
+            right: 7rem;
+            font-size: 2rem;
+            transform: translate(0, -50%);
+
+            @include breakpoint(mobile) {
+                right: 2rem;
+            }
+
+            @include breakpoint(smallmobile) {
+                position: static;
+                text-align: center;
+                margin-bottom: 1rem;
+            }
+
+            ::ng-deep .btn {
+                font-size: 2rem;
+                padding: 1.5rem 3rem;
+                @include breakpoint(mobile) {
+                    font-size: 1.6rem;
+                }
+                &:before {
+                    width: 1.4rem;
+                    height: 1rem;
+                    left: .8rem;
+                    top: 1.5rem;
+                }
+            }
+        }
+
+        .discussion-list {
+            [class*="col-"]:nth-child(odd) {
+                .discussion-item {
+                    margin-right: 1rem;
+
+                    @include breakpoint(mobile) {
+                        margin-right: 0;
+                    }
+                }
+            }
+
+            [class*="col-"]:nth-child(even) {
+                .discussion-item {
+                    margin-left: 1rem;
+
+                    @include breakpoint(mobile) {
+                        margin-left: 0;
+                    }
+                }
+            }
+        }
+
+        .discussion-item {
+            background: #4066cb;
+            border: 1px solid #c1c1c1;
+            border-radius: 1.2rem;
+            position: relative;
+            padding: 2.3rem 2.7rem;
+            min-height: 17rem;
+            margin-bottom: 3rem;
+
+            .title {
+                font-size: 1.8rem;
+                font-weight: 700;
+                line-height: 1.22;
+                color: $secondary;
+                margin-bottom: 1.5rem;
+            }
+
+            .description {
+                font-size: 1.4rem;
+                opacity: 0.56;
+                line-height: 1.29;
+                color: $white;
+                font-weight: 600;
+                padding: 0;
+            }
+
+            .response-details {
+                display: flex;
+                flex-wrap: wrap;
+                margin-top: 1.5rem;
+
+                li {
+                    display: flex;
+                    align-items: center;
+
+                    @include breakpoint(smallmobile) {
+                        margin-bottom: 1rem;
+                    }
+
+                    .count {
+                        display: flex;
+                        align-items: center;
+                        font-size: 1.4rem;
+                        line-height: 1.29;
+                        font-weight: 600;
+                    }
+
+                    .icon {
+                        margin-left: .5rem;
+                    }
+
+                    &:nth-child(2) {
+                        padding: 0 2rem;
+
+                        .icon {
+                            margin-top: -1rem;
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+}
+.form-create-class{
+    label{
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: $light-blue-shade;
+      padding-left: 3rem;
+    }
+  }
+  .footer-btns{
+    margin-top: 2rem;
+    justify-content: center;
+  }

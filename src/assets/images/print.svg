@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="print" width="31.018" height="31.018" viewBox="0 0 31.018 31.018">
+    <defs>
+        <style>
+            .cls-1{fill:#001243}
+        </style>
+    </defs>
+    <g id="Group_3180">
+        <g id="Group_3179">
+            <path id="Path_4608" d="M30.5 10.339h-2.584V6.721A.517.517 0 0 0 27.4 6.2h-1.552V.517A.517.517 0 0 0 25.331 0H5.687a.517.517 0 0 0-.517.517V6.2H3.619a.517.517 0 0 0-.517.517v3.619H.517a.517.517 0 0 0-.517.52v14.475a.517.517 0 0 0 .517.517H5.17V30.5a.517.517 0 0 0 .517.517h19.644a.517.517 0 0 0 .517-.517v-4.652H30.5a.517.517 0 0 0 .517-.517V10.856a.517.517 0 0 0-.517-.517zm-4.653-3.1h1.034v3.1h-1.033zM6.2 1.034h18.614v9.305H6.2zm-2.068 6.2H5.17v3.1H4.136zM5.17 22.747h-.517V21.2h.517zm19.645 7.238H6.2V21.2h18.614zm5.17-5.17h-4.137v-1.034h1.034a.517.517 0 0 0 .517-.517v-2.585a.517.517 0 0 0-.517-.517H4.136a.517.517 0 0 0-.517.517v2.585a.517.517 0 0 0 .517.517H5.17v1.034H1.034V11.373h28.95zm-4.136-2.068V21.2h.517v1.551z" class="cls-1"/>
+        </g>
+    </g>
+    <g id="Group_3182" transform="translate(11.563 22.856)">
+        <g id="Group_3181">
+            <path id="Rectangle_968" d="M0 0H11.563V0.68H0z" class="cls-1"/>
+        </g>
+    </g>
+    <g id="Group_3184" transform="translate(8.162 24.897)">
+        <g id="Group_3183">
+            <path id="Rectangle_969" d="M0 0H14.964V1.36H0z" class="cls-1"/>
+        </g>
+    </g>
+    <g id="Group_3186" transform="translate(8.162 26.937)">
+        <g id="Group_3185">
+            <path id="Rectangle_970" d="M0 0H11.563V1.36H0z" class="cls-1"/>
+        </g>
+    </g>
+    <g id="Group_3188" transform="translate(8.162 22.856)">
+        <g id="Group_3187">
+            <path id="Rectangle_971" d="M0 0H2.041V0.68H0z" class="cls-1"/>
+        </g>
+    </g>
+    <g id="Group_3190" transform="translate(2.068 12.407)">
+        <g id="Group_3189">
+            <path id="Path_4609" d="M36.653 192h-4.136a.517.517 0 0 0-.517.517v2.068a.517.517 0 0 0 .517.517h4.136a.517.517 0 0 0 .517-.517v-2.068a.517.517 0 0 0-.517-.517zm-.517 2.068h-3.1v-1.034h3.1z" class="cls-1" transform="translate(-32 -192)"/>
+        </g>
+    </g>
+    <g id="Group_3192" transform="translate(8.162 14.694)">
+        <g id="Group_3191">
+            <path id="Rectangle_972" d="M0 0H5.441V0.68H0z" class="cls-1"/>
+        </g>
+    </g>
+    <g id="Group_3194" transform="translate(14.283 14.694)">
+        <g id="Group_3193">
+            <path id="Rectangle_973" d="M0 0H1.36V0.68H0z" class="cls-1"/>
+        </g>
+    </g>
+</svg>

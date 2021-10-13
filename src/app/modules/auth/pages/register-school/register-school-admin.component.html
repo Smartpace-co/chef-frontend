@@ -1,0 +1,182 @@
+<div class="register-admin">
+  <div class="container">
+    <div class="register-admin-wrapper legend-card">
+      <legend>School Admin Register</legend>
+      <form [formGroup]="registerAdminForm" class="register-admin-form">
+        <div class="row">
+          <div class="col-12">
+            <h5 class="department-heading">Admin Info</h5>
+          </div>
+          <div class="col-md-6">
+            <label>District</label>
+            <select class="form-control form-control-lg form-control-solid" placeholder="Select district"
+              name="district" (change)="changeDistrict($event)" formControlName="district">
+              <option value="" disabled>Select District </option>
+              <option value="{{district.id}}" *ngFor="let district of districtList">
+                {{district.menu}}</option>
+            </select>
+
+            <div *ngIf="formControl.district.errors" class="invalid-feedback">
+              <div class="error" *ngIf="formControl.district.errors?.required">District is required</div>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <label>School name (*)</label>
+            <app-input-field classes="form-control schoolForm" placeholders="Enter School Name" types=""
+              ids="schoolName" fieldControl="schoolName" [form]="registerAdminForm"
+              [ngClass]="{ 'is-invalid': formControl.schoolName.touched && formControl.schoolName.errors }">
+            </app-input-field>
+            <div *ngIf="formControl.schoolName.errors" class="invalid-feedback">
+              <div class="error" *ngIf="formControl.schoolName.errors?.required">School name is required
+              </div>
+              <div class="error" *ngIf="formControl.schoolName.errors?.pattern">School name is not valid</div>
+
+            </div>
+          </div>
+          <div class="col-12">
+            <label>Representative name (*)</label>
+            <app-input-field classes="form-control schoolForm" placeholders="Enter Representative name" types=""
+              ids="adminAccountName" fieldControl="adminAccountName" [form]="registerAdminForm"
+              [ngClass]="{ 'is-invalid': formControl.adminAccountName.touched && formControl.adminAccountName.errors }">
+            </app-input-field>
+            <div *ngIf="formControl.adminAccountName.errors" class="invalid-feedback">
+              <div class="error" *ngIf="formControl.adminAccountName.errors?.required">Representative name is required
+              </div>
+              <div class="error" *ngIf="formControl.adminAccountName.errors?.pattern">Representative name is not valid
+              </div>
+
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label>Email Address(*)</label>
+            <app-input-field classes="form-control schoolForm" placeholders="Enter Email Address" types=""
+              ids="adminEmailAddress" fieldControl="adminEmailAddress" [form]="registerAdminForm"
+              [ngClass]="{ 'is-invalid': formControl.adminEmailAddress.touched && formControl.adminEmailAddress.errors }">
+            </app-input-field>
+            <div *ngIf="formControl.adminEmailAddress.errors" class="invalid-feedback">
+              <div class="error" *ngIf="formControl.adminEmailAddress.errors?.required">Admin email address is required
+              </div>
+              <div class="error" *ngIf="formControl.adminEmailAddress.errors?.pattern">Admin email address is not valid
+              </div>
+              <div class="error" *ngIf="formControl.adminEmailAddress.errors?.emailValidate">Admin email address is
+                already exists</div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label>Contact number (*)</label>
+            <app-input-field classes="form-control schoolForm" placeholders="Enter phone number" types=""
+              ids="adminPhoneNumber" fieldControl="adminPhoneNumber" [form]="registerAdminForm"
+              [ngClass]="{ 'is-invalid': formControl.adminPhoneNumber.touched && formControl.adminPhoneNumber.errors }">
+            </app-input-field>
+            <div *ngIf="formControl.adminPhoneNumber.errors" class="invalid-feedback">
+              <div class="error" *ngIf="formControl.adminPhoneNumber.errors?.required">Contact number required</div>
+              <div class="error" *ngIf="formControl.adminPhoneNumber.errors?.pattern">Contact number not valid(Format
+                - (000)-000-0000)</div>
+              <div class="error" *ngIf="formControl.adminPhoneNumber.errors?.minlength">Contact number not
+                valid(Required Length is 10 digit)</div>
+              <!-- <div class="error" *ngIf="formControl.adminPhoneNumber.errors?.contactDigitValidate">Contact number is not
+                valid(Valid lengths are 10, 12 and 13 digit)</div> -->
+              <div class="error" *ngIf="formControl.adminPhoneNumber.errors?.contactValidate">
+                <div class="error">Contact number is already exists</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <div class="custom-control custom-checkbox same-above-checkbox">
+              <input type="checkbox" class="custom-control-input" id="sameAsAbove" name="sameAsAbove"
+                (change)="onCheckBoxChange($event.target.checked)" [checked]="false">
+              <label class="custom-control-label">Contact info same as above </label>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <label>Contact Person Name (*)</label>
+            <app-input-field classes="form-control schoolForm" placeholders="Enter Name" types=""
+              ids="contactPersonName" fieldControl="contactPersonName" [form]="registerAdminForm"
+              [ngClass]="{ 'is-invalid': formControl.contactPersonName.touched && formControl.contactPersonName.errors }">
+            </app-input-field>
+            <div *ngIf="formControl.contactPersonName.errors" class="invalid-feedback">
+              <div class="error" *ngIf="formControl.contactPersonName.errors?.required">Contact person name is required
+              </div>
+              <div class="error" *ngIf="formControl.contactPersonName.errors?.pattern">Contact person name is not valid
+              </div>
+
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label>Contact person phone number </label>
+            <app-input-field classes="form-control schoolForm" placeholders="Enter Phone Number" types=""
+              ids="contactPersonNumber" fieldControl="contactPersonNumber" [form]="registerAdminForm"
+              [ngClass]="{ 'is-invalid': formControl.contactPersonNumber.touched && formControl.contactPersonNumber.errors }">
+            </app-input-field>
+            <div *ngIf="formControl.contactPersonNumber.errors" class="invalid-feedback">
+              <div class="error" *ngIf="formControl.contactPersonNumber.errors?.pattern">Contact number is not
+                valid(Format - (000)-000-0000)</div>
+              <div class="error" *ngIf="formControl.contactPersonNumber.errors?.minlength">Contact number is not
+                valid(Reuired Length is 10 digit)</div>
+              <!-- <div class="error" *ngIf="formControl.contactPersonNumber.errors?.contactDigitValidate">Contact number is
+                not
+                valid(Valid lengths are 10, 12 and 13 digit)</div> -->
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label>Contact Person Email Address </label>
+            <app-input-field classes="form-control schoolForm" placeholders="Enter Email Address" types=""
+              ids="contactPersonEmail" fieldControl="contactPersonEmail" [form]="registerAdminForm"
+              [ngClass]="{ 'is-invalid': formControl.contactPersonEmail.touched && formControl.contactPersonEmail.errors }">
+            </app-input-field>
+            <div *ngIf="formControl.contactPersonEmail.errors" class="invalid-feedback">
+              <div class="error" *ngIf="formControl.contactPersonEmail.errors?.pattern">Contact person email address is
+                not valid
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label>Subscription Type(*)</label>
+            <app-drop-down fieldControl="package" class="formDropdown schoolForm" [dropDownButtonName]="dropdownTitle"
+              [dropDownItemList]="packageList" (registerDropdownValueChange)="changePackage($event)"
+              [ngClass]="{ 'is-invalid': formControl.package.touched && formControl.package.errors }"></app-drop-down>
+            <div *ngIf="formControl.package.errors" class="invalid-feedback">
+              <div class="error" *ngIf="formControl.package.errors?.required">Package is required</div>
+            </div>
+          </div>
+
+        </div>
+      </form>
+      <div class="form-btn-wrapper">
+        <app-button classes="btn btn-secondary mr-4 btn-form" [submit]="true" (click)="onCancel()">
+          <span aria-hidden="true">Cancel</span>
+        </app-button>
+        <app-button classes="btn btn-primary btn-form" [submit]="true" [disabled]="registerAdminForm.invalid"
+          (click)="onSave()">
+          <span aria-hidden="true">Save</span>
+        </app-button>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #package let-modal>
+  <button type="button" class="close" aria-label="Close" (click)="closePackageModal()">
+    <img src="./assets/images/close.png" alt="" class="img-fluid" />
+  </button>
+  <div class="modal-body">
+    <div class="plan-details">
+      <div class="plan-details-wrapper mb-5">
+        <h3 class="plan-heading mb-2">{{currentPackage?.packageTitle}} </h3>
+        <p class="mb-2">{{currentPackage?.description}} </p>
+        <p class='total-price mb-5'> Total Price: ${{currentPackage?.price}}</p>
+        <p class='total-price mb-5'> No of Classes : {{currentPackage?.maxUser}}</p>
+        <p class='total-price mb-5'> Valid From: {{ months[currentPackage?.validityFrom] }}</p>
+        <p class='total-price mb-5'> Valid Upto: {{months[currentPackage?.validityTo] }}</p>
+        <!-- <p class="monthly-price">$1.25 per Month</p> -->
+      </div>
+      <app-button classes="btn btn-primary icon-btn" [submit]="true" (click)="closePackageModal()">
+        <span aria-hidden="true">
+          <span aria-hidden="true">Close</span>
+        </span>
+      </app-button>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,107 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+.story-body-11 {
+    background-color: $white;
+    .learning-audio{
+      display: flex;
+      justify-content: flex-end;
+    }
+    .blur-bg {
+      background:center no-repeat;
+      background-size: cover;
+      min-height: calc(100vh - 24.2rem);
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      @include breakpoint(mobile) {
+        min-height: calc(100vh - 33rem);
+      }
+      .container{
+        @include breakpoint(tabs){
+          padding: 0;
+        }
+        .final-editaion{
+          padding-top: 5rem;
+          padding-bottom: 15rem;
+          overflow: hidden;
+          position: relative;
+          @include breakpoint(tabs){
+            padding-top: 0rem;
+          }
+          @include breakpoint(mobile){
+            padding-bottom: 5rem;
+          }
+          .content-wrapper{
+            text-align: center;
+            flex: 0 0 100%;
+            max-width: 100%;
+            .card-wihtout-header-blue{
+              position: relative;
+              display: inline-block;
+              margin: 0 auto;
+              width: 44rem;
+              text-align: left;
+              @include breakpoint(tabs){
+                width: 30rem;
+                padding: 2rem;
+              }
+              .recipe-info-wrapper{
+                h1{
+                  color: $yellow-shade-1;
+                  text-align: center;
+                  padding-bottom: 2rem;
+                  text-transform: capitalize;
+                  @include breakpoint(tabs){
+                    font-size: 3rem;
+                    padding-bottom: 1rem;
+                  }
+                }
+                ul{
+                  li{
+                    font-size: 1.6rem;
+                    padding: 1rem 0rem;
+                    font-weight: 600;
+                    @include breakpoint(tabs){
+                      font-size: 1.5rem;
+                    }
+                  }
+                }
+              }
+            }
+            .final-editaion-img-wrapper{
+              max-width: 38rem;
+              position: absolute;
+              display:block;
+              transform: rotateY(180deg);
+              margin-left: auto;
+              right: 0;
+              bottom: -7rem;
+              @include breakpoint(tabs){
+                max-width: 27rem;
+              }
+              @include breakpoint(mobile) {
+                max-width: 20rem;
+                right: -7rem;
+                bottom: -4rem;
+              }
+            }
+            .bowl{
+              max-width: 20rem;
+              position: absolute;
+              display: block;
+              margin-right: auto;
+              left: 5rem;
+              bottom: 10rem;
+              @include breakpoint(mobile) {
+                max-width: 10rem;
+                left: 0rem;
+                bottom: 0rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }

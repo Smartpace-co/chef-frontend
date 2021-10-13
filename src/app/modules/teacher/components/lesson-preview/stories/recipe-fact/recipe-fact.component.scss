@@ -1,0 +1,97 @@
+@import "../../../../../../../assets/styles/helpers/variables";
+@import "../../../../../../../assets/styles/helpers/mixins";
+.story-body-6{
+  // background:url("../../../../../../../assets/images/kitchen-bg.jpg") center no-repeat;
+  background:center no-repeat;
+  background-size: cover;
+  overflow: hidden;
+  min-height: calc(100vh - 24.2rem);
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  @include breakpoint(mobile) {
+    min-height: calc(100vh - 33rem);
+  }
+  .final-editaion{
+    justify-content: center;
+    padding-top: 9rem;
+    .content-wrapper{
+      .final-editaion-img-wrapper{
+        max-width: 42rem;
+        position: relative;
+        display:block;
+        margin: 0 auto;
+        margin-bottom: -6rem;
+        @include breakpoint(tabs){
+          max-width: 21rem;
+          margin-bottom: 1rem;
+        }
+        @include breakpoint(xtrasmallmobile){
+          margin-left: 8%;
+        }
+        .final-editaion-img{
+          transform: rotateY(180deg);
+        }
+        .left-tooltip-wrapper{
+          position: absolute;
+          top: 8rem;
+          left: -7rem;
+          @include breakpoint(tabs){
+            left: -4rem;
+            top: -1rem;
+          }
+          @include breakpoint(xtrasmallmobile){
+            left: -3rem;
+          }
+        }
+        .right-tooltip-wrapper{
+          position: absolute;
+          top: 11rem;
+          right: -24rem;
+          @include breakpoint(tabs){
+            right: -14rem;
+            top: -2rem;
+          }
+          @include breakpoint(xtrasmallmobile){
+            right: -9rem;
+          }
+        }
+        
+      }
+    }
+    .kitchen-table{
+      position: absolute;
+      width: 46rem;
+      display: inline-block;
+      left: 0;
+      bottom: -19rem;
+      @include breakpoint(tabs){
+        width: 40rem;
+      }
+      @include breakpoint(mobile){
+       display: none;
+      }
+    }
+    .recipe{
+      position: absolute;
+      width: 15rem;
+      height: 15rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      left: 14rem;
+      bottom: 21rem;
+      border-radius: 100%;
+      @include breakpoint(tabs){
+        left: 13rem;
+        bottom: 16rem;
+      }
+      @include breakpoint(mobile){
+        display: none;
+       }
+    }
+  }
+}

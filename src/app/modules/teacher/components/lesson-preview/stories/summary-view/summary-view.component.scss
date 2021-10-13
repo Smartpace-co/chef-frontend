@@ -1,0 +1,62 @@
+@import "../../../../../../../assets/styles/helpers/variables";
+@import "../../../../../../../assets/styles/helpers/mixins";
+.overview-header{
+    display: flex;
+    align-items: center;
+    .step-board{
+        width: 22rem;
+        height: 21rem;
+        position: relative;
+        top: -24px;
+        left: 0;
+        right: 0;
+        margin: auto;
+        .step-description{
+          text-align: center;
+          margin-top: -9rem;
+          .seperator{
+            display: none;
+            @include breakpoint(tabs){
+              display: inline-block;
+              font-weight: 700;
+              font-size: 1.6rem;
+              padding: 0rem 1rem;
+            }
+          }
+          .step-img{
+              width: 2.9rem;
+              margin: 0 auto;
+              @include breakpoint(tabs){
+                display: none;
+              }
+          }
+          h6{
+            margin: 0;
+            padding: 0rem 2rem;
+            @include breakpoint(tabs){
+              color: $white;
+            }
+          }
+        }
+    }
+}
+.overview-content{
+    display: flex;
+    justify-content: center;
+    svg{
+        @include breakpoint(mobile){
+            height: 100vh;
+        }
+        @include breakpoint(smallmobile){
+            margin-top:-2rem;
+        }
+        .active{
+            .image{
+                display: none;
+            }
+            .path{
+                fill:$warm-blue;
+            }
+        }
+    }
+}

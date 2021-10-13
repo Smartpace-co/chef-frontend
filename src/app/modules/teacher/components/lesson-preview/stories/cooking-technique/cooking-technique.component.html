@@ -1,0 +1,37 @@
+<app-ingreditent-nav></app-ingreditent-nav>
+<app-lessons-headerbar [lessonHederConfig]="lessonHederConfig"></app-lessons-headerbar>
+<div class="culinary-technique-body">
+  <!-- <app-scroll-down></app-scroll-down> -->
+  <div class="container">
+    <div class="final-editaion">
+      <div class="content-wrapper">
+        <span class="card-wihtout-header-blue">
+          <div *ngIf="isLoad" class="culinary-technique-wrapper">
+            <ngx-slick-carousel [config]="slideConfig">
+              <ul *ngFor="let obj of cookingTechniqueList" ngxSlickItem>
+                <li>{{obj}}</li>
+              </ul>
+            </ngx-slick-carousel>
+            <!-- <div class="video" *ngIf="cookingTechnique.videoType=='local'">
+              <app-vjs-player
+                [options]="{ autoplay: false,poster:'./assets/demo.mp4#t=0.5',controls: true, sources: [{ src: cookingTechnique.videoUrl,type: 'video/mp4' }]}">
+              </app-vjs-player>
+            </div> -->
+            <!-- <div class="video" *ngIf="cookingTechnique.videoType=='youtube'">
+              <iframe  [src]="getSanitizeUrl('https://www.youtube.com/embed/AuAgcCWP0ps')">
+              </iframe> 
+            </div> -->
+            <div class="video" *ngIf="videoUrl">
+              <iframe [src]="getSanitizeUrl()">
+              </iframe>
+            </div>
+          </div>
+        </span>
+        <span class="final-editaion-img-wrapper">
+          <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+<app-lessons-footer (onNext)="onNext()" (onPrevious)="onPrevious()"></app-lessons-footer>

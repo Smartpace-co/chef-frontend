@@ -1,0 +1,242 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+
+.classCheck1 {
+  visibility: visible !important;
+}
+.classCheck2 {
+  visibility: hidden !important;
+}
+
+.cooking-step-1 {
+  min-height: calc(100vh - 24.2rem);
+  position: relative;
+  padding-top: 0rem;
+  // display: flex;
+  // align-items: flex-end;
+  overflow: hidden;
+  // flex-wrap: wrap;
+  @include breakpoint(tabs) {
+    padding-top: 0rem 5rem 5rem;
+  }
+  @include breakpoint(mobile) {
+    min-height: calc(100vh - 33rem);
+  }
+  .cooking-step-audio{
+    display: flex;
+    justify-content: flex-end;
+  }
+  .final-editaion {
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    padding-bottom: 15rem;
+    .content-wrapper {
+      flex: 0 0 100%;
+      max-width: 100%;
+      position: relative;
+      ul {
+        padding: 2rem;
+        @include breakpoint(mobile) {
+          padding: 1rem;
+        }
+        .content-scroll {
+          overflow: auto;
+          max-height: 36rem;
+          padding: 4rem;
+          &::-webkit-scrollbar {
+            width: 0.5rem;
+          }
+          &::-webkit-scrollbar-thumb {
+            background: $yellow-shade-5;
+          }
+          @include breakpoint(mobile) {
+            padding: 6rem 0rem;
+          }
+          li {
+            display: flex;
+            justify-content: center;
+            .check-mark {
+              position: relative;
+              padding-left: 4rem;
+              display: inline-block;
+              margin-top: 2rem;
+              label {
+                background-color: $white;
+                border: 0.5rem solid $dark-border;
+                border-radius: 50%;
+                cursor: pointer;
+                height: 4rem;
+                left: 0;
+                position: absolute;
+                top: 0;
+                width: 4rem;
+                &:after {
+                  border: 0.5rem solid $black;
+                  border-top: none;
+                  border-right: none;
+                  content: "";
+                  height: 1.1rem;
+                  left: 0.4rem;
+                  opacity: 0;
+                  position: absolute;
+                  top: 0.7rem;
+                  transform: rotate(-45deg);
+                  width: 2rem;
+                }
+              }
+              input[type="checkbox"] {
+                visibility: hidden;
+              }
+              input[type="checkbox"]:checked + label {
+                background-color: $white;
+                border-color: $dark-border;
+              }
+              input[type="checkbox"]:checked + label:after {
+                opacity: 1;
+              }
+            }
+            .cooking-preparation-wrapper {
+              padding: 2.2rem 6rem 0rem;
+              width: calc(100% - 4rem);
+              min-height: 12rem;
+              display: flex;
+              margin-bottom: 7rem;
+              @include breakpoint(mobile) {
+                padding: 2.2rem 1rem 0rem;
+                margin-bottom: 4rem;
+              }
+              .index {
+                transform: translate(0%, -100%);
+              }
+              legend {
+                // position: absolute;
+                padding-right: 4rem;
+                // transform: translate(0, -100%);
+                @include breakpoint(mobile) {
+                  transform: translate(15%, -100%);
+                }
+                &.index {
+                  position: absolute;
+                  width: 4rem;
+                  height: 4rem;
+                  padding: 0;
+                  background: $blue-shade-1;
+                  color: $white;
+                  text-align: center;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  transform: translate(-190%, -100%);
+                  padding-top: 0.5rem;
+                  @include breakpoint(mobile) {
+                    transform: translate(-74%, -100%);
+                  }
+                }
+                .profile-pic {
+                  right: -2rem;
+                  top: -1rem;
+                  background: white;
+                  position: absolute;
+                  width: 5rem;
+                  height: 5rem;
+                }
+              }
+              .description {
+                align-items: center;
+                display: flex;
+                margin: 1rem 0;
+                &.with-video {
+                  @include breakpoint(mobile) {
+                    flex-wrap: wrap;
+                    padding: 1rem 0;
+                  }
+                  @include breakpoint(xtrasmallmobile) {
+                    padding-top: 3rem;
+                  }
+                  .video-js {
+                    background: $black;
+                  }
+                }
+                .image {
+                  max-width: 7.3rem;
+                  min-width: 5rem;
+                  @include breakpoint(mobile) {
+                    max-width: 4.5rem;
+                    min-width: 3rem;
+                  }
+                }
+                .video {
+                  max-width: 25rem;
+                  padding: 2rem 0rem;
+                  @include breakpoint(mobile) {
+                    display: inline-block;
+                    text-align: center;
+                    text-align: center;
+                    margin: 0 auto;
+                  }
+                  @include breakpoint(xtrasmallmobile) {
+                    width: 20rem;
+                    min-width: 20rem;
+                    width: 20rem;
+                  }
+                  video {
+                    max-width: 32rem;
+                    max-height: 24rem;
+                    padding: 2rem 0rem;
+                    @include breakpoint(mobile) {
+                      max-width: 22rem;
+                    }
+                  }
+                }
+                .description-info {
+                  padding-left: 2rem;
+                  width: 100%;
+                  // @include breakpoint(mobile) {
+                  //   width: calc(100% - 5rem);
+                  // }
+                  h6 {
+                    font-size: 1.6rem;
+                    @include breakpoint(mobile) {
+                      font-size: 1.3rem;
+                    }
+                  }
+                }
+              }
+              .chef-label-wraper {
+                display: flex;
+                justify-content: space-between;
+                width: 36rem;
+                position: absolute;
+                transform: translate(0, -50%);
+                @include breakpoint(mobile) {
+                  transform: translate(0, -5%);
+                }
+                @include breakpoint(xtrasmallmobile) {
+                  display: flex;
+                  flex-direction: column;
+                  width: auto;
+                  .legend-little {
+                    margin-top: 1rem;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .final-editaion-img-wrapper {
+      max-width: 30rem;
+      display: block;
+      position: absolute;
+      bottom: -11rem;
+      left: -6rem;
+      @include breakpoint(mobile) {
+        max-width: 25rem;
+        bottom: -9rem;
+      }
+    }
+  }
+}

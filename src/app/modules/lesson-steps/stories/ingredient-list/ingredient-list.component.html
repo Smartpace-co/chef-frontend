@@ -1,0 +1,44 @@
+<app-lessons-headerbar [lessonHederConfig]="lessonHederConfig"></app-lessons-headerbar>
+<div class="ingredients-body-1 ingredient-bg">
+  <app-scroll-down></app-scroll-down>
+  <div class="container">
+      <div class="card-wihtout-header-white ingredients">
+        <div class="ingredients-wrapper">
+          <div class="ingredients-list" *ngFor="let item of ingredientsList">
+            <div class="profile-pic-list">
+              <img src="{{item.icon}}" alt="" class="img-fluid" />
+            </div>
+            <p>{{item.quantity}} {{item.unit}}</p>
+            <div class="btn-wrapper">
+              <app-button classes="btn small-btn btn-secondary ingredients-btn disabled-ptr" [submit]="true" (click)="showDetails(item)">
+                <span aria-hidden="true">{{item.name}}</span>
+              </app-button>
+              <!-- <p class="optional-wraper">(Optional)</p> -->
+            </div>
+            <div *ngIf="item.hasSubstitute" class="substitute-btn-wrapper">
+              <a (click)="open(substituteModal,item)"><span class="icon"><fa-icon [icon]="exchange"></fa-icon></span><u>Find a Substitute</u></a>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+<app-lessons-footer  [isVisibleNext]="isVisibleNext"  (onNext)="onNext()" (onPrevious)="onPrevious()"></app-lessons-footer>
+
+<ng-template #substituteModal let-modal>
+  <div class="modal-header substitute-header">
+    <h4 class="modal-title" id="modal-basic-title">Ingredient Substitute</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <img src="./assets/images/close.png" alt="" class="img-fluid" />
+    </button>
+  </div>
+  <div class="modal-body substitute-body">
+    <div class="substitute-img">
+      <img src="{{ currentSubstitute?.icon}}" alt="" class="img-fluid" />
+    </div>
+    <h6 class="pt-6" >{{ currentSubstitute?.substituteDesc}}</h6>
+  </div>
+  <div class="modal-footer substitute-footer">
+    <button type="button" class="btn btn-primary" (click)="replaceIngredient()">Replace</button>
+  </div>
+</ng-template>

@@ -1,0 +1,127 @@
+<div class="add-teacher">
+  <div class="container">
+    <div class="back-button-wrapper">
+      <app-button classes="btn small-btn btn-secondary mr-4 icon-btn btn-back mt-4" [submit]="true"
+        (click)="onCancel()">
+        <span aria-hidden="true">
+          <fa-icon [icon]="LeftArrow"></fa-icon>{{'common.back'| translate}}
+        </span>
+      </app-button>
+    </div>
+    <div class="add-teacher-wrapper legend-card">
+      <legend>{{ isEdit ? 'Update' : 'Add' }} {{'school.teacher.teacher-heading' | translate}}</legend>
+      <form [formGroup]="addTeacherForm" class="add-teacher-form">
+        <div class="row">
+          <!-- <div class="col-lg-4 col-md-6">
+            <label>School Name (*)</label>
+            <app-drop-down fieldControl="schoolName" class="formDropdown schoolForm" [dropDownButtonName]="schoolTitle"
+              [dropDownItemList]="schoolList" (registerDropdownValueChange)="changeSchool($event)"
+              [ngClass]="{ 'is-invalid': formControl.schoolName.touched && formControl.schoolName.errors }">
+            </app-drop-down>
+          </div> -->
+          <div class="col-12">
+            <h5 class="department-heading">{{'school.teacher.add-teacher.personal-info-label' | translate}}</h5>
+          </div>
+          <div class="col-md-6">
+            <label>{{'school.teacher.add-teacher.last-name.last-name-field' | translate}} (*)</label>
+            <app-input-field classes="form-control schoolForm" placeholders="{{'school.teacher.add-teacher.first-name.placeholder' | translate}}" ids="lastName"
+              fieldControl="lastName" [form]="addTeacherForm"
+              [ngClass]="{ 'is-invalid': formControl.lastName.touched && formControl.lastName.errors }">
+            </app-input-field>
+            <div *ngIf="formControl.lastName.errors" class="invalid-feedback">
+              <div class="error" *ngIf="formControl.lastName.errors?.required">{{'school.teacher.add-teacher.last-name.required' | translate}}
+              </div>
+              <div class="error" *ngIf="formControl.lastName.errors?.pattern">{{'school.teacher.add-teacher.last-name.valid' | translate}}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label>{{'school.teacher.add-teacher.first-name.first-name-field' | translate}} (*)</label>
+            <app-input-field classes="form-control schoolForm" placeholders="{{'school.teacher.add-teacher.first-name.placeholder' | translate}}" ids="firstName"
+              fieldControl="firstName" [form]="addTeacherForm"
+              [ngClass]="{ 'is-invalid': formControl.firstName.touched && formControl.firstName.errors }">
+            </app-input-field>
+            <div *ngIf="formControl.firstName.errors" class="invalid-feedback">
+              <div class="error" *ngIf="formControl.firstName.errors?.required">{{'school.teacher.add-teacher.first-name.required' | translate}}
+              </div>
+              <div class="error" *ngIf="formControl.firstName.errors?.pattern">{{'school.teacher.add-teacher.first-name.valid' | translate}}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label>{{'district.district-profile.agent-component.email-field.label'| translate}} (*)</label>
+            <app-input-field classes="form-control schoolForm" placeholders="{{'district.district-profile.agent-component.email-field.placeholder'| translate}}" ids="emailAddress"
+              fieldControl="emailAddress" [form]="addTeacherForm"
+              [ngClass]="{ 'is-invalid': formControl.emailAddress.touched && formControl.emailAddress.errors }">
+            </app-input-field>
+            <div *ngIf="formControl.emailAddress.errors" class="invalid-feedback">
+              <div class="error" *ngIf="formControl.emailAddress.errors?.required">{{'district.district-profile.agent-component.email-field.required'| translate}}
+              </div>
+              <div class="error" *ngIf="formControl.emailAddress.errors?.pattern">{{'district.district-profile.agent-component.email-field.valid'| translate}}
+              </div>
+              <div class="error" *ngIf="formControl.emailAddress.errors?.emailValidate">{{'district.district-profile.agent-component.email-field.exist'| translate}}</div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label>{{'school.teacher.add-teacher.contact.label' | translate}} (*)</label>
+            <app-input-field classes="form-control schoolForm" placeholders="{{'school.teacher.add-teacher.contact.placeholder' | translate}}" ids="contactNumber"
+              fieldControl="contactNumber" [form]="addTeacherForm"
+              [ngClass]="{ 'is-invalid': formControl.contactNumber.touched && formControl.contactNumber.errors }">
+            </app-input-field>
+            <div *ngIf="formControl.contactNumber.errors" class="invalid-feedback">
+              <div class="error" *ngIf="formControl.contactNumber.errors?.required">{{'school.teacher.add-teacher.contact.required' | translate}}
+              </div>
+              <div class="error" *ngIf="formControl.contactNumber.errors?.pattern">{{'school.teacher.add-teacher.contact.valid' | translate}}</div>
+              <div class="error" *ngIf="formControl.contactNumber.errors?.minlength">{{'school.teacher.add-teacher.contact.length' | translate}}</div>
+              <div class="error" *ngIf="formControl.contactNumber.errors?.contactValidate">
+                <div class="error">{{'school.teacher.add-teacher.contact.exist' | translate}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label>{{'district.district-profile.agent-component.gender-field.label'| translate}} </label>
+            <app-drop-down fieldControl="gender" class="formDropdown schoolForm" [dropDownButtonName]="genderTitle"
+              [dropDownItemList]="genderList" (registerDropdownValueChange)="changeGender($event)"
+              [ngClass]="{ 'is-invalid': formControl.gender.touched && formControl.gender.errors }">
+            </app-drop-down>
+          </div>
+          <div class="col-md-3 col-sm-6 image-upload">
+            <div class="profile-heading">
+              <span class="profile-image">
+                <img src="{{this.profileImage}}" alt="" class="img-fluid" />
+              </span>
+            </div>
+            <div class="profile-sub-info">
+              <input type="file" id="actual-btn" accept="image/*" (change)="onFileSelected($event)" hidden />
+              <label for="actual-btn">
+                <fa-icon [icon]="PlusIcon"></fa-icon> <span>{{selectedFile ? 'Replace Profile Image' : 'Profile Image'}}</span>
+              </label>
+            </div>           
+          </div>
+          <div class="col-12 radio-btn-wrapper">
+            <label>{{'school.teacher.add-teacher.status' | translate}}</label>
+            <div class="custom-control custom-radio">
+              <app-radio [form]="addTeacherForm" fieldControl="status" classes="custom-control-input" types="radio"
+                names="status" values="active"></app-radio>
+              <label class="custom-control-label" for="Active">{{'table-search-filter-container.status.active'| translate}}</label>
+            </div>
+            <div class="custom-control custom-radio">
+              <app-radio [form]="addTeacherForm" fieldControl="status" classes="custom-control-input" types="radio"
+                names="status" values="inactive"></app-radio>
+              <label class="custom-control-label" for="Inactive">{{'table-search-filter-container.status.inactive'| translate}}</label>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="form-btn-wrapper">
+        <app-button classes="btn btn-secondary mr-4 btn-form" [submit]="true" (click)="onCancel()">
+          <span aria-hidden="true">{{'common.cancel'| translate}}</span>
+        </app-button>
+        <app-button classes="btn btn-primary btn-form" [submit]="true" [disabled]="isDisableSave()"
+          (click)="onSave()">
+          <span aria-hidden="true">{{ isEdit ? 'Update' : 'Save' }}</span>
+        </app-button>
+      </div>
+    </div>
+  </div>
+</div>

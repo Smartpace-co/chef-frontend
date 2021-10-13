@@ -1,0 +1,228 @@
+<div class="popup-wraper-details">
+    <div class="inquery-details-header">
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+            <!-- <span aria-hidden="true">&times;</span> -->
+            <img src="./assets/images/close.png" alt="" class="img-fluid" />
+        </button>
+    </div>
+    <div class="class-details-bodyy">
+        <div class="passport-listing">
+            <div class="passport-listing-wrapper">
+                <div class="passport-tab">
+                    <ul id="tabs" class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a id="tabcountry" href="#passportcountry" class="nav-link active" data-toggle="tab"
+                                role="tab">{{'student.profile.passport.country-tab-label'| translate }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="tabmimi" href="#passportmini" class="nav-link" data-toggle="tab"
+                                role="tab">{{'student.profile.passport.learning-tab-label'| translate }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="tabhealth" href="#passporthealth" class="nav-link" data-toggle="tab"
+                                role="tab">{{'student.profile.passport.level-tab-label'| translate }}</a>
+                        </li>
+                    </ul>
+                    <div id="content" class="tab-content" role="tablist">
+                        <div id="passportcountry" class="panal-card tab-pane fade show active" role="tabpanel"
+                            aria-labelledby="tabcountry">
+                            <div class="panal-card-header" role="tab" id="countryInfo">
+                                <h5 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#CountryInfo"
+                                        aria-expanded="false" aria-controls="CountryInfo">
+                                        {{'student.profile.passport.country-tab-label'| translate }}
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="CountryInfo" class="collapse" data-parent="#content" role="tabpanel"
+                                aria-labelledby="countryInfo">
+                                <div class="mini-details">
+                                    <div class="country-header">
+                                        <span
+                                            class="country-visited">{{'student.profile.achievements.countries-visited-label'|
+                                            translate }}</span>
+                                        <span class="circle">{{ visitedCountries?.length }}</span>
+                                    </div>
+                                    <div class="level-container-wraper">
+                                        <div class="card card--blue">
+                                            <div class="row country">
+                                                <ng-container
+                                                    *ngIf="countryStamp && countryStamp.length > 0; else noCountryStamp">
+                                                    <div *ngFor="let item of countryStamp"
+                                                        class="col-sm-4 country-container">
+                                                        <div
+                                                            [ngClass]="item.isEarned === 1 ? 'map-wraper map-bg':'map-wraper'">
+                                                            <img src="{{item.image}}" class="img-fluid" alt="">
+                                                        </div>
+                                                        <div class="mt-4 label-wrapper">
+                                                            <label class="drop-label">
+                                                                <span aria-hidden="true">{{item.title}}</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </ng-container>
+                                                <ng-template #noCountryStamp>
+                                                    <h5>{{'table-component.no-record'| translate}}</h5>
+                                                </ng-template>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="passportmini" class="panal-card tab-pane fade" role="tabpanel"
+                            aria-labelledby="tabmimi">
+                            <div class="panal-card-header" role="tab" id="headingInfo">
+                                <h5 class="mb-0">
+                                    <a data-toggle="collapse" href="#collapseInfo" aria-expanded="true"
+                                        aria-controls="collapseInfo">
+                                        {{'student.profile.passport.learning-tab-label'| translate }} </a>
+                                </h5>
+                            </div>
+                            <div id="collapseInfo" class="collapse show" data-parent="#content" role="tabpanel"
+                                aria-labelledby="headingInfo">
+                                <div class="mini-details">
+                                    <div class="learing">
+                                        <div class="level-star">
+                                            <div class="star-five">
+                                                <fa-icon [icon]="star"></fa-icon>
+                                            </div>
+                                            <div class="star-five">
+                                                <fa-icon [icon]="star"></fa-icon>
+                                            </div>
+                                            <div class="star-five">
+                                                <fa-icon [icon]="star"></fa-icon>
+                                            </div>
+                                            <div class="star-text"><span>{{'student.profile.passport.passport-label'|
+                                                    translate | uppercase
+                                                    }}</span></div>
+                                            <div class="star-five">
+                                                <fa-icon [icon]="star"></fa-icon>
+                                            </div>
+                                            <div class="star-five">
+                                                <fa-icon [icon]="star"></fa-icon>
+                                            </div>
+                                            <div class="star-five">
+                                                <fa-icon [icon]="star"></fa-icon>
+                                            </div>
+                                        </div>
+                                        <div class="level-star">
+                                            <div class="star-five">
+                                                <fa-icon [icon]="star"></fa-icon>
+                                            </div>
+                                            <div class="star-five">
+                                                <fa-icon [icon]="star"></fa-icon>
+                                            </div>
+                                            <div class="star-five">
+                                                <fa-icon [icon]="star"></fa-icon>
+                                            </div>
+                                            <div class="star-text"><span>{{'student.profile.passport.passport-label'|
+                                                    translate | uppercase
+                                                    }}</span></div>
+                                            <div class="star-five">
+                                                <fa-icon [icon]="star"></fa-icon>
+                                            </div>
+                                            <div class="star-five">
+                                                <fa-icon [icon]="star"></fa-icon>
+                                            </div>
+                                            <div class="star-five">
+                                                <fa-icon [icon]="star"></fa-icon>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="level-container-wraper">
+                                        <div class="card card--blue">
+                                            <div class="row">
+                                                <div class="col-md-12 nsima">
+                                                    <ng-container
+                                                        *ngIf="learningStamps && learningStamps.length > 0; else noLearningStamps">
+                                                        <div *ngFor="let item of learningStamps"
+                                                            class="nsima-container">
+                                                            <div class="nsima-center">
+                                                                <img src="{{item.image}}" class="img-fluid" alt="">
+                                                            </div>
+                                                        </div>
+                                                    </ng-container>
+                                                    <ng-template #noLearningStamps>
+                                                        <h5>{{'table-component.no-record'| translate}}</h5>
+                                                    </ng-template>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="passporthealth" class="panal-card tab-pane fade" role="tabpanel"
+                            aria-labelledby="tabhealth">
+                            <div class="panal-card-header" role="tab" id="headingStudents">
+                                <h5 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#collapseStudents"
+                                        aria-expanded="false" aria-controls="collapseStudents">
+                                        {{'student.profile.passport.level-tab-label'| translate }} </a>
+                                </h5>
+                            </div>
+                            <div id="collapseStudents" class="collapse" data-parent="#content" role="tabpanel"
+                                aria-labelledby="headingStudents">
+                                <div class="level-details">
+                                    <div class="level">
+                                        <div class="level-star">
+                                            <div class="star-five">
+                                                <fa-icon [icon]="star"></fa-icon>
+                                            </div>
+                                            <div class="star-five">
+                                                <fa-icon [icon]="star"></fa-icon>
+                                            </div>
+                                            <div class="star-five">
+                                                <fa-icon [icon]="star"></fa-icon>
+                                            </div>
+                                            <div class="star-text"><span>{{'student.profile.passport.passport-label'|
+                                                    translate | uppercase
+                                                    }}</span></div>
+                                            <div class="star-five">
+                                                <fa-icon [icon]="star"></fa-icon>
+                                            </div>
+                                            <div class="star-five">
+                                                <fa-icon [icon]="star"></fa-icon>
+                                            </div>
+                                            <div class="star-five">
+                                                <fa-icon [icon]="star"></fa-icon>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="level-container-wraper">
+                                        <div class="card card--blue">
+                                            <div class="level-container">
+                                                <div class="picture">
+                                                    <ng-container
+                                                        *ngIf="levelStamps && levelStamps.length > 0; else noLevelStamps">
+                                                        <div *ngFor="let levelItem of levelStamps"
+                                                            class="picture-container"><img
+                                                                src="{{levelItem.images[0].image}}" class="img-fluid"
+                                                                alt="">
+                                                        </div>
+                                                    </ng-container>
+                                                    <ng-template #noLevelStamps>
+                                                        <h5>{{'table-component.no-record'| translate}}</h5>
+                                                    </ng-template>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="back-button-wrapper">
+    <app-button classes="btn small-btn btn-secondary icon-btn btn-back" [submit]="true"
+        (click)="goToLockerRoom()">
+        <span aria-hidden="true">
+            Go to locker room
+        </span>
+    </app-button>
+</div>

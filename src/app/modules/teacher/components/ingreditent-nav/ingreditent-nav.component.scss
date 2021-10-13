@@ -1,0 +1,52 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+
+.instruction-bar-wraper{
+    background-color: $blue-shade-10;
+    .instruction-bar{
+    align-items: center;
+    .col-lg-1{
+      padding: 0;
+      @include breakpoint(iPad){
+        padding: 0 1.5rem;
+        margin: 1rem 0;
+      }
+    }
+    .tabs-container{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .nav-tabs{
+        border: none;
+        font-weight: 700;
+        .nav-item{
+          .nav-link{
+            padding: 1.5rem 1rem;
+            border: none;
+            fa-icon{
+              color: $yellow-shade-6;
+              padding: 0 1rem;
+            }
+            &.active{
+              background-color: rgba($white, 0.2);
+              border: none;
+              color: $white;
+            }
+            &:hover{
+              border: none;
+              background-color: rgba($white, 0.2);
+            }
+          }
+        }
+      }
+      .instruction-text-wraper{
+        max-width: 17rem;
+        .text{
+          color: $yellow-shade-6;
+          font-size: 1.2rem;
+          font-weight: 700;
+        }
+      }
+    }
+    }
+  }

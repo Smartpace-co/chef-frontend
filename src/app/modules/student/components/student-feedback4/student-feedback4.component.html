@@ -1,0 +1,33 @@
+<app-lessons-headerbar [isButtonSection]="isButtonSection"></app-lessons-headerbar>
+<div class="active-action-body">
+  <div class="container">
+    <div class="final-editaion">
+      <div class="content-wrapper">
+        <div class="card-wihtout-header-blue">
+          <div class="active-action-wrapper">
+            <p> The Philippines is a country rich 
+                both in natural resources (e.g. nickel,copper, 
+                gold, silver, and chromium), and human 
+                resources (close to 104 million people).
+                But it remains poor.</p>
+            <p>What do you think is the reason behind this?</p>
+          </div>
+          <div class="form">
+            <form>
+              <textarea class="form-control action-textarea" rows="10"></textarea>
+            </form>
+          </div>
+          <div class="submit-btn-wrapper">
+            <app-button classes="btn btn-secondary btn-addtext" [submit]="true">
+              <span aria-hidden="true">Submit</span>
+            </app-button>
+          </div>
+        </div>
+        <span class="final-editaion-img-wrapper">
+          <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+<app-lessons-footer></app-lessons-footer>

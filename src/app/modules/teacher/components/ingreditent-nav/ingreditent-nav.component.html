@@ -1,0 +1,32 @@
+<div class="instruction-bar-wraper">
+        <div class="container-fluid">
+          <div class="row instruction-bar">
+            <div class="col-lg-1">
+              <app-button classes="btn btn-secondary icon-btn btn-back" routerLink="/teacher/upcoming-assignment">
+                <span aria-hidden="true">
+                  <fa-icon [icon]="leftArrow"></fa-icon>{{'common.back'| translate}}
+                </span>
+              </app-button>
+            </div>
+            <div class="col-lg-11 tabs-container">
+              <ul class="nav nav-tabs">
+                <li class="nav-item">
+                  <a class="nav-link" routerLinkActive="active"><fa-icon [icon]="eye"></fa-icon> {{'teacher.dashboard.assignment'|translate}} {{'teacher.explore-lesson-setting.preview-label'|translate}}</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" routerLinkActive="active"><fa-icon [icon]="stickyNote"></fa-icon>{{'teacher.assignment.teacher-instructions'|translate}}</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" routerLinkActive="active"><fa-icon [icon]="cart"></fa-icon>{{'teacher.order-ingredients.order-ingredient-label'|translate}}</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" routerLinkActive="active"><fa-icon [icon]="info"></fa-icon>{{'student.assigned-lessons.lesson-steps.summary-view.lesson'|translate }}  {{'district.district-schools.info-title' | translate}}</a>
+                </li>
+              </ul>
+              <div class="instruction-text-wraper">
+                <span class="text">{{'teacher.order-ingredients.preview-assignment-label'|translate}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>

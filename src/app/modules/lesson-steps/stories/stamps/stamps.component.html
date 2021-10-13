@@ -1,0 +1,96 @@
+<app-lessons-headerbar [showBackBtn]="false"></app-lessons-headerbar>
+<div class="active-action-body">
+    <div class="container">
+        <div class="final-editaion">
+            <div class="content-wrapper">
+                <ng-container *ngIf="allStampDetails && allStampDetails.length > 0; else noStamps">
+                    <div class="card-wihtout-header-blue">
+                        <div class="stamp-wraper">
+                            <div class="active-action-wrapper">
+                                <h4 class="heading">
+                                    <span>{{'student.assigned-lessons.lesson-steps.congratulations-label'| translate }}
+                                    </span>
+                                    <span>{{'student.assigned-lessons.lesson-steps.you-have-earned-these'| translate }}
+                                    </span>
+                                </h4>
+                            </div>
+                            <div class="stamp-radio-wraper">
+                                <div *ngFor="let item of allStampDetails" class="option">
+                                    <label for="stampId">
+                                        <!-- <input type="radio" id="stampId" name="selector" value="stampId"
+                                             (click)="onSelectStamps(item)" -->
+                                        <div class="stamp-image"><img src="{{item?.images[0]?.image}}" class="img-fluid"
+                                                alt=""></div>
+                                    </label>
+                                </div>
+                            </div>
+                            <!-- <div class="stamps-image-wraper">
+                                <div class="stamps-image" *ngFor="let item of allStampDetails">
+                                    <label for="{{item.id}}">
+                                        <input type="radio" id="{{item.id}}" name="selector" value="{{item.id}}"
+                                            (click)="onSelectStamps(item)">
+                                        <img [src]="item.images[0].image" alt="" class="img-fluid">
+                                    </label>
+                                </div>
+                            </div> -->
+                        </div>
+                        <div *ngIf="stampItems && stampItems.items.length > 0" class="stamp-wraper">
+                            <div class="active-action-wrapper">
+                                <h4>{{'student.assigned-lessons.lesson-steps.select-to-earn-stamps'| translate }} </h4>
+                            </div>
+                            <div class="stamp-radio-wraper">
+                                <div *ngFor="let item of stampItems.items" class="option">
+                                    <label for="{{item.id}}">
+                                        <input type="radio" id="{{item.id}}" name="selector" value="{{item.id}}"
+                                            (click)="onSelectItem(modal,item)">
+                                        <div class="stamp-image"><img src="{{item.image}}" class="img-fluid" alt="">
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-template #noStamps>
+                    <div class="card-wihtout-header-blue stamp-wraper">
+                        <h4>{{'student.assigned-lessons.lesson-steps.no-stamps'| translate }} </h4>
+                    </div>
+                </ng-template>
+                <span class="final-editaion-img-wrapper">
+                    <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-lessons-footer [showNext]="showNext" [showPrevious]="false" [dynamicBtn]="true" [dynamicBtnName]="'Go back to home'" (onDynamicBtnClick)="goToAssignedLessonList()" ></app-lessons-footer>
+<ng-template #modal let-modal>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <img src="./assets/images/close.png" alt="" class="img-fluid" />
+    </button>
+    <div class="modal-body">
+        <div class="plan-details">
+            <div class="plan-details-wrapper mb-5">
+                <div class="stamps-image-wraper">
+                    <div class="stamps-image">
+                        <img [src]="currentLevel.image" alt="" class="img-fluid">
+                    </div>
+                </div>
+                <p class="mb-2">{{currentLevel?.title}} </p>
+            </div>
+            <div class="btn-wraper">
+                <app-button classes="btn btn-secondary icon-btn" [submit]="true" (click)="closeModalPopup()">
+                    <span aria-hidden="true">
+                        <span aria-hidden="true">{{'common.close'| translate}}</span>
+                    </span>
+                </app-button>
+                <app-button classes="btn btn-primary icon-btn" [submit]="true" (click)="onSave()">
+                    <span aria-hidden="true">
+                        <span aria-hidden="true">{{'common.add'| translate}}</span>
+                    </span>
+                </app-button>
+            </div>
+        </div>
+    </div>
+</ng-template>

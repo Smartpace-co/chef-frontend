@@ -1,0 +1,62 @@
+<app-lessons-headerbar [lessonHederConfig]="lessonHederConfig" [isButtonSection]="isButtonSection" [showBackBtn]="true" [isLessonInfo]="false"></app-lessons-headerbar>
+<div class="active-action-body">
+  <div class="container">
+    <div class="final-editaion">
+      <div class="content-wrapper">
+        <div class="card-wihtout-header-blue">
+          <div class="active-action-wrapper">
+            <p>Click on the DONE button to submit your answer</p>
+            <app-button classes="btn btn-primary icon-btn btn-back"  (click)="checkForMatch()" [submit]="true">
+          <div aria-hidden="true">
+            Done
+          </div>
+        </app-button>
+          </div>
+          <div class="chef-hat">
+               <div id="card{{j}}"  class="chef-hat-white"  *ngFor="let item of imageFlipQuestions[i]?.options;let j=index" (click)="flip(item,j)" >
+                  <div class="chef-hat-inner">
+                    <span  class="image-wraper flip-box-front"><img src="./assets/images/chef-hat.png" class="img-fluid" alt=""></span>
+                    <span  class="image-wraper flip-box-back"><img [src]="item.src" class="img-fluid" alt=""></span>
+                  </div>
+                </div>
+                <!-- <div class="chef-hat-white chef-hat-bg"><span class="image-wraper"><img src="./assets/images/pot.png" class="img-fluid" alt=""></span></div>
+                <div class="chef-hat-white"><span class="image-wraper"><img src="./assets/images/chef-hat.png" class="img-fluid" alt=""></span></div>
+                <div class="chef-hat-white"><span class="image-wraper"><img src="./assets/images/chef-hat.png" class="img-fluid" alt=""></span></div>
+                <div class="chef-hat-white"><span class="image-wraper"><img src="./assets/images/chef-hat.png" class="img-fluid" alt=""></span></div>
+                <div class="chef-hat-white"><span class="image-wraper"><img src="./assets/images/chef-hat.png" class="img-fluid" alt=""></span></div>
+                <div class="chef-hat-white chef-hat-bg"><span class="image-wraper">Vitamin K</span></div> 
+                <div class="chef-hat-white"><span class="image-wraper"><img src="./assets/images/chef-hat.png" class="img-fluid" alt=""></span></div> --> 
+          </div>
+        </div>
+        <span class="final-editaion-img-wrapper">
+          <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+<app-lessons-footer [isVisibleNext]="isVisibleNext" [isVisiblePrevious]="isVisiblePrevious" (onNext)="onNext()"
+  (onPrevious)="onPrevious()"></app-lessons-footer>
+  <ng-template #correctAnsModal let-modal>
+    <div class="modal-header response-header">
+    </div>
+    <div class="modal-body response-body">
+      <div class="response-wrapper">
+          <div class="check-mark">
+            <span class="icon">
+              <fa-icon [icon]="check"></fa-icon>
+            </span>
+          </div>
+        
+        <h1>Correct </h1>
+        <div class="btn-wrapper mt-3">
+          <app-button classes="btn btn-secondary icon-btn" [submit]="true" (click)="modal.close('Next')">
+              <span aria-hidden="true">{{'table-component.next'| translate}}<fa-icon [icon]="RightArrow"></fa-icon></span>
+            <ng-template #isNextBtn>
+              <span aria-hidden="true">{{'common.close'| translate}}</span>
+            </ng-template>
+          </app-button>
+        </div>
+      </div>
+    </div>
+  </ng-template>

@@ -1,0 +1,263 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+
+.customize-assign-lesson{
+  padding: 3rem 0rem;
+  .card-wihtout-header-blue{
+    padding: 3rem 2rem;
+    overflow: hidden;
+    .lesson_info{
+      display: flex;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+      &__image{
+          width:50%;
+          border-radius:0 1.2rem 1.2rem 0;
+          overflow: hidden;
+          @include breakpoint(xtrasmallmobile){
+            width:100%;
+            border-radius:0;
+            margin-bottom: 2rem;
+          }
+      }
+      &__content{
+          width:50%;
+          padding-left: 2rem;
+          @include breakpoint(xtrasmallmobile){
+            width:100%;
+            padding-left: 0rem;
+          }
+          &__top{
+              display: flex;
+              justify-content: space-between;
+              flex-wrap: wrap;
+              h6{
+                  width:calc(100% - 7rem);
+              }
+              .rating-bookmark{
+                  width: 7rem;
+                  display: flex;
+                  align-items: flex-start;
+                  justify-content: space-between;
+                  .rating{
+                      color: $secondary;
+                      border:1px solid $secondary;
+                      padding:0.2rem 0.5rem;
+                      display: flex;
+                      align-items:center;
+                      font-size: 1rem;
+                      border-radius: 0.3rem;
+                      fa-icon{
+                          margin-left:0.5rem;
+                          display: inline-block;
+                          font-size: 0.8rem;
+                      }
+                  }
+                  .bookmark{
+                      color: $secondary;
+                      font-size:1.6rem;
+                      cursor: pointer;
+                      .addBookmark{
+                          position: relative;
+                          &:after{
+                              content: "+";
+                              position: absolute;
+                              right: -1rem;
+                              top: -1rem;
+                              font-size: 1.2rem;
+                              color: $navy-blue;
+                              width: 1.2rem;
+                              height: 1.2rem;
+                              border-radius: 1.5rem;
+                              line-height: 1.6rem;
+                              background: $secondary;
+                              display: flex;
+                              justify-content: center;
+                              /* align-items: center; */
+                              text-align: center;
+                          }
+                      }
+                      &.active{
+                          .addBookmark{
+                              display: none;
+                          }
+                      }
+                  }
+              }
+          }
+          ul{
+              font-weight: 600;
+              li{
+                  color:rgba($white, 0.5);
+                  strong{
+                      font-weight: 600;
+                  }
+              }
+          }
+      }
+    }
+    .assign-form{
+      label{
+        padding-left: 3rem;
+      }
+      .verified-text{
+        color: $secondary;
+        font-size: 1.4rem;
+        font-weight: 700;
+        fa-icon{
+          font-size: 1.8rem;
+          color: $secondary;
+        }
+      }
+    }
+    .lessons-instruction{
+      padding: 0;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: $white;
+      opacity: 0.7;
+      max-width: 60%;
+      line-height: 2;
+      margin-bottom: 4rem;
+      @include breakpoint(mobile){
+        max-width: 100%;
+      }
+    }
+    .lesson-settings-wrapper{
+      overflow: auto;
+      .table-lesson-settings{
+        color: $white;
+        text-align: center;
+        min-width: 65rem;
+        margin-bottom: 4rem;
+        // .row{
+        //   align-items: center;
+        // }
+        .table-heading{
+          border-bottom: none;
+          font-size: 1.6rem;
+          font-weight: 700;
+          padding-top: 0.5rem;
+          padding-bottom: 0.5rem;
+          &.activity-type-heading{
+            text-align: left;
+          }
+        }
+        .settings{
+          font-size: 1.4rem;
+          font-weight: 700;
+          .col-4 ,.col-1, .col-3{
+            padding: 0.5rem 0rem;
+          }
+          &.visible-row{
+            .activity-type{
+              text-align: left;
+            }
+            .activity-icon-wrapper{
+              max-width: 2.2rem;
+              margin: 0 auto;
+            }
+            .down-arrow-icon{
+              display: none;
+            }
+            &.collapsed{
+              .up-arrow-icon{
+                display: none;
+              }
+              .down-arrow-icon{
+                display: inline-block;
+              }
+            }
+          }
+          &.hidden-row{
+            .sub-activity-type{
+              text-align: left;
+              padding-left: 2rem;
+              @include breakpoint(mobile){
+                padding-left: 1rem;
+              } 
+            }
+            .questions{
+              position: relative;
+              .instructions-icon{          
+                top: -1rem;
+                position: absolute;
+                font-size: 1.2rem;
+              }
+            }
+            .progress{
+              margin: 0 auto;
+              border: none;
+              width: 11rem;
+              height: 0.6rem;
+              background-color: $inputbg;
+              .progress-bar{
+                border-right: none;
+                background-color: $azure;
+              }
+            }
+            .activity-instructions{
+              font-size: 1.3rem;
+              opacity: 0.7;
+              font-weight: 700;
+              text-align: left;
+              padding: 0;
+            }
+          }
+        }
+      }
+    }
+    .estimated-lesson-time-wrapper{
+      .estimated-lesson-time{
+        background-color: $secondary;
+        color: $black;
+        font-weight: 700;
+        max-width: 26rem;
+        padding:1.3rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 1.2rem;
+        margin-left: auto;
+        fa-icon{
+          font-size: 2.4rem;
+        }
+        .label{
+          font-size: 1.4rem;
+          max-width: 9rem;
+        }
+        .time{
+          font-size: 1.6rem;
+          strong{
+            font-size: 3.5rem;
+          }
+        }
+      }
+    }
+    .action-wrapper{
+      font-size: 1.4rem;
+      font-weight: 700;
+      .bookmark-wrapper{
+        padding: 0.5rem 0;
+        text-align: center;
+        .bookmark{
+          color: $secondary;
+          font-size: 2.2rem;
+          text-align: center;
+        }
+      }
+      .save-input{
+        padding: 0.5rem 0;
+      }
+      .buttons-wrapper{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        @include breakpoint(mobile){
+          justify-content: center;
+        }
+      }
+    }
+  }
+}

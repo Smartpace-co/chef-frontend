@@ -1,0 +1,56 @@
+<app-lessons-headerbar [lessonHederConfig]="lessonHederConfig"></app-lessons-headerbar>
+<div class="active-action-body">
+    <div class="container">
+      <div class="final-editaion">
+        <div class="content-wrapper">
+          <div class="card-wihtout-header-blue">
+            <div class="active-action-wrapper">
+              <p> Carrots are a good source of which 
+                vitamin?</p>
+            </div>
+            <div class="drag">
+                <div class="options">
+                   <div class="card-white">
+                    <img id="drag1" src="./assets/images/carrot-vitamins.png" draggable="true" (dragstart)="drag($event)">
+                   </div>
+                </div>
+                <div class="drop-content">
+                    <div class="drop-wraper">
+                        <div class="write-answer" (drop)="drop($event)" (dragover)="allowDrop($event)">
+                        </div>
+                        <div class="label-wrapper">
+                          <label class="drop-label">
+                            <span aria-hidden="true">Vitamin K</span>
+                          </label>
+                        </div>
+                    </div>
+                    <div class="drop-wraper">
+                      <div class="write-answer" (drop)="drop($event)" (dragover)="allowDrop($event)">
+                      </div>
+                      <div class="label-wrapper">
+                        <label class="drop-label">
+                          <span aria-hidden="true">Vitamin D</span>
+                        </label>
+                      </div>
+                  </div>
+                  <div class="drop-wraper">
+                    <div class="write-answer" (drop)="drop($event)" (dragover)="allowDrop($event)">
+                    </div>
+                    <div class="label-wrapper">
+                      <label class="drop-label">
+                        <span aria-hidden="true">Vitamin E</span>
+                      </label>
+                    </div>
+                </div>                    
+                </div>
+            </div>
+          </div>
+          <span class="final-editaion-img-wrapper">
+            <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-lessons-footer (onNext)="onNext()" (onPrevious)="onPrevious()"></app-lessons-footer>
+

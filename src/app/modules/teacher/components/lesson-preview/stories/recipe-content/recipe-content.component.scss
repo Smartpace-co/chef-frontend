@@ -1,0 +1,131 @@
+@import "../../../../../../../assets/styles/helpers/variables";
+@import "../../../../../../../assets/styles/helpers/mixins";
+.story-body-7 {
+  // background: url("../../../../../../../assets/images/kitchen-bg.jpg") center no-repeat;
+  background:center no-repeat;
+  background-size: cover;
+  overflow: hidden;
+  min-height: calc(100vh - 24.2rem);
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  @include breakpoint(mobile) {
+    min-height: calc(100vh - 33rem);
+  }
+  .final-editaion {
+    justify-content: center;
+    padding-top: 9rem;
+    @include breakpoint(tabs) {
+      padding-top: 20rem;
+    }
+    .content-wrapper {
+      .final-editaion-img-wrapper {
+        max-width: 42rem;
+        position: relative;
+        display: block;
+        margin-bottom: -6rem;
+        @include breakpoint(tabs) {
+          max-width: 20rem;
+          z-index: 1;
+          margin-bottom: 1rem;
+        }
+      }
+      .tooltip-wrapper {
+        position: absolute;
+        top: 3rem;
+        left: 30rem;
+        @include breakpoint(tabs) {
+          top: 11rem;
+          left: 16rem;
+          z-index: 1;
+        }
+      }
+      .kitchen-table {
+        position: absolute;
+        width: 46rem;
+        display: inline-block;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        bottom: -21rem;
+        @include breakpoint(tabs) {
+          width: 27rem;
+          bottom: -4rem;
+        }
+        @include breakpoint(xtrasmallmobile) {
+          margin-left: auto;
+          margin-right: unset;
+        }
+      }
+      .recipe {
+        position: absolute;
+        width: 15rem;
+        height: 15rem;
+        display: flex;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        bottom: 19rem;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        border-radius: 50%;
+        @include breakpoint(tabs) {
+          left: 1rem;
+          bottom: 20rem;
+        }
+        @include breakpoint(xtrasmallmobile) {
+          margin-left: auto;
+          margin-right: unset;
+          right: 6.5rem;
+        }
+      }
+      .ingrediants {
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto 0;
+        @include breakpoint(tabs) {
+          right: 2rem;
+        }
+        @include breakpoint(tabs) {
+          top: -14rem;
+        }
+        .ingrediants-list {
+          margin-bottom: 1rem;
+          display: flex;
+          align-items: center;
+          .image-wrapper {
+            width: 5.7rem;
+            height: 5.7rem;
+            background-color: $white;
+            border-radius: 50%;
+            display: inline-block;
+            border: 0.5rem solid $navy-blue;
+            overflow: hidden;
+          }
+          .lable {
+            background-color: $secondary;
+            min-width: 16rem;
+            display: inline-block;
+            text-align: center;
+            border-radius: 3rem;
+            padding: 1rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: $black;
+            margin-left: 2rem;
+          }
+        }
+      }
+      .ingrediants {
+        @include breakpoint(tabs) {
+          right: 7rem;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,212 @@
+@import "../../../../../../../assets/styles/helpers/variables";
+@import "../../../../../../../assets/styles/helpers/mixins";
+
+.classCheck1{
+  visibility : visible !important;
+}
+.classCheck2{
+  visibility : hidden !important;
+}
+
+.cooking-step-1{
+  min-height: calc(100vh - 24.2rem);
+  position: relative;
+  padding-top: 0rem;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  flex-wrap: wrap;
+  @include breakpoint(tabs) {
+    padding-top: 0rem 5rem 5rem;
+  }
+  @include breakpoint(mobile) {
+    min-height: calc(100vh - 33rem);
+  }
+  .final-editaion{
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    padding: 15rem 0;
+    .content-wrapper{
+      flex: 0 0 100%;
+      max-width: 100%;
+      position: relative;
+      ul{
+        padding: 6rem;
+        @include breakpoint(mobile) {
+          padding: 6rem 1rem;
+        }
+        li{
+          display: flex;
+          justify-content: center;
+          .check-mark{
+              position: relative;
+              padding-left: 4rem;
+              display: inline-block;
+              margin-top: 2rem;
+              label {
+                background-color: $white;
+                border: 0.5rem solid $dark-border;
+                border-radius: 50%;
+                cursor: pointer;
+                height: 4rem;
+                left: 0;
+                position: absolute;
+                top: 0;
+                width: 4rem;
+                &:after {
+                  border: 0.5rem solid $black;
+                  border-top: none;
+                  border-right: none;
+                  content: "";
+                  height: 1.1rem;
+                  left: 0.4rem;
+                  opacity: 0;
+                  position: absolute;
+                  top: 0.7rem;
+                  transform: rotate(-45deg);
+                  width: 2rem;
+                }
+              }
+              input[type="checkbox"] {
+                visibility: hidden;
+              }
+              input[type="checkbox"]:checked + label {
+                background-color: $white;
+                border-color: $dark-border;
+              }
+              input[type="checkbox"]:checked + label:after {
+                opacity: 1;
+              }
+          }
+          .cooking-preparation-wrapper{
+            padding: 2.2rem 6rem 0rem;
+            width: calc(100% - 4rem);
+            min-height: 12rem;
+            display: flex;
+            margin-bottom: 7rem;
+            @include breakpoint(mobile) {
+              width: calc(100% - 2rem);
+              padding: 2.2rem 1rem 0rem;
+              margin-bottom: 4rem;
+            }
+            .index{
+              transform: translate(0%, -100%);
+            }
+            legend{
+              position: absolute;
+              padding-right: 4rem;
+              transform: translate(40%, -100%);
+              @include breakpoint(mobile) {
+                transform: translate(15%, -100%);
+              }
+              &.index{
+                width: 4rem;
+                height: 4rem;
+                padding: 0;
+                background: $blue-shade-1;
+                color: $white;
+                text-align: center;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                transform: translate(-190%, -100%);
+                padding-top: 0.5rem;
+                @include breakpoint(mobile) {
+                  transform: translate(-74%, -100%);
+                }
+              }
+              &.legend-2{
+                transform: translate(150%, -100%);
+              }
+              .profile-pic{
+                right: -2rem;
+                top: -1rem;
+                background: white;
+                position: absolute;
+                width: 5rem;
+                height: 5rem;
+              }
+            }
+            .description{
+              align-items: center;
+              display: flex;
+              @include breakpoint(tabs){
+                flex-wrap: wrap;
+                justify-content: center;
+              }
+              &.with-video{
+                @include breakpoint(mobile) {
+                  flex-wrap: wrap;
+                }
+                .video-js{
+                  background: $black;
+                }
+              }
+              .image{
+                max-width: 7.3rem;
+                min-width: 5rem;
+                @include breakpoint(mobile) {
+                  max-width: 4.5rem;
+                  min-width: 3rem;
+                }
+              }
+              .video{
+                max-width: 36rem;
+                min-width: 30rem;
+                // height:27rem;
+                padding: 2rem 0rem;
+                @include breakpoint(xtrasmallmobile) {
+                  max-width: 26rem;
+                  min-width: 24rem;
+                  height: 21rem;
+                }
+                // @include breakpoint(xtrasmallmobile) {
+                //   width: 20rem;
+                //   min-width: 20rem;
+                //   width: 20rem;
+                // }
+                // video{
+                //   max-width:32rem;
+                //   max-height:24rem;
+                //   padding: 2rem 0rem;
+                //   @include breakpoint(mobile) {
+                //     max-width:22rem;
+                //   }
+                // }
+                .video-play{
+                  max-width: 100%;
+                }
+              }
+              .description-info{
+                // padding-left: 2rem;
+                width: calc(100% - 5rem);
+                display: flex;
+                align-items: center;
+                margin-left: 3rem;
+                @include breakpoint(tabs) {
+                  width: 100%;
+                  margin: 1rem 0;
+                }
+                h6{
+                  font-size: 1.6rem;
+                  @include breakpoint(mobile) {
+                    font-size: 1.3rem;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .final-editaion-img-wrapper{
+      max-width: 27rem;
+      display:block;
+      position: absolute;
+      bottom: -11rem;
+      left: -6rem;
+    }
+  }
+}

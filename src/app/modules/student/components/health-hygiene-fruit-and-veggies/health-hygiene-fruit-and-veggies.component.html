@@ -1,0 +1,28 @@
+<app-lessons-headerbar [isButtonSection]="isButtonSection"  [showBackBtn]="true" [isLessonInfo]="false"></app-lessons-headerbar>
+<div class="exercise-body ingredient-bg">
+<!--   <app-scroll-down></app-scroll-down>-->
+  <div class="container">
+    <div class="content-wrapper">
+      <span class="card-wihtout-header-blue">
+        <span class="profile-pic-wrapper">
+          <span class="profile-pic">
+            <img src="./assets/images/profile-icon-2.png" alt="" class="img-fluid" />
+          </span>
+        </span>
+        <div class="question-wrapper">
+          <h6>{{ questionData?.question}}</h6>
+        </div>
+<!--         <p class="instuctions">Add the time you spent on this exercise</p>
+ --> 
+      <app-drop-down class="formDropdown" [dropDownButtonName]="title"
+            [dropDownItemList]="fruitAndVeggies"  (registerDropdownValueChange)="fruitAndVeggieCountChange($event)"></app-drop-down>
+      </span>
+    </div>
+  </div>
+  <div class="done-btn">
+    <app-button classes="btn btn-primary " [submit]="true" [disabled] = "isDoneDisable || fruitAndVeggieCount" (click)="saveExercisetime()">
+      <span aria-hidden="true">{{'student.activities-and-games.health-and-wellness-activities.done-label'|translate }}</span>
+    </app-button>
+  </div>
+</div>
+<div class="exercise-footer"></div>

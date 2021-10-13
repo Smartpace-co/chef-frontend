@@ -1,0 +1,59 @@
+@import "../../../../../../../assets/styles/helpers/variables";
+@import "../../../../../../../assets/styles/helpers/mixins";
+.story-body-2{
+  min-height: calc(100vh - 24.2rem);
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  @include breakpoint(mobile) {
+    min-height: calc(100vh - 33rem);
+  }
+  .earth-img{
+    position: relative;
+    padding: 3rem 0;
+    @include breakpoint(mobile){
+      padding: 3rem 0 13rem;
+    }
+    @include breakpoint(xtrasmallmobile){
+      padding: 3rem 0 18rem;
+    }
+    .globe-img-wrapper{
+      width: 52rem;
+      display: block;
+      margin: 0 auto;
+      @include breakpoint(mobile){
+        width: 40rem;
+        margin-left: auto;
+        margin-right: unset;
+      }
+      @include breakpoint(xtrasmallmobile){
+        width: 26rem;
+      }
+    }
+    .final-editaion-img-wrapper{
+      max-width: 30rem;
+      display:block;
+      position: absolute;
+      bottom: -6rem;
+      left: 0;
+      @include breakpoint(mobile){
+        bottom: -3rem;
+      }
+      @include breakpoint(xtrasmallmobile){
+        width: 16rem;
+        bottom: 5rem;
+      }
+    }
+    .tooltip-wrapper{
+      position: absolute;
+      left: 21rem;
+      bottom: 25rem;
+      @include breakpoint(xtrasmallmobile){
+        left: 4rem;
+        bottom: 23rem;
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+<div class="create-class-landing" *ngIf="classListCount == 0">
+    <div class="create-class">
+        <img src="./assets/images/class.svg" alt="" class="img-fluid" />
+        <h3>Start your <span>Chef Koochooloo</span> journey here.</h3>
+        <p>Create your first class, add students as members, and assign lessons.</p>
+        <!-- <app-button classes="btn btn-primary w-50" [submit]="true">
+            <span aria-hidden="true">Create Class</span>
+        </app-button> -->
+    </div>
+</div>
+
+
+
+
+<app-tables [dataSource]="teacherData" [tableHeaders]="tableHeader" [page]="1" [pageSize]="10" *ngIf="classListCount > 0"></app-tables>

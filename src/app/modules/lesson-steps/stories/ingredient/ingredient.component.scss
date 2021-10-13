@@ -1,0 +1,181 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+
+.ingredient-details{
+    padding:0rem 0 5rem;
+    position: relative;
+    .card{
+        color: $navy-blue;
+        &.white{
+            border-radius:7rem;
+            box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+            padding:8rem 3rem;
+            @include breakpoint(smallmobile){
+                border-radius:5rem;
+            }
+        }
+        p{
+            color: $navy-blue;
+            font-weight:600;
+        }
+        .green-card{
+            background: $green-shade-1;
+            color:$white;
+            display: inline-flex;
+            padding: 1rem 2rem;
+            width: auto;
+            flex-direction: column;
+            text-align: center;
+            border-bottom:3px solid darken($green-shade-1, 10%);
+            position: relative;
+            .heading{
+                color: $secondary;
+                font-size: 1.6rem;
+                font-weight: bold;
+                margin:0 0 0.5rem 0;
+            }
+            .content{
+                font-size: 1.2rem;
+                margin:0;
+            }
+        }
+        .ingredient-size{
+            .green-card{
+                &::before{
+                    content: "";
+                    position: absolute;
+                    bottom: 0;
+                    left: -1rem;
+                    width: 0;
+                    height: 0;
+                    border-right: 15px solid $green-shade-1;
+                    border-top: 7px solid transparent;
+                    border-bottom: 7px solid transparent;
+                }
+            }
+        }
+        .ingredient-header{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            .ingredient-name{
+                margin-bottom:2rem;
+            }
+        }
+        .ingredient-main{
+            position: relative;
+            padding:15rem 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width:80%;
+            margin: 0 auto;
+            @include breakpoint(iPad){
+                width:100%;
+            }
+            @include breakpoint(smallmobile){
+                flex-direction: column;
+                padding: 5rem 0;
+            }
+            .ingredient-content{
+                position: absolute;
+                width:40%;
+                padding-right:10rem;
+                min-height:12.5rem;
+                background: url(../../../../../assets/images/ingredient-arrow-left.png) right center no-repeat;
+                background-size:10rem;
+                @include breakpoint(iPad){
+                    width:45%;
+                }
+                &.left-top{
+                    left:0;
+                    top:5rem;
+                }
+                &.right-top{
+                    right:0;
+                    top:5rem;
+                    padding-right:0rem;
+                    padding-left:10rem;
+                    background: url(../../../../../assets/images/ingredient-arrow.png) left center no-repeat;
+                    background-size:10rem;
+                }
+                &.left-bottom{
+                    left:0;
+                    bottom:5rem;
+                    background: url(../../../../../assets/images/ingredient-arrow-bottom-left.png) right center no-repeat;
+                    background-size:10rem;
+                }
+                &.right-bottom{
+                    right:0;
+                    bottom:5rem;
+                    padding-right:0rem;
+                    padding-left:10rem;
+                    background: url(../../../../../assets/images/ingredient-arrow-bottom.png) left center no-repeat;
+                    background-size:10rem;
+                }
+                @include breakpoint(smallmobile){
+                    width:80%;
+                    position: static;
+                    background: none !important;
+                    padding:1rem 0 !important;
+                    min-height: inherit;
+                }
+            }
+            .ruler{
+                position: absolute;
+                right:0;
+                top:0;
+                bottom: 0;
+                margin: auto;
+                display: flex;
+                align-items: center;
+                @include breakpoint(smallmobile){
+                    position: static;
+                    padding:1rem 0;
+                }
+            }
+            .ingredient-image{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                max-width: 55rem;
+                max-height: 55rem;
+                overflow: hidden;
+                img{
+                    max-height: 100%;
+                    max-width: 100%;
+                }
+            }
+        }
+        .nutrients{
+            display:flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            .nutrients-heading{
+                display: inline-block;
+                border:2px dashed $border-color;
+                margin-bottom: 2rem;
+                border-radius: 3rem;
+                padding:1rem 3rem;
+                font-size:1.5rem;
+            }
+            ul{
+                width: 28%;
+                display: flex;
+                flex-wrap: wrap;
+                flex-direction: row;
+                margin: auto;
+                align-items: center;
+                justify-content: center;
+                @include breakpoint(iPad){
+                    width:80%;
+                }
+                li{
+                    margin:0 1rem 1rem 0;
+                }
+            }
+        }
+    }
+}

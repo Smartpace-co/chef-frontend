@@ -1,0 +1,55 @@
+@import "../../../../../../../assets/styles/helpers/variables";
+@import "../../../../../../../assets/styles/helpers/mixins";
+
+.science-experiment-body-7{
+    background-color: $white;
+    .blur-bg{
+      background:url("../../../../../../../assets/images/kitchen-bg-blur.jpg") center no-repeat ,;
+      background-size: cover;
+      min-height: calc(100vh - 24.2rem);
+      display: flex;
+      align-items: flex-end;
+      @include breakpoint(mobile) {
+        min-height: calc(100vh - 33rem);
+      }
+      .container{
+        @include breakpoint(tabs){
+          padding: 0;
+        }
+        .final-editaion{
+          justify-content: center;
+          display: flex;
+          flex-wrap: wrap;
+          padding-top: 10rem;
+          @include breakpoint(mobile) {
+            padding-top: 5rem;
+          }
+          .content-wrapper{
+            flex: 0 0 100%;
+            max-width: 100%;
+            .tooltip-wrapper{      
+             text-align: center;
+             z-index: 9;
+             position: relative;
+             .speech-tooltip{
+              .message{
+                h6{
+                  @include breakpoint(tabs){
+                    font-size: 1.6rem;
+                  }
+                }
+              }
+            }
+            }
+            .final-editaion-img-wrapper{
+              max-width: 33rem;
+              position: relative;
+              // display:inline-block;
+              // display: inline-block;
+              float:right;
+            }
+          }
+        }
+      }
+    }
+}

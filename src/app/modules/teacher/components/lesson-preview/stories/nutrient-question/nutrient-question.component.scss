@@ -1,0 +1,165 @@
+@import "../../../../../../../assets/styles/helpers/variables";
+@import "../../../../../../../assets/styles/helpers/mixins";
+.boiling-experiment{
+  .blur-bg{
+    background:url("../../../../../../../assets/images/kitchen-bg.jpg") center no-repeat ,;
+    background-size: cover;
+    min-height: calc(100vh - 24.2rem);
+    position: relative;
+    @include breakpoint(mobile) {
+      min-height: calc(100vh - 33rem);
+    }
+    .container{
+      @include breakpoint(tabs){
+        padding: 0;
+      }
+      .final-editaion{
+        padding-top: 5rem;
+        padding-bottom: 15rem;
+        overflow: hidden;
+        position: relative;
+        @include breakpoint(tabs) {
+          padding-top: 0rem;
+        }
+        @include breakpoint(mobile){
+          padding-bottom: 18rem;
+        }
+        .content-wrapper{
+          text-align: center;
+          flex: 0 0 100%;
+          max-width: 100%;
+          .card-wihtout-header-blue{
+            position: relative;
+            display: inline-block;
+            margin: 0 auto;
+            max-width: 53rem;
+            text-align: left;
+            @include breakpoint(tabs){
+              width: 95%;
+              padding: 2rem;
+            }
+            @include breakpoint(mobile){
+              z-index: 99;
+            }
+            .question-wrapper{
+              h6{
+                color: $white;
+                text-align: center;
+                padding-bottom: 2rem;
+                @include breakpoint(tabs){
+                  padding-bottom: 1rem;
+                  font-size: 1.6rem;
+                }
+              }
+            }
+            .option-wrapper{
+              ul{
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+                li{
+                  color: $white;
+                  display: block;
+                  position: relative;
+                  float: left;
+                  width: 80%;
+                  margin:0rem 0rem;
+                  text-align: center;
+                  input[type=radio]{
+                    opacity: 0;
+                    &:checked ~ label{
+                      color: $white;
+                      background:$yellow-shade-1;
+                    }
+                  }
+                  label{
+                    display: block;
+                    position: relative;
+                    font-weight: 300;
+                    z-index: 9;
+                    cursor: pointer;
+                    background:$blue-shade-1;
+                    padding: 1.5rem 1rem;
+                    border-radius: 3.5rem;
+                    font-size: 1.8rem;
+                    font-weight: bold;
+                    @include breakpoint(tabs){
+                      font-size: 1.6rem;
+                    }
+                  }
+                }
+              } 
+            }
+          }
+          .final-editaion-img-wrapper{
+            max-width: 38rem;
+            position: absolute;
+            display:block;
+            left: 0rem;
+            bottom: 0rem;
+            @include breakpoint(tabs){ 
+              left: -3rem;
+              max-width: 24rem;
+              bottom: -5rem;
+            }
+            @include breakpoint(mobile) {
+              max-width: 20rem;
+              right: -7rem;
+              bottom: -4rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.response-header{
+  &.modal-header{
+    border-bottom: none;
+    padding: 0;
+  }
+}
+.response-footer{
+  &.modal-footer{
+    border-top: none;
+    justify-content: center;
+  }
+}
+.response-body{
+  .response-wrapper{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    .check-mark{
+      flex-basis: 100%;
+      text-align: center;
+      .icon{
+        display: inline-block;
+        border: 0.8rem solid $white;
+        border-radius: 50%;
+        font-size: 5rem;
+        width: 8rem;
+        height: 8rem;
+        text-align: center;
+        background-color: $ring-blue;
+      }
+      &.wrong-ans{
+        .icon{
+          background-color: $alert;
+        }
+      }
+    }
+    h1{
+      padding: 2rem;
+      @include breakpoint(mobile) {
+        padding: 2rem 1rem;
+        font-size: 2.4rem;
+      }
+    }
+    .btn-wrapper{
+      flex-basis: 100%;
+      text-align: center;
+    }
+  }
+}

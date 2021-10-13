@@ -1,0 +1,310 @@
+<div class="assignment-header">
+  <div class="container-fluid">
+    <div class="assignment-header-main">
+      <h2 class="">
+        {{'school.class.class-list.you-have-label'|translate}} <span>{{ lessonList.length }}</span> {{'teacher.bookmarked-lesson.bookmarked-lessons-label'|translate}}
+      </h2>
+      <div class="assignment-header-button">
+        <app-button classes="btn btn-primary mr-4 icon-btn" [submit]="true" (click)="exploreList()">
+          <fa-icon [icon]="PlusIcon"></fa-icon>
+          <span aria-hidden="true">{{'student.dashboard.explore-lessons-label'| translate }}</span>
+        </app-button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="assignment-filter">
+  <div class="container">
+    <fa-icon [icon]="SearchIcon"></fa-icon>
+    <input id="table-filter" class="form-control transparentbg" type="text" placeholder="{{'table-search-filter-container.search'|translate}}" name="term" [(ngModel)]="term"/>
+    <div class="filter-droplist">
+      <app-drop-down class="transparentbg" [dropDownButtonName]="ViewTitle" [dropDownIcon]="ViewIcon"
+        [dropDownItemList]="ViewList" (registerDropdownValueChange)="changeView($event)"></app-drop-down>
+      <!-- <app-drop-down class="transparentbg" [dropDownButtonName]="assignmentFilterTitle" [dropDownIcon]=""
+        [dropDownItemList]="assignmentFilterList" (registerDropdownValueChange)="sortData($event)"></app-drop-down> -->
+      <app-drop-down class="transparentbg" [dropDownButtonName]="SortByTitle" [dropDownIcon]="SortByIcon"
+        [dropDownItemList]="SortByList" (registerDropdownValueChange)="sortData($event)"></app-drop-down>
+    </div>
+  </div>
+</div>
+<div *ngIf="gridview" class="teacher-bookmark">
+  <div class="container-fluid">
+    <div class="lessonList">
+      <div class="row">
+        <div class="main-card col-lg-3 col-md-4 col-sm-6 mb-4" *ngFor="let item of lessonList | filter: term; let i = index">
+          <div class="lessonList__item">
+            <div class="lessonList__image">
+              <img src="{{item.recipe?.recipeImage}}" alt="" class="img-fluid" />
+              <div class="grade">
+                <div class="label">{{'school.class.add-class.grade-field' | translate | uppercase}}</div>
+                <div class="count">{{item.grade?.grade}}</div>
+              </div>
+            </div>
+            <div class="lessonList__info">
+              <div class="lessonList__info__left">
+                <h4 class="lessonList__title">{{item.recipe?.recipeTitle}}</h4>
+                <div class="lessonList__time">
+                  <label>{{'student.assigned-lessons.duration'| translate }}:</label>
+                  <strong class="lessonList__time">{{item.recipe?.estimatedMakeTime}} {{'teacher.assignment.min-label'|translate}}</strong>
+                </div>
+              </div>
+              <div class="lessonList__info__right">
+                <span class="rating">4.5 <fa-icon [icon]="Star"></fa-icon></span>
+                <span class="bookmark" [class.active]="item.bookmark">
+                  <span (click)="bookmarkClass(item)">
+                    <fa-icon [icon]="BookmarkIcon" class="addBookmark"></fa-icon>
+                    <ng-template [ngIf]="item.bookmark">
+                      <fa-icon [icon]="BookmarkIcon"></fa-icon>
+                    </ng-template>
+                  </span>
+                </span>
+              </div>
+              <div class="lessonList__btns">
+                <app-button classes="btn btn-primary small-btn" (click)="open(create,item)" [submit]="true" >
+                  <span aria-hidden="true">{{'teacher.explore-lessons.assign'|translate}}</span>
+                </app-button>
+                <a (click)="onInfoClick(item,i)">{{'district.district-schools.info-title' | translate}} <fa-icon [icon]="RightArrow"></fa-icon></a>
+              </div>
+            </div>
+          </div>
+         
+      </div>
+        <div *ngIf="showInfo" class="col-12 lesson-subcard">
+          <!-- <div *ngIf="showInfo == i+1"
+              [ngClass]="{'lesson-subcard': classApplied, 'lesson-subcard-withoutside':!classApplied }"> -->
+          <div class="moreInfo">
+            <div class="moreInfo__header">
+              <h2 class="moreInfo__title mt-">{{resultLessonInfo.recipe?.recipeTitle}}</h2>
+              <ul class="moreInfo__tags">
+                <li>{{resultLessonInfo.recipe.country?.countryName}}</li>
+                <li>{{resultLessonInfo.recipe?.estimatedMakeTime}} min</li>
+              </ul>
+            </div>
+            <ul class="moreInfo__primary">
+              <li>
+                <label>{{'school.class.add-class.grade-field' | translate}}: </label>
+                <strong>{{resultLessonInfo.grade.grade}}</strong>
+              </li>
+              <li>
+                <label>{{'teacher.explore-lessons.languages'|translate}}:</label>
+                <strong>{{resultLessonInfo.language?.language}}</strong>
+              </li>
+              <li>
+                <label>{{'teacher.explore-lessons.full'|translate}} {{'student.assigned-lessons.duration'| translate }}:</label>
+                <strong>{{resultLessonInfo.recipe?.estimatedMakeTime}}</strong>
+              </li>
+            </ul>
+            <div class="moreInfo__secondary">
+              <div class="moreInfo__secondary__left">
+                <h6>{{'teacher.explore-lessons.learning-objective'|translate}}</h6>
+                <ol class="numbers-list">
+                  {{resultLessonInfo?.learningObjectivesForStudent}}
+                </ol>
+                <h6>{{'student.assigned-lessons.lesson-steps.summary-view.ingredients'|
+                  translate }}</h6>
+                <p>{{ingrdients}}</p>
+
+                <h6>{{'teacher.explore-lessons.equipments'|translate}}</h6>
+                <p>{{equipments}}</p>
+              </div>
+              <div class="moreInfo__secondary__right">
+                <h6>{{'school.class.add-class.standards-field'|translate}}</h6>
+                <p class="underline">{{resultLessonInfo.standards}}</p>
+              </div>
+            </div>
+            <div class="moreInfo__btns">
+              <app-button classes="btn btn-primary small-btn" (click)="onCancel()" [submit]="true">
+                <span aria-hidden="true">{{'common.cancel'| translate}}</span>
+              </app-button>
+              <app-button classes="btn btn-black small-btn ml-3" 
+                  (click)="openAssignModal(create,itemInfo)"  [submit]="true">
+                <span aria-hidden="true">{{'teacher.explore-lessons.assign'|translate}}</span>
+              </app-button>
+            </div>
+          <!-- </div> -->
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="listview">
+  <app-tables [term]="term" [dataSource]="lessonList" [page]="1" [pageSize]="10"
+    [tableHeaders]="bookmarkListHeaders"></app-tables>
+</div>
+<!-- Create Class Modal-->
+<ng-template #create let-modal>
+  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <img src="./assets/images/close.png" alt="" class="img-fluid" />
+  </button>
+  <div class="modal-body">
+      <div class="assign-lesson-form">
+          <h2 class="modal-title">{{'teacher.dashboard.assign-lesson-label'|translate}}</h2>
+          <div class="lesson_info">
+              <div class="lesson_info__image">
+                  <img [src]="lessonInfo.recipe?.recipeImage" alt="" class="img-fluid" />
+              </div>
+              <div class="lesson_info__content">
+                  <div class="lesson_info__content__top">
+                      <h6>{{lessonInfo.recipe.recipeTitle}}</h6>
+                      <div class="rating-bookmark">
+                          <span class="rating">4.8 <fa-icon [icon]="Star"></fa-icon></span>
+                          <span class="bookmark" [class.active]="lessonInfo.bookmark">
+                              <span (click)="bookmarkClass(lessonInfo)">
+                                  <fa-icon [icon]="BookmarkIcon" class="addBookmark"></fa-icon>
+                                  <ng-template [ngIf]="bookmark">
+                                      <fa-icon [icon]="BookmarkIcon"></fa-icon>
+                                  </ng-template>
+                              </span>
+                          </span>
+                      </div>
+                  </div>
+                  <ul>
+                      <li>
+                          <label>{{'student.assigned-lessons.duration'| translate }}:</label>
+                          <strong> {{lessonInfo.recipe?.estimatedMakeTime}} Min</strong>
+                      </li>
+                      <li>
+                          <label>{{'teacher.explore-lessons.grades'|translate}}:</label>
+                          <strong> {{lessonInfo.grade?.grade}}</strong>
+                      </li>
+                     
+                  </ul>
+              </div>
+          </div>
+          <form [formGroup]="AssignLesson">
+              <div class="row">
+                  <div class="col-md-12">
+                      <label>{{'teacher.explore-lessons.assignment-title.assignment-title-field'|translate}} (*)</label>
+                      <app-input-field classes="form-control" types="text" ids="title" fieldControl="title"
+                          [form]="AssignLesson" placeholders="{{'teacher.explore-lessons.assignment-title.placeholder'|translate}}" value="" (change)="validLessonTitle($event)"
+                          [ngClass]="{ 'is-invalid': formControl.title.touched && formControl.title.errors }">
+                      </app-input-field>
+                      <div *ngIf="formControl.title.errors" class="invalid-feedback">
+                          <div class="error" *ngIf="formControl.title.errors?.required">{{'teacher.explore-lessons.assignment-title.required'|translate}}</div>
+                      </div>
+                      <div class="error" *ngIf="formControl.title.errors?.titleValidate">
+                          <div class="error">{{'teacher.explore-lessons.assignment-title.valid'|translate}}</div>
+                        </div>
+                  </div>
+
+                  <div class="col-md-12">
+                      <label>{{'teacher.explore-lessons.assign-to-class'|translate}}  (*)</label>
+                      <app-drop-down class="formDropdown" [dropDownButtonName]="classTitle" [dropDownIcon]=""
+                          fieldControl="class" [dropDownItemList]="classList" (registerDropdownValueChange)="classChange($event)"
+                          [ngClass]="{ 'is-invalid': formControl.class.touched && formControl.class.errors }">
+                      </app-drop-down>
+                      <div *ngIf="formControl.class.errors" class="invalid-feedback">
+                          <div class="error" *ngIf="formControl.class.errors?.required">{{'teacher.explore-lessons.assign-to-class-required'|translate}}</div>
+                      </div>
+                     
+                  </div>
+
+                  <div class="col-md-12"  *ngIf="showCustomList" >
+                      <label>{{'teacher.explore-lessons.custom-settings'|translate}}</label>
+                      <app-drop-down class="formDropdown" [dropDownButtonName]="settingTitle" [dropDownIcon]=""
+                          fieldControl="customSetting" [dropDownItemList]="customList" (registerDropdownValueChange)="settingChange($event)">
+                      </app-drop-down>
+                     
+                  </div>
+
+
+                  <!-- Date Picker -->                    
+                  <div class="col-md-6 calendar">
+                      <label>{{'teacher.explore-lessons.start-date'|translate}}</label>
+                      <div class="input-group">
+                          <input #dpFromDate
+                                  class="form-control" placeholder="yyyy-mm-dd"
+                                  name="dpFromDate"
+                                  formControlName="fromDate"
+                                  disabled
+                                  [value]="formatter.format(fromDate)"
+                                  (input)="fromDate = validateInput(fromDate, dpFromDate.value)">
+                          <div class="input-group-append">
+                              <button class="calendarIcon" (click)="datepicker.toggle()" type="button">
+                                  <fa-icon [icon]="Calendar"></fa-icon>
+                              </button>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-md-6 calendar">
+                      <label>{{'student.lesson-report.end-date'| translate }}</label>
+                      <div class="input-group">
+                          <input #dpToDate
+                                  class="form-control" placeholder="yyyy-mm-dd"
+                                  name="dpToDate"
+                                  formControlName="toDate"
+                                  disabled
+                                  [value]="formatter.format(toDate)"
+                                  (input)="toDate = validateInput(toDate, dpToDate.value)">
+                          <div class="input-group-append">
+                              <button class="calendarIcon" (click)="datepicker.toggle()" type="button">
+                                  <fa-icon [icon]="Calendar"></fa-icon>
+                              </button>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="form-group hidden">
+                      <div class="input-group">
+                        <input name="datepicker"
+                               class="form-control"
+                               ngbDatepicker
+                               #datepicker="ngbDatepicker"
+                               [autoClose]="'outside'"
+                               (dateSelect)="onDateSelection($event)"
+                               [displayMonths]="2"
+                               [dayTemplate]="t"
+                               outsideDays="hidden"
+                               [startDate]="fromDate!"
+                               tabindex="-1">
+                        <ng-template #t let-date let-focused="focused">
+                          <span class="custom-day"
+                                [class.focused]="focused"
+                                [class.range]="isRange(date)"
+                                [class.faded]="isHovered(date) || isInside(date)"
+                                (mouseenter)="hoveredDate = date"
+                                (mouseleave)="hoveredDate = null">
+                            {{ date.day }}
+                          </span>
+                        </ng-template>
+                      </div>
+                  </div>
+                  <!-- Date Picker -->
+                  <!-- <div class="col-md-12 mt-5">
+                      <div class="info">
+                          <span class="info-icon">
+                              <fa-icon [icon]="exclamationTriangle" style="font-size: x-large;"></fa-icon>
+                          </span>
+                          <p>{{'teacher.explore-lessons.class-warning-text'|translate :{ count: 20} }}</p>
+                      </div>
+                  </div> -->
+                  <div class="col-md-12">
+                      <div class="custom-control custom-checkbox assign-lesson-checkbox">
+                          <input type="checkbox" class="custom-control-input" id="lesson" name="lesson">
+                          <label class="custom-control-label" for="lesson">{{'teacher.explore-lessons.assign-the-lesson-confirm-text'|translate }}</label>
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                          <input type="checkbox" class="custom-control-input"  [checked]="advance" id="advance" name="advance" (change)="onDefaultChanged($event)" >
+                          <label class="custom-control-label" for="advance">{{'teacher.explore-lessons.apply-default-setting'|translate}}</label>
+                          <a class="info-circle ml-4">
+                              <fa-icon [icon]="infoCircle"></fa-icon>
+                          </a>
+                      </div>
+                  </div>
+              </div>
+             
+              <div class="footer-btns">
+                  <app-button classes="btn btn-secondary" [submit]="true" (click)="modal.dismiss('Cross click')">
+                      <span aria-hidden="true">{{'common.cancel'| translate}}</span>
+                  </app-button>
+                  <app-button classes="btn btn-primary" [submit]="true" [disabled]="advance" (click)="AdvanceLink()">
+                      <span aria-hidden="true">{{'teacher.explore-lessons.advanced-customization'|translate }}</span>
+                  </app-button>
+                  <app-button classes="btn btn-primary" [submit]="true" (click)="assignLesson()" [disabled]="!AssignLesson.valid">
+                      <span aria-hidden="true">{{'teacher.dashboard.assign-lesson-label'|translate}}</span>
+                  </app-button>
+              </div>
+          </form>
+      </div>
+  </div>
+</ng-template>

@@ -1,0 +1,40 @@
+<div class="dist-notifications">
+  <div class="container">
+    <div class="ClassInfo legend-card">
+      <legend>{{ 'school.class.class-details.setting-label' | translate }}</legend>
+      <h3 class="section-sub-title">{{ 'school.setting.notification-label' | translate }}</h3>
+      <ul class="toggle-list" *ngFor="let item of notificationList">
+        <li>
+          <label>{{ item.notification }}</label>
+          <label class="switch">
+            <input type="checkbox" [ngModel]="item.isEnable" [checked]="item.isEnable" (click)="onSettingsUpdate(item)" />
+            <span class="slider round"></span>
+          </label>
+        </li>
+      </ul>
+      <h3 class="section-sub-title">{{ 'school.setting.data-privacy-label' | translate }}</h3>
+      <ul class="toggle-list" *ngFor="let item of privacyList">
+        <li>
+          <label>{{ item.privacy }}</label>
+          <label class="switch">
+            <input type="checkbox" [ngModel]="item.isEnable" [checked]="item.isEnable" (click)="onSettingsUpdate(item)" />
+            <span class="slider round"></span>
+          </label>
+        </li>
+      </ul>
+      <h3 class="section-sub-title">{{ 'school.setting.language-label' | translate }}</h3>
+      <ul class="toggle-list">
+        <li>
+          <label>{{ 'school.setting.set-languge-label' | translate }}</label>
+          <app-drop-down
+            class="class-dropdown"
+            [dropDownButtonName]="languageTitle"
+            (registerDropdownValueChange)="ChangeLang($event)"
+            [dropDownItemList]="languageList"
+          >
+          </app-drop-down>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

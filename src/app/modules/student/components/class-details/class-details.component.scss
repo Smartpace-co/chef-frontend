@@ -1,0 +1,109 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+.class-details{
+  .details-top{
+    display: flex;
+    justify-content: space-between;
+    .back-btn-wrapper{
+      display: flex;
+      align-items: center;
+    }
+  }
+  .details-body{
+    .class-details-list{
+      margin: 5rem 0rem;
+    }
+    .info-room{
+      display: flex;
+      align-items: center;
+      .class-details-pic{
+        width: 9.5rem;
+        height: 9.6rem;
+        border: 0.5rem solid $navy-blue;
+        border-radius: 50%;
+        overflow: hidden;
+        img{
+          width: 100%;
+        }
+      }
+      h4{
+        padding-left: 2.0rem;
+        display: flex;
+        flex-basis: calc(100% - 10rem);
+        flex-wrap: wrap;
+        align-items: center;
+        max-width: 27rem;
+        p{
+          color: $black;
+          flex-basis: 100%;
+          padding: 0;
+          font-weight: 700;
+          padding-top:1.5rem ;
+        }
+      }
+    }
+    .legend-card-white{
+      &.classmates{
+        margin-bottom: 5rem;
+        .classmates-wrapper{
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          .classmates-list{
+            text-align: center;
+            // max-width: calc((100% - 5rem) / 6);
+            flex: 0 0 calc((100% - 5rem) / 6);
+            padding-bottom: 3.3rem;
+            margin-top: auto;
+            .icon-favourites{
+              width: 2.5rem;
+              display: block;
+              margin: 0 auto;
+              padding-bottom: 1rem;
+              img{
+                max-width: 100%;
+              }
+            }
+            .profile-pic{
+              width: 9.5rem;
+              height: 9.6rem;
+              border: 0.5rem solid $navy-blue;
+              border-radius: 50%;
+              margin: auto;
+              &.favourite{
+                border-color: $yellow-shade-1;
+              }
+              img{
+                max-width: 100%;
+              }
+            }
+            .fev-profile-pic{
+              width: 9.5rem;
+              height: 9.6rem;
+              border: 0.5rem solid $yellow-shade-1;
+              border-radius: 50%;
+              margin: auto;
+              &.favourite{
+                border-color: $yellow-shade-1;
+              }
+              img{
+                max-width: 100%;
+              }
+            }
+            p{
+              color: $black;
+              font-weight: 600;
+              &.first-name{
+                padding-bottom: 0rem;
+              }
+              &.last-name{
+                padding: 0rem;
+              }
+            }
+          }
+        }
+      } 
+    }
+  }
+
+}

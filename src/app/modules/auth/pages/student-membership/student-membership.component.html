@@ -1,0 +1,97 @@
+<div class="student-plan-body">
+  <div class="container">
+    <div class="content-wrapper">
+      <div class="back-btn-wrapper">
+        <app-button classes="btn small-btn btn-secondary mr-4 icon-btn btn-back" [submit]="true" [routerLink]="['/auth/sign-up']">
+          <span aria-hidden="true">
+            <fa-icon [icon]="LeftArrow" class="mr-2"></fa-icon> Back
+          </span>
+        </app-button>
+      </div>
+      <div class="card-wihtout-header">
+        <header>
+          <div class="logo">
+            <img src="./assets/images/logo.png" class="img-fluid" />
+          </div>
+          <div class="content">
+            <h5 class="logo-title">Student Sign Up</h5>
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item" (click)="onPrevious()"><a>General Info</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><a>Membership</a></li>
+              </ol>
+            </nav>
+          </div>
+        </header>
+        <div *ngIf="isLoad" class="slider-wrapper">
+          <ngx-slick-carousel class="plans" #slickModal="slick-carousel" [config]="slideConfig">
+            <div ngxSlickItem *ngFor="let item of planList" class="option">
+              <input type="radio" id="selectedPkg" name="selector" [ngModelOptions]="{standalone: true}"
+                [(ngModel)]="selectedPlan" [value]="item" [checked]="selectedPlan">
+              <label for="{{item.planName}}">
+                <div class="transferent-card">
+                  <div class="info-btn-wrapper">
+                    <div class="info-btn">
+                      <a (click)="open(membershipModal,item)" class="info-icon">
+                        <img _ngcontent-jml-c16="" alt="" class="img-fluid" src="./assets/images/info-icon-white.svg">
+                      </a>
+
+                    </div>
+                    <div>
+                      <h3 class="plan-heading">{{item.planName}}</h3>
+                      <!-- <p class="monthly-price">{{item.monthlyPrice}}</p> -->
+                    </div>
+                  </div>
+                  <div class="select-btn-wrapper">
+                    <div>
+                      <p class="total-price">Total Price: ${{item.totalPrice}}</p>
+                    </div>
+                    <app-button classes="btn  btn-small btn-secondary btn-select" [submit]="true">
+                      <span aria-hidden="true">Select</span>
+                    </app-button>
+                  </div>
+                </div>
+              </label>
+            </div>
+          </ngx-slick-carousel>
+          <div class="next-btn-wrapper">
+            <fa-icon [icon]="rightArrow"></fa-icon>
+          </div>
+          <div class="prev-btn-wrapper">
+            <fa-icon [icon]="LeftArrow"></fa-icon>
+          </div>
+        </div>
+        <div class="agree-signup">
+          <p>By clicking Agree and Sign Up, you agree to the Chef Koochooloo
+            User Agreement, Privacy Policy, and Cookie Policy.</p>
+        </div>
+        <div class="agree-signup-btn-wrapper">
+          <app-button classes="btn  btn-primary" [submit]="true" (click)="onSignUp()" [disabled]="isInvalid()">
+            <span aria-hidden="true">Agree and
+              Sign Up</span>
+          </app-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #membershipModal let-modal>
+  <div class="modal-header membership-header">
+    <div class="logo">
+      <img src="./assets/images/logo.png" class="img-fluid" />
+    </div>
+    <h4>{{selectedPlan?.planName}} Membership</h4>
+  </div>
+  <div class="modal-body journal-body">
+    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s
+      standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
+      type specimen book. </p>
+    <h6 class="Total">Total Price : ${{selectedPlan?.totalPrice}}</h6>
+    <!-- <p class="month">{{selectedPlan?.monthlyPrice}}</p> -->
+    <div class="close-btn-wrapper">
+      <app-button classes="btn btn-primary membership-close-btn" [submit]="true" (click)="closePopup()">
+        <span aria-hidden="true">Close</span>
+      </app-button>
+    </div>
+  </div>
+</ng-template>

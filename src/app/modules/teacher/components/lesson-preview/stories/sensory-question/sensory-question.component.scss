@@ -1,0 +1,118 @@
+@import "../../../../../../../assets/styles/helpers/variables";
+@import "../../../../../../../assets/styles/helpers/mixins";
+.story-body-10{
+  background-color: $white;
+  position: relative;
+  .blur-bg{
+    background:url("../../../../../../../assets/images/kitchen-bg-blur.jpg") center no-repeat ,;
+    background-size: cover;
+    min-height: calc(100vh - 24.2rem);
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    @include breakpoint(mobile) {
+      min-height: calc(100vh - 33rem);
+    }
+    .container{
+      @include breakpoint(tabs){
+        padding: 0;
+      }
+      .final-editaion{
+        justify-content: center;
+        padding-top: 15rem;
+        display: flex;
+        flex-wrap: wrap;
+        @include breakpoint(tabs){
+          padding-top: 15rem;
+        }
+        .content-wrapper{
+          flex: 0 0 100%;
+          max-width: 100%;
+          margin: -2rem;
+          display: flex;
+          .final-editaion-img-wrapper{
+            max-width: 38rem;
+            position: relative;
+            display:inline-block;
+            margin-left: 13%;
+            margin-bottom: -6rem;
+            display: inline-block;
+            float:left;
+            @include breakpoint(tabs){
+              max-width: 21rem;
+              margin-bottom: 1rem;
+            }
+            @include breakpoint(xtrasmallmobile){
+              margin-left: -6rem;
+            }
+            .right-tooltip-wrapper{
+              position: absolute;       
+              top: -7rem;
+              right: -2rem;
+            }
+          }
+          .question{
+            display: inline-block;
+            float:left;
+            padding-top: 10rem;
+            color: black;
+            text-align: center;
+            @include breakpoint(tabs){
+              padding-top: 2rem;
+            }
+            @include breakpoint(xtrasmallmobile){
+              margin-left: -5rem;
+              width: 70%;
+            }
+            h4{
+              margin-bottom: 3rem;
+              @include breakpoint(tabs){
+                font-size: 1.8rem;
+              }
+              @include breakpoint(mobile) {
+                margin-bottom: 1rem;
+              }
+              @include breakpoint(xtrasmallmobile){
+                margin-bottom: 0.5rem;
+              }
+            }
+            app-button{
+              display: block;
+              margin-bottom: 1rem;
+            }
+          }
+          .answers{
+            margin-bottom: 1rem;
+            input{
+              display: none;
+            }
+            input[type=radio]{
+              display:none;
+              &:checked ~ label{
+                background:$yellow-shade-1;
+              }
+            }
+          }
+          .table-img-wrapper{
+            max-width: 87rem;
+            position: relative;
+            display:block;
+            margin: 0 auto;
+            margin-top: -7rem;
+            @include breakpoint(tabs){
+              max-width:100%;
+              overflow: hidden;
+              margin-top: -7rem;
+            }
+            img{
+              @include breakpoint(tabs){
+                max-width:87rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

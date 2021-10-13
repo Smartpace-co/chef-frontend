@@ -1,0 +1,130 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+  .active-action-body{
+    background:url("../../../../../assets/images/kitchen-bg.jpg") center no-repeat ,;
+    background-size: cover;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    flex-wrap: wrap;
+    .container{
+      @include breakpoint(tabs){
+        padding: 0;
+      }
+      .final-editaion{
+        margin-top: 16rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding-top: 0rem;
+        padding-bottom: 15rem;
+        overflow: hidden;
+        position: relative;
+        @include breakpoint(tabs) {
+          padding-top: 0rem;
+        }
+        @include breakpoint(mobile){
+          padding-bottom: 6rem;
+        }
+        .content-wrapper{
+          text-align: center;
+          flex: 0 0 100%;
+          max-width: 100%;
+          .card-wihtout-header-blue{
+            position: relative;
+            display: inline-block;
+            margin: 0 auto;
+            max-width: 80rem;
+            @include breakpoint(tabs){
+            //   max-width: 60rem;
+              padding: 2rem;
+            }
+            @include breakpoint(mobile){  
+              padding-bottom: 14rem;
+            }
+            @include breakpoint(xtrasmallmobile){
+              max-width: 90%;
+            }
+            .active-action-wrapper{
+              p{
+                font-size: 2rem;
+                font-weight: 700;
+                text-align: center;
+                @include breakpoint(mobile){  
+                  font-size: 1.8rem;
+                }
+              }
+            }
+            .chef-hat{
+                margin: 2rem 0;
+                display: flex;
+                justify-content: center;
+            }
+            .options-card{
+                background-color: $blue-shade-1;
+                padding: 2rem;
+                border-radius: 3rem;
+                display: flex;
+                flex-direction: column;
+                .que-ans{
+                    padding: 5rem 0;
+                    display: flex;
+                    justify-content: center;
+                    .answer{
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 9.7rem;
+                        height: 8.2rem;
+                        background-color: $blue-shade-5;
+                        border-radius: 2rem;
+                        border: 0.2rem dashed $white;
+                    }
+                }
+                .option{
+                    padding-bottom: 4rem;
+                    display: flex;
+                    justify-content: space-between;
+                    flex-wrap: wrap;
+                    .card-white{
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 9.7rem;
+                        height: 8.2rem;
+                        background-color: $white;
+                        border-radius: 2rem;
+                        margin-bottom: 1rem;
+                        @include breakpoint(sm-mobile){
+                          width: 9rem;
+                        }
+                        p{
+                            font-size: 1.8rem;
+                            color: $navy-blue;
+                            padding: 0;
+                            font-weight: 700;
+                        }
+                    }
+                }
+            }
+          }
+          .final-editaion-img-wrapper{
+            max-width: 29rem;
+            position: absolute;
+            display:block;
+            margin-left: auto;
+            left: 0;
+            bottom: -7rem;
+            @include breakpoint(mobile){
+              max-width: 20rem;
+            }
+            @include breakpoint(mobile) {
+              left: -7rem;
+              bottom: -8rem;
+            }
+          }
+        }
+      }
+    }
+  }

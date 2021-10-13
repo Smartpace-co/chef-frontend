@@ -1,0 +1,131 @@
+<app-student-nav [backBtn]="true" [chefIcon]="true"></app-student-nav>
+<div class="games-listing">
+  <div class="container">
+
+    <div class="games-listing-wrapper">
+      <div class="games-tab">
+        <ul id="tabs" class="nav nav-tabs" role="tablist">
+          <li class="nav-item mr-5">
+            <a id="tabmimi" href="#gamesmini" class="nav-link active" data-toggle="tab"
+              role="tab">{{'student.activities-and-games.mini-games.mini-game-tab'| translate }}</a>
+          </li>
+          <li class="nav-item">
+            <a id="tabhealth" href="#gameshealth" class="nav-link" data-toggle="tab"
+              role="tab">{{'student.activities-and-games.health-and-wellness-activities.health-and-wellness-activities-tab'|
+              translate }}</a>
+          </li>
+        </ul>
+        <div id="content" class="tab-content" role="tablist">
+          <div id="gamesmini" class="panal-card tab-pane fade show active" role="tabpanel" aria-labelledby="tabmimi">
+            <div class="panal-card-header" role="tab" id="headingInfo">
+              <h5 class="mb-0">
+                <a data-toggle="collapse" href="#collapseInfo" aria-expanded="true" aria-controls="collapseInfo">
+                  {{'student.activities-and-games.mini-games.mini-game-tab'| translate }}
+                </a>
+              </h5>
+            </div>
+            <div id="collapseInfo" class="collapse show" data-parent="#content" role="tabpanel"
+              aria-labelledby="headingInfo">
+              <div class="mini-details">
+                <div class="row">
+                  <!-- <div class="col-md-4">
+                        <div class="card card--white" routerLink="">
+                            <img class="img-fluid" src="./assets/images/veggie-slice.png" alt="" />
+                            <app-button classes="btn btn-primary">
+                                <span aria-hidden="true">Veggie slice</span>
+                                <fa-icon class="ml-3" [icon]="RightArrow"></fa-icon>
+                            </app-button>
+                        </div>
+                    </div> -->
+                  <div class="col-md-4">
+                    <div class="card card--white" routerLink="/student/flag-match">
+                      <img class="img-fluid" src="./assets/images/flag-match.png" alt="" />
+                      <app-button classes="btn btn-primary">
+                        <span aria-hidden="true">{{'student.activities-and-games.mini-games.flag-match-label'| translate
+                          }}</span>
+                        <fa-icon class="ml-3" [icon]="RightArrow"></fa-icon>
+                      </app-button>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="card card--white" routerLink="/student/safety-dragndrop">
+                      <img class="img-fluid" src="./assets/images/drag-and-drop.png" alt="" />
+                      <app-button classes="btn btn-primary">
+                        <span aria-hidden="true">{{'student.activities-and-games.mini-games.drag-and-drop-label'|
+                          translate }}</span>
+                        <fa-icon class="ml-3" [icon]="RightArrow"></fa-icon>
+                      </app-button>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="card card--white" routerLink="/student/flip-games">
+                      <img class="img-fluid" src="./assets/images/image-flip.png" alt="" />
+                      <app-button classes="btn btn-primary">
+                        <span aria-hidden="true">{{'student.activities-and-games.mini-games.image-flip-label'| translate
+                          }}</span>
+                        <fa-icon class="ml-3" [icon]="RightArrow"></fa-icon>
+                      </app-button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="gameshealth" class="panal-card tab-pane fade" role="tabpanel" aria-labelledby="tabhealth">
+            <div class="panal-card-header" role="tab" id="headingStudents">
+              <h5 class="mb-0">
+                <a class="collapsed" data-toggle="collapse" href="#collapseStudents" aria-expanded="false"
+                  aria-controls="collapseStudents">
+                  {{'student.activities-and-games.health-and-wellness-activities.health-and-wellness-activities-tab'|
+                  translate }}
+                </a>
+              </h5>
+            </div>
+            <div id="collapseStudents" class="collapse" data-parent="#content" role="tabpanel"
+              aria-labelledby="headingStudents">
+              <div class="health-wrapper">
+                <div class="health-detail">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="card card--white" routerLink="/student/health-hygiene-question-water">
+                        <img class="img-fluid track" src="./assets/images/water-glass.png" alt="" />
+                        <h6>{{'student.activities-and-games.health-and-wellness-activities.track-water-intake'|
+                          translate }}</h6>
+                        <app-button classes="btn btn-primary">
+                          <span aria-hidden="true">{{'student.lesson-report.answer'| translate }}</span>
+                          <fa-icon class="ml-3" [icon]="RightArrow"></fa-icon>
+                        </app-button>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="card card--white" routerLink="/student/health-hygiene-question-exercise">
+                        <img class="img-fluid" src="./assets/images/exercise.png" alt="" />
+                        <h6>{{'student.activities-and-games.health-and-wellness-activities.track-exercise-time'|
+                          translate }}</h6>
+                        <app-button classes="btn btn-primary">
+                          <span aria-hidden="true">{{'student.lesson-report.answer'| translate }}</span>
+                          <fa-icon class="ml-3" [icon]="RightArrow"></fa-icon>
+                        </app-button>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="card card--white" routerLink="/student/health-hygiene-fruit-veggie">
+                        <img class="img-fluid" src="./assets/images/veggie-slice.png" alt="" />
+                        <h6>{{'student.activities-and-games.health-and-wellness-activities.track-fruits-and-veggies'|
+                          translate }}</h6>
+                        <app-button classes="btn btn-primary">
+                          <span aria-hidden="true">{{'student.lesson-report.answer'| translate }}</span>
+                          <fa-icon class="ml-3" [icon]="RightArrow"></fa-icon>
+                        </app-button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

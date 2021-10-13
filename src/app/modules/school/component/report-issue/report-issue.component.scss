@@ -1,0 +1,115 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+
+.report-an-issue {
+    padding: 5rem 0rem;
+
+    .report-heading-wrapper {
+        margin-bottom: 3rem;
+
+        @include breakpoint(sm-mobile) {
+            flex-wrap: wrap;
+        }
+
+        h4 {
+            @include breakpoint(sm-mobile) {
+                margin-bottom: 2rem;
+            }
+        }
+    }
+
+    .report-card {
+        background: $primary;
+        border: 1px solid $border-color;
+        border-radius: 1.2rem;
+        width: 80%;
+        @include breakpoint(mobile) {
+            width: 100%;
+        }
+
+        textarea {
+            width: 100%;
+            font-size: 1.8rem;
+            font-weight: 600;
+            list-style: 1.22;
+            background: transparent;
+            color: $white;
+            padding: 1.4rem 2rem 2.5rem 2.4rem;
+            border-bottom: 2px solid $blueBorder;
+
+            @include breakpoint(mobile) {
+                font-size: 1.6rem;
+            }
+        }
+
+        ::placeholder {
+            color: $blueBorder;
+            opacity: 1;
+        }
+
+        :-ms-input-placeholder {
+            color: $blueBorder;
+        }
+
+        ::-ms-input-placeholder {
+            color: $blueBorder;
+        }
+
+        .add-attachment {
+            padding: 1.5rem 2.2rem;
+            display: flex;
+            flex-wrap: wrap;
+                label {
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                    color: white;
+                    cursor: pointer;
+                    margin-right: 2rem;
+                    img {
+                        margin-right: 1.5rem;
+                    }
+                }
+
+                .selected-file {
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                    margin: 0 0 0 auto;
+                    word-break: break-all;
+                }
+        }
+    }
+    .report-history {
+        width: 80%;
+        margin-top: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        @include breakpoint(mobile) {
+            width: 100%;
+        }
+
+        a {
+            font-size: 1.7rem;
+            font-weight: 600;
+            color: $white;
+            text-decoration: underline;
+            @include breakpoint(mobile) {
+                font-size: 1.5rem;
+            }
+        }
+    }
+
+    .radio-btn-wrapper{
+        // label{
+        // display: block;
+        // }
+        .custom-radio{
+          display: inline-block;
+          margin-left:2rem;
+          margin-top:1rem;
+          label{
+              padding-left: 0;
+          }
+        }
+      }
+}

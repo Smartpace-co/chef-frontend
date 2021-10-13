@@ -1,0 +1,14 @@
+<main class="coming-soon">
+    <div class="container-fluid">
+        <div class="text-center mt-5 mb-5">
+            <div class="logo w-50 ml-auto mr-auto">
+                <img src="./assets/images/logo.png" class="img-fluid" />
+            </div>
+            <h1 class="logo-title mb-5 mt-5">Coming Soon...</h1>
+            <app-button classes="btn btn-primary" [submit]="true" (click)="logout()" *ngIf="loggedIn">
+                <span aria-hidden="true">Logout</span>
+            </app-button>
+        </div>
+
+    </div>
+</main>

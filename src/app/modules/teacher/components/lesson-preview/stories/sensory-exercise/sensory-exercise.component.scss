@@ -1,0 +1,152 @@
+@import "../../../../../../../assets/styles/helpers/variables";
+@import "../../../../../../../assets/styles/helpers/mixins";
+.assessment-body-1{
+  padding: 10rem 0;
+  display: flex;
+  align-items: flex-end;
+  min-height: calc(100vh - 24.2rem);
+  position: relative;
+  overflow: hidden;
+  flex-wrap: wrap;
+  @include breakpoint(tabs){
+    padding-bottom: 15rem;
+    padding-top: 5rem
+  }
+  @include breakpoint(mobile) {
+    min-height: calc(100vh - 33rem);
+  }
+  .content-wrapper{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    .card-wihtout-header-blue{
+      max-width: 58rem;
+      z-index: 9;
+      @include breakpoint(tabs){
+        padding: 2rem;
+        padding-bottom: 4rem;
+      }
+      h6{
+        line-height: 1.6;
+        margin: 0;
+        @include breakpoint(tabs){
+          font-size: 1.6rem;
+        }
+      }
+      .instuctions{
+        color:$text-muted;
+        padding:2rem 0rem 0.5rem;
+        cursor: pointer;
+      }
+      .measurement-list{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: left;
+        text-align: left;
+        @include breakpoint(xtrasmallmobile){
+          text-align: center;
+        }
+        li{
+          flex: 0 0 calc((100% - 3rem) / 3);
+          @include breakpoint(tabs){
+            flex: 0 0 calc((100% - 3rem) / 2);
+          }
+          @include breakpoint(xtrasmallmobile){
+            flex: 0 0 calc((100% - 3rem) / 1);
+          }
+          p{
+            font-size: 1.1rem;
+            padding: 0;
+            font-weight: 700;
+          }
+        }
+      }
+      .input-box{
+        margin-top: 2rem;
+      }
+      .assessment-reference , .assessment-hint{
+        margin-top: 4rem;
+        text-align: left;
+        @include breakpoint(tabs){
+          padding: 4rem 2rem;
+        }
+        .close-btn-wrapper{
+          position: absolute;
+          top: -2rem;
+          right: -2rem;
+          width: 4.5rem;
+          @include breakpoint(tabs){
+            top: -1rem;
+            right: -1rem;
+            width: 3.5rem;
+          }
+        }
+        h6{
+          line-height: 1.6;
+          @include breakpoint(tabs){
+            font-size: 1.6rem;
+          }
+          &.hint{
+            margin-bottom: 1.5rem;
+          }
+        }
+        .reference-list{
+          li{
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            .image-wrapper{
+              max-width: 3.9rem;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+      .assessment-hint{
+        padding-top: 2rem;
+
+      }
+      .reference-hint-wrapper{
+        transform: translate(25%, 130%);
+        // margin-top: -5rem;
+        @include breakpoint(tabs) {
+          transform: translate(0%, 145%);
+        }
+        .reference{
+          margin-right: 1rem;
+        }
+      }
+      .active-action-wrapper{
+        p{
+          font-size: 2.4rem;
+          font-weight: 700;
+          text-align: center;
+          @include breakpoint(mobile){  
+            font-size: 1.8rem;
+          }
+        }
+      }
+      .submit-btn-wrapper{
+        margin-top: 3.5rem;
+        text-align: center;
+      }
+    }
+    .final-editaion-img-wrapper{
+      max-width: 38rem;
+      position: absolute;
+      display:block;
+      left: 0rem;
+      bottom: -7rem;
+      @include breakpoint(tabs){ 
+        left: -3rem;
+        max-width: 24rem;
+        bottom: -5rem;
+      }
+      @include breakpoint(mobile) {
+        max-width: 20rem;
+        right: -7rem;
+        bottom: -4rem;
+      }
+    }
+  }
+}

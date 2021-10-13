@@ -1,0 +1,36 @@
+<app-lessons-headerbar [isButtonSection]="isButtonSection" [showBackBtn]="true" [isLessonInfo]="false"></app-lessons-headerbar>
+<div class="exercise-body ingredient-bg">
+  <!-- <app-scroll-down></app-scroll-down> -->
+  <div class="container">
+    <div class="content-wrapper">
+      <span class="card-wihtout-header-blue">
+        <div class="question-wrapper">
+          <h6>{{questionData?.question}}</h6>
+        </div>
+        <p class="instuctions">{{'student.activities-and-games.health-and-wellness-activities.track-water-intake-label'|
+          translate }}</p>
+          <div class="answers">
+            <div class="option" *ngFor="let item of measurementUnitList">
+              <div class="check-mark">
+                <input type="checkbox" id="checkbox{{item.id}}" [disabled]="isDoneDisable" (click)="glassCounter(item.id)"/>
+                <label [attr.for]="'checkbox' + item.id">
+                  <div class="option-image">
+                    <img src="{{item.icon}}" alt="" class="img-fluid"/>
+                    <span class="count" *ngIf="item.check">
+                      {{item.id}}
+                    </span>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+      </span>
+    </div>
+  </div>
+  <div class="done-btn">
+    <app-button classes="btn btn-primary " [disabled]="isDoneDisable" [submit]="true" (click)="saveWaterIntake()">
+      <span aria-hidden="true">{{'student.activities-and-games.health-and-wellness-activities.done-label'|translate }}</span>
+    </app-button>
+  </div>
+</div>
+<div class="exercise-footer"></div>

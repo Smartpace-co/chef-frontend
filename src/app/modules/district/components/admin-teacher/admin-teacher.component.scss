@@ -1,0 +1,25 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+.roster-list{
+  padding:2rem 0;
+  .roster-header{
+    margin-bottom: 2rem;
+      .roster-header-main{
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          flex-wrap: wrap;
+          h3{
+              font-size:2.1rem;
+              margin: 0;
+              span{
+                  color:$secondary;
+              }
+              @include breakpoint(mobile){
+                  font-size:1.8rem;
+                  margin-bottom:1.5rem;
+              }
+          }
+      }
+  }
+}

@@ -1,0 +1,4 @@
+<div [formGroup]="form">
+    <input [class]="classes" type="radio" [formControlName]="fieldControl" [value]="values" [checked]="form.get(fieldControl).value == values" [name]="names"/>
+</div>
+

@@ -1,0 +1,71 @@
+.explore-lesson{
+  .globe{
+      text-align: center;
+      @include breakpoint(mobile){
+        width:100%;
+        // > div{
+        //   display: flex;
+        //   justify-content: center;
+        // }
+        svg{
+          transform: scale(0.6) translate(0, -35%);
+          margin: 3rem auto 0;
+        }
+      }
+  }
+  #globe {
+      cursor: move;  
+    }
+    
+    #current {
+      position: absolute;
+      color: white;
+      font-family: sans-serif;
+      margin-left: 4%;
+      margin-top: 4%;
+    }
+     .water {
+      fill: #01afb8;
+      cursor: move;
+    }
+    
+    .land {
+      fill: #b1df63;
+      stroke-width:0;
+      cursor: move;
+    }
+    
+    .land:hover {
+      fill:#b1df63;
+      stroke-width:4px;
+      stroke: $secondary;
+    }
+    
+    .focused {
+      fill:#b1df63;
+      stroke-width:4px;
+      stroke: $secondary;
+      &:before{
+        background: url(../../../images/pin.svg) center top no-repeat;
+        width:2rem;
+        height:3rem;
+        content:'';
+        position: absolute;
+
+      }
+    }
+    
+    .countryTooltip {
+      position: absolute;
+      display: none;
+      pointer-events: none;
+      background:$secondary;
+      padding:0.5rem 2rem;
+      border-radius:5rem;
+      text-align: center;
+      border:none;
+      color: $navy-blue;
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+}

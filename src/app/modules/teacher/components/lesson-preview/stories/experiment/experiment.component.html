@@ -1,0 +1,35 @@
+<!-- <app-lessons-headerbar [isButtonSection]="isButtonSection"></app-lessons-headerbar>
+<app-dynamic-experiment [experimentData]="form"></app-dynamic-experiment>
+<app-lessons-footer (onNext)="onNext()" (onPrevious)="onPrevious()">
+</app-lessons-footer> -->
+<app-ingreditent-nav></app-ingreditent-nav>
+<app-lessons-headerbar [isButtonSection]="isButtonSection" [showBackBtn]="false"></app-lessons-headerbar>
+<div class="science-experiment-body-2">
+    <div class="blur-bg">
+        <div class="container">
+            <div class="final-editaion">
+                <div class="content-wrapper">
+                    <div class="tooltip-wrapper">
+                        <div class="speech-tooltip xl-tooltip right-left-bottom-tip">
+                            <div class="speech-tooltip-inner">
+                                <p class="message">
+                                    <span>
+                                        <h6>{{ experimentData?.description}}</h6>
+                                    </span>
+                                </p>
+                                <span class="tip">
+                                    <img src="./assets/images/left-bottom-tip.svg" alt="" class="img-fluid" />
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="final-editaion-img-wrapper">
+                        <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-lessons-footer [isVisibleNext]="isVisibleNext" (onNext)="onNext()" (onPrevious)="onPrevious()">
+</app-lessons-footer>

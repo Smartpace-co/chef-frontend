@@ -1,0 +1,39 @@
+<footer class="lessons-footer">
+  <div *ngIf="showTryAgainBtn" class="try-it-btn">
+    <app-button classes="btn btn-primary btn-try-it" [submit]="true" (click)="tryAgain()">
+      <span aria-hidden="true">{{'student.assigned-lessons.try-it-again'| translate }}</span>
+      <span class="flask"><img src="./assets/images/flask.png" class="img-fluid" alt=""></span>
+    </app-button>
+  </div>
+  <div *ngIf="showAddObservation" class="observation-btn">
+    <app-button classes="btn btn-primary btn-try-it" [submit]="true" (click)="addObservation()">
+      <span class="observation-image"><img src="./assets/images/edit.png" alt=""></span>
+      <span aria-hidden="true">[ {{'student.assigned-lessons.add-your-observation'| translate }} ]</span>
+    </app-button>
+  </div>
+  <div class="container">
+    <div class="row previous-next">
+      <div *ngIf="dynamicBtn" class="previous">
+        <app-button classes="btn btn-primary" [submit]="true" (click)="onDynamicBtn()">
+          <span aria-hidden="true">{{ dynamicBtnName }}</span>
+        </app-button>
+      </div>
+      <div *ngIf="showPrevious" class="previous" [class.disabled]="isVisiblePrevious">
+        <div class="icon-bg-yellow back-arrow">
+          <img src="./assets/images/right-arrow.png" alt="" (click)="onPreviousPage()" class="img-fluid" />
+        </div>
+        <h6>
+          {{'student.assigned-lessons.previous-btn-label'| translate }}
+        </h6>
+      </div>
+      <div *ngIf="showNext" class="next" [class.disabled]="isVisibleNext">
+        <div class="icon-bg-yellow next-arrow">
+          <img src="./assets/images/right-arrow.png" alt="" (click)="onNextPage()" class="img-fluid" />
+        </div>
+        <h6>
+          {{'table-component.next'| translate}}
+        </h6>
+      </div>
+    </div>
+  </div>
+</footer>

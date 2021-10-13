@@ -1,0 +1,144 @@
+<header class="lessons-header">
+  <div class="container">
+    <div class="top-nav">
+      <ng-container *ngIf="isButtonSection; else isProfile">
+        <span *ngIf="showBackBtn" class="back-btn-wrapper">
+          <app-button classes="btn small-btn btn-secondary mr-4 icon-btn btn-back" (click)="navigateBack()"
+            [submit]="true">
+            <span aria-hidden="true">
+              <fa-icon [icon]="LeftArrow"></fa-icon> {{'common.back'| translate}}
+            </span>
+          </app-button>
+        </span>
+        <div *ngIf="isButtonSection?.isStepBoard" class="step-board-wrapper">
+          <span class="step-board">
+            <img src="./assets/images/overview.png" alt="" class="img-fluid" />
+            <div class=step-description>
+              <span class="step-img"><img src="{{ isButtonSection?.isStepBoard?.stepLogo }}" alt=""
+                  class="img-fluid" /></span>
+              <p class="step">{{ isButtonSection?.isStepBoard?.stepNumber }}</p>
+              <span class="seperator"> - </span>
+              <h6 class="step-heading">{{isButtonSection?.isStepBoard?.stepTitle}}</h6>
+            </div>
+          </span>
+          <span class="footprint" routerLink="/student/summary-view">
+            <a>
+              <img src="./assets/images/overview-icon.png" alt="" class="img-fluid" />
+            </a>
+          </span>
+        </div>
+        <span *ngIf="!isButtonSection?.isStepBoard && isButtonSection?.title" class="middle-heading-wrapper">
+          <h4 class="btn btn-primary sci-heading">
+            <!-- <span class="icon">
+              <img src="./assets/images/bulb.png" alt="" class="img-fluid" />
+            </span> -->
+            {{ isButtonSection?.title }}
+          </h4>
+        </span>
+      </ng-container>
+      <ng-template #isProfile>
+        <span class="profile-pic-wrapper">
+          <span class="profile-pic">
+            <img [src]="reciepe_icon" alt="" class="img-fluid" />
+          </span>
+          <legend>{{assignmentTitle}}</legend>
+          <span class="footprint" routerLink="/student/summary-view">
+            <a>
+              <img src="./assets/images/overview-icon.png" alt="" class="img-fluid" />
+            </a>
+          </span>
+        </span>
+      </ng-template>
+      <ng-container *ngIf="lessonHederConfig; else noStepBoard">
+        <ng-container *ngIf="lessonHederConfig?.stepBoard; else stepData">
+          <div class="step-board-wrapper">
+            <span class="step-board">
+              <img src="./assets/images/overview.png" alt="" class="img-fluid" />
+              <div class=step-description>
+                <span class="step-img"><img src="{{ lessonHederConfig?.stepBoard?.stepLogo }}" alt=""
+                    class="img-fluid" /></span>
+                <p class="step">{{ lessonHederConfig?.stepBoard?.stepNumber }}</p>
+                <span class="seperator"> - </span>
+                <h6 class="step-heading">{{lessonHederConfig?.stepBoard?.stepTitle}}</h6>
+              </div>
+            </span>
+            <span class="footprint" routerLink="/student/summary-view">
+              <a>
+                <img src="./assets/images/overview-icon.png" alt="" class="img-fluid" />
+              </a>
+            </span>
+          </div>
+        </ng-container>
+        <ng-template #stepData>
+          <div class="step-board-wrapper">
+            <span class="step-board">
+              <img src="./assets/images/overview.png" alt="" class="img-fluid" />
+              <div class=step-description>
+                <span class="step-img"><img src="./assets/images/bulb.png" alt="" class="img-fluid" /></span>
+                <h6 class="step">{{'student.assigned-lessons.lesson-steps.summary-view.step-number-label'| translate
+                  :{number: 1} }}</h6>
+                <span class="seperator"> - </span>
+                <h6 class="step-heading">{{'student.assigned-lessons.lesson-steps.summary-view.story'| translate }}</h6>
+              </div>
+            </span>
+            <span class="footprint" routerLink="/student/summary-view">
+              <a>
+                <img src="./assets/images/overview-icon.png" alt="" class="img-fluid" />
+              </a>
+            </span>
+          </div>
+        </ng-template>
+      </ng-container>
+      <ng-template #noStepBoard>
+        <!-- for empty header-->
+      </ng-template>
+      <ul class="nav-menu">
+        <li>
+          <a class="icon-bg" routerLink="/student/student-landing">
+            <img src="./assets/images/web-house.png" alt="" class="img-fluid" />
+          </a>
+        </li>
+        <li>
+          <a class="icon-bg bell-icon" [routerLink]="['/student/notifications']">
+            <img src="./assets/images/bell-icon.png" alt="" class="img-fluid" />
+            <span *ngIf="notificationCount" class="bell-notifications">{{ notificationCount }}</span>
+          </a>
+        </li>
+        <li class="journal" (click)="openJournalList()">
+          <a class="icon-bg">
+            <img src="./assets/images/book-icon.png" alt="" class="img-fluid" />
+            <span class="journal-text">{{'student.journal.journal-desc'| translate }}</span>
+          </a>
+        </li>
+        <li #printBox class="print">
+          <a class="icon-bg" (click)="collapse.toggle()">
+            <img src="./assets/images/print-icon.png" alt="" class="img-fluid" />
+          </a>
+          <div class="menus-wrapper card-wihtout-header-white" #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+            <div class="menus">
+              <div class="menus-body">
+                <ul>
+                  <li>
+                    <a>
+                      <h6>{{'student.assigned-lessons.print-page'| translate }}</h6>
+                    </a>
+                  </li>
+                  <li>
+                    <a>
+                      <h6>{{'student.assigned-lessons.print-assessment'| translate }} </h6>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <a class="icon-close" (click)="onClose()">
+            <img src="./assets/images/close.png" alt="" class="img-fluid" />
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,208 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+
+
+@keyframes RingProgress {
+    0% {
+        stroke-dasharray: 0 100;
+    }
+}
+
+.ActivityRings {
+    height: 100%;
+    width: 100%;
+    .ring {
+        transform-origin: 50%;
+    }
+    .completed {
+        animation: RingProgress 1s ease-in-out forwards;
+        stroke-linecap: round;
+    }
+    circle {
+        fill: none;
+    }
+}
+
+.ring1 {
+    .background {
+        stroke: transparentize($ring-red, 0.9);
+    }
+    .completed {
+        stroke: $ring-red;
+    }   
+}
+
+.ring2 {
+    .background {
+        stroke: transparentize($ring-yellow, 0.9);
+    }
+    .completed {
+        stroke: $ring-yellow;
+    }
+}
+
+.ring3 {
+    .background {
+        stroke: transparentize($ring-green,  0.9);
+    }
+    .completed {
+        stroke: $ring-green;
+    }
+}
+
+.ring4 {
+    .background {
+        stroke: transparentize($ring-blue, 0.9);
+    }
+    .completed {
+        stroke: $ring-blue;
+    }
+}
+
+.dashboard-main{
+    margin:6rem 0 0 0;
+}
+.class-chart{
+    .chart-title{
+        font-weight: bold;
+        text-align: center;
+        margin-bottom:2rem;
+    }
+    .chart{
+        max-width:85%;
+        margin: auto;
+        margin-bottom:3.5rem;
+    }
+    .chart-info{
+        li{
+            display: flex;
+            align-items:flex-start;
+            margin-bottom: 1rem;
+            .chart-title{
+                margin-bottom: 0;
+                font-size: 1.2rem;
+                width:80%;
+                text-align: left;
+            }
+            .chart-indicator{
+                width:1.3rem;
+                height: 1.3rem;
+                background:$ring-blue;
+                display:inline-block;
+                margin-right:1.2rem;
+                &.green{
+                    background-color:$ring-green;
+                }
+                &.red{
+                    background-color:$ring-red;
+                }
+                &.yellow{
+                    background-color:$ring-yellow;
+                }
+            }
+            .chart-count{
+                margin-left: auto;
+                font-weight: bold;
+            }
+            .blue{
+                color:$ring-blue;
+            }
+            .green{
+                color: $ring-green;
+            }
+            .red{
+                color: $ring-red;
+            }
+            .yellow{
+                color: $ring-yellow;
+            }
+        }
+    }
+    .view-repots{
+        display: block;
+        margin-top: 2rem;
+        text-align: center;
+        color:$secondary;
+        font-weight: bold;
+    }
+}
+
+.class-info{
+    .class-info-header{
+        border-bottom: 1px solid $border-color;
+        padding-bottom:1.5rem;
+        margin-bottom: 2rem;
+        color:$secondary;
+        .student-counts{
+            font-size: 3rem;
+            font-weight: bold;
+            margin-right: 1rem;
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 2rem;
+            margin-top: 1rem;
+        }
+        .student-icon{
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+        h4{
+            margin-bottom: 0;
+            font-size:1.4rem;
+        }
+    }
+    .bullet-list{
+        li{
+            color: $secondary;
+            font-size:2.4rem;
+            line-height: 1.8rem;
+            span{
+                color: $white;
+                font-size:1.4rem;
+            }
+        }
+    }
+}
+
+.donut-chart{
+    svg {
+        width: 100%;
+        height: 100%;
+        border-radius:50%;
+        .circle1{
+            // stroke-dasharray: 50 100;
+            // stroke-dashoffset: 30;
+             stroke: $ring-yellow;
+        }
+        .circle2{
+            // stroke-dasharray: 25 100;
+            //  stroke-dashoffset: 40;
+             stroke:$ring-blue;
+        }
+        .circle3{
+            // stroke-dasharray: 57 100;  
+            //  stroke-dashoffset: 0;
+             stroke: $ring-green;
+        }
+        circle {
+            fill: transparent;
+        }
+        
+        .text {
+            font-weight: 700;
+            fill: $white;
+         .text-large{
+             font-size: 0.5rem;
+         }
+         .text-small{
+            font-size: 0.15rem;
+         }
+        }
+      }
+      
+}
+
+.ngx-donut .chart-wrapper path:hover {
+    cursor: pointer;
+    stroke-width: 55px;
+}

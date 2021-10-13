@@ -1,0 +1,30 @@
+.spinner-wrapper{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    background-color: white;
+    opacity: 0.7;
+    flex-wrap: wrap;
+
+    .spinner-border {
+        display: inline-block;
+        width: 6rem;
+        height: 6rem;
+        vertical-align: text-bottom;
+        border: 0.5em solid currentColor;
+        border-right-color: transparent;
+        border-radius: 50%;
+        -webkit-animation: spinner-border .75s linear infinite;
+        animation: spinner-border .75s linear infinite;
+    }
+    .spinner-body{
+        width: 100%;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+

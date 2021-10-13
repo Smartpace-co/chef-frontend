@@ -1,0 +1,177 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+.side-bar-nav{
+    background-color: $primary;
+    padding: 5.5rem 1.5rem;
+    position: absolute;
+    z-index: 9999;
+    min-height: 100vh;
+    left: 0;
+    top: 6rem;
+    // border: 1px solid $border-color;
+    // border-radius: 0 1.2rem 1.2rem 0;
+     min-width: 6rem;
+    -webkit-transition: min-width 0.5s ease-in-out;
+    -moz-transition: min-width 0.5s ease-in-out;
+    -o-transition: min-width 0.5s ease-in-out;
+    transition: min-width 0.5s ease-in-out;
+    &.close-nav{
+        border: 1px solid $border-color;
+        border-left: none;
+        border-radius: 0 1.2rem 1.2rem 0;
+        .menu-side-bar{
+            max-width: 3rem;
+            white-space: nowrap;
+            .menu-list{
+                .menu-list-item{
+                    .menu{
+                        position: relative;
+                        &.active{
+                            color: $secondary;
+                            ::before{
+                                content: '';
+                                position: absolute;
+                                // border: 3px solid;
+                                background-color: $secondary;
+                                width: 5px;
+                                border-top-right-radius: 0.5rem;
+                                border-bottom-right-radius: 0.5rem;
+                                left: -14px;
+                                top: -6px;
+                                height: 2.6rem; 
+                            }  
+                        }   
+                    }
+                    .icon{
+                       text-align: center;
+                    }
+                    .title{
+                        font-size: 0;
+                        -webkit-transition: font-size 0.5s ease-in-out;
+                        -moz-transition: font-size 0.5s ease-in-out;
+                        -o-transition: font-size 0.5s ease-in-out;
+                        transition: font-size 0.5s ease-in-out;
+                        padding: 0;
+                    }
+                    .menu-heading{
+                        font-size: 0;
+                        -webkit-transition: font-size 0.5s ease-in-out;
+                        -moz-transition: font-size 0.5s ease-in-out;
+                        -o-transition: font-size 0.5s ease-in-out;
+                        transition: font-size 0.5s ease-in-out;
+                    }
+                    .line{
+                        display: block;
+                        margin: 2rem 0rem 3rem;
+                    }
+                }
+            }
+        }
+    }
+    &.open-nav{
+        min-width: 23rem;
+        -webkit-transition: min-width 0.5s ease-in-out;
+        -moz-transition: min-width 0.5s ease-in-out;
+        -o-transition: min-width 0.5s ease-in-out;
+        transition: min-width 0.5s ease-in-out; 
+        box-shadow: 0 22px 40px rgb(0 0 0 / 80%);
+        .menu-side-bar{
+            .menu-list{
+                .menu-list-item{
+                    .menu{
+                        position: relative;
+                        &.active{
+                            color: $secondary;
+                            &::before{
+                                content: "";
+                                width: 0;
+                                height: 0;
+                                border: solid $secondary;;
+                                border-width: 0 2px 2px 0;
+                                display: inline-block;
+                                padding: 3px;
+                                transform: rotate(-45deg);
+                                -webkit-transform: rotate(-45deg);
+                                position: absolute;
+                                left: -9px;
+                                top: 2px;
+                            }  
+                        } 
+                    }
+                    .icon{
+                        padding-left: 1rem;
+                    }
+                    .title{
+                        display: inline-block;
+                    }
+                    .menu-heading{
+                        padding-left: 1rem;
+                        margin-top: 3rem;
+                        margin-bottom: 1.5rem;
+                    }
+                    .line{
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+  .menu-side-bar{
+      position: relative;
+      .logo{
+        width: 6.5rem;
+        position: absolute;
+        top: -10rem;
+        left: 0rem
+      }
+      .menu-list{
+          .menu-list-item{
+            margin-bottom: 1rem;
+            .menu{
+                &:hover{
+                    color: $secondary;
+                }    
+            }
+              .icon{
+                  font-size: 1.6rem;
+                  width: 3rem;
+                  display: inline-block;
+                  text-align: center;
+              }
+              .title{
+                  font-size: 1.4rem;
+                  font-weight: 700;
+                  margin-left: 2rem;
+                  padding: 0;
+                  width: auto;
+                  -webkit-transition: font-size 0.5s ease-in-out;
+                    -moz-transition: font-size 0.5s ease-in-out;
+                    -o-transition: font-size 0.5s ease-in-out;
+                    transition: font-size 0.5s ease-in-out;
+              }
+              .menu-heading{
+                font-size: 1.4rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                color: $grey-color;
+                width: auto;
+                -webkit-transition: font-size 0.5s ease-in-out;
+                -moz-transition: font-size 0.5s ease-in-out;
+                -o-transition: font-size 0.5s ease-in-out;
+                transition: font-size 0.5s ease-in-out;
+                
+              }
+              .line{
+                  width: 3rem;
+                  height: 0.1rem;
+                  background-color: $grey-color;
+              }
+          }
+      }
+  }  
+  .menu-disabled{
+    pointer-events: none;
+    cursor: not-allowed;
+    color: gray;
+  }  
+}

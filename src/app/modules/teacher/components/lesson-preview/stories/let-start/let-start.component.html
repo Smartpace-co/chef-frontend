@@ -1,0 +1,33 @@
+<app-ingreditent-nav></app-ingreditent-nav>
+<app-lessons-headerbar [lessonHederConfig]="lessonHederConfig"></app-lessons-headerbar>
+  <div *ngIf="isLoad" class="story-body-1"
+   [ngStyle]=" countryBgImg ? {background: ' url(' + countryBgImg + ')'} : {background: ' url(' + './assets/images/kitchen-bg-blur.jpg' + ')'}">
+  <div class="container">
+    <div class="final-editaion">
+      <div class="content-wrapper">
+        <span class="final-editaion-img-wrapper">
+          <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
+
+          <div class="left-tooltip-wrapper">
+            <div class="speech-tooltip md-tooltip right-bottom-tip">
+              <div class="speech-tooltip-inner">
+                <p class="message">
+                  {{ textMsg }}
+                </p>
+                <span class="tip">
+                  <img src="./assets/images/right-bottom-tip.svg" alt="" class="img-fluid" />
+                </span>
+              </div>
+            </div>
+          </div>
+        </span>
+      </div>
+      <div class="content-wrapper">
+        <span class="table-img-wrapper">
+          <img src="./assets/images/table.png" alt="" class="img-fluid" />
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+<app-lessons-footer (onNext)="onNext()" (onPrevious)="onPrevious()"></app-lessons-footer>

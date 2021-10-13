@@ -1,0 +1,384 @@
+<app-student-nav></app-student-nav>
+<div class="performance-wrapper">
+  <div class="container">
+    <div class="back-button-wrapper">
+      <div class="performance-header">
+        <app-button classes="btn btn-secondary icon-btn mt-4 mr-4" [submit]="true" [routerLink]="['/student/student-landing']">
+          <span aria-hidden="true">
+            <fa-icon [icon]="LeftArrow"></fa-icon> Back
+          </span>
+        </app-button>
+        <h3 class="mt-4">Performance</h3>
+      </div>
+      <div class="print-btn">
+        <app-button classes="btn btn-secondary btn-read-report icon-btn mt-4">
+          <span aria-hidden="true"><fa-icon [icon]="printIcon"></fa-icon>Print Report</span>
+        </app-button>
+      </div>
+    </div>
+    <div class="read-button-wrapper">
+      <app-button classes="btn btn-secondary btn-read-report mt-4" [submit]="true" (click)="open(reportModal)">
+        <span aria-hidden="true">
+          How to read this report?
+        </span>
+      </app-button>
+    </div>
+  </div>
+  <div class="performance-report">
+    <div class="container"> 
+      <ul id="tabs" class="nav nav-tabs activity-tab-nav" role="tablist">
+        <li class="nav-item">
+            <a id="tabThisWeek" href="#thisWeek" class="nav-link" data-toggle="tab" role="tab">This Week</a>
+        </li>
+        <li class="nav-item">
+          <a id="tabThisMonth" href="#thisMonth" class="nav-link" data-toggle="tab" role="tab">This Month</a>
+        </li>
+        <li class="nav-item">
+          <a id="tabThisQuarter" href="#thisQuarter" class="nav-link active" data-toggle="tab" role="tab">This Quarter</a>
+        </li>
+        <li class="nav-item">
+          <a id="tabThisYear" href="#thisYear" class="nav-link" data-toggle="tab" role="tab">This Year</a>
+        </li>
+      </ul>
+    </div>
+    <div id="content" class="tab-content" role="tablist">
+      <div id="thisWeek" class="panal-card tab-pane fade show" role="tabpanel" aria-labelledby="tabThisWeek">
+        <div class="container">  
+          <div class="panal-card-header" role="tab" id="headingInfo">
+                <h5 class="mb-0">
+                    <a data-toggle="collapse" href="#collapseThisWeek" aria-expanded="true" aria-controls="collapseThisWeek">
+                      This Week
+                    </a>
+                </h5>
+            </div>
+          </div>
+          <div id="collapseThisWeek" class="collapse" data-parent="#content" role="tabpanel" aria-labelledby="headingInfo">
+            <div class="container"> 
+              <div class="performance-details">
+                <div class="row">
+                  <div class="col-md-5 col-lg-4 card-wrapper">
+                    <div class="legend-card-white">
+                      <legend>CCSS - Math Grade 4</legend>
+                      <div class="report-data-wrapper">
+                        <div class="report-data">
+                           <h2>37%</h2>
+                           <span class="sub-heading">Coverage</span>
+                        </div>
+                        <div class="report-data">
+                          <h2>73%</h2>
+                          <span class="sub-heading">Proficient</span>
+                        </div>
+                       </div>
+                    </div>
+                  </div>
+                  <div class="col-md-5 col-lg-4 card-wrapper">
+                    <div class="legend-card-white">
+                      <legend>CCSS - ELA Grade 4</legend>
+                      <div class="report-data-wrapper">
+                        <div class="report-data">
+                           <h2>51%</h2>
+                           <span class="sub-heading">Coverage</span>
+                        </div>
+                        <div class="report-data">
+                          <h2>80%</h2>
+                          <span class="sub-heading">Proficient</span>
+                        </div>
+                       </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-5 col-lg-4 card-wrapper">
+                    <div class="legend-card-white">
+                      <legend>NGSS - Grade 4</legend>
+                      <div class="report-data-wrapper">
+                        <div class="report-data">
+                           <h2>76%</h2>
+                           <span class="sub-heading">Coverage</span>
+                        </div>
+                        <div class="report-data">
+                          <h2>97%</h2>
+                          <span class="sub-heading">Proficient</span>
+                        </div>
+                       </div>
+                    </div>
+                  </div>
+                  <div class="col-md-5 col-lg-4 card-wrapper">
+                    <div class="legend-card-white">
+                      <legend>IB - PYP</legend>
+                      <div class="report-data-wrapper">
+                        <div class="report-data">
+                           <h2>42%</h2>
+                           <span class="sub-heading">Coverage</span>
+                        </div>
+                        <div class="report-data">
+                          <h2>75%</h2>
+                          <span class="sub-heading">Proficient</span>
+                        </div>
+                       </div>
+                    </div>
+                  </div>
+                </div>  
+              </div>
+            </div>
+          </div>
+      </div>
+      <div id="thisMonth" class="panal-card tab-pane fade show" role="tabpanel" aria-labelledby="tabThisMonth">
+          <div class="container">  
+          <div class="panal-card-header" role="tab" id="headingInfo">
+                <h5 class="mb-0">
+                    <a data-toggle="collapse" href="#collapseThisMonth" aria-expanded="true" aria-controls="collapseThisMonth">
+                      This Month
+                    </a>
+                </h5>
+            </div>
+          </div>
+          <div id="collapseThisMonth" class="collapse" data-parent="#content" role="tabpanel" aria-labelledby="headingInfo">
+            <div class="container"> 
+              <div class="performance-details">
+                <div class="row">
+                  <div class="col-md-5 col-lg-4 card-wrapper">
+                    <div class="legend-card-white">
+                      <legend>CCSS - Math Grade 4</legend>
+                      <div class="report-data-wrapper">
+                        <div class="report-data">
+                           <h2>37%</h2>
+                           <span class="sub-heading">Coverage</span>
+                        </div>
+                        <div class="report-data">
+                          <h2>73%</h2>
+                          <span class="sub-heading">Proficient</span>
+                        </div>
+                       </div>
+                    </div>
+                  </div>
+                  <div class="col-md-5 col-lg-4 card-wrapper">
+                    <div class="legend-card-white">
+                      <legend>CCSS - ELA Grade 4</legend>
+                      <div class="report-data-wrapper">
+                        <div class="report-data">
+                           <h2>51%</h2>
+                           <span class="sub-heading">Coverage</span>
+                        </div>
+                        <div class="report-data">
+                          <h2>80%</h2>
+                          <span class="sub-heading">Proficient</span>
+                        </div>
+                       </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-5 col-lg-4 card-wrapper">
+                    <div class="legend-card-white">
+                      <legend>NGSS - Grade 4</legend>
+                      <div class="report-data-wrapper">
+                        <div class="report-data">
+                           <h2>76%</h2>
+                           <span class="sub-heading">Coverage</span>
+                        </div>
+                        <div class="report-data">
+                          <h2>97%</h2>
+                          <span class="sub-heading">Proficient</span>
+                        </div>
+                       </div>
+                    </div>
+                  </div>
+                  <div class="col-md-5 col-lg-4 card-wrapper">
+                    <div class="legend-card-white">
+                      <legend>IB - PYP</legend>
+                      <div class="report-data-wrapper">
+                        <div class="report-data">
+                           <h2>42%</h2>
+                           <span class="sub-heading">Coverage</span>
+                        </div>
+                        <div class="report-data">
+                          <h2>75%</h2>
+                          <span class="sub-heading">Proficient</span>
+                        </div>
+                       </div>
+                    </div>
+                  </div>
+                </div>  
+              </div>
+            </div>
+          </div>
+      </div>
+      <div id="thisQuarter" class="panal-card tab-pane fade show active" role="tabpanel" aria-labelledby="tabThisQuarter">
+        <div class="container">  
+          <div class="panal-card-header" role="tab" id="headingInfo">
+                <h5 class="mb-0">
+                    <a data-toggle="collapse" href="#collapseThisQuarter" aria-expanded="true" aria-controls="collapseThisQuarter">
+                      This Quarter
+                    </a>
+                </h5>
+            </div>
+          </div>
+          <div id="collapseThisQuarter" class="collapse show" data-parent="#content" role="tabpanel" aria-labelledby="headingInfo">
+            <div class="container"> 
+              <div class="performance-details">
+                <div class="row">
+                  <div class="col-md-5 col-lg-4 card-wrapper">
+                    <div class="legend-card-white">
+                      <legend>CCSS - Math Grade 4</legend>
+                      <div class="report-data-wrapper">
+                        <div class="report-data">
+                           <h2>37%</h2>
+                           <span class="sub-heading">Coverage</span>
+                        </div>
+                        <div class="report-data">
+                          <h2>73%</h2>
+                          <span class="sub-heading">Proficient</span>
+                        </div>
+                       </div>
+                    </div>
+                  </div>
+                  <div class="col-md-5 col-lg-4 card-wrapper">
+                    <div class="legend-card-white">
+                      <legend>CCSS - ELA Grade 4</legend>
+                      <div class="report-data-wrapper">
+                        <div class="report-data">
+                           <h2>51%</h2>
+                           <span class="sub-heading">Coverage</span>
+                        </div>
+                        <div class="report-data">
+                          <h2>80%</h2>
+                          <span class="sub-heading">Proficient</span>
+                        </div>
+                       </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-5 col-lg-4 card-wrapper">
+                    <div class="legend-card-white">
+                      <legend>NGSS - Grade 4</legend>
+                      <div class="report-data-wrapper">
+                        <div class="report-data">
+                           <h2>76%</h2>
+                           <span class="sub-heading">Coverage</span>
+                        </div>
+                        <div class="report-data">
+                          <h2>97%</h2>
+                          <span class="sub-heading">Proficient</span>
+                        </div>
+                       </div>
+                    </div>
+                  </div>
+                  <div class="col-md-5 col-lg-4 card-wrapper">
+                    <div class="legend-card-white">
+                      <legend>IB - PYP</legend>
+                      <div class="report-data-wrapper">
+                        <div class="report-data">
+                           <h2>42%</h2>
+                           <span class="sub-heading">Coverage</span>
+                        </div>
+                        <div class="report-data">
+                          <h2>75%</h2>
+                          <span class="sub-heading">Proficient</span>
+                        </div>
+                       </div>
+                    </div>
+                  </div>
+                </div>  
+              </div>
+            </div>
+          </div>
+      </div>
+      <div id="thisYear" class="panal-card tab-pane fade show" role="tabpanel" aria-labelledby="tabThisYear">
+        <div class="container">  
+          <div class="panal-card-header" role="tab" id="headingInfo">
+                <h5 class="mb-0">
+                    <a data-toggle="collapse" href="#collapseThisYear" aria-expanded="true" aria-controls="collapseThisYear">
+                      This Year
+                    </a>
+                </h5>
+            </div>
+          </div>
+          <div id="collapseThisYear" class="collapse" data-parent="#content" role="tabpanel" aria-labelledby="headingInfo">
+            <div class="container"> 
+              <div class="performance-details">
+                <div class="row">
+                  <div class="col-md-5 col-lg-4 card-wrapper">
+                    <div class="legend-card-white">
+                      <legend>CCSS - Math Grade 4</legend>
+                      <div class="report-data-wrapper">
+                        <div class="report-data">
+                           <h2>37%</h2>
+                           <span class="sub-heading">Coverage</span>
+                        </div>
+                        <div class="report-data">
+                          <h2>73%</h2>
+                          <span class="sub-heading">Proficient</span>
+                        </div>
+                       </div>
+                    </div>
+                  </div>
+                  <div class="col-md-5 col-lg-4 card-wrapper">
+                    <div class="legend-card-white">
+                      <legend>CCSS - ELA Grade 4</legend>
+                      <div class="report-data-wrapper">
+                        <div class="report-data">
+                           <h2>51%</h2>
+                           <span class="sub-heading">Coverage</span>
+                        </div>
+                        <div class="report-data">
+                          <h2>80%</h2>
+                          <span class="sub-heading">Proficient</span>
+                        </div>
+                       </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-5 col-lg-4 card-wrapper">
+                    <div class="legend-card-white">
+                      <legend>NGSS - Grade 4</legend>
+                      <div class="report-data-wrapper">
+                        <div class="report-data">
+                           <h2>76%</h2>
+                           <span class="sub-heading">Coverage</span>
+                        </div>
+                        <div class="report-data">
+                          <h2>97%</h2>
+                          <span class="sub-heading">Proficient</span>
+                        </div>
+                       </div>
+                    </div>
+                  </div>
+                  <div class="col-md-5 col-lg-4 card-wrapper">
+                    <div class="legend-card-white">
+                      <legend>IB - PYP</legend>
+                      <div class="report-data-wrapper">
+                        <div class="report-data">
+                           <h2>42%</h2>
+                           <span class="sub-heading">Coverage</span>
+                        </div>
+                        <div class="report-data">
+                          <h2>75%</h2>
+                          <span class="sub-heading">Proficient</span>
+                        </div>
+                       </div>
+                    </div>
+                  </div>
+                </div>  
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #reportModal let-modal>
+  <div class="modal-header report-modal-header">
+    <button type="button" class="close" aria-label="Close" (click)="closeReportModal()">
+      <img src="./assets/images/close.png" alt="" class="img-fluid" />
+    </button>
+  </div>
+  <div class="modal-body report-modal-body">
+    <div class="report-table">
+      <app-tables  [dataSource]="reportList"
+        [tableHeaders]="reportHeadersList" [page]="1" [pageSize]="10"></app-tables>
+    </div>
+  </div>
+</ng-template>

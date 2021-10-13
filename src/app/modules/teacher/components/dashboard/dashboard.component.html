@@ -1,0 +1,176 @@
+<div class="container">
+    <div class="row dashboard-main">
+        <div class="col-lg-3 col-md-6 col-sm-6 mb-5">
+            <div class="class-info card">
+                <div class="class-info-header">
+                    <span class="student-counts">{{studentList?.length}}</span>
+                    <span class="student-icon">
+                        <img src="./assets/images/class-info-student.svg" alt="" />
+                    </span>
+                    <h4>{{'teacher.dashboard.students-need-help'|translate}}</h4>
+                </div>
+                <ul class="bullet-list" *ngFor="let students of studentList ; let i = index">
+                    <li><span>{{students.firstName}}, {{students.lastName}}</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6 mb-5">
+            <div class="class-chart card">
+                <h3 class="chart-title">{{'district.dashboard.amnt-of-practice'|translate}}</h3>
+                <div class="chart">
+                    <svg class="ActivityRings" viewBox='0 0 37 37'>
+                        <g class="ring ring1" style="transform: scale(1) rotate(-90deg);">
+                            <circle stroke-width="3" r="15.915" cx="50%" cy="50%" class="background" />
+                            <circle stroke-width="3" r="15.915" cx="50%" cy="50%" class="completed"
+                                [attr.stroke-dasharray]=" reportData?.ncss +', 100'" />
+                        </g>
+                        <g class="ring ring2" style="transform: scale(0.78) rotate(-90deg);">
+                            <circle stroke-width="4" r="15.915" cx="50%" cy="50%" class="background" />
+                            <circle stroke-width="4" r="15.915" cx="50%" cy="50%" class="completed"
+                                [attr.stroke-dasharray]=" reportData?.ngss +', 100'" />
+                        </g>
+                        <g class="ring ring3" style="transform: scale(0.57) rotate(-90deg);">
+                            <circle stroke-width="5" r="15.915" cx="50%" cy="50%" class="background" />
+                            <circle stroke-width="5" r="15.915" cx="50%" cy="50%" class="completed"
+                                [attr.stroke-dasharray]=" reportData?.ela +', 100'" />
+                        </g>
+                        <g class="ring ring4" style="transform: scale(0.37) rotate(-90deg);">
+                            <circle stroke-width="8" r="15.915" cx="50%" cy="50%" class="background" />
+                            <circle stroke-width="8" r="15.915" cx="50%" cy="50%" class="completed"
+                                [attr.stroke-dasharray]=" reportData?.math +', 100'" />
+                        </g>
+                    </svg>
+                </div>
+                <ul class="chart-info">
+                    <li>
+                        <span class="chart-indicator blue"></span>
+                        <span class="chart-title">{{'teacher.dashboard.ccss'|translate}} -
+                            {{'teacher.dashboard.math'|translate}}</span>
+                        <span class="chart-count blue">{{reportData?.math}}%</span>
+                    </li>
+                    <li>
+                        <span class="chart-indicator green"></span>
+                        <span class="chart-title">{{'teacher.dashboard.ccss'|translate}} -
+                            {{'teacher.dashboard.ela'|translate}}</span>
+                        <span class="chart-count green">{{reportData?.ela}}%</span>
+                    </li>
+                    <li>
+                        <span class="chart-indicator yellow"></span>
+                        <span class="chart-title">{{'teacher.dashboard.ngss'|translate}}</span>
+                        <span class="chart-count yellow">{{reportData?.ngss}}%</span>
+                    </li>
+                    <li>
+                        <span class="chart-indicator red"></span>
+                        <span class="chart-title">{{'teacher.dashboard.ncss'|translate}}</span>
+                        <span class="chart-count red">{{reportData?.ncss}}%</span>
+                    </li>
+                </ul>
+                <!-- <div class="view-repots">
+                    <a>View Full Report <fa-icon [icon]="NextArrow"></fa-icon></a>
+                </div> -->
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6 mb-5">
+            <div class="class-chart card">
+                <h3 class="chart-title">{{ 'district.dashboard.evidence-of-growth'|translate }}</h3>
+                <div class="chart">
+                    <svg class="ActivityRings" viewBox='0 0 37 37'>
+                        <g class="ring ring1" style="transform: scale(1) rotate(-90deg);">
+                            <circle stroke-width="3" r="15.915" cx="50%" cy="50%" class="background" />
+                            <circle stroke-width="3" r="15.915" cx="50%" cy="50%" class="completed"
+                                [attr.stroke-dasharray]=" growthData?.ncss +', 100'" />
+                        </g>
+                        <g class="ring ring2" style="transform: scale(0.78) rotate(-90deg);">
+                            <circle stroke-width="4" r="15.915" cx="50%" cy="50%" class="background" />
+                            <circle stroke-width="4" r="15.915" cx="50%" cy="50%" class="completed"
+                                [attr.stroke-dasharray]=" growthData?.ngss +', 100'" />
+                        </g>
+                        <g class="ring ring3" style="transform: scale(0.57) rotate(-90deg);">
+                            <circle stroke-width="5" r="15.915" cx="50%" cy="50%" class="background" />
+                            <circle stroke-width="5" r="15.915" cx="50%" cy="50%" class="completed"
+                                [attr.stroke-dasharray]=" growthData?.ela +', 100'" />
+                        </g>
+                        <g class="ring ring4" style="transform: scale(0.37) rotate(-90deg);">
+                            <circle stroke-width="8" r="15.915" cx="50%" cy="50%" class="background" />
+                            <circle stroke-width="8" r="15.915" cx="50%" cy="50%" class="completed"
+                                [attr.stroke-dasharray]=" growthData?.math +', 100'" />
+                        </g>
+                    </svg>
+                </div>
+                <ul class="chart-info">
+                    <li>
+                        <span class="chart-indicator blue"></span>
+                        <span class="chart-title">{{'teacher.dashboard.ccss'|translate}} -
+                            {{'teacher.dashboard.math'|translate}}</span>
+                        <span class="chart-count blue">{{growthData?.math}}%</span>
+                    </li>
+                    <li>
+                        <span class="chart-indicator green"></span>
+                        <span class="chart-title">{{'teacher.dashboard.ccss'|translate}} -
+                            {{'teacher.dashboard.ela'|translate}}</span>
+                        <span class="chart-count green">{{growthData?.ela}}%</span>
+                    </li>
+                    <li>
+                        <span class="chart-indicator yellow"></span>
+                        <span class="chart-title">{{'teacher.dashboard.ngss'|translate}}</span>
+                        <span class="chart-count yellow">{{growthData?.ngss}}%</span>
+                    </li>
+                    <li>
+                        <span class="chart-indicator red"></span>
+                        <span class="chart-title">{{'teacher.dashboard.ncss'|translate}}</span>
+                        <span class="chart-count red">{{growthData?.ncss}}%</span>
+                    </li>
+                </ul>
+                <!-- <div class="view-repots">
+                    <a>View Full Report <fa-icon [icon]="NextArrow"></fa-icon></a>
+                </div> -->
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6 mb-5">
+            <div class="class-chart card">
+                <h3 class="chart-title">{{'district.dashboard.time-spent'|translate}}</h3>
+                <div class="chart donut-chart">
+                    <svg viewBox='0 0 32 32'>
+
+                        <g stroke-width='10'>
+                            <circle cx='16' cy='16' r='16' class="circle1"
+                                [attr.stroke-dasharray]="donutChart[0].strokeDasharray"
+                                [attr.stroke-dashoffset]="donutChart[0].strokeDashoffset"></circle>
+                            <circle cx='16' cy='16' r='16' class="circle2"
+                                [attr.stroke-dasharray]="donutChart[1].strokeDasharray"
+                                [attr.stroke-dashoffset]="donutChart[1].strokeDashoffset"></circle>
+                            <circle cx='16' cy='16' r='16' class="circle3"
+                                [attr.stroke-dasharray]="donutChart[2].strokeDasharray"
+                                [attr.stroke-dashoffset]="donutChart[2].strokeDashoffset"></circle>
+                        </g>
+                        <text x="16" y="15" class="text" text-anchor="middle">
+                            <tspan dx="0" dy="0" class="text-large">{{sessionData.totalAverageHour}}</tspan>
+                            <tspan dx="16" x="0" dy="2em" class="text-small">{{'teacher.dashboard.hrs-week'|translate}}
+                            </tspan>
+                        </text>
+                    </svg>
+                </div>
+                <ul class="chart-info">
+                    <li>
+                        <span class="chart-indicator blue"></span>
+                        <span class="chart-title">{{'district.dashboard.inactive-students' | translate}}</span>
+                        <span class="chart-count blue">{{sessionData.inactiveStudentCount}}</span>
+                    </li>
+                    <li>
+                        <span class="chart-indicator green"></span>
+                        <span class="chart-title">{{'district.dashboard.std-with-below-avg-activity'|translate}}</span>
+                        <span class="chart-count green">{{sessionData.belowAverageCount}}</span>
+                    </li>
+                    <li>
+                        <span class="chart-indicator yellow"></span>
+                        <span class="chart-title">{{'district.dashboard.std-with-above-avg-activity'|translate }}</span>
+                        <span class="chart-count yellow">{{sessionData.aboveAverageCount}}</span>
+                    </li>
+                </ul>
+                <!-- <div class="view-repots">
+                    <a>More <fa-icon [icon]="NextArrow"></fa-icon></a>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,44 @@
+<app-lessons-headerbar [lessonHederConfig]="lessonHederConfig" [isButtonSection]="isButtonSection" [showBackBtn]="true"
+  [isLessonInfo]="false"></app-lessons-headerbar>
+<div class="active-action-body">
+  <div class="container">
+    <div class="final-editaion">
+      <div class="content-wrapper">
+        <div class="card-wihtout-header-blue">
+          <div class="active-action-wrapper">
+            <p *ngIf="assignmentQuestion[i]?.level=='1'">{{'student.activities-and-games.mini-games.drag-drop-tools-label'| translate }}</p>
+            <p *ngIf="assignmentQuestion[i]?.level=='2'">{{'student.activities-and-games.mini-games.drag-drop-techniques-label'| translate }}</p>
+            <p *ngIf="assignmentQuestion[i]?.level=='3'">{{'student.activities-and-games.mini-games.drag-drop-dishes-label'| translate }}</p>
+
+          </div>
+          <div class="drag">
+            <div class="drop-content">
+              <div class="drop-wraper" id="drop-wraper{{ q }}"
+                *ngFor="let item1 of assignmentQuestion[i]?.subQuestions; let q = index">
+                <div class="write-answer" id="write-answer{{ q }}" (drop)="drop($event, item1.id, i, q)"
+                  (dragover)="allowDrop($event)"></div>
+                <div class="label-wrapper">
+                  <label class="drop-label">
+                    <span aria-hidden="true">{{ item1.question }}</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="options">
+              <div class="card-white" *ngFor="let item of assignmentQuestion[i]?.options; let j = index" id="{{ j }}"
+                (drop)="dropIntoOption($event, j)" (dragover)="allowDrop($event)">
+                <img id="{{ item.id }}" src="{{ item.src }}" draggable="true" (dragstart)="drag($event, j)" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <span class="final-editaion-img-wrapper">
+          <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-lessons-footer [isVisibleNext]="isVisibleNext" [isVisiblePrevious]="isVisiblePrevious" (onNext)="onNext()"
+  (onPrevious)="onPrevious()"></app-lessons-footer>

@@ -1,0 +1,712 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+
+.class-details {
+  .back-button-wrapper {
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .school-details-wrapper {
+    padding: 4rem;
+    min-height: 60rem;
+
+    @include breakpoint(mobile) {
+      padding: 4rem 2rem;
+    }
+
+    .school-details-heading {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 3.5rem;
+      flex-wrap: wrap;
+
+      .school-info {
+        display: flex;
+        flex-wrap: wrap;
+
+        @include breakpoint(mobile) {
+          width: 100%;
+        }
+
+        .school-name {
+          margin-bottom: 1.5rem;
+          width: 100%;
+        }
+
+        .photo-name {
+          display: flex;
+          align-items: center;
+
+          .photo {
+            max-width: 4.5rem;
+          }
+
+          .staff-name {
+            margin-left: 1.5rem;
+
+            h6 {
+              margin: 0;
+            }
+          }
+        }
+      }
+
+      .users-dropdown {
+        min-width: 25rem;
+        text-align: center;
+
+        @include breakpoint(mobile) {
+          margin-top: 3rem;
+          text-align: left;
+          min-width: 22rem;
+        }
+
+        .user-form {
+          label {
+            font-size: 1.2rem;
+            color: $light-blue-shade;
+            font-weight: 700;
+          }
+        }
+      }
+    }
+
+    .school-info {
+
+      .nav-tabs {
+        border: none;
+        position: relative;
+        display: none;
+
+        &:after {
+          content: '';
+          width: calc(100% + 8rem);
+          height: 0.1rem;
+          background: $border-color;
+          position: absolute;
+          left: -4rem;
+          bottom: 0;
+
+          @include breakpoint(mobile) {
+            width: calc(100% + 4rem);
+            left: -2rem;
+          }
+        }
+
+        .nav-item {
+          margin: 0;
+
+          .nav-link {
+            color: rgba($white, 0.5);
+            font-size: 1.8rem;
+            padding: 0.5rem 0rem;
+            position: relative;
+            border: none;
+            margin-right: 5rem;
+            font-weight: 700;
+
+            &:after {
+              content: '';
+              width: calc(100% + 8rem);
+              height: 0.2rem;
+              background: transparent;
+              position: absolute;
+              left: -4rem;
+              bottom: 0;
+              z-index: 1;
+
+              @include breakpoint(mobile) {
+                width: calc(100% + 4rem);
+                left: -2rem;
+              }
+            }
+
+            &:hover {
+              border: none;
+            }
+
+            &.active {
+              background: transparent;
+              color: $secondary;
+              border: none;
+
+              &:after {
+                background: $secondary;
+              }
+            }
+          }
+        }
+      }
+
+      @include breakpoint(mobile-min) {
+        .nav-tabs {
+          display: flex;
+        }
+
+        .panal-card {
+          border: none;
+
+          .panal-card-header {
+            display: none;
+          }
+
+          .collapse {
+            display: block;
+          }
+        }
+      }
+
+      @include breakpoint(mobile) {
+        .tab-content>.tab-pane {
+          display: block !important;
+          opacity: 1;
+        }
+
+        .panal-card {
+          .panal-card-header {
+            border-bottom: 1px solid $border-color;
+            padding: 1.5rem;
+            background-color: $blue-transferent;
+          }
+        }
+      }
+
+      .info-details {
+        @include breakpoint(mobile) {
+          margin-bottom: 3rem;
+        }
+
+        ul {
+          li {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+
+            label {
+              width: 40%;
+              color: $light-blue-shade;
+              font-weight: 700;
+              margin-bottom: 0;
+
+              @include breakpoint(mobile) {
+                width: 100%;
+              }
+            }
+
+            p {
+              padding: 0;
+              width: 60%;
+              font-weight: 700;
+
+              @include breakpoint(mobile) {
+                width: 100%;
+              }
+            }
+          }
+        }
+
+        .edit-school {
+          margin-top: 3rem;
+
+          a {
+            color: $yellow-shade-5;
+            font-weight: 700;
+
+            span {
+              width: 1.6rem;
+              height: 1.6rem;
+            }
+          }
+        }
+
+        .licence-usege {
+          margin-top: 3rem;
+
+          h5 {
+            margin-bottom: 1.5rem;
+            color: $secondary;
+          }
+
+          .plan-details-box {
+            padding: 2rem;
+            display: flex;
+            background-color: $twilight-blue;
+            border: 1px solid $border-color;
+            border-radius: 3rem;
+            max-width: 30rem;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            text-align: center;
+
+            .numeric-info-label {
+              h3 {
+                margin: 0;
+                font-size: 2.3rem;
+
+                @include breakpoint(sm-mobile) {
+                  font-size: 1.8rem;
+                }
+              }
+
+              label {
+                font-size: 1.1rem;
+                font-weight: 600;
+                margin: 0;
+              }
+            }
+          }
+
+          .view-uses-details {
+            a {
+              text-decoration: underline;
+              font-size: 1.4rem;
+              font-weight: 700;
+            }
+          }
+        }
+      }
+
+      .students-wrapper {
+        .students-detail {
+          .students-wrapper {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            margin-top: 2rem;
+            align-items: center;
+            flex-wrap: wrap;
+
+            h4 {
+              color: $blue-shade-3;
+
+              @include breakpoint(mobile) {
+                margin-bottom: 1rem;
+              }
+            }
+          }
+        }
+
+        .roster-filter {
+          width: calc(100% + 8rem);
+          margin-left: -4rem;
+
+          @include breakpoint(mobile) {
+            width: calc(100% + 4rem);
+            margin-left: -2rem;
+          }
+
+          .filter-droplist {
+            @include breakpoint(tabs) {
+              flex-wrap: wrap;
+              margin-left: 0;
+            }
+          }
+
+          .filter-wrapper {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 0rem 4rem;
+
+            @include breakpoint(mobile) {
+              padding: 0rem 2rem;
+            }
+          }
+        }
+      }
+
+      .report-wrapper {
+        .report-heading {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 3rem;
+          margin-top: 3rem;
+          align-items: center;
+          flex-wrap: wrap;
+
+          h4 {
+            color: $blue-shade-3;
+            font-size: 2.1rem;
+
+            @include breakpoint(mobile) {
+              margin-bottom: 1rem;
+            }
+          }
+
+          .btn-wrapper {
+            .print-icon {
+              width: 2.5rem;
+              display: inline-block;
+            }
+          }
+        }
+
+        .report-main {
+          justify-content: center;
+          max-width: calc(100% - 4rem);
+
+          @include breakpoint(tabs) {
+            max-width: inherit;
+          }
+
+          .col-md-4 {
+            @include breakpoint(mobile) {
+              margin-bottom: 2rem;
+            }
+          }
+
+          .class-chart {
+            background-color: $twilight-blue;
+            padding-top: 3rem;
+            padding-bottom: 4rem;
+
+            .chart-title {
+              font-weight: bold;
+              text-align: center;
+              margin-bottom: 2rem;
+              font-size: 1.4rem;
+            }
+
+            .chart {
+              // max-width:85%;
+              margin: auto;
+              margin-bottom: 4rem;
+              margin-top: 1rem;
+              width: 100%;
+            }
+
+            .chart-info {
+              min-height: 11.68rem;
+              li {
+                display: flex;
+                align-items: flex-start;
+                margin-bottom: 1rem;
+
+                .chart-title {
+                  margin-bottom: 0;
+                  font-size: 1.2rem;
+                  width: 80%;
+                  text-align: left;
+                }
+
+                .chart-indicator {
+                  width: 1.3rem;
+                  height: 1.3rem;
+                  background: $ring-blue;
+                  display: inline-block;
+                  margin-right: 1.2rem;
+
+                  &.green {
+                    background-color: $ring-green;
+                  }
+
+                  &.red {
+                    background-color: $ring-red;
+                  }
+
+                  &.yellow {
+                    background-color: $yellow-shade-4;
+                  }
+                }
+
+                .chart-count {
+                  margin-left: auto;
+                  font-weight: bold;
+                }
+
+                .blue {
+                  color: $ring-blue;
+                }
+
+                .green {
+                  color: $ring-green;
+                }
+
+                .red {
+                  color: $ring-red;
+                }
+
+                .yellow {
+                  color: $yellow-shade-4;
+                }
+              }
+            }
+            .view-repots{
+              display: block;
+              margin-top: 2rem;
+              text-align: center;
+              color:$secondary;
+              font-weight: bold;
+          }
+          }
+        }
+      }
+
+      .school-settings-wrapper {
+        .settings-title {
+          color: $blue-shade-3;
+          margin: 3rem 0rem;
+        }
+
+        .toggle-list {
+          max-width: 100%;
+          margin: auto;
+
+          @include breakpoint(mobile) {
+            max-width: 100%;
+          }
+
+          li {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2.5rem;
+            font-size: 1.8rem;
+            font-weight: bold;
+
+            &:last-child {
+              margin-bottom: 0;
+            }
+
+            label {
+              width: calc(100% - 6rem);
+              margin-bottom: 2rem;
+            }
+
+            .switch {
+              width: 4.8rem;
+            }
+
+            @include breakpoint(mobile) {
+              font-size: 1.4rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.form-add-student {
+  label {
+    display: block;
+    padding-left: 3rem;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: $light-blue-shade;
+  }
+}
+
+.error-class {
+  .logo {
+    max-width: 10rem;
+    position: absolute;
+    top: -10rem;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+  }
+
+  .modal-title {
+    color: $orange;
+    font-size: 3.5rem;
+    font-weight: bold;
+    margin-bottom: 0;
+    margin-top: 1rem;
+  }
+
+  .error-message {
+    text-align: center;
+    font-weight: bold;
+  }
+}
+
+.archive-class {
+  max-width: 80%;
+  margin: 0 auto;
+
+  h6 {
+    color: $orange;
+    font-size: 1.8rem;
+    font-weight: bold;
+  }
+
+  p {
+    margin-bottom: 3rem;
+    padding: 0;
+  }
+}
+
+.delete-class {
+  max-width: 80%;
+  margin: 0 auto;
+
+  h6 {
+    color: $orange;
+    font-size: 1.8rem;
+    font-weight: bold;
+  }
+
+  p {
+    margin-bottom: 2.5rem;
+    padding: 0;
+  }
+}
+
+.user-profile{
+  margin-top: 6rem;
+  .container{
+    display: flex;
+    justify-content: center;
+    @include breakpoint(mobile) {
+      flex-wrap: wrap;
+    }
+  }
+  .district-info{
+    max-width: 65rem;
+    margin: 0 auto;
+  }
+  .agent-info{
+    max-width: 65rem;
+    margin: 0 auto;
+    margin-top: 4rem;
+  }
+  .heading-info{
+    margin-bottom: 2.5rem;
+  }
+  .user-profile-wrapper{
+    // width: calc(100% - 22rem);
+    padding-bottom: 4rem;
+    @include breakpoint(mobile) {
+      padding: 4rem 2rem;
+      padding-top: 0;
+    }
+    margin-bottom:5rem;
+    @include breakpoint(tabs) {
+      width: calc(100% - 20rem);
+    }
+    @include breakpoint(mobile) {
+      width: 100%;
+      order: 2;
+    }
+    .heading-info{
+      margin-bottom: 2.5rem;
+    }
+    .user-details{
+      li{
+        display: flex;
+        padding-bottom: 2.6rem;
+        // max-width: 65rem;
+        margin: 0 auto;
+        @include breakpoint(sm-mobile) {
+          flex-wrap: wrap;
+        }
+        .profile-heading{
+            min-width: 16rem;
+            @include breakpoint(mobile) {
+              min-width: 14rem
+            }
+            @include breakpoint(sm-mobile) {
+              width: 100%;
+            }
+          .profile-image{
+            display: inline-flex;
+            width: 10rem;
+            height: 10rem;
+            background-color: $secondary;
+            border-radius: 50%;
+            justify-content: center;
+            // align-items: flex-end;
+            overflow :hidden;
+            @include breakpoint(sm-mobile) {
+              margin-bottom: 1rem;
+            }
+          }
+          h6{
+            font-size: 1.6rem;
+            color: $light-blue-shade;
+            margin-bottom: 0;
+            line-height: 2;
+          }
+        }
+        .profile-sub-info{
+          width: calc(100% - 16rem);
+          @include breakpoint(mobile) {
+            width: calc(100% - 14rem);
+          }
+          @include breakpoint(sm-mobile) {
+            width: 100%;
+          }
+          h6{
+            font-size: 1.6rem;
+            line-height: 2;
+            margin-bottom: 0;
+            @include breakpoint(mobile) {
+              word-break: break-all;
+            }
+          }
+          p{
+            font-weight: 700;
+          }
+          .edit-profile{
+            color: $yellow-shade-5;
+            font-weight: 700;
+            cursor: pointer;
+            span{
+              width: 1.6rem;
+              height: 1.6rem;
+            }
+          }
+        }
+      }
+    }
+    .change-password-btn-wrapper{
+      text-align: center;  
+    }
+  }
+  .edit-btn-wrapper{
+    margin-left: 3rem;
+    @include breakpoint(mobile) {
+      width: 100%;
+      order: 1;
+      text-align: left;
+      margin-left: auto;
+      margin-bottom: 4rem;
+    }
+  }
+}
+// @keyframes RingProgress {
+//   0% {
+//     stroke-dasharray: 0 100;
+//   }
+// }
+
+// .ActivityRings {
+//   height: 100%;
+//   width: 100%;
+
+//   .ring {
+//     transform-origin: 50%;
+//   }
+
+//   .completed {
+//     animation: RingProgress 1s ease-in-out forwards;
+//     stroke-linecap: round;
+//   }
+
+//   circle {
+//     fill: none;
+//   }
+// }
+
+// .ring3 {
+//   .background {
+//     stroke: $ring-blue;
+//   }
+
+//   .completed {
+//     stroke: $yellow-shade-4;
+//   }
+// }

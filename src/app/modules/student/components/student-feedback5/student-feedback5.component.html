@@ -1,0 +1,147 @@
+<app-lessons-headerbar [lessonHederConfig]="lessonHederConfig"></app-lessons-headerbar>
+<div class="story-body-1">
+  <div class="container">
+    <div class="final-editaion">
+      <div class="content-wrapper">
+        <span class="final-editaion-img-wrapper">
+          <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
+
+          <div class="left-tooltip-wrapper">
+            <div class="speech-tooltip md-tooltip right-bottom-tip">
+              <div class="speech-tooltip-inner">
+                <p class="message">
+                  {{ textOne }}
+                </p>
+                <span class="tip">
+                  <img src="./assets/images/right-bottom-tip.svg" alt="" class="img-fluid" />
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="right-tooltip-wrapper">
+            <div class="speech-tooltip sm-tooltip left-bottom-tip">
+              <div class="speech-tooltip-inner">
+                <p class="message">
+                  {{ textTwo }}
+                </p>
+                <span class="tip">
+                  <img src="./assets/images/left-bottom-tip.svg" alt="" class="img-fluid" />
+                </span>
+              </div>
+            </div>
+          </div>
+        </span>
+      </div>
+      <div class="content-wrapper">
+        <span class="table-img-wrapper">
+          <img src="./assets/images/table.png" alt="" class="img-fluid" />
+        </span>
+      </div>
+    </div>
+  </div>
+  <div>
+    <app-button classes="btn btn-primary" (click)="open(requestModal)"> 
+        <span aria-hidden="true"> Feedback 7</span> 
+        <fa-icon class="ml-3" [icon]="RightArrow"></fa-icon> 
+    </app-button>
+</div>
+<div>
+  <app-button classes="btn btn-primary" (click)="open(requestModal2)"> 
+      <span aria-hidden="true"> Feedback 8</span> 
+      <fa-icon class="ml-3" [icon]="RightArrow"></fa-icon> 
+  </app-button> 
+</div>
+
+</div>
+<app-lessons-footer></app-lessons-footer>
+<ng-template #requestModal let-modal>
+  <div class="popup-wraper">
+    <div class="inquery-details-header">
+      <div class="header-wraper">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <legend>Journal</legend>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <!-- <span aria-hidden="true">&times;</span> -->
+        <img src="./assets/images/close.png" alt="" class="img-fluid" />
+      </button>
+    </div>
+    <div class="class-details-body">
+        <div class="form">
+            <form>
+              <textarea class="form-control-white action-textarea" rows="10">| Add a note to your journal here
+                
+              </textarea>
+              <div class="text-controls">
+                <a href=""><span>B</span></a>
+                <a href=""><span>I</span></a>
+                <a href=""><span class="text-underline">U</span></a>
+                <a href=""><span>&#9776;</span></a>
+              </div>
+            </form>
+          </div>
+    </div>
+    <div class="submit-btn-wrapper"> 
+        <app-button classes="btn btn-secondary" [submit]="true"> 
+          <span aria-hidden="true">Save</span> 
+        </app-button>
+      </div>
+  </div>
+  </ng-template>
+  
+  <ng-template #requestModal2 let-modal>
+    <div class="popup-wraper-details">
+      <div class="inquery-details-header">
+        <div class="header-wraper">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <legend>Journal</legend>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <!-- <span aria-hidden="true">&times;</span> -->
+          <img src="./assets/images/close.png" alt="" class="img-fluid" />
+        </button>
+      </div>
+      <div class="class-details-body">
+          <div class="form">
+              <form>
+                <div class="search-section">
+                  <div class="search-icon"><fa-icon class="ml-3" [icon]="SearchIcon"></fa-icon></div>
+                  <input type="search" placeholder="Search" class="search-input">
+                  <div class="calender-icon">
+                    <fa-icon class="ml-3" [icon]="Calendar"></fa-icon>
+                  </div>
+                </div>
+                <div class="text-controls">
+                <div class="action-textarea">
+                  <ul class="action-details">
+                    <li>“I think when the water starts boiling… it will spill out of the pot!” </li>
+                    <li>“I really hope this dish tastes good since I am so hungry” </li>
+                    <li>“My neighbor is from the Philippines; I can’t wait to tell her I learned about this dish and how to say hello in Tagalog” </li>
+                  </ul> 
+                  <p class="add-text">| Add a note to your journal here</p>
+                </div>
+                </div>
+              </form>
+            </div>
+      </div>
+      <div class="submit-btn-wrapper"> 
+          <app-button classes="btn btn-secondary" [submit]="true"> 
+            <span aria-hidden="true">Save</span> 
+          </app-button>
+        </div>
+    </div>
+    </ng-template>

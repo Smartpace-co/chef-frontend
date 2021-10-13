@@ -1,0 +1,6 @@
+<app-ingreditent-nav></app-ingreditent-nav>
+<app-lessons-headerbar [lessonHederConfig]="lessonHederConfig"></app-lessons-headerbar>
+<div *ngIf="form!=undefined">
+    <app-dynamic-form #dynamicComponent (valueChange)="answerChange($event)" (onMultiSelectedAns)="getMultiSelectedAns($event)" (getSingleSelectedValue)="getSingleSelectAns($event)" (onDragItem)="drag($event)" (onDropItem)="drop($event)" [questionData]="form"></app-dynamic-form>
+</div>
+<app-lessons-footer  (onNext)="onNext()" (onPrevious)="onPrevious()"></app-lessons-footer>

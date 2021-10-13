@@ -1,0 +1,343 @@
+<header class="teacherHeader">
+    <div class="header-top">
+        <div class="container">
+            <div class="logo">
+                <img src="./assets/images/logo.png" alt="" class="img-fluid" />
+            </div>
+            <div class="top-nav">
+                <app-drop-down class="class-dropdown" [dropDownButtonName]="dropDownMenuTitle"
+                    [dropDownIcon]="dropDownIconMain" [dropDownItemList]="dropDownMenuList"
+                    (registerDropdownValueChange)="onDropdownValueChange($event)" *ngIf="dropDownMenuList.length > 0">
+                </app-drop-down>
+                <ul class="desktop-only">
+                    <li>
+                        <a routerLink="/teacher/explore-lessons-list" routerLinkActive="active">
+                            <fa-icon [icon]="explore"></fa-icon>
+                            {{'teacher.dashboard.explore-lessons'|translate}}
+                        </a>
+                    </li>
+                    <li>
+                        <a (click)="open(create)">
+                            <fa-icon [icon]="PlusIcon"></fa-icon>
+                            {{'teacher.dashboard.create-class'|translate}}
+                        </a>
+                    </li>
+                    <li class="bookmark">
+                        <a routerLink="/teacher/teacher-bookmark" routerLinkActive="active">
+                            <img src="./assets/images/bookmark.svg" /></a>
+                    </li>
+                    <li class="notification">
+                        <a routerLink="/teacher/notifications" routerLinkActive="active">
+                            <span class="notification__count">{{notificationCount}}</span>
+                            <img src="./assets/images/notification.svg" class="img-fluid" />
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="user-dropdown desktop-only">
+                    <div class="user-image">
+                        <img src="./assets/images/teacher.png" alt="" class="img-fluid" />
+                    </div>
+                    <app-drop-down class="profile-dropdown ml-auto" [dropDownButtonName]="ProfileMenu"
+                        [dropDownItemList]="ProfileMenuList"
+                        (registerDropdownValueChange)="onDropdownValueChange($event)"></app-drop-down>
+                </div>
+            </div>
+            <div class="collapse navbar-collapse mobile-nav" id="navbarNavDropdown">
+                <ul class="top-header">
+                    <li class="bookmark">
+                        <a><img src="./assets/images/bookmark.svg" /></a>
+                    </li>
+                    <li class="notification">
+                        <a>
+                            <span class="notification__count">3</span>
+                            <img src="./assets/images/notification.svg" class="img-fluid" />
+                        </a>
+                    </li>
+                </ul>
+                <ul class="main-link">
+                    <li>
+                        <a>
+                            <fa-icon [icon]="explore"></fa-icon>
+                            {{'teacher.dashboard.explore-lessons'|translate}}
+                        </a>
+                    </li>
+                    <li>
+                        <a (click)="open(create)">
+                            <fa-icon [icon]="PlusIcon"></fa-icon>
+                            {{'teacher.dashboard.create-class'|translate}}
+                        </a>
+                    </li>
+                </ul>
+                <ul class="profile-nav">
+                    <li>
+                        <div class="teacher-info">
+                            <div class="teacher-image">
+                                <img src="./assets/images/teacher.png" alt="" class="img-fluid" />
+                            </div>
+                            <span class="teaher-name">Ms. Paula</span>
+                        </div>
+                        <ul class="teacher-menu">
+                            <li *ngFor="let item of ProfileMenuList">
+                                <a [routerLink]="item.link">
+                                    <fa-icon [icon]="item.icon"></fa-icon>
+                                    <span>{{item.menu}}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
+                data-target="#navbarNavDropdown" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+            </button>
+        </div>
+    </div>
+    <div class="bottom-header">
+        <div class="container">
+            <ul class="bottom-nav">
+                <li>
+                    <a routerLink="/teacher/dashboard" routerLinkActive="active">
+                        <fa-icon [icon]="Home"></fa-icon>
+                        {{'teacher.dashboard.home'|translate}}
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="/teacher/upcoming-assignment" routerLinkActive="active">
+                        <fa-icon [icon]="Assignment"></fa-icon>
+                        {{'teacher.dashboard.assignment'|translate}}
+
+                    </a>
+                </li>
+                <li>
+                    <!-- <a routerLink="/teacher/student-list"> -->
+                    <a routerLink="/teacher/roster-group-tabs" routerLinkActive="active">
+
+                        <fa-icon [icon]="Roster"></fa-icon>
+                        {{'teacher.dashboard.roster'|translate}}
+                    </a>
+                </li>
+                <li>
+                    <!-- <a routerLinkActive="active">
+                        <fa-icon [icon]="Performance"></fa-icon>
+                        {{'teacher.dashboard.performance'|translate}}
+
+                    </a> -->
+                    <app-drop-down class="performance" [dropDownButtonName]="PerformanceTitle"
+                        [dropDownIcon]="Performance" [dropDownItemList]="PerformanceList"
+                        (registerDropdownValueChange)="onReportListClick($event)">
+                    </app-drop-down>
+                </li>
+            </ul>
+            <div class="more-actions desktop-only" *ngIf="dropDownMenuList.length > 0">
+                <app-drop-down class="" [dropDownButtonName]="SettingTitle" [dropDownIcon]="SettingIconMain"
+                    [dropDownItemList]="SettingList"
+                    (registerDropdownValueChange)="OnProfileMenuListDropdownChange($event)">
+                </app-drop-down>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<!-- Create Class Modal-->
+<ng-template #create let-modal>
+    <button type="button" class="close" aria-label="Close" (click)="closeOpenModal()">
+        <img src="./assets/images/close.png" alt="" class="img-fluid" />
+    </button>
+    <div class="modal-body">
+        <div class="create-class-form">
+            <h2 class="modal-title" *ngIf="classLabel == 'create'">{{'teacher.dashboard.create-class'|translate}}</h2>
+            <h2 class="modal-title" *ngIf="classLabel == 'edit'">{{'teacher.dashboard.edit-class'|translate}}</h2>
+            <form [formGroup]="createClass">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>{{'school.class.add-class.class-field'|translate}} (*)</label>
+                        <app-input-field classes="form-control" types="text" ids="title" fieldControl="title"
+                            [form]="createClass" placeholders="Enter your class title"
+                            [ngClass]="{ 'is-invalid': formControl.title.touched && formControl.title.errors }">
+                        </app-input-field>
+                        <div *ngIf="formControl.title.errors" class="invalid-feedback">
+                            <div class="error" *ngIf="formControl.title.errors?.required">
+                                {{'school.class.add-class.class-title-required'|translate}}</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label>{{'school.class.add-class.grade-field'|translate}} (*)</label>
+                        <app-drop-down class="formDropdown" [dropDownButtonName]="GradeTitle" [dropDownIcon]=""
+                            fieldControl="grade_id" [dropDownItemList]="GradeList"
+                            (registerDropdownValueChange)="onGradeListDropdownValueChange($event)"
+                            [ngClass]="{ 'is-invalid': formControl.grade_id.touched && formControl.grade_id.errors }">
+                        </app-drop-down>
+                        <div *ngIf="formControl.grade_id.errors" class="invalid-feedback">
+
+                            <div class="error" *ngIf="formControl.grade_id.errors?.required">
+                                {{'school.class.add-class.grade-required'|translate}}
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="desktop-only">{{'school.class.add-class.standards-field'|translate}} (*)</label>
+                        <app-multi-select-dropdown [dropDownItemList]="standardList" [selectedItems]="selectedStandard"
+                            fieldControl="standard" [selectedValue]="selectedValue"
+                            (onSelectValue)="onSelectStandrd($event)" (onDeSelectValue)="onDeSelectStandard($event)"
+                            (onSelectAllValue)="onSelectAllStandard($event)"
+                            (onDeselectAllValue)="onDeselectAllStandard($event)"
+                            ></app-multi-select-dropdown>
+                 
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="custom-control custom-radio">
+                            <app-radio classes="custom-control-input" types="radio" fieldControl="status"
+                                [form]="createClass" names="status" [values]="true">
+                            </app-radio>
+                            <label class="custom-control-label"
+                                for="Active">{{'table-search-filter-container.status.active'|translate}}</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <app-radio classes="custom-control-input" types="radio" fieldControl="status"
+                                [form]="createClass" names="status" [values]="false">
+                            </app-radio>
+                            <label class="custom-control-label"
+                                for="Inactive">{{'table-search-filter-container.status.inactive'|translate}}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-btns">
+                    <app-button classes="btn btn-secondary" [submit]="true" (click)="closeOpenModal()">
+                        <span aria-hidden="true">{{'common.cancel'| translate}}</span>
+                    </app-button>
+                    <app-button classes="btn btn-primary btn-block" [submit]="true" (click)="addClass()"
+                        [disabled]="createClass.invalid">
+                        <span aria-hidden="true"
+                            *ngIf="classLabel == 'create'">{{'school.class.add-class.label'|translate}}</span>
+                        <span aria-hidden="true"
+                            *ngIf="classLabel == 'edit'">{{'teacher.dashboard.edit-class'|translate}}</span>
+                    </app-button>
+                </div>
+            </form>
+        </div>
+    </div>
+</ng-template>
+
+<!-- Archive Class Modal -->
+<ng-template #archive let-modal id="archive">
+    <button type="button" class="close" aria-label="Close" (click)="closeOpenModal()">
+        <img src="./assets/images/close.png" alt="" class="img-fluid" />
+    </button>
+    <div class="modal-body">
+        <div class="archive-class">
+            <h2 class="modal-title">{{'school.class.class-details.archive-class-label'| translate}}</h2>
+            <h4>{{'school.class.class-details.archive-class-confirmation'| translate}}?</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex ea commodo consequat.</p>
+            <div class="d-flex justify-content-between">
+                <app-button classes="btn btn-secondary mr-4" [submit]="true" (click)="closeOpenModal()">
+                    <span aria-hidden="true">{{'common.cancel'| translate}}</span>
+                </app-button>
+                <app-button classes="btn btn-primary btn-block" [submit]="true" (click)="archiveClass()">
+                    <span aria-hidden="true">{{'school.class.class-details.archive-label'| translate}}</span>
+                </app-button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<!-- Delete Class Modal -->
+<ng-template #delete let-modal>
+    <button type="button" class="close" aria-label="Close" (click)="closeOpenModal()">
+        <img src="./assets/images/close.png" alt="" class="img-fluid" />
+    </button>
+    <div class="modal-body">
+        <div class="delete-class">
+            <h2 class="modal-title">{{'school.class.class-details.delete-class-label'| translate}}</h2>
+            <div class="info">
+                <span class="info-icon">
+                    <fa-icon [icon]="exclamationTriangle" style="font-size: x-large;"></fa-icon>
+                </span>
+                <p>{{'school.class.class-details.delete-class-desc'| translate}}.</p>
+            </div>
+            <h4>{{'school.class.class-details.delete-class-confirmation'| translate}}?</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+            </p>
+            <form [formGroup]="deleteClassForm">
+                <app-input-field classes="form-control" types="text" ids="deleteClass" fieldControl="delete"
+                    [form]="deleteClassForm"
+                    placeholders="{{'teacher.teacher-header.delete-confirmation-text' | translate}}"></app-input-field>
+                <div class="d-flex justify-content-between mt-5">
+                    <app-button classes="btn btn-secondary mr-4" [submit]="true" (click)="closeOpenModal()">
+                        <span aria-hidden="true">{{'common.cancel'| translate}}</span>
+                    </app-button>
+                    <app-button classes="btn btn-danger btn-block" [submit]="true" (click)="deleteClass()"
+                        [disabled]="deleteClassForm.invalid">
+                        <span aria-hidden="true">{{'common.delete'| translate}}</span>
+                    </app-button>
+                </div>
+            </form>
+        </div>
+    </div>
+</ng-template>
+
+<!-- Join Class Modal-->
+<ng-template #join let-modal>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <img src="./assets/images/close.png" alt="" class="img-fluid" />
+    </button>
+    <div class="modal-body">
+        <div class="join-class">
+            <h2 class="modal-title">{{'teacher.teacher-header.join-class'| translate}}</h2>
+            <p class="message">{{'teacher.teacher-header.enter-access-code-desc'| translate}}</p>
+            <form [formGroup]="joinClassForm">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>{{'school.class.add-class.access-code-label'|translate}}</label>
+                        <app-input-field classes="form-control" types="text" ids="accessCode" fieldControl="accessCode"
+                            [form]="joinClassForm"
+                            placeholders="{{'teacher.teacher-header.enter-access-code-placeholder'| translate}}"
+                            value="">
+                        </app-input-field>
+                    </div>
+                </div>
+                <div class="footer-btns">
+                    <app-button classes="btn btn-secondary" [submit]="true" (click)="modal.dismiss('Cross click')">
+                        <span aria-hidden="true">{{'common.cancel'| translate}}</span>
+                    </app-button>
+                    <app-button classes="btn btn-primary" [submit]="true" (click)="joinClass()">
+                        <span aria-hidden="true">{{'teacher.teacher-header.join-class'| translate}}</span>
+                    </app-button>
+                </div>
+            </form>
+        </div>
+    </div>
+</ng-template>
+<ng-template #proceedMembershipClassModal let-modal>
+    <button type="button" class="close" aria-label="Close" (click)="closePopup()">
+      <img src="./assets/images/close.png" alt="" class="img-fluid" />
+    </button>
+    <div class="modal-header membership-header">
+      <div class="logo">
+        <img src="./assets/images/logo.png" class="img-fluid" />
+      </div>
+    </div>
+    <div class="modal-body journal-body">
+      <h6 class="Total">{{'school.class.add-class.exceeded-package-desc'|translate}}</h6>
+      <div class="close-btn-wrapper">
+        <app-button classes="btn btn-primary membership-close-btn" [submit]="true" (click)="onProceed()">
+          <span aria-hidden="true">{{'school.edit-membership.proceed-label'|translate}}</span>
+        </app-button>
+      </div>
+    </div>
+  </ng-template>

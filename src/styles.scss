@@ -1,0 +1,58 @@
+/* You can add global styles to this file, and also import other style files */
+@import "assets/styles/chefk.scss";
+// .slick-slider {
+//     width: 90%;
+//     margin: auto;
+//     background: #000;
+//   }
+  
+//   .nav-btn {
+//     height: 47px;
+//     position: absolute;
+//     width: 26px;
+//     cursor: pointer;
+//     top: 100px !important;
+//   }
+  
+//   .prev-slide.slick-disabled,
+//   .next-slide.slick-disabled {
+//     pointer-events: none;
+//     opacity: 0.2;
+//   }
+  
+//   .prev-slide {
+//     background: url(assets/images/close.png) no-repeat scroll 0 0;
+//     left: -33px;
+//   }
+  
+//   .next-slide {
+//     background: url(assets/images/close.png) no-repeat scroll -24px 0px;
+//     right: -33px;
+//   }
+  
+//   .prev-slide:hover {
+//     background-position: 0px -53px;
+//   }
+  
+//   .next-slide:hover {
+//     background-position: -24px -53px;
+//   }
+ /* You can add global styles to this file, and also import other style files */
+
+
+ .ngx-dropdown-container .ngx-dropdown-button .display-text {
+    display: none !important;
+ }
+
+
+ .ngx-dropdown-container .ngx-dropdown-button {
+    margin-left: 80px !important;
+    width: 24% !important;
+    min-height: 18px !important;
+    padding: 0px !important;
+    background-color: white !important;
+ }
+
+ .ngx-dropdown-container .ngx-dropdown-list-container {
+     min-width: 180px;
+ }

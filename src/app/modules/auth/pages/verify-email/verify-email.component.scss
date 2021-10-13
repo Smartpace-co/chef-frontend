@@ -1,0 +1,57 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+.verify-email-body{
+  display: flex;
+  align-items: center;
+  min-height: calc(100vh - 9rem);
+  padding: 10rem 0rem;
+  .content-wrapper{
+    .verify-email-card{
+      max-width: 58rem;
+      padding: 4rem 5.5rem;
+      width: 95%;
+      margin: 0 auto;
+      @include breakpoint(mobile){
+        padding: 4rem 1.5rem;
+      }
+      .logo{
+        max-width: 8.5rem;
+        position: absolute;
+        top: -6rem;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+      }
+      .title{
+        text-align: center;
+        @include breakpoint(mobile){
+          font-size: 2rem;
+        }
+      }
+      .sub-info{
+        text-align: center;
+        padding: 0.5rem 0rem;
+        font-weight: 600;
+        font-size: 1.3rem;
+      }
+      .email-body{
+        align-items: center;
+        padding: 2.5rem;
+        border-radius: 2.3rem;
+        background-color: $blue-shade-2;
+        margin: 1.5rem;
+        @include breakpoint(mobile){
+          padding: 2rem;
+          margin: 1.5rem 1rem;
+        }
+        .instructions{
+          font-weight: 600;
+        }
+      }
+    }
+    .mail-btn-wrapper{
+      display: flex;
+      justify-content: space-around;
+    }
+  }
+}

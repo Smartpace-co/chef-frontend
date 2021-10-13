@@ -1,0 +1,46 @@
+<div class="explore-lessons">
+    <div class="container-fluid">
+        <div class="btn-top">
+            <app-button classes="btn btn-secondary small-btn" (click)="OnBackClick()">
+                <span aria-hidden="true">Back</span>
+            </app-button>
+        </div>
+        <div class="d-flex">
+            <!-- <div class="left-col">
+                <aside class="lesson-filter" [class.active]="classApplied">
+                    <fa-icon [icon]="FilterArrow" class="filterArrow" (click)="toggleClass()"></fa-icon>
+                    <app-explore-lessons-sidebar></app-explore-lessons-sidebar>
+                </aside>
+            </div> -->
+            <div class="right-col">
+                <div class="explore-search">
+                    <fa-icon [icon]="SearchIcon"></fa-icon>
+                    <input class="form-control" type="text" name="term" [(ngModel)]="term"
+                        placeholder="Try Common Core Math Grade 4 Measurement & Data" />
+                </div>
+
+                <div class="featureSubject">
+                    <div class="heading-wraper">
+                        <h5 class="subtitle">Featured by standards</h5>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3 col-sm-6" *ngFor="let item of standardList| filter: term; let i = index">
+                            <div class="featureSubject__main ">
+                                <div class="featureSubject__image">
+                                    <img src="./assets/images/assignment-image.jpg" alt="img-fluid" />
+                                </div>
+                                <div class="featureSubject__info">
+                                    <h3 class="featureSubject__title">{{item.standardTitle}}</h3>
+                                    <!-- <p class="featureSubject__lessons">{{item.lessonsLength}} lessons</p> -->
+                                    <a (click)="getLessons(item)" class="featureSubject__lessons">{{item.lessonsLength}}
+                                        lessons</a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

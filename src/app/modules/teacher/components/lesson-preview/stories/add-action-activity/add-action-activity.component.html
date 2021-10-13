@@ -1,0 +1,31 @@
+<app-lessons-headerbar></app-lessons-headerbar>
+<div class="active-action-body">
+  <app-scroll-down></app-scroll-down>
+  <div class="container">
+    <div class="final-editaion">
+      <div class="content-wrapper">
+        <span class="card-wihtout-header-blue">
+          <div class="active-action-wrapper">
+            <p>Think quietly for a moment and write down your solution.</p>
+            <p>Now discuss with your group, share your ideas and pick the best solution to present to the class.</p>
+          </div>
+          <div class="form">
+            <form>
+              <textarea class="form-control action-textarea" [(ngModel)]="activityDescription"
+                [ngModelOptions]="{standalone: true}" rows="10"></textarea>
+            </form>
+          </div>
+          <div class="submit-btn-wrapper">
+            <app-button classes="btn btn-secondary" [submit]="true" (click)="onSaveActivity()">
+              <span aria-hidden="true">Submit</span>
+            </app-button>
+          </div>
+        </span>
+        <span class="final-editaion-img-wrapper">
+          <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+<app-lessons-footer [showNext]="showNext" (onPrevious)="onPrevious()"></app-lessons-footer>

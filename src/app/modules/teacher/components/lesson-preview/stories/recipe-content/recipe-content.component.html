@@ -1,0 +1,50 @@
+<app-ingreditent-nav></app-ingreditent-nav>
+<app-lessons-headerbar [lessonHederConfig]="lessonHederConfig"></app-lessons-headerbar>
+<!-- <div class="story-body-7"> -->
+  <!-- <app-scroll-down></app-scroll-down> -->
+  <div *ngIf="isLoad" class="story-body-7"
+   [ngStyle]=" countryBgImg ? {background: ' url(' + countryBgImg + ')'} : {background: ' url(' + './assets/images/kitchen-bg-blur.jpg' + ')'}">
+  <div class="container">
+    <div class="row final-editaion">
+      <div class="col-sm-12 content-wrapper">
+        <span class="final-editaion-img-wrapper">
+          <img src="./assets/images/final-editaion.png" alt="" class="img-fluid final-editaion-img" />
+        </span>
+        <div class="tooltip-wrapper">
+          <div class="speech-tooltip md-tooltip left-bottom-tip">
+            <div class="speech-tooltip-inner">
+              <p class="message">
+                {{ recipeContent}}
+              </p>
+              <span class="tip">
+                <img src="./assets/images/left-bottom-tip.svg" alt="" class="img-fluid" />
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="kitchen-table">
+          <img src="./assets/images/kitchen-table.png" alt="" class="img-fluid" />
+        </div>
+        <div class="recipe">
+          <img [src]="recipeImg" alt="" class="img-fluid" />
+        </div>
+        <div class="ingrediants">
+          <div *ngFor="let item of recipeIngredients" class="ingrediants-list">
+            <span class="image-wrapper">
+              <img src="{{ item.ingredient && item?.ingredient.images[0] ? item.ingredient.images[0].image : defaultRecipeImg }}" alt="" class="img-fluid" />
+            </span>
+            <span class="lable">{{ item?.ingredient?.ingredientTitle}}</span>
+          </div>
+        </div>
+      
+        <!-- <div class="vegetables">
+          <span class="image-wrapper">
+            <img src="{{ assignmentData?.recipe_content_two_img}}" alt="" class="img-fluid"/>
+          </span>
+          <span class="lable">{{ assignmentData?.recipe_content_two }}</span>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+<app-lessons-footer (onNext)="onNext()" (onPrevious)="onPrevious()"></app-lessons-footer>

@@ -1,0 +1,152 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+.locker-room {
+  .top-nav {
+    margin: 4rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    h3 {
+      margin: 0;
+    }
+  }
+  .locker-room-container {
+    &.container {
+      @include breakpoint(mobile) {
+        padding: 0;
+      }
+    }
+    .locker-room-wraper {
+      // padding-bottom: 13rem;
+      @include breakpoint(mobile) {
+        padding-bottom: 0rem;
+      }
+      .lockers {
+        display: flex;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        .fruit-earth-top {
+          position: absolute;
+          top: 10%;
+          margin-left: -5rem;
+          // max-width: 6rem;
+        }
+        .experiment-top {
+          position: absolute;
+          top: 23%;
+          margin-left: -5rem;
+          // max-max-width: 6rem;
+        }
+        .heart-top {
+          position: absolute;
+          top: 40%;
+          margin-left: -5rem;
+          //
+        }
+        .fruit-earth-middle {
+          position: absolute;
+          top: 55%;
+          margin-left: -5rem;
+          //
+        }
+        .experiment-middle {
+          position: absolute;
+          top: 70%;
+          margin-left: -5rem;
+          //
+        }
+        .heart-middle {
+          position: absolute;
+          top: 10%;
+          margin-left: 8rem;
+          //
+        }
+        .fruit-earth-bottom {
+          position: absolute;
+          top: 23%;
+          margin-left: 8rem;
+          //
+        }
+        .experiment-bottom {
+          position: absolute;
+          top: 40%;
+          margin-left: 8rem;
+          //
+        }
+        .heart-bottom {
+          position: absolute;
+          top: 55%;
+          margin-left: 8rem;
+          //
+          max-width: 6rem;
+          max-height: 6rem;
+          background-color: rgba($color: $black, $alpha: 0.1);
+          border-radius: 1rem;
+        }
+        .fruit-earth-end {
+          position: absolute;
+          top: 70%;
+          margin-left: 8rem;
+          //
+        }
+        .stamp-common {
+          max-width: 6rem;
+          max-height: 6rem;
+          // background-color: rgba($color: $black, $alpha: 0.1);
+          // border-radius: 1rem;
+        }
+        .inner-img {
+          margin-left: 15rem;
+        }
+      }
+      .locker-lady {
+        position: relative;
+        @include breakpoint(mobile) {
+          transform: translate(0rem, 20rem);
+          max-width: 40rem;
+        }
+        .final-editaion-img-wrapper {
+          max-width: 30rem;
+          display: block;
+          position: absolute;
+          bottom: -15rem;
+          left: 0;
+          @include breakpoint(mobile) {
+            max-width: 25rem;
+            bottom: 7rem;
+          }
+          @include breakpoint(xtrasmallmobile) {
+            width: 16rem;
+            bottom: 11rem;
+          }
+        }
+        .tooltip-wrapper {
+          position: absolute;
+          left: 21rem;
+          bottom: 10rem;
+          @include breakpoint(mobile) {
+            left: 3rem;
+            bottom: 40rem;
+          }
+          @include breakpoint(xtrasmallmobile) {
+            left: 1rem;
+            bottom: 34rem;
+          }
+          .message {
+            @include breakpoint(sm-mobile) {
+              font-size: 1rem;
+            }
+          }
+        }
+      }
+      .btn-wraper {
+        display: flex;
+        justify-content: center;
+        @include breakpoint(mobile) {
+          margin-bottom: 1rem;
+        }
+      }
+    }
+  }
+}

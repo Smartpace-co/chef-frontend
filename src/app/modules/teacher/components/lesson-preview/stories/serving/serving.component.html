@@ -1,0 +1,67 @@
+<app-ingreditent-nav></app-ingreditent-nav>
+<app-lessons-headerbar [lessonHederConfig]="lessonHederConfig"></app-lessons-headerbar>
+<div class="serving-body ingredient-bg">
+  <!-- <app-scroll-down></app-scroll-down> -->
+  <div class="container">
+    <div class="final-editaion">
+      <div class="content-wrapper">
+        <div class="card-wrapper">
+          <span class="card-wihtout-header-blue">
+            <ngx-slick-carousel *ngIf="isLoad" [config]="slideConfig">
+              <ul *ngFor="let obj of servingData" ngxSlickItem>
+                <li>
+                  <div class="image-wrapper">
+                    <img [src]="obj?.image" alt="" class="img-fluid" />
+                  </div>
+                  <div class="mt-1">
+                    {{obj?.text}}
+                  </div>
+                </li>
+              </ul>
+            </ngx-slick-carousel>
+            <!-- <div class="image-wrapper">
+              <img [src]="recipeImg" alt="" class="img-fluid" /> 
+            </div>
+           <ul><li><h6>{{ servingData?.serveText }}</h6></li></ul> -->
+          </span>
+        </div>
+        <!-- <div class="card-wrapper">
+          <span class="card-wihtout-header-blue water-info">
+           <ul> 
+             <li><h6>{{ servingData?.question }}</h6></li>
+            <li><h6>{{ servingData?.answer }} </h6></li>    
+            </ul>       
+          </span>
+        </div>
+        <span class="final-editaion-img-wrapper">
+          <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" /> 
+        </span> -->
+        <!-- <div class="left-tooltip-wrapper">
+          <div class="speech-tooltip md-tooltip left-bottom-tip">
+            <div class="speech-tooltip-inner">
+                <p class="message">
+                  How many glasses of 
+                  water do you usually 
+                  drink in a day?
+                </p>
+                <div class="right-btn-wrapper">
+                  <app-button classes="btn small-btn btn-secondary mr-4" [submit]="true">
+                    <span aria-hidden="true">Let us know</span>
+                  </app-button>
+                </div>
+                <span class="tip">
+                  <img src="./assets/images/left-bottom-tip.svg" alt="" class="img-fluid" />
+                </span>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+  <!-- <div class="fun-activity-btn">
+    <app-button classes="btn btn-primary " [submit]="true" (click) = "showFunActivity()">
+      <span aria-hidden="true">Fun Activity</span>
+    </app-button>
+  </div> -->
+</div>
+<app-lessons-footer (onNext)="onNext()" (onPrevious)="onPrevious()"></app-lessons-footer>

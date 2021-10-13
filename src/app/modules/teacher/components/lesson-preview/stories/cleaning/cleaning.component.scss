@@ -1,0 +1,127 @@
+@import "../../../../../../../assets/styles/helpers/variables";
+@import "../../../../../../../assets/styles/helpers/mixins";
+
+.classCheck1{
+  visibility : visible !important;
+}
+.classCheck2{
+  visibility : hidden !important;
+}
+.cleaning-body{
+  min-height: calc(100vh - 24.2rem);
+  position: relative;
+  padding-top: 0rem;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  flex-wrap: wrap;
+  @include breakpoint(tabs) {
+    padding-top: 0rem;
+  }
+  @include breakpoint(mobile) {
+    min-height: calc(100vh - 33rem);
+  }
+  .final-editaion{
+    position: relative;
+    padding: 15rem 0;
+    .content-wrapper{
+      flex: 0 0 100%;
+      max-width: 100%;
+      position: relative;
+      ul{
+        padding: 6rem;
+        @include breakpoint(mobile){
+          padding: 6rem 2rem;
+        }
+        li{
+          display: flex;
+          justify-content: center;
+          .check-mark{
+              position: relative;
+              visibility: hidden;
+              padding-left: 4rem;
+              display: inline-block;
+              margin-top: 2rem;
+              label {
+                background-color: $white;
+                border: 0.5rem solid $dark-border;
+                border-radius: 50%;
+                cursor: pointer;
+                height: 4rem;
+                left: 0;
+                position: absolute;
+                top: 0;
+                width: 4rem;
+                &:after {
+                  border: 0.5rem solid $black;
+                  border-top: none;
+                  border-right: none;
+                  content: "";
+                  height: 1.1rem;
+                  left: 0.4rem;
+                  opacity: 0;
+                  position: absolute;
+                  top: 0.7rem;
+                  transform: rotate(-45deg);
+                  width: 2rem;
+                }
+              }
+              input[type="checkbox"] {
+                visibility: hidden;
+              }
+              input[type="checkbox"]:checked + label {
+                background-color: $white;
+                border-color: $dark-border;
+              }
+              input[type="checkbox"]:checked + label:after {
+                opacity: 1;
+              }
+          }
+          .cooking-preparation-wrapper{
+            padding: 0rem 6rem;
+            width: calc(100% - 4rem);
+            min-height: 12rem;
+            display: flex;
+            margin-bottom: 7rem;
+            @include breakpoint(mobile){
+              padding: 0rem 2rem;
+              margin-bottom: 2rem;
+            }
+            .description{
+              align-items: center;
+              display: flex;
+              .image{
+                max-width: 7.3rem;
+                display: flex;
+                align-items: center;
+                @include breakpoint(mobile){
+                  max-width: 4.5rem;
+                }
+              }
+              .description-info{
+                padding-left: 2rem;
+                width:calc(100% - 10rem);
+                @include breakpoint(mobile){
+                  width:calc(100% - 5rem);
+                }
+                h6{
+                  font-size: 1.6rem;
+                  @include breakpoint(mobile){
+                    font-size: 1.4rem;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .final-editaion-img-wrapper{
+      max-width: 30rem;
+      display:block;
+      position: absolute;
+      bottom: -11rem;
+      left: -6rem;
+    }
+  }
+}

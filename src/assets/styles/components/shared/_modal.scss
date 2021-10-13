@@ -1,0 +1,200 @@
+// .modal-open {
+//     *:not(.modal){
+//         filter:blur(4px);
+//         -webkit-filter: blur(4px);
+//     }
+//     .modal,
+//     .modal *{
+//         filter:inherit;
+//         -webkit-filter:inherit;
+//     }
+// }
+.modal{
+    .modal-dialog{
+        margin: 5rem auto;
+        max-width:57rem;
+        width:95%;
+        margin: 5rem auto;       
+        &.modal-lg{
+            max-width:60rem;
+        }
+        @include breakpoint(mobile){
+            max-width:95%;
+        }
+    }
+    .modal-content{
+        background: $primary;
+        border:1px solid $border-color;
+        border-radius:3rem;
+        position: relative;
+        padding: 3rem;
+        width:100%;
+        @include breakpoint(mobile){
+            padding: 2rem;
+            border-radius: 2rem;
+        }
+    }
+    .close{
+        position: absolute;
+        right: -20px;
+        top: -20px;
+        opacity: 1 !important;
+        @include breakpoint(mobile){
+            width: 3rem;
+            right: -10px;
+            top: -10px;
+        }
+    }
+    .modal-title{
+        font-size:3.5rem;
+        font-weight: bold;
+        text-align: center;
+        margin:0;
+        margin-bottom:2rem;
+        @include breakpoint(mobile) {
+            font-size:2.8rem;
+        }
+    }
+}
+.modal-backdrop{
+    background-color: $white;
+}
+.journal-modal{
+    &.modal{
+        .modal-dialog{
+            max-width:58rem;
+            width:95%;
+        }
+        .modal-content{
+            background-color: $navy-blue;
+            border-radius: 0rem;
+            padding: 0rem 4rem 4rem;
+            margin-top: 5rem;
+        }
+    } 
+}
+.membership-modal{
+    &.modal{
+        .modal-content{
+            position: relative;
+        }
+    }
+}
+.guide-modal{
+    &.modal{
+        .modal-content{
+            margin: 4rem auto;
+            position: relative;
+            max-width: 41rem;
+        }
+    }
+}
+.create-class-modal{
+    &.modal{
+        .modal-dialog{
+            max-width:67rem;
+            margin-top: 5rem;
+            margin-bottom: 5rem;
+            width: 93%;
+        }
+    }
+}
+.dist-modal{
+    &.modal{
+        .modal-dialog{
+            max-width:67rem;
+            margin-top: 3rem;
+            margin-bottom: 3rem;
+            width: 93%;
+        }
+        .modal-title{
+            font-size: 2.8rem;
+        }
+    }
+}
+.package-modal{
+    &.modal{
+        .modal-dialog{
+            max-width:35rem;
+        }
+    }
+}
+
+.ingredient-modal{
+    &.modal{
+        .modal-dialog{
+            display: flex;
+            justify-content: center;
+        }
+        .modal-content  {
+         max-width: 53rem;
+       }
+    }
+}
+
+.createGroup{
+    &.modal{
+        .modal-content  {
+            left: 0;
+            top: 0;
+            margin: auto;
+            max-width: 50rem;
+       }
+    }
+}
+.manageGroup{
+    &.modal{
+        .modal-content  {
+            left: 0;
+            top: 0;
+            margin: auto;
+            max-width: 57rem;
+       }
+    }
+}
+.report-modal{
+    &.modal{
+        z-index: 9999;
+        .modal-dialog{
+            max-width:77rem;
+        }
+        .modal-content{
+            padding: 0;
+        }
+
+
+ }
+}
+.feedback-popup{
+    &.modal{
+        .modal-dialog{
+            margin-top: 5rem;
+            margin-bottom: 1rem;
+            max-width: 65rem; 
+        }
+        .modal-content  {
+         background-color: $navy-blue;
+         border-radius: 0; 
+         border: none;
+       }
+    }
+  }
+  .landing-popup{
+    .modal-dialog{
+        max-width: 45rem;
+    }
+}
+
+.passport-profile{
+    &.modal{
+        .modal-dialog{
+            margin-top: 5rem;
+            margin-bottom: 5rem;
+            max-width: 87rem;
+        }
+        .modal-content  {
+         background-color: $blue-shade-6;
+         border: 0.5rem solid $black;
+       }
+    }
+}

@@ -1,0 +1,41 @@
+<app-ingreditent-nav></app-ingreditent-nav>
+<app-lessons-headerbar [lessonHederConfig]="lessonHederConfig"></app-lessons-headerbar>
+<div class="cooking-preparation-1">
+  <!-- <app-scroll-down></app-scroll-down> -->
+  <div class="container">
+    <div class="final-editaion">
+      <div class="content-wrapper card-wihtout-header-blue">
+        <ul class=""> 
+          <li *ngFor="let item of recipesPreparationList">
+            <div class="legend-card-white btn-card-white cooking-preparation-wrapper">
+              <legend *ngIf="item.isBigChef">{{'student.assigned-lessons.lesson-steps.big-chef'|
+                translate }}
+                <span class="profile-pic"><img src="{{item.isBigChef}}" alt="" class="img-fluid" /></span>
+              </legend>
+              <legend *ngIf="item.isLittleChef" class="legend-2">{{'student.assigned-lessons.lesson-steps.little-chef'| translate }}
+                <span class="profile-pic"><img src="{{item.isLittleChef}}" alt="" class="img-fluid" /></span>
+              </legend>
+              <div class="description">
+                <span class="image"><img src="{{item.image}}" alt="" class="img-fluid" /></span>
+                <span class="description-info">
+                  <h6>{{item.info}}</h6>
+                </span>
+              </div>
+            </div>
+          </li>
+        </ul>
+        
+      <!-- <div class="assignment-notification">
+        <app-button classes="btn btn-primary " [submit]="true">
+          <span aria-hidden="true">Assessment <span class="count">5</span></span>
+        </app-button>
+      </div> -->
+     </div>
+    <span class="final-editaion-img-wrapper">
+      <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" /> 
+    </span>
+  </div>
+  </div>
+</div>
+
+<app-lessons-footer (onNext)="onNext()" (onPrevious)="onPrevious()"></app-lessons-footer>

@@ -1,0 +1,958 @@
+{
+  "common": {
+    "save": "Save",
+    "close": "Close",
+    "cancel": "Cancel",
+    "update": "Update",
+    "ok": "Ok",
+    "submit": "Submit",
+    "back": "Back",
+    "add": "Add",
+    "enter": "Enter",
+    "download": "Download",
+    "delete": "Delete",
+    "upload": "Upload",
+    "error":"Error"
+  },
+  "table-component": {
+    "show": "Show",
+    "you": "You",
+    "have": "have",
+    "you-have-record": "You have {{count}} active {{label}}",
+    "entries": "entries",
+    "first": "First",
+    "prev": "Prev",
+    "next": "Next",
+    "last": "Last",
+    "no-record": "No records found."
+  },
+  "table-search-filter-container": {
+    "search": "Search",
+    "view": {
+      "list-view": "List View",
+      "tile-view": "Tile View"
+    },
+    "sort-by-list": {
+      "sort-by": "Sort by",
+      "sort-by-name": "Sort by Name",
+      "sort-by-duration": "Sort by Duration",
+      "sort-by-student-id": "Sort by Student ID",
+      "sort-by-student-name": "Sort by Student Name"
+    },
+    "status": {
+      "all": "All {{label}}",
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "sort-by": "Sort by"
+  },
+  "header-content": {
+    "app-title": {
+      "chef-koochooloo": "Chef Koochooloo"
+    },
+    "language": {
+      "english": "English",
+      "spanish": "Spanish"
+    },
+    "welcome": "Welcome",
+    "logout": "Logout"
+  },
+  "footer-component": {
+    "footer-title": {
+      "copyright": "Copyright © 2021 Chef Koochooloo"
+    }
+  },
+  "forgot-Password-component": {
+    "forgot-Password-title": "Forgot password",
+    "username-field-label": "Username"
+  },
+  "change-password-component": {
+    "change-password-title": "Change Password",
+    "change-pass-conf_text": "Are you sure you want to change your password ?",
+    "current-pass-field": {
+      "current-pass-placeholder": "Type Current Password",
+      "current-pass-required": "Current password is required"
+    },
+    "new-pass-field": {
+      "new-pass-placeholder": "Type New Password",
+      "new-pass-required": "New password is required"
+    },
+    "confirm-pass-field": {
+      "confirm-pass-placeholder": "Confirm Password",
+      "confirm-pass-required": "Confirm password is required",
+      "confirm-pass-match": "Password and confirm password must be match"
+    }
+  },
+  "district": {
+    "dashboard": {
+      "active-schools": "Active Schools",
+      "total-classes": "Total Classes",
+      "total-users": "Total Users",
+      "amnt-of-practice": "Amount of practice",
+      "evidence-of-growth": "Evidence of growth",
+      "time-spent": "Time Spent",
+      "view-full-report": "View Full Report",
+      "inactive-students": "Inactive students",
+      "std-with-below-avg-activity": "Student with below average activity",
+      "std-with-above-avg-activity": "Student with above average activity",
+      "more": "More",
+      "profile-menu": {
+        "profile": "Profile",
+        "setting": "Setting",
+        "help": "Help",
+        "signout": "Signout"
+      }
+    },
+    "district-profile": {
+      "your-profile-title": "Your profile",
+      "edit-profile-title": "Edit Profile",
+      "edit-profile-pic": "Edit Profile Picture",
+      "district-component": {
+        "info-title": "District Information",
+        "district-profile-title": "Update District Profile",
+        "name-field": {
+          "label": "District Name",
+          "placeholder": "Enter district name",
+          "required": "District name is required"
+        },
+        "display-name-field": {
+          "label": "Display Name",
+          "placeholder": "Enter display name",
+          "required": "Display name is required"
+        },
+        "address-field": {
+          "label": "District address",
+          "placeholder": "Enter address",
+          "required": "District address is required"
+        },
+        "phone-field": {
+          "label": "Phone",
+          "placeholder": "Enter phone number",
+          "required": "Phone number is required",
+          "pattern": "Phone number is not valid(Format - (000)-000-0000)",
+          "minlength": "Phone number is not valid(Reuired Length is 10 digit)",
+          "validate": "Phone number already exists"
+        },
+        "entity-type": "Entity Type"
+      },
+      "agent-component": {
+        "info-title": "Agent Information",
+        "agent-profile-title": "Update Agent Profile",
+        "email-field": {
+          "label": "Email",
+          "placeholder": "Enter email",
+          "required": "Email is required",
+          "valid": "Email Is Not Valid",
+          "exist": "Email Already Exists"
+        },
+        "name-field": {
+          "label": "Name",
+          "placeholder": "Enter name",
+          "required": "Name is required",
+          "valid": "Name Is Not Valid"
+        },
+        "title-field": {
+          "label": "Title",
+          "placeholder": "Enter title",
+          "required": "Title Is Required",
+          "valid": "Title Not Valid"
+        },
+        "role": "Role",
+        "gender-field": {
+          "label": "Gender",
+          "male-label": "Male",
+          "female-label": "Female",
+          "required": "Gender is Required"
+        },
+        "phone-field": {
+          "label": "Phone",
+          "placeholder": "Enter phone number",
+          "required": "Phone number is required",
+          "pattern": "Phone number is not valid(Format - (000)-000-0000)",
+          "minlength": "Phone number is not valid(Required Length is 10 digit)",
+          "validate": "Phone number already exists"
+        }
+      }
+    },
+    "district-schools": {
+      "id": "ID",
+      "active-schools": "active schools",
+      "add-schools": "Add a school",
+      "all-schools": "All Schools",
+      "info-title": "Info",
+      "students-title": "Students",
+      "classes-title": "Classes",
+      "reports-title": "Reports"
+    },
+    "school": {
+      "school-required": "School name is required",
+      "school-valid": "School name is not valid",
+      "school-exist": "School already exists",
+      "representative-label": "Representative name",
+      "representative-placeholder": "Enter Representative name",
+      "representative-name-required": "Representative name is required",
+      "representative-name-valid": "Representative name is not valid",
+      "principal-label": "Principal/ Staff Info",
+      "principal-name-label": "Principal Name",
+      "principal-name-required": "Principal name is required",
+      "address-same": "Use same school address",
+      "emergency-label": "Emergency contact no",
+      "emergency-required": "Emergency contact number is required",
+      "emergency-valid": "Emergency contact number is not valid(Format - (000)-000-0000)",
+      "emergency-digit-valid": "Emergency contact number is not valid(Required length is 10,12,13 digit)",
+      "emergency-length": "Emergency contact number is not valid(Reuired Length is 10 digit)",
+      "school-details": {
+        "district-owner-label": "District Owner",
+        "edit-school-label": "Edit School"
+      }
+    }
+  },
+  "school": {
+    "dashboard": {
+      "active-classes": "Active Classes",
+      "total-teachers": "Total Teachers",
+      "total-students": "Total Students"
+    },
+    "user-profile": {
+      "school-title": "School",
+      "address-title": "Address",
+      "placeholder": "Enter School",
+      "required": "School required",
+      "pattern": "School Not Valid",
+      "update-profile-label": "Update Profile"
+    },
+    "school-profile": {
+      "school-information-label": "School Information",
+      "school-name-label": "School Name",
+      "school-address-label": "School Address",
+      "school-district-label": "School District",
+      "update-school-profile-label": "Update School Profile",
+      "district-label": "District",
+      "agent": {
+        "label": "Agent"
+      }
+    },
+    "teacher": {
+      "teacher-heading": "Teacher",
+      "add-teacher": {
+        "personal-info-label": "Personal Info",
+        "first-name": {
+          "first-name-field": "First Name",
+          "placeholder": "Enter Name",
+          "valid": "First Name Not Valid",
+          "required": "First Name Is Required"
+        },
+        "last-name": {
+          "last-name-field": "Last Name",
+          "valid": "Last Name Not Valid",
+          "required": "Last Name Is Required"
+        },
+        "contact": {
+          "label": "Contact Number",
+          "placeholder": "Enter Contact Number",
+          "valid": "Contact number not valid(Format - (000)-000-0000)",
+          "length": "Contact number not valid(Required Length is 10 digit)",
+          "required": "Contact Number Is Required",
+          "digit-validate": "Contact number is not valid(Required length is 10,12,13 digit)",
+          "exist": "Contact number already exists"
+        },
+        "status": "Status"
+      },
+      "teacher-list": {
+        "list-status": "STATUS",
+        "import-teachers": "Import Teachers",
+        "teacher-heading": "Teachers",
+        "add-teacher-label": "Add Teacher",
+        "teacher-id": "ID:",
+        "teacher-email": "Email Id",
+        "teacher-contact": "Contact No",
+        "teacher-role": "Role",
+        "records-label": "No Records Found"
+      }
+    },
+    "student": {
+      "add-student": {
+        "add-student-label": "Add Student",
+        "student-label": "Student",
+        "student-name":{
+          "lable":"Student Name",
+          "placeholder":"Enter Student Name"
+        },
+        "allergens":{
+          "label":"Allergens",
+          "placeholder":"Enter Allergens",
+          "add-allergy-label":"Add Allergy"
+        },
+        "optional": "(Optional)",
+        "class": {
+          "student-class": "Class",
+          "placeholder": "Select Class"
+        },
+        "personal-info": {
+          "label": "Personal Info",
+          "birth-date": "Date Of Birth",
+          "date": "Select Date",
+          "ethnicity": "Ethnicity",
+          "parent-guardian-label": "Parent/Guardian",
+          "username": {
+            "placeholder": "Enter Username",
+            "required": "Username Is Required",
+            "exist": "Username already exists",
+            "valid": "Username not valid"
+          },
+          "contact-info": {
+            "label": "Contact Info",
+            "contact-relationship": "Contact Relationship",
+            "contact-name": {
+              "label": "Contact Name",
+              "required": "Contact Name Is Required"
+            },
+            "email": {
+              "label": "Contact Email",
+              "required": "Contact email is required",
+              "valid": "Contact email not valid"
+            }
+          },
+          "medical-info": {
+            "label": "Medical Info",
+            "allergens-label": {
+              "label": "Allergens",
+              "placeholder": "Select Allergens"
+            },
+            "medical-conditions": {
+              "label": "Medical Conditions",
+              "placeholder": "Select Medical Conditions"
+            }
+          }
+        }
+      },
+      "student-list": {
+        "import-student": "Import Students"
+      }
+    },
+    "users": {
+      "add-user": {
+        "label": "Add User"
+      },
+      "import-users": {
+        "label": "Import Users",
+        "browse-label": "Browse",
+        "browse-label-desc": "or Drop the file here",
+        "uploading-label": "uploading",
+        "download-sample-file": "Download sample file"
+      },
+      "users-list": {
+        "active-users": "active"
+      }
+    },
+    "roles": {
+      "role-list": {
+        "desc": "User roles let you define what users in different roles can see and do, Decide, which modules they can use and which access rights they have ",
+        "review": "Review",
+        "roles-label": "Roles"
+      },
+      "add-role": {
+        "label": "New Role",
+        "add-role-label": "Add Roles",
+        "desc": "Create a new role and give permissions from the list below:",
+        "field": "Role Name",
+        "placeholder": "Enter role name",
+        "required": "Role is required",
+        "valid": "Role not valid",
+        "hasAccessField": "Has Access To"
+      },
+      "update-role": {
+        "label": "Update Role",
+        "desc": "Update role and give permissions from the list below:"
+      }
+    },
+    "membership": {
+      "label": "Your Membership",
+      "your-membership-label": "Current Plan Information",
+      "subscription-type-and-users-label": "Subscription Type and Users",
+      "users-label": "Users",
+      "renew-date-label": "Renew Date Label"
+    },
+    "billing": {
+      "billing-desc": "Your billing history",
+      "change-payment-method": "Change Payment Method",
+      "print-report": "Print Report",
+      "success": "Success",
+      "fail": "Fail"
+    },
+    "edit-membership": {
+      "label": "Edit Membership",
+      "total-price-label": "Total Price",
+      "select-label": "Select",
+      "proceed-label": "Proceed",
+      "membership-label": "Membership",
+      "you-have-to-remove-label": "You have to remove",
+      "class-label": "class",
+      "present-classes-label": "Present Classes",
+      "max-classes-label": "Max Classes Limit"
+    },
+    "class": {
+      "class-list": {
+        "you-have-label": "You have",
+        "active-classes-label": "active classes"
+      },
+      "add-class": {
+        "label": "add a class",
+        "room-label": "Room",
+        "grade-field": "Grade",
+        "grade-field-placeholder": "Select Grade",
+        "create-class-label": "Create Class",
+        "class-teacher-label": "Class Teacher",
+        "grade-required": "Grade is Required",
+        "class-field": "Class Title",
+        "class-field-placeholder": "Enter the class title",
+        "class-title-required": "Class Title is required",
+        "class-exist": "Class already exists",
+        "standards-field": "Standards",
+        "access-code-label": "Access Code",
+        "access-code-desc": "To enter a class, enter the code provided by your teacher",
+        "exceeded-package-desc": "You have exceeded your package please upgrade your package.",
+        "school-optional-label": "School (optional)"
+      },
+      "class-details": {
+        "administrator-label": "administrator",
+        "setting-label": "Setting",
+        "your-class-settings-label": "Your class settings",
+        "your-class-reports": "Your class reports",
+        "class-owner-label": "Class Owner",
+        "search-placeholder": "Search for a student by ID or name",
+        "student-profile-label": "Student Profile",
+        "delete-class-label": "Delete Class",
+        "archive-label": "Archive",
+        "archive-class-label": "Archive Class",
+        "archive-class-confirmation": "Are you sure you want to archive this class",
+        "delete-class-confirmation": "Are you sure you want to delete this class",
+        "delete-class-desc": "This is an active class with 20 students and few active assignments. Deleting this class will result in loss of all the data",
+        "new-student-label":"New students",
+        "average-student-time-label":"Average Student Time",
+        "hrs/week-label":"hrs/week"
+      }
+    },
+    "discussion-forum": {
+      "discussion-forum-label": "Discussion Forum",
+      "delete-comment-label": "Delete Comment",
+      "topic-confirmation": "Do you like this topic",
+      "comments-label": "Comments",
+      "reply-label": "Reply",
+      "comment-confirmation": "Are you sure you want to delete this Comment",
+      "add-new-topic": {
+        "add-new-topic-label": "Add New Topic",
+        "discussion-topic-label": "Discussion Topic",
+        "discussion-topic-placeholder": "Enter discussion topic",
+        "discussion-topic-required": "Discussion topic  is required",
+        "description-label": "Description",
+        "description-placeholder": "Enter description"
+      }
+    },
+    "report-issue": {
+      "report-issue-label": "Report an Issue",
+      "issue-label": "Issue",
+      "feedback-label": "Feedback",
+      "report-history-label": "Report History",
+      "report-issue-placeholder": "Please describe the issue you are experiencing",
+      "type-lable":"Type",
+      "me-lable":"Me",
+      "CMS-lable":"CMS"
+    },
+    "setting": {
+      "setting-page-label": "Settings",
+      "notification-label": "Notifications",
+      "data-privacy-label": "Data Privacy",
+      "parent-notification-label": "Parent Notifications",
+      "language-label": "Language",
+      "set-languge-label": "Set your preferred language",
+      "content-setting": {
+        "content-setting-label": "Your content store settings",
+        "content-setting-desc": "Customize what your teachers and students can see while exploring lessons. Some of these setting might be pre-set based on your membership plan with Chef Koochooloo and cannot change. In case you would like to customize your membership plan, please contact your Chef Koochooloo representative"
+      }
+    },
+    "faq": {
+      "faq-label": "Frequently Asked Questions"
+    },
+    "get-help": {
+      "label": "Get Help"
+    },
+    "class-activity-report":{
+      "label":"Activity reports for all classes",
+      "change-criteria-button":"Change Criteria",
+      "class-activity-label":"Class Activity",
+      "teacher-activity-label":"Teacher Activity",
+      "this-week-label":"This Week",
+      "this-month-label":"This Month",
+      "this-quarter-label":"This Quarter",
+      "this-year-label":"This Year",
+      "how-to-read-this-report-label":"How to read this report",
+      "time-label":"Time",
+      "sessions-label":"Sessions",
+      "average-time-label":"Average-time"
+
+  
+    },
+    "class-performance-report":{
+      "label":"Performance reports for all classes",
+      "standard-proficiency-label":"Standards Proficiency",
+      "student-reports-label":"Student Report",
+      "CCSS-label":"CCSS",
+      "CCSS-MATH-label":"CCSS-MATH",
+      "NGSS-label":"NGSS",
+      "NCSS-label":"NCSS",
+      "ELA-label":"ELA"
+
+    },
+    "troubleshooting":{
+      "troubleshooting-label":"Troubleshooting",
+      "troubleshoot-your-issues-label":"Troubleshoot your issues"
+    },
+    "user-reports":{
+      "user-reports-label":"User Reports",
+      "top-active-teachers-label":"Top Active Teachers",
+      "top-active-students-label":"Top Active Students",
+      "number-of-times-signed-in":"Number of times signed in and their average session times"
+    },
+    "school-reports":{
+      "school-activity-label":"School’s  Activity",
+      "activity-report-of-your-school-label":"Activity reports of your schools",
+      "school-performance-label":"Performance reports of your schools"
+    },
+    "content-reports":{
+      "performance-report-label":"Performance Report",
+      "activity-report-label":"Activity Report"
+    },
+    "notitification":{
+      "notification-label":"new notifications"
+    }
+   
+  },
+  "teacher": {
+    "dashboard": {
+      "assign-lessons": "Assign Lessons",
+      "assign-lesson-label": "Assign Lesson",
+      "student-performance": "Student Performance",
+      "notifications": "Notification",
+      "current-assignment": "Current Assignment",
+      "recommendations-desc": "Recommendations based on your activity",
+      "search-lessons": "Search Lessons",
+      "explore-lessons": "Explore Lessons",
+      "create-class": "Create a Class",
+      "more-action": "More Actions",
+      "class-setting": "Class Setting",
+      "edit-class": "Edit Class",
+      "archive-class": "Archive Class",
+      "delete-class": "Delete Class",
+      "home": "Home",
+      "assignment": "Assignment",
+      "roster": "Roster",
+      "performance": "Performance",
+      "students-need-help": "Students need help",
+      "ccss": "CCSS",
+      "math": "Math",
+      "ela": "ELA",
+      "ngss": "NGSS",
+      "ncss": "NCSS",
+      "hrs-week": "hrs/week"
+    },
+    "profile-menu": {
+      "profile": "Profile",
+      "billing": "Billing",
+      "membership": "Membership",
+      "joinClass": "Join a Class",
+      "archivedClasses": "Archived Class",
+      "settings": "Settings",
+      "discussionForum": "Discussion Forum",
+      "help": "Help",
+      "signout": "Sign Out"
+    },
+    "assignment": {
+      "upcoming-assignment": "Upcoming Assignments",
+      "completed-assignment": "Completed Assignments",
+      "ongoing-assignment": "Ongoing Assignments",
+      "all-assignment": "All Assignments",
+      "this-week": "this week.",
+      "search-by": "Search By",
+      "starts-on": "Starts On",
+      "min-label": "Min",
+      "teacher-instructions": "Teacher’s Instructions",
+      "view-menu": "View",
+      "edit-menu": "Edit",
+      "assignment-delete-confirm": "Are you sure you want to delete Assignment?",
+      "report-label": "Report"
+    },
+    "explore-lessons": {
+      "filter": {
+        "contries": "Countries",
+        "culinary-technique": "Culinary Technique",
+        "cook-time": "Cook Time",
+        "seasonal": "Seasonal"
+      },
+      "lesson-title": "Lesson Title",
+      "recipe": "Recipe",
+      "heading-text": "Find your next delicious lesson",
+      "featured": "Featured",
+      "assign": "Assign",
+      "full": "Full",
+      "languages": "Languages",
+      "learning-objective": "Learning Objective",
+      "equipments": "Equipments",
+      "top-rated": "Top Rated",
+      "grades": "Grades",
+      "assignment-title": {
+        "assignment-title-field": "Assignment Title",
+        "placeholder": "Enter Assignment Title",
+        "valid": "Assignment Title already exists",
+        "required": "Assignment Title  Is Required"
+      },
+      "assign-to-class": "Assign to Class",
+      "assign-to-class-required": "Assign to Class is required",
+      "select-setting": "Select Setting",
+      "custom-settings": "Custom Settings",
+      "start-date": "Start Date",
+      "class-warning-text": "Some of your students in this class might be allergic to a few ingredients used in this recipe.",
+      "assign-the-lesson-confirm-text": "I’d still like to assign the lesson to my class.You can resolve the possible issue(s) after assigning the lesson.",
+      "apply-default-setting": "Apply my default customization settings.",
+      "advanced-customization": "Advanced Customization",
+      "search-explore-lesson-placeholder": "Try Common Core Math Grade 4 Measurement & Data",
+      "filter-options-label": "Filter Options",
+      "less": "Less"
+    },
+    "teacher-header": {
+      "join-class": "Join Class",
+      "enter-access-code-placeholder": "Enter Access Code",
+      "enter-access-code-desc": "To join a class, enter the access code provide by your School or District",
+      "delete-confirmation-text": "Type DELETE to confirm your action"
+    },
+    "bookmarked-lesson": {
+      "bookmarked-lessons-label": "bookmarked lessons."
+    },
+    "explore-lesson-setting": {
+      "preview-label": "Preview",
+      "setting-already-exists": "Setting is already exists.",
+      "save-customization-setting-confirm": "Save these customization settings?",
+      "setting-name-placeholder": "Enter Name of Setting",
+      "estimated-lesson-time": "Estimated lesson time",
+      "questions-label": "questions",
+      "enable-or-disable": "Enable or Disable",
+      "estimated-time-label": "Estimated Time",
+      "activities-label": "Activities",
+      "customize-lesson-label": "Use the options below to customize this lesson and then assign it to your students. The total lesson time will vary depending on the activities that are enabled. Customize the lesson on your own or choose from our recommendations. If you choose to select one of our recommendations, you will be able to make your own edits as well.",
+      "customize-the-lesson": "Customize the lesson"
+    },
+    "archived-classes": {
+      "archived-class-label": "archived classes.",
+      "created-label": "Created",
+      "members-label": "Members"
+    },
+    "roster": {
+      "student-menu-title": "All Students",
+      "group-students": "Group Students",
+      "empty-class-label": "Your class is empty.",
+      "add-student-to-class": "Start adding students to your class either by uploading their information or by inviting them to this class.",
+      "upload-student-info-label": "Upload Student Info",
+      "in-this-class-label": "in this class.",
+      "create-a-group-label": "Create a Group",
+      "manage-groups-label": "Manage Groups",
+      "groups": "Groups",
+      "group-label": "Group",
+      "search-for-student-by-id-name": "Search for a student by ID or name",
+      "sign-in-info-label": "Sign-in Info",
+      "created-date-label": "Created Date",
+      "total-students-in-group": "Total students in group",
+      "remove-label": "Remove",
+      "create": "Create",
+      "color": "Color",
+      "invite-members-to-group": "Invite New Members to the group",
+      "interests-label": "Interests",
+      "date-label": "Date",
+      "text-label": "Text",
+      "print-label": "Print",
+      "use-access-code-label": "Use the access code or just scan the QR code on your right to sign-in into your class. The access code is not case sensitive.",
+      "app-url": "App URL",
+      "student-list": "Student List",
+      "delete-group-confirmation": "Are you sure you want to delete group?",
+      "you-have-created": "You have created",
+      "groups-for-this-class": "groups for this class."
+    },
+    "performance": {
+      "by-student": {
+        "advanced": "Advanced",
+        "proficient": "Proficient",
+        "emerging": "Emerging",
+        "making-progress": "Making Progress",
+        "needs-help": "Needs Help",
+        "not-started": "Not Started",
+        "actions-label": "Actions",
+        "overall-average-proficiency": "Overall Average Proficiency",
+        "average-proficiency-label": "Average Proficiency",
+        "standard-or-skill": "Standard / Skill",
+        "for-this-standards": "for this Standard",
+        "change-report-criteria": "Change Report Criteria",
+        "need-help-label": "Need Help",
+        "summary-label": "Summary",
+        "assignment-dates": "Assignment Dates",
+        "proficiency-spectrum": "Proficiency Spectrum",
+        "proficiency-label": "Proficiency",
+        "lesson-assigned-completed": "Lesson Assigned & Completed",
+        "growth-label": "Growth",
+        "coverage-label": "Coverage",
+        "how-to-read-report-label": "How to read this report?",
+        "skills-label": "Skills",
+        "this-year": "This Year",
+        "this-quarter": "This Quarter",
+        "this-month": "This Month",
+        "this-week": "This Week",
+        "performance-by-standards": "Performance by Standards",
+        "performance-by-assignments": "Performance by Assignments",
+        "performance-by-students": "Performance by Students",
+        "your-class-performance": "Your class’s performance"
+      }
+    },
+    "settings": {
+      "notification": {
+        "notiStudentPerformanceAlerts": "Student performance alerts",
+        "notiAssignmentSubmissions": "Assignment submissions",
+        "notiOpenEndedQuestionResponsesToBeGraded": "Open ended question responses to be graded",
+        "notiReceiveAllNotificationsAsEmails": "Receive all notifications as emails"
+      },
+      "privacy": {
+        "dataPrivacyShowContactInformationStudent": "Show contact information to students",
+        "dataPrivacyAllowStudentsToEmailMe": "Allow students to email me"
+      }
+    },
+    "class-settings": {
+      "classShowPerformanceReportStudent": "Show performance report to students",
+      "classAllowLessonsExplorationsStudent": "Allow lesson exploration",
+      "classPointsLevelsStudent": "Points and levels",
+      "classHealthWellnessActivitiesStudent": "Health and wellness activities",
+      "classMiniGamesStudent": "Mini games"
+    },
+    "order-ingredients": {
+      "order-ingredient-label": "Order Ingredients",
+      "preview-assignment-label": "You are previewing this assignment as a Teacher.",
+      "instruction-for-teacher-label": "Instructions for the teacher",
+      "order-your-ingredients-label": "Order your ingredients ahead of time",
+      "your-cart-label": "Your Cart",
+      "ingredient-list-label": "Your can order from the ingredients list below for your recipe.",
+      "allergic-warning-text": "Some of your students in this class might be allergic to a few ingredients used in this recipe.",
+      "check-label": "Check",
+      "find-substitute-label": "find a substitute",
+      "added-label": "Added",
+      "add-to-cart": "Add to Cart",
+      "replace-label": "Replace",
+      "ingredient-substitute-label": "Ingredient Substitute",
+      "ordered-ingredients": "Ordered Ingredients",
+      "replace-ingredient-confirm": "would you like to replace it with a Gluten-Free Potato Flour?",
+      "confirm-order": "Confirm Order",
+      "product": "Product",
+      "quantity": "Quantity",
+      "action": "Action"
+    }
+  },
+  "student": {
+    "profile": {
+      "optional-label": "(optional)",
+      "profile-label": "Profile",
+      "profile-info-label": "Profile Info",
+      "edit-details-label": "Edit Details",
+      "change-profile-picture-label": "Change Profile Picture",
+      "age-label": "Age",
+      "parent-guardian-info-label": "Parent/Guardian Info",
+      "parent-menu": "Parent",
+      "guardian-menu": "Guardian",
+      "phone-number-label": "Phone Number",
+      "account-email-label": "Account Email",
+      "medical-information-label": "Medical Information",
+      "current-medical-condition-label": "Current Medical Conditions",
+      "allergy-label": "Allergy",
+      "profile-picture-label": "Profile Picture",
+      "achievements": {
+        "level-label": "Level",
+        "you-are-an-label": "You are an",
+        "stamps-earned-label": "Stamps Earned",
+        "open-your-passport-label": "Open Your Passport",
+        "countries-visited-label": "Countries Visited",
+        "go-to-globe-label": "Go to Globe",
+        "current-level-desc": "We nurture our curiosity, developing skills for inquiry, and research. We know how to learn independently and with others. We learn with enthusiasm and sustain our love of learning throughout life."
+      },
+      "passport": {
+        "passport-label": "Passport",
+        "country-tab-label": "Country",
+        "learning-tab-label": "Learning",
+        "level-tab-label": "Level"
+      },
+      "locker-room-desc": "Here you can view your collected items for each level completed"
+    },
+    "dashboard": {
+      "badge-label": "Congratulations on earning the new badge last week. You're doing great! Keep up the good work.",
+      "welcome-back-label": "Welcome Back,",
+      "assigned-lessons-label": "Assigned Lessons",
+      "explore-lessons-label": "Explore Lessons",
+      "achievements-label": "Achievements",
+      "activities-and-games-label": " Activities and games",
+      "class-home-page-label": "Class Home Page"
+    },
+    "class-info": {
+      "you-have-records": "You have {{count}} {{label}}",
+      "view-lessons-label": "View Lessons",
+      "class-standards": "Class standards",
+      "details-label": "details",
+      "class-title-label": "Class title",
+      "see-class-info-label": "see class info",
+      "details-btn-label": "Details",
+      "class-information": "Class Information",
+      "my-label": "My",
+      "classmates-label": "Classmates"
+    },
+    "assigned-lessons": {
+      "assignments-label": "Assignments",
+      "duration": "Duration",
+      "started-on": "Started on",
+      "completed-on": "Completed on",
+      "lesson-report": "Lesson Report",
+      "start": "Start",
+      "swipe-or-click-arrow": "swipe or click arrow",
+      "to-explore-the-globe": "to explore the globe",
+      "scroll-down-label": "Scroll down to go to next step",
+      "print-page": "Print Page",
+      "print-assessment": "Print Assessment",
+      "previous-btn-label": "Previous",
+      "try-it-again": "Try it again",
+      "add-your-observation": "Add Your Observation",
+      "mins-label": "Mins",
+      "lesson-steps": {
+        "summary-view": {
+          "overview": "Overview",
+          "find": "Find",
+          "philippines": "Philippines",
+          "on-the": "On The",
+          "globe": "Globe",
+          "step-number-label": "Step {{number}}",
+          "story": "Story",
+          "safety-and-hygiene": "Safety and Hygiene",
+          "get": "Get",
+          "started": "Started",
+          "know-about": "Know About",
+          "your-recipe": "Your Recipe",
+          "always-listen": "Always Listen",
+          "to-your-big-chef": "To Your Big Chef",
+          "wash-your": "Wash Your",
+          "hands-with": "Hands With",
+          "soap": "Soap",
+          "ingredients-and-tools-sign": "Ingredients & Tools",
+          "ingredients": "Ingredients",
+          "for-recipe": "For Recipe",
+          "your-tools-and": "Your Tools And",
+          "big-chefs-tools": "Big Chef’s Tools",
+          "follow": "Follow",
+          "steps-and-sign": "Steps &",
+          "cooking": "Cooking",
+          "cooking-preparation": "Cooking Preparation",
+          "watch-and": "Watch And",
+          "learn-from": "Learn From",
+          "the-video": "The Video",
+          "culinary": "Culinary",
+          "explore-some": "Explore Some",
+          "fun-activities-in": "Fun Activities In",
+          "the-free-time": "The Free Time",
+          "steps": "Steps",
+          "cleaning": "Cleaning",
+          "clean-your": "Clean Your",
+          "table-and": "Table And",
+          "space-label": "Space",
+          "around-you": "Around You",
+          "serving": "Serving",
+          "serve-the-label": "Serve The",
+          "recipe-you": "Recipe You",
+          "cooked": "Cooked",
+          "complete": "Complete",
+          "lesson": "Lesson",
+          "take-label": "Take",
+          "assessment": "Assessment",
+          "you-are-here": "You are here!",
+          "zero-label": "0",
+          "one-label": "1",
+          "two-label": "2",
+          "three-label": "3",
+          "four-label": "4",
+          "five-label": "5",
+          "six-label": "6",
+          "seven-label": "7",
+          "eight-label": "8",
+          "nine-label": "9"
+        },
+        "let-start-text": "Now we know about today's recipe,let's get cooking!",
+        "yes-iam-ready": "Yes, I am ready",
+        "go-over-the-recipe-again": "Go over it again",
+        "season": "Season",
+        "nutrients": "Nutrients",
+        "little-chef": "Little Chef",
+        "big-chef": "Big Chef",
+        "experiment-warning-label": "WARNING! Perform this experiment only under the supervision of a Big Chef.",
+        "start-experiment-text": "Should we go to the next step?",
+        "go-exp-again": "Go over it again",
+        "response": "Response",
+        "experiment-question-label": "Experiment Question",
+        "take-action-activity": "Take Action Activity",
+        "hint": "Hint",
+        "reference": "Reference",
+        "view-measurement-sheet": "View US measurement reference sheet",
+        "guess-the-flag": "Guess The Flag",
+        "flag-question": "Do you know which of this flags belongs to",
+        "rating-text": "Overall, how would you rate {{ title }} recipe?",
+        "no-stamps": "There are no any new stamps.",
+        "select-to-earn-stamps": "Please select to earn more stamps.",
+        "congratulations-label": "Congratulations !",
+        "you-have-earned-these": "You have earned these stamps."
+      }
+    },
+    "lesson-report": {
+      "start-and": "Start And",
+      "end-date": "End Date",
+      "skill-proficiency-label": "Skill Proficiency",
+      "completed": "Completed",
+      "question": "Question",
+      "answer": "Answer",
+      "correct": "Correct",
+      "in-correct": "Incorrect",
+      "incorrect-attempts": "Incorrect Attempts",
+      "number-of-attempts": "Number of Attempts",
+      "completed-exp-activities-label": "Performed experiments and activities"
+    },
+    "journal": {
+      "journal-label": "Journal",
+      "journal-desc": "You can always access your journal from here!",
+      "add-a-note": "Add A Note"
+    },
+    "explore-lessons": {
+      "explore": "Explore",
+      "recipes": "Recipes"
+    },
+    "activities-and-games": {
+      "mini-games": {
+        "mini-game-tab": "Mini Games",
+        "flag-match-label": "Flag match",
+        "drag-and-drop-label": "Drag and drop",
+        "image-flip-label": "Image flip",
+        "drag-drop-tools-label": "Drag and drop these tools to their corresponding images",
+        "drag-drop-techniques-label": "Drag and drop these cooking techniques to their corresponding images",
+        "drag-drop-dishes-label": "Drag and drop these dishes to their corresponding images"
+      },
+      "health-and-wellness-activities": {
+        "health-and-wellness-activities-tab": "Health and Wellness Activities",
+        "track-water-intake": "Track water intake",
+        "track-exercise-time": "Track exercise time",
+        "track-fruits-and-veggies": "Track fruits and veggies",
+        "track-water-intake-label": "Click or touch the number of water glasses you drink in a day.",
+        "done-label": "Done",
+        "add-exercise-time-label": "Add the time you spent on this exercise"
+      }
+    },
+    "notification": {
+      "my-noti-label": "New Notifications",
+      "hours-ago-label": "Hours ago"
+    }
+  }
+}

@@ -1,0 +1,317 @@
+
+.calendar{
+  .input-group{
+    position: relative;
+    .form-control{
+      border-radius: 5rem;
+      background: $inputbg;
+    }
+    .input-group-append{
+      position: absolute;
+      right:1.5rem;
+      top:1rem;
+      .calendarIcon{
+        background: transparent;
+        color: $white;
+        font-size:2rem;
+      }
+    }
+  }
+}
+.custom-day {
+  text-align: center;
+  padding: 0.185rem 0.25rem;
+  display: inline-block;
+  height: 2rem;
+  width: 2rem;
+  &.focused {
+    background-color: rgba($secondary, 1);
+  }
+  &.range, &:hover {
+    background-color:rgba($primary, 1);
+    color:$white;
+  }
+  &.faded {
+    background-color:rgba($primary, 0.5);
+  }
+}
+ngb-datepicker.dropdown-menu{
+  // width: 80%;
+  right:0;
+  margin: auto;
+  background: $white;
+  font-size: 1.2rem;
+  z-index:10000;
+  .btn{
+    border-radius:0;
+    box-shadow:none;
+    padding: 0 0.5rem;
+    color:$white;    
+    &:before,
+    &:after{
+      display: none;
+    }
+  }
+  .ngb-dp-header{
+    background: $navy-blue;
+    padding:0;
+    .custom-select{
+      font-size: 1.4rem;
+      margin: 1rem 0.5rem;
+      height: auto;
+      padding: 0.5rem;
+    }
+  }
+  .ngb-dp-months{
+    .ngb-dp-month-name{
+      padding:1.2rem 0;
+      background:$secondary;
+      color: $navy-blue;
+      height: auto;
+    }
+    .ngb-dp-month{
+      max-width: 24rem;
+      .ngb-dp-weekdays{
+        display: flex;
+        justify-content: space-between;
+      }
+      .ngb-dp-week{
+        // display: flex;
+        // justify-content: space-between;
+        padding:0 1.5rem;
+        font-weight: 700;
+        &:nth-child(2){
+          display: flex;
+          justify-content: flex-end;
+          padding-right: 1.8rem;
+          .btn-light{
+            text-align: right !important;
+          }
+        }
+        // &:nth-child(6){
+        //   justify-content: flex-start;
+        // }
+        // &:nth-child(7){
+        //   justify-content: flex-start;
+        // }
+        .ngb-dp-day{
+          padding: 0;
+          width: auto;
+          height: auto;
+        }
+        .custom-day{
+          text-align: center;
+          padding: 0.5rem;
+          display: inline-block;
+          height: auto;
+          width: 2.5rem;
+        }
+        .ngb-dp-weekday{
+          color:$navy-blue;
+          font-style: normal;
+          padding: 0.5rem;
+          display: inline-block;
+          height: auto;
+          width: 2.5rem;
+          font-weight: 600;
+          font-size: 1.3rem;
+        }
+      }
+    }
+  }
+  &.show{
+    max-width: 24rem;
+    box-shadow: rgb(100 100 111 / 20%) 0px 7px 29px 0px;
+  }
+}
+  
+.form-group.hidden {
+  width: 100%;
+  margin: 0;
+  border: none;
+  padding: 0;
+  .form-control{
+      padding: 0;
+      background: transparent;
+      border:none;
+      font-size: 0;
+  }
+}
+
+.explore-lesson-setting{
+ngb-datepicker.dropdown-menu{
+  .ngb-dp-months{
+      .ngb-dp-month{
+          .ngb-dp-week{
+              .custom-day,
+              .ngb-dp-weekday{
+                  width: 3.5rem !important;
+              }
+          } 
+      } 
+  } 
+} 
+}
+.explore-date{
+  ngb-datepicker.dropdown-menu{
+    font-size: 1.2rem;
+    z-index:10000;
+    .btn{
+      border-radius:0;
+      box-shadow:none;
+      padding: 0 0.5rem;
+      color:$white;    
+      &:before,
+      &:after{
+        display: none;
+      }
+    }
+    .ngb-dp-header{
+      background: $navy-blue;
+      padding:0;
+      .custom-select{
+        font-size: 1.4rem;
+        margin: 1rem 0.5rem;
+        height: auto;
+        padding: 0.5rem;
+      }
+    }
+    .ngb-dp-months{
+      overflow: auto;
+      .ngb-dp-month-name{
+        padding:1.2rem 0;
+        background:$secondary;
+        color: $navy-blue;
+        height: auto;
+      }
+      .ngb-dp-month{
+        max-width: 100%;
+        .ngb-dp-weekdays{
+          display: flex;
+          justify-content: space-between;
+        }
+        .ngb-dp-week{
+          // display: flex;
+          // justify-content: space-between;
+          padding:0 1.5rem;
+          font-weight: 700;
+          &:nth-child(2){
+            display: flex;
+            justify-content: flex-end;
+            // padding-right: 1.8rem;
+            .btn-light{
+              text-align: right !important;
+            }
+          }
+          // &:nth-child(6){
+          //   justify-content: flex-start;
+          // }
+          // &:nth-child(7){
+          //   justify-content: flex-start;
+          // }
+          .ngb-dp-day{
+            padding: 0;
+            width: auto;
+            height: auto;
+          }
+          .custom-day{
+            text-align: center;
+            padding: 0.5rem;
+            display: inline-block;
+            height: auto;
+            width: 2.5rem;
+          }
+          .ngb-dp-weekday{
+            color:$navy-blue;
+            font-style: normal;
+            padding: 0.5rem;
+            display: inline-block;
+            height: auto;
+            width: 2.5rem;
+            font-weight: 600;
+            font-size: 1.3rem;
+          }
+        }
+      }
+    }
+    &.show{
+      max-width: 55rem;
+      box-shadow: rgb(100 100 111 / 20%) 0px 7px 29px 0px;
+    }
+  }
+}
+.explore-list-date{
+  ngb-datepicker.dropdown-menu{
+    &.show{
+      max-width: 41rem;
+    }
+  }
+}
+//   /* Sortable table demo */
+//   th[sortable] {
+//     cursor: pointer;
+//     user-select: none;
+//     -webkit-user-select: none;
+//   }
+  
+//   th[sortable].desc:before, th[sortable].asc:before {
+//     content: '';
+//     display: block;
+//     background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAmxJREFUeAHtmksrRVEUx72fH8CIGQNJkpGUUmakDEiZSJRIZsRQmCkTJRmZmJgQE0kpX0D5DJKJgff7v+ru2u3O3vvc67TOvsdatdrnnP1Y///v7HvvubdbUiIhBISAEBACQkAICAEhIAQ4CXSh2DnyDfmCPEG2Iv9F9MPlM/LHyAecdyMzHYNwR3fdNK/OH9HXl1UCozD24TCvILxizEDWIEzA0FcM8woCgRrJCoS5PIwrANQSMAJX1LEI9bqpQo4JYNFFKRSvIgsxHDVnqZgIkPnNBM0rIGtYk9YOOsqgbgepRCfdbmFtqhFkVEDVPjJp0+Z6e6hRHhqBKgg6ZDCvYBygVmUoEGoh5JTRvIJwhJo1aUOoh4CLPMyvxxi7EWOMgnCGsXXI1GIXlZUYX7ucU+kbR8NW8lh3O7cue0Pk32MKndfUxQFAwxdirk3fHappAnc0oqDPzDfGTBrCfHP04dM4oTV8cxr0SVzH9FF07xD3ib6xCDE+M+aUcVygtWzzbtGX2rPBrEUYfecfQkaFzYi6HjVnGBdtL7epqAlc1+jRdAap74RrnPc4BCijttY2tRcdN0g17w7HqZrXhdJTYAuS3hd8z+vKgK3V1zWPae0mZDMykadBn1hTQBLnZNwVrJpSe/NwEeDsEwCctEOsJTsgxLvCqUl2ACftEGvJDgjxrnBqkh3ASTvEWrIDQrwrnJpkB3DSDrGW7IAQ7wqnJtkBnLRztejXXVu4+mxz/nQ9jR1w5VB86ejLTFcnnDwhzV+F6T+CHZlx6THSjn76eyyBIOPHyDakhBAQAkJACAgBISAEhIAQYCLwC8JxpAmsEGt6AAAAAElFTkSuQmCC') no-repeat;
+//     background-size: 22px;
+//     width: 22px;
+//     height: 22px;
+//     float: left;
+//     margin-left: -22px;
+//   }
+  
+//   th[sortable].desc:before {
+//     transform: rotate(180deg);
+//     -ms-transform: rotate(180deg);
+//   }
+  
+//   /* Filtering table demo */
+//   ngbd-table-filtering span.ngb-highlight {
+//     background-color: yellow;
+//   }
+  
+//   /* Complete table demo */
+//   ngbd-table-complete span.ngb-highlight {
+//     background-color: yellow;
+//   }
+  
+//   ngb-carousel .picsum-img-wrapper {
+//     position: relative;
+//     height: 0;
+//     padding-top: 55%; 
+//   }
+  
+//   ngb-carousel .picsum-img-wrapper>img {
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     bottom: 0;
+//     right: 0;
+//   }
+.ngb-dp-navigation-select{
+  flex: 1 1 12rem !important;
+}
+.btn-light{
+  width: 3.1rem !important;
+}
+.text-muted {
+  color: rgba($black, 0.5) !important;
+}
+// .ngb-dp-months{ 
+//   justify-content: center;
+//   overflow: auto;
+// }
+// ngb-datepicker.dropdown-menu .ngb-dp-months .ngb-dp-month{
+//   width: 75%;
+// }
+.profile-info-wraper,.search-section{
+  .dropdown-menu.show{
+    min-width: 24rem;
+    box-shadow: rgb(100 100 111 / 20%) 0px 7px 29px 0px;
+  }
+}

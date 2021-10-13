@@ -1,0 +1,45 @@
+<app-student-nav [ShowMenu]="true" [backBtn]="true"></app-student-nav>
+<div class="locker-room">
+  <div class="container locker-room-container">
+    <div class="locker-room-wraper">
+      <div class="lockers">
+        <div class="fruit-earth-top stamp-common"><img src="{{allItemList[0]?.image}}" class="img-fluid" alt=""></div>
+        <div class="experiment-top stamp-common"><img src="{{allItemList[2]?.image}}" class="img-fluid" alt=""></div>
+        <div class="heart-top stamp-common"><img src="{{allItemList[4]?.image}}" class="img-fluid" alt=""></div>
+        <div class="fruit-earth-middle stamp-common"><img src="{{allItemList[6]?.image}}" class="img-fluid" alt="">
+        </div>
+        <div class="experiment-middle stamp-common"><img src="{{allItemList[8]?.image}}" class="img-fluid" alt=""></div>
+
+        <div class="heart-middle stamp-common"><img src="{{allItemList[1]?.image}}" class="img-fluid" alt=""></div>
+        <div class="fruit-earth-bottom stamp-common"><img src="{{allItemList[3]?.image}}" class="img-fluid" alt="">
+        </div>
+        <div class="experiment-bottom stamp-common"><img src="{{allItemList[5]?.image}}" class="img-fluid" alt=""></div>
+        <div class="heart-bottom stamp-common"><img src="{{allItemList[7]?.image}}" class="img-fluid" alt=""></div>
+        <div class="fruit-earth-end stamp-common"><img src="{{allItemList[9]?.image}}" class="img-fluid" alt=""></div>
+        <img src="./assets/images/locker.png" class="inner-img" alt="">
+      </div>
+      <div class="locker-lady">
+        <span class="final-editaion-img-wrapper">
+          <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
+        </span>
+        <div class="tooltip-wrapper">
+          <div class="speech-tooltip sm-tooltip left-bottom-tip">
+            <div class="speech-tooltip-inner">
+              <p class="message">
+                {{'student.profile.locker-room-desc'| translate }} </p>
+              <span class="tip">
+                <img src="./assets/images/left-bottom-tip.svg" alt="" class="img-fluid" />
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="btn-wraper">
+        <app-button classes="btn btn-primary" [submit]="true" (click)="goToPassport()">
+          <span aria-hidden="true">Open Your Passport</span>
+        </app-button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <app-lessons-footer [showNext]="false" [showPrevious]="false"></app-lessons-footer> -->

@@ -1,0 +1,313 @@
+<div class="container">
+    <div class="row dashboard-head-info">
+        <div class="col-md-12">
+            <h4 *ngIf="currentUser" class="user-name">Hi {{ currentUser }}.</h4>
+            <div class="col-md-4 mb-3">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="data-card card">
+                <div class="data-wrapper">
+                    <div class="logo"><img src="./assets/images/active-school.svg" class="img-fluid" alt=""></div>
+                    <div class="count"><h2>{{schoolCount}}</h2></div>
+                    <div class="label" [translate]="'district.dashboard.active-schools'"></div>
+                </div>
+                <div class="add-btn">
+                    <app-button (click)="addSchool()" classes="btn btn-primary">
+                        <span aria-hidden="true"><fa-icon [icon]="faPlus"></fa-icon></span>
+                    </app-button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="data-card card">
+                <div class="data-wrapper">
+                    <div class="logo"><img src="./assets/images/total-class.svg" class="img-fluid" alt=""></div>
+                    <div class="count"><h2>{{classCount}}</h2></div>
+                    <div class="label" [translate]="'district.dashboard.total-classes'"></div>
+                </div>
+                <div class="add-btn">
+                    <app-button (click)="open(createClass)" classes="btn btn-primary">
+                        <span aria-hidden="true"><fa-icon [icon]="faPlus"></fa-icon></span>
+                    </app-button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="data-card card">
+                <div class="data-wrapper">
+                    <div class="logo"><fa-icon [icon]="faUsers"></fa-icon></div>
+                    <div class="count"><h2>{{usersCount}}</h2></div>
+                    <div class="label" [translate]="'district.dashboard.total-users'"></div>
+                </div>
+                <div class="add-btn">
+                    <app-button (click)="addUser()" classes="btn btn-primary">
+                        <span aria-hidden="true"><fa-icon [icon]="faPlus"></fa-icon></span>
+                    </app-button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row dashboard-main">
+      <div class="col-md-4">
+          <div class="class-chart card">
+              <h3 class="chart-title" [translate]="'district.dashboard.amnt-of-practice'"></h3>
+
+              <div class="chart">
+                <svg class="ActivityRings" viewBox='0 0 37 37'>
+                    <g class="ring ring1" style="transform: scale(1) rotate(-90deg);">
+                        <circle stroke-width="3" r="15.915" cx="50%" cy="50%" class="background" />
+                        <circle stroke-width="3" r="15.915" cx="50%" cy="50%" class="completed" 
+                        [attr.stroke-dasharray]=" reportData?.ncss +', 100'" />
+                    </g>
+                    <g class="ring ring2" style="transform: scale(0.78) rotate(-90deg);">
+                        <circle stroke-width="4" r="15.915" cx="50%" cy="50%" class="background" />
+                        <circle stroke-width="4" r="15.915" cx="50%" cy="50%" class="completed" 
+                        [attr.stroke-dasharray]=" reportData?.ngss +', 100'" />
+                    </g>
+                    <g class="ring ring3" style="transform: scale(0.57) rotate(-90deg);">
+                        <circle stroke-width="5" r="15.915" cx="50%" cy="50%" class="background" />
+                        <circle stroke-width="5" r="15.915" cx="50%" cy="50%" class="completed" 
+                        [attr.stroke-dasharray]=" reportData?.ela +', 100'" />
+                    </g>
+                    <g class="ring ring4" style="transform: scale(0.37) rotate(-90deg);">
+                        <circle stroke-width="8" r="15.915" cx="50%" cy="50%" class="background" />
+                        <circle stroke-width="8" r="15.915" cx="50%" cy="50%" class="completed" 
+                        [attr.stroke-dasharray]=" reportData?.math +', 100'" />
+                    </g>
+                </svg>
+            </div>
+                             <ul class="chart-info">
+                <li>
+                    <span class="chart-indicator blue"></span>
+                    <span class="chart-title">{{'school.class-performance-report.CCSS-MATH-label' | translate}}</span>
+                    <span class="chart-count blue">{{reportData?.math}}%</span>
+                </li>
+                <li>
+                    <span class="chart-indicator green"></span>
+                    <span class="chart-title">{{'school.class-performance-report.ELA-label' | translate}}</span>
+                    <span class="chart-count green">{{reportData?.ela}}%</span>
+                </li>
+                <li>
+                    <span class="chart-indicator yellow"></span>
+                    <span class="chart-title">{{'school.class-performance-report.NGSS-label' | translate}}</span>
+                    <span class="chart-count yellow">{{reportData?.ngss}}%</span>
+                </li>
+                <li>
+                    <span class="chart-indicator red"></span>
+                    <span class="chart-title">{{'school.class-performance-report.NCSS-label' | translate}}</span>
+                    <span class="chart-count red">{{reportData?.ncss}}%</span>
+                </li>
+            </ul>
+            <!-- <div class="view-repots">
+                <a>View Full Report <fa-icon [icon]="NextArrow"></fa-icon></a>
+            </div> -->
+        </div>
+      </div>
+      <div class="col-md-4">
+          <div class="class-chart card">
+              <h3 class="chart-title" [translate]="'district.dashboard.evidence-of-growth'"></h3>
+              <div class="chart">
+                <svg class="ActivityRings" viewBox='0 0 37 37'>
+                    <g class="ring ring1" style="transform: scale(1) rotate(-90deg);">
+                        <circle stroke-width="3" r="15.915" cx="50%" cy="50%" class="background" />
+                        <circle stroke-width="3" r="15.915" cx="50%" cy="50%" class="completed" 
+                        [attr.stroke-dasharray]=" growthData?.ncss +', 100'"   />
+                    </g>
+                    <g class="ring ring2" style="transform: scale(0.78) rotate(-90deg);">
+                        <circle stroke-width="4" r="15.915" cx="50%" cy="50%" class="background" />
+                        <circle stroke-width="4" r="15.915" cx="50%" cy="50%" class="completed" 
+                        [attr.stroke-dasharray]=" growthData?.ngss +', 100'" />
+                    </g>
+                    <g class="ring ring3" style="transform: scale(0.57) rotate(-90deg);">
+                        <circle stroke-width="5" r="15.915" cx="50%" cy="50%" class="background" />
+                        <circle stroke-width="5" r="15.915" cx="50%" cy="50%" class="completed" 
+                        [attr.stroke-dasharray]=" growthData?.ela +', 100'"/>
+                    </g>
+                    <g class="ring ring4" style="transform: scale(0.37) rotate(-90deg);">
+                        <circle stroke-width="8" r="15.915" cx="50%" cy="50%" class="background" />
+                        <circle stroke-width="8" r="15.915" cx="50%" cy="50%" class="completed" 
+                        [attr.stroke-dasharray]=" growthData?.math +', 100'" />
+                    </g>
+                </svg>
+            </div>
+            <ul class="chart-info">
+              <li>
+                  <span class="chart-indicator blue"></span>
+                  <span class="chart-title">{{'school.class-performance-report.CCSS-MATH-label' | translate}}</span>
+                  <span class="chart-count blue">{{growthData?.math}}%</span>
+              </li>
+              <li>
+                  <span class="chart-indicator green"></span>
+                  <span class="chart-title">{{'school.class-performance-report.ELA-label' | translate}}</span>
+                  <span class="chart-count green">{{growthData?.ela}}%</span>
+              </li>
+              <li>
+                  <span class="chart-indicator yellow"></span>
+                  <span class="chart-title">{{'school.class-performance-report.NGSS-label' | translate}}</span>
+                  <span class="chart-count yellow">{{growthData?.ngss}}%</span>
+              </li>
+              <li>
+                  <span class="chart-indicator red"></span>
+                  <span class="chart-title">{{'school.class-performance-report.NCSS-label' | translate}}</span>
+                  <span class="chart-count red">{{growthData?.ncss}}%</span>
+              </li>
+          </ul>
+         
+            <!-- <div class="view-repots">
+                <a>View Full Report <fa-icon [icon]="NextArrow"></fa-icon></a>
+            </div> -->
+        </div>
+      </div>
+      <div class="col-md-4">
+          <div class="class-chart card">
+              <h3 class="chart-title" [translate]="'district.dashboard.time-spent'"></h3>
+              <div class="chart donut-chart">
+                <svg viewBox='0 0 32 32'>
+
+                  <g stroke-width='10'>
+                      <circle cx='16' cy='16' r='16' class="circle1"
+                          [attr.stroke-dasharray]="donutChart[0].strokeDasharray"
+                          [attr.stroke-dashoffset]="donutChart[0].strokeDashoffset"></circle>
+                      <circle cx='16' cy='16' r='16' class="circle2"
+                          [attr.stroke-dasharray]="donutChart[1].strokeDasharray"
+                          [attr.stroke-dashoffset]="donutChart[1].strokeDashoffset"></circle>
+                      <circle cx='16' cy='16' r='16' class="circle3"
+                          [attr.stroke-dasharray]="donutChart[2].strokeDasharray"
+                          [attr.stroke-dashoffset]="donutChart[2].strokeDashoffset"></circle>
+                  </g>
+                  <text x="16" y="15" class="text" text-anchor="middle">
+                      <tspan dx="0" dy="0" class="text-large">{{sessionData.totalAverageHour}}</tspan>
+                      <tspan dx="16" x="0" dy="2em" class="text-small">{{'teacher.dashboard.hrs-week'|translate}}
+                      </tspan>
+                  </text>
+              </svg>
+              </div>
+              <ul class="chart-info time-spent">
+                  <li>
+                      <span class="chart-indicator blue"></span>
+                      <span class="chart-title" [translate]="'district.dashboard.inactive-students'"></span>
+                      <span class="chart-count blue">{{sessionData.inactiveStudentCount}}</span>
+                  </li>
+                  <li>
+                    <span class="chart-indicator green"></span>
+                    <span class="chart-title" [translate]="'district.dashboard.std-with-below-avg-activity'"></span>
+                    <span class="chart-count green">{{sessionData.belowAverageCount}}</span>
+                </li>
+                <li>
+                    <span class="chart-indicator yellow"></span>
+                    <span class="chart-title" [translate]="'district.dashboard.std-with-above-avg-activity'"></span>
+                    <span class="chart-count yellow">{{sessionData.aboveAverageCount}}</span>
+                </li>
+              </ul>
+              <!-- <div class="view-repots">
+                  <a>{{'district.dashboard.more'|translate}} <fa-icon [icon]="NextArrow"></fa-icon></a>
+              </div> -->
+          </div>
+      </div>
+  </div>
+</div>
+
+<ng-template #createClass let-modal>
+    <button type="button" class="close" aria-label="Close" (click)="closeOpenModal()">
+      <img src="./assets/images/close.png" alt="" class="img-fluid" />
+    </button>
+    <div class="modal-body">
+      <div class="form-create-class district-modal">
+        <h2 class="modal-title">{{'school.class.add-class.create-class-label'|translate}}</h2>
+        <form [formGroup]="createClassForm">
+          <div class="row">
+            <div class="col-md-12">
+              <label>{{'school.class.add-class.school-optional-label'|translate}}</label>
+              <app-drop-down fieldControl="school" class="formDropdown" [dropDownButtonName]="schoolTitle"
+                [dropDownIcon]="schoolIcon" [dropDownItemList]="schoolList"
+                (registerDropdownValueChange)="schoolChange($event)"></app-drop-down>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-7">
+              <label>{{'school.class.add-class.class-teacher-label'|translate}} (*)</label>
+              <app-multi-select-dropdown [dropDownItemList]="teacherList" [selectedItems]="selectedTeacher"
+                [placeholderText]="'Select the class teacher'" [selectedValue]="selectedTeacherValue"
+                (onSelectValue)="onSelectTeacher($event)" (onDeSelectValue)="onDeSelectTeacher($event)"
+                (onSelectAllValue)="onSelectAllTeacher($event)" (onDeselectAllValue)="onDeselectAllTeacher($event)">
+              </app-multi-select-dropdown>
+            </div>
+            <div class="col-md-5">
+              <label>{{'school.class.add-class.grade-field'|translate}} (*)</label>
+              <app-drop-down class="formDropdown" [dropDownButtonName]="gradeTitle" [dropDownIcon]=""
+                (registerDropdownValueChange)="gradeChange($event)" fieldControl="grade" [dropDownItemList]="gradeList"
+                [ngClass]="{ 'is-invalid': formControl.grade.touched && formControl.grade.errors }">
+              </app-drop-down>
+              <div *ngIf="formControl.grade.errors" class="invalid-feedback">
+                <div class="error" *ngIf="formControl.grade.errors?.required">{{'school.class.add-class.grade-required'|translate}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <label>{{'school.class.add-class.class-field'|translate}} (*)</label>
+              <app-input-field classes="form-control" types="text" ids="title" fieldControl="title"
+                [form]="createClassForm" placeholders="{{'school.class.add-class.class-field-placeholder'|translate}}"
+                [ngClass]="{ 'is-invalid': formControl.title.touched && formControl.title.errors }">
+              </app-input-field>
+              <div *ngIf="formControl.title.errors" class="invalid-feedback">
+                <div class="error" *ngIf="formControl.title.errors?.required">{{'school.class.add-class.class-title-required'|translate}}</div>
+                <div class="error" *ngIf="formControl.title.errors?.classNameValidate">{{'school.class.add-class.class-exist'|translate}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <label>{{'school.class.add-class.standards-field'|translate}} (*)</label>
+              <app-multi-select-dropdown [dropDownItemList]="standardList" [selectedItems]="selectedStandard"
+                [placeholderText]="'Select learning standards'" fieldControl="standard" [selectedValue]="selectedValue"
+                (onSelectValue)="onSelectStandrd($event)" (onDeSelectValue)="onDeSelectStandard($event)"
+                (onSelectAllValue)="onSelectAllStandard($event)" (onDeselectAllValue)="onDeselectAllStandard($event)">
+              </app-multi-select-dropdown>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <label>{{'district.district-schools.students-title'|translate}}</label>
+              <app-multi-select-dropdown [dropDownItemList]="allStudentList" [selectedItems]="selectedStudent"
+                [placeholderText]="'Select Student'" fieldControl="student" [selectedValue]="selectedStudentValue"
+                (onSelectValue)="onSelectStudent($event)" (onDeSelectValue)="onDeSelectStudent($event)"
+                (onSelectAllValue)="onSelectAllStudent($event)" (onDeselectAllValue)="onDeselectAllStudent($event)">
+              </app-multi-select-dropdown>
+            </div>
+          </div>
+          <div class="footer-btns">
+            <app-button classes="btn btn-secondary mb-3 mr-3" [submit]="true" (click)="closeOpenModal()">
+              <span aria-hidden="true">{{'common.cancel'|translate}}</span>
+            </app-button>
+            <!-- <app-button classes="btn btn-primary mb-3 mr-3" [submit]="true">
+              <span aria-hidden="true">Add Students to Class</span>
+            </app-button> -->
+            <app-button classes="btn btn-primary mb-3" [submit]="true" [disabled]="createClassForm.invalid"
+              (click)="onSave()">
+              <span aria-hidden="true">{{'common.save'|translate}}</span>
+            </app-button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #proceedMembershipClassModal let-modal>
+    <button type="button" class="close" aria-label="Close" (click)="closePopup()">
+      <img src="./assets/images/close.png" alt="" class="img-fluid" />
+    </button>
+    <div class="modal-header membership-header">
+      <div class="logo">
+        <img src="./assets/images/logo.png" class="img-fluid" />
+      </div>
+    </div>
+    <div class="modal-body journal-body">
+      <h6 class="Total">{{'school.class.add-class.exceeded-package-desc'|translate}}.</h6>
+      <div class="close-btn-wrapper">
+        <app-button classes="btn btn-primary membership-close-btn" [submit]="true" (click)="onProceed()">
+          <span aria-hidden="true">{{'school.edit-membership.proceed-label'|translate}}</span>
+        </app-button>
+      </div>
+    </div>
+  </ng-template>

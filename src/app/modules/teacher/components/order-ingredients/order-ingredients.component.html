@@ -1,0 +1,148 @@
+<app-ingreditent-nav></app-ingreditent-nav>
+<div class="order-ingredients">
+  <div class="container">
+    <div class="header-wraper">
+      <div class="heading-wraper">
+        <h2 class="heading">{{'teacher.order-ingredients.order-your-ingredients-label'|translate}}</h2>
+      </div>
+      <button type="button" class="right-wraper" (click)="open(orderIngredients)">
+        <span class="cart-logo" aria-hidden="true">
+          <fa-icon [icon]="cartPlus"></fa-icon>
+        </span>
+        <span class="cart-text">{{'teacher.order-ingredients.your-cart-label'|translate}}</span>
+        <span class="cart-index">{{cartList.length}}</span>
+      </button>
+    </div>
+    <div class="dew-date-wraper">
+      <div class="dew-date">
+        <h4 class="dew-date-heading">{{ingredients?.assignmentTitle}} </h4>
+        <span class="dew-date-text">{{'teacher.order-ingredients.ingredient-list-label'|translate}}</span>
+      </div>
+      <div class="dew-date-right">
+        <span class="exclamation-logo" aria-hidden="true">
+          <fa-icon [icon]="exclamation"></fa-icon>
+        </span>
+        <span class="dew-date-right-text">{{'teacher.order-ingredients.allergic-warning-text'|translate}}</span>
+        <span class="dew-date-right-hightlight">{{'teacher.order-ingredients.check-label'|translate}}</span>
+      </div>
+    </div>
+    <div class="ingredient-item">
+      <div class="ingredient-wraper">
+        <!-- <div > -->
+        <div class="ingredient-block" *ngFor="let item of ingredients?.recipe.recipeIngredients">
+          <div class="verified-wraper">
+            <div class="verified-text">
+              <span class="exclamation" *ngIf="item.substituteList">
+                <fa-icon [icon]="exclamation" class="mr-3"></fa-icon>
+              </span>
+              <span class="info-circle" *ngIf="item['added']">
+                <fa-icon [icon]="check" class="mr-3"></fa-icon>
+              </span>
+            </div>
+            <div class="ingredient-image">
+              <img src="{{item?.image}}" class="img-fluid" alt="">
+            </div>
+            <div class="substitute">
+              <div *ngIf="item.substituteList">
+                <span class="exchange">
+                  <fa-icon [icon]="exchange"></fa-icon>
+                </span>
+                <a (click)="openSubstituteModal(substituteModal,item)" class="substitute-link">{{'teacher.order-ingredients.find-substitute-label'|translate}}</a>
+              </div>
+            </div>
+          </div>
+          <div class="ingreditent-info">
+            <div class="title-wraper">
+              <h5 class="title">{{item?.ingredientTitle}}</h5>
+            </div>
+            <div class="price-wraper">
+              <span class="price">{{item?.quantity}} {{item?.mesurementUnit}}</span>
+            </div>
+          </div>
+          <div class="ingredient-btn-wrapper">
+            <app-button classes="btn btn-small btn-primary" (click)="addItemToCart(item)" [submit]="true"
+              [disabled]="item['added']">
+              <span aria-hidden="true">{{item.btnName}}</span> 
+              <span aria-hidden="true" *ngIf="item['added']">{{'teacher.order-ingredients.added-label'|translate}}</span>
+              <span aria-hidden="true" *ngIf="!item['added']">{{'teacher.order-ingredients.add-to-cart'|translate}}</span>
+
+            </app-button>
+          </div>
+        </div>
+        <!-- </div> -->
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<ng-template #substituteModal let-modal>
+  <div class="modal-header substitute-header">
+    <h4 class="modal-title" id="modal-basic-title">{{'teacher.order-ingredients.ingredient-substitute-label'|translate}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <img src="./assets/images/close.png" alt="" class="img-fluid" />
+    </button>
+  </div>
+  <div class="modal-body substitute-body">
+    <div class="substitute-img">
+      <img src="{{substituteItem?.image}}" alt="" class="img-fluid" />
+    </div>
+    <!-- <h6 class="pt-6" >Wheat Flour contains Gluten, would you like to replace it with a Gluten-Free Potato Flour?</h6> -->
+    <h6 class="pt-6">would you like to replace it with a {{substituteItem?.ingredientTitle}}?
+    </h6>
+  </div>
+  <div class="modal-footer substitute-footer">
+    <button type="button" class="btn btn-primary btn-request"
+      (click)="replaceIngredient(substituteItem)">{{'teacher.order-ingredients.replace-label'|translate}}</button>
+  </div>
+
+</ng-template>
+
+
+<ng-template #orderIngredients let-modal>
+  <div class="modal-header order-header">
+    <h4 class="modal-title" id="modal-basic-title">{{'teacher.order-ingredients.ordered-ingredients'|translate}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <img src="./assets/images/close.png" alt="" class="img-fluid" />
+    </button>
+  </div>
+  <div class="modal-body order-body">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">{{'teacher.order-ingredients.product'|translate}}</th>
+          <th scope="col">{{'teacher.order-ingredients.quantity'|translate}}</th>
+          <th scope="col">{{'teacher.order-ingredients.action'|translate}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cartItem of itemCartList; let i = index">
+          <td class="order-item">
+            <div class="d-flex">
+              <span class="order-image"><img src="{{cartItem?.image}}" class="img-fluid" alt=""></span>
+              <span class="item-name">{{cartItem?.ingredientTitle}}</span>
+            </div>
+          </td>
+          <td class="order-quantity">
+            <a class="plus" aria-hidden="true" (click)="addQuantity(cartItem)">+</a>
+            <span class="order-count">{{cartItem?.qty}}</span>
+            <a class="plus minus" aria-hidden="true" (click)="minusQuantity(cartItem)">-</a>
+          </td>
+          <td>
+            <app-button classes="btn btn-delete" (click)="removeCartItem(cartItem)">
+              <span aria-hidden="true"><fa-icon [icon]="trash"></fa-icon></span>
+            </app-button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="modal-footer order-footer">
+
+    <form ngNoForm #htmlForm method="post" action="https://www.amazon.com/afx/ingredients/landing" target="_blank">
+      <input type="hidden" name="ingredients" [value]="ingredientData">
+       <button type="submit" class="btn btn-primary btn-request" (click)="confirmOrder(itemCartList)">Confirm Order</button>
+    </form>
+    <!-- <button type="button" [disabled]="!itemCartList.length" (click)="confirmOrder(itemCartList)" class="btn btn-primary btn-request" >Confirm Order</button> -->
+  </div>
+</ng-template>

@@ -1,0 +1,404 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+
+.student-plan-body{
+  padding: 5rem 0rem;
+  .content-wrapper{
+    display: flex;
+    @include breakpoint(mobile){
+      flex-wrap: wrap;
+    }
+    .card-header{ 
+        max-width: calc(100%);
+        background: transparent;
+        border: none;
+        @include breakpoint(mobile){
+          max-width:100%;
+          margin-top: 2rem;
+        }
+        @include breakpoint(xtrasmallmobile){
+          padding: 0.75rem 0rem;
+        }
+        .heading-container{
+          display: flex;
+          justify-content: center;
+          .heading{
+            margin: 0;
+          }
+        }
+      
+      .slider-wrapper{
+        position: relative;
+        .plans{
+          max-width: 90%;
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          margin: 0 auto;
+          z-index: 9;
+          @include breakpoint(sm-mobile){
+            max-width: 80%;
+          }
+          
+          .option{
+            margin: 1rem;
+            position: relative;
+            text-align: center;
+            
+            .upcoming-assignment-list{
+              margin-top:2rem;
+              .card-list-wraper{
+                display: flex;
+                justify-content: center;
+                .card-list{
+                  max-width: 40rem;
+                  .assignmentItem{
+                      &.card{
+                          padding: 0;
+                      }
+                      &__image{
+                          position: relative;
+                          border-radius:1.2rem 1.2rem 0 0;
+                          background:rgba($grey-shade-4, 0.3);
+                          height: 14rem;
+                          display: flex;
+                          justify-content: flex-end;
+                          align-items: center;
+                          .card-image{
+                            max-width: 20rem;
+                            padding: 1rem;
+                          }
+                      }
+                      &__start{
+                          position: absolute;
+                          left:-1px;
+                          top:1.5rem;
+                          border-left:0.6rem solid $yellow-shade-6;
+                          padding: 0.5rem 2rem;
+                          background:$white;
+                          color: $black;
+                          font-size: 1.1rem;
+                          font-weight: 900;
+                          .start-in{
+                            font-size: 1.4rem;
+                            font-weight: 900;
+                          }
+                          &.completed{
+                              border-color:$success;
+                              fa-icon{
+                                  color: $success;
+                                  margin-left:0.5rem;
+                                  font-size: 1.6rem;
+                              }
+                          }
+                      }
+                      &__info{
+                          padding:2rem;
+                      }
+                      &__name{
+                          max-height:4.2rem;
+                          min-height:4.2rem;
+                          font-size: 1.8rem;
+                          max-width: 81%;
+                          text-align: left;
+                          @include breakpoint(mobile){
+                              font-size: 1.6rem;
+                          }
+                      }
+                      &__time{
+                        text-align: left;
+                        font-weight: 700;
+                          li{
+                              font-size:1.2rem;
+                              color:rgba($white,0.5);
+                          }
+                      }
+                      &__instruction{
+                        text-align: left;
+                          margin-top:2rem;
+                          li{
+                              margin-bottom:2rem;
+                              font-weight: 700;
+                          }
+                          fa-icon{
+                              color: $azure;
+                              margin-right:1rem;
+                              display: inline-block;
+                          }
+                      }
+                      &__links{
+                          display: flex;
+                          align-items: center;
+                          justify-content: space-between;
+                          margin-top: 3.5rem;
+                          a{
+                              color:$secondary;
+                              font-weight: bold;
+                          }
+                      }
+                  }
+                }
+              }
+            }
+            .activity-assignment-list{
+              margin-top:2rem;
+              .card-list-wraper{
+                display: flex;
+                justify-content: center;
+                .card-list{
+                  max-width: 32rem;
+                  .assignmentItem{
+                      &.card{
+                          padding: 0;
+                      }
+                      &__image{
+                          position: relative;
+                          border-radius:1.2rem 1.2rem 0 0;
+                          .card-image{
+                            img{
+                                border-radius:1.2rem 1.2rem 0 0;
+                            }
+                          }
+                      }
+                      &__info{
+                        padding:2rem;
+                        display: flex;
+                        flex-wrap: wrap;
+                        &__left{
+                            width:calc(100% - 7rem);
+                            min-height:8rem;
+                            .title{
+                              font-size: 1.6rem;
+                              text-align: left;
+                              margin-bottom: 0.8rem;
+                              text-align: left;
+                            }
+                            .time{
+                              font-size: 1.4rem;
+                              font-weight: 700;
+                              text-align: left;
+                              color: rgba($white,0.5);
+                            }
+                        }
+                        &__right{
+                            width: 7rem;
+                            display: flex;
+                            align-items: flex-start;
+                            justify-content: space-between;
+                            .rating{
+                                color: $secondary;
+                                border:1px solid $secondary;
+                                padding:0.2rem 0.5rem;
+                                display: flex;
+                                align-items:center;
+                                font-size: 1rem;
+                                border-radius: 0.5rem;
+                                font-weight: 700;
+                                fa-icon{
+                                    margin-left:0.5rem;
+                                    display: inline-block;
+                                    font-size: 0.8rem;
+                                }
+                            }
+                            .bookmark{
+                                color: $secondary;
+                                font-size:1.6rem;
+                                cursor: pointer;
+                                .addBookmark{
+                                    position: relative;
+                                    &:after{
+                                        content: "+";
+                                        position: absolute;
+                                        right: -1rem;
+                                        top: -1rem;
+                                        font-size: 1.2rem;
+                                        color: $navy-blue;
+                                        width: 1.2rem;
+                                        height: 1.2rem;
+                                        border-radius: 1.5rem;
+                                        line-height: 1.6rem;
+                                        background: $secondary;
+                                        display: flex;
+                                        justify-content: center;
+                                        /* align-items: center; */
+                                        text-align: center;
+                                    }
+                                }
+                                &.active{
+                                    .addBookmark{
+                                        display: none;
+                                    }
+                                }
+                            }
+                        }
+                        .btns{
+                          display: flex;
+                          flex-direction: row;
+                          .links{
+                            display: flex;
+                            flex-direction: column;
+                            margin-left: 1rem;
+                            a{
+                              color: $yellow-shade-5;
+                              font-size: 1.2rem;
+                              text-align: left;
+                              font-weight: 700;
+                              margin-bottom: 0.5rem;
+                            }
+                          }
+                        }
+                    }
+                      .name-wraper{
+                        display: flex;
+                        .name{
+                            max-height:4.2rem;
+                            min-height:4.2rem;
+                            font-size: 1.8rem;
+                            max-width: 55%;
+                            text-align: left;
+                            display: flex;
+                            align-items: center;
+                            @include breakpoint(mobile){
+                                font-size: 1.6rem;
+                            }
+                          }
+                          .star{
+                            border: 0.1rem solid $yellow-shade-5;
+                            color: $yellow-shade-5;
+                            font-weight: 700;
+                            padding: 0rem 1.5rem;
+                            border-radius: 1rem;
+                            line-height: 4rem;
+                            margin-left: 1rem;
+                          }
+                          .flag{
+                            width: 2.5rem;
+                            height: 4rem;
+                            background: $yellow-shade-5;
+                            margin-left: 1rem;
+                          }
+                      }
+                      &__time{
+                        text-align: left;
+                          li{
+                              font-size:1.4rem;
+                              font-weight: 700;
+                              color:rgba($white,0.5);
+                          }
+                      }
+                      &__links{
+                          display: flex;
+                          align-items: center;
+                          margin-top: 3.5rem;
+                          .link-wraper{
+                            margin-left: 1rem;
+                            text-align: left;
+                            a{
+                                color:$secondary;
+                                font-weight: bold;
+                            }
+                          }
+                      }
+                  }
+                }
+              }
+            }
+          }
+          .next-btn{
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+          }
+          .prev-btn{
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+          }
+        }
+        .next-btn-wrapper{
+          background: $yellow-shade-5;
+          font-size: 1.5rem;
+          font-weight: 700;
+          width: 3rem ;
+          height: 3rem;
+          position: absolute;
+          border-radius: 50%;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          margin: auto;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          fa-icon{
+            color: $black;
+            padding-top: 0.2rem;
+          }
+        }
+        .prev-btn-wrapper{
+          background: $yellow-shade-5;
+          font-size: 1.5rem;
+          font-weight: 700;
+          width: 3rem ;
+          height: 3rem;
+          position: absolute;
+          border-radius: 50%;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          margin: auto;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          fa-icon{
+            color: $black;
+            padding-top: 0.2rem;
+          }
+        }
+      }
+      .agree-signup{
+        max-width: 70%;
+        text-align: center;
+        margin: 0 auto;
+        margin-top: 2rem;
+        p{
+          font-size: 1.2rem;
+          padding: 2rem 0;
+        }
+      }
+      .agree-signup-btn-wrapper{
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        padding: 0 5rem;
+        margin: 6rem 0;
+        app-button{
+
+          margin: 0 4rem 2rem 4rem;
+          .btn-image{
+            max-width: 3rem;
+            
+          }
+          .btn-text{
+            display: inline-block;
+            max-width: 17rem;
+            text-align: left;
+            vertical-align: middle;
+            margin-left: 1rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+
+
+
+

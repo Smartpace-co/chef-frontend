@@ -1,0 +1,28 @@
+<app-lessons-headerbar [isButtonSection]="isButtonSection" [showBackBtn]="false"></app-lessons-headerbar>
+<div class="active-action-body">
+  <div *ngIf="isLoad" class="container">
+    <div class="final-editaion">
+      <div class="content-wrapper">
+        <div class="card-wihtout-header-blue">
+          <div class="active-action-wrapper">
+            <p>{{'student.assigned-lessons.lesson-steps.rating-text'| translate :{title: assignmentTitle } }} </p>
+          </div>
+          <div class="chef-hat">
+            <span *ngFor="let star of stars; let i = index" (click)="rate(i+1)">
+              <ng-container *ngIf="star; else noStar">
+                <div class="chef-hat-yellow"><img src="./assets/images/active-hat.png" class="img-fluid" alt=""></div>
+              </ng-container>
+              <ng-template #noStar>
+                <div class="chef-hat-white"><img src="./assets/images/chef-hat.png" class="img-fluid" alt=""></div>
+              </ng-template>
+            </span>
+          </div>
+        </div>
+        <span class="final-editaion-img-wrapper">
+          <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+<app-lessons-footer (onNext)="onNext()" (onPrevious)="onPrevious()"></app-lessons-footer>

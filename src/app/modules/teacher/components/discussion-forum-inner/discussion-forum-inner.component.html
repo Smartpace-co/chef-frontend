@@ -1,0 +1,144 @@
+<div class="discussion-forum-inner">
+    <div class="container">
+        <div class="discussion-profile-wrapper legend-card">
+            <legend>{{'school.discussion-forum.discussion-forum-label'|translate}}</legend>
+            <div class="page-wrapper" *ngIf="discussionForumInfo">
+                <h6 class="discussion-label">{{discussionForumInfo.topic}}</h6>
+                <ul class="instructions">
+                    <li>{{discussionForumInfo.description}}</li>
+                </ul>
+
+                <div class="reviews">
+                    <h6>{{'school.discussion-forum.topic-confirmation'|translate}}?</h6>
+                    <div class="likes"><a  (click)="addVote(true)" *ngIf="isUpVoteEnabled"> <img src="./assets/images/discussion-like.svg" class="icon" alt=""></a>
+                      <span class="count">{{discussionForumInfo.upVote}}</span></div>
+                    <div class="dislikes"><a  (click)="addVote(false)" *ngIf="isDownVoteEnabled"><img src="./assets/images/discussion-dislike.svg" class="icon" alt=""></a>
+                      <span class="count">{{discussionForumInfo.downVote}}</span></div>
+                </div>
+
+                <div class="comments">
+                    <form [formGroup]="commentForm">
+                    <div class="comments-form">
+                        <h5>{{'school.discussion-forum.comments-label'|translate}}</h5>
+                        <app-input-field classes="form-control commentClass" types="text" ids="comment" fieldControl="comment"
+                        [form]="commentForm" placeholders="Write Your Comment" style="margin-left: 1.5%;"></app-input-field>
+                       <div class="image-upload">
+                             <input type="file" id="actual-btn" (change)="onFileSelected($event)" hidden />
+                            <span class="selected-file" *ngIf="selectedFile">{{selectedFile}}</span>
+                            <label for="actual-btn">
+                                <fa-icon [icon]="PlusIcon"></fa-icon> <span>{{selectedFile ? 'Replace' : 'Image'}}</span>
+                            </label> 
+                        </div>
+                        <!-- <div class="error" *ngIf="commentForm.controls.comment.errors?.required">Comment is required</div> -->
+
+                    </div>
+                    <div class="submit-btn">
+                      <app-button classes="btn btn-primary mb-3" [submit]="true" [disabled]="commentForm.invalid" (click)="submitComment()">
+                        <span aria-hidden="true">{{'common.submit'|translate}}</span>
+                      </app-button>
+                    </div>
+                    </form>
+                </div>
+
+                <div class="comment-list" *ngFor="let comment of comments">
+                    <div class="comment-item">
+                        <div class="user-profile">
+                            <div class="profile-photo">
+                                <img src="./assets/images/student-icon.svg" class="img-fluid" alt="">
+                            </div>
+                            <h6 class="user-name" *ngIf="comment.school">{{comment.school.admin_account_name}}</h6>
+                            <h6 class="user-name" *ngIf="comment.district_admin">{{comment.district_admin.admin_account_name}}</h6>
+                            <h6 class="user-name"  *ngIf="comment.teacher">{{comment.teacher.first_name}} {{comment.teacher.last_name}}</h6>
+
+                          </div>
+                        <div class="coment-details">
+                            <div class="comment-wrapper">
+                                <div class="comment-image">
+                                  <img src="{{comment.commentImage}}" alt="" class="img-fluid" />
+                                </div>
+                                <div class="comment-desc">
+                                    <p>{{comment.comment}}</p>
+                                    <button class="reply-link" (click)="addReplyTocomment(comment)">{{'school.discussion-forum.reply-label'|translate}}</button>
+                                    <div class="comments"  *ngIf="comment.isReplyEnabled">
+                                      <form [formGroup]="replyForm">
+                                    <div class="comments-form">
+                                    <app-input-field classes="form-control" types="text" ids="reply" fieldControl="reply"
+                                    [form]="replyForm" placeholders="Write Your Reply"></app-input-field>
+                                    <div class="submit-btn1">
+                                      <app-button classes="btn btn-primary mb-3" [submit]="true" [disabled]="replyForm.invalid" (click)="submitReply(comment)">
+                                        <span aria-hidden="true">{{'common.submit'|translate}}</span>
+                                      </app-button>
+                                  </div>
+                                    </div>
+                                    </form>
+                                    </div>
+                                </div>
+                                <button class="delete-comment"><img src="./assets/images/close.png" class="close-icon mr-2"
+                                        alt="" (click)="open(delete,comment)">{{'common.delete'|translate}}</button>
+                            </div>
+                            <div *ngFor="let reply of replyArray" >
+                              <div *ngFor="let r of reply">
+                            <div class="comment-wrapper reply" >
+                              <div class="user-profile" *ngIf="comment.id==r.commentId" >
+                                <div class="profile-photo">
+                                    <img src="./assets/images/student-icon.svg" class="img-fluid" alt="">
+                                </div>
+                                <h6 class="user-name"  *ngIf="r.school">{{r.school.admin_account_name}}</h6>
+                                <h6 class="user-name"  *ngIf="r.district_admin">{{r.district_admin.admin_account_name}}</h6>
+                                <h6 class="user-name"  *ngIf="r.teacher">{{r.teacher.first_name}} {{r.teacher.last_name}}</h6>
+
+                            </div>
+                                <div class="comment-desc" *ngIf="comment.id==r.commentId" >
+                                    <p>{{r.reply}} </p>
+                                    <!-- <button class="reply-link">Reply</button> -->
+                                </div>
+                                <button class="delete-comment" *ngIf="comment.id==r.commentId"><img src="./assets/images/close.png" class="close-icon mr-2"
+                                  alt="" (click)="openReply(r.id,r.userId,comment)">{{'common.delete'|translate}}</button>
+                                </div>
+                              </div>
+                        </div>
+                      </div>
+                    </div>
+
+              
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Delete Class Modal -->
+<ng-template #delete let-modal>
+    <button type="button" class="close" aria-label="Close" (click)="closeOpenModal()">
+      <img src="./assets/images/close.png" alt="" class="img-fluid" />
+    </button>
+    <div class="modal-body">
+      <div class="delete-class">
+        <h2 class="modal-title">{{'school.discussion-forum.delete-comment-label'|translate}}</h2>
+        <!-- <div class="info">
+          <span class="info-icon">
+            <fa-icon [icon]="exclamationTriangle" style="font-size: x-large;"></fa-icon>
+          </span>
+          <p>This is an active class with 20 students and few active assignments. Deleting this class will result
+            in loss of all the data.</p>
+        </div> -->
+        <h6>{{'school.discussion-forum.comment-confirmation'|translate}}?</h6>
+        <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+        </p> -->
+        <form [formGroup]="deleteCommentForm">
+          <app-input-field classes="form-control" types="text" ids="deleteClass" fieldControl="delete"
+            [form]="deleteCommentForm" placeholders="Type DELETE to confirm your action"></app-input-field>
+          <div class="d-flex justify-content-between mt-5">
+            <app-button classes="btn btn-secondary mr-4" [submit]="true" (click)="closeOpenModal()">
+              <span aria-hidden="true">{{'common.cancel'|translate}}</span>
+            </app-button>
+            <app-button classes="btn btn-danger btn-block" [submit]="true" (click)="deleteComment()">
+              <span aria-hidden="true">{{'common.delete'|translate}}</span>
+            </app-button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </ng-template>
+
+
+  

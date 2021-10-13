@@ -1,0 +1,29 @@
+<main class="login">
+  <div class="container-fluid">
+    <div class="left-login">
+      <img src="./assets/images/kids-and-planet.png" class="img-fluid" />
+    </div>
+    <div class="login-form access-code">
+      <header>
+        <div class="logo">
+          <img src="./assets/images/logo.png" class="img-fluid" />
+        </div>
+        <h1 class="logo-title mt-3">Access Code</h1>
+      </header>
+      <p class="join-text mt-0 pt-0 mb-3">To join a class, enter the code provided by
+        your teacher.</p>
+      <form [formGroup]="accessCodeForm">
+        <app-input-field
+          classes="form-control mb-5 text-center"
+          placeholders="Access Code"
+          ids="accessCode"
+          fieldControl="accessCode"
+          [form]="accessCodeForm"
+        ></app-input-field>
+        <app-button classes="btn btn-primary btn-block mb-5" [submit]="true">
+          <span aria-hidden="true">join</span>
+        </app-button>
+      </form>
+    </div>
+  </div>
+</main>

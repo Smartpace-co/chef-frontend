@@ -1,0 +1,136 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+.class-info-list{
+  .class-info-main{
+    padding-top: 15px;
+    padding-bottom: 15px;
+    .class-info-wrapper{
+      .name-and-class{
+        color:$heading-grey;
+        margin-bottom: 0;
+        .name,.class-no{
+          border-bottom: 1px solid $navy-blue;
+        }
+      }
+      .sub-info-and-logo{
+        display: flex;
+        justify-content: space-between;
+        .sub-info{
+          .sub-title{
+            color: $grey-shade-1;
+            font-weight: 600;
+            font-size: 1.5rem;
+            padding-top: 1rem;
+          }
+          .id{
+            color: $heading-grey;
+            font-weight: 600;
+            padding-bottom: 0px;
+            padding-top: 0px;
+          }
+          .grade{
+            color: $heading-grey;
+            font-weight: 600;
+            padding-bottom: 1.4rem;
+            padding-top: 0px;
+          }
+        }
+        .logo-status{
+          padding-top: 0.5rem;
+          // min-width: 9rem;
+          text-align: center;
+          .logo{
+            text-align: center;
+            span{
+              display: inline-block;
+              width: 47px;
+              height: 47px;
+              padding: 9px 10px 11px;
+              background-color: $azure;
+              border-radius: 50%;
+              img{
+                width: 27px;
+                height: 27px;
+              }
+            }
+          }
+          .active-status{
+            color: $green-shade-1;
+            font-weight: 700;
+            padding: 0.5rem 0rem;
+          }
+          .non-active-status{
+            color: $grey-shade-1;
+            font-weight: 700;
+          }
+        }
+      }
+      .buttons-wrapper{
+        .btn.btn-view-lessons{
+          padding: 1rem 1.5rem;
+        }
+        .info-icon{
+          background-color: $yellow-shade-1;
+          color: $blue-shade-1;
+          display: inline-block;
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          text-align: center;
+          line-height: 2;
+          cursor: pointer;
+        }
+        fa-icon.ng-fa-icon {
+          padding-left: 2px;
+          font-size: 1.1rem;
+          margin-right: 0px;
+        }
+      }
+    }
+  }
+}
+.class-details-header{
+  display: flex;
+  justify-content: center;
+  &.modal-header{
+    border-bottom: none;
+    .close{
+      @include breakpoint(mobile){
+        width: 6rem;
+      }
+    }
+    h4{
+      @include breakpoint(tabs){
+        font-size: 2.6rem;
+       }
+      @include breakpoint(mobile){
+       font-size: 2rem;
+      }
+    }
+  }
+}
+.class-details-footer{
+  &.modal-footer{
+    border-top: none;
+    justify-content: center;
+  }
+}
+.class-details-body{
+  .details-heading{
+    padding-bottom: 2.5rem;
+    color: $light-blue-shade;
+    @include breakpoint(mobile){
+      padding: 0rem 0rem 2rem;
+    }
+  }
+  .details-value{
+    padding-bottom: 2.5rem;
+    @include breakpoint(mobile){
+      padding: 0rem 0rem 2rem;
+    }
+    p{
+      padding: 0px;
+      font-size: 1.2rem;
+    }
+  }
+}

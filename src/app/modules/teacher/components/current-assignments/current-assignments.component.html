@@ -1,0 +1,201 @@
+<div class="student-plan-body">
+  <div class="container">
+    <div class="content-wrapper">
+      <div class="card-header">
+        <div class="heading-container">
+          <h4 class="heading">{{'teacher.dashboard.current-assignment'|translate}}</h4>
+        </div>
+        <div class="slider-wrapper">
+          <ngx-slick-carousel class="plans" #slickModal="slick-carousel" [config]="slideConfig">
+            <div ngxSlickItem *ngFor="let item of UpcomngAssignmentList| filter: term" class="option">
+              <div class="upcoming-assignment-list">
+                <div class="row card-list-wraper">
+                  <div class="col-lg card-list">
+                    <div class="assignmentItem card">
+                      <div class="assignmentItem__image">
+                        <div class="assignmentItem__start completed"
+                          *ngIf="item.startIn == 'COMPLETED'; else elseBlock">COMPLETED
+                          <fa-icon [icon]="check"></fa-icon>
+                        </div>
+                        <ng-template #elseBlock>
+                          <!-- <div class="assignmentItem__start">Start In <span class="start-in">{{calculateDiff(item.startDate)}}</span> Days </div> -->
+                          <div class="assignmentItem__start"><span class="start-in">{{item.cartHeader}}</span> </div>
+                        </ng-template>
+                        <div class="card-image">
+                          <img src="{{ item.recipe?.recipeImage }}" alt="" class="img-fluid" />
+                        </div>
+                      </div>
+                      <div class="assignmentItem__info">
+                        <h2 class="assignmentItem__name">{{ (item.assignmentTitle.length>30)? (item.assignmentTitle |
+                          slice:0:30)+'..':(item.assignmentTitle) }}</h2>
+                        <ul class="assignmentItem__time">
+                          <li>
+                            <label>Duration: </label>
+                            <span> {{item.recipe?.estimatedMakeTime}}</span>
+                            <span> Min</span>
+                          </li>
+                          <li>
+                            <label>Start on</label>
+                            <span> {{item?.startDate | date: 'dd/MM/yyyy'}}</span>
+                          </li>
+                        </ul>
+                        <ul class="assignmentItem__instruction" >
+                          <li>
+                            <fa-icon [icon]="Instructions"></fa-icon>
+                            <!-- <span>Teacher’s Instructions</span> -->
+                            <a (click)="openInstruction(item)"> Teacher’s Instructions</a>
+                            <!-- <a routerLink = "/teacher/teacher-instructions">Teacher’s Instructions</a> -->
+
+                          </li>
+                          <li>
+                            <fa-icon [icon]="Ingredients"></fa-icon>
+                            <span>Order Ingredients</span>
+                          </li>
+                        </ul>
+                        <ul class="assignmentItem__links">
+                          <li>
+                            <a (click)="startAssignment(item?.id)">View <fa-icon [icon]="RightArrow"></fa-icon></a>
+                          </li>
+                          <li>
+                            <a (click)="editCustmisation(item)">Edit<fa-icon [icon]="RightArrow"></fa-icon></a>
+                          </li>
+                          <li>
+                            <a (click)="openDeleteModel(deleteAssignment,item)">Delete <fa-icon [icon]="RightArrow">
+                              </fa-icon></a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ngx-slick-carousel>
+          <div class="next-btn-wrapper">
+            <fa-icon [icon]="RightArrow"></fa-icon>
+          </div>
+          <div class="prev-btn-wrapper">
+            <fa-icon [icon]="leftArrow"></fa-icon>
+          </div>
+        </div>
+        <div class="agree-signup-btn-wrapper">
+          <app-button classes="btn  btn-primary btn-large" [submit]="true">
+            <span class="btn-image"><img src="../assets/images/document.png" class="img-fluid" alt=""></span>
+            <span class="btn-text" aria-hidden="true"> {{'teacher.dashboard.assign-lessons'|translate}}</span>
+          </app-button>
+          <app-button classes="btn  btn-primary btn-large" [submit]="true">
+            <span class="btn-image"><img src="../assets/images/student-performance.png" class="img-fluid" alt=""></span>
+            <span class="btn-text" aria-hidden="true">{{'teacher.dashboard.student-performance'|translate}}</span>
+          </app-button>
+          <app-button classes="btn  btn-primary btn-large" [submit]="true">
+            <span class="btn-image"><img src="../assets/images/bell.png" class="img-fluid" alt=""></span>
+            <span class="btn-text" aria-hidden="true"> {{'teacher.dashboard.notifications'|translate}}</span>
+          </app-button>
+        </div>
+        <div class="heading-container">
+          <h4 class="heading">{{'teacher.dashboard.recommendations-desc'|translate}}</h4>
+        </div>
+        <div class="slider-wrapper">
+          <ngx-slick-carousel class="plans" #slickModal="slick-carousel" [config]="slideConfig">
+            <div ngxSlickItem *ngFor="let item of ActivityAssignmentList| filter: term" class="option">
+              <div class="activity-assignment-list">
+                <div class="row card-list-wraper">
+                  <div class="col-lg card-list">
+                    <div class="assignmentItem card">
+                      <div class="assignmentItem__image">
+
+                        <div class="assignmentItem__start completed" *ngIf="item.startIn == 'COMPLETED'">COMPLETED
+                          <fa-icon [icon]="check"></fa-icon>
+                        </div>
+                        <div class="card-image">
+                          <img src="{{ item.image }}" alt="" class="img-fluid" />
+                        </div>
+                      </div>
+                      <div class="assignmentItem__info">
+                        <div class="assignmentItem__info__left">
+                          <h4 class="title">{{item.name}}</h4>
+                          <div class="time">
+                            <label>Duration:<strong class="lessonList__time"> {{item.duration}}</strong> Min</label>
+
+                          </div>
+                        </div>
+                        <div class="assignmentItem__info__right">
+                          <span class="rating">4.9 <fa-icon [icon]="Star"></fa-icon></span>
+                          <span class="bookmark" [class.active]="item.bookmark">
+                            <span>
+                              <fa-icon [icon]="BookmarkIcon" class="addBookmark"></fa-icon>
+                              <!-- <fa-icon [icon]="['far', 'BookmarkIcon']"></fa-icon> -->
+                              <!-- <fa-icon [icon]="bookmark ? ['fas', 'BookmarkIcon'] : ['far', 'BookmarkIcon']"></fa-icon> -->
+                              <ng-template [ngIf]="item.bookmark">
+                                <fa-icon [icon]="BookmarkIcon"></fa-icon>
+                              </ng-template>
+                            </span>
+                          </span>
+                        </div>
+                        <div class="btns">
+                          <app-button classes="btn btn-primary small-btn" [submit]="true">
+                            <span aria-hidden="true">Assign</span>
+                          </app-button>
+                          <div class="links">
+                            <a>Preview <fa-icon [icon]="RightArrow"></fa-icon></a>
+                            <a>Customize <fa-icon [icon]="RightArrow"></fa-icon></a>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ngx-slick-carousel>
+          <div class="next-btn-wrapper">
+            <fa-icon [icon]="RightArrow"></fa-icon>
+          </div>
+          <div class="prev-btn-wrapper">
+            <fa-icon [icon]="leftArrow"></fa-icon>
+          </div>
+        </div>
+        <div class="agree-signup-btn-wrapper">
+          <app-button classes="btn  btn-secondary btn-large" [submit]="true">
+            <span aria-hidden="true">{{'teacher.dashboard.search-lessons'|translate}}</span>
+          </app-button>
+          <app-button classes="btn  btn-primary btn-large" [submit]="true">
+            <span aria-hidden="true">{{'teacher.dashboard.explore-lessons'|translate}}</span>
+          </app-button>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+<div class="student-plan-body">
+  <div class="container">
+    <div class="content-wrapper">
+
+    </div>
+  </div>
+</div>
+
+
+<ng-template #deleteAssignment let-modal id="deleteAssignment">
+  <button type="button" class="close" aria-label="Close" (click)="closeOpenModal()">
+    <img src="./assets/images/close.png" alt="" class="img-fluid" />
+  </button>
+  <div class="modal-body">
+    <div class="delete-class">
+      <h2 class="modal-title">Delete Assignment</h2>
+      <h4>Are you sure you want to delete Assignment?</h4>
+      <div class="d-flex justify-content-between">
+        <app-button classes="btn btn-secondary mr-4" [submit]="true" (click)="closeOpenModal()">
+          <span aria-hidden="true">Cancel</span>
+        </app-button>
+        <app-button classes="btn btn-primary btn-block" [submit]="true" (click)="deleteCurrentAssignment(assignmentId)">
+          <span aria-hidden="true">Delete</span>
+        </app-button>
+      </div>
+    </div>
+  </div>
+</ng-template>

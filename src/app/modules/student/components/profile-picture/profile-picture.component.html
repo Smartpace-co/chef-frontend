@@ -1,0 +1,61 @@
+<app-student-nav></app-student-nav>
+<div class="profile">
+  <div class="container">
+    <div class="top-nav">
+      <div class="back-button-wrapper">
+        <app-button classes="btn small-btn btn-secondary mr-4 icon-btn btn-back" [submit]="true" (click)="onBack()">
+          <span aria-hidden="true">
+            <fa-icon [icon]="LeftArrow"></fa-icon>{{'common.back'| translate}}
+          </span>
+        </app-button>
+      </div>
+      <h3> {{'student.profile.profile-picture-label'| translate }}</h3>
+    </div>
+    <div class="profile-picture-wraper">
+      <div class="legend-card-white">
+        <legend> {{'student.profile.profile-picture-label'| translate }}</legend>
+        <div class="contain-wraper">
+          <div *ngFor="let item of profileImgList" class="select-profile">
+            <div class="profile-pic"><img src="{{item?.profileUrl}}" class="img-fluid" alt=""></div>
+            <div class="option">
+              <input type="radio" id="{{item.id}}" name="selector" value="{{item.id}}" (click)="onSelectImg(item)">
+              <label for="{{item.id}}">
+                <div class="ans-btn">
+                  <app-button classes="btn small-btn btn-legend-option btn-select" [submit]="true">
+                    <span aria-hidden="true">{{'school.edit-membership.select-label'|translate}}</span>
+                  </app-button>
+                </div>
+              </label>
+            </div>
+          </div>
+          <!-- <div class="select-profile">
+                      <div><img src="{{profileImgList?.profileUrl}}" class="img-fluid" alt=""></div>
+                      <div class="option">
+                          <input type="radio" id="{{profileImgList?.id}}" name="selector"value="{{profileImgList?.id}}">
+                            <label for="{{profileImgList?.id}}">
+                                <div class="ans-btn">
+                                  <app-button classes="btn small-btn btn-legend-option btn-select" [submit]="true">
+                                    <span aria-hidden="true">Select</span>
+                                  </app-button>
+                                </div>
+                          </label>
+                      </div>
+                  </div> -->
+          <!-- <div class="select-profile">
+                      <div><img src="{{profileImgList?.profileUrl}}" class="img-fluid" alt=""></div>
+                      <div class="option">
+                          <input type="radio" id="{{profileImgList?.id}}" name="selector"value="{{profileImgList?.id}}">
+                            <label for="{{profileImgList?.id}}">
+                                <div class="ans-btn">
+                                  <app-button classes="btn small-btn btn-legend-option btn-select" [submit]="true">
+                                    <span aria-hidden="true">Select</span>
+                                  </app-button>
+                                </div>
+                          </label>
+                      </div>
+                  </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

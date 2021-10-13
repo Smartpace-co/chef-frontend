@@ -1,0 +1,81 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css");
+
+.common-questions {
+    padding: 5rem 0rem;
+
+    .common-questions-profile-wrapper {
+        padding: 0rem 4rem 3.2rem;
+
+        @include breakpoint(mobile) {
+            padding: 0rem 2rem 2rem;
+        }
+
+        legend {
+            margin-bottom: 0;
+        }
+        .roster-filter {
+            width: 33rem;
+            border-radius: 1.4rem;
+            margin-bottom: 2.7rem;
+            @include breakpoint(mobile) {
+                width: 100%;
+            }
+            .container {
+                padding-left: 3.5rem;
+                flex-wrap: unset;
+                ::placeholder {
+                    color: $white;
+                }
+                ::ng-deep .form-control {
+                    padding: .8rem 3rem .8rem 1rem;
+                }
+            }
+        }
+        .question-list {
+            padding: 0 1rem;
+
+            @include breakpoint(mobile) {
+                padding: 0rem;
+            }
+
+            li {
+                margin-bottom: 2rem;
+                font-weight: 600;
+
+                a {
+                    display: flex;
+                    font-size: 1.6rem;
+                    line-height: 1.19;
+                    color: $secondary;
+                    @include breakpoint(mobile) {
+                        line-height: unset;
+                    }
+                    &::before {
+                        display: block;
+                        font-family: FontAwesome;
+                        content: "\f068";
+                        padding-right: 1.8rem;
+                        font-weight: normal;
+                    }
+                    &.collapsed {
+                        color: $white;
+                        &::before {
+                            content: "\f067";
+                        }
+                    }
+                }
+                .description {
+                    font-size: 1.4rem;
+                    line-height: 1.29;
+                    padding-left: 3rem;
+                    margin-top: 1rem;
+                    @include breakpoint(mobile) {
+                        text-align: justify;
+                    }
+                }
+            }
+        }
+    }
+}

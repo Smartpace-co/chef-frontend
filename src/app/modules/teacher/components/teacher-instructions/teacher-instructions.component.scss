@@ -1,0 +1,83 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+
+.teacher-instructions{
+  margin: 8rem 0;
+    .instructions-wrapper{
+      .instructions-list{
+          @include breakpoint(sm-mobile){
+            padding-left: 2rem;
+            padding-right: 2rem;
+          }
+          .heading-wraper{
+              margin-top: -2rem;
+              margin-bottom: 3rem;
+              .heading{
+                  margin: 0;
+              }
+          }
+        li{
+          display: flex;
+          .teacher-instructions-wrapper{
+            padding: 2.2rem 6rem 0rem;
+            width: calc(100%);
+            display: flex;
+            margin-bottom: 2rem;
+            border-radius: 5rem;
+            @include breakpoint(mobile) {
+              padding: 2.2rem 4rem 0rem;
+              margin-bottom: 4rem;
+            }
+            legend{
+              position: absolute;
+              padding-right: 4rem;
+              transform: translate(40%, -100%);
+              @include breakpoint(mobile) {
+                transform: translate(15%, -100%);
+              }
+              &.index{
+                width: 4rem;
+                height: 4rem;
+                padding: 0;
+                background: $blue-shade-1;
+                color: $white;
+                text-align: center;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                transform: translate(-165%, -100%);
+                padding-top: 0.5rem;
+                @include breakpoint(mobile) {
+                  transform: translate(-95%, -100%);
+                }
+              }
+            }
+            .description{
+              align-items: center;
+              display: flex;
+              margin-top: -2rem;
+              padding: 2rem 0;
+              .description-info{
+                width: calc(100% - 5rem);
+                @include breakpoint(mobile) {
+                  width: calc(100% - 5rem);
+                }
+                @include breakpoint(sm-mobile) {
+                    width: calc(100%);
+                  }
+                p{
+                  padding: 0;
+                  font-size: 1.7rem;
+                  font-weight: 700;
+                  color: $dark-grey;
+                  @include breakpoint(mobile) {
+                    font-size: 1.4rem;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+}

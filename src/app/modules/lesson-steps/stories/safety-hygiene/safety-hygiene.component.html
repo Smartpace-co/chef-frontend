@@ -1,0 +1,35 @@
+<app-lessons-headerbar [lessonHederConfig]="lessonHederConfig"></app-lessons-headerbar>
+<div class="hygiene-body ingredient-bg">
+  <app-scroll-down></app-scroll-down>
+  <div class="mr-4 safety-audio">
+    <span *ngIf="audioTrack">
+      <audio controls autoplay controlsList="nodownload">
+        <source [src]="audioTrack" type="audio/mp3">
+      </audio>
+    </span>
+  </div>
+  <div class="container">
+    <div class="card-wihtout-header-white hygiene-list-wrapper">
+      <ul>
+        <li class="hygiene-list" *ngFor="let item of hygieneList" (click)="onItemChange(item)">
+          <input type="radio" id="option{{item.id}}" name="selector">
+          <label class="card-wihtout-header-white " [attr.for]="'option' + item.id">
+            <div class="check-mark">
+              <span class="icon">
+                <fa-icon [icon]="check"></fa-icon>
+              </span>
+            </div>
+            <div class="discription">
+              <h5>{{item.desc}}</h5>
+            </div>
+          </label>
+        </li>
+      </ul>
+      <span class="final-editaion-img-wrapper">
+        <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
+      </span>
+    </div>
+  </div>
+</div>
+<app-lessons-footer [showPrevious]="showPrevious" [isVisiblePrevious]="isVisiblePrevious" (onNext)="onNext()"
+  (onPrevious)="onPrevious()"></app-lessons-footer>

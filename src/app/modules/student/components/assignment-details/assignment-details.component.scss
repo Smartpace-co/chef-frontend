@@ -1,0 +1,231 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+.assignment-details{
+  margin-bottom: 5rem;
+  .top-nav{
+    margin: 4rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    h3{
+        margin: 0;
+        padding-left: 2rem;
+        @include breakpoint(mobile){
+          font-size: 1.8rem;
+        }
+    }
+}
+  .content-wrapper{
+    .content-card{
+      border: 0.2rem solid rgba($border-color, 0.5);
+      @include breakpoint(smallmobile){
+        padding: 2rem;
+      }
+      .content-header{
+        padding-bottom: 4rem;
+          h4{
+              font-size: 1.6rem;
+              color: $yellow-shade-4;
+              display: flex;
+              flex-direction: column;
+              span{
+                line-height: 2.5rem;
+              }
+          }
+          .date-details{
+              margin-top: 2rem;
+              font-size: 1.4rem;
+              font-weight: 700;
+              li:nth-child(2) {
+                color: $yellow-shade-4;
+              }
+              li::before {
+                content: "•";
+                font-size: 3rem;
+                padding-right: 1rem;
+                line-height: 0rem;
+                vertical-align: middle;
+              }
+          }
+          .status{
+              margin-top: 2rem;
+              p{
+                  font-size: 1.4rem;
+                  font-weight: 700;
+              }
+          }
+          .status{
+            @include breakpoint(smallmobile){
+              margin-top: 2rem;
+            }
+          }
+      }
+      .content-main{
+          margin-bottom: 10rem;
+          .que-ans{
+              background-color: $blue-shade-1;
+              position: relative;
+              .que-ans-list{
+               border: none;
+               position: relative;
+                &::after{
+                  content: "";
+                  width: calc(100% + 8rem);
+                  height: 0.2rem;
+                  background: rgba($light-grey-1, 0.5);
+                  position: absolute;
+                  left: -4rem;
+                  bottom: 0;
+                  z-index: 1;
+                  @include breakpoint(smallmobile){
+                    left: -2rem;
+                    width: calc(100% + 4rem);
+                  }
+                }
+              }
+              .attempts-wraper{
+                display: flex;
+                justify-content: space-around;
+                @include breakpoint(smallmobile){
+                  padding-bottom: 4rem;
+                }
+                .attempts{
+                  display: flex;
+                  align-items: center;
+                  flex-direction: column;
+                  label{
+                    text-align: center;
+                  }
+                }
+              }
+          }
+          .que-ans::before{
+            content: "";
+            background-color: $blue-shade-1;
+            position: absolute;
+            right: 100%;
+            width: 4rem;
+            height: 100%;
+            @include breakpoint(smallmobile){
+              width: 2rem;
+            }
+          }
+          .que-ans::after{
+            content: "";
+            background-color: $blue-shade-1;
+            position: absolute;
+            left: 100%;
+            width: 4rem;
+            height: 100%;
+            top: 0;
+            @include breakpoint(smallmobile){
+              width: 2rem;
+            }
+          }
+          label{
+              font-size: 1.3rem;
+              color: $light-blue-shade;
+              margin: 0;
+              margin-top: 1.6rem;
+              font-weight: 700;
+          }
+          p{
+              font-size: 1.5rem;
+              font-weight: 700;
+          }
+          .activities{
+              display: flex;
+              padding: 2rem 0;
+              @include breakpoint(mobile){
+                display: flex;
+                flex-direction: column;
+              }
+            li{
+              font-weight: 700;
+            }
+            li:not(:first-child){
+              padding-left: 2rem;
+              @include breakpoint(mobile){
+                padding: 0;
+               }
+            }
+            li::before {
+                content: "•";
+                font-size: 3rem;
+                padding-right: 1rem;
+                line-height: 0rem;
+                vertical-align: middle;
+                color: $yellow-shade-4;
+              }
+          }
+      }
+    }
+  }
+}
+
+// checkbox//
+.checkmark-container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.checkmark-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 2.5rem;
+  width: 2.5rem;
+}
+
+/* On mouse-over, add a grey background color */
+// .checkmark-container:hover input ~ .checkmark {
+//   background-color: #ccc;
+// }
+
+/* When the checkbox is checked, add a blue background */
+// .checkmark-container input:checked ~ .checkmark {
+//   background-color: #2196F3;
+// }
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.checkmark-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkmark-container .checkmark:after {
+    left: 1rem;
+    top: -1rem;
+    width: 1.5rem;
+    height: 3rem;
+  border: solid $success;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}

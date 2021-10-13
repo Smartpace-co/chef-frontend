@@ -1,0 +1,425 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+
+.teacher-homepage{
+    margin: 3.5rem 0;
+    .homepage-header{
+        display: flex;
+        align-items: center;
+        app-button{
+            @include breakpoint(xtrasmallmobile){
+                width: 16rem;
+            }
+        }
+        .heading-wraper{
+            margin-left: 1rem;
+            .heading{
+                color: $yellow-shade-5;
+                margin: 0;
+            }
+        }
+    }
+    .statistics-class-wraper{
+        margin-top: 7rem;
+        .heading-wraper{
+            .heading{
+                text-align: center;
+            }
+        }
+        .class-data-wraper{
+            margin: 5rem 0;
+            .class-data{
+                background: $primary;
+                border: 0.1rem solid $border-color;
+                border-radius: 1.2rem;
+                position: relative;
+                padding: 2rem;
+                min-height: 25rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-between;
+                @include breakpoint(mobile){
+                    padding: 1rem;
+                    margin-top: 2rem;
+                }
+                .statistics-details{
+                    margin-top: 2rem;
+                    .details{
+                        text-align: center;
+                        margin: 0;
+                    }
+                }
+                .practice-details{
+                    .practice{
+                        margin: 0;
+                    }
+                }
+                .learn-more{
+                    a{
+                        font-size: 1.2rem;
+                        font-weight: 700;
+                        color: $yellow-shade-6;
+                    }
+                }
+            }
+        }
+    }
+    .student-activity-wraper{
+        .heading-wraper{
+            .heading{
+                text-align: center;
+                margin: 0;
+            }
+        }
+        .slider-wrapper{
+            position: relative;
+            .plans{
+              max-width: 35%;
+              display: flex;
+              justify-content: center;
+              flex-wrap: wrap;
+              margin: 0 auto;
+              z-index: 9;
+              @include breakpoint(sm-mobile){
+                max-width: 80%;
+              }
+              
+              .option{
+                margin: 1rem;
+                position: relative;
+                text-align: center;
+                .student-progress-activity{
+                  margin-top:2rem;
+                 .progress-activity-wraper{
+                     .progress-heading{
+                         .heading{
+                             font-size: 2rem;
+                             margin: 0;
+                             color: $yellow-shade-5;
+                         }
+                     }
+                     .status{
+                        margin: 1.5rem 0;
+                         .status-text{
+                             font-size: 1.6rem;
+                             font-weight: 700;
+                         }
+                     }
+                     .date-wraper{
+                         .date{
+                             font-size: 1.6rem;
+                             font-weight: 700;
+                         }
+                     }
+                 }
+                }
+             
+              }
+              .next-btn{
+                position: absolute;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                margin: auto;
+              }
+              .prev-btn{
+                position: absolute;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                margin: auto;
+              }
+             
+            }
+            .next-btn-wrapper{
+              font-size: 2rem;
+              font-weight: 700;
+              width: 3rem ;
+              height: 3rem;
+              position: absolute;
+              border-radius: 50%;
+              right: 30%;
+              top: 0;
+              bottom: 0;
+              margin: auto;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              @include breakpoint(sm-mobile){
+                  right: 0;
+              }
+              fa-icon{
+                color: $yellow-shade-5;
+                padding-top: 0.2rem;
+              }
+            }
+            .prev-btn-wrapper{ 
+              font-size: 2rem;
+              font-weight: 700;
+              width: 3rem ;
+              height: 3rem;
+              position: absolute;
+              border-radius: 50%;
+              left: 30%;
+              top: 0;
+              bottom: 0;
+              margin: auto;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              @include breakpoint(sm-mobile){
+                left: 0;
+            }
+              fa-icon{
+                color: $yellow-shade-5;
+                padding-top: 0.2rem;
+              }
+            } 
+        }
+        .soryBy-btn{
+          display: flex;
+          justify-content: center;
+          margin: 3rem 0 5rem;
+      }
+    }
+    .student-performance-wraper{
+        .card{
+            padding: 1.5rem;
+            padding-bottom: 0;
+            .student-performance{
+                overflow: auto;
+                .table-lesson-settings{
+                  color: $white;
+                  text-align: center;
+                  min-width: 65rem;
+                  .lesson-heading-wraper{
+                    border-bottom: 0.1rem solid rgba($white, 0.5);
+                    padding: 1rem 0 2rem;
+                      .table-heading{
+                        border-bottom: none;
+                        font-size: 2rem;
+                        font-weight: 700;
+                        padding-top: 0.5rem;
+                        padding-bottom: 0.5rem;
+                      }
+                      .performance-wraper{
+                          a{
+                              fa-icon{
+                                  padding: 0 1rem;
+                              }
+                          }
+                          .performance{
+                              display: block;
+                              text-align: center;
+                              font-size: 1.1rem;
+                              font-weight: 700;
+                          }
+                      }
+                      .score-wraper{
+                          .score{
+                            display: block;
+                            text-align: center;
+                            font-size: 1.1rem;
+                            font-weight: 700;
+                          }
+                      }
+                  }
+                  .student-profile-wraper{
+                    border-bottom: 0.1rem solid rgba($white, 0.5);
+                    padding: 1rem 0;
+                    &:last-child{
+                        border: none;
+                    }
+                    .settings{
+                      font-size: 1.4rem;
+                      font-weight: 700;
+                      .col-4{
+                        padding: 0.5rem 2rem;
+                      }
+                      
+                      &.visible-row{
+                       .student-profile{
+                           display: flex;
+                           .student-name{
+                              display: flex;
+                              align-items: center;
+                               .photo{
+                                   max-width: 3rem;
+                               }
+                               .name-wraper{
+                                   margin-left: 1.5rem;
+                                   .name{
+                                       font-size: 1.4rem;
+                                       font-weight: 700;
+                                       @include breakpoint(mobile){
+                                           font-size: 1.2rem;
+                                       }
+                                    }
+                                    .exclamation-icon{
+                                        color: $yellow-shade-5;
+                                        display: inline-block;
+                                        transform: translate(0, -15%);
+                                    }
+                               }
+                           }
+                           
+                       }
+                       .progress{
+                          margin: 0 auto;
+                          border: none;
+                          width: 20rem;
+                          height: 0.6rem;
+                          background-color: rgba($white, 0.5);
+                          .progress-bar{
+                            border-right: none;
+                            background-color: $yellow-shade-5;
+                          }
+                        }
+                        .percentage-wraper{
+                            .percentage{
+                                font-size: 1.8rem;
+                                fa-icon{
+                                    margin-left: 1rem;
+                                    font-size: 2rem;
+                                    color: $green-shade-4;
+                                }
+                            }
+                        }
+                        .status-wraper{
+                            font-size: 1.8rem;
+                        }
+                      
+                        &.collapsed{
+                          .up-arrow-icon{
+                            display: none;
+                          }
+                          .down-arrow-icon{
+                            display: inline-block;
+                          }
+                        }
+                      }
+                      &.hidden-row{
+                       
+                          .remainder-box{
+                              margin: 1rem 0 2rem;
+                             .checkmark-container {
+                                 display: block;
+                                 position: relative;
+                                 padding-left: 4.5rem;
+                                 cursor: pointer;
+                                 font-size: 1.4rem;
+                                 color: rgba($white, 0.5);
+                                 max-width: 80%;
+                                 text-align: left;
+                                 @include breakpoint(mobile){
+                                     max-width: 100%;
+                                 }
+  
+                                 input {
+                                       position: absolute;
+                                       opacity: 0;
+                                       cursor: pointer;
+                                       height: 0;
+                                       width: 0;
+                                   }
+                                   .checkmark {
+                                       position: absolute;
+                                       top: 0.6rem;
+                                       left: 0.4rem;
+                                       height: 2rem;
+                                       width: 2rem;
+                                       background-color: transparent;
+                                       border: 0.2rem solid $yellow-shade-5;
+                                   }
+                             }
+                             
+                             .checkmark-container input:checked ~ .checkmark {
+                                 background-color: #2196F3;
+                             }
+                             .checkmark:after {
+                                 content: "";
+                                 position: absolute;
+                                 display: none;
+                             }
+                             .checkmark-container input:checked ~ .checkmark:after {
+                                 display: block;
+                             }
+                             .checkmark-container .checkmark:after {
+                                 left: 0.9rem;
+                                 top: 0.5rem;
+                                 width: 0.5rem;
+                                 height: 1rem;
+                                 border: solid white;
+                                 border-width: 0 0.3rem 0.3rem 0;
+                                 -webkit-transform: rotate(45deg);
+                                 -ms-transform: rotate(45deg);
+                                 transform: rotate(45deg);
+                             }
+                          }
+                          .profile-btn-wraper{
+                              display: flex;
+                              margin-left: 4rem;
+                              app-button{
+                                  margin-left: 0.5rem;
+                              }
+                              @include breakpoint(mobile){
+                                  flex-direction: column;
+                                  app-button{
+                                      margin-bottom: 1rem;
+                                  }
+                              }
+                          }
+                          .skill-wraper{
+                              margin: 1rem 0;
+                              display: flex;
+                              justify-content: space-between;
+                              .skill-text{
+                                  font-size: 1.3rem;
+                                  font-weight: 700;
+                                  text-align: left;
+                              }
+                              .skill{
+                                  padding: 0 2rem;
+                              }
+                          }
+                          .skill-btn{
+                              margin-top: 2rem;
+                              text-align: left;
+                          }
+                          .fraction{
+                              display: flex;
+                              flex-direction: column;
+                              .fraction-text{
+                                 text-align: left;
+                                 padding: 1rem 0rem 1rem;
+                                  font-size: 1.3rem;
+                                  font-weight: 700;
+                                  @include breakpoint(mobile){
+                                    padding: 1rem 0rem 1rem;
+                                  }
+                              }
+                            .progress{
+                                border: none;
+                                width: 20rem;
+                                height: 0.8rem;
+                                background-color: rgba($green-shade-5, 0.2);
+                                @include breakpoint(mobile){
+                                    width: 16rem;
+                                    margin: 0 auto;
+                                }
+                                .progress-bar{
+                                  border-right: none;
+                                  background-color: $green-shade-5;
+                                }
+                              }
+                          }
+                      }
+                    }
+                }
+                }
+              }
+        }
+    }
+}
+

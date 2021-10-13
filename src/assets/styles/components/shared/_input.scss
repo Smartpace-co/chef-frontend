@@ -1,0 +1,642 @@
+.form-control {
+    background: $inputbg;
+    border-radius: 5rem;
+    padding: 1.5rem 3rem;
+    color: $white;
+    font-size: 1.4rem;
+    border: none;
+    height: auto;
+    margin-bottom: 1.2rem;
+    position: relative;
+    font-weight: 700;
+    &.action-textarea {
+        font-size: 2rem;
+        font-weight: 700;
+        @include breakpoint(mobile) {
+            font-size: 1.6rem;
+        }
+    }
+    &:focus {
+        background: $dark-grey;
+        box-shadow: none;
+        color: $white;
+    }
+    &::placeholder {
+        color: rgba($white, 0.5);
+    }
+    &.transparentbg {
+        background: transparent;
+    }
+    &.schoolForm {
+        &::placeholder {
+            font-weight: 700;
+        }
+    }
+}
+.form-control[readonly] {
+    background: $inputbg;
+    opacity: 1;
+}
+.form-control-white {
+    background: $white;
+    border-radius: 5rem;
+    padding: 1.5rem 3rem;
+    color: $inputbg;
+    font-size: 1.4rem;
+    font-weight: 700;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.3);
+    border: none;
+    height: auto;
+    margin-bottom: 1.2rem;
+    width: 100%;
+    &.action-textarea {
+        font-size: 2rem;
+        font-weight: 700;
+        @include breakpoint(mobile) {
+            font-size: 1.6rem;
+        }
+    }
+    &:focus {
+        background: $white;
+        color: $inputbg;
+    }
+    &::placeholder {
+        color: rgba($white, 0.5);
+    }
+    &.transparentbg {
+        background: transparent;
+    }
+    &.schoolForm {
+        &::placeholder {
+            font-weight: 700;
+        }
+    }
+    &.infoForm {
+        padding: 1.5rem 1.5rem;
+    }
+}
+.district-modal {
+    .form-control {
+        font-size: 1.6rem;
+        &::placeholder {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: $light-blue-shade-1;
+        }
+    }
+    &.access-code-modal {
+        .form-control {
+            text-align: center;
+        }
+    }
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: $white;
+}
+.custom-control-input {
+    z-index: 1;
+    width: 2rem;
+    height: 2rem;
+    opacity: 0;
+    &:checked {
+        opacity: 1;
+        border: none;
+        background: transparent;
+        left: 1.2rem;
+        top: -2px;
+    }
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.custom-radio {
+    position: relative;
+    padding-left: 4rem;
+    .custom-control-input {
+        padding-left: 0;
+        position: absolute;
+        left: 1rem;
+        top: 0;
+        opacity: 1;
+    }
+    .custom-control-label {
+        &:before,
+        &:after {
+            display: none;
+        }
+    }
+}
+.custom-checkbox {
+    position: relative;
+    padding-left: 3rem;
+    margin-bottom: 1.5rem;
+    .custom-control-label {
+        position: static;
+        font-size: 1.4rem;
+        color: rgba($white, 0.5);
+        font-weight: 600;
+        &:before,
+        &:after {
+            width: 2rem;
+            height: 2rem;
+            left: 0rem;
+            top: -0.3rem;
+        }
+        &:before {
+            border-radius: 0;
+            border-color: $secondary;
+        }
+    }
+    .login-remember {
+        &:before,
+        &:after {
+            background: transparent;
+            top: 0rem;
+        }
+    }
+    &.assign-lesson-checkbox {
+        display: flex;
+        align-items: center;
+        .custom-control-input {
+            top: 0.6rem;
+        }
+        .custom-control-label {
+            &:before,
+            &:after {
+                top: 0.6rem;
+            }
+        }
+        .custom-control-input:checked + .custom-control-label {
+            &:before {
+                background-color: $secondary;
+            }
+            &:after {
+                //    background-image: url('../../../../assets/images/check.png');
+                //    background-color:$secondary;
+                left: 0.6rem;
+                top: 0.8rem;
+                width: 0.6rem;
+                height: 1.3rem;
+                border: solid black;
+                border-width: 0 0.3rem 0.3rem 0;
+                transform: rotate(45deg);
+            }
+        }
+    }
+    .custom-control-input {
+        padding-left: 0;
+        position: absolute;
+        left: 0.2rem;
+        top: -0.3rem;
+        opacity: 0;
+        &:checked + .custom-control-label {
+            &:before {
+                background-color: $secondary;
+            }
+            &:after {
+                //    background-image: url('../../../../assets/images/check.png');
+                //    background-color:$secondary;
+                left: 0.6rem;
+                top: 0rem;
+                width: 0.6rem;
+                height: 1.3rem;
+                border: solid black;
+                border-width: 0 0.3rem 0.3rem 0;
+                transform: rotate(45deg);
+            }
+        }
+        &:checked + .login-remember {
+            &:after {
+                top: 0.3rem;
+                background-image: none;
+            }
+        }
+    }
+}
+
+// Multi Select list
+.multi-select {
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+    display: block;
+    span {
+        display: inline-block;
+    }
+    &__item {
+        background: $inputbg;
+        border-radius: 5rem;
+        padding: 0.8rem 1.5rem;
+        margin-bottom: 0.5rem;
+        margin-right: 0.5rem;
+        color: $white;
+        font-weight: 700;
+        font-size: 1.2rem;
+        fa-icon {
+            margin-left: 1rem;
+            cursor: pointer;
+            svg {
+                vertical-align: middle;
+            }
+        }
+    }
+}
+.multiselected {
+    span.dropdown-btn {
+        &:after {
+            content: "Selected values";
+        }
+    }
+}
+
+.studentItem {
+    .info {
+        display: inline-flex;
+        padding: 0.5rem 1rem;
+        width: auto;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        fa-icon {
+            margin-right: 0.8rem;
+            font-size: 1.2rem;
+        }
+        p {
+            font-size: 1.1rem;
+        }
+    }
+}
+.roster-filter,
+.assignment-filter,
+.archived-filter {
+    .form-control {
+        margin-bottom: 0;
+        padding-left: 1rem;
+        width: 31rem;
+        @include breakpoint(xtrasmallmobile) {
+            width: 20rem;
+            padding: 1rem;
+        }
+    }
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 4rem;
+    height: 1.5rem;
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        border-radius: 5rem;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba($white, 0.5);
+        -webkit-transition: 0.4s;
+        border: 0.3rem solid $black;
+        transition: 0.4s;
+        &:before {
+            position: absolute;
+            content: "";
+            height: 2rem;
+            width: 2rem;
+            left: -3px;
+            background-color: white;
+            -webkit-transition: 0.4s;
+            transition: 0.4s;
+            border-radius: 50%;
+            border: 0.3rem solid $black;
+            top: -5px;
+        }
+    }
+    input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+        &:focus {
+            .slider {
+                box-shadow: 0 0 1px $azure;
+            }
+        }
+        &:checked {
+            & + .slider {
+                background-color: $azure;
+                &::before {
+                    -webkit-transform: translateX(26px);
+                    -ms-transform: translateX(26px);
+                    transform: translateX(26px);
+                }
+            }
+        }
+    }
+}
+.dist-notifications,
+.school-settings-wrapper,
+.teacher-setting,
+.class-setting,
+.table-lesson-settings {
+    .switch {
+        width: 4.8rem;
+        height: 2.3rem;
+        .slider {
+            border: 0.3rem solid $twilight-blue;
+            &:before {
+                border: 0.3rem solid $twilight-blue;
+                height: 2.4rem;
+                width: 2.4rem;
+                top: -3.5px;
+                left: -5px;
+            }
+        }
+    }
+}
+.legend-card-white {
+    .switch {
+        input {
+            &:checked {
+                & + .slider {
+                    background-color: $navy-blue;
+                }
+            }
+        }
+    }
+}
+.multiselect-dropdown {
+    .dropdown-btn {
+        background: $inputbg !important;
+        border-radius: 5rem !important;
+        padding: 1.5rem 3rem !important;
+        color: rgba($white, 0.5) !important;
+        font-size: 1.4rem !important;
+        border: none !important;
+        font-weight: 700 !important;
+        .dropdown-multiselect__caret {
+            height: 100% !important;
+            &::before {
+                position: absolute !important;
+                right: 2rem !important;
+                top: 0 !important;
+                bottom: 0 !important;
+                margin: auto !important;
+                border: none !important;
+                content: "\2039" !important;
+                font-size: 2rem !important;
+                display: block !important;
+                transform: rotate(-90deg);
+                font-weight: bold !important;
+                width: 1rem !important;
+                height: 1rem !important;
+                color: rgba($white, 0.5) !important;
+            }
+        }
+        .selected-item {
+            display: none !important;
+            background: $inputbg !important;
+            border-radius: 5rem !important;
+            padding: 0.8rem 1.5rem !important;
+            margin-bottom: 0.5rem !important;
+            margin-right: 0.5rem !important;
+        }
+    }
+    .dropdown-list {
+        background-color: $inputbg !important;
+        border: none !important;
+        ul {
+            &::-webkit-scrollbar {
+                width: 1rem;
+            }
+            &::-webkit-scrollbar-thumb {
+                background: $yellow-shade-5;
+            }
+        }
+        .filter-textbox input {
+            background-color: transparent !important;
+            color: $white;
+            font-weight: 700;
+            &::placeholder {
+                color: $white !important;
+                font-weight: 700;
+            }
+        }
+        .multiselect-item-checkbox input[type="checkbox"] + div {
+            color: $white !important;
+            font-weight: 700;
+            &::before {
+                border: 2px solid $yellow-shade-5 !important;
+            }
+        }
+        .multiselect-item-checkbox:hover {
+            background-color: rgba($color: #000000, $alpha: 0.2) !important;
+        }
+    }
+}
+.dropup .dropdown-toggle::after {
+    position: absolute !important;
+    right: 2rem !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    margin: auto !important;
+    border: none !important;
+    content: "\2039" !important;
+    font-size: 2rem !important;
+    display: block !important;
+    transform: rotate(-90deg);
+    font-weight: bold !important;
+    width: 1rem !important;
+    height: 1rem !important;
+    color: $white !important;
+}
+.custom-control-input-lable {
+    background-color: $blue-shade-1;
+    border-radius: 5rem;
+    display: inline-block;
+    padding: 0.5rem;
+    min-width: 75%;
+    text-align: left;
+    @include breakpoint(xtrasmallmobile) {
+        min-width: 95%;
+    }
+    label {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin: 0;
+        padding: 1rem 1.5rem 1rem 3rem;
+        border-right: 1px solid;
+        width: 60%;
+        @include breakpoint(tabs) {
+            font-size: 1.6rem;
+        }
+        @include breakpoint(xtrasmallmobile) {
+            min-width: 70%;
+            padding: 1rem;
+        }
+    }
+    input {
+        background-color: $blue-shade-1;
+        color: $white;
+        font-size: 1.8rem;
+        font-weight: 700;
+        border: none;
+        height: auto;
+        border-bottom: 1px solid;
+        width: 4rem;
+        margin-left: 1.5rem;
+        @include breakpoint(tabs) {
+            font-size: 1.6rem;
+        }
+    }
+    &.dynamic-input {
+        input {
+            width: auto;
+        }
+    }
+}
+.custom-white-input-lable {
+    background-color: $white;
+    border-radius: 5rem;
+    margin-bottom: 2rem;
+    display: inline-block;
+    min-width: 85%;
+    text-align: left;
+    @include breakpoint(xtrasmallmobile) {
+        min-width: 100%;
+    }
+    &.input-small {
+        min-width: 60%;
+    }
+    label {
+        font-size: 1.8rem;
+        font-weight: 700;
+        border-top-left-radius: 5rem;
+        border-bottom-left-radius: 5rem;
+        margin: 0;
+        padding: 1.5rem 0rem 1.5rem 3rem;
+        background-color: $blue-shade-1;
+        width: 50%;
+        @include breakpoint(mobile) {
+            font-size: 1.6rem;
+            padding: 1.5rem 0rem 1.5rem 2rem;
+        }
+        @include breakpoint(xtrasmallmobile) {
+            font-size: 1.3rem;
+            padding: 1.5rem 0rem 1.5rem 1.5rem;
+        }
+    }
+    span {
+        width: 50%;
+        display: inline-block;
+        input {
+            color: $blue-shade-1;
+            font-size: 1.8rem;
+            font-weight: 700;
+            border: none;
+            height: auto;
+            border-bottom: 1px solid;
+            width: 4rem;
+            margin-left: 1.5rem;
+            @include breakpoint(mobile) {
+                font-size: 1.6rem;
+            }
+            @include breakpoint(xtrasmallmobile) {
+                font-size: 1.3rem;
+            }
+        }
+    }
+}
+.custom-blue-input-lable {
+    background-color: $blue-shade-1;
+    border-radius: 5rem;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+    min-width: 20rem;
+    text-align: left;
+    label {
+        font-size: 1.8rem;
+        font-weight: 700;
+        border-radius: 5rem;
+        margin: 0;
+        padding: 1.5rem 0rem 1.5rem 2rem;
+        background-color: $blue-shade-1;
+        width: 50%;
+        @include breakpoint(mobile) {
+            font-size: 1.6rem;
+        }
+        @include breakpoint(xtrasmallmobile) {
+            font-size: 1.3rem;
+        }
+    }
+    span {
+        width: 50%;
+        display: inline-block;
+        input {
+            background-color: $blue-shade-1;
+            color: $white;
+            font-size: 1.8rem;
+            font-weight: 700;
+            border: none;
+            height: auto;
+            border-bottom: 1px solid;
+            width: 6rem;
+            margin-left: 2.5rem;
+            @include breakpoint(mobile) {
+                font-size: 1.6rem;
+            }
+            @include breakpoint(xtrasmallmobile) {
+                font-size: 1.3rem;
+            }
+        }
+    }
+}
+.calendarIcon {
+    background: $inputbg;
+    right: 1.5rem;
+    top: 0;
+    bottom: 0;
+    color: $white;
+    border-top-right-radius: 5rem;
+    border-bottom-right-radius: 5rem;
+    width: 5rem;
+}
+.form-control {
+    &:focus > .calendarIcon {
+        background: $dark-grey;
+    }
+}
+.profile-info-wraper {
+    .form-control-white {
+        padding: 1.5rem 1rem;
+        &.grade,
+        &.age {
+            text-align: center;
+        }
+    }
+}
+.search-section {
+    .form-group {
+        margin-bottom: 0;
+        width: 100%;
+    }
+    .form-control {
+        background: transparent;
+        margin-bottom: 0rem;
+        padding: 0.5rem 3rem;
+        &:focus {
+            background: transparent;
+        }
+    }
+    .calendarIcon {
+        background: transparent;
+    }
+}

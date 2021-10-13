@@ -1,0 +1,59 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+.admin-billing{
+  padding: 3rem 0rem 5rem 0rem;
+  .billing-heading-wrapper{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    align-items: center;
+    @include breakpoint(mobile){
+      flex-wrap: wrap;
+    }
+    h4{
+      @include breakpoint(mobile){
+        margin-bottom: 1rem;
+      }
+    }
+  }
+  .btn-wrapper{
+    .print-icon{
+      width: 2.5rem;
+      display: inline-block;
+    }
+  }
+  .billing-wrapper{
+    padding: 1.5rem 4rem;
+    max-width: 80%;
+    @include breakpoint(mobile){
+      max-width: 100%;
+    }
+    ul{
+      li{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2.5rem 0rem;
+        border-bottom: 0.5px solid $border-color;
+        &:last-child{
+          border-bottom: none;
+        }
+        @include breakpoint(sm-mobile){
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+        p{
+          padding: 0;
+          font-size: 1.4rem;
+          font-weight: 700;
+          @include breakpoint(sm-mobile){
+            width: 100%;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+}

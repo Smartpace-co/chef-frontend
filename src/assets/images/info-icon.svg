@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke: #707070;
+        opacity: 0.8;
+      }
+
+      .cls-2 {
+        fill: #fddc02;
+      }
+
+      .cls-3 {
+        stroke: none;
+      }
+
+      .cls-4 {
+        fill: none;
+      }
+    </style>
+  </defs>
+  <g id="Group_4595" data-name="Group 4595" transform="translate(-224.244 -363.244)">
+    <g id="Ellipse_325" data-name="Ellipse 325" class="cls-1" transform="translate(228 366)">
+      <ellipse class="cls-3" cx="9.5" cy="11" rx="9.5" ry="11"/>
+      <ellipse class="cls-4" cx="9.5" cy="11" rx="9" ry="10.5"/>
+    </g>
+    <path id="information" class="cls-2" d="M13.5,0A13.5,13.5,0,1,0,27,13.5,13.515,13.515,0,0,0,13.5,0Zm.878,21.51c-.641.107-1.918.374-2.566.428a1.579,1.579,0,0,1-1.382-.719,1.687,1.687,0,0,1-.2-1.545l2.552-7.017H10.125a3.172,3.172,0,0,1,2.5-2.95,9.769,9.769,0,0,1,2.565-.425A2.035,2.035,0,0,1,16.569,10a1.687,1.687,0,0,1,.2,1.545l-2.552,7.017h2.652a2.987,2.987,0,0,1-2.5,2.947Zm.809-13.072A1.688,1.688,0,1,1,16.875,6.75a1.688,1.688,0,0,1-1.688,1.688Z" transform="translate(224.244 363.244)"/>
+  </g>
+</svg>

@@ -1,0 +1,31 @@
+
+
+<div class="discussion-forum-inner">
+  <div class="container">
+    <div class="discussion-profile-wrapper legend-card">
+      <legend>{{'school.report-issue.report-history-label'|translate}}</legend>
+      <div class="page-wrapper" *ngIf="reportHistory">
+        <div class="discussion-wraper">
+          <ul class="instructions">
+            <li><span class="instructions-heading">{{'school.report-issue.type-lable'|translate}} :</span>{{reportHistory.type}}</li>
+          </ul>
+          <h6 class="discussion-label">{{'school.report-issue.me-lable'|translate}}: {{reportHistory.description}}</h6>
+          <div class="report-img">
+            <img src="{{reportHistory.attachment}}" alt="" class="img-fluid" />
+            <!--<div class="discussion-btn">
+              <app-button classes="btn btn-primary">
+                <span aria-hidden="true">Download</span>
+              </app-button>
+            </div>-->
+          </div>
+        </div>
+        <div class="reply-wraper">
+          <h6 class="reply-label">{{'school.report-issue.CMS-lable'|translate}}: </h6>
+          <ul class="reply">
+            <li>{{reportHistory.reportReply}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

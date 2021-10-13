@@ -1,0 +1,11 @@
+@import "../../../../../../assets/styles/helpers/variables";
+@import "../../../../../../assets/styles/helpers/mixins";
+
+.disabled {
+   .icon-bg-yellow {
+       box-shadow: none;  
+       pointer-events: none;
+       background-color:$text-muted;
+    }
+    cursor: not-allowed;
+}

@@ -1,0 +1,22 @@
+<footer class="lessons-footer">
+    <div class="container">
+      <div class="row previous-next">
+        <div *ngIf="showPrevious" class="previous"  [class.disabled]="isVisiblePrevious">
+          <div class="icon-bg-yellow back-arrow">
+            <img src="./assets/images/right-arrow.png" alt="" (click)="onPreviousPage()" class="img-fluid" />
+          </div>
+          <h6>
+            {{'student.assigned-lessons.previous-btn-label'| translate }}
+          </h6>
+        </div>
+        <div *ngIf="showNext" class="next" [class.disabled]="isVisibleNext">
+          <div class="icon-bg-yellow next-arrow">
+            <img src="./assets/images/right-arrow.png" alt="" (click)="onNextPage()" class="img-fluid" />
+          </div>
+          <h6>
+            {{'table-component.next'| translate}}
+          </h6>
+        </div>
+      </div>
+    </div>
+  </footer>

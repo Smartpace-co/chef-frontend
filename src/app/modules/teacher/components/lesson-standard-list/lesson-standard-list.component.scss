@@ -1,0 +1,156 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+
+.lesson-subcard{
+//    width: 70vw !important;
+    width: calc(300% + 6rem) !important;
+    @include breakpoint(tabs){
+        width: calc(200% + 3.5rem) !important;
+    }
+    @include breakpoint(sm-mobile){
+        width: 100% !important;
+    }
+}
+.lesson-subcard-withoutside{
+   // width: 90vw !important;
+    width: calc(300% + 6rem) !important;
+    @include breakpoint(tabs){
+        width: calc(200% + 3.5rem) !important;
+    }
+    @include breakpoint(sm-mobile){
+        width: 100% !important;
+    }
+}
+// .main-card{
+//     height: fit-content;
+// }
+// 
+
+.explore-lessons{
+    margin:4rem 0;
+    width:100%;
+    overflow-x: hidden;
+    
+    .container-fluid{
+        @include breakpoint(mobile){
+            &.pr-0{
+                padding-right:3% !important;
+            }
+        }
+        > .d-flex{
+            @include breakpoint(mobile){
+                flex-wrap: wrap;
+            }
+        }
+        .btn-top{
+            display: flex;
+            justify-content: flex-end;
+        }
+        .left-col{
+            width: auto;
+            padding:0 1.5rem 0 0;
+            @include breakpoint(mobile){
+                width:100%;
+                padding:0 1.5rem;
+            }
+        }
+        .right-col{
+            width: auto;
+            // padding:0 0 0 1.5rem;
+            @include breakpoint(mobile){
+                width:100%;
+                padding:0 1.5rem;
+            }
+            .main-card{
+                margin-bottom: 3rem;
+                min-width: 32rem;
+                @include breakpoint(mobile){
+                    min-width: 28rem;
+                }
+            }
+            .explore-search{
+                background: $twilight-blue;
+                padding:1rem 2.5rem;
+                display: block;
+                margin-top:2.5rem;
+                @include breakpoint(mobile){
+                    display: flex;
+                    align-items: center;
+                }
+                .form-control{
+                    background-color: transparent;
+                    border: none;
+                    display: inline-block;
+                    margin-left:1rem;
+                    width:50rem;
+                    padding:0.5rem 1rem;
+                    margin-bottom: 0;
+                    @include breakpoint(mobile){
+                        width:90%;
+                    }
+                }
+            }
+            .featureSubject{
+                margin-top:3rem;
+                .explore-landing-header{
+                    display: flex;
+                    justify-content: space-between;
+                    a{
+                        font-weight: 700;
+                    }
+                }
+                &__main{
+                    display: flex;
+                    flex-direction: column;
+                    border: 0.1rem solid $grey-shade-4;
+                    border-radius: 2rem;
+                    margin: 1rem 0;
+                    // width:100%;
+                }
+                &__item{
+                    background: $primary;
+                    border:1px solid $border-color;
+                    border-radius:1.2rem;
+                    flex:0 0 35%;
+                    margin-right:3rem;
+                    display: flex;
+                    flex-direction: column;
+                    max-width: 30rem;
+                    &:last-child{
+                        margin-right: 0;
+                    }
+                }
+                &__info{
+                    padding: 2rem;
+                    p{
+                        padding: 0;
+                        font-weight: bold;
+                        color:rgba($white, 0.5);
+                    }
+                }
+                &__title{
+                    font-size:1.6rem;   
+                    width: 100%;
+                    margin-bottom: 0;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+                &__image{
+                    overflow: hidden;
+                    border-radius:1.2rem 1.2rem 0 0;
+                    max-width: 100%;
+                    max-height: 13rem;
+                    img{
+                        max-width: 100%;
+                    }
+                }
+                &__lessons{
+                    font-weight: 700;
+                }
+            }
+        }
+    }
+}
+
+

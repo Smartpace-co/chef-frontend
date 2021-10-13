@@ -1,0 +1,154 @@
+<app-student-nav></app-student-nav>
+<div class="class-settings">
+  <div class="container">
+    <div class="settings-top">
+      <span class="back-btn-wrapper">
+        <app-button routerLink="/student/student-landing" classes="btn small-btn btn-secondary mr-4 icon-btn btn-back"
+          [submit]="true">
+          <!-- <fa-icon [icon]="PlusIcon"></fa-icon> -->
+          <span aria-hidden="true">
+            <fa-icon [icon]="LeftArrow"></fa-icon>{{'common.back'| translate}}
+          </span>
+        </app-button>
+      </span>
+      <h6>{{ 'school.setting.setting-page-label' | translate }}</h6>
+    </div>
+    <div class="settings-body">
+      <div class="row">
+        <div class="col-sm-12 col-md-6">
+          <div class="row">
+            <div class="col-sm-12 legend-wrapper">
+              <div class="legend-card-white">
+                <legend>{{ 'school.setting.notification-label' | translate }}</legend>
+                <div class="settings">
+                  <ul class="toggle-list" *ngFor="let item of notificationSetting">
+                    <li>
+                      <label>{{item.notification}}</label>
+                      <label class="switch">
+                        <input type="checkbox" [(ngModel)]="item.isEnable" [checked]="item.isEnable"
+                          (click)="onSettingsUpdate(item)">
+                        <span class="slider round"></span>
+                      </label>
+                    </li>
+                    <!-- <li>
+                          <label>Notify me when I complete assignments</label>
+                          <label class="switch">
+                              <input type="checkbox" name="completeAssignment" [(ngModel)]="notification.completeAssignment">
+                              <span class="slider round"></span>
+                          </label>
+                      </li>
+                      <li>
+                          <label>Notify me when membership payment is due</label>
+                          <label class="switch">
+                              <input type="checkbox" name="paymentDue" [(ngModel)]="notification.paymentDue">
+                              <span class="slider round"></span>
+                          </label>
+                      </li>
+                      <li>
+                        <label>Notify me when there are application updates available</label>
+                        <label class="switch">
+                            <input type="checkbox" name="updateNotification" [(ngModel)]="notification.updateNotification">
+                            <span class="slider round"></span>
+                        </label>
+                    </li> -->
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12 legend-wrapper">
+              <div class="legend-card-white">
+                <legend>{{ 'school.setting.parent-notification-label' | translate }}</legend>
+                <div class="settings">
+                  <div class="heading-wraper">
+                    <h6 class="heading">{{ isParentNotification }}</h6>
+                    <label class="switch">
+                      <input type="checkbox" [(ngModel)]="isParentEnabled" [checked]="isParentEnabled"
+                        (click)="onParentUpdate()">
+                      <span class="slider round"></span>
+                    </label>
+                  </div>
+                  <ul class="toggle-list mt-4" *ngFor="let item of parentNotification">
+                    <li [ngClass]="isParentEnabled ? 'parent': 'parent disabled'">
+                      <label>{{item.value}}</label>
+                      <label class="switch">
+                        <input type="checkbox" [(ngModel)]="item.isEnable" [checked]="item.isEnable"
+                          (click)="onSettingsUpdate(item)">
+                        <span class="slider round"></span>
+                      </label>
+                    </li>
+                    <!-- <li>
+                                <label>When my performance report is ready</label>
+                                <label class="switch">
+                                    <input type="checkbox" name="reportReady" [(ngModel)]="parentNotifications.reportReady">
+                                    <span class="slider round"></span>
+                                </label>
+                            </li>
+                            <li>
+                                <label>When I complete assignments</label>
+                                <label class="switch">
+                                    <input type="checkbox" name="completeAssignment" [(ngModel)]="parentNotifications.completeAssignment">
+                                    <span class="slider round"></span>
+                                </label>
+                            </li>
+                            <li>
+                                <label>When membership payment is due</label>
+                                <label class="switch">
+                                    <input type="checkbox" name="paymentDue" [(ngModel)]="parentNotifications.paymentDue">
+                                    <span class="slider round"></span>
+                                </label>
+                            </li>
+                            <li>
+                              <label>When there are application updates available</label>
+                              <label class="switch">
+                                  <input type="checkbox" name="updateNotification" [(ngModel)]="parentNotifications.updateNotification">
+                                  <span class="slider round"></span>
+                              </label>
+                          </li> -->
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+          <div class="row">
+            <!-- <div class="col-sm-12 legend-wrapper">
+              <div class="legend-card-white">
+                <legend>{{ 'school.setting.data-privacy-label' | translate }}</legend>
+                <div class="settings">
+                  <ul class="toggle-list" *ngFor="let item of dataPrivacy">
+                    <li>
+                      <label>{{item.privacy}}</label>
+                      <label class="switch">
+                        <input type="checkbox" [(ngModel)]="item.isEnable" [checked]="item.isEnable"
+                          (click)="onSettingsUpdate(item)">
+                        <span class="slider round"></span>
+                      </label>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div> -->
+            <div class="col-sm-12 legend-wrapper">
+              <div class="legend-card-white">
+                <legend>{{ 'school.setting.language-label' | translate }}</legend>
+                <div class="settings">
+                  <ul class="toggle-list">
+                    <li class="language-list">
+                      <label>{{ 'school.setting.set-languge-label' | translate }}</label>
+                    </li>
+                    <div class="language">
+                      <app-drop-down class="class-dropdown" [dropDownButtonName]="languageTitle"
+                        (registerDropdownValueChange)="onLanguageChange($event)" [dropDownItemList]="languageList">
+                      </app-drop-down>
+                    </div>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

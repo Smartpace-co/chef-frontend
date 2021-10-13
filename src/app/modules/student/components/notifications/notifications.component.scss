@@ -1,0 +1,90 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+.notifications{
+  .notifications-top{
+    .heading{
+      margin-bottom: 0;
+    }
+  }
+  .notifications-body{
+    padding: 10rem;
+    @include breakpoint(tabs){
+      padding: 5rem;
+    }
+    @include breakpoint(mobile){
+      padding: 0rem;
+    }
+    .legend-card-white{
+      @include breakpoint(mobile){
+        padding-left: 2rem;
+        padding-right: 2rem;
+      }
+      .count{
+        height: 30px;
+        width: 30px;
+        display: inline-block;
+        color: $white;
+        background: $black;
+        border-radius: 50%;
+        text-align: center;
+        font-size: 1.4rem;
+        padding: 7px 0px;
+      }
+    }
+    .notifications-List{
+      ul{
+        li{
+          display: flex;
+          align-items: center;
+          border-bottom: 1px solid $black;
+          padding: 1.5rem 0.5rem;
+          &:last-child{
+            border-bottom:none;
+          }
+          @include breakpoint(mobile){
+            flex-wrap: wrap;
+          }
+          .description{
+            padding-left: 1.5rem;
+            // width: calc(100% - 25rem);
+            // @include breakpoint(mobile){
+            //   width: calc(100% - 5rem);
+            // }
+            .sub-info{
+              color: $black;
+              padding: 0;
+              font-size: 1.2rem;
+              font-weight: 700;
+              &.unseen{
+                color: rgba($color: $black, $alpha: 0.5);
+              }
+            }
+            .main-info{
+              color: $black;
+              padding: 0;
+              font-size: 1.4rem;
+              font-weight: 700;
+              &.unseen{
+                color: rgba($color: $black, $alpha: 0.5);
+              }
+            }
+          }
+          .status-btn-wrapper{
+            margin-left: auto;
+
+            @include breakpoint(mobile){
+              text-align: center;  
+              margin: 0 auto;
+              margin-top: 2rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.disabled {
+  pointer-events:none;  
+  opacity:0.6;          
+}

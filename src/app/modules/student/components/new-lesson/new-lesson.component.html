@@ -1,0 +1,31 @@
+<app-lessons-headerbar [isButtonSection]="isButtonSection"></app-lessons-headerbar>
+<div class="new-lesson ingredient-bg">
+  <div class="container">
+    <div class= "content-wrapper">
+      <div class="points">
+        <img src="./assets/images/WoodenBoard.png" alt="" class="img-fluid" />
+        <span class="point-value">1200</span>
+        <span class="point-title">points</span>
+      </div>
+       <div class="recipe">
+         <div class="recipe-heading">
+            <h2>Pancit Palabok</h2>
+            <span class="date">03/06/2020</span>
+         </div>
+        <div class="recipe-image">
+          <img src="./assets/images/Nsima-lg.png" alt="" class="img-fluid" />
+        </div>
+       </div>
+       <div class="Inquirer">
+          <div class="Inquirer-bord">
+            <img src="./assets/images/Inquirer-board.png" alt="" class="img-fluid" />
+            <span  class="inquirer-title">Inquirer</span>
+            <span class="inquirer-img">
+              <img src="./assets/images/inquirer.png" alt="" class="img-fluid" />
+            </span>
+          </div>
+       </div>
+    </div>
+  </div>
+</div>
+<app-lessons-footer (onNext)="onNext()" (onPrevious)="onPrevious()"></app-lessons-footer>

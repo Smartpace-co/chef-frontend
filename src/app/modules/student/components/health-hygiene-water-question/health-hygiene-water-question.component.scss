@@ -1,0 +1,95 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+.exercise-body{
+  padding-top: 0rem;
+  padding-bottom: 10rem;
+  min-height: calc(100vh - 24.2rem);
+  position: relative;
+  @include breakpoint(mobile) {
+    min-height: calc(100vh - 33rem);
+    padding-top: 0rem;
+  }
+  .content-wrapper{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    .card-wihtout-header-blue{
+      display: inline-block;
+      max-width: 58rem;
+      padding: 3rem;
+      margin-top: 10rem;
+      .question-wrapper{
+        padding-top: 2rem;
+        line-height: 1.4;
+        h6{
+          max-width: 40rem;
+          margin: 0 auto;
+        }
+      }
+      .instuctions{
+        font-size: 1.3rem;
+        font-weight: 700;
+        padding:1rem;
+      }
+      .answers{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        .option{
+          // flex: 0 0 calc((100% - 10rem) / 5);
+          margin: 1rem;
+          margin-bottom: 1.5rem;
+          position: relative;
+          .check-mark{
+            position: relative;
+            display: inline-block;
+            margin-top: 2rem;
+            label{
+                .option-image{
+                  max-width: 7.5rem;
+                  position: relative;
+                  .count{
+                    position: absolute;
+                    top: 2.5rem;
+                    bottom: 0;
+                    margin: auto;
+                    left: 0;
+                    right: 0;
+                    color: $black;
+                    font-size: 2.6rem;
+                    font-weight: 700;
+                    @include breakpoint(mobile) {
+                      font-size: 2rem;
+                    }
+                  }
+                }
+            } 
+            input[type="checkbox"] {
+              opacity: 0;
+              width: 100%;
+              height: 100%;
+              position: absolute;
+              z-index: 9;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+  }
+  .done-btn{
+    position: absolute;
+    z-index: 9999;
+    text-align: center;
+    bottom: -2rem;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+  }
+  
+}
+.exercise-footer{
+  background-color: #1a46c5;
+  height: 10rem;
+  width: 100%;
+}

@@ -1,0 +1,304 @@
+<div class="explore-lesson-setting">
+    <div class="container">
+        <form [formGroup]="AssignLesson" >
+        <div class="card">
+            <h3 class="page-title">{{'teacher.dashboard.assign-lesson-label'|translate}}</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="lesson_info">
+                        <div class="lesson_info__image">
+                            <img [src]="lessonInfo?.recipeImage" alt="" class="img-fluid" />
+                        </div>
+                        <div class="lesson_info__content">
+                            <div class="lesson_info__content__top">
+                                <h6>{{formInfo.title}}</h6>
+                                <div class="rating-bookmark">
+                                    <span class="rating">4.5 <fa-icon [icon]="Star"></fa-icon></span>
+                                    <span class="bookmark" [class.active]="bookmark">
+                                        <span (click)="bookmarkClass(lessonInfo)">
+                                            <fa-icon [icon]="BookmarkIcon" class="addBookmark"></fa-icon>
+                                            <ng-template [ngIf]="bookmark">
+                                                <fa-icon [icon]="BookmarkIcon"></fa-icon>
+                                            </ng-template>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                            <ul>
+                                <li>
+                                    <label>{{'student.assigned-lessons.duration'| translate }}:</label>
+                                    <strong> {{lessonInfo?.estimatedMakeTime}}</strong>
+                                </li>
+                                <li>
+                                    <label>{{'teacher.explore-lessons.grades'|translate}}:</label>
+                                    <strong> {{recipeData.lesson.grade?.grade}}</strong>
+                                </li>
+                               
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                         <!-- Date Picker -->                    
+                         <div class="col-sm-6 calendar">
+                            <label>{{'teacher.explore-lessons.start-date'|translate}}</label>
+                            <div class="input-group">
+                                <input #dpFromDate
+                                        class="form-control" placeholder="mm-dd-yyyy"
+                                        name="dpFromDate"
+                                        [(ngModel)]="selectedFromDate"
+                                        [ngModelOptions]="{standalone: true}"
+                                        disabled
+                                        [value]="dateValue(fromDate)"
+                                        (input)="fromDate = validateInput(fromDate, dpFromDate.value)">
+                                <div class="input-group-append">
+                                    <button class="calendarIcon" (click)="datepicker.toggle()" type="button">
+                                        <fa-icon [icon]="Calendar"></fa-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 calendar">
+                            <label>{{'student.lesson-report.end-date'| translate }}</label>
+                            <div class="input-group">
+                                <input #dpToDate
+                                        class="form-control" placeholder="mm-dd-yyyy"
+                                        name="dpToDate"
+                                        [(ngModel)]="selectedToDate"
+                                        [ngModelOptions]="{standalone: true}"
+                                        disabled
+                                        [value]="dateValue(toDate)"
+                                        (input)="toDate = validateInput(toDate, dpToDate.value)">
+                                <div class="input-group-append">
+                                    <button class="calendarIcon" (click)="datepicker.toggle()" type="button">
+                                        <fa-icon [icon]="Calendar"></fa-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group hidden">
+                            <div class="input-group explore-date">
+                              <input name="datepicker"
+                                     class="form-control"
+                                     ngbDatepicker
+                                     #datepicker="ngbDatepicker"
+                                     [autoClose]="'outside'"
+                                     (dateSelect)="onDateSelection($event)"
+                                     [displayMonths]="2"
+                                     [dayTemplate]="t"
+                                     outsideDays="hidden"
+                                     [startDate]="fromDate!"
+                                     tabindex="-1">
+                              <ng-template #t let-date let-focused="focused">
+                                <span class="custom-day"
+                                      [class.focused]="focused"
+                                      [class.range]="isRange(date)"
+                                      [class.faded]="isHovered(date) || isInside(date)"
+                                      (mouseenter)="hoveredDate = date"
+                                      (mouseleave)="hoveredDate = null">
+                                  {{ date.day }}
+                                </span>
+                              </ng-template>
+                            </div>
+                        </div>
+                        <!-- Date Picker -->
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>{{'teacher.explore-lessons.assignment-title.assignment-title-field'|translate}} (*)</label>
+                    <app-input-field classes="form-control" types="text" ids="title" fieldControl="title"
+                        [form]="AssignLesson" placeholders="{{'teacher.explore-lessons.assignment-title.placeholder'|translate}}" value="" (change)="validLessonTitle($event)" 
+                        [ngClass]="{ 'is-invalid': formControl.title.touched && formControl.title.errors }">
+                    </app-input-field>
+                    <div *ngIf="formControl.title.errors" class="invalid-feedback">
+                        <div class="error" *ngIf="formControl.title.errors?.required">{{'teacher.explore-lessons.assignment-title.required'|translate}</div>
+                    </div>
+                    <div class="error" *ngIf="formControl.title.errors?.titleValidate">
+                        <div class="error">{{'teacher.explore-lessons.assignment-title.valid'|translate}}</div>
+                      </div>
+                </div>
+                <div class="col-md-6">
+                    <label>{{'teacher.explore-lessons.assign-to-class'|translate}} (*)</label>
+                    <app-drop-down class="formDropdown" [dropDownButtonName]="classTitle" [dropDownIcon]=""
+                        fieldControl="class" [dropDownItemList]="classList" (registerDropdownValueChange)="classChange($event)"
+                        [ngClass]="{ 'is-invalid': formControl.class.touched && formControl.class.errors }">
+                    </app-drop-down>
+                    <div *ngIf="formControl.class.errors" class="invalid-feedback">
+                        <div class="error" *ngIf="formControl.class.errors?.required">{{'teacher.explore-lessons.assign-to-class-required'|translate}}</div>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="customise-lesson">
+                <h2 class="section-title">{{'teacher.explore-lesson-setting.customize-the-lesson'|translate}}</h2>
+                <p class="customise-info">{{'teacher.explore-lesson-setting.customize-lesson-label'|translate}}</p>
+                <ul class="customise-lesson-list">
+                    <li class="heading">
+                        <div class="activities">
+                            <span></span> {{'teacher.explore-lesson-setting.activities-label'|translate}}
+                        </div>
+                        <div class="estimated-time">
+                            {{'teacher.explore-lesson-setting.estimated-time-label'|translate}}
+                        </div>
+                        <div class="switch-btn">
+                            {{'teacher.explore-lesson-setting.enable-or-disable'|translate}}
+                        </div>
+                    </li>
+                    <li *ngFor="let item of activities" >
+                        <div (click)="toggle(item)" [attr.aria-expanded]="item.isCollapsed" aria-controls="collapseExample">
+                            <div  class="d-flex">
+                                <div class="activities">
+                                    <span><img src="{{item.icon}}" class="img-fluid" /></span> 
+                                    <span class="activities-title">{{item.title}}</span> 
+                                    <fa-icon *ngIf="item.title !== 'Story' && item.title !== 'Assessments'" (click)="funcActivities(item.title)" [icon]="dropIcon" ></fa-icon>
+                                    
+                                </div>
+                                <div class="estimated-time">
+                                    {{item.time}}
+                                </div>
+                                <div class="switch-btn">
+                                    <label class="switch">
+                                        <input type="checkbox" [checked]="item.status" value="{{item.status}}" (change)="onItemStatus(item)">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngFor="let subactivities of item.cooking" #collapse="ngbCollapse" [(ngbCollapse)]="!item.isCollapsed">
+                            <div  class="d-flex">
+                                <div class="activities">
+                                    <span></span> 
+                                    {{subactivities.culinaryTechniqueTitle}}
+                                </div>
+                                <div class="estimated-time">
+                                    {{subactivities.estimatedTime}}
+                                </div>
+                                <div class="switch-btn">
+                                    <label class="switch">
+                                        <input type="checkbox" [checked]="subactivities.status" value="{{subactivities.status}}" (change)="onItemStatus(subactivities)">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngFor="let subactivities of item.Activities" #collapse="ngbCollapse" [(ngbCollapse)]="!item.isCollapsed">
+                            <div  class="d-flex">
+                                <div class="activities">
+                                    <span></span> {{subactivities.lable}}
+                                </div>
+                                <div class="estimated-time">
+                                    {{subactivities.time}}
+                                </div>
+                                <div class="switch-btn">
+                                    <label class="switch">
+                                        <input type="checkbox" [checked]="subactivities.status" value="{{subactivities.status}}" (change)="onItemStatus(subactivities)">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div *ngFor="let subactivities of item.Assessments" #collapse="ngbCollapse" [(ngbCollapse)]="!item.isCollapsed">
+                            <div  class="d-flex">
+                                <div class="activities">
+                                    <span></span> {{subactivities.lable}}
+                                </div>
+                                <div class="estimated-time">
+                                    {{subactivities.assignedQuestions}}/{{subactivities.totalQuestions}} {{'teacher.explore-lesson-setting.questions-label'|translate}}<fa-icon [icon]="edit" class="edit-icon"></fa-icon>
+                              
+                                    <p *ngIf="!show"><ngb-progressbar [value]="25">
+                                        <span>2</span>
+                                    </ngb-progressbar></p> 
+
+                                    <div class="progress" *ngIf="subactivities.solved_questions !== subactivities.total_questions">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                                          <span class="sr-only">70% Complete</span>
+                                          <span class="count">2</span>
+                                        </div>
+                                      </div> 
+                                      <div class="progress" *ngIf="subactivities.assignedQuestions !== subactivities.totalQuestions">
+                                        <div class="progress-bar w-{{percent}}" role="progressbar" aria-valuenow="subactivities.assignedQuestions" aria-valuemin="0" aria-valuemax="100" [style.width]="percent + '%'">
+                                           
+                                        </div>
+                                        <div class="circle">{{subactivities.assignedQuestions}}</div>
+                                      </div>
+                                </div>
+            
+                                <div class="switch-btn">
+                                    <label class="switch">
+                                        <input type="checkbox" [checked]="subactivities.status" value="{{subactivities.status}}" (change)="onItemStatus(subactivities)">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <!-- <div *ngFor="let subactivities of item.Assessments" #collapse="ngbCollapse" [(ngbCollapse)]="!item.isCollapsed">
+                            <div  class="d-flex">
+                                <div class="activities">
+                                    <span></span> {{subactivities.lable}}
+                                </div>
+                                <div class="estimated-time">
+                                    {{subactivities.assignedQuestions}}/{{subactivities.totalQuestions}} {{'teacher.explore-lesson-setting.questions-label'|translate}}<fa-icon [icon]="edit" class="edit-icon"></fa-icon>
+                              
+                                    <p *ngIf="!show"><ngb-progressbar [value]="25">
+                                        <span>2</span>
+                                    </ngb-progressbar></p> 
+
+                                   
+                                      <div class="progress" *ngIf="subactivities.assignedQuestions !== subactivities.totalQuestions">
+                                        <div class="progress-bar w-{{percent}}" role="progressbar" aria-valuenow="subactivities.assignedQuestions" aria-valuemin="0" aria-valuemax="100" [style.width]="percent + '%'">
+                                           
+                                        </div>
+                                        <div class="circle">{{subactivities.assignedQuestions}}</div>
+                                      </div>
+                                </div>
+            
+                                <div class="switch-btn">
+                                    <label class="switch">
+                                        <input type="checkbox" [checked]="subactivities.status" value="{{subactivities.status}}" (change)="onItemStatus(subactivities)">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div> -->
+                    </li>
+                    <li>
+                        <div class="estimation-time">
+                            <fa-icon [icon]="clock"></fa-icon>
+                            <span class="est-time">{{'teacher.explore-lesson-setting.estimated-lesson-time'|translate}}</span>
+                            <span class="count">{{recipeData?.estimatedTotalTime}}</span>
+                            <span class="min">{{'teacher.assignment.min-label'|translate}}</span>
+                        </div>
+                    </li>
+                    <li class="footer-btns">
+                        <div class="save-settings">
+                            <fa-icon [icon]="BookmarkIcon"></fa-icon>
+                            <label>{{'teacher.explore-lesson-setting.save-customization-setting-confirm'|translate}}</label>
+                            <input formControlName="settingName" 
+                             class="form-control" placeholder="{{'teacher.explore-lesson-setting.setting-name-placeholder'|translate}}" class="form-control" (change)="validateSetting($event)" >
+                             <div class="error" *ngIf="formControl.settingName.errors?.settingValidate">
+                                <div class="error">{{'teacher.explore-lesson-setting.setting-already-exists'|translate}}</div>
+                              </div>
+                            </div>
+                        <div class="btns">
+                            <app-button classes="btn btn-secondary mr-4" (click)="onCancel()">
+                                <span aria-hidden="true">{{'common.cancel'| translate}}</span>
+                            </app-button>
+                            <app-button classes="btn btn-primary mr-4" (click)="onPreview()">
+                                <span aria-hidden="true">{{'teacher.explore-lesson-setting.preview-label'|translate}}</span>
+                            </app-button>
+                            <app-button classes="btn btn-primary" [submit]="true" [disabled]="!AssignLesson.valid" (click)="assignLesson()" >
+                                <span aria-hidden="true">{{'teacher.dashboard.assign-lesson-label'|translate}}</span>
+                            </app-button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </form>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+<!-- <div *ngIf="userList?.length > 0" class="roster-list"> -->
+<div class="roster-list">
+  <div class="roster-header">
+    <div class="container dist_container">
+      <div class="roster-header-main">
+        <h3 class="school-count">
+          {{'school.roles.role-list.roles-label'|translate}}
+        </h3>
+        <div class="roster-header-button">
+          <app-button classes="btn btn-primary icon-btn" [submit]="true" (click)="addEditRole()">
+            <fa-icon [icon]="PlusIcon"></fa-icon>
+            <span aria-hidden="true">{{'school.roles.add-role.add-role-label'|translate}}</span>
+          </app-button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="roles_info info">
+      <div class="icon_wrapper">
+        <fa-icon [icon]="exclamationTriangle"></fa-icon>
+      </div>
+      <p class="roles_content">
+        {{'school.roles.role-list.desc'|translate}} 
+      </p>
+      <div class="review">
+        <a><u>{{'school.roles.role-list.review'|translate}}</u></a>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="listview && isLoad">
+    <app-tables [dataSource]="roleList" (rowClick)="addEditRole($event)"
+      [tableHeaders]="userHeaders" [page]="1" [pageSize]="10"></app-tables>
+  </div>
+</div>

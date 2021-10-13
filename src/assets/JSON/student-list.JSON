@@ -1,0 +1,2864 @@
+[
+   {
+      "username": "Ms. Teacher1",
+      "email": "teacher1@yopmail.com",
+      "studentList": [
+         {
+            "district": "District 1",
+            "school": "School 2",
+            "class": "Class 2",
+            "studentPhoto": "./assets/images/student-icon.svg",
+            "studentName": "Samuel, Aaron",
+            "studentId": "36273",
+            "studentGroup": "Red",
+            "actions": [
+               "Sign-in Info",
+               "Profile"
+            ],
+            "studentDob": "22/10/1995",
+            "gender": "Male",
+            "grade": "Grade 1",
+            "email": "samual.aron@xyzschools.net",
+            "ethnicity": "Ethnicity 1",
+            "guardian": "Guardian 1",
+            "username": "sam@13",
+            "contactName": "Danial",
+            "contactRelationship": "Relationship 1",
+            "contactEmail": "dan@gmail.com",
+            "contactNumber": "1234567890",
+            "interests": "Cooking",
+            "medicalCondition": "Condition 1",
+            "allergens": "Allergens 1, Allergens 2, Allergens 3",
+            "status": "active"
+         },
+         {
+            "district": "District 1",
+            "school": "School 2",
+            "class": "Class 2",
+            "studentPhoto": "./assets/images/student-icon.svg",
+            "studentName": "Ruaz, Kevin",
+            "studentId": "36272",
+            "studentGroup": "Green",
+            "actions": [
+               "Sign-in Info",
+               "Profile"
+            ],
+            "studentDob": "22/10/1993",
+            "gender": "Male",
+            "grade": "Grade 2",
+            "email": "ruaz.kevin@xyzschools.net",
+            "ethnicity": "Ethnicity 2",
+            "guardian": "Guardian 2",
+            "username": "kevin@13",
+            "contactName": "Danial",
+            "contactRelationship": "Father",
+            "contactEmail": "dan@gmail.com",
+            "contactNumber": "1234567890",
+            "interests": "Cooking, Singing",
+            "medicalCondition": "Condition 1",
+            "allergens": "Allergens 1, Allergens 2",
+            "status": "inactive"
+         },
+         {
+            "district": "District 1",
+            "school": "School 2",
+            "class": "Class 2",
+            "studentPhoto": "./assets/images/student-icon.svg",
+            "studentName": "Keil, Exie",
+            "studentId": "36271",
+            "studentGroup": "Yellow",
+            "actions": [
+               "Sign-in Info",
+               "Profile"
+            ],
+            "studentDob": "2/10/1995",
+            "gender": "Male",
+            "grade": "Grade 3",
+            "email": "keil.exie@xyzschools.net",
+            "ethnicity": "Ethnicity 3",
+            "guardian": "Guardian 1",
+            "username": "Keil@12",
+            "contactName": "Danial",
+            "contactRelationship": "Father",
+            "contactEmail": "dan@gmail.com",
+            "contactNumber": "1234567890",
+            "interests": "Magic, Scientific Experiments",
+            "medicalCondition": "Condition 1",
+            "allergens": "Allergens 1, Allergens 2, Allergens 3",
+            "status": "active"
+         },
+         {
+            "district": "District 1",
+            "school": "School 2",
+            "class": "Class 2",
+            "studentPhoto": "./assets/images/student-icon.svg",
+            "studentName": "Samuel, Aaron",
+            "studentId": "36274",
+            "studentGroup": "Red",
+            "actions": [
+               "Sign-in Info",
+               "Profile"
+            ],
+            "studentDob": "22/1/1995",
+            "gender": "Male",
+            "grade": "Grade 3",
+            "email": "samual.aron@xyzschools.net",
+            "ethnicity": "Ethnicity 3",
+            "guardian": "Guardian 3",
+            "username": "sram21",
+            "contactName": "Danial",
+            "contactRelationship": "Father",
+            "contactEmail": "dan@gmail.com",
+            "contactNumber": "1234567890",
+            "interests": "Cooking, Magic, Scientific Experiments",
+            "medicalCondition": "Condition 3",
+            "allergens": "Allergens 1, Allergens 2, Allergens 3",
+            "status": "active"
+         }
+      ],
+      "studentHeaders": [
+         {
+            "title": "Student Id",
+            "data": "studentId"
+         },
+         {
+            "title": "Student Name",
+            "data": "studentName"
+         },
+         {
+            "title": "Student Group",
+            "data": "studentGroup"
+         },
+         {
+            "title": "Actions",
+            "data": "actions",
+            "isClickable": true
+         }
+      ]
+   },
+   {
+      "username": "Ms. Teacher2",
+      "email": "teacher2@chefkoochooloo.com",
+      "studentList": []
+   },
+   {
+      "username": "Student1",
+      "email": "student1@yopmail.com",
+      "class": [
+         {
+            "id": "1",
+            "title": "My Teacher",
+            "icon": "./assets/images/profile-icon-1.png",
+            "info": "Ms. Paula",
+            "room": "Room 112"
+         },
+         {
+            "id": "2",
+            "title": "My School",
+            "icon": "./assets/images/little-flower.png",
+            "info": "Little Flower 21 Cross Lane, California - 90201",
+            "room": ""
+         }
+      ],
+      "assessmentData": {
+         "measurementUnitList": [
+            {
+               "id": "1",
+               "name": "Cups",
+               "icon": "./assets/images/cup.png",
+               "check": true
+            },
+            {
+               "id": "2",
+               "name": "Pounds",
+               "icon": "./assets/images/pounds.png",
+               "check": true
+            },
+            {
+               "id": "3",
+               "name": "Gallons",
+               "icon": "./assets/images/gallons.png",
+               "check": true
+            },
+            {
+               "id": "4",
+               "name": "Ounces",
+               "icon": "./assets/images/ounces.png",
+               "check": true
+            }
+         ]
+      },
+      "assignmentList": [
+         {
+            "id": "1",
+            "title": "Due in 1 day",
+            "icon": "./assets/images/nsima-bent-icon.png",
+            "menu": "Pancit Palabok",
+            "duration": "45 mins",
+            "start": "1/05/2020",
+            "status": "Continue",
+            "disabled": false,
+            "country": "Philippines",
+            "chef_name": "Koochooloo",
+            "type": "BREAKFAST",
+            "time": "40-60 Min",
+            "rating": "4.9",
+            "image": "./assets/images/Classic-Waffles.jpg",
+            "grade": "4,5",
+            "difficulty_level": "Medium",
+            "language": "Filipino",
+            "greeting_text": "Kamusta",
+            "socialStudyFact": "Philippines is 33 times smaller than the United States",
+            "learning_objective": {
+               "img": "./assets/images/Bowl.png",
+               "objective": [
+                  "I will learn about social and cultural history of the Philippines.",
+                  "I will learn about convection by doing a boiling science experiment.",
+                  "I will learn about the nutritional content of carrots and other ingredients in this recipe."
+               ]
+            },
+            "find_country_img": "./assets/images/earth-1.png",
+            "country_location_img": "./assets/images/earth-2.png",
+            "recipe_fact_one": "Pancit Palabok is a popular street food",
+            "recipe_fact_two": "Possibly introduced by Chinese traders in the 1960's",
+            "recipe_fact_image":"./assets/images/nsima-bent.png",
+            "recipe_content": {
+               "text": "Pancit Palabok is made of rice noodles, vegeables and spices, sauteed together.",
+               "ingredient": [
+                  {
+                     "name": "Noodles",
+                     "icon": "./assets/images/ricenoodles.png"
+                  },
+                  {
+                     "name": "Vegetables",
+                     "icon": "./assets/images/broccoli.png"
+                  }
+               ]
+            },
+            "linguistic_details": [
+               {
+                  "text_one": "Salamat, Sa Muling Pagkikita"
+               },
+               {
+                  "text_two": "‘Salamat, Sa Muling Pagkikita’ means ‘Thank you, See you later!’ in Tagalog"
+               }
+            ],
+            "safety_hygiene": [
+               {
+                  "id": "1",
+                  "desc": "Always listen to big chef's instructions"
+               },
+               {
+                  "id": "2",
+                  "desc": "Wear a clean apron"
+               },
+               {
+                  "id": "3",
+                  "desc": "Wear closed shoes to protect your feet."
+               }
+            ],
+            "ingredientsList": [
+               {
+                  "id": "1",
+                  "icon": "./assets/images/ricenoodles.png",
+                  "details": "./assets/images/ricenoodles-details.png",
+                  "quantity": "1 ct Pack (16oz)",
+                  "name": "Rice Noodles",
+                  "season": "June to December",
+                  "canGrow": false,
+                  "nutrients": [
+                     {
+                        "name": "Calcium",
+                        "value": "14 mg"
+                     },
+                     {
+                        "name": "Iron",
+                        "value": "0.4 mg"
+                     },
+                     {
+                        "name": "Potassium",
+                        "value": "13 g"
+                     }
+                  ],
+                  "lTop": "",
+                  "rTop": "",
+                  "lBottom": "",
+                  "rBottom": ""
+               },
+               {
+                  "id": "2",
+                  "icon": "./assets/images/water.png",
+                  "details": "./assets/images/water-details.png",
+                  "quantity": "1 ct Pack (16oz)",
+                  "name": "Water",
+                  "season": "June to August",
+                  "nutrients": [
+                     {
+                        "name": "Beta Carotene",
+                        "value": "142 mg"
+                     },
+                     {
+                        "name": "Vitamin K1",
+                        "value": "8,231 units"
+                     },
+                     {
+                        "name": "Fiber",
+                        "value": "1.7 g"
+                     }
+                  ],
+                  "canGrow": false,
+                  "lTop": "",
+                  "rTop": "",
+                  "lBottom": "",
+                  "rBottom": ""
+               },
+               {
+                  "id": "3",
+                  "icon": "./assets/images/potato.png",
+                  "details": "./assets/images/Potato-flour.png",
+                  "quantity": "1 ct Pack (16oz)",
+                  "name": "Potato Flour",
+                  "season": "October to December",
+                  "nutrients": [
+                     {
+                        "name": "Cholesterol",
+                        "value": "8,231 units"
+                     },
+                     {
+                        "name": "Sodium",
+                        "value": "46.9 mg"
+                     },
+                     {
+                        "name": "Fiber",
+                        "value": "1 mg"
+                     }
+                  ],
+                  "hasSubstitute": true,
+                  "substitutesData": {
+                     "id": "3",
+                     "icon": "./assets/images/wheat-Flour-icon.png",
+                     "substituteDesc": "Wheat Flour contains Gluten, would you like to replace it with a Gluten-Free Potato Flour?",
+                     "details": "./assets/images/wheat-Flour-detail.png",
+                     "quantity": "1 ct Pack (16oz)",
+                     "name": "Wheat Flour",
+                     "season": "October to December",
+                     "nutrients": [
+                        {
+                           "name": "Protein",
+                           "value": "8,231 units"
+                        },
+                        {
+                           "name": "Fiber",
+                           "value": "1 mg"
+                        },
+                        {
+                           "name": "Carbohydrates",
+                           "value": "2.7 g"
+                        }
+                     ],
+                     "hasSubstitute": false,
+                     "canGrow": false,
+                     "lTop": "",
+                     "rTop": "",
+                     "lBottom": "",
+                     "rBottom": ""
+                  },
+                  "canGrow": false,
+                  "lTop": "",
+                  "rTop": "",
+                  "lBottom": "",
+                  "rBottom": ""
+               },
+               {
+                  "id": "4",
+                  "icon": "./assets/images/garlicpowder.png",
+                  "details": "./assets/images/garlicpowder-details.png",
+                  "quantity": "1 ct Pack (16oz)",
+                  "name": "Paprika",
+                  "season": "June to August",
+                  "nutrients": [
+                     {
+                        "name": "Carbohydrates",
+                        "value": "10 g"
+                     },
+                     {
+                        "name": "Sodium",
+                        "value": "5 mg"
+                     },
+                     {
+                        "name": "Protein",
+                        "value": "2 mg"
+                     }
+                  ],
+                  "canGrow": false,
+                  "lTop": "",
+                  "rTop": "",
+                  "lBottom": "",
+                  "rBottom": ""
+               },
+               {
+                  "id": "5",
+                  "icon": "./assets/images/vegetablebroth.png",
+                  "details": "./assets/images/vegetablebroth-details.png",
+                  "quantity": "1 ct Pack (16oz)",
+                  "name": "Vegetable Broth",
+                  "season": "June to August",
+                  "nutrients": [
+                     {
+                        "name": "Protein",
+                        "value": "0.5 mg"
+                     },
+                     {
+                        "name": "Carbohydrates",
+                        "value": "2.7 g"
+                     },
+                     {
+                        "name": "Fiber",
+                        "value": "8,231 units"
+                     }
+                  ],
+                  "canGrow": false,
+                  "lTop": "",
+                  "rTop": "",
+                  "lBottom": "",
+                  "rBottom": ""
+               },
+               {
+                  "id": "6",
+                  "icon": "./assets/images/shrimp.png",
+                  "details": "./assets/images/shrimp-details.png",
+                  "quantity": "1 ct Pack (16oz)",
+                  "name": "Shrimp Bouilloin",
+                  "season": "June to August",
+                  "nutrients": [
+                     {
+                        "name": "Sodium",
+                        "value": "1000 mg"
+                     },
+                     {
+                        "name": "Potassium",
+                        "value": "0.123 g"
+                     },
+                     {
+                        "name": "Cholesterol",
+                        "value": "89.07 mg"
+                     }
+                  ],
+                  "canGrow": false,
+                  "lTop": "",
+                  "rTop": "",
+                  "lBottom": "",
+                  "rBottom": ""
+               },
+               {
+                  "id": "7",
+                  "icon": "./assets/images/oliveoil.png",
+                  "details": "./assets/images/oliveoil-details.png",
+                  "quantity": "1 ct Pack (16oz)",
+                  "name": "Olive Oil",
+                  "season": "June to August",
+                  "nutrients": [
+                     {
+                        "name": "Polyunsaturated fat",
+                        "value": "1.4 g"
+                     },
+                     {
+                        "name": "Carbohydrate",
+                        "value": "8,231 units"
+                     },
+                     {
+                        "name": "Fiber",
+                        "value": "0 mg"
+                     }
+                  ],
+                  "canGrow": false,
+                  "lTop": "",
+                  "rTop": "",
+                  "lBottom": "",
+                  "rBottom": ""
+               },
+               {
+                  "id": "8",
+                  "icon": "./assets/images/carrot.png",
+                  "details": "./assets/images/carrot-details.png",
+                  "quantity": "1 ct Pack (16oz)",
+                  "name": "Carrots",
+                  "season": "June to August",
+                  "nutrients": [
+                     {
+                        "name": "Beta Carotene",
+                        "value": "142 mg"
+                     },
+                     {
+                        "name": "Vitamin K1",
+                        "value": "8,231 units"
+                     },
+                     {
+                        "name": "Fiber",
+                        "value": "1.7 g"
+                     }
+                  ],
+                  "canGrow": true,
+                  "lTop": "Carrots are cooked and consumed in different ways. They can be mashed, boiled, pureed, grated, fried, steamed, stewed, baked, juiced or eaten row.",
+                  "rTop": "Carrots are the most commonly eaten root vegetables.",
+                  "lBottom": "Carrots are typically used in stir-fries and salads but also in soups and added to baby foods. They can be dehydrared or deep-fried to make chips, flakes, and powder.",
+                  "rBottom": "Carrots are typically orange in color can also be purple, red, green and yellow."
+               },
+               {
+                  "id": "9",
+                  "icon": "./assets/images/broccoli.png",
+                  "details": "./assets/images/broccoli-details.png",
+                  "quantity": "1 ct Pack (16oz)",
+                  "name": "Broccoli",
+                  "season": "June to August",
+                  "nutrients": [
+                     {
+                        "name": "Protein",
+                        "value": "2.5 g"
+                     },
+                     {
+                        "name": "Carbs",
+                        "value": "86 mg"
+                     },
+                     {
+                        "name": "Fiber",
+                        "value": "2.4 g"
+                     }
+                  ],
+                  "canGrow": true,
+                  "lTop": "",
+                  "rTop": "",
+                  "lBottom": "",
+                  "rBottom": ""
+               },
+               {
+                  "id": "10",
+                  "icon": "./assets/images/garlic.png",
+                  "details": "./assets/images/garlic-details.png",
+                  "quantity": "1 ct Pack (16oz)",
+                  "name": "Garlic",
+                  "season": "June to December",
+                  "nutrients": [
+                     {
+                        "name": "Carbohydrate",
+                        "value": "2.98 g"
+                     },
+                     {
+                        "name": "Sugars",
+                        "value": "0.09 g"
+                     },
+                     {
+                        "name": "Fiber",
+                        "value": "0.19 g"
+                     }
+                  ],
+                  "canGrow": true,
+                  "lTop": "",
+                  "rTop": "",
+                  "lBottom": "",
+                  "rBottom": ""
+               },
+               {
+                  "id": "11",
+                  "icon": "./assets/images/onion.png",
+                  "details": "./assets/images/onion-details.png",
+                  "quantity": "1 ct Pack (16oz)",
+                  "name": "Green Onion",
+                  "season": "June to August",
+                  "nutrients": [
+                     {
+                        "name": "Cholesterol",
+                        "value": "0 mg"
+                     },
+                     {
+                        "name": "Sodium",
+                        "value": "16 mg"
+                     },
+                     {
+                        "name": "Potassium",
+                        "value": "276 mg"
+                     }
+                  ],
+                  "canGrow": true,
+                  "lTop": "",
+                  "rTop": "",
+                  "lBottom": "",
+                  "rBottom": ""
+               },
+               {
+                  "id": "12",
+                  "icon": "./assets/images/blackbeans.png",
+                  "details": "./assets/images/blackbeans-details.png",
+                  "quantity": "1 ct Pack (16oz)",
+                  "name": "Green Beans",
+                  "season": "July to September",
+                  "nutrients": [
+                     {
+                        "name": "Sodium",
+                        "value": "6 mg"
+                     },
+                     {
+                        "name": "Potassium",
+                        "value": "209 mg"
+                     },
+                     {
+                        "name": "Protein",
+                        "value": "1.8 g"
+                     }
+                  ],
+                  "canGrow": true,
+                  "lTop": "",
+                  "rTop": "",
+                  "lBottom": "",
+                  "rBottom": ""
+               },
+               {
+                  "id": "13",
+                  "icon": "./assets/images/onion.png",
+                  "details": "./assets/images/onion-details.png",
+                  "quantity": "1 ct Pack (16oz)",
+                  "name": "Yellow Onion",
+                  "season": "June to September",
+                  "nutrients": [
+                     {
+                        "name": "Sodium",
+                        "value": "12.90 mg"
+                     },
+                     {
+                        "name": "Potassium",
+                        "value": "0.03 mg"
+                     },
+                     {
+                        "name": "Protein",
+                        "value": "10 g"
+                     }
+                  ],
+                  "canGrow": true,
+                  "lTop": "",
+                  "rTop": "",
+                  "lBottom": "",
+                  "rBottom": ""
+               },
+               {
+                  "id": "14",
+                  "icon": "./assets/images/Lemon02.png",
+                  "details": "./assets/images/lemon-details.png",
+                  "quantity": "1 ct Pack (16oz)",
+                  "name": "Lemon",
+                  "season": "August to November",
+                  "nutrients": [
+                     {
+                        "name": "Sodium",
+                        "value": "2 mg"
+                     },
+                     {
+                        "name": "Potassium",
+                        "value": "138 mg"
+                     },
+                     {
+                        "name": "Protein",
+                        "value": "1.1 g"
+                     }
+                  ],
+                  "canGrow": true,
+                  "lTop": "",
+                  "rTop": "",
+                  "lBottom": "",
+                  "rBottom": ""
+               },
+               {
+                  "id": "15",
+                  "icon": "./assets/images/salt.png",
+                  "details": "./assets/images/salt-details.png",
+                  "quantity": "1 ct Pack (16oz)",
+                  "name": "Salt & Pepper",
+                  "season": "March to May",
+                  "nutrients": [
+                     {
+                        "name": "Sodium",
+                        "value": "295 mg"
+                     },
+                     {
+                        "name": "Potassium",
+                        "value": "3.9 mg"
+                     },
+                     {
+                        "name": "Protein",
+                        "value": "0 g"
+                     }
+                  ],
+                  "canGrow": false,
+                  "lTop": "",
+                  "rTop": "",
+                  "lBottom": "",
+                  "rBottom": ""
+               }
+            ],
+            "nutrientQuestionList": {
+               "id": "1",
+               "question": "Smell the Paprika. What does it smell like?",
+               "nutrientOptions": [
+                  {
+                     "id": "1",
+                     "name": "f-option",
+                     "value": "Minty"
+                  },
+                  {
+                     "id": "2",
+                     "name": "s-option",
+                     "value": "Citrus"
+                  },
+                  {
+                     "id": "3",
+                     "name": "t-option",
+                     "value": "Nutty and Floral"
+                  }
+               ]
+            },
+            "sensoryQuestionList": {
+               "id": "1",
+               "message": "Smell the Paprika",
+               "question": "What does this smell like?",
+               "options": [
+                  {
+                     "id": "1",
+                     "name": "s-option",
+                     "value": "Floral"
+                  },
+                  {
+                     "id": "2",
+                     "name": "t-option",
+                     "value": "Nutty"
+                  }
+               ]
+            },
+            "recipesPreparationList": [
+               {
+                  "id": "1",
+                  "image": "./assets/images/ricenoodles.png",
+                  "info": "Soak the rice noodles in water for 15 minutes, Drain and set aside in strainer",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "",
+                  "legendTwoIcon": ""
+               },
+               {
+                  "id": "2",
+                  "image": "./assets/images/broccoli.png",
+                  "info": "Measure 3/4 cup carrots, 3/4 cup green beans and wash them in a medium sizes brocoli (about 3 cups) and set them",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "Little Chef",
+                  "legendTwoIcon": "./assets/images/profile-icon-2.png"
+               },
+               {
+                  "id": "3",
+                  "image": "./assets/images/garlic.png",
+                  "info": "Peel and mince 4 cloves of garlic.",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "Little Chef",
+                  "legendTwoIcon": "./assets/images/profile-icon-2.png"
+               },
+               {
+                  "id": "4",
+                  "image": "./assets/images/onion-brown.png",
+                  "info": "Cut the vegetables. Peel and chop 1 medium sized yellow onion. Cut the carrots into matchsticks. Thinly sclice the green beans. And cut the broccoli into small pieces. ",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "",
+                  "legendTwoIcon": ""
+               },
+               {
+                  "id": "5",
+                  "image": "./assets/images/Lemon02.png",
+                  "info": "Cut and set aside 1/2 cup of green onions and 1 lemon cut in half to garnish the food after it is cooked.",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "",
+                  "legendTwoIcon": ""
+               },
+               {
+                  "id": "6",
+                  "image": "./assets/images/water.png",
+                  "info": "Whisk and dissolve 1/3 ounce paprika in 1/4 cup water.",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "Little Chef",
+                  "legendTwoIcon": "./assets/images/profile-icon-2.png"
+               }
+            ],
+            "cookingTechnique": {
+               "id": "1",
+               "videoUrl": "./assets/videos/simmering.mp4",
+               "videoType":"youtube",
+               "techniqueList": [
+                  " Simmering is a cooking method in which a food containing liquid is cooked just below the boiling point. The boiling point of water is 100 degree Celsius or 212 degrees Fahrenheit. For comparison, water freezes at 0 degrees Celsius or 32 degrees.",
+                  " Simmering is a cooking method in which a food containing liquid is cooked just below the boiling point. The boiling point of water is 100 degree Celsius or 212 degrees Fahrenheit. For comparison, water freezes at 0 degrees Celsius or 32 degrees.",
+                  " Simmering is a cooking method in which a food containing liquid is cooked just below the boiling point. The boiling point of water is 100 degree Celsius or 212 degrees Fahrenheit. For comparison, water freezes at 0 degrees Celsius or 32 degrees."
+               ]
+            },
+            "cookingSteps": [
+               {
+                  "id": "1",
+                  "image": "./assets/images/garlic.png",
+                  "video": "",
+                  "type": "",
+                  "info": "Heat a saucepan over medium heat. Add 3 tablespoons of cooking oil and saute the minced garlic until golden brown.",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "",
+                  "legendTwoIcon": "",
+                  "isChecked": true
+               },
+               {
+                  "id": "2",
+                  "image": "./assets/images/onion-brown.png",
+                  "video": "",
+                  "type": "",
+                  "info": "Add the chopped onions to the saucepan and saute until onions become soft and translucent. ",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "",
+                  "legendTwoIcon": "",
+                  "isChecked": true
+               },
+               {
+                  "id": "3",
+                  "image": "./assets/images/broccoli.png",
+                  "video": "",
+                  "type": "",
+                  "info": "Add the green beans, carrots, and broccoli to the pan. Season with salt and black pepper. Cook for another 3-5 minutes...",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "",
+                  "legendTwoIcon": "",
+                  "isChecked": true
+               },
+               {
+                  "id": "4",
+                  "image": "./assets/images/pot.png",
+                  "video": "",
+                  "type": "",
+                  "info": "Dissolve the paprika in 4 cups of vegetable broth, and pour the mixture into a medium sized pot, stir and...",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "",
+                  "legendTwoIcon": "",
+                  "isChecked": true
+               },
+               {
+                  "id": "5",
+                  "image": "./assets/images/blackpeppercorns.png",
+                  "video": "",
+                  "type": "",
+                  "info": "Add the shrimp bouillon and black pepper to the pot, stir the mixture and simmer for 3 minutes.",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "",
+                  "legendTwoIcon": "",
+                  "isChecked": true
+               },
+               {
+                  "id": "6",
+                  "image": "./assets/images/flour.png",
+                  "video": "",
+                  "type": "",
+                  "info": "Add the 3/4 cup of potato flour gradually while stirring.",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "",
+                  "legendTwoIcon": "",
+                  "isChecked": true
+               },
+               {
+                  "id": "7",
+                  "image": "./assets/images/beans-carrot.png",
+                  "video": "",
+                  "type": "",
+                  "info": "Pour the sauted vegetables into the broth and mix it well. Simmer until the mixture becomes a thick sauce and then...",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "",
+                  "legendTwoIcon": "",
+                  "isChecked": true
+               },
+               {
+                  "id": "8",
+                  "image": "./assets/images/ricenoodles.png",
+                  "video": "",
+                  "type": "",
+                  "info": "Meanwhile, boil a 6-8 cups of water in a large pot. Submerge the strainer with the rice noodles into the boiling water...",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "",
+                  "legendTwoIcon": "",
+                  "isChecked": true
+               },
+               {
+                  "id": "9",
+                  "image": "./assets/images/strainer.png",
+                  "video": "",
+                  "type": "",
+                  "info": "Remove the strainer from the pot and drain the liquid from the noodles.",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "",
+                  "legendTwoIcon": "",
+                  "isChecked": true
+               },
+               {
+                  "id": "10",
+                  "image": "./assets/images/plate.png",
+                  "video": "",
+                  "type": "",
+                  "info": "Place the noodles onto a serving plate.",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "",
+                  "legendTwoIcon": "",
+                  "isChecked": true
+               },
+               {
+                  "id": "11",
+                  "image": "./assets/images/Lemon02.png",
+                  "video": "",
+                  "type": "",
+                  "info": "Pour the sauce onto the noodles and then arrange the green onion and lemon over the sauce. ",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "",
+                  "legendTwoIcon": "",
+                  "isChecked": true
+               },
+               {
+                  "id": "12",
+                  "image": "",
+                  "video": "./assets/videos/simmering.mp4",
+                  "type": "",
+                  "info": "Heat a saucepan over medium heat. Add 3 tablespoons of cooking oil and saute the minced garlic until golden brown.",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "",
+                  "legendTwoIcon": "",
+                  "isChecked": true
+               },
+               {
+                  "id": "13",
+                  "image": "./assets/images/onion-brown.png",
+                  "video": "",
+                  "type": "",
+                  "info": "Add the chopped onions to the saucepan and saute until onions become soft and translucent. ",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "",
+                  "legendTwoIcon": "",
+                  "isChecked": true
+               },
+               {
+                  "id": "14",
+                  "image": "./assets/images/broccoli.png",
+                  "video": "",
+                  "type": "",
+                  "info": "Add the green beans, carrots, and broccoli to the pan. Season with salt and black pepper. Cook for another 3-5 minutes...",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "",
+                  "legendTwoIcon": ""
+               },
+               {
+                  "id": "15",
+                  "image": "./assets/images/pot.png",
+                  "video": "",
+                  "type": "",
+                  "info": "Dissolve the paprika in 4 cups of vegetable broth, and pour the mixture into a medium sized pot, stir and...",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "",
+                  "legendTwoIcon": "",
+                  "isChecked": true
+               },
+               {
+                  "id": "16",
+                  "image": "./assets/images/blackpeppercorns.png",
+                  "video": "",
+                  "type": "",
+                  "info": "Add the shrimp bouillon and black pepper to the pot, stir the mixture and simmer for 3 minutes.",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "",
+                  "legendTwoIcon": "",
+                  "isChecked": true
+               },
+               {
+                  "id": "17",
+                  "image": "./assets/images/flour.png",
+                  "video": "",
+                  "type": "",
+                  "info": "Add the 3/4 cup of potato flour gradually while stirring.",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "",
+                  "legendTwoIcon": "",
+                  "isChecked": true
+               },
+               {
+                  "id": "18",
+                  "image": "./assets/images/beans-carrot.png",
+                  "video": "",
+                  "type": "",
+                  "info": "Pour the sauted vegetables into the broth and mix it well. Simmer until the mixture becomes a thick sauce and...",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "",
+                  "legendTwoIcon": "",
+                  "isChecked": true
+               },
+               {
+                  "id": "19",
+                  "image": "./assets/images/ricenoodles.png",
+                  "video": "",
+                  "type": "",
+                  "info": "Meanwhile, boil a 6-8 cups of water in a large pot. Submerge the strainer with the rice noodles into the boiling water...",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "",
+                  "legendTwoIcon": "",
+                  "isChecked": true
+               },
+               {
+                  "id": "20",
+                  "image": "./assets/images/strainer.png",
+                  "video": "",
+                  "type": "",
+                  "info": "Remove the strainer from the pot and drain the liquid from the noodles.",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "",
+                  "legendTwoIcon": "",
+                  "isChecked": true
+               },
+               {
+                  "id": "21",
+                  "image": "./assets/images/plate.png",
+                  "video": "",
+                  "type": "",
+                  "info": "Place the noodles onto a serving plate.",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "",
+                  "legendTwoIcon": "",
+                  "isChecked": true
+               },
+               {
+                  "id": "22",
+                  "image": "./assets/images/Lemon02.png",
+                  "video": "",
+                  "type": "",
+                  "info": "Pour the sauce onto the noodles and then arrange the green onion and lemon over the sauce. ",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "",
+                  "legendTwoIcon": "",
+                  "isChecked": true
+               }
+            ],
+            "experimentData": [
+               {
+                  "screenType": "List",
+                  "desc":"WARNING! Perform this experiment only under the supervision of a Big Chef.",
+                  "recipesStepList": [
+                     {
+                        "id": "1",
+                        "image": "./assets/images/kitchen.png",
+                        "info": "Turn on the stove and place a large pot on it.",
+                        "start": "",
+                        "isChecked": false
+                     },
+                     {
+                        "id": "2",
+                        "image": "./assets/images/water-icon.png",
+                        "info": "Measure 6 cups of water and add to the pot.",
+                        "start": "yes",
+                        "isChecked": false
+                     },
+                     {
+                        "id": "3",
+                        "image": "./assets/images/fire.png",
+                        "info": "You can increase the heat to speed up the boiling process.",
+                        "start": "",
+                        "isChecked": false
+                     },
+                     {
+                        "id": "4",
+                        "image": "./assets/images/book-icon.png",
+                        "info": "Notice what happens when water starts boiling.",
+                        "start": "",
+                        "isChecked": false
+                     }
+                  ],
+                  "form": []
+               }
+            ],
+            "cleaning": [
+               {
+                  "id": "1",
+                  "image": "./assets/images/cleaning.png",
+                  "info": "Clear off and  wipe down your cooking counter.",
+                  "isChecked": true
+               },
+               {
+                  "id": "2",
+                  "image": "./assets/images/dirty.png",
+                  "info": "Place all used tools into the sink or dishwasher.",
+                  "isChecked": true
+               },
+               {
+                  "id": "3",
+                  "image": "./assets/images/washer.png",
+                  "info": "Help a big chef to load and unload tools and dishes from the sink or dishwasher.",
+                  "isChecked": true
+               },
+               {
+                  "id": "4",
+                  "image": "./assets/images/oven.png",
+                  "info": "Once the stove has cooled and a big chef says it is okay, wipe down the stove.",
+                  "isChecked": true
+               },
+               {
+                  "id": "5",
+                  "image": "./assets/images/water-icon.png",
+                  "info": "Wash your hands with soap and water.",
+                  "isChecked": true
+               }
+            ],
+            "serving": {
+               "serveText": "Before serving, garnish each plate of food with green onions and a slice of lemon. Share and enjoy!",
+               "question": "Did you know?",
+               "answer": "7% of the Earth is covered with water. Water has no calories, proteins, fats or carbohydrates yet it is essential for all living things including humans, animals. and plants."
+            },
+            "health_hygiene_question": {
+               "question": "How many times can you kick a ball to keep it up in the air without letting it touch the ground? Try it today and compare with your friends.",
+               "instruction": "Add the time you spent on this exercise"
+            },
+            "assessement": [
+               {
+                  "question_desc": "Big Chef needed 8 cups of water to boil 16oz. of rice noodles for 12 students.",
+                  "question": "How many pints of water is needed to boil 2 pounds of rice noodles?",
+                  "questionType": "fillBlank",
+                  "hint": {
+                     "title": "Hint",
+                     "desc": "If cups of water equols I each how irony pints of woter wos used hy big chef to boil Id of rice noodles? With pounds of rice Big chef wiLl hove double the amount of noodles which means twice as much water will. he needed. First convert how much water .0. to boil 16 z.& rice noodles in pints. wild then double that amount."
+                  },
+                  "reference": [
+                     {
+                        "id": "1",
+                        "reference": "Learn Intro to the Metric System"
+                     },
+                     {
+                        "id": "2",
+                        "reference": "Measurement Conversion. Multiply or Divide"
+                     },
+                     {
+                        "id": "3",
+                        "reference": "Multi-Step it conversion examples"
+                     }
+                  ],
+                  "measurementList": [
+                     {
+                        "id": "1",
+                        "info": "1 mile - 5,280 feet"
+                     },
+                     {
+                        "id": "2",
+                        "info": "1 minute - 60 seconds"
+                     },
+                     {
+                        "id": "3",
+                        "info": "1 cup = 8 fluid ounces"
+                     },
+                     {
+                        "id": "4",
+                        "info": "1 mile = 1,760 yards"
+                     },
+                     {
+                        "id": "5",
+                        "info": "1 hour = 60 minutes"
+                     },
+                     {
+                        "id": "6",
+                        "info": "1 pint = 2 cups"
+                     },
+                     {
+                        "id": "7",
+                        "info": "1 yard = 3 feet"
+                     },
+                     {
+                        "id": "8",
+                        "info": "1 pound = 16 ounces"
+                     },
+                     {
+                        "id": "9",
+                        "info": "1 quart = 2 pints"
+                     },
+                     {
+                        "id": "10",
+                        "info": "1 foot = 12 inches"
+                     },
+                     {
+                        "id": "11",
+                        "info": "1 ton = 2,000 pounds"
+                     },
+                     {
+                        "id": "12",
+                        "info": "1 gallon = 4 quarts"
+                     }
+                  ],
+                  "form": [
+                     {
+                        "formCtrlName": "q1",
+                        "formCtrlType": "text",
+                        "placeholder": "pints"
+                     }
+                  ]
+               },
+               {
+                  "question_desc": "",
+                  "question": "Who peeled the most garlic?",
+                  "questionType": "radio",
+                  "form": [],
+                  "options": [
+                     {
+                        "icon": "./assets/images/kevin.png",
+                        "name": "Kevin"
+                     },
+                     {
+                        "icon": "./assets/images/kevin-lisa.png",
+                        "name": "Kevin & Lisa"
+                     },
+                     {
+                        "icon": "./assets/images/lisa.png",
+                        "name": "Lisa"
+                     }
+                  ]
+               },
+               {
+                  "question_desc": "Big Chef needed 8 cups of water to boil 16oz. of rice noodles for 12 students.",
+                  "question": "Select the different units of measurements that were used to measure the ingredients?",
+                  "questionType": "optional",
+                  "options": [
+                     {
+                        "id": "1",
+                        "name": "Cups",
+                        "icon": "./assets/images/cup.png",
+                        "check": true
+                     },
+                     {
+                        "id": "2",
+                        "name": "Pounds",
+                        "icon": "./assets/images/pounds.png",
+                        "check": true
+                     },
+                     {
+                        "id": "3",
+                        "name": "Gallons",
+                        "icon": "./assets/images/gallons.png",
+                        "check": true
+                     },
+                     {
+                        "id": "4",
+                        "name": "Ounces",
+                        "icon": "./assets/images/ounces.png",
+                        "check": true
+                     }
+                  ],
+                  "form": [
+                     {
+                        "formCtrlName": "cName",
+                        "formCtrlType": "text",
+                        "placeholder": "Kevin"
+                     }
+                  ]
+               }
+            ],
+            "take_action_acticity": [
+               {
+                  "activity_que_one": "Think quietly for a moment and write down your solution."
+               },
+               {
+                  "activity_que_two": "Now discuss with your group, share your ideas and pick the best solution to present to the class."
+               }
+            ]
+         },
+         {
+            "id": "2",
+            "title": "Due in 2 day",
+            "icon": "./assets/images/Guacamole.png",
+            "menu": "Guacamole",
+            "duration": "30 mins",
+            "start": "",
+            "status": "start",
+            "disabled": false,
+            "country": "Mexico",
+            "chef_name": "Macro",
+            "type": "BREAKFAST",
+            "time": "40-60 Min",
+            "rating": "4.9",
+            "image": "./assets/images/Fluffy-French-Toast.jpg",
+            "grade": "4,5",
+            "difficulty_level": "Medium",
+            "language": "Spanish",
+            "greeting_text": "Hola",
+            "socialStudyFact": "As of July 2018, Mexican Americans comprised 61.9% of all Latinos in Americans in the United States",
+            "learning_objective": {
+               "img": "./assets/images/Guacamole_bowl.png",
+               "objective": [
+                  "I’ll be able to understand new ways to multiply and divide fractions. ",
+                  "I’ll learn about the history of the Mexican-American relations.",
+                  "I’ll learn how waves transfer energy without transferring mass."
+               ]
+            },
+            "find_country_img": "./assets/images/earth-1.png",
+            "country_location_img": "./assets/images/earth-2.png",
+            "recipe_fact_one": "Avocado trees do not self-pollinate; they need another avocado tree close by in order to grow",
+            "recipe_fact_two": "Avocados are a symbol of love and fertility, and they also grow in pairs on trees.",
+            "recipe_fact_image":"./assets/images/table-Guacamole.png",
+            "recipe_content": {
+               "text": "Avocados have the highest fiber content of any fruit and contain vitamin B6, Vitamin C, Vitamin E, potassium, magnesium, and folate.",
+               "ingredient": [
+                  {
+                     "name": "Avocados",
+                     "icon": "./assets/images/avocado-icon.png"
+                  },
+                  {
+                     "name": "Cilantro",
+                     "icon": "./assets/images/cilantro-icon.png"
+                  }
+               ]
+            },
+            "linguistic_details": [
+               {
+                  "text_one": "Salamat, Sa Muling Pagkikita"
+               },
+               {
+                  "text_two": "‘Salamat, Sa Muling Pagkikita’ means ‘Thank you, See you later!’ in Tagalog"
+               }
+            ],
+            "safety_hygiene": [
+               {
+                  "id": "1",
+                  "desc": "Wash your hands and Utensil before using"
+               },
+               {
+                  "id": "2",
+                  "desc": "Stand up/sit straight and stay focused while using a peeler or a knife"
+               },
+               {
+                  "id": "3",
+                  "desc": "Keep your fingers away from the blade."
+               },
+               {
+                  "id": "4",
+                  "desc": "Always use a cutting board"
+               },
+               {
+                  "id": "5",
+                  "desc": "Keep knives on the table, and never carry them around the room."
+               },
+               {
+                  "id": "6",
+                  "desc": "Always listen to the Big Chef"
+               }
+            ],
+            "ingredientsList": [
+               {
+                  "id": "1",
+                  "icon": "./assets/images/avocado-icon.png",
+                  "details": "./assets/images/avocado-details.png",
+                  "quantity": "1 ct Pack (16oz)",
+                  "name": "Avocado",
+                  "season": "June to December",
+                  "canGrow": false,
+                  "nutrients": [
+                     {
+                        "name": "Calcium",
+                        "value": "14 mg"
+                     },
+                     {
+                        "name": "Iron",
+                        "value": "0.4 mg"
+                     },
+                     {
+                        "name": "Potassium",
+                        "value": "13 g"
+                     }
+                  ],
+                  "lTop": "",
+                  "rTop": "",
+                  "lBottom": "",
+                  "rBottom": ""
+               },
+               {
+                  "id": "2",
+                  "icon": "./assets/images/Lemon02.png",
+                  "details": "./assets/images/lemon-details.png",
+                  "quantity": "1 ct Pack (16oz)",
+                  "name": "Lime",
+                  "season": "August to November",
+                  "nutrients": [
+                     {
+                        "name": "Sodium",
+                        "value": "2 mg"
+                     },
+                     {
+                        "name": "Potassium",
+                        "value": "138 mg"
+                     },
+                     {
+                        "name": "Protein",
+                        "value": "1.1 g"
+                     }
+                  ],
+                  "canGrow": true,
+                  "lTop": "",
+                  "rTop": "",
+                  "lBottom": "",
+                  "rBottom": ""
+               },
+               {
+                  "id": "3",
+                  "icon": "./assets/images/cilantro-icon.png",
+                  "details": "./assets/images/cilantro-details.png",
+                  "quantity": "1 ct Pack (16oz)",
+                  "name": "Cilantro",
+                  "season": "June to December",
+                  "canGrow": false,
+                  "nutrients": [
+                     {
+                        "name": "Calcium",
+                        "value": "14 mg"
+                     },
+                     {
+                        "name": "Iron",
+                        "value": "0.4 mg"
+                     },
+                     {
+                        "name": "Potassium",
+                        "value": "13 g"
+                     }
+                  ],
+                  "lTop": "",
+                  "rTop": "",
+                  "lBottom": "",
+                  "rBottom": ""
+               },
+               {
+                  "id": "4",
+                  "icon": "./assets/images/tomato-icon.png",
+                  "details": "./assets/images/tomato-details.png",
+                  "quantity": "1 ct Pack (16oz)",
+                  "name": "Tomato",
+                  "season": "June to December",
+                  "canGrow": false,
+                  "nutrients": [
+                     {
+                        "name": "Calcium",
+                        "value": "14 mg"
+                     },
+                     {
+                        "name": "Iron",
+                        "value": "0.4 mg"
+                     },
+                     {
+                        "name": "Potassium",
+                        "value": "13 g"
+                     }
+                  ],
+                  "lTop": "",
+                  "rTop": "",
+                  "lBottom": "",
+                  "rBottom": ""
+               },
+               {
+                  "id": "5",
+                  "icon": "./assets/images/garlic.png",
+                  "details": "./assets/images/garlic-details.png",
+                  "quantity": "1 ct Pack (16oz)",
+                  "name": "Garlic",
+                  "season": "June to December",
+                  "canGrow": false,
+                  "nutrients": [
+                     {
+                        "name": "Calcium",
+                        "value": "14 mg"
+                     },
+                     {
+                        "name": "Iron",
+                        "value": "0.4 mg"
+                     },
+                     {
+                        "name": "Potassium",
+                        "value": "13 g"
+                     }
+                  ],
+                  "lTop": "",
+                  "rTop": "",
+                  "lBottom": "",
+                  "rBottom": ""
+               },
+               {
+                  "id": "6",
+                  "icon": "./assets/images/salt.png",
+                  "details": "./assets/images/salt-details.png",
+                  "quantity": "1 ct Pack (16oz)",
+                  "name": "Salt",
+                  "season": "March to May",
+                  "nutrients": [
+                     {
+                        "name": "Sodium",
+                        "value": "295 mg"
+                     },
+                     {
+                        "name": "Potassium",
+                        "value": "3.9 mg"
+                     },
+                     {
+                        "name": "Protein",
+                        "value": "0 g"
+                     }
+                  ],
+                  "canGrow": false,
+                  "lTop": "",
+                  "rTop": "",
+                  "lBottom": "",
+                  "rBottom": ""
+               },
+               {
+                  "id": "7",
+                  "icon": "./assets/images/onion.png",
+                  "details": "./assets/images/onion-details.png",
+                  "quantity": "1 ct Pack (16oz)",
+                  "name": "Onion",
+                  "season": "June to August",
+                  "nutrients": [
+                     {
+                        "name": "Cholesterol",
+                        "value": "0 mg"
+                     },
+                     {
+                        "name": "Sodium",
+                        "value": "16 mg"
+                     },
+                     {
+                        "name": "Potassium",
+                        "value": "276 mg"
+                     }
+                  ],
+                  "canGrow": true,
+                  "lTop": "",
+                  "rTop": "",
+                  "lBottom": "",
+                  "rBottom": ""
+               }
+            ],
+            "nutrientQuestionList": {
+               "id": "1",
+               "question": "Have you seen what happens when you leave the avocado split for an hour?",
+               "nutrientOptions": [
+                  {
+                     "id": "1",
+                     "name": "f-option",
+                     "value": "Minty"
+                  },
+                  {
+                     "id": "2",
+                     "name": "s-option",
+                     "value": "Citrus"
+                  },
+                  {
+                     "id": "3",
+                     "name": "t-option",
+                     "value": "Nutty and Floral"
+                  }
+               ]
+            },
+            "sensoryQuestionList": {
+               "id": "1",
+               "message": "See the Avocado",
+               "question": "Have you seen what happens when you leave the avocado split for an hour?",
+               "options": [
+                  {
+                     "id": "1",
+                     "name": "s-option",
+                     "value": "Floral"
+                  },
+                  {
+                     "id": "2",
+                     "name": "t-option",
+                     "value": "Nutty"
+                  }
+               ]
+            },
+            "recipesPreparationList": [
+               {
+                  "id": "1",
+                  "image": "./assets/images/ricenoodles.png",
+                  "info": "Preview the lesson plan and recipe.",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "",
+                  "legendTwoIcon": ""
+               },
+               {
+                  "id": "2",
+                  "image": "./assets/images/beans-carrot.png",
+                  "info": "Purchase or collect ingredients.",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "",
+                  "legendTwoIcon": ""
+               },
+               {
+                  "id": "3",
+                  "image": "./assets/images/cup.png",
+                  "info": "Please pre-wash all fresh ingredients (vegetables, etc.)",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "",
+                  "legendTwoIcon": ""
+               },
+               {
+                  "id": "4",
+                  "image": "./assets/images/knife.png",
+                  "info": "Remember to always keep sharp tools such as knives far from reach.",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "",
+                  "legendTwoIcon": ""
+               }
+            ],
+            "cookingTechnique": {
+               "id": "1",
+               "videoUrl": "./assets/videos/Knife_Skills.mp4",
+               "videoType":"local",
+               "techniqueList": [
+                  "Sharp knives are safer than dull knives.",
+                  "Toasting isn’t just for bread, it can be done with many other foods!",
+                  "For this, let’s grab a pan and put it on the stove.",
+                  "Next, we can add some nuts into the pan and let them cook.",
+                  "Stir them around the pan with a wooden spoon to make sure the heat is spread to all the nuts.",
+                  "Because they are exposed to dry heat, the nuts will start to become more dark brown."
+               ]
+            },
+            "cookingSteps": [
+               {
+                  "id": "1",
+                  "image": "./assets/images/Bowl.png",
+                  "video": "",
+                  "type": "",
+                  "info": "In a medium bowl, mash together the avocados, lime juice, and salt.",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "",
+                  "legendTwoIcon": "",
+                  "isChecked": true
+               },
+               {
+                  "id": "2",
+                  "image": "./assets/images/tomato-icon.png",
+                  "video": "",
+                  "type": "",
+                  "info": "Mix in onion, cilantro, tomatoes, and garlic.",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "",
+                  "legendTwoIcon": "",
+                  "isChecked": true
+               },
+               {
+                  "id": "3",
+                  "image": "./assets/images/oven.png",
+                  "video": "",
+                  "type": "",
+                  "info": "Refrigerate 1 hour for best flavor, or serve immediately.",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "",
+                  "legendTwoIcon": "",
+                  "isChecked": true
+               }
+            ],
+            "experimentData": [
+               {
+                  "screenType": "List",
+                  "desc":"WARNING! Perform this experiment only under the supervision of a Big Chef.",
+                  "recipesStepList": [
+                     {
+                        "id": "1",
+                        "image": "./assets/images/cup.png",
+                        "info": "Three identical drinking glasses, black and white construction paper, adhesive tape, water, thermometer, clock or timer",
+                        "start": "",
+                        "isChecked": false
+                     },
+                     {
+                        "id": "2",
+                        "image": "./assets/images/water-icon.png",
+                        "info": "Wrap one drinking glass in black construction paper and secure with tape.",
+                        "start": "yes",
+                        "isChecked": false
+                     },
+                     {
+                        "id": "3",
+                        "image": "./assets/images/fire.png",
+                        "info": "Do the same with another glass and white construction paper. Leave the third glass bare (this is your “control” in the experiment)",
+                        "start": "",
+                        "isChecked": false
+                     },
+                     {
+                        "id": "4",
+                        "image": "./assets/images/water-icon.png",
+                        "info": "Carefully fill the three glasses with water, and measure the water’s initial temperature.",
+                        "start": "",
+                        "isChecked": false
+                     },
+                     {
+                        "id": "5",
+                        "image": "./assets/images/water-icon.png",
+                        "info": "Put the glasses outside in a sunny place or on a windowsill in direct sunlight.",
+                        "start": "",
+                        "isChecked": false
+                     }
+                  ],
+                  "form": []
+               }
+            ],
+            "cleaning": [
+               {
+                  "id": "1",
+                  "image": "./assets/images/cleaning.png",
+                  "info": "Place all disposable plates and cups in the trash.",
+                  "isChecked": false
+               },
+               {
+                  "id": "2",
+                  "image": "./assets/images/dirty.png",
+                  "info": "Place all dishes and utensils in the sink.",
+                  "isChecked": false
+               },
+               {
+                  "id": "3",
+                  "image": "./assets/images/washer.png",
+                  "info": "Help a big chef to load and unload tools and dishes from the sink or dishwasher.",
+                  "isChecked": false
+               },
+               {
+                  "id": "4",
+                  "image": "./assets/images/oven.png",
+                  "info": "Do not touch sharp tools.",
+                  "isChecked": false
+               },
+               {
+                  "id": "5",
+                  "image": "./assets/images/water-icon.png",
+                  "info": "Wash your hands and your tabletop area",
+                  "isChecked": false
+               }
+            ],
+            "serving": {
+               "serveText": "Guacamole is usually served cold and with tortilla chips",
+               "question": "Did you know?",
+               "answer": "In Mexico, we speak Spanish, the  Capital is Mexico City and we use the peso as our currency.  Our population is about 126 million and our territory is about 1/4th the size of the United States  but before 1845, Mexico had a much larger territory than today."
+            },
+            "health_hygiene_question": {
+               "question": "How many times can you kick a ball to keep it up in the air without letting it touch the ground? Try it today and compare with your friends.",
+               "instruction": "Add the time you spent on this exercise"
+            },
+            "assessement": [
+               {
+                  "question_desc": "",
+                  "question": "Mexicans did not know until 1849 that a week before they had signed the treaty, gold had been discovered in ___?",
+                  "questionType": "fillBlank",
+                  "hint": {
+                     "title": "Hint",
+                     "desc": "the capital of this state is Los Angeles"
+                  },
+                  "form": [
+                     {
+                        "formaCtrlname": "cityName",
+                        "formCtrlType": "text",
+                        "placeholder": "City"
+                     }
+                  ]
+               },
+               {
+                  "question_desc": "",
+                  "question": "Mexico is bordered by the ___ ocean.",
+                  "questionType": "fillBlank",
+                  "hint": {
+                     "title": "Hint",
+                     "desc": "the answer starts with a P"
+                  },
+                  "form": [
+                     {
+                        "formaCtrlname": "oName",
+                        "formCtrlType": "text",
+                        "placeholder": "Name"
+                     }
+                  ]
+               },
+               {
+                  "question_desc": "",
+                  "question": "What is the capital of Mexico?",
+                  "questionType": "fillBlank",
+                  "hint": {
+                     "title": "Hint",
+                     "desc": "almost the same as the name of the country"
+                  },
+                  "form": [
+                     {
+                        "formaCtrlname": "ctName",
+                        "formCtrlType": "text",
+                        "placeholder": "City"
+                     }
+                  ]
+               },
+               {
+                  "question_desc": "",
+                  "question": " Waves are most commonly caused by ?",
+                  "questionType": "fillBlank",
+                  "hint": {
+                     "title": "Hint",
+                     "desc": "you can’t see it with your eyes"
+                  },
+                  "form": [
+                     {
+                        "formaCtrlname": "eName",
+                        "formCtrlType": "text",
+                        "placeholder": "Value"
+                     }
+                  ]
+               },
+               {
+                  "question_desc": "",
+                  "question": "Tides are caused by the gravitational pull of the moon and _____ ?",
+                  "questionType": "fillBlank",
+                  "hint": {
+                     "title": "Hint",
+                     "desc": " this is was keeps the earth warm"
+                  },
+                  "form": [
+                     {
+                        "formaCtrlname": "anName",
+                        "formCtrlType": "text",
+                        "placeholder": "Value"
+                     }
+                  ]
+               },
+               {
+                  "question_desc": "",
+                  "question": "Avocados have the highest _________ content of any fruit.",
+                  "questionType": "fillBlank",
+                  "hint": {
+                     "title": "Hint",
+                     "desc": "this helps digestion"
+                  },
+                  "form": [
+                     {
+                        "formaCtrlname": "proName",
+                        "formCtrlType": "text",
+                        "placeholder": "Value"
+                     }
+                  ]
+               },
+               {
+                  "question_desc": "",
+                  "question": "Avocados have 4 grams of _________ in each one, on average.",
+                  "questionType": "fillBlank",
+                  "hint": {
+                     "title": "Hint",
+                     "desc": "this helps digestion"
+                  },
+                  "form": [
+                     {
+                        "formaCtrlname": "avName",
+                        "formCtrlType": "text",
+                        "placeholder": "Value"
+                     }
+                  ]
+               },
+               {
+                  "question_desc": "",
+                  "question": "What percentage of land was given up by the Mexicans as a result of the Treaty of Guadalupe?",
+                  "questionType": "radio",
+                  "hasModal": true,
+                  "form": [],
+                  "options": [
+                     {
+                        "name": "25%"
+                     },
+                     {
+                        "name": "55%"
+                     },
+                     {
+                        "name": "75%"
+                     }
+                  ]
+               },
+               {
+                  "question_desc": "",
+                  "question": "In Mexico 92.7% of the population report __________ as their only language.",
+                  "questionType": "radio",
+                  "hasModal": true,
+                  "form": [],
+                  "options": [
+                     {
+                        "name": "Spanish"
+                     },
+                     {
+                        "name": "English"
+                     },
+                     {
+                        "name": "French"
+                     }
+                  ]
+               },
+               {
+                  "question_desc": "",
+                  "question": "Where does Chef Marco live today?",
+                  "questionType": "radio",
+                  "hasModal": true,
+                  "form": [],
+                  "options": [
+                     {
+                        "name": "Leon"
+                     },
+                     {
+                        "name": "Cancun"
+                     },
+                     {
+                        "name": "Aguascalientes"
+                     }
+                  ]
+               },
+               {
+                  "question_desc": "",
+                  "question": "Chef Marco sells guacamole by the pound on the weekends.  If it costs 50 pesos to make one pound of guacamole  and he sells it for 130 pesos, then what would his profit be if he sells 10 pounds of guacamole?",
+                  "questionType": "radio",
+                  "hasModal": true,
+                  "form": [],
+                  "options": [
+                     {
+                        "name": "$500"
+                     },
+                     {
+                        "name": "$950"
+                     },
+                     {
+                        "name": "$800"
+                     }
+                  ]
+               },
+               {
+                  "question_desc": "",
+                  "question": "Chef Marco has been asked to make the guacamole for his cousin's wedding of 150 guests.  If one portion of guacamole feeds 4 guests, then how many portions of guacamole does he need to make for the wedding? ",
+                  "questionType": "radio",
+                  "hasModal": true,
+                  "form": [],
+                  "options": [
+                     {
+                        "name": "37.5"
+                     },
+                     {
+                        "name": "56"
+                     },
+                     {
+                        "name": "13.4"
+                     }
+                  ]
+               },
+               {
+                  "question_desc": "",
+                  "question": "The price of avocados has gone up in the past couple of years.  In 2018  it cost 42 pesos a kilo and in 2020  it costs 70 pesos a kilo.  By what percentage has the cost of guacamoles gone up in the past 2 years?",
+                  "questionType": "radio",
+                  "hasModal": true,
+                  "form": [],
+                  "options": [
+                     {
+                        "name": "60%"
+                     },
+                     {
+                        "name": "50%"
+                     },
+                     {
+                        "name": "40%"
+                     }
+                  ]
+               },
+               {
+                  "question_desc": "",
+                  "question": "If 92% of the Mexican population only speaks Spanish then how  many people speak another  language other than Spanish given that the population of 126 million?",
+                  "questionType": "radio",
+                  "hasModal": true,
+                  "form": [],
+                  "options": [
+                     {
+                        "name": "10 million"
+                     },
+                     {
+                        "name": "25 million"
+                     },
+                     {
+                        "name": "5 million"
+                     }
+                  ]
+               }
+            ],
+            "take_action_acticity": [
+               {
+                  "activity_que_one": "Do you think you can buy a car that uses diesel in  the United States?"
+               },
+               {
+                  "activity_que_two": "How do the trees help combat air pollution?"
+               }
+            ]
+         },
+         {
+            "id": "3",
+            "title": "Due in 2 day",
+            "icon": "./assets/images/Caprese_Salad.png",
+            "menu": "Caprese Salad",
+            "duration": "30 mins",
+            "start": "",
+            "status": "start",
+            "disabled": false,
+            "country": "Italy",
+            "chef_name": "Maria",
+            "type": "BREAKFAST",
+            "time": "40-60 Min",
+            "rating": "4.9",
+            "image": "./assets/images/Potato-Scones.jpg",
+            "grade": "4,5",
+            "difficulty_level": "Medium",
+            "language": "Italian",
+            "greeting_text": "Ciao",
+            "socialStudyFact": "Italian immigrants, especially those from the South, faced prejudice when moving to America in late 19th century. ",
+            "learning_objective": {
+               "img": "./assets/images/Bowl.png",
+               "objective": [
+                  "I’ll be able to practice adding and multiplying, even with fractions.",
+                  "I’ll learn about different human senses and what it means to be gluten intolerant.",
+                  "I’ll learn more about what foods give me energy and why."
+               ]
+            },
+            "find_country_img": "./assets/images/earth-1.png",
+            "country_location_img": "./assets/images/earth-2.png",
+            "recipe_fact_one": "Caprese salad was enjoyed by many but failed to really catch fire.",
+            "recipe_fact_two": "King Farouk, in the 1950s, asked his chef for a light afternoon snack and was served a Caprese sandwich.",
+            "recipe_fact_image":"./assets/images/table-Caprese_Salad.png",
+            "recipe_content": {
+               "text": "One of the reasons that Caprese salad  is so delicious is because it includes fresh basil and tomatoes. Tomatoes are a great source of vitamin C, potassium, folate, and vitamin K.",
+               "ingredient": [
+                  {
+                     "name": "Fresh Basil",
+                     "icon": "./assets/images/basil-icon.png"
+                  },
+                  {
+                     "name": "Tomatoes",
+                     "icon": "./assets/images/tomato-icon.png"
+                  }
+               ]
+            },
+            "linguistic_details": [
+               {
+                  "text_one": "Salamat, Sa Muling Pagkikita"
+               },
+               {
+                  "text_two": "‘Salamat, Sa Muling Pagkikita’ means ‘Thank you, See you later!’ in Tagalog"
+               }
+            ],
+            "safety_hygiene": [
+               {
+                  "id": "1",
+                  "desc": "Stand up/sit straight and stay focused while using a peeler or a knife"
+               },
+               {
+                  "id": "2",
+                  "desc": "Keep your fingers away from the blade"
+               },
+               {
+                  "id": "3",
+                  "desc": "Always use a cutting board"
+               },
+               {
+                  "id": "4",
+                  "desc": "Keep knives on the table, and never carry them around the room."
+               },
+               {
+                  "id": "5",
+                  "desc": "Always listen to the Big Chef"
+               }
+            ],
+            "ingredientsList": [
+               {
+                  "id": "1",
+                  "icon": "./assets/images/tomato-icon.png",
+                  "details": "./assets/images/tomato-details.png",
+                  "quantity": "1 ct Pack (16oz)",
+                  "name": "Tomatoes",
+                  "season": "June to December",
+                  "canGrow": false,
+                  "nutrients": [
+                     {
+                        "name": "Calcium",
+                        "value": "14 mg"
+                     },
+                     {
+                        "name": "Iron",
+                        "value": "0.4 mg"
+                     },
+                     {
+                        "name": "Potassium",
+                        "value": "13 g"
+                     }
+                  ],
+                  "lTop": "",
+                  "rTop": "",
+                  "lBottom": "",
+                  "rBottom": ""
+               },
+               {
+                  "id": "2",
+                  "icon": "./assets/images/mozzarellacheese-icon.png",
+                  "details": "./assets/images/mozzarellacheese-details.png",
+                  "quantity": "1 ct Pack (16oz)",
+                  "name": "Mozzarella",
+                  "season": "June to December",
+                  "canGrow": false,
+                  "nutrients": [
+                     {
+                        "name": "Calcium",
+                        "value": "14 mg"
+                     },
+                     {
+                        "name": "Iron",
+                        "value": "0.4 mg"
+                     },
+                     {
+                        "name": "Potassium",
+                        "value": "13 g"
+                     }
+                  ],
+                  "lTop": "",
+                  "rTop": "",
+                  "lBottom": "",
+                  "rBottom": ""
+               },
+               {
+                  "id": "3",
+                  "icon": "./assets/images/basil-icon.png",
+                  "details": "./assets/images/basil-details.png",
+                  "quantity": "1 ct Pack (16oz)",
+                  "name": "Basil",
+                  "season": "June to December",
+                  "canGrow": false,
+                  "nutrients": [
+                     {
+                        "name": "Calcium",
+                        "value": "14 mg"
+                     },
+                     {
+                        "name": "Iron",
+                        "value": "0.4 mg"
+                     },
+                     {
+                        "name": "Potassium",
+                        "value": "13 g"
+                     }
+                  ],
+                  "lTop": "",
+                  "rTop": "",
+                  "lBottom": "",
+                  "rBottom": ""
+               },
+               {
+                  "id": "4",
+                  "icon": "./assets/images/oliveoil.png",
+                  "details": "./assets/images/oliveoil-details.png",
+                  "quantity": "1 ct Pack (16oz)",
+                  "name": "Olive Oil",
+                  "season": "June to August",
+                  "nutrients": [
+                     {
+                        "name": "Polyunsaturated fat",
+                        "value": "1.4 g"
+                     },
+                     {
+                        "name": "Carbohydrate",
+                        "value": "8,231 units"
+                     },
+                     {
+                        "name": "Fiber",
+                        "value": "0 mg"
+                     }
+                  ],
+                  "canGrow": false,
+                  "lTop": "",
+                  "rTop": "",
+                  "lBottom": "",
+                  "rBottom": ""
+               },
+               {
+                  "id": "5",
+                  "icon": "./assets/images/salt.png",
+                  "details": "./assets/images/salt-details.png",
+                  "quantity": "1 ct Pack (16oz)",
+                  "name": "Salt",
+                  "season": "March to May",
+                  "nutrients": [
+                     {
+                        "name": "Sodium",
+                        "value": "295 mg"
+                     },
+                     {
+                        "name": "Potassium",
+                        "value": "3.9 mg"
+                     },
+                     {
+                        "name": "Protein",
+                        "value": "0 g"
+                     }
+                  ],
+                  "canGrow": false,
+                  "lTop": "",
+                  "rTop": "",
+                  "lBottom": "",
+                  "rBottom": ""
+               },
+               {
+                  "id": "6",
+                  "icon": "./assets/images/pepper-icon.png",
+                  "details": "./assets/images/pepper-details.png",
+                  "quantity": "1 ct Pack (16oz)",
+                  "name": "Pepper",
+                  "season": "June to December",
+                  "canGrow": false,
+                  "nutrients": [
+                     {
+                        "name": "Calcium",
+                        "value": "14 mg"
+                     },
+                     {
+                        "name": "Iron",
+                        "value": "0.4 mg"
+                     },
+                     {
+                        "name": "Potassium",
+                        "value": "13 g"
+                     }
+                  ],
+                  "lTop": "",
+                  "rTop": "",
+                  "lBottom": "",
+                  "rBottom": ""
+               }
+            ],
+            "nutrientQuestionList": {
+               "id": "1",
+               "question": "Smell the basil leaves. What does it smell like?",
+               "nutrientOptions": [
+                  {
+                     "id": "1",
+                     "name": "f-option",
+                     "value": "Minty"
+                  },
+                  {
+                     "id": "2",
+                     "name": "s-option",
+                     "value": "Citrus"
+                  },
+                  {
+                     "id": "3",
+                     "name": "t-option",
+                     "value": "Nutty and Floral"
+                  }
+               ]
+            },
+            "sensoryQuestionList": {
+               "id": "1",
+               "message": "Smell the basil leaves",
+               "question": "What does this smell like?",
+               "options": [
+                  {
+                     "id": "1",
+                     "name": "s-option",
+                     "value": "Floral"
+                  },
+                  {
+                     "id": "2",
+                     "name": "t-option",
+                     "value": "Nutty"
+                  }
+               ]
+            },
+            "recipesPreparationList": [
+               {
+                  "id": "1",
+                  "image": "./assets/images/ricenoodles.png",
+                  "info": "Preview the lesson plan and recipe.",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "",
+                  "legendTwoIcon": ""
+               },
+               {
+                  "id": "2",
+                  "image": "./assets/images/beans-carrot.png",
+                  "info": "Purchase or collect ingredients.",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "",
+                  "legendTwoIcon": ""
+               },
+               {
+                  "id": "3",
+                  "image": "./assets/images/cup.png",
+                  "info": "Please pre-wash all fresh ingredients (vegetables, etc.)",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "",
+                  "legendTwoIcon": ""
+               },
+               {
+                  "id": "4",
+                  "image": "./assets/images/knife.png",
+                  "info": "Remember to always keep sharp tools such as knives far from reach.",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "",
+                  "legendTwoIcon": ""
+               }
+            ],
+            "cookingTechnique": {
+               "id": "1",
+               "videoUrl": "./assets/videos/Knife_Skills.mp4",
+               "videoType":"local",
+               "techniqueList": [
+                  "Sharp knives are safer than dull knives.",
+                  "A sharp knife can easily cut through vegetables while dull ones do not and can instead cut you accidentally.",
+                  "To hold the knife properly, use your pointing finger and your thumb, pinch the part of the knife where the handle meets the blade, while the other three fingers grasp the rest of the knife  handle.",
+                  "While holding the vegetable down with your other hand, curl your fingers inward like a claw to make sure your fingers are safe and that the vegetable is still.",
+                  "When cutting, walk your fingers back away slightly from the knife with each cut."
+               ]
+            },
+            "cookingSteps": [
+               {
+                  "id": "1",
+                  "image": "./assets/images/tomato-icon.png",
+                  "video": "",
+                  "type": "",
+                  "info": "Layer alternating slices of tomatoes and mozzarella",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "",
+                  "legendTwoIcon": "",
+                  "isChecked": true
+               },
+               {
+                  "id": "2",
+                  "image": "./assets/images/basil-icon.png",
+                  "video": "",
+                  "type": "",
+                  "info": "Add a basil leaf between each, on a plate",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "",
+                  "legendTwoIcon": "",
+                  "isChecked": true
+               },
+               {
+                  "id": "3",
+                  "image": "./assets/images/oliveoil.png",
+                  "video": "",
+                  "type": "",
+                  "info": "Drizzle the salad with extra-virgin olive oil.",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "",
+                  "legendTwoIcon": "",
+                  "isChecked": true
+               },
+               {
+                  "id": "4",
+                  "image": "./assets/images/pepper-icon.png",
+                  "video": "",
+                  "type": "",
+                  "info": "season with salt and pepper, to taste.",
+                  "legendOne": "Big Chef",
+                  "legendOneIcon": "./assets/images/profile-icon-2.png",
+                  "legendTwo": "",
+                  "legendTwoIcon": "",
+                  "isChecked": true
+               }
+            ],
+            "experimentData": [
+               {
+                  "screenType": "List",
+                  "desc":"WARNING! Perform this experiment only under the supervision of a Big Chef.",
+                  "recipesStepList": [
+                     {
+                        "id": "1",
+                        "image": "./assets/images/kitchen.png",
+                        "info": "Boil 2 cups of water in a pot.",
+                        "start": "",
+                        "isChecked": false
+                     },
+                     {
+                        "id": "2",
+                        "image": "./assets/images/water-icon.png",
+                        "info": "Once the water is boiling add the spinach and cook for 10 minutes.",
+                        "start": "yes",
+                        "isChecked": false
+                     },
+                     {
+                        "id": "3",
+                        "image": "./assets/images/fire.png",
+                        "info": "Using a strainer to capture the basil leaves, pour the water into a clear bowl.",
+                        "start": "",
+                        "isChecked": false
+                     },
+                     {
+                        "id": "4",
+                        "image": "./assets/images/book-icon.png",
+                        "info": "Observe how the water is now green from the chlorophyll! Why do you think that is? ",
+                        "start": "",
+                        "isChecked": false
+                     }
+                  ],
+                  "form": []
+               }
+            ],
+            "cleaning": [
+               {
+                  "id": "1",
+                  "image": "./assets/images/cleaning.png",
+                  "info": "Place all disposable plates and cups in the trash.",
+                  "isChecked": false
+               },
+               {
+                  "id": "2",
+                  "image": "./assets/images/dirty.png",
+                  "info": "Place all dishes and utensils in the sink.",
+                  "isChecked": false
+               },
+               {
+                  "id": "3",
+                  "image": "./assets/images/oven.png",
+                  "info": "Do not touch sharp tools.",
+                  "isChecked": false
+               },
+               {
+                  "id": "4",
+                  "image": "./assets/images/water-icon.png",
+                  "info": "Wash your hands and your tabletop area",
+                  "isChecked": false
+               }
+            ],
+            "serving": {
+               "serveText": "Make sure the ingredients are fresh. Serve on a plate and enjoy!",
+               "question": "Did you know?",
+               "answer": "The Grand Canal is a channel in Venice, Italy. It forms one of the major water-traffic corridors in the city. When eating with guests, Italians do not usually hurry; a meal may last one to four hours."
+            },
+            "health_hygiene_question": {
+               "question": "How many times can you kick a ball to keep it up in the air without letting it touch the ground? Try it today and compare with your friends.",
+               "instruction": "Add the time you spent on this exercise"
+            },
+            "assessement": [
+               {
+                  "question_desc": "",
+                  "question": "The Italian islands of Sicily and Sardinia lie SouthWest of the Italian Peninsula. What direction is SouthWest?",
+                  "questionType": "fillBlank",
+                  "hint": {
+                     "title": "Hint",
+                     "desc": "A hint to remember the points of a compass: Never Eat Soggy Waffles"
+                  },
+                  "form": [
+                     {
+                        "formaCtrlname": "siName",
+                        "formCtrlType": "text",
+                        "placeholder": "Sign"
+                     }
+                  ]
+               },
+               {
+                  "question_desc": "",
+                  "question": "The Grand Canal in Venice, Italy is formed by what body of water?",
+                  "questionType": "fillBlank",
+                  "hint": {
+                     "title": "Hint",
+                     "desc": "They sound similar to each other!"
+                  },
+                  "form": [
+                     {
+                        "formaCtrlname": "soName",
+                        "formCtrlType": "text",
+                        "placeholder": "Value"
+                     }
+                  ]
+               },
+               {
+                  "question_desc": "",
+                  "question": "What vitamin are tomatoes especially rich in?",
+                  "questionType": "fillBlank",
+                  "hint": {
+                     "title": "Hint",
+                     "desc": "Think about our nutrient spotlight!"
+                  },
+                  "form": [
+                     {
+                        "formaCtrlname": "vitName",
+                        "formCtrlType": "text",
+                        "placeholder": "Vitamin"
+                     }
+                  ]
+               },
+               {
+                  "question_desc": "",
+                  "question": "Why is Vitamin C helpful to us?",
+                  "questionType": "fillBlank",
+                  "hint": {
+                     "title": "Hint",
+                     "desc": "Think about the tomatoes!"
+                  },
+                  "form": [
+                     {
+                        "formaCtrlname": "toName",
+                        "formCtrlType": "text",
+                        "placeholder": "Value"
+                     }
+                  ]
+               },
+               {
+                  "question_desc": "",
+                  "question": "Where was our chef of the day from?",
+                  "questionType": "radio",
+                  "hasModal": true,
+                  "form": [],
+                  "options": [
+                     {
+                        "name": "London"
+                     },
+                     {
+                        "name": "Barcelona"
+                     },
+                     {
+                        "name": "Italy"
+                     },
+                     {
+                        "name": "France"
+                     }
+                  ]
+               },
+               {
+                  "question_desc": "",
+                  "question": "What kind of cheese goes into a caprese salad?",
+                  "questionType": "radio",
+                  "hasModal": true,
+                  "form": [],
+                  "options": [
+                     {
+                        "name": "Gouda"
+                     },
+                     {
+                        "name": "Parmesan"
+                     },
+                     {
+                        "name": "Mozzarella"
+                     },
+                     {
+                        "name": "Feta"
+                     }
+                  ]
+               },
+               {
+                  "question_desc": "",
+                  "question": "What is the capital city of Italy?",
+                  "questionType": "radio",
+                  "hasModal": true,
+                  "form": [],
+                  "options": [
+                     {
+                        "name": "Rome"
+                     },
+                     {
+                        "name": "Florence"
+                     },
+                     {
+                        "name": "Tuscany"
+                     }
+                  ]
+               },
+               {
+                  "question_desc": "",
+                  "question": "What is the most common language spoken in Italy?",
+                  "questionType": "radio",
+                  "hasModal": true,
+                  "form": [],
+                  "options": [
+                     {
+                        "name": "English"
+                     },
+                     {
+                        "name": "Spanish"
+                     },
+                     {
+                        "name": "Italian"
+                     },
+                     {
+                        "name": "French"
+                     }
+                  ]
+               },
+               {
+                  "question_desc": "",
+                  "question": "Since we are using 20 slices of each ingredient, what is 20 + 20 + 20?",
+                  "questionType": "radio",
+                  "hasModal": true,
+                  "form": [],
+                  "options": [
+                     {
+                        "name": "40"
+                     },
+                     {
+                        "name": "60"
+                     },
+                     {
+                        "name": "80"
+                     },
+                     {
+                        "name": "50"
+                     }
+                  ]
+               },
+               {
+                  "question_desc": "",
+                  "question": "If both tomatoes and mozzarella cheese are ¼ of an inch in slices and we have 40 slices of each of those item, what is the total thickness if we were to stack them up?",
+                  "questionType": "radio",
+                  "hasModal": true,
+                  "form": [],
+                  "options": [
+                     {
+                        "name": "10 inches"
+                     },
+                     {
+                        "name": "5 inches"
+                     },
+                     {
+                        "name": "6 inches"
+                     },
+                     {
+                        "name": "15 inches"
+                     }
+                  ]
+               },
+               {
+                  "question_desc": "",
+                  "question": "We are using 20 slices of each main ingredient. What is 20 x 3?",
+                  "questionType": "radio",
+                  "hasModal": true,
+                  "form": [],
+                  "options": [
+                     {
+                        "name": "40"
+                     },
+                     {
+                        "name": "60"
+                     },
+                     {
+                        "name": "80"
+                     },
+                     {
+                        "name": "50"
+                     }
+                  ]
+               },
+               {
+                  "question_desc": "",
+                  "question": "There are 12 slices of cheese and you want to divide those slices equally amongst your family of 4, how many slices would each person have?",
+                  "questionType": "radio",
+                  "hasModal": true,
+                  "form": [],
+                  "options": [
+                     {
+                        "name": "6"
+                     },
+                     {
+                        "name": "8"
+                     },
+                     {
+                        "name": "2"
+                     },
+                     {
+                        "name": "3"
+                     }
+                  ]
+               }
+            ],
+            "take_action_acticity": [
+               {
+                  "activity_que_one": "Imagine if you are a person living in Italy, where most of the foods are made of wheat, and you have Celiac Disease. What would you eat? How would this affect your life?"
+               },
+               {
+                  "activity_que_two": "Why do you think the number of people with Celiac Disease is increasing?"
+               }
+            ]
+         }
+      ],
+      "studentList": [
+         {
+            "id": "1",
+            "icon": "./assets/images/profile-icon-2.png",
+            "firstName": "Aaron",
+            "lastName": "Samuel",
+            "favourite": ""
+         },
+         {
+            "id": "2",
+            "icon": "./assets/images/profile-icon-3.png",
+            "firstName": "Kevin",
+            "lastName": "Ruaz",
+            "favourite": "yes"
+         },
+         {
+            "id": "3",
+            "icon": "./assets/images/profile-icon-4.png",
+            "firstName": "Exie",
+            "lastName": "Keil",
+            "favourite": ""
+         },
+         {
+            "id": "4",
+            "icon": "./assets/images/profile-icon-5.png",
+            "firstName": "Terrance",
+            "lastName": "Mintz",
+            "favourite": ""
+         },
+         {
+            "id": "5",
+            "icon": "./assets/images/profile-icon-6.png",
+            "firstName": "Cari",
+            "lastName": "Kimmel",
+            "favourite": ""
+         },
+         {
+            "id": "6",
+            "icon": "./assets/images/profile-icon-7.png",
+            "firstName": "Mikel",
+            "lastName": "Kennamer",
+            "favourite": ""
+         },
+         {
+            "id": "7",
+            "icon": "./assets/images/profile-icon-8.png",
+            "firstName": "Danila",
+            "lastName": "Nethery",
+            "favourite": ""
+         },
+         {
+            "id": "8",
+            "icon": "./assets/images/profile-icon-9.png",
+            "firstName": "Adelaida",
+            "lastName": "Cobble",
+            "favourite": ""
+         },
+         {
+            "id": "9",
+            "icon": "./assets/images/profile-icon-2.png",
+            "firstName": "Lorraine",
+            "lastName": "Legrange",
+            "favourite": ""
+         },
+         {
+            "id": "10",
+            "icon": "./assets/images/profile-icon-4.png",
+            "firstName": "Tena",
+            "lastName": "Dunson",
+            "favourite": ""
+         },
+         {
+            "id": "11",
+            "icon": "./assets/images/profile-icon-5.png",
+            "firstName": "Rohan",
+            "lastName": "Srivastava",
+            "favourite": ""
+         },
+         {
+            "id": "12",
+            "icon": "./assets/images/profile-icon-6.png",
+            "firstName": "Renay",
+            "lastName": "Trezza",
+            "favourite": ""
+         },
+         {
+            "id": "13",
+            "icon": "./assets/images/profile-icon-2.png",
+            "firstName": "Aurore",
+            "lastName": "Yon",
+            "favourite": ""
+         },
+         {
+            "id": "14",
+            "icon": "./assets/images/profile-icon-8.png",
+            "firstName": "Days",
+            "lastName": "Mcelyea",
+            "favourite": ""
+         },
+         {
+            "id": "15",
+            "icon": "./assets/images/profile-icon-2.png",
+            "firstName": "Bruno",
+            "lastName": "Stiles",
+            "favourite": ""
+         },
+         {
+            "id": "16",
+            "icon": "./assets/images/profile-icon-2.png",
+            "firstName": "Catherin",
+            "lastName": "Bellows",
+            "favourite": ""
+         },
+         {
+            "id": "17",
+            "icon": "./assets/images/profile-icon-2.png",
+            "firstName": "Dean",
+            "lastName": "Tunney",
+            "favourite": ""
+         },
+         {
+            "id": "18",
+            "icon": "./assets/images/profile-icon-2.png",
+            "firstName": "Ebony",
+            "lastName": "Angelo",
+            "favourite": ""
+         },
+         {
+            "id": "19",
+            "icon": "./assets/images/profile-icon-2.png",
+            "firstName": "Felix",
+            "lastName": "Orneals",
+            "favourite": ""
+         },
+         {
+            "id": "20",
+            "icon": "./assets/images/profile-icon-2.png",
+            "firstName": "Han",
+            "lastName": "Willer",
+            "favourite": ""
+         }
+      ]
+   },
+   {
+      "username": "District1",
+      "email": "district1@chefkoochooloo.com",
+      "studentList": []
+   }
+]

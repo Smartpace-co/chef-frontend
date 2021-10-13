@@ -1,0 +1,1298 @@
+<div class="schools-report">
+    <div class="activity-report-main">
+        <div class="container">
+            <div class="report-heading-wrapper">
+                <div class="heading-contain">
+                    <app-button classes="btn btn-secondary icon-btn" *ngIf="performance4">
+                        <span aria-hidden="true">
+                            <fa-icon [icon]="leftArrow"></fa-icon>{{'common.back'| translate}}
+                        </span>
+                    </app-button>
+                    <h4 class="standard-heading" *ngIf="heading1">
+                        {{'teacher.performance.by-student.performance-by-standards'| translate }}</h4>
+                    <h4 class="standard-heading" *ngIf="heading2">
+                        {{'teacher.performance.by-student.performance-by-assignments'| translate }}</h4>
+                    <h4 class="standard-heading" *ngIf="heading3">
+                        {{'teacher.performance.by-student.performance-by-students'| translate }}</h4>
+                    <h4 class="heading" *ngIf="performance1">{{'teacher.performance.by-student.your-class-performance'|
+                        translate }}</h4>
+                    <div class="student" *ngIf="performance1">
+                        <app-button classes="btn btn-secondary icon-btn">
+                            <span aria-hidden="true">
+                                <fa-icon [icon]="leftArrow"></fa-icon>{{'common.back'| translate}}
+                            </span>
+                        </app-button>
+                        <div class="student-details">
+                            <div class="student-photo">
+                                <img src="./assets/images/student.png" class="img-fluid" alt="">
+                            </div>
+                            <div class="student-name">
+                                <span class="name">Samuel, Aaron</span>
+                                <span class="student-id">{{'district.district-schools.id'| translate}}: 36271</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-wrapper">
+                    <app-button classes="btn btn-primary icon-btn mb-3 mr-3" (click)=openCriteriaModal(changeCriteria)>
+                        <span aria-hidden="true">
+                            <fa-icon [icon]="cogs"></fa-icon>{{'teacher.performance.by-student.change-report-criteria'|
+                            translate }}
+                        </span>
+                    </app-button>
+                    <app-button classes="btn btn-primary print-icon-btn icon-btn mr-3 mb-3" (click)="generatePDF()">
+                        <span aria-hidden="true"><span class="print-icon mr-3"><img src="./assets/images/print-icon.png"
+                                    alt="" class="img-fluid" /></span>{{ 'school.billing.print-report' | translate
+                            }}</span>
+                    </app-button>
+                </div>
+            </div>
+            <div class="standard-text" *ngIf="performance4">
+                <div class="text">
+                    <span class="text-data">Fresh Spring Rolls with Thai Dipping Sauce</span>
+                    <span class="date">01/23/2020 - 01/23/2020</span>
+                </div>
+                <div class="performance-index">
+                    <ul class="index">
+                        <li class="extra-dark">0</li>
+                        <li class="dark">2</li>
+                        <li class="medium">6</li>
+                        <li class="light">8</li>
+                    </ul>
+                    <ul class="index-text">
+                        <li>{{'teacher.performance.by-student.not-started'| translate }}</li>
+                        <li>{{'teacher.performance.by-student.need-help-label'| translate }}</li>
+                        <li>{{'teacher.performance.by-student.making-progress'| translate }}</li>
+                        <li>{{'student.lesson-report.completed'| translate }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="generatePdf">
+            <!-- <div class="schools-report-wrapper" id="generatePdf"> -->
+            <div class="schools-report-wrapper">
+
+                <div class="schools-activity">
+                    <div class="school-active-details">
+                        <div class="roster-filter">
+                            <div class="container">
+                                <ul class="filters-list desktop-only" *ngIf="Filters">
+                                    <li class="filters-item">
+                                        <a href="javascript:() => { return false; }" (click)="filterDuration('week')"
+                                            [ngClass]="{'active': duration === 'week'}"
+                                            class="filter">{{'teacher.performance.by-student.this-week'| translate
+                                            }}</a>
+                                    </li>
+                                    <li class="filters-item">
+                                        <a href="javascript:() => { return false; }" (click)="filterDuration('month')"
+                                            [ngClass]="{'active': duration === 'month'}"
+                                            class="filter">{{'teacher.performance.by-student.this-month'| translate
+                                            }}</a>
+                                    </li>
+                                    <li class="filters-item">
+                                        <a href="javascript:() => { return false; }" (click)="filterDuration('quarter')"
+                                            [ngClass]="{'active': duration === 'quarter'}"
+                                            class="filter">{{'teacher.performance.by-student.this-quarter'| translate
+                                            }}</a>
+                                    </li>
+                                    <li class="filters-item">
+                                        <a href="javascript:() => { return false; }" (click)="filterDuration('year')"
+                                            [ngClass]="{'active': duration === 'year'}"
+                                            class="filter">{{'teacher.performance.by-student.this-year'| translate
+                                            }}</a>
+                                    </li>
+                                </ul>
+                                <ul id="tabs" class="nav nav-tabs" role="tablist" *ngIf="tabs">
+                                    <li class="nav-item">
+                                        <a id="classroom" href="#classroomNote" class="nav-link active"
+                                            data-toggle="tab"
+                                            role="tab">{{'teacher.performance.by-student.skills-label'| translate }}</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a id="platform" href="#platformNote" class="nav-link" data-toggle="tab"
+                                            role="tab">{{'district.district-schools.students-title'|translate}}</a>
+                                    </li>
+                                </ul>
+                                <div class="filter-droplist">
+                                    <app-drop-down class="transparentbg  mobile-only" [dropDownButtonName]="filterTitle"
+                                        [dropDownIcon]="" [dropDownItemList]="filterList"></app-drop-down>
+                                    <!-- <app-drop-down class="transparentbg"
+                                        (registerDropdownValueChange)="changeView($event)"
+                                        [dropDownButtonName]="ViewTitle" [dropDownIcon]="ViewIcon"
+                                        [dropDownItemList]="ViewList"></app-drop-down> -->
+                                </div>
+                                <div (click)="openRead(readReport)" class="report-help">
+                                    <a class="help">{{'teacher.performance.by-student.how-to-read-report-label'|
+                                        translate
+                                        }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Question list -->
+            <div class="container">
+                <div class="slider-wrapper" *ngIf="slider && planList.length > 0">
+                    <ngx-slick-carousel class="plans" #slickModal="slick-carousel" [config]="slideConfig">
+                        <div ngxSlickItem *ngFor="let item of planList" class="option">
+                            <input type="radio" id="{{ item.id }}" name="selector" value="{{item.value}}"
+                                [checked]="item.id == 0" (click)="getReportList(item)">
+                            <label for="{{item.planName}}">
+                                <div class="transferent-card">
+                                    <div class="transferent-content">
+                                        <div class="coverage-wraper">
+                                            <span class="number">{{item?.coverage}}</span>
+                                            <span class="coverage">
+                                                <span class="sign">%</span>
+                                                <span class="text">{{'teacher.performance.by-student.coverage-label'|
+                                                    translate }}</span>
+                                            </span>
+                                        </div>
+                                        <div class="proficient-wraper">
+                                            <span class="number">{{item?.proficiency}}</span>
+                                            <span class="proficient">
+                                                <span class="sign">%</span>
+                                                <span class="text">{{'teacher.performance.by-student.proficient'|
+                                                    translate
+                                                    }}</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="grade-wraper">
+                                        <span class="grade">
+                                            <span> {{ item.questionTypeInfo?.title }} </span> <span> {{ item.grade }}
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </ngx-slick-carousel>
+                    <div class="next-btn-wrapper">
+                        <fa-icon [icon]="doubleArrowRight"></fa-icon>
+                    </div>
+                    <div class="prev-btn-wrapper">
+                        <fa-icon [icon]="doubleArrowLeft"></fa-icon>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="card-wihtout-header-blue" *ngIf="performance1">
+                    <div class="roster-assignment-wrapper">
+                        <div class="table-roster-assignment">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="row table-wraper col-border-bottom">
+                                            <div class="col-6">
+                                                <div class="row heading-wrapper">
+                                                    <div class="col-9 standard-heading pl-4 col-border-right">
+                                                        {{'school.class.add-class.standards-field'|translate
+                                                        |uppercase}}
+                                                    </div>
+                                                    <div class="col-3 standard-heading col-border-right text-center">
+                                                        {{'teacher.performance.by-student.proficiency-label'| translate
+                                                        |uppercase }}</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="row heading-wrapper">
+                                                    <div class="col-3 standard-heading col-border-right text-center">
+                                                        {{'student.lesson-report.correct'| translate | uppercase }}
+                                                        {{'student.assigned-lessons.lesson-steps.response'| translate |
+                                                        uppercase}}</div>
+                                                    <div class="col-3 standard-heading col-border-right text-center">
+                                                        {{'student.lesson-report.incorrect-attempts'| translate |
+                                                        uppercase}}</div>
+                                                    <div class="col-6 standard-heading text-center">
+                                                        {{'teacher.performance.by-student.growth-label'| translate |
+                                                        uppercase }}</div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="row" *ngFor="let item of operationDetails">
+                                            <div data-toggle="collapse" [attr.data-target]="'#collape' + item.Id"
+                                                class="col-12 accordion-toggle visible-row settings collapsed">
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <div class="row">
+                                                            <div class="col-9 student-name col-border-right">
+                                                                {{item.operation}}
+                                                                <span class="right-arrow-icon"
+                                                                    *ngIf="item.subList.length > 0">
+                                                                    <fa-icon [icon]="upArrow"></fa-icon>
+                                                                </span>
+                                                                <span class="down-arrow-icon"
+                                                                    *ngIf="item.subList.length > 0">
+                                                                    <fa-icon [icon]="DownArrow"></fa-icon>
+                                                                </span>
+                                                            </div>
+                                                            <div class="col-3 col-border-right">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="row h-100">
+                                                            <div class="col-3 col-border-right">&nbsp;</div>
+                                                            <div class="col-3 col-border-right">&nbsp;</div>
+                                                            <div class="col-6">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 accordian-body collapse hiddenRow visible-row hidden-row settings sub-list"
+                                                id="{{'collape' + item.Id}}" *ngIf="item.subList.length > 0">
+                                                <div data-toggle="collapse" [attr.data-target]="'#info' + subitem.Id"
+                                                    class="row accordion-toggle visible-row collapsed collapsible-row"
+                                                    *ngFor="let subitem of item.subList">
+                                                    <div class="col-6">
+                                                        <div class="row">
+                                                            <div class="col-9 content-heading col-border-right">
+                                                                <span class="plus-icon" *ngIf="item.subList.length > 0">
+                                                                    <fa-icon [icon]="plus"></fa-icon>
+                                                                </span>
+                                                                <span class="minus-icon"
+                                                                    *ngIf="item.subList.length > 0">
+                                                                    <fa-icon [icon]="minus"></fa-icon>
+                                                                </span>
+                                                                {{subitem.operationName}}
+
+                                                            </div>
+                                                            <div class="col-3 pt-3 pb-3 text-center col-border-right">
+                                                                {{subitem.proficiency}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="row h-100">
+                                                            <div class="col-3 pt-3 pb-3 text-center col-border-right">
+                                                                {{subitem.correctResponce}}
+                                                            </div>
+                                                            <div class="col-3 pt-3 pb-3 text-center col-border-right">
+                                                                {{subitem.incorrectAttempts}}
+                                                            </div>
+                                                            <div class="col-6 pt-3 text-center pb-3">
+                                                                {{subitem.growth}}
+                                                                <!-- <fa-icon class="long-up" [icon]="longArrowUp"></fa-icon> -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 accordian-body collapse hiddenRow visible-row hidden-row sub-information-wrapper col-border-top col-border-bottom"
+                                                        id="{{'info' + subitem.Id}}">
+                                                        <h6 class="pt-4  pl-4">{{subitem.operationName}}</h6>
+                                                        <p class=" pl-4">{{subitem.info}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- By Standards -->
+                <div class="card-wihtout-header-blue card-tabel2" *ngIf="performance2">
+                    <div class="roster-assignment-wrapper">
+                        <div class="table-roster-assignment">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="row table-wraper col-border-bottom">
+                                            <div class="col-6">
+                                                <div class="row heading-wrapper">
+                                                    <div class="col-9 standard-heading pl-4 col-border-right">
+                                                        {{'school.class.add-class.standards-field'|translate |
+                                                        uppercase}}
+                                                    </div>
+                                                    <div class="col-3 standard-heading col-border-right text-center">
+                                                        {{'teacher.performance.by-student.lesson-assigned-completed'|
+                                                        translate |uppercase }}</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 spectrum-heading-wrapper" *ngIf="showHeader">
+                                                <div class="spectrum-heading">
+                                                    <h5 class="heading text-center">
+                                                        {{'teacher.performance.by-student.proficiency-spectrum'|
+                                                        translate |
+                                                        uppercase}}</h5>
+                                                    <ul class="spectrum-wraper">
+                                                        <li *ngIf="headersList[0].check">
+                                                            {{'teacher.performance.by-student.emerging'| translate }}
+                                                        </li>
+                                                        <li *ngIf="headersList[1].check">
+                                                            {{'teacher.performance.by-student.proficient'| translate }}
+                                                        </li>
+                                                        <li *ngIf="headersList[2].check">
+                                                            {{'teacher.performance.by-student.advanced'| translate }}
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="row" *ngFor="let item of operationDetails">
+                                            <div data-toggle="collapse" [attr.data-target]="'#collape' + item.Id"
+                                                class="col-12 accordion-toggle visible-row settings collapsed">
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <div class="row">
+                                                            <div class="col-9 student-name col-border-right">
+                                                                {{item.title}}
+                                                                <span class="right-arrow-icon"
+                                                                    *ngIf="item.subList.length > 0">
+                                                                    <fa-icon [icon]="upArrow"></fa-icon>
+                                                                </span>
+                                                                <span class="down-arrow-icon"
+                                                                    *ngIf="item.subList.length > 0">
+                                                                    <fa-icon [icon]="DownArrow"></fa-icon>
+                                                                </span>
+                                                            </div>
+                                                            <div class="col-3 lesson col-border-right">
+                                                                {{item.completePercent}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 proficiency-wraper" *ngIf="showHeader">
+                                                        <ul class="proficiency-color">
+                                                            <li class="extra-dark" *ngIf="headersList[0].check">
+                                                                {{item?.emerging}}</li>
+                                                            <li class="dark" *ngIf="headersList[1].check">
+                                                                {{item?.proficient}}</li>
+                                                            <li class="light" *ngIf="headersList[2].check">
+                                                                {{item?.advanced}}</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 accordian-body collapse hiddenRow visible-row hidden-row settings sub-list"
+                                                id="{{'collape' + item.Id}}" *ngIf="item.subList.length > 0">
+                                                <div data-toggle="collapse" [attr.data-target]="'#info' + subitem.Id"
+                                                    class="row accordion-toggle visible-row collapsed collapsible-row"
+                                                    *ngFor="let subitem of item.subList">
+                                                    <div class="col-6">
+                                                        <div class="row">
+                                                            <div class="col-9 content-heading col-border-right">
+                                                                <span class="plus-icon" *ngIf="item.subList.length > 0">
+                                                                    <fa-icon [icon]="plus"></fa-icon>
+                                                                </span>
+                                                                <span class="minus-icon"
+                                                                    *ngIf="item.subList.length > 0">
+                                                                    <fa-icon [icon]="minus"></fa-icon>
+                                                                </span>
+                                                                {{subitem.operationName}}
+
+                                                            </div>
+                                                            <div class="col-3 pt-3 pb-3 text-center col-border-right">
+                                                                <fa-icon [icon]="check"></fa-icon>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 proficiency-wraper">
+                                                        <ul class="proficiency-color">
+                                                            <li class="extra-dark">0</li>
+                                                            <li class="dark">6</li>
+                                                            <li class="light">9</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-12 accordian-body collapse hiddenRow visible-row hidden-row col-border-top col-border-bottom"
+                                                        id="{{'info' + subitem.Id}}">
+                                                        <div class="row">
+                                                            <div class="col-6 sub-information-wrapper">
+                                                                <h6 class="pt-4  pl-4">{{subitem.operationName}}</h6>
+                                                                <p class=" pl-4">{{subitem.info}}</p>
+                                                            </div>
+                                                            <div class="col-6 btn-long-wraper">
+                                                                <app-button classes="btn btn-primary btn-long mb-3">
+                                                                    <span aria-hidden="true">
+                                                                        {{'teacher.assignment.view-menu'|translate}}
+                                                                        {{'student.assigned-lessons.assignments-label'|
+                                                                        translate }}
+                                                                        {{'teacher.performance.by-student.for-this-standards'|
+                                                                        translate }}
+                                                                    </span>
+                                                                </app-button>
+                                                                <app-button classes="btn btn-primary btn-long mb-3">
+                                                                    <span aria-hidden="true">
+                                                                        {{'teacher.assignment.view-menu'|translate}}
+                                                                        {{'district.district-schools.students-title'|translate}}
+                                                                        {{'teacher.assignment.report-label'|translate}}
+                                                                        {{'teacher.performance.by-student.for-this-standards'|
+                                                                        translate }}
+                                                                    </span>
+                                                                </app-button>
+                                                                <app-button classes="btn btn-primary btn-long">
+                                                                    <span aria-hidden="true">
+                                                                        {{'student.dashboard.explore-lessons-label'|
+                                                                        translate }}
+                                                                        {{'teacher.performance.by-student.for-this-standards'|
+                                                                        translate }}
+                                                                    </span>
+                                                                </app-button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- By Assignments -->
+                <div class="card-wihtout-header-blue card-tabel3" *ngIf="performance3">
+                    <div class="roster-assignment-wrapper">
+                        <div class="table-roster-assignment">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="row table-wraper col-border-bottom">
+                                            <div class="col-6">
+                                                <div class="row heading-wrapper">
+                                                    <div class="col-9 standard-heading pl-4 col-border-right">
+                                                        {{'teacher.dashboard.assignment'|translate |uppercase}}
+                                                        {{'district.district-profile.agent-component.name-field.label'|
+                                                        translate | uppercase}}</div>
+                                                    <div class="col-3 standard-heading col-border-right">
+                                                        {{'teacher.performance.by-student.assignment-dates'| translate
+                                                        }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 spectrum-heading-wrapper" *ngIf="showHeader">
+                                                <div class="spectrum-heading">
+                                                    <h5 class="heading">
+                                                        {{'teacher.performance.by-student.summary-label'|
+                                                        translate | uppercase}}</h5>
+                                                    <ul class="spectrum-wraper">
+                                                        <li *ngIf="headersList[0].check">
+                                                            {{'teacher.performance.by-student.not-started'| translate }}
+                                                        </li>
+                                                        <li *ngIf="headersList[1].check">
+                                                            {{'teacher.performance.by-student.needs-help'| translate }}
+                                                        </li>
+                                                        <li *ngIf="headersList[2].check">
+                                                            {{'teacher.performance.by-student.making-progress'|
+                                                            translate }}
+                                                        </li>
+                                                        <li *ngIf="headersList[3].check">
+                                                            {{'student.lesson-report.completed'| translate }}</li>
+                                                    </ul>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="row" *ngFor="let item of operationDetails">
+                                            <div data-toggle="collapse" [attr.data-target]="'#collape' + item.Id"
+                                                class="col-12 accordion-toggle visible-row settings collapsed">
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <div class="row">
+                                                            <div class="col-9 student-name col-border-right">
+                                                                {{item.assignmentTitle}}
+                                                                <!-- <span class="right-arrow-icon"
+                                                                *ngIf="item.subList.length > 0">
+                                                                <fa-icon [icon]="upArrow"></fa-icon>
+                                                            </span>
+                                                            <span class="down-arrow-icon"
+                                                                *ngIf="item.subList.length > 0">
+                                                                <fa-icon [icon]="DownArrow"></fa-icon>
+                                                            </span> -->
+                                                            </div>
+                                                            <div class="col-3 time-wraper col-border-right">
+                                                                <span class="open-time">{{ item.startDate | date:
+                                                                    'dd/MM/yyyy' }}</span>
+                                                                <span class="close-time">{{ item.endDate | date:
+                                                                    'dd/MM/yyyy' }}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 proficiency-wraper" *ngIf="showHeader">
+                                                        <ul class="proficiency-color">
+                                                            <li class="extra-dark" *ngIf="headersList[0].check">{{
+                                                                item.notStartedCount }}</li>
+                                                            <li class="dark" *ngIf="headersList[1].check">{{
+                                                                item.needHelpCount }}</li>
+                                                            <li class="medium" *ngIf="headersList[2].check">{{
+                                                                item.makingProgressCount }}</li>
+                                                            <li class="light" *ngIf="headersList[3].check">{{
+                                                                item.completedCount }}</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 accordian-body collapse hiddenRow visible-row hidden-row settings sub-list"
+                                                id="{{'collape' + item.Id}}" *ngIf="item.subList.length > 0">
+                                                <div data-toggle="collapse" [attr.data-target]="'#info' + subitem.Id"
+                                                    class="row accordion-toggle visible-row collapsed collapsible-row"
+                                                    *ngFor="let subitem of item.subList">
+                                                    <div class="col-6">
+                                                        <div class="row">
+                                                            <div class="col-9 content-heading col-border-right">
+                                                                <span class="plus-icon" *ngIf="item.subList.length > 0">
+                                                                    <fa-icon [icon]="plus"></fa-icon>
+                                                                </span>
+                                                                <span class="minus-icon"
+                                                                    *ngIf="item.subList.length > 0">
+                                                                    <fa-icon [icon]="minus"></fa-icon>
+                                                                </span>
+                                                                {{subitem.operationName}}
+
+                                                            </div>
+                                                            <div class="col-3 pt-3 pb-3 text-center col-border-right">
+                                                                <fa-icon [icon]="check"></fa-icon>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 proficiency-wraper">
+                                                        <ul class="proficiency-color">
+                                                            <li class="extra-dark">0</li>
+                                                            <li class="dark">2</li>
+                                                            <li class="medium">6</li>
+                                                            <li class="light">8</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-12 accordian-body collapse hiddenRow visible-row hidden-row col-border-top col-border-bottom"
+                                                        id="{{'info' + subitem.Id}}">
+                                                        <div class="row">
+                                                            <div class="col-6 sub-information-wrapper">
+                                                                <h6 class="pt-4  pl-4">{{subitem.operationName}}</h6>
+                                                                <p class=" pl-4">{{subitem.info}}</p>
+                                                            </div>
+                                                            <div class="col-6 btn-long-wraper">
+                                                                <app-button classes="btn btn-primary btn-long mb-3">
+                                                                    <span aria-hidden="true">
+                                                                        {{'teacher.assignment.view-menu'|translate}}
+                                                                        {{'student.assigned-lessons.assignments-label'|
+                                                                        translate }}
+                                                                        {{'teacher.performance.by-student.for-this-standards'|
+                                                                        translate }}
+                                                                    </span>
+                                                                </app-button>
+                                                                <app-button classes="btn btn-primary btn-long mb-3">
+                                                                    <span aria-hidden="true">
+                                                                        {{'teacher.assignment.view-menu'|translate}}
+                                                                        {{'district.district-schools.students-title'|translate}}
+                                                                        {{'teacher.assignment.report-label'|translate}}
+                                                                        {{'teacher.performance.by-student.for-this-standards'|
+                                                                        translate }}
+                                                                    </span>
+                                                                </app-button>
+                                                                <app-button classes="btn btn-primary btn-long">
+                                                                    <span aria-hidden="true">
+                                                                        {{'student.dashboard.explore-lessons-label'|
+                                                                        translate }}
+                                                                        {{'teacher.performance.by-student.for-this-standards'|
+                                                                        translate }}
+                                                                    </span>
+                                                                </app-button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notifications-wrapper" *ngIf="performance4">
+                    <div class="notifications-tab">
+                        <div id="content" class="tab-content" role="tablist">
+                            <div id="classroomNote" class="panal-card tab-pane fade show active" role="tabpanel"
+                                aria-labelledby="classroom">
+                                <div id="collapseInfo" class="collapse show" data-parent="#content" role="tabpanel"
+                                    aria-labelledby="headingInfo">
+                                    <div class="card-wihtout-header-blue">
+                                        <div class="roster-assignment-wrapper">
+                                            <div class="table-roster-assignment">
+                                                <div class="container-fluid">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <div class="row table-wraper col-border-bottom">
+                                                                <div class="col-6">
+                                                                    <div class="row heading-wrapper">
+                                                                        <div
+                                                                            class="col-9 standard-heading pl-4 col-border-right">
+                                                                            {{'teacher.performance.by-student.standard-or-skill'|
+                                                                            translate | uppercase}}</div>
+                                                                        <div
+                                                                            class="col-3 standard-heading col-border-right text-center">
+                                                                            {{'teacher.performance.by-student.average-proficiency-label'|
+                                                                            translate | uppercase }}</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    <div class="row heading-wrapper">
+                                                                        <div
+                                                                            class="col-3 standard-heading col-border-right text-center">
+                                                                            {{'teacher.performance.by-student.overall-average-proficiency'|
+                                                                            translate | uppercase}}</div>
+                                                                        <div class="col-9 standard-heading">
+                                                                            {{'teacher.performance.by-student.actions-label'|
+                                                                            translate | uppercase }}
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <div class="row" *ngFor="let item of skillDetails">
+                                                                <div data-toggle="collapse"
+                                                                    [attr.data-target]="'#infom' + item.id"
+                                                                    class="col-12 accordion-toggle visible-row settings collapsed">
+                                                                    <div class="row">
+                                                                        <div class="col-6">
+                                                                            <div class="row">
+                                                                                <div
+                                                                                    class="col-9 skill-content col-border-right">
+                                                                                    <span class="plus-icon">
+                                                                                        <fa-icon [icon]="plus">
+                                                                                        </fa-icon>
+                                                                                    </span>
+                                                                                    <span class="minus-icon">
+                                                                                        <fa-icon [icon]="minus">
+                                                                                        </fa-icon>
+                                                                                    </span>
+                                                                                    {{item.content}}
+                                                                                </div>
+                                                                                <div
+                                                                                    class="col-3 avg-proficiency col-border-right">
+                                                                                    <div class="exc-wraper">
+                                                                                        <fa-icon class="exclamation"
+                                                                                            [icon]="exclamation"
+                                                                                            *ngIf="item.avgExclamation">
+                                                                                        </fa-icon>
+                                                                                    </div>
+                                                                                    {{item.avgProficiency}}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-6">
+                                                                            <div class="row h-100">
+                                                                                <div
+                                                                                    class="col-3 avg-proficiency col-border-right">
+                                                                                    <div class="exc-wraper">
+                                                                                        <fa-icon class="exclamation"
+                                                                                            [icon]="exclamation"
+                                                                                            *ngIf="item.avgExclamation">
+                                                                                        </fa-icon>
+                                                                                    </div>
+                                                                                    {{item.overallProficiency}}
+                                                                                </div>
+
+                                                                                <div class="col-9 skill-action">
+                                                                                    <fa-icon class="search"
+                                                                                        [icon]="search">
+                                                                                    </fa-icon>
+                                                                                    {{item.action}}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12 accordian-body collapse hiddenRow visible-row hidden-row sub-info-wrapper col-border-top col-border-bottom"
+                                                                    id="{{'infom' + item.id}}">
+                                                                    <!-- <h6 class="pt-4  pl-4">{{item.operationName}}
+                                                                        </h6> -->
+                                                                    <p class=" pl-4">{{item.info}}</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="platformNote" class="panal-card tab-pane fade" role="tabpanel"
+                                aria-labelledby="platform">
+                                <div id="collapseStudents" class="collapse show" data-parent="#content" role="tabpanel"
+                                    aria-labelledby="headingStudents">
+                                    <div class="card-wihtout-header-blue">
+                                        <div class="roster-assignment-wrapper">
+                                            <div class="table-roster-assignment">
+                                                <div class="container-fluid">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <div class="row table-wraper col-border-bottom">
+                                                                <div class="col-7">
+                                                                    <div class="row heading-wrapper">
+                                                                        <div
+                                                                            class="col-8 standard-heading pl-4 col-border-right">
+                                                                            {{'school.student.add-student.student-label'
+                                                                            |
+                                                                            translate | uppercase}}
+                                                                            {{'district.district-profile.district-component.name-field.label'|
+                                                                            translate | uppercase}}</div>
+                                                                        <div
+                                                                            class="col-4 standard-heading col-border-right text-center">
+                                                                            {{'school.teacher.add-teacher.status'|translate
+                                                                            |uppercase}} +
+                                                                            {{'student.lesson-report.skill-proficiency-label'|
+                                                                            translate | uppercase }}</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-5">
+                                                                    <div class="row heading-wrapper">
+
+                                                                        <div class="col standard-heading text-center">
+                                                                            {{'teacher.performance.by-student.actions-label'|
+                                                                            translate | uppercase }}</div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <div class="row" *ngFor="let item of studentDetails">
+                                                                <div data-toggle="collapse"
+                                                                    [attr.data-target]="'#collape' + item.Id"
+                                                                    class="col-12 accordion-toggle visible-row settings collapsed">
+                                                                    <div class="row">
+                                                                        <div class="col-7">
+                                                                            <div class="row">
+                                                                                <div
+                                                                                    class="col-8 student-name col-border-right">
+                                                                                    {{item.studentName}}
+                                                                                    <span class="right-arrow-icon"
+                                                                                        *ngIf="item.subList.length > 0">
+                                                                                        <fa-icon [icon]="upArrow">
+                                                                                        </fa-icon>
+                                                                                    </span>
+                                                                                    <span class="down-arrow-icon"
+                                                                                        *ngIf="item.subList.length > 0">
+                                                                                        <fa-icon [icon]="DownArrow">
+                                                                                        </fa-icon>
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div
+                                                                                    class="col-4 avg-proficiency col-border-right">
+                                                                                    {{item.avgProficiency}}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-5">
+                                                                            <div class="row h-100 ">
+                                                                                <div class="col-6 skill-action">
+                                                                                    <fa-icon class="search"
+                                                                                        [icon]="search">
+                                                                                    </fa-icon>
+                                                                                    {{item.action1}}
+                                                                                </div>
+                                                                                <div class="col-6 skill-action">
+                                                                                    <fa-icon class="search"
+                                                                                        [icon]="eye">
+                                                                                    </fa-icon>
+                                                                                    {{item.action2}}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12 accordian-body collapse hiddenRow visible-row hidden-row settings sub-list"
+                                                                    id="{{'collape' + item.Id}}"
+                                                                    *ngIf="item.subList.length > 0">
+                                                                    <div data-toggle="collapse"
+                                                                        [attr.data-target]="'#info' + subitem.id"
+                                                                        class="row accordion-toggle visible-row collapsed collapsible-row"
+                                                                        *ngFor="let subitem of item.subList">
+                                                                        <div class="col-7">
+                                                                            <div class="row">
+                                                                                <div
+                                                                                    class="col-8 content-heading col-border-right">
+                                                                                    <span class="plus-icon"
+                                                                                        *ngIf="item.subList.length > 0">
+                                                                                        <fa-icon [icon]="plus">
+                                                                                        </fa-icon>
+                                                                                    </span>
+                                                                                    <span class="minus-icon"
+                                                                                        *ngIf="item.subList.length > 0">
+                                                                                        <fa-icon [icon]="minus">
+                                                                                        </fa-icon>
+                                                                                    </span>
+                                                                                    {{subitem.content}}
+
+                                                                                </div>
+                                                                                <div
+                                                                                    class="col-4 avg-proficiency text-center col-border-right">
+                                                                                    <div class="exc-wraper">
+                                                                                        <fa-icon class="exclamation"
+                                                                                            [icon]="exclamation"
+                                                                                            *ngIf="subitem.avgExclamation">
+                                                                                        </fa-icon>
+                                                                                    </div>
+                                                                                    {{subitem.avgProficiency}}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-5">
+                                                                            <div class="row h-100">
+                                                                                <div class="col skill-action">
+                                                                                    <fa-icon class="search"
+                                                                                        [icon]="search">
+                                                                                    </fa-icon>
+                                                                                    {{subitem.action}}
+                                                                                    <!-- <fa-icon class="long-up" [icon]="longArrowUp"></fa-icon> -->
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-12 accordian-body collapse hiddenRow visible-row hidden-row sub-information-wrapper col-border-top col-border-bottom"
+                                                                            id="{{'info' + subitem.id}}">
+                                                                            <h6 class="pt-4  pl-4">
+                                                                                {{subitem.operationName}}
+                                                                            </h6>
+                                                                            <p class=" pl-4">{{subitem.info}}</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- By Student -->
+                <div *ngIf="performance5">
+                    <div class="graph-wraper" *ngFor="let item of graphicalDetails">
+                        <div class="class-chart">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="student-profile">
+                                        <div class="student-photo">
+                                            <img src="./assets/images/student.png" class="img-fluid" alt="">
+                                        </div>
+                                        <div class="student-name">
+                                            <span class="name">{{item.firstName}} {{item.lastName}}</span>
+                                            <span class="student-id">
+                                                {{'district.district-schools.id' | translate}}: {{item.id}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <div class="chart">
+                                        <h6 class="heading">{{item.totalAssignments}}
+                                            {{'student.assigned-lessons.assignments-label'| translate }}</h6>
+                                        <div class="chart-wraper">
+                                            <div class="chart-circle">
+                                                <svg class="ActivityRings" viewBox='0 0 37 37'>
+                                                    <g *ngIf="headersList[0].check" class="ring ring1"
+                                                        style="transform: scale(1) rotate(-90deg);">
+                                                        <circle stroke-width="3" r="15.915" cx="50%" cy="50%"
+                                                            class="background" />
+                                                        <circle stroke-width="3" r="15.915" cx="50%" cy="50%"
+                                                            class="completed"
+                                                            [attr.stroke-dasharray]=" item['completedPercent']+', 100'" />
+                                                    </g>
+                                                    <g *ngIf="headersList[1].check" class="ring ring2"
+                                                        style="transform: scale(0.78) rotate(-90deg);">
+                                                        <circle stroke-width="4" r="15.915" cx="50%" cy="50%"
+                                                            class="background" />
+                                                        <circle stroke-width="4" r="15.915" cx="50%" cy="50%"
+                                                            class="completed"
+                                                            [attr.stroke-dasharray]=" item['makingProgressPercent']+', 100'" />
+                                                    </g>
+                                                    <g *ngIf="headersList[2].check" class="ring ring3"
+                                                        style="transform: scale(0.57) rotate(-90deg);">
+                                                        <circle stroke-width="5" r="15.915" cx="50%" cy="50%"
+                                                            class="background" />
+                                                        <circle stroke-width="5" r="15.915" cx="50%" cy="50%"
+                                                            class="completed"
+                                                            [attr.stroke-dasharray]="item['needHelpPercent']+', 100'" />
+                                                    </g>
+                                                    <g *ngIf="headersList[3].check" class="ring ring4"
+                                                        style="transform: scale(0.37) rotate(-90deg);">
+                                                        <circle stroke-width="8" r="15.915" cx="50%" cy="50%"
+                                                            class="background" />
+                                                        <circle stroke-width="8" r="15.915" cx="50%" cy="50%"
+                                                            class="completed"
+                                                            [attr.stroke-dasharray]="item['notStartedPercent']+', 100'" />
+                                                    </g>
+                                                </svg>
+
+                                            </div>
+                                            <ul class="chart-info">
+                                                <li *ngIf="headersList[0].check">
+                                                    <span class="chart-indicator blue"></span>
+                                                    <span
+                                                        class="chart-title">{{'teacher.performance.by-student.not-started'|
+                                                        translate }}</span>
+                                                    <span class="chart-count">{{item.notStartedCount}}</span>
+                                                </li>
+                                                <li *ngIf="headersList[1].check">
+                                                    <span class="chart-indicator green"></span>
+                                                    <span class="chart-title">
+                                                        {{'teacher.performance.by-student.needs-help'| translate
+                                                        }}</span>
+                                                    <span class="chart-count">{{item.needHelpCount}}</span>
+                                                </li>
+                                                <li *ngIf="headersList[2].check">
+                                                    <span class="chart-indicator yellow"></span>
+                                                    <span
+                                                        class="chart-title">{{'teacher.performance.by-student.making-progress'|
+                                                        translate }}</span>
+                                                    <span class="chart-count">{{item.makingProgressCount}}</span>
+                                                </li>
+                                                <li *ngIf="headersList[3].check">
+                                                    <span class="chart-indicator red"></span>
+                                                    <span class="chart-title">{{'student.lesson-report.completed'|
+                                                        translate
+                                                        }}</span>
+                                                    <span class="chart-count">{{item.completedCount}}</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <div class="pie-chart-wraper">
+                                        <h6 class="heading">{{item.standards}}
+                                            {{'school.class.add-class.standards-field'|translate}}</h6>
+                                        <div class="pie-chart">
+                                            <div class="chart-circle">
+                                                <svg viewBox="0 0 64 64" class="pie">
+                                                    <circle r="25%" cx="50%" cy="50%"
+                                                        [attr.stroke-dasharray]="item.advancedChart.strokeDasharray"
+                                                        [attr.stroke-dashoffset]="item.advancedChart.strokeDashoffset">
+                                                    </circle>
+                                                    <circle r="25%" cx="50%" cy="50%"
+                                                        [attr.stroke-dasharray]="item.proficientChart.strokeDasharray"
+                                                        [attr.stroke-dashoffset]="item.proficientChart.strokeDashoffset"
+                                                        class="patch1">
+                                                    </circle>
+                                                    <circle r="25%" cx="50%" cy="50%"
+                                                        [attr.stroke-dasharray]="item.emergingChart.strokeDasharray"
+                                                        [attr.stroke-dashoffset]="item.emergingChart.strokeDashoffset"
+                                                        class="patch2">
+                                                    </circle>
+                                                </svg>
+                                            </div>
+                                            <ul class="chart-info">
+                                                <li>
+                                                    <span class="chart-indicator blue"></span>
+                                                    <span
+                                                        class="chart-title">{{'teacher.performance.by-student.emerging'|
+                                                        translate }}</span>
+                                                    <span class="chart-count">{{item.emerging}}%</span>
+                                                </li>
+                                                <li>
+                                                    <span class="chart-indicator green"></span>
+                                                    <span
+                                                        class="chart-title">{{'teacher.performance.by-student.proficient'|
+                                                        translate }}</span>
+                                                    <span class="chart-count">{{item.proficient}}%</span>
+                                                </li>
+                                                <li>
+                                                    <span class="chart-indicator yellow"></span>
+                                                    <span
+                                                        class="chart-title">{{'teacher.performance.by-student.advanced'|
+                                                        translate }}</span>
+                                                    <span class="chart-count">{{item.advanced}}%</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class=" col-lg-4 col-md-4 col-sm-12 view-repots">
+                                    <!-- <a>{{'teacher.roster.sign-in-info-label'|translate}}<fa-icon [icon]="rightArrow">
+                                        </fa-icon></a> -->
+                                    <a (click)="openStudentProfile(profile, item.id)">{{'student.profile.profile-label'|
+                                        translate }}<fa-icon [icon]="rightArrow">
+                                        </fa-icon> </a>
+                                    <!-- <a>{{'teacher.assignment.report-label'|translate}}<fa-icon [icon]="rightArrow">
+                                        </fa-icon></a> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #readReport let-modal>
+    <button type="button" class="close" aria-label="Close" (click)="closeOpenModal1()">
+        <img src="./assets/images/close.png" alt="" class="img-fluid" />
+    </button>
+    <div class="modal-body">
+        <h3 class="access-label">How to read this report</h3>
+        <div class="modal-body journal-body">
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industry’s
+                standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
+                to make a
+                type specimen book. </p>
+        </div>
+
+    </div>
+</ng-template>
+<ng-template #changeCriteria let-modal>
+    <button type="button" class="close" aria-label="Close" (click)="closeCriteriaModal()">
+        <img src="./assets/images/close.png" alt="" class="img-fluid" />
+    </button>
+    <div class="modal-body">
+        <h3 class="access-label">Change Criteria</h3>
+        <div class="roles-access">
+            <div class="check-wrapper" *ngFor="let option of headersList">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" [checked]="option.check" (change)="onChange(option)"
+                        class="custom-control-input">
+                    <label class="custom-control-label">{{option.title}}</label>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="roles-access" *ngIf="this.standard==false">
+            <div class="check-wrapper" *ngFor="let option of studentHeadersList">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" [checked]="option.check" (click)="hideContentColumns($event,option)"
+                        class="custom-control-input">
+                    <label class="custom-control-label">{{option.title}}</label>
+                </div>
+            </div>
+        </div> -->
+    </div>
+</ng-template>
+
+
+<!-- Profile Info Modal -->
+<ng-template #profile let-modal id="profile">
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <img src="./assets/images/close.png" alt="" class="img-fluid" />
+    </button>
+    <div class="modal-body profile-modal">
+        <div class="profile-header">
+            <h4>{{'school.class.class-details.student-profile-label' | translate}}</h4>
+            <!-- <a (click)="getNextStudentInfo()">{{'table-component.next'| translate}}
+                {{'school.student.add-student.student-label' | translate}} <fa-icon [icon]="NextArrow"></fa-icon></a> -->
+        </div>
+        <ul class="student-profile">
+            <li class="student-photo"><img src="./assets/images/student-info.svg" /></li>
+            <li class="student-name">
+                <label>{{'school.teacher.add-teacher.last-name.last-name-field' | translate}}</label>
+                <strong>{{profileInfo.lastName}}</strong>
+            </li>
+            <li class="student-name">
+                <label>{{'school.teacher.add-teacher.first-name.first-name-field' | translate}}</label>
+                <strong>{{profileInfo.firstName}}</strong>
+            </li>
+            <li class="student-name">
+                <label>{{'school.student.add-student.student-label' | translate}} {{'district.district-schools.id'|
+                    translate}}</label>
+                <strong>{{profileInfo.id}}</strong>
+            </li>
+        </ul>
+        <div class="information-wrapper">
+            <div class="information-tab">
+                <ul id="tabs" class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a id="personal_info" href="#personalInfo" class="nav-link active" data-toggle="tab"
+                            role="tab">{{'school.teacher.add-teacher.personal-info-label' | translate}} </a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="contact_info" href="#contactInfo" class="nav-link" data-toggle="tab"
+                            role="tab">{{'school.student.add-student.personal-info.contact-info.label' | translate}}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="medical_info" href="#medicalInfo" class="nav-link" data-toggle="tab"
+                            role="tab">{{'school.student.add-student.personal-info.medical-info.label' | translate}}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="journal_info" href="#journalInfo" class="nav-link" data-toggle="tab"
+                            role="tab">{{'student.journal.journal-label'| translate }}</a>
+                    </li>
+                </ul>
+                <div id="content" class="tab-content" role="tablist">
+                    <div id="personalInfo" class="panal-card tab-pane fade show active" role="tabpanel"
+                        aria-labelledby="personal_info">
+                        <div class="panal-card-header" role="tab" id="personal-info">
+                            <h5 class="mb-0">
+                                <a data-toggle="collapse" href="#collapsePersonal" aria-expanded="true"
+                                    aria-controls="collapsePersonal">
+                                    {{'school.teacher.add-teacher.personal-info-label' | translate}} </a>
+                            </h5>
+                        </div>
+                        <div id="collapsePersonal" class="collapse show" data-parent="#content" role="tabpanel"
+                            aria-labelledby="personal-info">
+                            <ul class="student-details">
+                                <li class="dob w-50">
+                                    <label>{{'school.student.add-student.personal-info.birth-date' | translate}}</label>
+                                    <strong>{{profileInfo?.dob | date: 'MM/dd/yyyy'}}</strong>
+                                </li>
+                                <li class="gender w-50">
+                                    <label>{{'district.district-profile.agent-component.gender-field.label'|
+                                        translate}}</label>
+                                    <strong>{{profileInfo?.gender}}</strong>
+                                </li>
+                                <li class="ethnicity w-50">
+                                    <label>{{'school.student.add-student.personal-info.ethnicity' | translate}}</label>
+                                    <strong>{{profileInfo.ethnicity?.title}}</strong>
+                                </li>
+                                <li class="grade w-50">
+                                    <label>{{'school.class.add-class.grade-field' | translate}}</label>
+                                    <strong>{{profileInfo.grade?.grade}}</strong>
+                                </li>
+                                <li class="email w-100">
+                                    <label>{{'district.district-profile.agent-component.email-field.label'|translate}}</label>
+                                    <strong>{{profileInfo?.contactPersonEmail}}</strong>
+                                </li>
+                                <li class="interests  w-100">
+                                    <label>{{'teacher.roster.interests-label'|translate}}</label>
+                                    <strong>{{profileInfo.interests}}</strong>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="contactInfo" class="panal-card tab-pane fade" role="tabpanel"
+                        aria-labelledby="contact_info">
+                        <div class="panal-card-header" role="tab" id="contact-info">
+                            <h5 class="mb-0">
+                                <a class="collapsed" data-toggle="collapse" href="#collapseContact"
+                                    aria-expanded="false" aria-controls="collapseContact">
+                                    {{'school.student.add-student.personal-info.contact-info.label' | translate}} </a>
+                            </h5>
+                        </div>
+                        <div id="collapseContact" class="collapse" data-parent="#content" role="tabpanel"
+                            aria-labelledby="contact-info">
+                            <ul class="student-details">
+                                <li class="contact-name w-100">
+                                    <label>{{'school.student.add-student.personal-info.contact-info.contact-name.label'
+                                        |
+                                        translate}}</label>
+                                    <strong>{{profileInfo?.contactPersonName}}</strong>
+                                </li>
+                                <li class="contact-relation w-100">
+                                    <label>{{'school.student.add-student.personal-info.contact-info.contact-relationship'
+                                        |
+                                        translate}}</label>
+                                    <strong>{{profileInfo.relation?.title}}</strong>
+                                </li>
+                                <li class="contact-email w-100">
+                                    <label>{{'school.student.add-student.personal-info.contact-info.email.label' |
+                                        translate}}</label>
+                                    <strong>{{profileInfo?.contactPersonEmail}}</strong>
+                                </li>
+                                <li class="contact-number w-100">
+                                    <label>{{'school.teacher.add-teacher.contact.placeholder' | translate}}</label>
+                                    <strong>{{profileInfo?.contactPersonNumber}}</strong>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="medicalInfo" class="panal-card tab-pane fade" role="tabpanel"
+                        aria-labelledby="medical_info">
+                        <div class="panal-card-header" role="tab" id="medical-info">
+                            <h5 class="mb-0">
+                                <a class="collapsed" data-toggle="collapse" href="#collapseMedical"
+                                    aria-expanded="false" aria-controls="collapseMedical">
+                                    {{'school.student.add-student.personal-info.medical-info.label' | translate}} </a>
+                            </h5>
+                        </div>
+                        <div id="collapseMedical" class="collapse" data-parent="#content" role="tabpanel"
+                            aria-labelledby="medical-info">
+                            <ul class="student-details">
+                                <li class="Allergens w-100">
+                                    <label>{{'school.student.add-student.personal-info.medical-info.allergens-label.label'
+                                        |
+                                        translate}}</label>
+                                    <strong>{{allergens}}</strong>
+                                </li>
+                                <li class="gender w-100">
+                                    <label>{{'school.student.add-student.personal-info.medical-info.medical-conditions.label'
+                                        |
+                                        translate}}</label>
+                                    <strong>{{medicalCondition}} </strong>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="journalInfo" class="panal-card tab-pane fade" role="tabpanel"
+                        aria-labelledby="journal_info">
+                        <div class="panal-card-header" role="tab" id="journal-info">
+                            <h5 class="mb-0">
+                                <a class="collapsed" data-toggle="collapse" href="#collapseJournal"
+                                    aria-expanded="false" aria-controls="collapseJournal">
+                                    {{'student.journal.journal-label'| translate }}
+                                </a>
+                            </h5>
+                        </div>
+                        <div id="collapseJournal" class="collapse" data-parent="#content" role="tabpanel"
+                            aria-labelledby="journal-info">
+                            <div class="journal">
+                                <div class="form-journal">
+                                    <form>
+                                        <div class="search-section">
+                                            <div class="search-icon">
+                                                <fa-icon class="ml-3" [icon]="SearchIcon"></fa-icon>
+                                            </div>
+                                            <input type="search" placeholder="Search" class="search-input">
+                                            <div class="calender-icon">
+                                                <fa-icon class="ml-3" [icon]="Calendar"></fa-icon>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <ul class="journal-info">
+                                    <li class="info-list" *ngFor="let item of journalInfo; let i = index;">
+                                        <div class="row">
+                                            <div class="col-sm-3 info-wraper">
+                                                <span
+                                                    class="info-label">{{'teacher.roster.date-label'|translate}}</span>
+                                                <span class="info-details"> {{item.createdAt | date: 'HH:mm a'}},
+                                                    {{item.createdAt | date: 'dd/MM/yyyy'}}
+                                                </span>
+                                            </div>
+                                            <div class="col-sm-9 info-wraper">
+                                                <span class="info-label">
+                                                    {{'teacher.roster.text-label'|translate}}
+                                                </span>
+                                                <span class="info-details">
+                                                    {{item.note}}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-btns">
+                <app-button classes="btn btn-secondary btn-close" (click)="closeOpenModal()">
+                    <span aria-hidden="true">{{'common.close'|translate}}</span>
+                </app-button>
+                <app-button classes="btn btn-primary icon-btn">
+                    <span class="icon"><img src="./assets/images/print.svg" /></span>
+                    <span aria-hidden="true">{{'teacher.roster.print-label'|translate}} </span>
+                </app-button>
+                <app-button classes="btn btn-primary icon-btn" (click)="editStudentInfo(profileInfo)">
+                    <span class="icon"><img src="./assets/images/edit.svg" /></span>
+                    <span aria-hidden="true">{{'teacher.assignment.edit-menu'|translate}}</span>
+                </app-button>
+            </div>
+        </div>
+    </div>
+</ng-template>

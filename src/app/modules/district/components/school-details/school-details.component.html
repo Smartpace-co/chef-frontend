@@ -1,0 +1,708 @@
+<div class="school-details">
+  <div class="container">
+    <div class="back-button-wrapper">
+      <app-button classes="btn small-btn btn-secondary mr-4 icon-btn btn-back" [submit]="true"
+        [routerLink]="['/district/district-schools']">
+        <span aria-hidden="true">
+          <fa-icon [icon]="LeftArrow"></fa-icon> {{'common.back'| translate}}
+        </span>
+      </app-button>
+    </div>
+    <div class="school-details-wrapper legend-card">
+      <div class="school-details-heading">
+        <div class="school-info">
+          <h4 class="school-name">{{ currentSchool?.school?.name }}</h4>
+          <div class="photo-name">
+            <span class="photo">
+              <img src="./assets/images/student-icon.svg" alt="" class="img-fluid" />
+            </span>
+            <span class="staff-name">
+              <h6>{{ currentSchool?.school?.contact_person_name }}</h6>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="school-info">
+        <ul id="tabs" class="nav nav-tabs" role="tablist">
+          <li class="nav-item">
+            <a id="tabInfo" href="#paneInfo" class="nav-link" [ngClass]="{'active': tabTitle === 'Info'}" data-toggle="tab" role="tab">{{'district.district-schools.info-title' | translate}}</a>
+          </li>
+          <li class="nav-item">
+            <a id="tabStudents" href="#paneStudents" class="nav-link" [ngClass]="{'active': tabTitle === 'Students'}" data-toggle="tab" role="tab"
+              >{{'district.district-schools.students-title' | translate}}</a>
+          </li>
+          <li class="nav-item">
+            <a id="tabReports" href="#paneReports" class="nav-link" [ngClass]="{'active': tabTitle === 'Reports'}" data-toggle="tab" role="tab">{{'district.district-schools.reports-title' | translate}}</a>
+          </li>
+          <li class="nav-item">
+            <a id="tabSettings" href="#paneSettings" class="nav-link" data-toggle="tab" role="tab"
+              >{{'school.class.class-details.setting-label' | translate}}</a>
+          </li>
+        </ul>
+        <div id="content" class="tab-content" role="tablist">
+          <div id="paneInfo" class="panal-card tab-pane fade" [ngClass]="{'show active': tabTitle === 'Info'}" role="tabpanel" aria-labelledby="tabInfo">
+            <div class="panal-card-header" role="tab" id="headingInfo">
+              <h5 class="mb-0">
+                <a data-toggle="collapse" href="#collapseInfo" aria-expanded="true" aria-controls="collapseInfo">
+                  {{'district.district-schools.info-title' | translate}}
+                </a>
+              </h5>
+            </div>
+            <div id="collapseInfo" class="collapse show" data-parent="#content" role="tabpanel"
+              aria-labelledby="headingInfo">
+              <div class="info-details">
+                <div class="row">
+                  <div class="col-lg-6 col-12">
+                    <ul>
+                      <li>
+                        <label>{{'school.school-profile.school-name-label'|translate}}</label>
+                        <p>{{ currentSchool?.school?.name }}</p>
+                      </li>
+                      <li>
+                        <label>{{'district.school.principal-name-label'| translate}}</label>
+                        <p>{{ currentSchool?.school?.contact_person_name }}</p>
+                      </li>
+                      <li>
+                        <label>{{'district.school.school-details.district-owner-label'| translate}}</label>
+                        <p>{{ districtRole?.admin_account_name }} (You)</p>
+                      </li>
+                      <!-- <li>
+                        <label>Grades</label>
+                        <p>Grades Kindergarten - 5th</p>
+                      </li> -->
+                    </ul>
+                  </div>
+                  <div class="col-lg-6 col-12 edit-school" (click)="editSchoolModal(ediSchool)">
+                    <a><span class="pr-4"><img src="./assets/images/profile-edit.svg" alt=""
+                          class="img-fluid" /></span>{{'district.school.school-details.edit-school-label'| translate}}</a>
+                  </div>
+                  <!-- <div class="col-12 licence-usege">
+                    <h5>License Usage</h5>
+                    <div class="plan-details-box">
+                      <div class="numeric-info-label">
+                        <h3>1000</h3>
+                        <label>Purchased</label>
+                      </div>
+                      <div class="numeric-info-label">
+                        <h3>860</h3>
+                        <label>Used</label>
+                      </div>
+                      <div class="numeric-info-label">
+                        <h3>40</h3>
+                        <label>Remaining</label>
+                      </div>
+                    </div>
+                    <div class="view-uses-details">
+                      <a href="">View Usage Details</a>
+                    </div>
+                  </div> -->
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div id="paneStudents" class="panal-card tab-pane fade" [ngClass]="{'show active': tabTitle === 'Students'}" role="tabpanel" aria-labelledby="tabStudents">
+            <div class="panal-card-header" role="tab" id="headingStudents">
+              <h5 class="mb-0">
+                <a class="collapsed" data-toggle="collapse" href="#collapseStudents" aria-expanded="false"
+                  aria-controls="collapseStudents">
+                  {{'district.district-schools.students-title' | translate}}
+                </a>
+              </h5>
+            </div>
+            <div id="collapseStudents" class="collapse" data-parent="#content" role="tabpanel"
+              aria-labelledby="headingStudents">
+              <div class="students-wrapper">
+                <div class="students-detail">
+                  <div class="students-wrapper">
+                    <h4>{{'school.class.class-list.you-have-label'|translate}} {{allStudents.length}} students in this school</h4>
+                    <div class="btn-wrapper">
+                      <app-button classes="btn btn-primary icon-btn mr-3 mb-3" (click)="openCreateClass(createClass)">
+                        <span aria-hidden="true">
+                          <fa-icon [icon]="addIcon"></fa-icon>{{'school.class.add-class.label'|translate}}
+                        </span>
+                      </app-button>
+                      <app-button classes="btn btn-primary icon-btn mb-3" (click)="addNewStudent()">
+                        <span aria-hidden="true">
+                          <fa-icon [icon]="addIcon"></fa-icon>{{'school.student.add-student.add-student-label' | translate}}
+                        </span>
+                      </app-button>
+                    </div>
+                  </div>
+                </div>
+                <div class="roster-filter">
+                  <div class="filter-wrapper">
+                    <fa-icon [icon]="SearchIcon"></fa-icon>
+                    <input id="table-filter" class="form-control transparentbg" type="text" name="term"
+                      [(ngModel)]="term" placeholder="Search for a student by ID or name" />
+                    <div class="filter-droplist">
+                      <app-drop-down class="transparentbg" [dropDownButtonName]="filterListtitle" [dropDownIcon]=""
+                        [dropDownItemList]="filterList" (registerDropdownValueChange)="studentFilter($event)">
+                      </app-drop-down>
+                      <app-drop-down class="transparentbg" (registerDropdownValueChange)="changeView($event)"
+                        [dropDownButtonName]="ViewTitle" [dropDownIcon]="ViewIcon" [dropDownItemList]="ViewList">
+                      </app-drop-down>
+                      <app-drop-down class="transparentbg" [dropDownButtonName]="sortByIdTitle" [dropDownIcon]=""
+                        [dropDownItemList]="sortByList" (registerDropdownValueChange)="gradeFilter($event)">
+                      </app-drop-down>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="gridView" class="dist-student-grid">
+                  <ng-container *ngIf="isLoadAllStudents && allStudents && allStudents.length>0 ; else noData">
+                    <div class="studentList-wrapper">
+                      <div class="row">
+                        <div class="col-lg-4 col-sm-6" *ngFor="let item of allStudents | filter: term">
+                          <div class="studentItem">
+                            <div class="studentItem__photo">
+                              <img src="{{ item.studentPhoto }}" />
+                            </div>
+                            <div class="studentItem__info_wrapper">
+                              <h3 class="studentItem__name">{{ item.studentName}}</h3>
+                              <ul class="studentItem__info">
+                                <li class="studentItem__info__id">
+                                  <label>{{'district.district-schools.id' | translate}}:</label>
+                                  <span>{{ item.studentId }}</span>
+                                </li>
+                                <!-- <li class="studentItem__info__id">
+                                      <label>Group:</label>
+                                      <span class="student-color {{ item.studentGroup }}"></span>
+                                      <span>{{ item.studentGroup }}</span>
+                                    </li> -->
+                              </ul>
+                              <!-- <div class="info">
+                                    <span class="info-icon">
+                                      <fa-icon [icon]="exclamationTriangle"></fa-icon>
+                                    </span>
+                                    <p>Allergens</p>
+                                  </div> -->
+                              <div class="studentItem__allergies">
+                                <p>{{ item.allergies }}</p>
+                              </div>
+                              <ul class="studentItem__action">
+                                <li *ngFor="let act of item.actions" (click)="onActionClick(item,act)">
+                                  <a>{{ act }} <fa-icon [icon]="rightArrow"></fa-icon></a>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+                  <ng-template #noData>
+                    <h5 style="margin-left: 15px;margin-top: 42px;">{{'school.teacher.teacher-list.records-label' | translate}}.</h5>
+                  </ng-template>
+                </div>
+                <div *ngIf="listView && isLoadAllStudents">
+                  <app-tables [term]="term" [dataSource]="allStudents" [tableHeaders]="studentHeaders" [page]="1"
+                    [pageSize]="10" (rowClick)="onActionClick(undefined,$event)">
+                  </app-tables>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="paneReports" class="panal-card tab-pane fade" [ngClass]="{'show active': tabTitle === 'Reports'}" role="tabpanel" aria-labelledby="tabReports">
+            <div class="panal-card-header" role="tab" id="headingReports">
+              <h5 class="mb-0">
+                <a class="collapsed" data-toggle="collapse" href="#collapseReports" aria-expanded="false"
+                  aria-controls="collapseReports">
+                  {{'district.district-schools.reports-title' | translate}}
+                </a>
+              </h5>
+            </div>
+            <div id="collapseReports" class="collapse" role="tabpanel" data-parent="#content"
+              aria-labelledby="headingReports">
+              <div class="report-wrapper">
+                <div class="report-heading">
+                  <h4>{{'school.class.class-details.your-class-reports' | translate}}</h4>
+                  <div class="btn-wrapper">
+                    <app-button classes="btn btn-primary print-icon-btn icon-btn mr-3 mb-3" (click)="generatePDF()" printTitle="Print Title" printSectionId="print-section" ngxPrint>
+                      <span aria-hidden="true"><span class="print-icon mr-3"><img src="./assets/images/print-icon.png" alt="" class="img-fluid" id="print-section" /></span>Print Report</span>
+                    </app-button>
+                  </div>
+                </div>
+                <div class="row report-main" id="generatePdf">
+                  <div class="col-md-4">
+                    <div class="class-chart card">
+                      <h6 class="chart-title">Classes Data</h6>
+                      <div class="chart">
+                        <!-- <div class="donut instalment1">
+                                  <div class="donut-default"></div>
+                                  <div class="donut-text">
+                                    <span>
+                                      <h6>12</h6> 
+                                      New Students
+                                      /week
+                                    </span>
+                                  </div>
+                                  <div class="donut-case"></div>
+                                </div> -->
+                        <div class="donut"
+                          style="--first: 0; --second: .75; --third: 0; --fourth: 0; --fifth: .25; --donut-spacing: 0;">
+                          <div class="donut__slice donut__slice__first"></div>
+                          <div class="donut__slice donut__slice__second"></div>
+                          <div class="donut__slice donut__slice__third"></div>
+                          <div class="donut__slice donut__slice__fourth"></div>
+                          <div class="donut__slice donut__slice__fifth"></div>
+                          <div class="donut__label">
+                            <div class="donut__label__heading">{{classes}}</div>
+                            <div class="donut__label__sub">New Classes /week</div>
+                          </div>
+                        </div>
+                      </div>
+                      <ul class="chart-info">
+                        <li>
+                          <span class="chart-indicator yellow"></span>
+                          <span class="chart-title">New Classes</span>
+                          <span class="chart-count blue">{{classes}}</span>
+                        </li>
+                        <li>
+                          <span class="chart-indicator blue"></span>
+                          <span class="chart-title">Deleted Classes</span>
+                          <span class="chart-count green">{{deletedClasses}}</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="class-chart card">
+                      <h6 class="chart-title">Application usage report</h6>
+                      <div class="chart">
+                        <!-- <div class="donut instalment1">
+                                  <div class="donut-default"></div>
+                                  <div class="donut-text">
+                                    <span>
+                                      <h6>12</h6> 
+                                      New Students
+                                      /week
+                                    </span>
+                                  </div>
+                                  <div class="donut-case"></div>
+                                </div> -->
+                        <div class="donut"
+                          style="--first: 0; --second: .75; --third: 0; --fourth: 0; --fifth: .25; --donut-spacing: 0;">
+                          <div class="donut__slice donut__slice__first"></div>
+                          <div class="donut__slice donut__slice__second"></div>
+                          <div class="donut__slice donut__slice__third"></div>
+                          <div class="donut__slice donut__slice__fourth"></div>
+                          <div class="donut__slice donut__slice__fifth"></div>
+                          <div class="donut__label">
+                            <div class="donut__label__heading">{{average}}</div>
+                            <div class="donut__label__sub">hrs /week</div>
+                          </div>
+                        </div>
+                      </div>
+                      <ul class="chart-info">
+                        <li>
+                          <span class="chart-indicator yellow"></span>
+                          <span class="chart-title">Students</span>
+                          <span class="chart-count blue">{{hrs}}</span>
+                        </li>
+                        <li>
+                          <span class="chart-indicator blue"></span>
+                          <span class="chart-title">Teachers</span>
+                          <span class="chart-count green">{{teacherMins}}</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="class-chart card">
+                      <h6 class="chart-title">Users Data</h6>
+                      <div class="chart">
+                        <!-- <div class="donut instalment1">
+                                  <div class="donut-default"></div>
+                                  <div class="donut-text">
+                                    <span>
+                                      <h6>12</h6> 
+                                      New Students
+                                      /week
+                                    </span>
+                                  </div>
+                                  <div class="donut-case"></div>
+                                </div> -->
+                        <div class="donut"
+                          style="--first: 0; --second: .75; --third: 0; --fourth: 0; --fifth: .25; --donut-spacing: 0;">
+                          <div class="donut__slice donut__slice__first"></div>
+                          <div class="donut__slice donut__slice__second"></div>
+                          <div class="donut__slice donut__slice__third"></div>
+                          <div class="donut__slice donut__slice__fourth"></div>
+                          <div class="donut__slice donut__slice__fifth"></div>
+                          <div class="donut__label">
+                            <div class="donut__label__heading">{{newStudents}}</div>
+                            <div class="donut__label__sub">New Students /week</div>
+                          </div>
+                        </div>
+                      </div>
+                      <ul class="chart-info">
+                        <li>
+                          <span class="chart-indicator yellow"></span>
+                          <span class="chart-title">New students</span>
+                          <span class="chart-count blue">{{newStudents}}</span>
+                        </li>
+                        <li>
+                          <span class="chart-indicator blue"></span>
+                          <span class="chart-title">Deleted students</span>
+                          <span class="chart-count green">0</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="paneSettings" class="panal-card tab-pane fade" role="tabpanel" aria-labelledby="tabSettings">
+            <div class="panal-card-header" role="tab" id="headingSettings">
+              <h5 class="mb-0">
+                <a class="collapsed" data-toggle="collapse" href="#collapseSettings" aria-expanded="false"
+                  aria-controls="collapseSettings">
+                  {{'school.class.class-details.setting-label' | translate}}
+                </a>
+              </h5>
+            </div>
+            <div id="collapseSettings" class="collapse" role="tabpanel" data-parent="#content"
+              aria-labelledby="headingSettings">
+              <div class="school-settings-wrapper">
+                <h5 class="settings-title">Your school settings</h5>
+                <ul class="toggle-list" *ngFor="let item of settingsList">
+                  <li>
+                    <label>{{item.value}}</label>
+                    <label class="switch">
+                      <input type="checkbox" [ngModel]="item.isEnable" [checked]="item.isEnable"
+                        (click)="onSettingsUpdate(item)">
+                      <span class="slider round"></span>
+                    </label>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Edit School Popup -->
+<ng-template #ediSchool let-modal id="ediSchool">
+  <button type="button" class="close" aria-label="Close" (click)="closeEditSchoolModal()">
+    <img src="./assets/images/close.png" alt="" class="img-fluid" />
+  </button>
+  <div class="modal-body">
+    <div class="form-create-class">
+      <h2 class="modal-title"> Edit School</h2>
+      <form [formGroup]="editSchoolForm" class="add-school-form">
+        <div class="row">
+          <div class="col-12">
+            <h5 class="department-heading">School Info</h5>
+          </div>
+          <div class="col-12">
+            <label>School Name (*)</label>
+            <app-input-field classes="form-control" placeholders="Enter name" ids="schoolName" [form]="editSchoolForm"
+              types="" fieldControl="schoolName"
+              [ngClass]="{ 'is-invalid': formControl.schoolName.touched && formControl.schoolName.errors }">
+            </app-input-field>
+            <div *ngIf="formControl.schoolName.errors" class="invalid-feedback">
+              <div class="error" *ngIf="formControl.schoolName.errors?.required">School name is required</div>
+              <div class="error" *ngIf="formControl.schoolName.errors?.pattern">School name is not valid</div>
+              <div class="error" *ngIf="formControl.schoolName.errors?.schoolNameValidate">School already exists</div>
+            </div>
+          </div>
+          <div class="col-12">
+            <label>Representative name (*)</label>
+            <app-input-field classes="form-control schoolForm" placeholders="Enter Representative name" types=""
+              ids="adminAccountName" fieldControl="adminAccountName" [form]="editSchoolForm"
+              [ngClass]="{ 'is-invalid': formControl.adminAccountName.touched && formControl.adminAccountName.errors }">
+            </app-input-field>
+            <div *ngIf="formControl.adminAccountName.errors" class="invalid-feedback">
+              <div class="error" *ngIf="formControl.adminAccountName.errors?.required">Representative name is required
+              </div>
+              <div class="error" *ngIf="formControl.adminAccountName.errors?.pattern">Representative name is not valid
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <label>Address</label>
+            <textarea class="form-control" placeholder="Enter Address" ids="schoolAddress" [(ngModel)]="schoolAddress"
+              [ngModelOptions]="{standalone: true}"></textarea>
+          </div>
+          <div class="col-md-6">
+            <label>Phone number (*)</label>
+            <app-input-field classes="form-control" placeholders="Enter phone number" ids="pNumber"
+              fieldControl="pNumber" types="" [form]="editSchoolForm"
+              [ngClass]="{ 'is-invalid': formControl.pNumber.touched && formControl.pNumber.errors }">
+            </app-input-field>
+            <div *ngIf="formControl.pNumber.errors" class="invalid-feedback">
+              <div class="error" *ngIf="formControl.pNumber.errors?.required">Contact number
+                is required</div>
+              <div class="error" *ngIf="formControl.pNumber.errors?.pattern">Contact number is not
+                valid(Format - (000)-000-0000)</div>
+              <div class="error" *ngIf="formControl.pNumber.errors?.minlength">Contact number is not
+                valid(Reuired Length is 10 digit)</div>
+              <div class="error" *ngIf="formControl.pNumber.errors?.digitValidate">Contact number is not valid(Required length is 10,12,13 digit)</div>
+              <div class="error" *ngIf="formControl.pNumber.errors?.contactValidate">
+                <div class="error">Contact number already exists</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label>Email (*)</label>
+            <app-input-field classes="form-control" placeholders="Enter email address" ids="emailID"
+              fieldControl="emailID" types="" [form]="editSchoolForm"
+              [ngClass]="{ 'is-invalid': formControl.emailID.touched && formControl.emailID.errors }">
+            </app-input-field>
+            <div *ngIf="formControl.emailID.errors" class="invalid-feedback">
+              <div class="error" *ngIf="formControl.emailID.errors?.required">Contact email is
+                required</div>
+              <div class="error" *ngIf="formControl.emailID.errors?.pattern">Contact email is not valid
+              </div>
+              <div class="error" *ngIf="formControl.emailID.errors?.emailValidate">Email already exists</div>
+            </div>
+          </div>
+          <div class="col-12">
+            <h5 class="department-heading mt-5">Principal/ Staff Info</h5>
+          </div>
+          <div class="col-12">
+            <label>Principal Name (*)</label>
+            <app-input-field classes="form-control" placeholders="Enter name" ids="principalName"
+              fieldControl="principalName" types="" [form]="editSchoolForm"
+              [ngClass]="{ 'is-invalid': formControl.principalName.touched && formControl.principalName.errors }">
+            </app-input-field>
+            <div *ngIf="formControl.principalName.errors" class="invalid-feedback">
+              <div class="error" *ngIf="formControl.principalName.errors?.required">Principal name is required</div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label>Contact number</label>
+            <app-input-field classes="form-control" placeholders="Enter phone number" ids="phoneNumber"
+              fieldControl="phoneNumber" types="" [form]="editSchoolForm"
+              [ngClass]="{ 'is-invalid': formControl.phoneNumber.touched && formControl.phoneNumber.errors }">
+            </app-input-field>
+            <div *ngIf="formControl.phoneNumber.errors" class="invalid-feedback">
+              <div class="error" *ngIf="formControl.phoneNumber.errors?.pattern">Contact number is not
+                valid(Format - (000)-000-0000)</div>
+              <div class="error" *ngIf="formControl.phoneNumber.errors?.minlength">Contact number is not
+                valid(Reuired Length is 10 digit)</div>
+                <div class="error" *ngIf="formControl.phoneNumber.errors?.phoneValidate">Contact number is not valid(Required length is 10,12,13 digit)</div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label>Contact Email</label>
+            <app-input-field classes="form-control" placeholders="Enter email address" ids="emailAddress"
+              fieldControl="emailAddress" [form]="editSchoolForm" types=""
+              [ngClass]="{ 'is-invalid': formControl.emailAddress.touched && formControl.emailAddress.errors }">
+            </app-input-field>
+            <div *ngIf="formControl.emailAddress.errors" class="invalid-feedback">
+              <div class="error" *ngIf="formControl.emailAddress.errors?.pattern">Contact email is not valid
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="lable-wrapper">
+              <label>Address</label>
+              <a style="float: right;" (click)="sameAddress()">Use same school address</a>
+            </div>
+            <textarea class="form-control" placeholder="Enter Address" ids="principalAddress"
+              [(ngModel)]="principalAddress" [ngModelOptions]="{standalone: true}"></textarea>
+          </div>
+          <div class="col-12">
+            <label>Emergency contact no (*)</label>
+            <app-input-field classes="form-control" placeholders="Enter phone number" ids="emergencyContact"
+              fieldControl="emergencyContact" [form]="editSchoolForm" types=""
+              [ngClass]="{ 'is-invalid': formControl.emergencyContact.touched && formControl.emergencyContact.errors }">
+            </app-input-field>
+            <div *ngIf="formControl.emergencyContact.errors" class="invalid-feedback">
+              <div class="error" *ngIf="formControl.emergencyContact.errors?.required">Emergency contact number
+                is required</div>
+              <div class="error" *ngIf="formControl.emergencyContact.errors?.pattern">Emergency contact number is not
+                valid(Format - (000)-000-0000)</div>
+              <div class="error" *ngIf="formControl.emergencyContact.errors?.minlength">Emergency contact number is
+                not
+                valid(Reuired Length is 10 digit)</div>
+                <div class="error" *ngIf="formControl.emergencyContact.errors?.contactDigitValidate">Emergency contact number is not valid(Required length is 10,12,13 digit)</div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="footer-btns">
+        <app-button classes="btn btn-secondary mb-3 mr-3" [submit]="true" (click)="closeEditSchoolModal()">
+          <span aria-hidden="true">Cancel</span>
+        </app-button>
+        <app-button classes="btn btn-primary mb-3" [submit]="true" (click)="onEditSchool()"
+          [disabled]="editSchoolForm.invalid">
+          <span aria-hidden="true">Update</span>
+        </app-button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<!-- student profile in student tab -->
+<ng-template #profile let-modal>
+  <button type="button" class="close" aria-label="Close" (click)="closeProfileModal()">
+    <img src="./assets/images/close.png" alt="" class="img-fluid" />
+  </button>
+  <div class="modal-body">
+    <div class="user-profile">
+      <div class="user-profile-wrapper legend-card">
+        <legend>Student profile</legend>
+        <ul *ngIf="studentDetails" class="user-details">
+          <li>
+            <div class="profile-heading">
+              <span class="profile-image">
+                <img src="{{ studentDetails?.img }}" alt="" class="img-fluid" />
+              </span>
+            </div>
+            <div class="profile-sub-info">
+              <h3 class="mb-0">{{ studentDetails?.firstName}} {{ studentDetails?.lastName}}</h3>
+            </div>
+          </li>
+          <li>
+            <div class="profile-heading">
+              <h6>Allergens</h6>
+            </div>
+            <div class="profile-sub-info">
+              <h6>{{allergenList}}</h6>
+            </div>
+          </li>
+          <li>
+            <div class="profile-heading">
+              <h6>Gender</h6>
+            </div>
+            <div class="profile-sub-info">
+              <h6>{{studentDetails?.gender}}</h6>
+            </div>
+          </li>
+          <li>
+            <div class="profile-heading">
+              <h6>Contact Person Name</h6>
+            </div>
+            <div class="profile-sub-info">
+              <h6>{{studentDetails?.contactPersonName}}</h6>
+            </div>
+          </li>
+          <li>
+            <div class="profile-heading">
+              <h6>Contact Person Email</h6>
+            </div>
+            <div class="profile-sub-info">
+              <h6>{{studentDetails?.contactPersonEmail}}</h6>
+            </div>
+          </li>
+          <li>
+            <div class="profile-heading">
+              <h6>Contact Person Phone</h6>
+            </div>
+            <div class="profile-sub-info">
+              <h6>{{studentDetails?.contactPersonNumber}}</h6>
+            </div>
+          </li>
+          <li>
+            <div class="profile-heading">
+              <h6>Relation</h6>
+            </div>
+            <div class="profile-sub-info">
+              <h6>{{studentDetails?.relation?.title}}</h6>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="change-password-btn-wrapper">
+      <app-button classes="btn btn-primary icon-btn" [submit]="true" style="margin-left:19rem;"
+        (click)="closeProfileModal()">
+        <span aria-hidden="true">
+          <span aria-hidden="true">Close</span>
+        </span>
+      </app-button>
+    </div>
+  </div>
+</ng-template>
+<!-- Create class in student tab -->
+<ng-template #createClass let-modal>
+  <button type="button" class="close" aria-label="Close" (click)="closeCreateClassModal()">
+    <img src="./assets/images/close.png" alt="" class="img-fluid" />
+  </button>
+  <div class="modal-body">
+    <div class="form-create-class district-modal">
+      <h2 class="modal-title"> Create Class</h2>
+      <form [formGroup]="createClassForm">
+        <div class="row">
+          <div class="col-md-12">
+            <label>School</label>
+            <app-drop-down fieldControl="school" class="formDropdown" [dropDownButtonName]="schoolTitle"
+              [dropDownIcon]="schoolIcon" [dropDownItemList]="schoolList" [disableDropDownItem]="true"
+              (registerDropdownValueChange)="schoolChange($event)"></app-drop-down>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-7">
+            <label>Class Teacher (*)</label>
+            <app-multi-select-dropdown [dropDownItemList]="teacherList" [selectedItems]="selectedTeacher"
+              [placeholderText]="'Select the class teacher'" [selectedValue]="selectedTeacherValue"
+              (onSelectValue)="onSelectTeacher($event)" (onDeSelectValue)="onDeSelectTeacher($event)"
+              (onSelectAllValue)="onSelectAllTeacher($event)" (onDeselectAllValue)="onDeselectAllTeacher($event)">
+            </app-multi-select-dropdown>
+          </div>
+          <div class="col-md-5">
+            <label>Grade (*)</label>
+            <app-drop-down class="formDropdown" [dropDownButtonName]="gradeTitle" [dropDownIcon]=""
+              (registerDropdownValueChange)="gradeChange($event)" fieldControl="grade" [dropDownItemList]="gradeList"
+              [ngClass]="{ 'is-invalid': formControls.grade.touched && formControls.grade.errors }">
+            </app-drop-down>
+            <div *ngIf="formControls.grade.errors" class="invalid-feedback">
+              <div class="error" *ngIf="formControls.grade.errors?.required">Grade is required</div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <label>Class Title (*)</label>
+            <app-input-field classes="form-control" types="text" ids="title" fieldControl="title"
+              [form]="createClassForm" placeholders="Enter the class title"
+              [ngClass]="{ 'is-invalid': formControls.title.touched && formControls.title.errors }">
+            </app-input-field>
+            <div *ngIf="formControls.title.errors" class="invalid-feedback">
+              <div class="error" *ngIf="formControls.title.errors?.required">Class Title is required</div>
+              <div class="error" *ngIf="formControls.title.errors?.classNameValidate">Class already exists</div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <label>Standards (*)</label>
+            <app-multi-select-dropdown [dropDownItemList]="standardList" [selectedItems]="selectedStandard"
+              [placeholderText]="'Select learning standards'" fieldControl="standard" [selectedValue]="selectedValue"
+              (onSelectValue)="onSelectStandrd($event)" (onDeSelectValue)="onDeSelectStandard($event)"
+              (onSelectAllValue)="onSelectAllStandard($event)" (onDeselectAllValue)="onDeselectAllStandard($event)">
+            </app-multi-select-dropdown>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <label>Students</label>
+            <app-multi-select-dropdown [dropDownItemList]="allStudentList" [selectedItems]="selectedStudent"
+              [placeholderText]="'Select Student'" fieldControl="student" [selectedValue]="selectedStudentValue"
+              (onSelectValue)="onSelectStudent($event)" (onDeSelectValue)="onDeSelectStudent($event)"
+              (onSelectAllValue)="onSelectAllStudent($event)" (onDeselectAllValue)="onDeselectAllStudent($event)">
+            </app-multi-select-dropdown>
+          </div>
+        </div>
+        <div class="footer-btns">
+          <app-button classes="btn btn-secondary mb-3 mr-3" [submit]="true" (click)="closeCreateClassModal()">
+            <span aria-hidden="true">Cancel</span>
+          </app-button>
+          <!-- <app-button classes="btn btn-primary mb-3 mr-3" [submit]="true">
+            <span aria-hidden="true">Add Students to Class</span>
+          </app-button> -->
+          <app-button classes="btn btn-primary mb-3" [submit]="true" [disabled]="createClassForm.invalid"
+            (click)="onSaveClass()">
+            <span aria-hidden="true">Save</span>
+          </app-button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>

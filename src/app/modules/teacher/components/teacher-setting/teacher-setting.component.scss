@@ -1,0 +1,58 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+
+.ClassInfo{
+    margin-top:8rem;
+    margin-bottom: 5rem;
+    padding: 10rem 4rem;
+    @include breakpoint(mobile){
+        padding: 10rem 2rem;
+    }
+    legend{
+        display: inline-table;
+        transform: translate(50px, -50%);
+        @include breakpoint(mobile){
+            transform: translate(0, -50%);
+        }
+    }
+    .section-sub-title{
+        color:$secondary;
+        max-width:calc(100% - 100px);
+        margin: auto;
+        margin-bottom:1.5rem;
+        margin-top: 4.5rem;
+        @include breakpoint(mobile){
+            max-width:100%;
+        }
+    }
+    .toggle-list{
+        max-width:calc(100% - 100px);
+        margin: auto;
+        @include breakpoint(mobile){
+            max-width:100%;
+        }
+        li{
+            display: flex;
+            justify-content: space-between;
+            margin-bottom:2.5rem;
+            font-size:1.8rem;
+            font-weight: bold;
+            &:last-child{
+                margin-bottom: 1rem;
+            }
+            label{
+                width: calc(100% - 6rem);
+            }
+            .switch{
+                width:4.8rem;
+                margin-right: 2rem;
+                @include breakpoint(mobile){
+                    margin-right: 0;
+                }
+            }
+            @include breakpoint(mobile){
+                font-size: 1.4rem;
+            }
+        }
+    }
+}

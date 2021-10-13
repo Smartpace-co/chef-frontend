@@ -1,0 +1,169 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+
+.login{
+    height: calc(100vh - 9rem);
+    .container-fluid{
+        padding: 0;
+        display: flex;
+        align-items: stretch;
+        align-content: center;
+        justify-content: center;
+        min-height: 100%;
+        @include breakpoint(tabs) {
+            flex-wrap: wrap;
+        }
+        .left-login{
+            width:40%;
+            margin-left: auto;
+            margin-right: -10%;
+            img{
+                max-width:85%;
+            }
+            @include breakpoint(smallDesktop){
+                width: 35%;
+                margin-left: auto;
+                margin-right: -10%;
+            }
+            @include breakpoint(tabs) {
+                width: 100%;
+                margin:0 auto 5rem;
+                text-align: center;
+                img{
+                    max-width:50%;
+                    margin: auto;
+                }
+            }
+            @include breakpoint(smallmobile){
+                img{
+                    max-width: 80%;
+                }
+            }
+        }
+        .login-form{
+            background: url(../../../../../assets/images/login-bg.svg) 0 center no-repeat;
+            background-size: cover;
+            margin-left: auto;
+            display: flex;
+            flex-direction:column;
+            align-items: flex-end;
+            justify-content:center;
+            padding:0 3% 0 18%;
+            max-width:50%;
+            color:$white;
+            @include breakpoint(xtralarge){
+                max-width:60%;
+                padding:0 5% 0 25%;
+            }
+            @include breakpoint(smallDesktop){
+                max-width:60%;
+                padding:0 5% 0 25%;
+                margin-left: 0;
+            }
+            @include breakpoint(tabs) {
+                background: none;
+                padding: 0;
+                margin: auto;
+                min-height: inherit;
+                max-width:80%;
+            }
+            header{
+                display: flex;
+                align-items: center;
+                margin-bottom:2rem;
+                .logo{
+                    max-width:20%;
+                }
+                .join-text{
+                    font-weight: 700;
+                }
+            }
+            .remember-me{
+                margin:2.5rem 0 2rem;
+                display: flex;
+                justify-content: space-between;
+                .custom-checkbox{
+                    padding-left:2.5rem;
+                   label{
+                    padding-left: 2rem;
+                    &:before,
+                    &:after{
+                        width:2.5rem;
+                        height: 2.5rem;
+                        background: transparent;
+                    }
+                    &:before{
+                        top:-0.5rem;
+                        border:0.2rem solid $secondary;
+                    }
+                   }
+                }
+            }
+            form{
+                width:100%;
+            }
+            a{
+                color: $grey-color;
+            }
+            .or{
+                margin:1.5rem 0;
+                display: block;
+                position: relative;
+                text-align: center;
+                &:before{
+                    width:45%;
+                    height:0.1rem;
+                    background: $white;
+                    position: absolute;
+                    left:0;
+                    top:0;
+                    bottom:0;
+                    margin: auto;
+                    content:'';
+                }
+                &:after{
+                    width:45%;
+                    height:0.1rem;
+                    background: $white;
+                    position: absolute;
+                    right:0;
+                    top:0;
+                    bottom:0;
+                    margin: auto;
+                    content:'';
+                }
+            }
+            .signup{
+                display: flex;
+                justify-content: space-between;
+                margin:2rem 0 0 0;
+            }
+            .error{
+                margin-top: -0.5rem;
+                margin-bottom: 1.5rem;
+                color: rgba($white , 0.8);
+                padding-left: 4rem;
+            }
+            &.access-code{
+                header{
+                    display: block;
+                    text-align: center;
+                    margin: 0;
+                    .logo{
+                        margin: 0 auto;
+                    }
+                }
+                h1{
+                  font-size: 3.2rem;
+                }
+                p{
+                    text-align: center;
+                }
+                .field-label{
+                  font-size: 1.9rem;
+                  text-align: center;
+                }
+              }
+        }
+    }
+}

@@ -1,0 +1,146 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+
+
+.individual-header{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin:3rem 0;
+    h3{
+        margin: 0;
+        margin-left:2rem;
+    }
+}
+.individual-student-assignment-details{
+    .card{
+        padding: 0;
+        .individual-list-header{
+            padding:3rem 6rem;
+            font-weight: 700;
+            display: flex;
+            flex-wrap: wrap;
+            @include breakpoint(mobile){
+                padding: 2rem 3rem;
+            }
+            label{
+                color:$secondary;
+                span{
+                    display: block;
+                }
+            }
+            .start-date{
+                width:40%;
+                @include breakpoint(mobile){
+                    width:50%;
+                }
+                @include breakpoint(smallmobile){
+                    width:100%;
+                    margin-bottom:1rem;
+                }
+                .bullet-list{
+                    font-size:1.3rem;
+                    font-weight: 700;
+                    @include breakpoint(mobile){
+                        padding-left:1rem;
+                    }
+                    li{
+                        margin-bottom: 0.5rem;
+                        position: relative;
+                        &:last-child{
+                            &:before{
+                                content: "";
+                                height: 1rem;
+                                width: 0.1rem;
+                                background: #fff;
+                                position: absolute;
+                                left: -1.1rem;
+                                top: -0.8rem;                       
+                            }
+                            span{
+                                color: $secondary;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .questions{
+            background:rgba($navy-blue, 0.5);
+            border-bottom:1px solid $border-color;
+            > li{
+                padding:3rem 6rem;
+                border-top:1px solid $border-color;
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                @include breakpoint(mobile){
+                    padding: 2rem 3rem;
+                }
+                label{
+                    font-weight:700;
+                    color:rgba($white, 0.5);
+                    display: block;
+                }
+                .question{
+                    width:30%;
+                    @include breakpoint(mobile){
+                        width:100%;
+                        margin-bottom:2rem;
+                    }
+                }
+                .answer{
+                    width:30%;
+                    @include breakpoint(mobile){
+                        width:60%;
+                    }
+                    @include breakpoint(smallmobile){
+                        width:100%;
+                        margin-bottom:1rem;
+                    }
+                }
+                .attempt{
+                    width:20%;
+                    display: flex;
+                    text-align: center;
+                    justify-content: space-around;
+                    @include breakpoint(mobile){
+                        width:40%;
+                    }
+                    @include breakpoint(smallmobile){
+                        justify-content: space-between;
+                    }
+                    strong{
+                        &.correct{
+                            width:2.5rem;
+                            height:2.5rem;
+                            border-radius:3rem;
+                            background: $secondary;
+                            display: inline-block;
+                        }
+                    }
+                }
+                .inline-bullet-list{
+                    display: flex;
+                    width:100%;
+                    flex-wrap: wrap;
+                    list-style:disc;
+                    list-style-position: inside;
+                    font-size:2rem;
+                    color: $secondary;
+                    li{
+                        margin-right:3rem;
+                    }
+                    span{
+                        color:$white;
+                        font-size: 1.4rem;
+                    }
+                }
+            }
+        }
+        .individual-list-footer{
+            padding:3rem;
+            display: inline-block;
+        }
+    }
+}

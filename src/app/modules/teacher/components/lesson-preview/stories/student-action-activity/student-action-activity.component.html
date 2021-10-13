@@ -1,0 +1,43 @@
+<app-lessons-headerbar></app-lessons-headerbar>
+<div class="active-action-body">
+  <div class="container">
+    <div class="final-editaion">
+      <div *ngIf="isLoad" class="content-wrapper">
+        <div class="card-wihtout-header-blue">
+          <div class="active-action-wrapper">
+            <p>{{ activity?.description }}</p>
+            <!-- <p> According to the majority of Culinary journals such as CNN 
+                International, Filipino food is considered one of the most 
+                Loved cuisines in the World Based on a mixture of traditional 
+                foods of India, Spain, Chino and Americo, and blessed with 
+                7,000 islands, on abundance of seafood, tropical fruits, and a 
+                colorful history, this archipelago (a sea or stretch of water 
+                contoining many islonds) hos an abundance of delicious 
+                dishes, enjoyed by the 7 million tourists visiting the 
+                Philippines every year. 
+                </p>
+              <p>Unfortunately, one out of every three individuals in the 
+                Philippines Lives below the poverty tine (the state of being 
+                extremely poor), which means they cannot afford to buy 
+                some of the most common vegetables such on broccoli that 
+                ore a staple in Filipino dishes.</p>
+                <div class="park"><img src="./assets/images/children-park.png" class="img-fluid" alt=""></div>
+              <p>Many children suffer from hunger and malnutrition, and 
+                access to healthcare remains difficult, especially in the more 
+                remote regions.</p> -->
+          </div>
+          <div class="submit-btn-wrapper">
+            <app-button classes="btn btn-secondary btn-action" [submit]="true" (click)="onNext()">
+              <span aria-hidden="true"><img src="./assets/images/boy-button.png" alt="">       
+                {{'student.assigned-lessons.lesson-steps.take-action-activity'| translate }} </span>
+            </app-button>
+          </div>
+        </div>
+        <span class="final-editaion-img-wrapper">
+          <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+<app-lessons-footer (onNext)="onNext()" (onPrevious)="onPrevious()"></app-lessons-footer>

@@ -1,0 +1,115 @@
+
+.table-responsive{
+    border:1px solid $blueBorder;
+    border-radius:1.2rem; 
+}
+.table{
+    font-weight: 700;
+    &.table-bordered{
+        border:0px solid $blueBorder;
+        border-collapse:collapse !important;
+        border-radius:1.2rem;
+        border-style: hidden;
+        box-shadow: 0 0 0 0 $blueBorder;
+        background: $primary;
+        margin: 0;
+        thead{
+            th{
+                border-top:none;
+                border-color: $blueBorder;
+                border-bottom: 1px solid $blueBorder;
+                padding:1.2rem;
+            }
+        }
+        tbody{
+            td{
+                border-top:none;
+                border-color: $blueBorder;
+                padding:1.2rem;
+                font-weight: normal;
+            }
+        }
+    }
+}
+.filter-short-by{
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+}
+.table-pagination{
+    margin-top: 2rem !important;
+    display:flex;
+    justify-content: center;
+    width: auto;
+    .pagination{
+        border:1px solid $blueBorder;
+        border-radius:5rem;
+        margin:0 !important;
+        li{
+            padding:1.5rem;
+            font-weight: 700;
+            .page-link{
+                background: transparent;
+                padding:0;
+                border:none;
+                border-radius:100%;
+                min-width:3rem;
+                height: 3rem;
+                line-height: 3.5rem;
+                text-align: center;
+            }
+            &.active,
+            &:hover:nth-child(n+3):nth-last-child(n+3){
+                .page-link{
+                    color:$navy-blue;
+                    background: $secondary;
+                    font-weight: bold;
+                }
+            }
+            &.first,
+            &.previous,
+            &.next,
+            &.last{
+                padding:1.5rem 2rem;
+                border-right:1px solid $blueBorder;
+                .page-link{
+                    background: transparent;
+                    font-weight: normal;
+                    color:$white;
+                    &:hover{
+                        background: transparent;
+                        font-weight: normal;
+                        color:$white;
+                    }
+                }
+            }
+            &.next,
+            &.last{
+                border-left:1px solid $blueBorder;
+                border-right:0 solid $blueBorder;
+            }
+            &.disabled{
+                .page-link{
+                    background: transparent;
+                    color: $blueBorder;
+                }
+            }
+        }
+    }
+}
+
+.district-body{
+    .legend-card{
+        app-tables{
+            .container {
+                padding: 0;
+                @include media-breakpoint-up(lg) {
+                    max-width: 100%;
+                }
+            }
+            // .table-pagination{
+            //     margin-bottom: 3rem;
+            // }
+        }
+    }
+}

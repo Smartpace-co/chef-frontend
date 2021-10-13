@@ -1,0 +1,31 @@
+<main class="login">
+  <div class="container-fluid">
+    <div class="left-login">
+      <img src="./assets/images/kids-and-planet.png" class="img-fluid" />
+    </div>
+    <div class="login-form access-code">
+      <header>
+        <div class="logo">
+          <img src="./assets/images/logo.png" class="img-fluid" />
+        </div>
+        <h1 class="logo-title mt-3">Students Free Access</h1>
+        <p class="join-text mt-0 pt-0 mb-3">To join a class, select a grade.</p>
+      </header>
+      <form [formGroup]="freeAccessCodeForm">
+        <app-drop-down fieldControl="" class="formDropdown mb-5" [dropDownButtonName]="gradeTitle"
+            [dropDownItemList]="gradeList"></app-drop-down>
+        <h5 class="field-label">Enter CHEF as an access code</h5>
+        <app-input-field
+          classes="form-control mb-5"
+          placeholders="Enter CHEF as an access code"
+          ids="chefAccessCode"
+          fieldControl="chefAccessCode"
+          [form]="freeAccessCodeForm"
+        ></app-input-field>
+        <app-button classes="btn btn-primary btn-block mb-5" [submit]="true">
+          <span aria-hidden="true">join</span>
+        </app-button>
+      </form>
+    </div>
+  </div>
+</main>

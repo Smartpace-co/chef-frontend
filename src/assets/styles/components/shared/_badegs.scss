@@ -1,0 +1,55 @@
+// Info 
+.info{
+    width:100%;
+    display: flex;
+    align-items: center;
+    padding:1.5rem;
+    border-radius:2.3rem;
+    background: rgba($white, 0.2);
+    margin-bottom:2.5rem;
+    fa-icon{
+        color: $secondary;
+        margin-right:2rem;
+    }
+    p{
+        padding: 0;
+        margin: 0;
+    }
+ }
+
+
+ .student-info{
+    width:100%;
+    display: flex;
+    align-items: center;
+    padding:1.5rem;
+    border-radius:100rem;
+    background: rgba($warm-blue, 1);
+    margin-bottom:2.5rem;
+    padding-left: 5rem;
+    margin-top: 4rem;
+    padding-top:2rem;
+    position: relative;
+    .badge-icon{
+        background: $secondary;
+        -webkit-box-shadow: -1px 4px 0px -1px rgba($orange,1);
+        -moz-box-shadow: -1px 4px 0px -1px rgba($orange,1);
+        box-shadow: -1px 4px 0px -1px rgba($orange,1);
+        padding:0.2rem;
+        width:4rem;
+        height:4rem;
+        border-radius:4rem;
+        position: absolute;
+        left: 0;
+        top: -2rem;
+        display: block;
+        img{
+            max-width: 100%;
+        }
+    }
+    p{
+        padding: 0;
+        margin: 0;
+        font-weight: 700;
+    }
+ }

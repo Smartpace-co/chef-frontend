@@ -1,0 +1,95 @@
+<div class="roster-list">
+  <div class="roster-header">
+    <div class="container dist_container">
+      <div class="roster-header-main">
+        <h3 class="school-count">
+          {{'table-component.you' | translate}} {{'table-component.have' | translate}} {{ activeUser?.length }} {{'school.users.users-list.active-users' | translate}} {{'school.membership.users-label' | translate}}
+        </h3>
+        <div class="roster-header-button">
+          <app-button classes="btn btn-primary icon-btn mr-3 mb-3" [submit]="true" (click)="importUser()">
+            <fa-icon [icon]="faImport"></fa-icon>
+            <span aria-hidden="true">{{'school.users.import-users.label'| translate}}</span>
+          </app-button>
+          <app-button classes="btn btn-primary icon-btn mr-3 mb-3" [submit]="true" (click)="addUser()">
+            <fa-icon [icon]="PlusIcon"></fa-icon>
+            <span aria-hidden="true">{{'school.users.add-user.label'| translate}}</span>
+          </app-button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="roster-filter">
+    <div class="container dist_container">
+      <fa-icon [icon]="SearchIcon"></fa-icon>
+      <input id="table-filter" class="form-control transparentbg" type="text" name="term" [(ngModel)]="term"
+        placeholder="Search" />
+        <div class="filter-droplist">
+          <app-drop-down class="transparentbg" (registerDropdownValueChange)="changeView($event)"
+            [dropDownButtonName]="ViewTitle" [dropDownIcon]="ViewIcon" [dropDownItemList]="ViewList"></app-drop-down>
+          <app-drop-down class="transparentbg" [dropDownButtonName]="classesListtitle" [dropDownIcon]=""
+            [dropDownItemList]="classesList" (registerDropdownValueChange)="userFilter($event)"></app-drop-down>
+            <app-drop-down class="transparentbg" [dropDownButtonName]="SortByIdTitle" [dropDownIcon]=""
+            (registerDropdownValueChange)="userIdFilter($event)" [dropDownItemList]="SortByIdList"></app-drop-down>
+          </div>
+    </div>
+  </div>
+  <div *ngIf="gridview" class="dist-student-grid">
+    <ng-container *ngIf="isLoadUser && userList && userList?.length > 0; else noData">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 col-sm-6" *ngFor="let item of userList | filter: term">
+            <div class="studentItem" (click)="editUser(item)">
+              <div class="studentItem__photo">
+                <img src="{{ item.userPhoto }}" />
+              </div>
+              <div class="studentItem__info_wrapper">
+                <h3 class="studentItem__name">{{ item?.userFirstName}},{{ item?.userLastName }}</h3>
+                <ul class="studentItem__info">
+                  <li class="studentItem__info__id">
+                    <label>{{'district.district-schools.id'| translate}}:</label>
+                    <span>{{ item.userId }}</span>
+                  </li>
+                </ul>
+                <div class="studentItem__userInfo">
+                  <ul>
+                    <li>
+                      <label>{{'school.teacher.teacher-list.teacher-email'| translate}} - </label>
+                      <a> {{ item.email}}</a>
+                    </li>
+                    <li>
+                      <label>{{'school.teacher.teacher-list.teacher-contact'| translate}}  - </label>
+                      <span> {{ item.contactNumber}}</span>
+                    </li>
+                    <li>
+                      <label>{{'district.agent-component.role'| translate}} - </label>
+                      <span> {{ item.role}}</span>
+                    </li>
+                    <li>
+                      <label>{{'school.teacher.add-teacher.status'| translate}} - </label>
+                      <span> {{ item.status}}</span>
+                    </li>
+                  </ul>
+                </div>
+                <!-- <ul class="studentItem__action">
+                <li>
+                  <a>Profile <fa-icon [icon]="rightArrow"></fa-icon></a>
+                </li>
+                <li>
+                  <a>Reports <fa-icon [icon]="rightArrow"></fa-icon></a>
+                </li>
+              </ul> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #noData>
+      <h5 style="margin-left: 120px;margin-top: 20px;">{{'table-component.no-record'| translate}}.</h5>
+    </ng-template>
+  </div>
+  <div *ngIf="listview && isLoadUser">
+    <app-tables [term]="term" [dataSource]="userList" (rowClick)="editUser($event)" [tableHeaders]="userHeaders"
+      [page]="1" [pageSize]="10"></app-tables>
+  </div>
+</div>

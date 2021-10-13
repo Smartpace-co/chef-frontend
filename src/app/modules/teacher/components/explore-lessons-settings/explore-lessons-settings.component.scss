@@ -1,0 +1,289 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+.explore-lesson-setting{
+    margin:5rem 0;
+    .page-title{
+        margin-bottom: 3rem;
+    }
+    .lesson_info{
+        display: flex;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        margin-bottom: 3rem;
+        &__image{
+            width:50%;
+            border-radius:0 1.2rem 1.2rem 0;
+            overflow: hidden;
+            @include breakpoint(smallmobile){
+                width: 100%;
+            }
+        }
+        &__content{
+            width:50%;
+            padding-left: 2rem;
+            @include breakpoint(smallmobile){
+                width: 100%;
+                padding-left: 0;
+                margin-top: 2rem;
+            }
+            &__top{
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                h6{
+                    width:calc(100% - 7rem);
+                }
+                .rating-bookmark{
+                    width: 7rem;
+                    display: flex;
+                    align-items: flex-start;
+                    justify-content: space-between;
+                    .rating{
+                        color: $secondary;
+                        border:1px solid $secondary;
+                        padding:0.2rem 0.5rem;
+                        display: flex;
+                        align-items:center;
+                        font-size: 1rem;
+                        fa-icon{
+                            margin-left:0.5rem;
+                            display: inline-block;
+                            font-size: 0.8rem;
+                        }
+                    }
+                    .bookmark{
+                        color: $secondary;
+                        font-size:1.6rem;
+                        cursor: pointer;
+                        .addBookmark{
+                            position: relative;
+                            &:after{
+                                content: "+";
+                                position: absolute;
+                                right: -1rem;
+                                top: -1rem;
+                                font-size: 1.2rem;
+                                color: $navy-blue;
+                                width: 1.2rem;
+                                height: 1.2rem;
+                                border-radius: 1.5rem;
+                                line-height: 1.6rem;
+                                background: $secondary;
+                                display: flex;
+                                justify-content: center;
+                                /* align-items: center; */
+                                text-align: center;
+                            }
+                        }
+                        &.active{
+                            .addBookmark{
+                                display: none;
+                            }
+                        }
+                    }
+                }
+            }
+            ul{
+                font-weight: 600;
+                li{
+                    color:rgba($white, 0.5);
+                    strong{
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+    }
+    .calendar{
+        @include breakpoint(smallmobile){
+            margin-bottom:1.5rem;
+        }
+    }
+    .customise-lesson{
+        margin-top:3rem;
+        .customise-info{
+            width:70%;
+            color:rgba($white, 0.5);
+            font-weight: 600;
+            @include breakpoint(mobile){
+                width:100%;
+            }
+        }
+        .customise-lesson-list{
+            font-weight: 600;
+            margin-top: 3rem;
+            li{
+                margin-bottom:2.5rem;
+                @include breakpoint(smallmobile){
+                   flex-wrap: wrap;
+                }
+            }
+            .heading{
+                display: flex;
+                align-items: center;
+                font-size:1.8rem;
+                font-weight: 700;
+                margin-bottom: 2rem;
+                @include breakpoint(mobile){
+                    font-size: 1.6rem;
+                }
+                @include breakpoint(smallmobile){
+                    font-size:1.4rem;
+                }
+            }
+            .activities{
+                width: 35%;
+                @include breakpoint(mobile){
+                    width:50%;
+                }
+                @include breakpoint(smallmobile){
+                    width:calc(100% - 16rem);
+                    display: flex;
+                    .activities-title{
+                        width:calc(100% - 5rem);
+                    }
+                }
+                span{
+                    display: inline-block;
+                    width:4rem;
+                    &.activities-title{
+                        width: auto;
+                    }
+                }
+                fa-icon{
+                    display: inline-block;
+                    margin-left: 0.5rem;
+                }
+
+            }
+            .estimated-time{
+                width: 30%;
+                text-align: center;
+                @include breakpoint(smallmobile){
+                    width:8rem;
+                }
+                .edit-icon{
+                    display: inline-block;
+                    margin-left:0.5rem;
+                }
+            }
+            .switch-btn{
+                width:20%;
+                text-align: center;
+                @include breakpoint(smallmobile){
+                    width:8rem;
+                }
+            }
+            .collapse{
+                margin:1.5rem 0;
+                .activities{
+                    padding-left:5rem;
+                    @include breakpoint(mobile){
+                        padding-left:2rem;
+                        display: flex;
+                    }
+                }
+            }
+            .d-flex{
+                @include breakpoint(smallmobile){
+                    flex-wrap: wrap;
+                }
+            }
+        }
+    }
+    .estimation-time{
+        background-color:$secondary;
+        display: inline-flex;
+        border-radius:1.2rem;
+        padding:1rem 1.5rem;
+        color:$navy-blue;
+        align-items: center;
+        font-weight:700;
+        margin-left:65%;
+        @include breakpoint(mobile){
+            margin-left: 0;
+        }
+        fa-icon{
+            margin-right:1rem;
+            font-size:2rem;
+            display: inline-block;
+        }
+        .est-time{
+            width:9rem;
+        }
+        .count{
+            font-size:3rem;
+            font-weight:700;
+        }
+        .min{
+            display: inline-block;
+            margin-left:0.5rem;
+        }
+    }
+    .footer-btns{
+        display: flex;
+        margin-top:6rem;
+        .save-settings{
+            fa-icon{
+                margin-right:1rem;
+                color:$secondary;
+            }
+            input{
+                margin-left:2rem;
+            }
+        }
+    }
+}
+
+
+.circle {
+    border-radius: 50%;
+    width: 1.6rem;
+    height: 1.6rem;
+    padding: 0.2rem;
+    background: $white;
+    border: 1px solid $black;
+    color: $black;
+    text-align: center;
+    background-color: $secondary;
+    position: relative;
+    right: 0px;
+    font-weight:600;
+    z-index: 1;
+    line-height:1.4rem;
+}
+.progress{
+    margin:1.5rem auto;
+    width: 10.7rem;
+    height: 2rem;
+    border-radius:7px;
+    background-color:transparent;
+    z-index:1;
+    position: relative;
+    &:before{
+        position: absolute;
+        width:100%;
+        height:0.5rem;
+        border-radius:1rem;
+        background: $navy-blue;
+        top:0;
+        bottom:0;
+        margin: auto;
+        content:'';
+    }
+    .progress-bar{
+      position: relative;
+      background-color:transparent;
+        &:before{
+            position: absolute;
+            width:100%;
+            height:0.5rem;
+            border-radius:1rem 0 0 1rem;
+            background: $azure;
+            top:0;
+            bottom:0;
+            margin: auto;
+            content:'';
+        }   
+    }
+  }

@@ -1,0 +1,135 @@
+<div class="assignment-header">
+  <div class="container">
+    <div class="assignment-header-main">
+      <h2 class="">
+        {{'school.class.class-list.you-have-label'|translate}} <span>{{ UpcomngAssignmentList.length }}
+          {{assignmentLable}} </span> {{'teacher.assignment.this-week'|translate}}
+      </h2>
+      <div class="assignment-header-button">
+        <app-button classes="btn btn-primary mr-4 icon-btn" (click)="assignLesson()" [submit]="true">
+          <fa-icon [icon]="PlusIcon"></fa-icon>
+          <span aria-hidden="true">{{'teacher.dashboard.assign-lesson-label'|translate}}</span>
+        </app-button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="assignment-filter">
+  <div class="container">
+    <fa-icon [icon]="SearchIcon"></fa-icon>
+    <!-- id="table-filter" -->
+    <input class="form-control transparentbg" type="text" name="term" [(ngModel)]="term"
+      placeholder="{{'teacher.assignment.search-by'|translate}} {{'district.district-profile.agent-component.name-field.label'| translate}}" />
+    <div class="filter-droplist">
+      <app-drop-down class="transparentbg" (registerDropdownValueChange)="changeView($event)"
+        [dropDownButtonName]="ViewTitle" [dropDownIcon]="ViewIcon" [dropDownItemList]="ViewList"></app-drop-down>
+      <app-drop-down class="transparentbg" [dropDownButtonName]="assignmentFilterTitle" [dropDownIcon]=""
+        [dropDownItemList]="assignmentFilterList" (registerDropdownValueChange)="sortData($event)"></app-drop-down>
+      <app-drop-down class="transparentbg" [dropDownButtonName]="SortByTitle" [dropDownItemList]="SortByList"
+        (registerDropdownValueChange)="sortData($event)"></app-drop-down>
+    </div>
+  </div>
+</div>
+<div *ngIf="gridview" class="upcoming-assignment-list">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let item of UpcomngAssignmentList| filter: term">
+        <div class="assignmentItem card">
+          <div class="assignmentItem__image">
+            <div class="assignmentItem__start completed" *ngIf="item.assignmentStatus == 'Completed'; else elseBlock">
+              {{'student.lesson-report.completed'| translate | uppercase}}
+              <fa-icon [icon]="check"></fa-icon>
+            </div>
+            <ng-template #elseBlock>
+              <div class="assignmentItem__start"><span class="start-in">{{item.cartHeader}}</span> </div>
+              <!-- <div class="assignmentItem__start">Start In {{item.startIn}} Days </div> -->
+            </ng-template>
+
+            <img src="{{ item.recipe?.recipeImage }}" alt="" class="img-fluid" />
+          </div>
+          <div class="assignmentItem__info">
+            <h2 class="assignmentItem__name">{{ (item.assignmentTitle.length >30)? (item.assignmentTitle |
+              slice:0:30)+'..':(item.assignmentTitle) }}</h2>
+            <ul class="assignmentItem__time">
+              <li>
+                <label>{{'student.assigned-lessons.duration'| translate }}: </label>
+                <span>{{item.recipe?.estimatedMakeTime}}</span>
+                <span> {{'teacher.assignment.min-label'|translate}}</span>
+              </li>
+              <li>
+                <label>{{'teacher.assignment.starts-on'|translate}}:</label>
+                <span>{{item?.startDate | date: 'MM/dd/yyyy'}}</span>
+              </li>
+            </ul>
+            <ul class="assignmentItem__instruction">
+              <li *ngIf="item.lesson?.teacherInstructions">
+                <fa-icon [icon]="Instructions"></fa-icon>
+                <a (click)="openInstruction(item)">{{'teacher.assignment.teacher-instructions'|translate}}</a>
+                <!-- <span>Teacher’s Instructions</span> -->
+              </li>
+              <li>
+                <fa-icon [icon]="Ingredients"></fa-icon>
+                <a
+                  (click)="openIngredients(item)"><span>{{'teacher.order-ingredients.order-ingredient-label'|translate}}</span></a>
+              </li>
+            </ul>
+            <ul class="assignmentItem__links" *ngIf="item.reportBtn == false">
+              <li>
+                <a (click)="startAssignment(item?.id)">{{'teacher.assignment.view-menu'|translate}} <fa-icon
+                    [icon]="RightArrow"></fa-icon></a>
+              </li>
+              <li>
+                <a (click)="editCustmisation(item)">{{'teacher.assignment.edit-menu'|translate}} <fa-icon
+                    [icon]="RightArrow"></fa-icon></a>
+
+              </li>
+              <li>
+                <a (click)="openDeleteModel(deleteAssignment,item)">{{'common.delete'| translate}} <fa-icon
+                    [icon]="RightArrow"></fa-icon></a>
+              </li>
+            </ul>
+            <ul class="assignmentItem__links" *ngIf="item.reportBtn == true">
+              <li>
+                <a (click)="startAssignment(item?.id)">{{'teacher.assignment.view-menu'|translate}} <fa-icon
+                    [icon]="RightArrow"></fa-icon></a>
+              </li>
+              <li>
+                <a (click)="assignmentReport(item)">{{'teacher.assignment.report-label'|translate}} <fa-icon
+                    [icon]="RightArrow"></fa-icon></a>
+              </li>
+              <li>
+                <a (click)="archiveAssignememt(item)">{{'school.class.class-details.archive-label'| translate}} <fa-icon
+                    [icon]="RightArrow"></fa-icon></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="listview">
+  <app-tables [term]="term" [dataSource]="UpcomngAssignmentList" [page]="1" [pageSize]="10"
+    [tableHeaders]="assignmentListHeaders"></app-tables>
+</div>
+
+
+<ng-template #deleteAssignment let-modal id="deleteAssignment">
+  <button type="button" class="close" aria-label="Close" (click)="closeOpenModal()">
+    <img src="./assets/images/close.png" alt="" class="img-fluid" />
+  </button>
+  <div class="modal-body">
+    <div class="delete-class">
+      <h2 class="modal-title">{{'common.delete'| translate}} {{'teacher.dashboard.assignment'|translate}}</h2>
+      <h4>{{'teacher.assignment.assignment-delete-confirm'|translate}}</h4>
+      <div class="d-flex justify-content-between">
+        <app-button classes="btn btn-secondary mr-4" [submit]="true" (click)="closeOpenModal()">
+          <span aria-hidden="true">Cancel</span>
+        </app-button>
+        <app-button classes="btn btn-primary btn-block" [submit]="true" (click)="deleteCurrentAssignment(assignmentId)">
+          <span aria-hidden="true">{{'common.delete'| translate}}</span>
+        </app-button>
+      </div>
+    </div>
+  </div>
+</ng-template>

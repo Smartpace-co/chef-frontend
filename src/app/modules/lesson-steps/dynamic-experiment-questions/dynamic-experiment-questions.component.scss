@@ -1,0 +1,905 @@
+@import "../../../../assets/styles/helpers/variables";
+@import "../../../../assets/styles/helpers/mixins";
+.assessment-body-1{
+  padding-bottom: 10rem;
+  // display: flex;
+  // align-items: flex-end;
+  min-height: calc(100vh - 24.2rem);
+  position: relative;
+  overflow: hidden;
+  flex-wrap: wrap;
+  @include breakpoint(tabs){
+    padding-bottom: 15rem;
+    padding-top: 5rem
+  }
+  @include breakpoint(mobile) {
+    min-height: calc(100vh - 33rem);
+  }
+  .content-wrapper{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    .card-wihtout-header-blue{
+      max-width: 58rem;
+      z-index: 9;
+      @include breakpoint(tabs){
+        padding: 2rem;
+        padding-bottom: 4rem;
+      }
+      h6{
+        line-height: 1.6;
+        margin: 0;
+        @include breakpoint(tabs){
+          font-size: 1.6rem;
+        }
+      }
+      .instuctions{
+        color:$text-muted;
+        padding:2rem 0rem 0.5rem;
+        cursor: pointer;
+      }
+      .measurement-list{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: left;
+        text-align: left;
+        @include breakpoint(xtrasmallmobile){
+          text-align: center;
+        }
+        li{
+          flex: 0 0 calc((100% - 3rem) / 3);
+          @include breakpoint(tabs){
+            flex: 0 0 calc((100% - 3rem) / 2);
+          }
+          @include breakpoint(xtrasmallmobile){
+            flex: 0 0 calc((100% - 3rem) / 1);
+          }
+          p{
+            font-size: 1.1rem;
+            padding: 0;
+            font-weight: 700;
+          }
+        }
+      }
+      .input-box{
+        margin-top: 2rem;
+      }
+      .assessment-reference , .assessment-hint{
+        margin-top: 4rem;
+        text-align: left;
+        @include breakpoint(tabs){
+          padding: 4rem 2rem;
+        }
+        .close-btn-wrapper{
+          position: absolute;
+          top: -2rem;
+          right: -2rem;
+          width: 4.5rem;
+          @include breakpoint(tabs){
+            top: -1rem;
+            right: -1rem;
+            width: 3.5rem;
+          }
+        }
+        h6{
+          line-height: 1.6;
+          @include breakpoint(tabs){
+            font-size: 1.6rem;
+          }
+          &.hint{
+            margin-bottom: 1.5rem;
+          }
+        }
+        .reference-list{
+          li{
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            .image-wrapper{
+              max-width: 3.9rem;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+      .assessment-hint{
+        padding-top: 2rem;
+
+      }
+      .reference-hint-wrapper{
+        transform: translate(25%, 130%);
+        // margin-top: -5rem;
+        @include breakpoint(tabs) {
+          transform: translate(0%, 145%);
+        }
+        .reference{
+          margin-right: 1rem;
+        }
+      }
+    }
+    .final-editaion-img-wrapper{
+      max-width: 38rem;
+      position: absolute;
+      display:block;
+      left: 0rem;
+      bottom: -7rem;
+      @include breakpoint(tabs){ 
+        left: -3rem;
+        max-width: 24rem;
+        bottom: -5rem;
+      }
+      @include breakpoint(mobile) {
+        max-width: 20rem;
+        right: -7rem;
+        bottom: -4rem;
+      }
+    }
+  }
+}
+.assessment-body-2{
+  padding-bottom: 10rem;
+  display: flex;
+  align-items: flex-end;
+  min-height: calc(100vh - 24.2rem);
+  position: relative;
+  flex-wrap: wrap;
+  @include breakpoint(tabs){
+    padding-bottom: 15rem;
+    padding-top: 5rem
+  }
+  @include breakpoint(mobile) {
+    min-height: calc(100vh - 33rem);
+  }
+  .content-wrapper{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    .card-wihtout-header-blue{
+      max-width: 58rem;
+      z-index: 9;
+      @include breakpoint(tabs){
+        padding: 2rem;
+      }
+      h6{
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+        @include breakpoint(tabs){
+          font-size: 1.6rem;
+        }
+      }
+    }
+    .final-editaion-img-wrapper{
+      max-width: 38rem;
+      position: absolute;
+      display:block;
+      left: 0rem;
+      bottom: -7rem;
+      @include breakpoint(tabs){ 
+        left: -3rem;
+        max-width: 24rem;
+        bottom: -5rem;
+      }
+      @include breakpoint(mobile) {
+        max-width: 20rem;
+        right: -7rem;
+        bottom: -4rem;
+      }
+    }
+  }
+}
+.assessment-body-3{
+  padding-bottom: 10rem;
+  display: flex;
+  align-items: flex-end;
+  min-height: calc(100vh - 24.2rem);
+  position: relative;
+  flex-wrap: wrap;
+  @include breakpoint(tabs){
+    padding-bottom: 15rem;
+    padding-top: 5rem
+  }
+  @include breakpoint(mobile) {
+    min-height: calc(100vh - 33rem);
+  }
+  .content-wrapper{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    .card-wihtout-header-blue{
+      max-width: 58rem;
+      z-index: 9;
+      @include breakpoint(tabs){
+        padding: 2rem;
+      }
+      h6{
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+        @include breakpoint(tabs){
+          font-size: 1.6rem;
+        }
+      }
+    }
+    .final-editaion-img-wrapper{
+      max-width: 38rem;
+      position: absolute;
+      display:block;
+      left: 0rem;
+      bottom: -7rem;
+      @include breakpoint(tabs){ 
+        left: -3rem;
+        max-width: 24rem;
+        bottom: -5rem;
+      }
+      @include breakpoint(mobile) {
+        max-width: 20rem;
+        right: -7rem;
+        bottom: -4rem;
+      }
+    }
+  }
+}
+.assessment-body-4{
+  padding-bottom: 10rem;
+  display: flex;
+  align-items: flex-end;
+  min-height: calc(100vh - 24.2rem);
+  position: relative;
+  flex-wrap: wrap;
+  @include breakpoint(tabs){
+    padding-bottom: 15rem;
+    padding-top: 5rem
+  }
+  @include breakpoint(mobile) {
+    min-height: calc(100vh - 33rem);
+  }
+  .content-wrapper{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    .card-wihtout-header-blue{
+      max-width: 58rem;
+      z-index: 9;
+      @include breakpoint(tabs){
+        padding: 2rem;
+        padding-bottom: 4rem;
+      }
+      h6{
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+        @include breakpoint(tabs){
+          font-size: 1.6rem;
+        }
+      }
+      .question{
+        margin-top: 3rem;
+      }
+      .answers{
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        input{
+         opacity: 0;
+         width: calc(100% + 2rem);
+         height: calc(100% + 1rem);
+         position: absolute;
+         left: -1rem;
+         z-index: 9;
+         cursor: pointer;
+        }
+        input[type=radio]{
+          opacity: 0;
+        }
+        input[type=checkbox]{
+          opacity: 0;
+        }
+        .option{
+          position: relative;
+          margin: 1.5rem;
+          label{
+            .card-wihtout-header-white{
+              max-width: 13.5rem;
+              min-height: 16rem;
+              display: flex;
+              align-items: flex-end;
+              cursor: pointer;
+              .option-image-1{
+                max-width: 8.8rem;
+              }
+              .option-image-3{
+                max-width: 8.8rem;
+                margin-bottom: -1rem;
+              }
+              .ans-btn{
+                position: absolute;
+                bottom: -2rem;
+                left: -1.3rem;
+                pointer-events: none;
+                width: 100%;
+              }
+            }
+          } 
+        }
+      }
+    }
+    .final-editaion-img-wrapper{
+      max-width: 38rem;
+      position: absolute;
+      display:block;
+      left: 0rem;
+      bottom: -7rem;
+      @include breakpoint(tabs){ 
+        left: -3rem;
+        max-width: 24rem;
+        bottom: -5rem;
+      }
+      @include breakpoint(mobile) {
+        max-width: 20rem;
+        right: -7rem;
+        bottom: -4rem;
+      }
+    }
+  }
+}
+.assessment-body-5{
+  padding-bottom: 10rem;
+  align-items: flex-end;
+  min-height: calc(100vh - 24.2rem);
+  position: relative;
+  flex-wrap: wrap;
+  @include breakpoint(tabs){
+    padding-bottom: 15rem;
+    padding-top: 5rem
+  }
+  @include breakpoint(mobile) {
+    min-height: calc(100vh - 33rem);
+  }
+  .content-wrapper{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    .card-wihtout-header-blue{
+      max-width: 58rem;
+      z-index: 9;
+      @include breakpoint(tabs){
+        padding: 2rem;
+      }
+      h6{
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+        @include breakpoint(tabs){
+          font-size: 1.6rem;
+        }
+      }
+      .answers{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        .option{
+          flex: 0 0 calc((80% - 5rem) / 2);
+          margin: 1rem;
+          margin-bottom: 4rem;
+          position: relative;
+          .check-mark{
+            position: relative;
+            display: inline-block;
+            margin-top: 2rem;
+            label{
+              .card-wihtout-header-white{
+                min-width: 12rem;
+                min-height: 10rem;
+                display: flex;
+                align-items: flex-end;
+                justify-content: center;
+                padding-bottom: 3rem;
+                cursor: pointer;
+                .option-image{
+                  max-width: 4.5rem;
+                }
+                .ans-btn{
+                  position: absolute;
+                  bottom: -3rem;
+                  left: 0rem;
+                  pointer-events: none;
+                  width: 100%;
+                }
+              }
+            } 
+            input[type="checkbox"] {
+              opacity: 0;
+              width: calc(100% + 2rem);
+              height: calc(100% + 3rem);
+              position: absolute;
+              left: -1rem;
+              z-index: 9;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+    .final-editaion-img-wrapper{
+      max-width: 38rem;
+      position: absolute;
+      display:block;
+      left: 0rem;
+      bottom: -7rem;
+      @include breakpoint(tabs){ 
+        left: -3rem;
+        bottom: -7rem;
+        max-width: 22rem;
+      }
+      @include breakpoint(mobile) {
+        right: -7rem;
+        bottom: -4rem;
+      }
+    }
+  }
+}
+.assessment-body-6{
+  .blur-bg{
+    min-height: calc(100vh - 24.2rem);
+    // display: flex;
+    // align-items: flex-end;
+    flex-wrap: wrap;
+    @include breakpoint(tabs){
+      padding-top: 5rem
+    }
+    @include breakpoint(mobile) {
+      min-height: calc(100vh - 33rem);
+    }
+    .container{
+      @include breakpoint(tabs){
+        padding: 0;
+      }
+      .final-editaion{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding-bottom: 15rem;
+        overflow: hidden;
+        position: relative;
+        .content-wrapper{
+          text-align: center;
+          flex: 0 0 100%;
+          max-width: 100%;
+          .card-wihtout-header-blue{
+            position: relative;
+            display: inline-block;
+            margin: 0 auto;
+            max-width: 53rem;
+            z-index: 9;
+            text-align: left;
+            padding: 4rem;
+            @include breakpoint(tabs){
+              width: 95%;
+              padding: 2rem;
+            }
+            @include breakpoint(mobile){
+              z-index: 99;
+            }
+            .question-wrapper{
+              h6{
+                color: $white;
+                text-align: center;
+                padding-bottom: 2rem;
+                @include breakpoint(tabs){
+                  font-size: 1.6rem;
+                }
+                @include breakpoint(tabs){
+                  padding-bottom: 1rem;
+                }
+              }
+            }
+            .option-wrapper{
+              ul{
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+                li{
+                  color: $white;
+                  display: block;
+                  position: relative;
+                  float: left;
+                  width: 80%;
+                  margin:1.5rem 0rem 0;
+                  text-align: center;
+                  input[type=radio]{
+                    display:none;
+                    &:checked ~ label{
+                      color: $white;
+                      background:$yellow-shade-1;
+                    }
+                  }
+                  input[type=checkbox]{
+                    display:none;
+                    &:checked ~ label{
+                      color: $white;
+                      background:$yellow-shade-1;
+                    }
+                  }
+                  label{
+                    display: block;
+                    position: relative;
+                    font-weight: 300;
+                    z-index: 9;
+                    cursor: pointer;
+                    background:$blue-shade-1;
+                    padding: 1.5rem 1rem;
+                    border-radius: 3.5rem;
+                    font-size: 1.8rem;
+                    font-weight: bold;
+                    @include breakpoint(tabs){
+                      font-size: 1.6rem;
+                    }
+                  }
+                }
+              } 
+            }
+          }
+          .final-editaion-img-wrapper{
+            max-width: 38rem;
+            position: absolute;
+            display:block;
+            left: 0rem;
+            bottom: -8rem;
+            @include breakpoint(tabs){ 
+              left: -3rem;
+              max-width: 24rem;
+              bottom: -5rem;
+            }
+            @include breakpoint(mobile) {
+              max-width: 20rem;
+              right: -7rem;
+              bottom: -4rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.assessment-body-7{
+  padding-bottom: 10rem;
+  display: flex;
+  align-items: flex-end;
+  min-height: calc(100vh - 24.2rem);
+  position: relative;
+  flex-wrap: wrap;
+  @include breakpoint(tabs){
+    padding-bottom: 15rem;
+    padding-top: 5rem
+  }
+  @include breakpoint(mobile) {
+    min-height: calc(100vh - 33rem);
+  }
+  .content-wrapper{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    .card-wihtout-header-blue{
+      max-width: 53rem;
+      z-index: 9;
+      @include breakpoint(tabs){
+        padding: 2rem;
+      }
+      h6{
+        line-height: 1.6;
+        margin: 0;
+        @include breakpoint(tabs){
+          font-size: 1.6rem;
+        }
+      }
+      .input-box{
+        margin-top: 2rem;
+        margin-bottom: 0rem;
+      }
+    }
+    .final-editaion-img-wrapper{
+      max-width: 38rem;
+      position: absolute;
+      display:block;
+      left: 0rem;
+      bottom: -7rem;
+      @include breakpoint(tabs){ 
+        left: -3rem;
+        max-width: 24rem;
+        bottom: -5rem;
+      }
+      @include breakpoint(mobile) {
+        max-width: 20rem;
+        right: -7rem;
+        bottom: -4rem;
+      }
+    }
+  }
+}
+.active-action-body{
+  background:url("../../../../assets/images/kitchen-bg.jpg") center no-repeat ,;
+  background-size: cover;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  flex-wrap: wrap;
+  .container{
+    @include breakpoint(tabs){
+      padding: 0;
+    }
+    .final-editaion{
+      margin-top: 16rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding-top: 0rem;
+      padding-bottom: 15rem;
+      overflow: hidden;
+      position: relative;
+      @include breakpoint(tabs) {
+        padding-top: 0rem;
+      }
+      @include breakpoint(mobile){
+        padding-bottom: 6rem;
+      }
+      .content-wrapper{
+        text-align: center;
+        flex: 0 0 100%;
+        max-width: 100%;
+        .card-wihtout-header-blue{
+          position: relative;
+          display: inline-block;
+          margin: 0 auto;
+          max-width: 50rem;
+          @include breakpoint(tabs){
+            max-width: 40rem;
+            padding: 2rem;
+          }
+          @include breakpoint(mobile){  
+            padding-bottom: 14rem;
+          }
+          @include breakpoint(xtrasmallmobile){
+            max-width: 90%;
+          }
+          .active-action-wrapper{
+            p{
+              font-size: 2.2rem;
+              font-weight: 700;
+              text-align: center;
+              @include breakpoint(mobile){  
+                font-size: 1.8rem;
+              }
+            }
+          }
+          .chef-hat{
+              margin: 6rem 0;
+              display: flex;
+              justify-content: center;
+              .write-answer{
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  width: 11.4rem;
+                  height: 9.7rem;
+                  background-color: $blue-shade-4;
+                  border-radius: 2rem;
+                  border: 0.2rem dashed $white;
+              }
+          }
+          .options{
+              display: flex;
+              justify-content: space-between;
+              flex-wrap: wrap;
+              .card-white{
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  width: 11.4rem;
+                  height: 9.7rem;
+                  padding: 2rem 3rem;
+                  background-color: $white;
+                  border-radius: 2rem;
+                  margin-bottom: 1rem;
+                  color: $black;    
+                  p{
+                      font-size: 1.8rem;
+                      color: $navy-blue;
+                      padding: 0;
+                      font-weight: 700;
+                  }
+              }
+          }
+        }
+        .final-editaion-img-wrapper{
+          max-width: 29rem;
+          position: absolute;
+          display:block;
+          margin-left: auto;
+          left: 0;
+          bottom: -7rem;
+          @include breakpoint(mobile){
+            max-width: 20rem;
+          }
+          @include breakpoint(mobile) {
+            left: -7rem;
+            bottom: -8rem;
+          }
+        }
+      }
+    }
+  }
+}
+.exp-heading{
+  color: $yellow-shade-5;
+  text-align: center;
+  margin: 1rem 0;
+}
+.response-header{
+  &.modal-header{
+    border-bottom: none;
+    padding: 0;
+  }
+}
+.response-footer{
+  &.modal-footer{
+    border-top: none;
+    justify-content: center;
+  }
+}
+.response-body{
+  .response-wrapper{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    .check-mark{
+      flex-basis: 100%;
+      text-align: center;
+      .icon{
+        display: inline-block;
+        border: 0.8rem solid $white;
+        border-radius: 50%;
+        font-size: 5rem;
+        width: 8rem;
+        height: 8rem;
+        text-align: center;
+        background-color: $ring-blue;
+      }
+      &.wrong-ans{
+        .icon{
+          background-color: $alert;
+        }
+      }
+    }
+    h1{
+      padding: 2rem;
+      @include breakpoint(mobile) {
+        padding: 2rem 1rem;
+        font-size: 2.4rem;
+      }
+    }
+    .btn-wrapper{
+      flex-basis: 100%;
+      text-align: center;
+    }
+  }
+}
+
+.assessment-body-6{
+  .blur-bg{
+    min-height: calc(100vh - 24.2rem);
+    // display: flex;
+    // align-items: flex-end;
+    padding-top: 2rem;
+    @include breakpoint(tabs){
+      padding-top: 5rem
+    }
+    @include breakpoint(mobile) {
+      min-height: calc(100vh - 33rem);
+    }
+    .container{
+      @include breakpoint(tabs){
+        padding: 0;
+      }
+      .final-editaion{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding-bottom: 15rem;
+        overflow: hidden;
+        position: relative;
+        .content-wrapper{
+          text-align: center;
+          flex: 0 0 100%;
+          max-width: 100%;
+          .card-wihtout-header-blue{
+            position: relative;
+            display: inline-block;
+            margin: 0 auto;
+            max-width: 53rem;
+            z-index: 9;
+            text-align: left;
+            padding: 4rem;
+            @include breakpoint(tabs){
+              width: 95%;
+              padding: 2rem;
+            }
+            @include breakpoint(mobile){
+              z-index: 99;
+            }
+            .question-wrapper{
+              h6{
+                color: $white;
+                text-align: center;
+                padding-bottom: 2rem;
+                @include breakpoint(tabs){
+                  font-size: 1.6rem;
+                }
+                @include breakpoint(tabs){
+                  padding-bottom: 1rem;
+                }
+              }
+            }
+            .option-wrapper{
+              ul{
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+                li{
+                  color: $white;
+                  display: block;
+                  position: relative;
+                  float: left;
+                  width: 80%;
+                  margin:1.5rem 0rem 0;
+                  text-align: center;
+                  input[type=radio]{
+                    display:none;
+                    &:checked ~ label{
+                      color: $white;
+                      background:$yellow-shade-1;
+                    }
+                  }
+                  label{
+                    display: block;
+                    position: relative;
+                    font-weight: 300;
+                    z-index: 9;
+                    cursor: pointer;
+                    background:$blue-shade-1;
+                    padding: 1.5rem 1rem;
+                    border-radius: 3.5rem;
+                    font-size: 1.8rem;
+                    font-weight: bold;
+                    @include breakpoint(tabs){
+                      font-size: 1.6rem;
+                    }
+                  }
+                }
+              } 
+            }
+          }
+          .final-editaion-img-wrapper{
+            max-width: 38rem;
+            position: absolute;
+            display:block;
+            left: 0rem;
+            bottom: -8rem;
+            @include breakpoint(tabs){ 
+              left: -3rem;
+              max-width: 24rem;
+              bottom: -5rem;
+            }
+            @include breakpoint(mobile) {
+              max-width: 20rem;
+              right: -7rem;
+              bottom: -4rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.experiment-audio{
+  display: flex;
+  justify-content: flex-end;
+}

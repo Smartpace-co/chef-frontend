@@ -1,0 +1,45 @@
+@mixin transition {
+	-o-transition:.5s;
+  	-ms-transition:.5s;
+  	-moz-transition:.5s;
+  	-webkit-transition:.5s;
+  	transition:.5s;
+}
+
+
+/* placeholder */
+@mixin placeholder {
+  ::-webkit-input-placeholder {@content}
+  :-moz-placeholder           {@content}
+  ::-moz-placeholder          {@content}
+  :-ms-input-placeholder      {@content}  
+}
+
+
+$breakpoints: (
+  'xtrasmallmobile':(max-width:480px),
+  'smallmobile':(max-width:580px),
+  'sm-mobile':(max-width:576px),
+  'mobile':(max-width:767px),
+  'mobile-min':(min-width:768px),
+  'tabs':(max-width:991px),
+  'tabsAbove':(min-width:992px),
+  'iPad':(max-width: 1023px),
+  'iPadLandscape':(max-width: 1024px),
+  'desktop':(min-width: 1024px),
+  'large':(min-width: 1200px),
+  'smallDesktop':(max-width: 1280px),
+  'medDesktop':(min-width:1400px),
+  'xtralarge':(min-width: 1660px)
+);
+
+@mixin breakpoint($name) {
+      @if map-has-key($breakpoints, $name) {
+        @media #{inspect(map-get($breakpoints, $name))} {
+      @content;
+    }
+  }
+  @else {
+    @warn "Couldn't find a breakpoint named `#{$name}`.";
+  }
+}	

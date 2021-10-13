@@ -1,0 +1,495 @@
+<div *ngIf="StudentList?.length == 0" class="create-student-landing">
+  <div class="create-class">
+    <img src="./assets/images/class.svg" alt="" class="img-fluid" />
+    <h3>Your class is empty.</h3>
+    <p>Start adding students to your class either by uploading their information or by inviting them to this class.</p>
+    <app-button classes="btn btn-primary w-50" [submit]="true" (click)="onUploadStudent()"> 
+      <span aria-hidden="true">Upload Student Info</span>
+    </app-button>
+    <p class="mb-0">or</p>
+    <app-button classes="btn btn-secondary w-50" [submit]="true" (click)="AddStudent()">
+      <span aria-hidden="true">Add Student</span>
+    </app-button>
+  </div>
+</div>
+
+<div *ngIf="StudentList?.length > 0" class="roster-list">
+  <div class="roster-header">
+    <div class="container">
+      <div class="roster-header-main">
+        <h2 class="">
+          You have <span>{{ StudentList.length }} students</span> in this class.
+        </h2>
+        <div class="roster-header-button">
+          <app-button classes="btn btn-primary mr-4 icon-btn" [submit]="true" (click)="openAddGroup(createGroup)">
+            <fa-icon [icon]="PlusIcon"></fa-icon>
+            <span aria-hidden="true">Create a Group</span>
+          </app-button>
+          <app-button classes="btn btn-primary icon-btn" [submit]="true" (click)="AddStudent()">
+            <fa-icon [icon]="PlusIcon"></fa-icon>
+            <span aria-hidden="true">Add Students</span>
+          </app-button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="roster-filter">
+    <div class="container">
+      <fa-icon [icon]="SearchIcon"></fa-icon>
+      <!-- <input id="table-filter" class="form-control transparentbg" type="text" name="term" [(ngModel)]="term"
+        placeholder="Search for a student by ID or name" /> -->
+        <input id="table-filter" class="form-control transparentbg" type="text" name="term" (input)="filterStudentData($event.target.value)"
+        placeholder="Search for a student by ID or name" />
+
+      <div class="filter-droplist">
+        <app-drop-down class="transparentbg" [dropDownButtonName]="StudentMenuTitle" [dropDownIcon]=""
+          [dropDownItemList]="StudentMenuList"></app-drop-down>
+        <app-drop-down class="transparentbg" (registerDropdownValueChange)="changeView($event)"
+          [dropDownButtonName]="ViewTitle" [dropDownIcon]="ViewIcon" [dropDownItemList]="ViewList"></app-drop-down>
+        <app-drop-down class="transparentbg" [dropDownButtonName]="SortByTitle" [dropDownIcon]="SortByIcon"
+          [dropDownItemList]="SortByList" (registerDropdownValueChange)="sortData($event)"></app-drop-down>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="gridview" class="studentList">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let item of StudentList">
+          <div class="studentItem">
+            <div class="studentItem__photo">
+              <img src="{{ item.studentPhoto }}" />
+            </div>
+            <h3 class="studentItem__name">{{ item.firstName}}</h3>
+            <ul class="studentItem__info">
+              <li class="studentItem__info__id">
+                <label>ID:</label>
+                <span>{{ item.id }}</span>
+              </li>
+              <li class="studentItem__info__id">
+                <label>Group:</label>
+                <span class="student-color {{ item.studentGroup }}"></span>
+                <span>{{ item.studentGroup }}</span>
+              </li>
+            </ul>
+            <div class="info">
+              <span class="info-icon">
+                <fa-icon [icon]="exclamationTriangle"></fa-icon>
+              </span>
+              <p>Allergens</p>
+            </div>
+            <ul class="studentItem__action">
+              <!-- <li>
+                <a (click)="open(signIn,item)">Sign-in Info <fa-icon [icon]="rightArrow"></fa-icon></a>
+              </li> -->
+              <li>
+                <a (click)="open(profile,item)">Profile <fa-icon [icon]="rightArrow"></fa-icon></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="listview">
+
+    <app-tables (rowClick)="open(profile,$event)" [dataSource]="StudentList"
+      [tableHeaders]="studentHeaders" [page]="1" [pageSize]="10"></app-tables>
+  </div>
+</div>
+
+<!-- Profile Info Modal -->
+<ng-template #profile let-modal id="profile">
+  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <img src="./assets/images/close.png" alt="" class="img-fluid" />
+  </button>
+  <div class="modal-body profile-modal">
+    <div class="profile-header">
+      <h4>Student Profile</h4>
+      <a (click)="getNextStudentInfo()">Next Student <fa-icon [icon]="NextArrow"></fa-icon></a>
+    </div>
+    <ul class="student-profile">
+      <li class="student-photo"><img src="./assets/images/student-info.svg" /></li>
+      <li class="student-name">
+        <label>Last Name</label>
+        <strong>{{profileInfo?.studentName[0]}}</strong>
+      </li>
+      <li class="student-name">
+        <label>First Name</label>
+        <strong>{{profileInfo?.studentName[1]}}</strong>
+      </li>
+      <li class="student-name">
+        <label>Student ID</label>
+        <strong>{{profileInfo?.studentId}}</strong>
+      </li>
+    </ul>
+    <div class="information-wrapper">
+      <div class="information-tab">
+        <ul id="tabs" class="nav nav-tabs" role="tablist">
+          <li class="nav-item">
+            <a id="personal_info" href="#personalInfo" class="nav-link active" data-toggle="tab" role="tab">Personal info </a>
+          </li>
+          <li class="nav-item">
+            <a id="contact_info" href="#contactInfo" class="nav-link" data-toggle="tab" role="tab">Contact Info</a>
+          </li>
+          <li class="nav-item">
+            <a id="medical_info" href="#medicalInfo" class="nav-link" data-toggle="tab" role="tab">Medical Info</a>
+          </li>
+          <li class="nav-item">
+            <a id="journal_info" href="#journalInfo" class="nav-link" data-toggle="tab" role="tab">Journal</a>
+          </li>
+        </ul>
+        <div id="content" class="tab-content" role="tablist">
+          <div id="personalInfo" class="panal-card tab-pane fade show active" role="tabpanel" aria-labelledby="personal_info">
+            <div class="panal-card-header" role="tab" id="personal-info">
+              <h5 class="mb-0">
+                <a data-toggle="collapse" href="#collapsePersonal" aria-expanded="true" aria-controls="collapsePersonal">
+                  Personal Info 
+                </a>
+              </h5>
+            </div>
+            <div id="collapsePersonal" class="collapse show" data-parent="#content" role="tabpanel"
+              aria-labelledby="personal-info">
+              <ul class="student-details">
+                <li class="dob w-50">
+                  <label>Date of Birth</label>
+                  <strong>{{profileInfo.studentDob}}</strong>
+                </li>
+                <li class="gender w-50">
+                  <label>Gender</label>
+                  <strong>{{profileInfo.gender}}</strong>
+                </li>
+                <li class="ethnicity w-50">
+                  <label>Ethnicity</label>
+                  <strong>{{profileInfo.ethnicity}}</strong>
+                </li>
+                <li class="grade w-50">
+                  <label>Grade</label>
+                  <strong>{{profileInfo.grade}}</strong>
+                </li>
+                <li class="email w-100">
+                  <label>Email</label>
+                  <strong>{{profileInfo.email}}</strong>
+                </li>
+                <li class="interests  w-100">
+                  <label>Interests</label>
+                  <strong>{{profileInfo.interests}}</strong>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="contactInfo" class="panal-card tab-pane fade" role="tabpanel" aria-labelledby="contact_info">
+            <div class="panal-card-header" role="tab" id="contact-info">
+              <h5 class="mb-0">
+                <a class="collapsed" data-toggle="collapse" href="#collapseContact" aria-expanded="false"
+                  aria-controls="collapseContact">
+                  Contact Info
+                </a>
+              </h5>
+            </div>
+            <div id="collapseContact" class="collapse" data-parent="#content" role="tabpanel"
+              aria-labelledby="contact-info">
+              <ul class="student-details">
+                <li class="contact-name w-100">
+                  <label>Contact Name</label>
+                  <strong>Samuel Aaron</strong>
+                </li>
+                <li class="contact-relation w-100">
+                  <label>Contact Relationship</label>
+                  <strong>Father</strong>
+                </li>
+                <li class="contact-email w-100">
+                  <label>Contact Email</label>
+                  <strong>kevin.ruaz@xyzschools.net</strong>
+                </li>
+                <li class="contact-number w-100">
+                  <label>Contact Number</label>
+                  <strong>1234567890</strong>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="medicalInfo" class="panal-card tab-pane fade" role="tabpanel" aria-labelledby="medical_info">
+            <div class="panal-card-header" role="tab" id="medical-info">
+              <h5 class="mb-0">
+                <a class="collapsed" data-toggle="collapse" href="#collapseMedical" aria-expanded="false"
+                  aria-controls="collapseMedical">
+                  Medical Info
+                </a>
+              </h5>
+            </div>
+            <div id="collapseMedical" class="collapse" data-parent="#content" role="tabpanel"
+              aria-labelledby="medical-info">
+              <ul class="student-details">
+                <li class="Allergens w-100">
+                  <label>Allergens</label>
+                  <strong>Allergens 1, Allergens 2, Allergens 3</strong>
+                </li>
+                <li class="gender w-100">
+                  <label>Medical Condition</label>
+                  <strong>Good </strong>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="journalInfo" class="panal-card tab-pane fade" role="tabpanel" aria-labelledby="journal_info">
+            <div class="panal-card-header" role="tab" id="journal-info">
+              <h5 class="mb-0">
+                <a class="collapsed" data-toggle="collapse" href="#collapseJournal" aria-expanded="false"
+                  aria-controls="collapseJournal">
+                  Journal
+                </a>
+              </h5>
+            </div>
+            <div id="collapseJournal" class="collapse" data-parent="#content" role="tabpanel"
+              aria-labelledby="journal-info">
+              <div class="journal">
+                <div class="form-journal">
+                  <form>
+                    <div class="search-section">
+                      <div class="search-icon"><fa-icon class="ml-3" [icon]="SearchIcon"></fa-icon></div>
+                      <input type="search" placeholder="Search" class="search-input">
+                      <div class="calender-icon">
+                        <fa-icon class="ml-3" [icon]="Calendar"></fa-icon>
+                      </div>
+                    </div>
+                </form>
+                </div>
+                <ul class="journal-info">
+                  <li class="info-list">
+                    <div class="row">
+                      <div class="col-sm-3 info-wraper">
+                        <span class="info-label">Date</span>
+                        <span class="info-details">12:54 PM, 
+                          10/20/2020,
+                          </span>
+                      </div>
+                      <div class="col-sm-9 info-wraper">
+                        <span class="info-label">
+                          Text
+                        </span>
+                        <span class="info-details">
+                          “I think when the water starts boiling… it will spill out of the pot!” 
+                        </span>
+                      </div>
+                    </div>    
+                  </li>
+                  <li class="info-list">
+                    <div class="row">
+                      <div class="col-sm-3 info-wraper">
+                        <span class="info-label">Date</span>
+                        <span class="info-details">12:54 PM, 
+                          10/20/2020,
+                          </span>
+                      </div>
+                      <div class="col-sm-9 info-wraper">
+                        <span class="info-label">
+                          Text
+                        </span>
+                        <span class="info-details">
+                         __ 
+                        </span>
+                      </div>
+                    </div>    
+                  </li>
+                  <li class="info-list">
+                    <div class="row">
+                      <div class="col-sm-3 info-wraper">
+                        <span class="info-label">Date</span>
+                        <span class="info-details">12:54 PM, 
+                          10/20/2020,
+                          </span>
+                      </div>
+                      <div class="col-sm-9 info-wraper">
+                        <span class="info-label">
+                          Text
+                        </span>
+                        <span class="info-details">
+                          __ 
+                        </span>
+                      </div>
+                    </div>    
+                  </li>
+                  <li class="info-list">
+                    <div class="row">
+                      <div class="col-sm-3 info-wraper">
+                        <span class="info-label">Date</span>
+                        <span class="info-details">12:54 PM, 
+                          10/20/2020,
+                          </span>
+                      </div>
+                      <div class="col-sm-9 info-wraper">
+                        <span class="info-label">
+                          Text
+                        </span>
+                        <span class="info-details">
+                          “I think when the water starts boiling… it will spill out of the pot!” 
+                        </span>
+                      </div>
+                    </div>    
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="profile-btns">
+        <app-button classes="btn btn-secondary btn-close" (click)="closeOpenModal()">
+          <span aria-hidden="true">Close</span>
+        </app-button>
+        <app-button classes="btn btn-primary icon-btn">
+          <span class="icon"><img src="./assets/images/print.svg" /></span>
+          <span aria-hidden="true">Print </span>
+        </app-button>
+        <app-button classes="btn btn-primary icon-btn" (click)="editStudentInfo(profileInfo)">
+          <span class="icon"><img src="./assets/images/edit.svg" /></span>
+          <span aria-hidden="true">Edit</span>
+        </app-button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
+<!-- sign-in pop-up -->
+<ng-template #signIn let-modal id="signIn">
+  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <img src="./assets/images/close.png" alt="" class="img-fluid" />
+  </button>
+  <div class="modal-body signIn-modal">
+    <div class="signIn-header">
+      <h4>Student Profile</h4>
+    </div>
+    <div class="student">
+      <div class="student__photo">
+        <img src="./assets/images/student.png" />
+      </div>
+      <div class="student__name">
+        <h2>Samuel, Aaron</h2>
+      <span class="student-id">ID: 36272
+      </span>
+      </div>
+    </div>
+    <div class="student-main">
+      <div class="row">
+        <div class="col-sm-6 main-wraper">
+          <p class="main-para">Use the access code or just scan the QR code on your right to 
+            sign-in into your class. The access code is not case sensitive.
+          </p>
+          <h3 class="main-heading">SAMUEL36271</h3>
+        </div>
+        <div class="col-sm-6">
+          <div class="qr-code">
+            <img src="./assets/images/qr-code.png" class="img-fluid" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="email-wraper">
+      <div class="app-url">
+        <label for="homepage">App URL</label>
+        <a class="email">https://app. chefkoochooloo.com/signin/student</a>
+      </div>
+    </div>
+    <div class="profile-btns">
+      <app-button classes="btn btn-secondary btn-close" (click)="closeOpenModal()">
+        <span aria-hidden="true">Close</span>
+      </app-button>
+      <app-button classes="btn btn-primary icon-btn">
+        <span class="icon"><img src="./assets/images/print.svg" /></span>
+        <span aria-hidden="true">Print Sign-In Info</span>
+      </app-button>
+      <app-button classes="btn btn-primary icon-btn">
+        <span class="icon print"><img src="./assets/images/print.svg" /></span>
+      </app-button>
+    </div>
+  </div>
+</ng-template>
+
+
+
+<!-- Create Class Modal-->
+<ng-template #createGroup let-modal>
+  <button type="button" class="close" aria-label="Close" (click)="closeOpenModal()">
+    <img src="./assets/images/close.png" alt="" class="img-fluid" />
+  </button>
+  <div class="modal-body create-modal" >
+    <!-- <div class="create-class-form"> -->
+      <div class="heading-wraper">
+        <h2 class="heading">Create Group</h2>
+      </div>
+      <form [formGroup]="createClass" class="creat-form">
+        <fieldset>
+          <div class="row">
+            <div class="col-sm-4">
+              <label>Group Color</label>
+              <app-drop-down class="colorDropdown" [dropDownIcon]="" fieldControl="groupColorId"
+                [dropDownItemList]="colorList" [ngStyle]="{'background-color':colorvalue}"
+                (registerDropdownValueChange)="onColorChange($event)">
+              </app-drop-down>
+            </div>
+            <div class="col-sm-8 ">
+              <label>Group Title</label>
+              <app-input-field classes="form-control" types="text" ids="title" fieldControl="title"
+                placeholders="Group Title" [form]="createClass">
+              </app-input-field>
+            </div>
+          </div>
+
+          <div class="student-list">
+            <div class="group-heading">
+              <h6 class="heading">Add Group Members</h6>
+            </div>
+            <ul class="list-wraper">
+              <div class="list-header">
+                <span class="heading">Invite New Members to the group</span>
+              </div>
+              <li class="list-content" *ngFor="let item of StudentList ; let i=index;">
+                <div class="student">
+                  <div class="student__photo">
+                    <img src="./assets/images/student.png" class="img-fluid" />
+                  </div>
+                  <div class="student__name">
+                    <h6>{{item.firstName}} , {{item.lastName}}</h6>
+                  </div>
+                </div>
+                <div class="checkbox-container">
+                  <label class="checkbox_wraper">
+                    <input type="checkbox" (change)="onStudentChange(i,$event)" >
+                    <span class="checkmark"></span>
+                  </label>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+                <div class="custom-control custom-radio">
+                    <app-radio classes="custom-control-input" types="radio" fieldControl="status"
+                        [form]="createClass" names="status" [values]="true">
+                    </app-radio>
+                    <label class="custom-control-label" for="Active">Active</label>
+                </div>
+                <div class="custom-control custom-radio">
+                    <app-radio classes="custom-control-input" types="radio" fieldControl="status"
+                        [form]="createClass" names="status" [values]="false">
+                    </app-radio>
+                    <label class="custom-control-label" for="Inactive">Inactive</label>
+                </div>
+            </div>
+        </div>
+          <div class="profile-btns">
+            <app-button classes="btn btn-secondary" (click)="modal.dismiss('Cross click')">
+              <span aria-hidden="true">Cancle</span>
+            </app-button>
+            <app-button classes="btn btn-primary icon-btn" [submit]="true" (click)="addGroup()"
+            [disabled]="createClass.invalid">
+              <span aria-hidden="true">Create Group</span>
+            </app-button>
+          </div>
+        </fieldset>
+      </form>
+    <!-- </div> -->
+  </div>
+</ng-template>

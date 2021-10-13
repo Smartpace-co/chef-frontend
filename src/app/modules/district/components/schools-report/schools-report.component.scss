@@ -1,0 +1,188 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+.schools-report{
+  // .schools-report-header{
+  //   // background: $twilight-blue;
+  //   margin-top: 2.5rem;
+  //   margin-bottom: 2.5rem;
+  //   .container{
+  //     display: flex;
+  //     flex-wrap: wrap;
+  //   }
+  // }
+  .report-heading-wrapper{
+    margin-top: 2.5rem;
+    .container{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      h4{
+        @include breakpoint(mobile){
+          margin-bottom: 1rem;
+        }
+      }
+    }
+  }
+  .btn-wrapper{
+    .print-icon{
+      width: 2.5rem;
+      display: inline-block;
+    }
+  }
+  .schools-report-wrapper{
+    .schools-activity{
+      width: 100%;
+      margin-top: 1.5rem;
+      margin-bottom: 2.5rem;
+      .nav-tabs{
+        border:none;
+        position: relative;
+        display:none;
+        &.activity-tab-nav{
+          width: 100%;
+        }
+        &:after{
+            content: '';
+            width:100%;
+            height:0.1rem;
+            background:$border-color;
+            position: absolute;
+            left: 0rem;
+            bottom: 0;
+        }
+        .nav-item{
+            margin:0;
+            .nav-link{
+                color:rgba($white, 0.5);
+                font-size:1.8rem;
+                padding:0.5rem 0rem;
+                position: relative;
+                border:none;
+                margin-right: 5rem;
+                font-weight: 700;
+                &:after{
+                    content: '';
+                    width:100%;
+                    height:0.2rem;
+                    background:transparent;
+                    position: absolute;
+                    left:0rem;
+                    bottom:0;
+                    z-index: 1;
+                }
+                &:hover{
+                    border:none;
+                }
+                &.active{
+                    background: transparent;
+                    color: $ring-yellow;
+                    line-height: 1.5;
+                    border:none;
+                    &:after{
+                        background:$secondary;
+                    }
+                }
+            }
+        }
+      }
+      @include breakpoint(mobile-min){
+        .nav-tabs {
+            display: flex;
+        }
+        .panal-card {
+            border: none;
+            .panal-card-header {
+              display:none;
+            }  
+            .collapse{
+              display:block;
+             }
+        
+        }
+      }
+      @include breakpoint(mobile){
+        .tab-content > .tab-pane {
+            display: block !important;
+            opacity: 1;
+        }
+        .panal-card {
+          .panal-card-header {
+            border-bottom: 1px solid $border-color;
+            padding: 1.5rem;    
+            background-color: $blue-transferent;
+            width: 100%;
+          }
+        }
+      }
+      .school-active-details{
+        margin-top: 2.5rem;
+        .roster-filter{
+          padding: 1rem 0;
+          .filters-list{
+            display: flex;
+            .filters-item{
+              margin: 0rem 2rem;
+              .filter{
+                font-size: 1.8rem;
+                font-weight: 700;
+                padding: 0.5rem 0rem;
+                position: relative;
+                color: $light-blue-shade;
+                &.active{
+                  color: $white;
+                  &:after{
+                    content: "";
+                    width: calc(100% + 3rem);
+                    height: 0.2rem;
+                    background: $white;
+                    position: absolute;
+                    left: -1.5rem;
+                    bottom: 0;
+                    z-index: 1;
+                  }
+                }
+              }
+            }
+          }
+          .report-help{
+            margin-left: 3rem;
+            @include breakpoint(mobile){
+              margin-left: 1rem;
+            }
+            .help{
+              color: $ring-yellow;
+              font-size:1.4rem;
+              font-weight: 700;
+              text-decoration: underline;
+            }
+          }
+        }
+        .legend-card-wrapper{
+          // margin-top: 2.5rem;
+          // padding: 4rem;
+          // padding-top: 1rem;
+          // @include breakpoint(mobile){
+          //   padding: 0rem 2rem 3rem;
+          // }
+        }
+      }
+    }
+  }
+}
+// Pop-up //
+
+.modal-body{
+  .access-label{
+    margin-bottom: 1rem;
+  }
+  .roles-access{
+    background-color: $inputbg;
+    border-radius: 5rem;
+    padding: 3rem 3rem 1rem;
+    margin-bottom: 1.2rem;
+    .custom-control-label{
+      padding-left: 1.5rem;
+    }
+  }
+}

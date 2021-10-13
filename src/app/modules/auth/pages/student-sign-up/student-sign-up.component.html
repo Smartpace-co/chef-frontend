@@ -1,0 +1,218 @@
+<div class="SigninStudent">
+  <div class="container">
+    <div class="signin-wraper">
+      <div class="top-nav">
+        <div class="back-button-wrapper">
+          <app-button classes="btn small-btn btn-secondary mr-4 icon-btn btn-back" [submit]="true" (click)="onCancel()">
+            <span aria-hidden="true">
+              <fa-icon [icon]="LeftArrow"></fa-icon> Back
+            </span>
+          </app-button>
+        </div>
+      </div>
+      <div class="form-wraper">
+        <form [formGroup]="signInStudent" class="SigninStudent__form schoolForm">
+          <fieldset>
+            <header>
+              <div class="logo">
+                <img src="./assets/images/logo.png" class="img-fluid" />
+              </div>
+              <div class="content">
+                <h5 class="logo-title">Student Sign Up</h5>
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a>General Info</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><a (click)="onNext()">Membership</a></li>
+                  </ol>
+                </nav>
+              </div>
+            </header>
+            <div class="row form-start">
+              <div class="col-md-4">
+                <label>District {{'student.profile.optional-label'| translate }}</label>
+                <app-input-field classes="form-control" types="text" placeholders="Enter District Name" ids="district"
+                  fieldControl="district" [form]="signInStudent">
+                </app-input-field>
+                <!-- <app-drop-down fieldControl="district" class="formDropdown" [dropDownButtonName]="districtTitle"
+                  [dropDownIcon]="districtIcon" [dropDownItemList]="districtList"
+                  (registerDropdownValueChange)="districtChange($event)"></app-drop-down> -->
+              </div>
+              <div class="col-md-4">
+                <label>School {{'student.profile.optional-label'| translate }}</label>
+                <app-input-field classes="form-control" types="text" placeholders="Enter School Name" ids="school"
+                  fieldControl="school" [form]="signInStudent">
+                </app-input-field>
+                <!-- <app-drop-down fieldControl="school" class="formDropdown" [dropDownButtonName]="schoolTitle"
+                  [dropDownIcon]="schoolIcon" [dropDownItemList]="schoolList"
+                  (registerDropdownValueChange)="schoolChange($event)"></app-drop-down> -->
+              </div>
+              <div class="col-md-4">
+                <label>Grade {{'student.profile.optional-label'| translate }}</label>
+                <app-drop-down fieldControl="grade" class="formDropdown" [dropDownButtonName]="gradeTitle"
+                  [dropDownIcon]="gradeIcon" [dropDownItemList]="gradeList"
+                  (registerDropdownValueChange)="gradeChange($event)"></app-drop-down>
+              </div>
+            </div>
+            <div class="personal-info">
+              <h2>Student Personal Information</h2>
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Last Name (*)</label>
+                  <app-input-field classes="form-control" types="text" placeholders="Enter Name" ids="lastName"
+                    fieldControl="lastName" [form]="signInStudent"
+                    [ngClass]="{ 'is-invalid': formControl.lastName.touched && formControl.lastName.errors }">
+                  </app-input-field>
+                  <div *ngIf="formControl.lastName.errors" class="invalid-feedback">
+                    <div class="error" *ngIf="formControl.lastName.errors?.required">Last name is required</div>
+                    <div class="error" *ngIf="formControl.lastName.errors?.pattern">Last name is not valid</div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label>First Name (*)</label>
+                  <app-input-field classes="form-control" types="text" placeholders="Enter Name" ids="firstName"
+                    fieldControl="firstName" [form]="signInStudent"
+                    [ngClass]="{ 'is-invalid': formControl.firstName.touched && formControl.firstName.errors }">
+                  </app-input-field>
+                  <div *ngIf="formControl.firstName.errors" class="invalid-feedback">
+                    <div class="error" *ngIf="formControl.firstName.errors?.required">First name is required</div>
+                    <div class="error" *ngIf="formControl.firstName.errors?.pattern">First name is not valid</div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <label>Date of Birth (*)</label>
+                  <div class="form-group">
+                    <div class="input-group">
+                      <input class="form-control" placeholder="Select Date" ids="dob" name="dp" fieldControl="dob" 
+                        (dateSelect)="onDateSelection($event)" [ngModelOptions]="{standalone: true}"
+                        [(ngModel)]="selectedDate" ngbDatepicker #d="ngbDatepicker">
+                      <div class="input-group-append">
+                        <button class="calendarIcon" (click)="d.toggle()" type="button">
+                          <fa-icon [icon]="Calendar"></fa-icon>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <label>Gender {{'student.profile.optional-label'| translate }}</label>
+                  <app-drop-down fieldControl="gender" class="formDropdown" [dropDownButtonName]="genderTitle"
+                    [dropDownIcon]="genderIcon" [dropDownItemList]="genderList"
+                    (registerDropdownValueChange)="genderChange($event)"></app-drop-down>
+                </div>
+                <div class="col-md-4">
+                  <label>Ethnicity {{'student.profile.optional-label'| translate }}</label>
+                  <app-drop-down fieldControl="ethnicity" class="formDropdown" [dropDownButtonName]="ethnicityTitle"
+                    [dropDownIcon]="ethnicityIcon" [dropDownItemList]="ethnicityList"
+                    (registerDropdownValueChange)="ethnicityChange($event)"></app-drop-down>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Username (*)</label>
+                  <app-input-field classes="form-control" types="text" placeholders="Enter username" ids="userName"
+                    fieldControl="userName" [form]="signInStudent"
+                    [ngClass]="{ 'is-invalid': formControl.userName.touched && formControl.userName.errors }">
+                  </app-input-field>
+                  <div *ngIf="formControl.userName.errors" class="invalid-feedback">
+                    <div class="error" *ngIf="formControl.userName.errors?.required">Username is required</div>
+                    <div class="error" *ngIf="formControl.userName.errors?.pattern">User name is not valid</div>
+                    <div class="error" *ngIf="formControl.userName.errors?.userNameValidate">User name already exists
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="contact-info">
+              <h2>Contact Info</h2>
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Contact Name (*)</label>
+                  <app-input-field classes="form-control" types="text" placeholders="Enter Name" ids="contactPersonName"
+                    fieldControl="contactPersonName" [form]="signInStudent"
+                    [ngClass]="{ 'is-invalid': formControl.contactPersonName.touched && formControl.contactPersonName.errors }">
+                  </app-input-field>
+                  <div *ngIf="formControl.contactPersonName.errors" class="invalid-feedback">
+                    <div class="error" *ngIf="formControl.contactPersonName.errors?.required">Contact name is required
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label>Contact Relationship (*)</label>
+                  <app-drop-down fieldControl="relationship" class="formDropdown"
+                    [dropDownButtonName]="relationshipTitle" [dropDownIcon]="relationshipIcon"
+                    [dropDownItemList]="relationshipList" (registerDropdownValueChange)="relationshipChange($event)">
+                  </app-drop-down>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Contact Email Address (*)</label>
+                  <app-input-field classes="form-control" types="text" placeholders="Enter Email Address"
+                    ids="contactPersonEmail" fieldControl="contactPersonEmail" [form]="signInStudent"
+                    [ngClass]="{ 'is-invalid': formControl.contactPersonEmail.touched && formControl.contactPersonEmail.errors }">
+                  </app-input-field>
+                  <div *ngIf="formControl.contactPersonEmail.errors" class="invalid-feedback">
+                    <div class="error" *ngIf="formControl.contactPersonEmail.errors?.required">Contact email address is required
+                    </div>
+                    <div class="error" *ngIf="formControl.contactPersonEmail.errors?.pattern">Contact email address is not valid
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label>Contact Number (*)</label>
+                  <app-input-field classes="form-control" types="tel" placeholders="Enter Number"
+                    ids="contactPersonNumber" fieldControl="contactPersonNumber" [form]="signInStudent"
+                    [ngClass]="{ 'is-invalid': formControl.contactPersonNumber.touched && formControl.contactPersonNumber.errors }">
+                  </app-input-field>
+                  <div *ngIf="formControl.contactPersonNumber.errors" class="invalid-feedback">
+                    <div class="error" *ngIf="formControl.contactPersonNumber.errors?.required">Contact number is required
+                    </div>
+                    <div class="error" *ngIf="formControl.contactPersonNumber.errors?.pattern">Contact number is not
+                      valid(Format
+                      - (000)-000-0000)</div>
+                    <div class="error" *ngIf="formControl.contactPersonNumber.errors?.minlength">Contact number is not
+                      valid(Reuired Length is 10 digit)</div>
+                    <div class="error" *ngIf="formControl.contactPersonNumber.errors?.contactDigitValidate">Contact number is not valid(Required length is 10,12,13 digit)</div>    
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="medical-info">
+              <h2>Medical Information (Optional)</h2>
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Allergens {{'student.profile.optional-label'| translate }}</label>
+                  <app-multi-select-dropdown [dropDownItemList]="allergensList" [selectedItems]="selectedAllergen"
+                    [placeholderText]="'Select allergens'" fieldControl="allergens"
+                    [selectedValue]="selectedAllergensValue" (onSelectValue)="onSelectAllergens($event)"
+                    (onDeSelectValue)="onDeSelectAllergens($event)" (onSelectAllValue)="onSelectAllAllergens($event)"
+                    (onDeselectAllValue)="onDeselectAllAllergens($event)">
+                  </app-multi-select-dropdown>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <label>Medical Condition {{'student.profile.optional-label'| translate }}</label>
+                  <app-multi-select-dropdown [dropDownItemList]="conditionList" [selectedItems]="selectedCondition"
+                    [placeholderText]="'Select condition'" fieldControl="medicalCondition"
+                    [selectedValue]="selectedConditionValue" (onSelectValue)="onSelectConditions($event)"
+                    (onDeSelectValue)="onDeSelectConditions($event)" (onSelectAllValue)="onSelectAllConditions($event)"
+                    (onDeselectAllValue)="onDeselectAllConditions($event)">
+                  </app-multi-select-dropdown>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex justify-content-center">
+              <app-button classes="btn btn-primary btn-block" [submit]="true" (click)="onNext()"
+                [disabled]="signInStudent.invalid">
+                <span aria-hidden="true">Next</span>
+              </app-button>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

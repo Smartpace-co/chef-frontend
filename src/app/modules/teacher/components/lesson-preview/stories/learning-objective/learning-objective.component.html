@@ -1,0 +1,32 @@
+<app-ingreditent-nav></app-ingreditent-nav>
+<app-lessons-headerbar [lessonHederConfig]="lessonHederConfig"></app-lessons-headerbar>
+<!-- <div class="story-body-11"> -->
+  <div *ngIf="isLoad" class="story-body-11"
+   [ngStyle]=" countryBgImg ? {background: ' url(' + countryBgImg + ')'} : {background: ' url(' + './assets/images/kitchen-bg-blur.jpg' + ')'}">
+  <div class="blur-bg">
+    <!-- <app-scroll-down></app-scroll-down> -->
+    <div class="container">
+      <div class="final-editaion">
+        <div class="content-wrapper">
+          <span class="card-wihtout-header-blue">
+            <div class="recipe-info-wrapper">
+              <h1>{{assignmentTitle}}</h1>
+              <ngx-slick-carousel *ngIf="isLoad" [config]="slideConfig">
+                <ul *ngFor="let obj of learningObjective" ngxSlickItem>
+                  <li>{{obj}}</li>
+                </ul>
+              </ngx-slick-carousel>
+            </div>
+          </span>
+          <span class="final-editaion-img-wrapper">
+            <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
+          </span>
+          <span class="bowl">
+            <img src="./assets/images/Bowl.png" alt="" class="img-fluid" />
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-lessons-footer [showPrevious]="showPrevious" (onNext)="onNext()"></app-lessons-footer>

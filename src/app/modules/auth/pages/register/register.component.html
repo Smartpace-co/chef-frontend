@@ -1,0 +1,92 @@
+<!-- <app-student-header></app-student-header> -->
+<main class="rgister">
+  <div class="container-fluid">
+    <div class="left-rgister">
+      <img src="./assets/images/kids-and-planet.png" class="img-fluid" />
+    </div>
+    <div class="rgister-form">
+      <header>
+        <div class="logo">
+          <img src="./assets/images/logo.png" class="img-fluid" />
+        </div>
+        <h5 class="logo-title">Teacher Sign Up</h5>
+      </header>
+      <form [formGroup]="registerForm" (submit)="register()">
+        <app-input-field
+          classes="form-control"
+          types="text"
+          placeholders="Name"
+          ids="username"
+          fieldControl="username"
+          [form]="registerForm"
+          [ngClass]="{ 'is-invalid': formControl.username.touched && formControl.username.errors }"
+        >
+        " |
+        </app-input-field>
+        <div *ngIf="formControl.username.errors" class="invalid-feedback">
+            <div class="error" *ngIf="formControl.username.errors?.required">Name is required</div>
+            <div class="error" *ngIf="formControl.username.errors?.pattern">Name is not valid</div>
+        </div>
+        <app-input-field
+          classes="form-control"
+          types="email"
+          placeholders="Work Email Address"
+          ids="email"
+          fieldControl="email"
+          [form]="registerForm"
+          [ngClass]="{ 'is-invalid': formControl.email.touched && formControl.email.errors }"
+        ></app-input-field>
+        <div *ngIf="formControl.email.touched && formControl.email.errors" class="invalid-feedback">
+            <div class="error" *ngIf="formControl.email.errors?.required">Email Address is required</div>
+            <div class="error" *ngIf="formControl.email.errors?.pattern">Email Address is not valid</div>
+        </div>
+        <app-input-field
+          classes="form-control"
+          types="tel"
+          placeholders="Phone Number"
+          ids="phoneNumber"
+          fieldControl="phoneNumber"
+          [form]="registerForm"
+          [ngClass]="{ 'is-invalid': formControl.phoneNumber.touched && formControl.phoneNumber.errors }"
+          (change)="formatNumber($event.target.value)"
+        ></app-input-field>
+        <div *ngIf="formControl.phoneNumber.errors" class="invalid-feedback">
+          <div class="error" *ngIf="formControl.phoneNumber.errors?.required">Phone number is required</div>
+          <div class="error" *ngIf="formControl.phoneNumber.errors?.pattern">Phone number is not valid(Format - (000)-000-0000)</div>
+          <div class="error" *ngIf="formControl.phoneNumber.errors?.minlength">Phone number is not valid(Reuired Length is 10 digit)</div>
+      </div>
+        <app-input-field
+          classes="form-control"
+          types="password"
+          placeholders="Password"
+          ids="password"
+          fieldControl="password"
+          [form]="registerForm"
+          [ngClass]="{ 'is-invalid': formControl.password.touched && formControl.password.errors }"
+        ></app-input-field>
+        <div *ngIf="formControl.password.errors" class="invalid-feedback">
+            <div class="error" *ngIf="formControl.password.errors?.required">Password is required</div>
+        </div>
+        <app-input-field
+          classes="form-control"
+          types="text"
+          placeholders="School Name"
+          ids="schoolName"
+          fieldControl="schoolName"
+          [form]="registerForm"
+          [ngClass]="{ 'is-invalid': formControl.schoolName.touched && formControl.schoolName.errors }"
+        ></app-input-field>
+        <div *ngIf="formControl.schoolName.errors" class="invalid-feedback">
+          <div class="error" *ngIf="formControl.schoolName.errors?.required">School Name is required</div>
+          <div class="error" *ngIf="formControl.schoolName.errors?.pattern">schoolName is not valid</div>
+
+      </div>
+        <p class="agree-text text-center">By clicking Agree and Sign Up, you agree to the Chef Koochooloo User Agreement, Privacy Policy, and Cookie Policy.</p>
+        <app-button classes="btn btn-primary btn-block" [submit]="true" [disabled]="registerForm.invalid">
+          <span aria-hidden="true">Agree and Sign Up</span>
+        </app-button>
+        <p class="dont-have-account">Already have an account? <a routerLink="/auth/login">Sign In</a></p>
+      </form>
+    </div>
+  </div>
+</main>

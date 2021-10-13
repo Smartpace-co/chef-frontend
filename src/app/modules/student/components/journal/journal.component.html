@@ -1,0 +1,95 @@
+<div class="popup-wraper-details">
+  <div class="inquery-details-header">
+    <div class="header-wraper">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <legend>{{'student.journal.journal-label'| translate }}</legend>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <!-- <span aria-hidden="true">&times;</span> -->
+      <img src="./assets/images/close.png" alt="" class="img-fluid" />
+    </button>
+  </div>
+  <div class="class-details-body">
+    <div class="form">
+      <form>
+        <div class="search-section">
+          <div class="search-icon">
+            <fa-icon class="ml-3" [icon]="SearchIcon"></fa-icon>
+          </div>
+          <div class="form-group">
+            <div class="input-group">
+              <input class="form-control" placeholder="{{'table-search-filter-container.search'|translate}}" ids="dob"
+                name="dp" fieldControl="dob" (change)="onChange()" (dateSelect)="onDateSelection()"
+                [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedSearchValue" ngbDatepicker
+                #d="ngbDatepicker">
+              <div class="input-group-append">
+                <button class="calendarIcon" (click)="d.toggle()" type="button">
+                  <fa-icon [icon]="Calendar"></fa-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-controls">
+          <div class="action-textarea">
+            <ng-container *ngIf="allJournalList && allJournalList.length>0; else noJournal">
+              <ul class="action-details" *ngFor="let item of allJournalList">
+                <li>
+                  <div class="add-date pb-1">{{item.createdAt | date:'h:mm a , dd/MM/yyyy'}}</div>
+                  <div class="add-text">{{item.note}}</div>
+                </li>
+              </ul>
+            </ng-container>
+            <ng-template #noJournal>
+              <div class="add-text">{{'table-component.no-record'| translate}}</div>
+            </ng-template>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="submit-btn-wrapper">
+    <app-button classes="btn btn-secondary" [submit]="true" (click)="openJournalEditor(requestModal)">
+      <span aria-hidden="true">{{'student.journal.add-a-note'| translate }}</span>
+    </app-button>
+  </div>
+</div>
+<ng-template #requestModal let-modal>
+  <div class="popup-wraper">
+    <div class="inquery-details-header">
+      <div class="header-wraper">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <legend>{{'student.journal.journal-label'| translate }}</legend>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+      <button type="button" class="close" aria-label="Close" (click)="closeJournalEditorModal()">
+        <!-- <span aria-hidden="true">&times;</span> -->
+        <img src="./assets/images/close.png" alt="" class="img-fluid" />
+      </button>
+    </div>
+    <div class="class-details-body custom-editor">
+      <div class="form">
+        <ckeditor [editor]="Editor" [config]="editorConfig" [ngModelOptions]="{standalone: true}"
+          [(ngModel)]="editorsData"></ckeditor>
+      </div>
+    </div>
+    <div class="submit-btn-wrapper">
+      <app-button classes="btn btn-secondary" [submit]="true" (click)="saveData()">
+        <span aria-hidden="true">{{'common.save'| translate}}</span>
+      </app-button>
+    </div>
+  </div>
+</ng-template>

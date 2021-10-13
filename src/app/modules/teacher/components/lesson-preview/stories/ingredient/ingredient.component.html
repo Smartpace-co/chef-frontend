@@ -1,0 +1,56 @@
+<app-ingreditent-nav></app-ingreditent-nav>
+<app-lessons-headerbar></app-lessons-headerbar>
+<div class="ingredient-details ingredient-bg">
+  <!-- <app-scroll-down></app-scroll-down> -->
+  <div class="container">
+    <div class="card white">
+      <header class="ingredient-header">
+        <h3 class="ingredient-name">{{ selectedIngredient?.ingredientTitle }}</h3>
+        <div *ngIf="selectedIngredient?.season" class="green-card">
+          <h4 class="heading">{{'student.assigned-lessons.lesson-steps.season'| translate }}</h4>
+          <h6 class="content">{{ selectedIngredient?.season.title }}</h6>
+        </div>
+      </header>
+      <div class="ingredient-main">
+        <div *ngIf="selectedIngredient?.lTop" class="ingredient-content left-top">
+          <p>{{ selectedIngredient?.lTop | slice:0:128 }}</p>
+        </div>
+        <div *ngIf="selectedIngredient?.rTop" class="ingredient-content right-top">
+          <p>{{ selectedIngredient?.rTop | slice:0:128 }}</p>
+        </div>
+        <div *ngIf="selectedIngredient?.lBottom" class="ingredient-content left-bottom">
+          <p>{{ selectedIngredient?.lBottom | slice:0:128 }}</p>
+        </div>
+        <div *ngIf="selectedIngredient?.rBottom" class="ingredient-content right-bottom">
+          <p>{{ selectedIngredient?.rBottom | slice:0:128 }}</p>
+        </div>
+        <div class="ingredient-image">
+          <img src="{{ selectedIngredient?.image }}" alt="" class="img-fluid" />
+        </div>
+        <div *ngIf="selectedIngredient?.canGrow" class="ruler">
+          <div class="ruler-image">
+            <img src="./assets/images/ruler.png" alt="" class="img-fluid" />
+          </div>
+          <div class="ingredient-size">
+            <div class="green-card">
+              <h6 class="content">Can grow up tp</h6>
+              <h6 class="content">1m (3.2 ft) </h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="selectedIngredient?.nutrients" class="nutrients">
+        <h3 class="nutrients-heading">{{'student.assigned-lessons.lesson-steps.nutrients'| translate }}</h3>
+        <ul class="nutrients-list">
+          <li *ngFor="let element of selectedIngredient?.nutrients">
+            <div class="green-card">
+              <h4 class="heading">{{ element?.title }}</h4>
+              <!-- <h6 class="content">{{ element?.value }}</h6> -->
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<app-lessons-footer (onNext)="onNext()" (onPrevious)="onPrevious()"></app-lessons-footer>

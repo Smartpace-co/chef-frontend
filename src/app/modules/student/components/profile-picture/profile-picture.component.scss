@@ -1,0 +1,84 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+.profile{
+    .top-nav{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        margin: 4rem 0 8rem 0;
+        h3{
+            margin: 0;
+            padding-left: 2rem;
+        }
+    }
+    .profile-picture-wraper{
+        margin-top: 4rem;
+        max-width: 63rem;
+        @include breakpoint(smallmobile){
+            max-width:100%;
+        } 
+        .legend-card-white{
+            @include breakpoint(sm-mobile){
+                padding: 5rem 0rem;
+                padding-top: 0;
+            }
+            legend{
+                padding: 1rem 5rem;
+                transform: translate(20%, -50%);
+            }
+        }
+        .contain-wraper{
+            display: flex;
+            flex-wrap: wrap;
+            .col-md-4{
+                @include breakpoint(smallmobile){
+                    margin-top: 4rem;
+                } 
+            }
+            .select-profile{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                @include breakpoint(sm-mobile){
+                    padding-bottom: 2rem;
+                }
+                input{
+                    width: calc(100% + 2rem);
+                    height: calc(100% + 1rem);
+                    position: absolute;
+                    left: -1rem;
+                    top: 0.7rem;
+                    z-index: 9;
+                    cursor: pointer
+                   }
+                   @include breakpoint(mobile){
+                    input{
+                        width: 100%;
+                    } 
+                   }
+                   input[type=radio]{
+                     opacity: 0;
+                   }
+                   .option{
+                     position: relative;
+                     margin: 1.5rem;
+                     width: 15rem;
+                     label{
+                         .ans-btn{
+                           position: absolute;
+                           left: 0;
+                           pointer-events: none;
+                           width: 100%; 
+                         }
+                     } 
+                     label:hover{
+                        background-color: $secondary;
+                       }
+                   }    
+            }
+        }
+    }
+}
+
+
+

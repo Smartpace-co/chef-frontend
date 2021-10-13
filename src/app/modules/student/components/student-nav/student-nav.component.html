@@ -1,0 +1,158 @@
+<header class="student-header">
+  <div class="container">
+    <div class="top-nav">
+      <span *ngIf="showTeacherImg" class="profile-pic-wrapper">
+        <span class="profile-pic">
+          <img src="{{ teacherProfileImg }}" alt="" class="img-fluid" />
+        </span>
+      </span>
+      <div *ngIf="backBtn" class="back-button-wrapper">
+        <app-button classes="btn small-btn btn-secondary mr-4 icon-btn btn-back" [submit]="true"
+          (click)="onBackButtonClick()">
+          <span aria-hidden="true">
+            <fa-icon [icon]="LeftArrow"></fa-icon>{{'common.back'| translate}}
+          </span>
+        </app-button>
+      </div>
+      <div *ngIf="userName" class="heading-wrapper">
+        <h4>
+          <span class="profile-info">{{'student.dashboard.welcome-back-label'| translate }} {{studentName}}!</span>
+        </h4>
+      </div>
+      <div *ngIf="classInfo" class="heading-wrapper">
+        <h4>
+          <span class="profile-info">
+            <span class="user-name">{{classTitle}}</span>
+            <!-- <span class="user-class">Class : {{userData?.room}}</span> -->
+          </span>
+        </h4>
+        <p (click)="seeClassInfo()">{{'student.class-info.see-class-info-label'| translate }}
+          <fa-icon [icon]="RightArrow"></fa-icon>
+          <fa-icon [icon]="RightArrow"></fa-icon>
+          <fa-icon [icon]="RightArrow"></fa-icon>
+        </p>
+      </div>
+      <ul class="nav-menu">
+        <span *ngIf="ShowMenu">
+          <li class="desktop-only">
+            <a class="icon-bg" routerLink="/student/student-landing">
+              <img src="./assets/images/web-house.png" alt="" class="img-fluid" />
+            </a>
+          </li>
+          <li class="desktop-only journal-hide" (click)="openJournalList()">
+            <a class="icon-bg">
+              <img src="./assets/images/book-icon.png" alt="" class="img-fluid" />
+              <span class="journal-text">{{'student.journal.journal-desc'| translate }}</span>
+            </a>
+          </li>
+          <li class="desktop-only" [routerLink]="['/student/class-info']">
+            <a class="icon-bg">
+              <img src="./assets/images/stat-icon.png" alt="" class="img-fluid" />
+            </a>
+          </li>
+          <li class="desktop-only" [routerLink]="['/student/notifications']">
+            <a class="icon-bg bell-icon">
+              <img src="./assets/images/bell-icon.png" alt="" class="img-fluid" />
+              <span *ngIf="notificationCount" class="bell-notifications">{{ notificationCount }}</span>
+            </a>
+          </li>
+        </span>
+        <li *ngIf="chefIcon" class="chef-menu">
+          <a #menus class="chef-logo profile-pic">
+            <img src="{{profileImage}}" alt="" class="img-fluid" (click)="collapse.toggle()"
+              [attr.aria-expanded]="!isCollapsed" aria-controls="collapseMenu" />
+          </a>
+          <div class="menus-wrapper card-wihtout-header-white" #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+            <div class="menus">
+              <div class="menus-body">
+                <ul>
+                  <li *ngFor="let item of menuList">
+                    <a [ngClass]="item.isSubscriptionPause?'menu-disabled':''" (click)="menuChange(item)">{{item.menu}}</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="recipies-wrapper card-wihtout-header-white" #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+            <ul>
+              <li>
+                <div class="count ml-3">
+                  <span>{{recipesList.length}}</span>Recipes
+                 </div>
+              </li>
+              <li *ngFor="let item of recipesList" (click)= "open(startModal)">
+                <div class="image-wrapper">
+                  <img src="{{item.image}}" alt="" class="img-fluid"/>
+                </div>
+                <div class="recipes-info ml-3">
+                  <p class="recipes mb-2">{{item.menu}}</p>
+                  <p class="duration">{{item.duration}}</p>
+                </div>
+              </li>
+            </ul>
+          </div> -->
+        </li>
+      </ul>
+    </div>
+    <div *ngIf="isExplore" class="expolre-lesson-heading">
+      <h1 class="heading">{{'student.explore-lessons.explore'| translate }}</h1>
+    </div>
+    <div class="mobile-only">
+      <ul *ngIf="ShowMenu" class="nav-menu">
+        <li>
+          <a class="icon-bg">
+            <img src="./assets/images/web-house.png" alt="" class="img-fluid" />
+          </a>
+        </li>
+        <li class="journal-hide" (click)="openJournalList()">
+          <a class="icon-bg">
+            <img src="./assets/images/book-icon.png" alt="" class="img-fluid" />
+            <span class="journal-text">{{'student.journal.journal-desc'| translate }}</span>
+          </a>
+        </li>
+        <li [routerLink]="['/student/class-info']">
+          <a class="icon-bg">
+            <img src="./assets/images/stat-icon.png" alt="" class="img-fluid" />
+          </a>
+        </li>
+        <li [routerLink]="['/student/notifications']">
+          <a class="icon-bg bell-icon">
+            <img src="./assets/images/bell-icon.png" alt="" class="img-fluid" />
+            <span *ngIf="notificationCount" class="bell-notifications">{{ notificationCount }}</span>
+          </a>
+        </li>
+      </ul>
+      <div *ngIf="isExplore" class="expolre-lesson-heading-mobile">
+        <h1 class="heading">Explore</h1>
+      </div>
+    </div>
+  </div>
+</header>
+
+<ng-template #startModal let-modal>
+  <div class="modal-header start-assignment-header">
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <img src="./assets/images/close.png" alt="" class="img-fluid" />
+    </button>
+  </div>
+  <div class="modal-body start-assignment-body">
+    <div class="row">
+      <div class="legend-card-white btn-card-white">
+        <div class="assignment-start">
+          <div class="image-wrapper">
+            <img src="./assets/images/potato-croquette.png" alt="" class="img-fluid" />
+          </div>
+          <h4>
+            <span>Chicken Enchalidas</span>
+            <p>Duration 45 Mins</p>
+          </h4>
+        </div>
+        <div class="btn-wrapper">
+          <app-button classes="btn btn-primary mr-4 icon-btn" [submit]="true">
+            <span aria-hidden="true">Start<fa-icon [icon]="RightArrow"></fa-icon></span>
+          </app-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,307 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+.ProfileInfo{
+    .top-nav{
+        margin: 6rem 0;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        h3{
+            margin: 0;
+            padding-left: 2rem;
+        }
+    }
+    .profile-info-wraper{
+        margin-bottom: 8rem;
+        .legend-card-white-form{
+            legend{
+                padding: 1rem 5rem;
+            }
+            .profile-header{
+                margin-top: 4rem;
+                padding-bottom: 2.5rem;
+                position: relative;
+                @include breakpoint(mobile){
+                    margin-top: 0;
+                }
+                .profile-image{
+                    display: flex;
+                    align-items: center;
+                    flex-direction: column;
+                    .profile-pic{
+                        max-width: 11rem;  
+                        max-height: 11rem;       
+                        position: relative;
+                        overflow: inherit;
+                        .edit-profile{
+                            position: absolute;
+                            border: 0.5rem solid $black;
+                            width: 3rem;
+                            height: 3rem;
+                            border-radius: 50%;
+                            font-size: 1.5rem;
+                            text-align: center;
+                            // transform: translate(4rem, 3.5rem);
+                            z-index: 1;
+                            background: $white;
+                            cursor: pointer;
+                            top: -1rem;
+                            right: 1rem;
+                        }               
+                    }
+                   .change-profile{
+                    padding: 0.8rem 0;
+                    text-align: center;
+                    a{
+                        font-size: 1.2rem;
+                        font-weight: 700;
+                        color: $light-grey-2;
+                    }
+                   }
+                }
+                .enter-name{
+                    .pic-wrapper{
+                        @include breakpoint(sm-mobile){
+                            order: 2;
+                        }
+                    }
+                    .details-wrapper{
+                        @include breakpoint(sm-mobile){
+                            order: 1;
+                        }
+                    }
+                    .edit-details{
+                        display: flex;
+                        justify-content: flex-end;
+                        a{
+                            font-size: 1.2rem;
+                            font-weight: 700;
+                            color: $light-grey-2;
+                            text-decoration: underline;
+                        }
+                    }
+                }
+            }
+            .details{
+                padding-left: 4rem;
+                padding-top: 2.5rem;
+                position: relative;
+                &::before{
+                    content: "";
+                    width: calc(100% - 3rem);
+                    height: 0.2rem;
+                    background: rgba($black, 0.2);
+                    position: absolute;
+                    left: 4rem;
+                    top: 0;
+                    z-index: 1;
+                    @include breakpoint(mobile){
+                        width: 100%;
+                        left: 0;
+                    }
+                } 
+                h2{
+                    color: $inputbg;
+                    font-weight: 700;
+                    font-size: 1.7rem;
+                }
+                @include breakpoint(mobile){
+                    padding-left: 0;
+                }
+                .interests{
+                    padding: 2rem 0;
+                    border: none;
+                    position: relative; 
+                }
+                .contact-wraper{
+                    padding: 2.5rem 0;
+                    border: none;
+                    position: relative; 
+                    margin-bottom: 2.5rem;                  
+                }
+                .interests::after,.contact-wraper::after{
+                    content: "";
+                    width: calc(100% - 3rem);
+                    height: 0.2rem;
+                    background: rgba($black, 0.2);
+                    position: absolute;
+                    left: 2rem;
+                    bottom: 0;
+                    z-index: 1;
+                }
+                .medical{
+                    // margin-top: 2.5rem;
+                    h2{
+                        color: $inputbg;
+                        font-weight: 700;
+                        font-size: 1.7rem;
+                    }
+                    .medical-condition{
+                        margin-top: 2rem;
+                    }
+                    .addallergy{
+                        display: flex;
+                        // align-items: center;
+                    }
+                }
+            }
+        }
+        .inqurier{
+            margin-bottom: 8rem;
+            @include breakpoint(tabs){
+                margin-top: 6rem;
+                margin-bottom: 0rem;
+            }
+            .legend-card-white{
+                padding: 0;
+                .level{
+                    .nopath{
+                        max-width: 3rem;
+                    }
+                }
+                .inqurier-wraper{
+                    padding: 2rem 2rem 0;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    @include breakpoint(iPad){
+                      justify-content: center;
+                    }
+                    .inquirer-heading{
+                        padding: 0rem 1.5rem;
+                        display: flex;
+                        justify-content: center;
+                        // max-width: 13rem;
+                        // @include breakpoint(tabs){
+                        //     max-width: 10rem;
+                        // }
+                        h4{
+                            font-size: 2.2rem;
+                            display: flex;
+                            align-items: center;
+                            max-width: 15rem;
+                            .stamp-letter{
+                                font-size: 4.6rem;
+                                padding-top: 0.5rem;
+                            }
+                            .stamp-earned{
+                                font-size: 1.7rem;
+                                padding-left: 1rem;
+                                line-height: 2rem;
+                            }
+                        }
+                    }
+                    h3{
+                        display: flex;
+                        flex-direction: column;
+                        padding: 0rem 1.5rem;
+                        .points-num{
+                            font-size: 2rem;
+                        }
+                        .points-left{
+                            font-size: 1.3rem;
+                        }
+                    }
+                    .seperator{
+                        border-right: 0.2rem solid $dark-border;
+                        height: 5rem;
+                    }
+                    .level-heading-wraper{
+                      margin: 0 1rem;
+                      .level-heading{
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        font-size: 1.8rem;
+                        // .heading-static{
+  
+                        // }
+                        // .heading-dynamic{
+  
+                        // }
+                      }
+                    }
+                }
+                .btn-wrapper{
+                    app-button{
+                        transform: translate(0%, 50%);
+                    }
+                }
+                .inqurier-space{
+                    padding-top: 0;
+                    padding-bottom: 2rem;
+                }
+            }
+           
+            .i_image{
+                display: flex;
+                align-items: center;
+                .info-icon{
+                    cursor: pointer;
+                }
+            }
+            .globe-wraper {
+                padding: 2rem 2rem 0;
+                display: flex;
+                align-items: center;
+                // justify-content: center;
+                @include breakpoint (tabs){
+                  justify-content: center;
+                }
+                .inquirer-heading{
+                    margin-left: 3rem;
+                    max-width: 13rem;
+                    padding: 0rem 1.5rem;
+                    @include breakpoint(mobile){
+                        margin-left: 0;
+                    }
+                    h4{
+                        font-size: 2.2rem;
+                        display: flex;
+                        align-items: center;
+                        .stamp-letter{
+                            font-size: 4.6rem;
+                            padding-top: 1rem;
+                        }
+                        .stamp-earned{
+                            font-size: 1.7rem;
+                            padding-left: 1rem;
+                            line-height: 2rem;
+                        }
+                    }
+                }
+            }
+        }
+        label{
+            color: $inputbg;
+            font-weight: 700;
+            padding-left: 0.5rem;
+        }
+    }
+}
+
+
+
+// Pop-up//
+.inquery-details-header{
+    .header-image{
+        display: flex;
+        justify-content: center;
+    }
+}
+
+.class-details-body{
+    padding-top: 1.5rem;
+    border: none;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    h4{
+        font-size: 2.4rem;
+    }
+    p{
+        text-align: center;
+        font-size: 1.8rem;
+        font-weight: 700;
+    }
+}

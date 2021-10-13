@@ -1,0 +1,213 @@
+<div class="roster-list">
+  <!-- <div *ngIf="classList?.length > 0" class="roster-list"> -->
+  <div class="roster-header">
+    <div class="container dist_container">
+      <div class="roster-header-main">
+        <h3 class="school-count">
+          {{'school.class.class-list.you-have-label'|translate}} {{ classList.length }} {{'school.class.class-list.active-classes-label'|translate}}.
+        </h3>
+        <div class="roster-header-button">
+          <app-button classes="btn btn-primary icon-btn" [submit]="true" (click)="open(createClass)">
+            <fa-icon [icon]="PlusIcon"></fa-icon>
+            <span aria-hidden="true">{{'school.class.add-class.label'|translate}}</span>
+          </app-button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="roster-filter">
+    <div class="container dist_container">
+      <fa-icon [icon]="SearchIcon"></fa-icon>
+      <input id="table-filter" class="form-control transparentbg" type="text" placeholder="{{'table-search-filter-container.search'|translate}}" placeholder="Search"
+        name="term" [(ngModel)]="term" />
+
+      <div class="filter-droplist">
+        <app-drop-down class="transparentbg" (registerDropdownValueChange)="changeView($event)"
+          [dropDownButtonName]="ViewTitle" [dropDownIcon]="ViewIcon" [dropDownItemList]="ViewList"></app-drop-down>
+        <app-drop-down class="transparentbg" [dropDownButtonName]="classesListtitle" [dropDownIcon]=""
+          [dropDownItemList]="filterList" (registerDropdownValueChange)="classFilter($event)"></app-drop-down>
+        <app-drop-down class="transparentbg" [dropDownButtonName]="SortByGradeTitle" [dropDownIcon]="" 
+        (registerDropdownValueChange)="gradeFilter($event)" [dropDownItemList]="SortByGradeList"></app-drop-down>
+       </div>
+    </div>
+  </div>
+  <div *ngIf="gridview" class="dist-school-grid">
+    <ng-container *ngIf="isLoadUser && classList && classList.length>0; else noData">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 col-md-6 col-sm-6" *ngFor="let item of classList | filter: term">
+            <div class="schoolItem">
+              <div class="schoolItem__heading">
+                <h6 class="schoolItem__heading__name">{{ item.className}}</h6>
+                <a class="schoolItem__heading__dots" (click)="openAccessModal(accessCode)">
+                  <fa-icon [icon]="faDots"></fa-icon>
+                </a>
+              </div>
+              <!-- <div class="schoolItem__heading">
+                <h6 class="schoolItem__heading__name">{{'school.class.add-class.room-label'|translate}} {{ item.room}}</h6>
+              </div> -->
+              <div class="schoolItem__info-wrapper" (click)="editClass(item)">
+                <div class="schoolItem__info-wrapper__photo">
+                  <img src="{{ item.profilePic }}" alt="" class="img-fluid" />
+                </div>
+                <div class="schoolItem__info-wrapper__name-id">
+                  <h6 class="schoolItem__info-wrapper__name-id__name">{{ item.teacherName}}</h6>
+                  <p class="schoolItem__info-wrapper__name-id__id"> <label>{{'district.district-schools.id'|translate}}:</label><span>{{ item.displayCode }}</span><span *ngIf="hidden">{{ item.classId }}</span>
+                  </p>
+                </div>
+              </div>
+              <div class="schoolItem__school-info">
+                <h6>{{'school.class.add-class.grade-field'|translate}} - {{item.grade}}</h6>
+                <h6> {{'district.district-schools.students-title'|translate}} - {{item.students}}</h6>
+              </div>
+              <ul class="schoolItem__action">
+                <li>
+                  <a (click)="editClass(item,'Info')">{{'district.district-schools.info-title'|translate}}<fa-icon [icon]="rightArrow" class="ml-2"></fa-icon></a>
+                </li>
+                <li>
+                  <a (click)="editClass(item,'Students')">{{'district.district-schools.students-title'|translate}}<fa-icon [icon]="rightArrow" class="ml-2"></fa-icon></a>
+                </li>
+                <li>
+                  <a (click)="editClass(item,'Reports')">{{'district.district-schools.reports-title'|translate}}<fa-icon [icon]="rightArrow" class="ml-2"></fa-icon></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #noData>
+      <h5 style="margin-left: 120px;margin-top: 20px;">{{'school.teacher.teacher-list.records-label'|translate}}</h5>
+    </ng-template>
+  </div>
+  <div *ngIf="listview && isLoadUser">
+    <app-tables [term]="term" [dataSource]="classList" [tableHeaders]="classHeadersList" [page]="1" [pageSize]="10"
+      (rowClick)="editClass($event)"></app-tables>
+  </div>
+</div>
+<ng-template #createClass let-modal>
+  <button type="button" class="close" aria-label="Close" (click)="closeOpenModal()">
+    <img src="./assets/images/close.png" alt="" class="img-fluid" />
+  </button>
+  <div class="modal-body">
+    <div class="form-create-class district-modal">
+      <h2 class="modal-title">{{'school.class.add-class.create-class-label'|translate}}</h2>
+      <form [formGroup]="createClassForm">
+        <div class="row">
+          <div class="col-md-7">
+            <label>{{'school.class.add-class.class-teacher-label'|translate}} (*)</label>
+            <app-multi-select-dropdown [dropDownItemList]="teacherList" [selectedItems]="selectedTeacher"
+              [placeholderText]="'Select the class teacher'" [selectedValue]="selectedTeacherValue"
+              (onSelectValue)="onSelectTeacher($event)" (onDeSelectValue)="onDeSelectTeacher($event)"
+              (onSelectAllValue)="onSelectAllTeacher($event)" (onDeselectAllValue)="onDeselectAllTeacher($event)">
+            </app-multi-select-dropdown>
+
+          </div>
+          <div class="col-md-5">
+            <label>{{'school.class.add-class.grade-field'|translate}} (*)</label>
+            <app-drop-down class="formDropdown" [dropDownButtonName]="gradeTitle" [dropDownIcon]=""
+              (registerDropdownValueChange)="gradeChange($event)" fieldControl="grade" [dropDownItemList]="gradeList"
+              [ngClass]="{ 'is-invalid': formControl.grade.touched && formControl.grade.errors }">
+            </app-drop-down>
+            <div *ngIf="formControl.grade.errors" class="invalid-feedback">
+              <div class="error" *ngIf="formControl.grade.errors?.required">{{'school.class.add-class.grade-required'|translate}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <label>{{'school.class.add-class.class-field'|translate}} (*)</label>
+            <app-input-field classes="form-control" types="text" ids="title" fieldControl="title"
+              [form]="createClassForm" placeholders="{{'school.class.add-class.class-field-placeholder'|translate}}"
+              [ngClass]="{ 'is-invalid': formControl.title.touched && formControl.title.errors }">
+            </app-input-field>
+            <div *ngIf="formControl.title.errors" class="invalid-feedback">
+              <div class="error" *ngIf="formControl.title.errors?.required">{{'school.class.add-class.class-title-required'|translate}}</div>
+              <div class="error" *ngIf="formControl.title.errors?.classNameValidate">{{'school.class.add-class.class-exist'|translate}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <label>{{'school.class.add-class.standards-field'|translate}} (*)</label>
+            <app-multi-select-dropdown [dropDownItemList]="standardList" [selectedItems]="selectedStandard"
+              [placeholderText]="'Select learning standards'" fieldControl="standard" [selectedValue]="selectedValue"
+              (onSelectValue)="onSelectStandrd($event)" (onDeSelectValue)="onDeSelectStandard($event)"
+              (onSelectAllValue)="onSelectAllStandard($event)" (onDeselectAllValue)="onDeselectAllStandard($event)">
+            </app-multi-select-dropdown>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <label>{{'district.district-schools.students-title'|translate}}</label>
+            <app-multi-select-dropdown [dropDownItemList]="studentList" [selectedItems]="selectedStudent"
+              [placeholderText]="'Select the class student'" fieldControl="student"
+              [selectedValue]="selectedStudentValue" (onSelectValue)="onSelectStudent($event)"
+              (onDeSelectValue)="onDeSelectStudent($event)" (onSelectAllValue)="onSelectAllStudent($event)"
+              (onDeselectAllValue)="onDeselectAllStudent($event)">
+            </app-multi-select-dropdown>
+          </div>
+        </div>
+        <div class="footer-btns">
+          <app-button classes="btn btn-secondary mb-3 mr-3" [submit]="true" (click)="closeOpenModal()">
+            <span aria-hidden="true">{{'common.cancel'|translate}}</span>
+          </app-button>
+          <!-- <app-button classes="btn btn-primary mb-3 mr-3" [submit]="true">
+            <span aria-hidden="true">Add Students to Class</span>
+          </app-button> -->
+          <app-button classes="btn btn-primary mb-3" [submit]="true" [disabled]="createClassForm.invalid"
+            (click)="onSave()">
+            <span aria-hidden="true">{{'common.save'|translate}}</span>
+          </app-button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+<ng-template #accessCode let-modal>
+  <button type="button" class="close" aria-label="Close" (click)="closeOpenModal()">
+    <img src="./assets/images/close.png" alt="" class="img-fluid" />
+  </button>
+  <div class="modal-body">
+    <div class="form-create-class district-modal access-code-modal">
+      <div class="logo">
+        <img src="./assets/images/logo.png" class="img-fluid" />
+      </div>
+      <h2 class="modal-title">{{'school.class.add-class.access-code-label'|translate}} </h2>
+      <p>{{'school.class.add-class.access-code-desc'|translate}} </p>
+      <form [formGroup]="accessCodeForm">
+        <div class="row">
+          <div class="col-md-12">
+            <app-input-field classes="form-control" types="text" ids="accessCode" fieldControl="accessCode"
+              [form]="accessCodeForm" placeholders="{{'school.class.add-class.access-code-label'|translate}} ">
+            </app-input-field>
+          </div>
+        </div>
+        <div class="footer-btns">
+          <app-button classes="btn btn-primary mb-3" [submit]="true">
+            <span aria-hidden="true">{{'common.enter'|translate}}</span>
+          </app-button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #proceedMembershipClassModal let-modal>
+  <button type="button" class="close" aria-label="Close" (click)="closePopup()">
+    <img src="./assets/images/close.png" alt="" class="img-fluid" />
+  </button>
+  <div class="modal-header membership-header">
+    <div class="logo">
+      <img src="./assets/images/logo.png" class="img-fluid" />
+    </div>
+  </div>
+  <div class="modal-body journal-body">
+    <h6 class="Total">{{'school.class.add-class.exceeded-package-desc'|translate}}</h6>
+    <div class="close-btn-wrapper">
+      <app-button classes="btn btn-primary membership-close-btn" [submit]="true" (click)="onProceed()">
+        <span aria-hidden="true">{{'school.edit-membership.proceed-label'|translate}}</span>
+      </app-button>
+    </div>
+  </div>
+</ng-template>

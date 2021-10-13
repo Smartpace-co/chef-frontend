@@ -1,0 +1,41 @@
+<app-lessons-headerbar [lessonHederConfig]="lessonHederConfig"></app-lessons-headerbar>
+<div class="cleaning-body">
+  <app-scroll-down></app-scroll-down>
+  <div class="mr-4 cleaning-audio">
+    <span *ngIf="audioTrack">
+      <audio controls autoplay controlsList="nodownload">
+        <source [src]="audioTrack" type="audio/mp3">
+      </audio>
+    </span>
+  </div>
+  <div class="container">
+    <div class="final-editaion">
+      <div class="content-wrapper">
+        <ul class="card-wihtout-header-blue">
+          <div class="content-scroll">
+            <li *ngFor="let item of cleaningStepList">
+              <div>
+                <label [attr.for]="'checkbox' + item.id"></label>
+              </div>
+              <div class="card-wihtout-header-white cooking-preparation-wrapper">
+                <div class="description">
+                  <!-- *ngIf="item.image" -->
+                  <span class="image"><img src="{{item.image ? item.image : defaultLessonImage }}" alt=""
+                      class="img-fluid" /></span>
+                  <span class="description-info">
+                    <h6>{{item.text}}</h6>
+                  </span>
+                </div>
+              </div>
+            </li>
+          </div>
+        </ul>
+      </div>
+      <span class="final-editaion-img-wrapper">
+        <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
+      </span>
+    </div>
+  </div>
+</div>
+<app-lessons-footer [isVisiblePrevious]="isVisiblePrevious" (onNext)="onNext()" (onPrevious)="onPrevious()">
+</app-lessons-footer>

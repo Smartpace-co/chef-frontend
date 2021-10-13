@@ -1,0 +1,230 @@
+<div class="customize-assign-lesson">
+  <div class="container-fluid">
+    <div class="card-wihtout-header-blue">
+      <h3 class="mb-4">Assign Lesson</h3>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="lesson_info">
+            <div class="lesson_info__image">
+                <img src="../assets/images/assignment-image.jpg" alt="" class="img-fluid" />
+            </div>
+            <div class="lesson_info__content">
+                <div class="lesson_info__content__top">
+                    <h6>Classic Waffles</h6>
+                    <div class="rating-bookmark">
+                        <span class="rating">4.8 <fa-icon [icon]="Star"></fa-icon></span>
+                        <!-- <span class="bookmark" [class.active]="lessonInfo.bookmark"> -->
+                          <span class="bookmark">
+                            <span>
+                                <fa-icon [icon]="BookmarkIcon" class="addBookmark"></fa-icon>
+                                <!-- <ng-template [ngIf]="lessonInfo.bookmark"> -->
+                                <ng-template>
+                                    <fa-icon [icon]="BookmarkIcon"></fa-icon>
+                                </ng-template>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <ul>
+                    <li>
+                        <label>Duration:</label>
+                        <strong> 60 Min</strong>
+                    </li>
+                    <li>
+                        <label>Grades:</label>
+                        <strong> 4.5</strong>
+                    </li>
+                    <li>
+                        <label>Difficulty Level:</label>
+                        <strong>Medium</strong>
+                    </li>
+                </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <form [formGroup]="AssignLesson" class="assign-form">
+            <div class="row">
+              <!-- Date Picker -->                    
+              <div class="col-sm-6 calendar">
+                <label>Start Date</label>
+                <div class="input-group">
+                    <input #dpFromDate
+                            class="form-control" placeholder="yyyy-mm-dd"
+                            name="dpFromDate"
+                            formControlName="fromDate"
+                            disabled
+                            [value]="formatter.format(fromDate)">
+                    <div class="input-group-append">
+                        <button class="calendarIcon" type="button">
+                            <fa-icon [icon]="Calendar"></fa-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 calendar">
+                <label>End Date</label>
+                <div class="input-group">
+                    <input #dpToDate
+                            class="form-control" placeholder="yyyy-mm-dd"
+                            name="dpToDate"
+                            formControlName="toDate"
+                            disabled
+                            [value]="formatter.format(toDate)">
+                    <div class="input-group-append">
+                        <button class="calendarIcon" type="button">
+                            <fa-icon [icon]="Calendar"></fa-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-md-12">
+          <form [formGroup]="AssignLesson" class="assign-form">
+            <div class="row">
+              <div class="col-md-6">
+                <label>Assignment Title (*)</label>
+                <app-input-field classes="form-control" types="text" ids="title" fieldControl="title"
+                    [form]="AssignLesson" placeholders="Classic Waffles" value="">
+                </app-input-field>
+                <!-- <div *ngIf="formControl.title.errors" class="invalid-feedback">
+                    <div class="error" *ngIf="formControl.title.errors?.required">Class Title is required</div>
+                </div> -->
+            </div>
+
+            <div class="col-md-6">
+                <label>Assign to Class (*)</label>
+                <app-drop-down class="formDropdown" [dropDownButtonName]="classTitle" [dropDownIcon]=""
+                    fieldControl="class" [dropDownItemList]="classList" (registerDropdownValueChange)="classChange($event)">
+                </app-drop-down>
+                <!-- <div *ngIf="formControl.class.errors" class="invalid-feedback">
+                    <div class="error" *ngIf="formControl.class.errors?.required">Assign to Class is required</div>
+                </div> -->
+                <div class="verified-text ml-2">
+                  <span class="info-circle">
+                    <fa-icon [icon]="check" class="mr-3"></fa-icon>Verified
+                  </span>
+                </div>
+            </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <h2 class="mb-4 mt-5">Customize the lesson</h2>
+      <p class="lessons-instruction">Use the options below to customize this lesson and then assign it to your students. The total lesson time will vary depending on the activities that are enabled.
+        Customize the lesson on your own or choose from our recommendations. If you choose to select one of our recommendations, you will be able to make your own edits as well. </p>
+      <div class="row lesson-settings-wrapper">
+        <div class="col-md-10 col-12 table-lesson-settings">
+          <div class="row">
+            <div class="col-1 table-heading"></div>
+            <div class="col-3 table-heading activity-type-heading">ACTIVITY TYPE</div>
+            <div class="col-4 table-heading">ESTIMATED TIME</div>
+            <div class="col-4 table-heading">ENABLE or DISABLE</div>
+          </div>
+          <div class="row" *ngFor="let item of settingsList">
+            <div data-toggle="collapse" [attr.data-target]="'#collape' + item.Id" class="col-12 accordion-toggle visible-row settings collapsed mt-2">
+              <div class="row">
+                <div class="col-1">
+                  <div class="activity-icon-wrapper">
+                    <img src="{{ item.activityTypeIcon }}" alt="" class="img-fluid" />
+                  </div>
+                </div>
+                <div class="col-3 activity-type">{{item.activityType}} 
+                  <span class="down-arrow-icon" *ngIf="item.subList.length > 0">
+                    <fa-icon [icon]="DownArrow" class="ml-2"></fa-icon>
+                  </span>
+                  <span class="up-arrow-icon" *ngIf="item.subList.length > 0">
+                    <fa-icon [icon]="UpArrow" class="ml-2"></fa-icon>
+                  </span>
+                </div>
+                <div class="col-4">{{item.estimatedTime}}</div>
+                <div class="col-4">
+                  <label class="switch mb-0" *ngIf="item.switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 accordian-body collapse hiddenRow hidden-row settings" id="{{'collape' + item.Id}}" *ngIf="item.subList.length > 0">
+                <div class="row" *ngIf="item.instructions">
+                  <div class="col-1"></div>
+                  <div class="col-md-8 col-12 activity-instructions pt-2 pb-4">
+                      {{item.instructions}}
+                  </div>
+                </div>
+                <div class="row" *ngFor="let subitem of item.subList">
+                  <div class="col-12">
+                    <div class="row">
+                      <div class="col-1"></div>
+                      <div class="col-3 sub-activity-type">{{subitem.activityType}}</div>
+                      <div class="col-4" *ngIf="subitem.estimatedTime">{{subitem.estimatedTime}}</div>
+                      <div class="col-4" *ngIf="subitem.questions">
+                        <div class="questions">
+                        {{subitem.questions}}
+                          <a class="instructions-icon">
+                            <fa-icon [icon]="EditIcon" class="ml-2"></fa-icon>
+                          </a>
+                        </div>
+                        <div class="progress mb-4 mt-3">
+                              <div class="progress-bar" role="progressbar" style="width: 45%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                            <span class="sr-only">70% Complete</span>
+                          </div>
+                        </div>
+
+                      </div>
+                      <div class="col-4">
+                        <label class="switch mb-0">
+                          <input type="checkbox">
+                          <span class="slider round"></span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-10 col-12 estimated-lesson-time-wrapper mb-5">
+          <div class="estimated-lesson-time">
+              <fa-icon [icon]="ClockIcon" class="mr-2"></fa-icon>
+              <span class="label">Estimated lesson time</span>
+              <span class="time"><strong>60</strong>min</span>
+          </div>
+        </div>
+      </div>
+      <div class="row action-wrapper">
+        <div class="col-md-10">
+          <div class="row">
+            <div class="col-md-1 col-2 bookmark-wrapper">
+              <span class="bookmark">
+                    <fa-icon [icon]="BookmarkIcon" class="addBookmark"></fa-icon>
+              </span>
+            </div>
+            <div class="col-md-3 col-8 save-input">
+              <label>Save these customization settings?</label>
+              <app-input-field classes="form-control" types="text" placeholders="Name of Setting" value="">
+              </app-input-field>
+            </div>
+            <div class="col-md-8 buttons-wrapper">
+              <app-button classes="btn  btn-primary mt-3 mr-3" [submit]="true" >
+                <span aria-hidden="true">Cancel</span>
+              </app-button>
+              <app-button classes="btn  btn-secondary mt-3 mr-3" [submit]="true" >
+                <span aria-hidden="true">Preview</span>
+              </app-button>
+              <app-button classes="btn  btn-secondary mt-3" [submit]="true" >
+                <span aria-hidden="true">Assign Lesson</span>
+              </app-button>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

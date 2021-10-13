@@ -1,0 +1,125 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+.admin-content-report{
+  .report-heading-wrapper{
+    margin-top: 2.5rem;
+    .container{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      h4{
+        @include breakpoint(mobile){
+          margin-bottom: 1rem;
+        }
+      }
+    }
+  }
+  .btn-wrapper{
+    .print-icon{
+      width: 2.5rem;
+      display: inline-block;
+    }
+  }
+  .admin-content-details{
+    margin-top: 2.5rem;
+    .roster-filter{
+      padding: 1rem 0;
+      .filters-list{
+        display: flex;
+        .filters-item{
+          margin: 0rem 2rem;
+          .filter{
+            font-size: 1.8rem;
+            font-weight: 700;
+            padding: 0.5rem 0rem;
+            position: relative;
+            color: $light-blue-shade;
+            &.active{
+              color: $white;
+              &:after{
+                content: "";
+                width: calc(100% + 3rem);
+                height: 0.2rem;
+                background: $white;
+                position: absolute;
+                left: -1.5rem;
+                bottom: 0;
+                z-index: 1;
+              }
+            }
+          }
+        }
+      }
+      .report-help{
+        margin-left: 3rem;
+        @include breakpoint(mobile){
+          margin-left: 1rem;
+        }
+        .help{
+          color: $ring-yellow;
+          font-size:1.4rem;
+          font-weight: 700;
+          text-decoration: underline;
+        }
+      }
+    }
+    .report-data{
+      // justify-content: space-between;
+      // display: flex;
+      // flex-wrap: wrap;
+        .report-in-number{
+          padding: 2rem;
+          display: flex;
+          min-width: 27rem;
+          justify-content: space-between;
+          margin-top: 2.5rem;
+          align-items: center;
+          .data{
+            h2{
+              margin-top: 1.5rem;
+            }
+            h6{
+              margin-top: 0.5rem;
+              margin-bottom: 1.5rem;
+              font-size: 1.4rem;
+            }
+          }
+          .icon{
+            width: 4.8rem;
+            height: 4.8rem;
+            background-color: $secondary;
+            color: black;
+            border-radius: 50%;
+            text-align: center;
+            display: flex;
+            font-size: 1.7rem;
+            fa-icon{
+              margin: auto;     
+              padding-top: 0.4rem;
+            }
+          }
+        }
+    }
+    .list-view{
+      margin-top: 2.5rem;
+    }
+  }
+}
+
+// Pop-up //
+
+.modal-body{
+  .access-label{
+    margin-bottom: 1rem;
+  }
+  .roles-access{
+    background-color: $inputbg;
+    border-radius: 5rem;
+    padding: 3rem 3rem 1rem;
+    margin-bottom: 1.2rem;
+    .custom-control-label{
+      padding-left: 1.5rem;
+    }
+  }
+}

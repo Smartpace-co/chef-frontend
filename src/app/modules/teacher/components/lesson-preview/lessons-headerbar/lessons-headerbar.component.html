@@ -1,0 +1,278 @@
+<header class="lessons-header">
+  
+    <div class="container">
+      <!-- <div class="instruction-bar-wraper">
+        <div class="container-fluid">
+          <div class="row instruction-bar">
+            <div class="col-lg-1">
+              <app-button classes="btn btn-secondary icon-btn btn-back" routerLink="/teacher/current-assignments">
+                <span aria-hidden="true">
+                  <fa-icon [icon]="leftArrow"></fa-icon>Back
+                </span>
+              </app-button>
+            </div>
+            <div class="col-lg-11 tabs-container">
+              <ul class="nav nav-tabs">
+                <li class="nav-item">
+                  <a class="nav-link" routerLinkActive="active"><fa-icon [icon]="eye"></fa-icon>Assignment Preview</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" routerLinkActive="active"><fa-icon [icon]="stickyNote"></fa-icon>Teacher’s Instructions</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" routerLinkActive="active"><fa-icon [icon]="cart"></fa-icon>Order Ingredients</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" routerLinkActive="active"><fa-icon [icon]="info"></fa-icon>Lesson Info</a>
+                </li>
+              </ul>
+              <div class="instruction-text-wraper">
+                <span class="text">You are previewing this assignment as a Teacher.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+
+
+      <div class="top-nav">
+        <ng-container *ngIf="isButtonSection; else isProfile">
+          
+          <span *ngIf="showBackBtn" class="back-btn-wrapper">
+            <app-button classes="btn small-btn btn-secondary mr-4 icon-btn btn-back" [submit]="true">
+              <span aria-hidden="true">
+                <fa-icon [icon]="LeftArrow"></fa-icon> {{'common.back'| translate}}
+              </span>
+            </app-button>
+           </span>
+          <div *ngIf="isButtonSection?.isStepBoard" class="step-board-wrapper">
+            <span class="step-board">
+              <img src="./assets/images/overview.png" alt="" class="img-fluid" />
+              <div class=step-description>
+                <span class="step-img"><img src="{{ isButtonSection?.isStepBoard?.stepLogo }}" alt=""
+                    class="img-fluid" /></span>
+                <p class="step">{{ isButtonSection?.isStepBoard?.stepNumber }}</p>
+                <span class="seperator"> - </span>
+                <h6 class="step-heading">{{isButtonSection?.isStepBoard?.stepTitle}}</h6>
+              </div>
+            </span>
+            <!-- <span class="footprint" routerLink="/student/summary-view">
+              <a>
+                <img src="./assets/images/overview-icon.png" alt="" class="img-fluid" />
+              </a>
+            </span> -->
+          </div>
+          <span *ngIf="!isButtonSection?.isStepBoard" class="middle-heading-wrapper">
+            <h4 class="btn btn-primary sci-heading"><span class="icon"><img src="./assets/images/bulb.png" alt=""
+                  class="img-fluid" /></span>{{ isButtonSection?.title }}</h4>
+          </span>
+        </ng-container>
+        <ng-template #isProfile>
+          <span class="profile-pic-wrapper">
+            <span class="profile-pic">
+              <img [src]="reciepe_icon" alt="" class="img-fluid" />
+            </span>
+            <legend>{{assignmentTitle}}</legend>
+            <span class="footprint" routerLink="/student/summary-view">
+              <a>
+                <img src="./assets/images/overview-icon.png" alt="" class="img-fluid" />
+              </a>
+            </span>
+          </span>
+        </ng-template>
+        <ng-container *ngIf="lessonHederConfig; else noStepBoard">
+          <ng-container *ngIf="lessonHederConfig?.stepBoard; else stepData">
+            <div class="step-board-wrapper">
+              <span class="step-board">
+                <img src="./assets/images/overview.png" alt="" class="img-fluid" />
+                <div class=step-description>
+                  <span class="step-img"><img src="{{ lessonHederConfig?.stepBoard?.stepLogo }}" alt=""
+                      class="img-fluid" /></span>
+                  <p class="step">{{ lessonHederConfig?.stepBoard?.stepNumber }}</p>
+                  <span class="seperator"> - </span>
+                  <h6 class="step-heading">{{lessonHederConfig?.stepBoard?.stepTitle}}</h6>
+                </div>
+              </span>
+              <!-- <span class="footprint" routerLink="/student/summary-view">
+                <a>
+                  <img src="./assets/images/overview-icon.png" alt="" class="img-fluid" />
+                </a>
+              </span> -->
+            </div>
+          </ng-container>
+          <ng-template #stepData>
+            <div class="step-board-wrapper">
+              <span class="step-board">
+                <img src="./assets/images/overview.png" alt="" class="img-fluid" />
+                <div class=step-description>
+                  <span class="step-img"><img src="./assets/images/bulb.png" alt="" class="img-fluid" /></span>
+                  <h6 class="step">{{'student.assigned-lessons.lesson-steps.summary-view.step-number-label'| translate
+                    :{number: 1} }}</h6>
+                  <span class="seperator"> - </span>
+                  <h6 class="step-heading">{{'student.assigned-lessons.lesson-steps.summary-view.story'| translate }}</h6>
+                </div>
+              </span>
+              <!-- <span class="footprint" routerLink="/student/summary-view">
+                <a>
+                  <img src="./assets/images/overview-icon.png" alt="" class="img-fluid" />
+                </a>
+              </span> -->
+            </div>
+          </ng-template>
+        </ng-container>
+        <ng-template #noStepBoard>
+          <!-- for empty header-->
+        </ng-template>
+        <ul class="nav-menu">
+          <!-- <li>
+            <a class="icon-bg" routerLink="/student/student-landing">
+              <img src="./assets/images/web-house.png" alt="" class="img-fluid" />
+            </a>
+          </li> -->
+          <!-- <li>
+            <a class="icon-bg">
+              <img src="./assets/images/bell-icon.png" alt="" class="img-fluid" />
+            </a>
+          </li> -->
+          <!-- <li (click)="getJournal(requestModal2)">
+            <a class="icon-bg">
+              <img src="./assets/images/book-icon.png" alt="" class="img-fluid" />
+            </a>
+          </li> -->
+          <!-- <li #printBox class="print">
+            <a class="icon-bg" (click)="collapse.toggle()">
+              <img src="./assets/images/print-icon.png" alt="" class="img-fluid" />
+            </a>
+            <div class="menus-wrapper card-wihtout-header-white" #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+              <div class="menus">
+                <div class="menus-body">
+                  <ul>
+                    <li>
+                      <a>
+                        <h6>Print Page</h6>
+                      </a>
+                    </li>
+                    <li>
+                      <a>
+                        <h6>Print Assessment</h6>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </li> -->
+          <li>
+            <a class="icon-close" (click)="onClose(viewFrom)">
+              <img src="./assets/images/close.png" alt="" class="img-fluid" />
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </header>
+  
+  <ng-template #requestModal let-modal>
+    <div class="popup-wraper">
+      <div class="inquery-details-header">
+        <div class="header-wraper">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <legend>{{'student.journal.journal-label'| translate }}</legend>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+        <button type="button" class="close" aria-label="Close" (click)="closeJournalEditorModal()">
+          <!-- <span aria-hidden="true">&times;</span> -->
+          <img src="./assets/images/close.png" alt="" class="img-fluid" />
+        </button>
+      </div>
+      <!-- <div class="class-details-body custom-editor">
+        <div class="form">
+          <ckeditor [editor]="Editor" [config]="editorConfig" [ngModelOptions]="{standalone: true}"
+            [(ngModel)]="editorsData"></ckeditor> -->
+          <!-- <form>
+                <textarea class="form-control-white action-textarea" rows="10">| Add a note to your journal here
+                  
+                </textarea>
+                <div class="text-controls">
+                  <a href=""><span>B</span></a>
+                  <a href=""><span>I</span></a>
+                  <a href=""><span class="text-underline">U</span></a>
+                  <a href=""><span>&#9776;</span></a>
+                </div>
+              </form> -->
+        <!-- </div>
+      </div> -->
+      <div class="submit-btn-wrapper">
+        <app-button classes="btn btn-secondary" [submit]="true" (click)="saveData()">
+          <span aria-hidden="true">{{'common.save'| translate}}</span>
+        </app-button>
+      </div>
+    </div>
+  </ng-template>
+  
+  <ng-template #requestModal2 let-modal>
+    <div class="popup-wraper-details">
+      <div class="inquery-details-header">
+        <div class="header-wraper">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <legend>{{'student.journal.journal-label'| translate }}</legend>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <!-- <span aria-hidden="true">&times;</span> -->
+          <img src="./assets/images/close.png" alt="" class="img-fluid" />
+        </button>
+      </div>
+      <div class="class-details-body">
+        <div class="form">
+          <form>
+            <div class="search-section">
+              <div class="search-icon">
+                <fa-icon class="ml-3" [icon]="SearchIcon"></fa-icon>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control" placeholder="Search" ids="dob" name="dp" fieldControl="dob"
+                    (change)="onChange()" (dateSelect)="onDateSelection()" [ngModelOptions]="{standalone: true}"
+                    [(ngModel)]="selectedSearchValue" ngbDatepicker #d="ngbDatepicker">
+                  <div class="input-group-append">
+                    <button class="calendarIcon" (click)="d.toggle()" type="button">
+                      <fa-icon [icon]="Calendar"></fa-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="text-controls">
+              <div class="action-textarea">
+                <ul class="action-details" *ngFor="let item of allJournalList">
+                  <li>
+                    <div class="add-date pb-1">{{item.dateField}}</div>
+                    <div class="add-text">{{item.note}}</div>
+                  </li>
+                </ul>
+                <!-- <p class="add-text">| Add a note to your journal here</p> -->
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="submit-btn-wrapper">
+        <app-button classes="btn btn-secondary" [submit]="true" (click)="openJournalEditor(requestModal)">
+          <span aria-hidden="true">{{'student.journal.add-a-note'| translate }}</span>
+        </app-button>
+      </div>
+    </div>
+  </ng-template>

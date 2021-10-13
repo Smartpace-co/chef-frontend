@@ -1,0 +1,248 @@
+<div class="user-profile">
+  <div class="container">
+    <div class="user-profile-wrapper legend-card">
+      <legend>{{'district.district-profile.your-profile-title'|translate}}</legend>
+      <ul class="user-details">
+        <li>
+          <div class="profile-heading">
+            <span class="profile-image">
+              <img src="{{ userDetails?.img }}" alt="" class="img-fluid" />
+            </span>
+          </div>
+          <div class="profile-sub-info">
+            <h3 class="mb-0">{{ userDetails?.firstname}} {{userDetails?.lastname}}</h3>
+            <p class="pb-4 pt-0">{{ userDetails?.school }}</p>
+            <label for="file-upload" class="edit-profile">
+              <img src="./assets/images/profile-edit.svg" alt="" class="img-fluid" /> {{'district.district-profile.edit-profile-pic'|translate}}
+            </label>
+            <input id="file-upload" type="file" (change)="editProfileImage($event)" style="display: none;" />
+          </div>
+        </li>
+        <li>
+          <div class="profile-heading">
+            <h6>{{'district.district-profile.agent-component.email-field.label'|translate}}</h6>
+          </div>
+          <div class="profile-sub-info">
+            <h6>{{userDetails?.email}}</h6>
+          </div>
+        </li>
+        <li *ngIf="schoolid">
+          <div class="profile-heading">
+            <h6>{{'school.user-profile.school-title'|translate}}</h6>
+          </div>
+          <div class="profile-sub-info">
+            <h6>{{userDetails?.school}}</h6>
+          </div>
+        </li>
+        <li *ngIf="schoolid">
+          <div class="profile-heading">
+            <h6>{{'school.school-profile.school-address-label'|translate}}</h6>
+          </div>
+          <div class="profile-sub-info">
+            <h6>{{userDetails?.address}}</h6>
+          </div>
+        </li>
+        <li>
+          <div class="profile-heading">
+            <h6>{{'district.district-profile.agent-component.gender-field.label'|translate}}</h6>
+          </div>
+          <div class="profile-sub-info">
+            <h6>{{userDetails?.gender}}</h6>
+          </div>
+        </li>
+        <li>
+          <div class="profile-heading">
+            <h6>{{'district.district-profile.agent-component.phone-field.label'|translate}}</h6>
+          </div>
+          <div class="profile-sub-info">
+            <h6>{{userDetails?.phone}}</h6>
+          </div>
+        </li>
+      </ul>
+      <div class="change-password-btn-wrapper">
+        <app-button classes="btn btn-secondary" (click)="open(changePassword)">
+          <span aria-hidden="true">{{'change-password-component.change-password-title'|translate}}</span>
+        </app-button>
+      </div>
+    </div>
+    <div class="edit-btn-wrapper">
+      <app-button classes="btn btn-primary icon-btn" (click)="editProfileDetails(editProfile)">
+        <span aria-hidden="true">
+          <fa-icon [icon]="faEdit"></fa-icon>{{'district.district-profile.edit-profile-title'|translate}}
+        </span>
+      </app-button>
+    </div>
+  </div>
+</div>
+<ng-template #editProfile let-modal id="editProfile">
+  <button type="button" class="close" aria-label="Close" (click)="closeEditModal()">
+    <img src="./assets/images/close.png" alt="" class="img-fluid" />
+  </button>
+  <div class="modal-body">
+    <div class="form-create-class">
+      <h2 class="modal-title">{{'school.user-profile.update-profile-label'|translate}}</h2>
+      <form [formGroup]="editProfileForm">
+        <div class="row">
+          <div class="col-md-6">
+            <label>{{'school.teacher.add-teacher.first-name.first-name-field'|translate}}</label>
+            <app-input-field classes="form-control" placeholders="Enter first name" ids="firstname"
+              fieldControl="firstname" [form]="editProfileForm"
+              [ngClass]="{ 'is-invalid': formControl.firstname.touched && formControl.firstname.errors }">
+            </app-input-field>
+            <div *ngIf="formControl.firstname.errors" class="invalid-feedback">
+              <div class="error" *ngIf="formControl.firstname.errors?.required">{{'school.teacher.add-teacher.first-name.required'|translate}}
+              </div>
+              <div class="error" *ngIf="formControl.firstname.errors?.pattern">{{'school.teacher.add-teacher.first-name.valid'|translate}}</div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label>{{'school.teacher.add-teacher.last-name.last-name-field'|translate}}</label>
+            <app-input-field classes="form-control" placeholders="Enter last name" ids="lastname"
+              fieldControl="lastname" [form]="editProfileForm"
+              [ngClass]="{ 'is-invalid': formControl.lastname.touched && formControl.lastname.errors }">
+            </app-input-field>
+            <div *ngIf="formControl.lastname.errors" class="invalid-feedback">
+              <div class="error" *ngIf="formControl.lastname.errors?.required">{{'school.teacher.add-teacher.last-name.required'|translate}}
+              </div>
+              <div class="error" *ngIf="formControl.lastname.errors?.pattern">{{'school.teacher.add-teacher.last-name.valid'|translate}}</div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <label>{{'district.district-profile.agent-component.email-field.label'|translate}}</label>
+            <app-input-field classes="form-control" placeholders="Enter email address" ids="emailAddress"
+              fieldControl="emailAddress" [form]="editProfileForm"
+              [ngClass]="{ 'is-invalid': formControl.emailAddress.touched && formControl.emailAddress.errors }">
+            </app-input-field>
+            <div *ngIf="formControl.emailAddress.errors" class="invalid-feedback">
+              <div class="error" *ngIf="formControl.emailAddress.errors?.required">{{'district.district-profile.agent-component.email-field.required'|translate}}
+              </div>
+              <div class="error" *ngIf="formControl.emailAddress.errors?.pattern">{{'district.district-profile.agent-component.email-field.valid'|translate}}</div>
+            </div>
+          </div>
+          <div *ngIf="schoolid" class="col-md-12">
+            <label>{{'school.user-profile.school-title'|translate}} (Optional)</label>
+            <app-input-field classes="form-control" types="text" ids="schoolName" fieldControl="schoolName"
+              [form]="editProfileForm" placeholders="Enter School">
+            </app-input-field>
+          </div>
+          <div *ngIf="schoolid" class="col-md-12">
+            <label>{{'school.user-profile.address-title'|translate}} (Optional)</label>
+            <app-input-field classes="form-control" types="textarea" ids="address" fieldControl="address"
+              [form]="editProfileForm" placeholders="Enter School Address">
+            </app-input-field>
+            <!-- <div class="lable-wrapper">
+                <label>Address</label>
+              </div>
+              <textarea class="form-control" placeholder="Enter School Address" ids="address" fieldControl="address"
+              [(ngModel)]="address" [ngModelOptions]="{standalone: true}" > </textarea> -->
+
+          </div>
+          <div class="col-md-12">
+            <label>{{'district.district-profile.agent-component.phone-field.label'|translate}}</label>
+            <app-input-field classes="form-control" placeholders="Enter phone number" ids="contact"
+              fieldControl="contact" [form]="editProfileForm"
+              [ngClass]="{ 'is-invalid': formControl.contact.touched && formControl.contact.errors }">
+            </app-input-field>
+            <div *ngIf="formControl.contact.errors" class="invalid-feedback">
+              <div class="error" *ngIf="formControl.contact.errors?.required">{{'district.district-profile.agent-component.phone-field.required'|translate}}</div>
+              <div class="error" *ngIf="formControl.contact.errors?.pattern">{{'district.district-profile.agent-component.phone-field.pattern'|translate}}</div>
+              <div class="error" *ngIf="formControl.contact.errors?.minlength">{{'district.district-profile.agent-component.phone-field.minlength'|translate}}</div>
+              <div class="error" *ngIf="formControl.contact.errors?.contactValidate">
+                <div class="error">{{'district.district-profile.agent-component.phone-field.validate'|translate}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 mb-4">
+            <label>{{'district.district-profile.agent-component.gender-field.label'|translate}} (Optional)</label>
+            <div class="custom-control custom-radio">
+              <app-radio [form]="editProfileForm" fieldControl="gender" classes="custom-control-input" types="radio"
+                names="gender" values="Male"></app-radio>
+              <label class="custom-control-label" for="Male">{{'district.district-profile.agent-component.gender-field.male-label'|translate}}</label>
+            </div>
+            <div class="custom-control custom-radio">
+              <app-radio [form]="editProfileForm" fieldControl="gender" classes="custom-control-input" types="radio"
+                names="gender" values="Female"></app-radio>
+              <label class="custom-control-label" for="Female">{{'district.district-profile.agent-component.gender-field.female-label'|translate}}</label>
+            </div>
+          </div>
+        </div>
+        <div class="footer-btns">
+          <app-button classes="btn btn-secondary mb-3 mr-3" [submit]="true" (click)="closeEditModal()">
+            <span aria-hidden="true">{{'common.cancel'|translate}}</span>
+          </app-button>
+          <app-button classes="btn btn-primary mb-3" [submit]="true" [disabled]="editProfileForm.invalid" (click)="onUpdateProfile()">
+            <span aria-hidden="true" >{{'common.update'|translate}}</span>
+          </app-button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+<!-- Confirmation popup -->
+<ng-template #changePassword let-modal id="changePassword">
+  <button type="button" class="close" aria-label="Close" (click)="closeOpenModal()">
+    <img src="./assets/images/close.png" alt="" class="img-fluid" />
+  </button>
+  <div class="modal-body">
+    <div class="change-password-class">
+      <h2 class="modal-title">{{'common.update'|translate}}</h2>
+      <h4>{{'common.change-password-component.change-password-title'|translate}}</h4>
+      <div class="d-flex justify-content-between">
+        <app-button classes="btn btn-secondary mr-4" [submit]="true" (click)="closeOpenModal()">
+          <span aria-hidden="true">{{'common.cancel'|translate}}</span>
+        </app-button>
+        <app-button classes="btn btn-primary btn-block" [submit]="true" (click)="openChangePassModal(password)">
+          <span aria-hidden="true">{{'common.submit'|translate}}</span>
+        </app-button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Change password popup -->
+<ng-template #password let-modal id="password">
+  <button type="button" class="close" aria-label="Close" (click)="closeChangePassModal()">
+    <img src="./assets/images/close.png" alt="" class="img-fluid" />
+  </button>
+  <div class="modal-body">
+    <div class="form-create-class">
+      <h2 class="modal-title">
+        {{'common.update'|translate}}
+      </h2>
+      <form [formGroup]="passwordForm">
+        <app-input-field classes="form-control mb-4" placeholders="Type Current Password" ids="current_password"
+          types="password" fieldControl="current_password" [form]="passwordForm"
+          [ngClass]="{ 'is-invalid': formControls.current_password.touched && formControls.current_password.errors }">
+        </app-input-field>
+        <div *ngIf="formControls.current_password.errors" class="invalid-feedback">
+          <div class="error" *ngIf="formControls.current_password.errors?.required"> {{'common.change-password-component.current-pass-field.current-pass-required'|translate}}</div>
+        </div>
+        <app-input-field classes="form-control mb-4" placeholders="Type New Password" ids="new_password"
+          types="password" fieldControl="new_password" [form]="passwordForm"
+          [ngClass]="{ 'is-invalid': formControls.new_password.touched && formControls.new_password.errors }">
+        </app-input-field>
+        <div *ngIf="formControls.new_password.errors" class="invalid-feedback">
+          <div class="error" *ngIf="formControls.new_password.errors?.required"> {{'common.change-password-component.current-pass-field.new-pass-field.new-pass-required'|translate}}</div>
+        </div>
+        <app-input-field classes="form-control mb-4" placeholders="Confirm Password" ids="confirm_password"
+          types="password" fieldControl="confirm_password" [form]="passwordForm"
+          [ngClass]="{ 'is-invalid': formControls.confirm_password.touched && formControls.confirm_password.errors }">
+        </app-input-field>
+        <div *ngIf="formControls.confirm_password.errors" class="invalid-feedback">
+          <div class="error" *ngIf="formControls.confirm_password.errors?.required">{{'common.change-password-component.confirm-pass-field.confirm-pass-required'|translate}}</div>
+          <div class="error" *ngIf="formControls.confirm_password.errors?.confirmPasswordValidator">{{'common.change-password-component.confirm-pass-field.confirm-pass-match'|translate}}
+          </div>
+        </div>
+      </form>
+      <div class="d-flex justify-content-between">
+        <app-button classes="btn btn-secondary mr-4" [submit]="true" (click)="closeChangePassModal()">
+          <span aria-hidden="true">{{'common.cancel'|translate}}</span>
+        </app-button>
+        <app-button classes="btn btn-primary btn-block" [submit]="true" [disabled]="passwordForm.invalid"
+          (click)="onUpdatePassword()">
+          <span aria-hidden="true">{{'common.submit'|translate}}</span>
+        </app-button>
+      </div>
+    </div>
+  </div>
+</ng-template>

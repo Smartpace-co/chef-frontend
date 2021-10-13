@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="row">
+       <div class="col-md-6 mx-auto mt-5">
+          <div class="payment">
+             <div class="payment_header">
+                <div class="check">
+                    <fa-icon [icon]="CrossIcon"></fa-icon>
+                </div>
+             </div>
+             <div class="content">
+                <h1>Payment Failed !</h1>
+                <p style="color: #dc3545;font-weight: bold;">Your payment has been failed.</p>
+                <app-button classes="btn btn-success mb-5" (click)="goToLogin()">
+                    <span aria-hidden="true">Continue to Login</span>
+                  </app-button>             
+                </div>
+             
+          </div>
+       </div>
+    </div>
+ </div>

@@ -1,0 +1,211 @@
+<div class="teacher-homepage">
+  <div class="container">
+    <div class="homepage-header">
+      <app-button classes="btn btn-transparent icon-btn">
+        <span aria-hidden="true">
+          <fa-icon [icon]="leftArrow"></fa-icon>Back
+        </span>
+      </app-button>
+      <div class="heading-wraper">
+        <h4 class="heading">Weekly Student Performance</h4>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="statistics-class-wraper">
+      <div class="heading-wraper">
+        <h4 class="heading">Quick Class Statistics</h4>
+      </div>
+      <div class="container">
+        <div class="class-data-wraper">
+          <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-6" *ngFor=" let item of classData">
+              <div class="class-data">
+                <div class="statistics-details">
+                  <h6 class="details">{{item.details}} </h6>
+                </div>
+                <div class="practice-details">
+                  <h4 class="practice" *ngIf="item.practiceText">{{item.practice}}</h4>
+                  <img src="./assets/images/add-circle.png" *ngIf="item.practiceimage" alt="">
+                </div>
+                <div class="learn-more"><a>Learn more <fa-icon [icon]="rightArrow"></fa-icon></a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="student-activity-wraper">
+      <div class="heading-wraper">
+        <h4 class="heading">Student Progress and Activity</h4>
+      </div>
+      <div class="slider-wrapper">
+        <ngx-slick-carousel class="plans" #slickModal="slick-carousel" [config]="slideConfig">
+          <div ngxSlickItem *ngFor="let item of progressActivity" class="option">
+            <div class="student-progress-activity">
+              <div class="row">
+                <div class="col-12">
+                  <div class="progress-activity-wraper">
+                    <div class="progress-heading">
+                      <h4 class="heading">{{item.heading}}</h4>
+                    </div>
+                    <div class="status">
+                      <span class="status-text">{{item.status}}</span>
+                    </div>
+                    <div class="date-wraper">
+                      <span class="date">Due On {{item.date}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ngx-slick-carousel>
+        <div class="next-btn-wrapper">
+          <fa-icon [icon]="rightArrow"></fa-icon>
+        </div>
+        <div class="prev-btn-wrapper">
+          <fa-icon [icon]="leftArrow"></fa-icon>
+        </div>
+      </div>
+      <div class="soryBy-btn">
+        <app-drop-down class="sortDropdown" [dropDownButtonName]="sortByTitle" [dropDownIcon]=""
+          [dropDownItemList]="sortByList">
+        </app-drop-down>
+      </div>
+    </div>
+  </div>
+  <div class="student-performance-wraper">
+    <div class="container">
+      <div class="card">
+        <div class="row student-performance">
+          <div class="col-12 table-lesson-settings">
+            <div class="row lesson-heading-wraper">
+              <div class="col-4 table-heading">Students </div>
+              <div class="col-4 table-heading" *ngIf="completionRate">Completion Rate</div>
+              <div class="col-4 table-heading performance-wraper">
+                <a>Performance <fa-icon [icon]="DownArrow"></fa-icon></a>
+                <span class="performance">Based on Questions Answered</span>
+              </div>
+              <div class="col-4 table-heading score-wraper" *ngIf="scoreComparison">
+                <a>Score Comparison</a>
+                <span class="score">Based on Questions Answered</span>
+              </div>
+            </div>
+            <div class="row student-profile-wraper" *ngFor="let item of studentList">
+              <div data-toggle="collapse" [attr.data-target]="'#collape' + item.Id"
+                class="col-12 accordion-toggle visible-row settings collapsed">
+                <div class="row">
+                  <div class="col-4 student-profile">
+                    <div class="student-name">
+                      <div class="photo">
+                        <img src="{{item.studentPhoto}}" class="img-fluid" alt="">
+                      </div>
+                      <div class="name-wraper">
+                        <span data-toggle="tooltip" data-placement="right" title="Late"
+                          class="name">{{item.name}}</span>
+                          <fa-icon class="exclamation-icon" *ngIf="item.exclamation" [icon]="exclamation"></fa-icon>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-4" *ngIf="completionRate">
+                    <div class="progress mb-4 mt-3" *ngIf="progressBar">
+                      <div class="progress-bar" data-toggle="tooltip" data-placement="top" title="Cooking" role="progressbar" style="width: 45%" aria-valuenow="25"
+                        aria-valuemin="0" aria-valuemax="100">
+                        <span class="sr-only">70% Complete</span>
+                      </div>
+                    </div>
+                    <div class="percentage-wraper" *ngIf="percentage">
+                      <span class="percentage">{{item.percentage}} <fa-icon [icon]="UpArrowLong"></fa-icon></span>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <span class="status-wraper">{{item.status}}</span>
+                  </div>
+                  <div class="col-4" *ngIf="scoreComparison">
+                    <div class="percentage-wraper">
+                      <span class="percentage">{{item.scoreComparison}} <fa-icon [icon]="UpArrowLong"></fa-icon></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 accordian-body collapse hiddenRow hidden-row settings" id="{{'collape' + item.Id}}"
+                *ngIf="item.subList.length > 0">
+                <div class="row" *ngFor="let subitem of item.subList">
+                  <div class="col-12">
+                    <div class="row">
+                      <div class="col-4">
+                        <div class="remainder-box">
+                          <label class="checkmark-container">{{subitem.remainerText}}
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                          </label>
+                        </div>
+                        <div class="profile-btn-wraper">
+                          <app-button classes="btn btn-primary">
+                            <span aria-hidden="true">
+                              Send
+                            </span>
+                          </app-button>
+                          <app-button classes="btn btn-secondary">
+                            <span aria-hidden="true">
+                              View Profile
+                            </span>
+                          </app-button>
+                        </div>
+                      </div>
+                      <div class="col-4" *ngIf="scoreComparison">
+                        <div class="skill-wraper">
+                          <span class="skill-text">Skills Mastered</span>
+                          <span class="skill">4</span>
+                        </div>
+                        <div class="skill-wraper">
+                          <span class="skill-text">Skills That Need Practice</span>
+                          <span class="skill">1</span>
+                        </div>
+                        <div class="skill-wraper">
+                          <span class="skill-text">Accuracy </span>
+                          <span>100%</span>
+                        </div>
+                        <div class="skill-btn">
+                          <app-button classes="btn btn-primary">
+                            <span aria-hidden="true">
+                              See Detailed Report
+                            </span>
+                          </app-button>
+                        </div>
+                      </div>
+                      <div class="col-4" *ngIf="scoreComparison">
+                        <div class="fraction">
+                          <span class="fraction-text">Fraction</span>
+                          <div class="progress mb-4 mt-3">
+                            <div class="progress-bar" role="progressbar" style="width: 45%" aria-valuenow="25"
+                              aria-valuemin="0" aria-valuemax="100">
+                              <span class="sr-only">70% Complete</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="fraction">
+                          <span class="fraction-text">Multiplication</span>
+                          <div class="progress mb-4 mt-3">
+                            <div class="progress-bar" role="progressbar" style="width: 45%" aria-valuenow="25"
+                              aria-valuemin="0" aria-valuemax="100">
+                              <span class="sr-only">70% Complete</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

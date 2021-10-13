@@ -1,0 +1,40 @@
+
+<div class="lesson-filter-main">
+    <h6 class="filter-title">
+        <fa-icon [icon]="FilterIcon"></fa-icon> {{'teacher.explore-lessons.filter-options-label'|translate }}
+    </h6>
+    <!-- <div class="standards-drop">
+        <label>Standards</label>
+        <app-drop-down fieldControl="" class="formDropdown" [dropDownButtonName]="StandardsTitle"
+            [dropDownIcon]="StandardsIcon" [dropDownItemList]="StandardsList"></app-drop-down>
+    </div>
+    <ul class="checklist">
+        <li>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="Bookmarked" name="example1">
+                <label class="custom-control-label" for="Bookmarked">Bookmarked lessons</label>
+            </div>
+        </li>
+    </ul> -->
+
+    <div class="filter-category" *ngFor="let item of FilterList; let i =index">
+        <div (click)="toggle(item)" class="category-item" [attr.aria-expanded]="item.isCollapsed">{{item.category}}
+            <fa-icon [icon]="dropIcon"></fa-icon>
+        </div>
+        <div #collapse="ngbCollapse" [(ngbCollapse)]="!item.isCollapsed">
+            <ul class="checklist">
+                <li *ngFor="let category of item.categoryList | slice:0:catLength;">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="{{category.id}}" name="{{category.id}}"
+                        (change)="onChange(item,category)" [checked] = "category?.selected"> 
+                        <label class="custom-control-label" for="{{category.id}}">{{category.label}}</label>
+                    </div>
+                </li>
+                <span *ngIf="catLength < item.categoryList.length" (click)="showMore()"> <fa-icon [icon]="Plus"></fa-icon> {{'table-component.show'| translate}} {{'district.dashboard.more'|translate}}</span>
+                <span *ngIf="catLength == item.categoryList.length" (click)="showLess()"> <fa-icon [icon]="Minus"></fa-icon> {{'table-component.show'| translate}} {{'teacher.explore-lessons.less'|translate }}</span>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!--  -->

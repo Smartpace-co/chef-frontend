@@ -1,0 +1,382 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+
+.discussion-forum-inner {
+    padding: 5rem 0rem;
+
+    .discussion-profile-wrapper {
+        padding: 0rem 4rem 3rem;
+        margin-bottom: 3rem;
+
+        @include breakpoint(mobile) {
+            padding: 0rem 2rem;
+            width: 100%;
+        }
+
+        .page-wrapper {
+            padding: 0 1rem;
+
+            @include breakpoint(mobile) {
+                padding: 0rem;
+            }
+
+            .discussion-label {
+                font-size: 23px;
+                line-height: 1.22;
+                color: $secondary;
+                margin-bottom: 1.4rem;
+            }
+
+            .instructions {
+                li {
+                    font-size: 1.4rem;
+                    font-weight: 600;
+                    opacity: 0.56;
+                    padding: 0;
+                    margin-bottom: 2rem;
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+
+            .reviews {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                margin-top: 3.4rem;
+
+                h6 {
+                    font-size: 1.8rem;
+                    margin-right: 2rem;
+                    opacity: 0.67;
+                    @include breakpoint(smallmobile) {
+                        margin-bottom: 1.5rem;
+                        width: 100%;
+                    }
+                }
+
+                .likes,
+                .dislikes {
+                    display: flex;
+                    align-items: center;
+
+                    .count {
+                        font-size: 1.4rem;
+                        margin-left: .5rem;
+                        font-weight: 600;
+                    }
+
+                    .icon {
+                        width: 3rem;
+                    }
+                }
+
+                .likes {
+                    .icon {
+                        margin-top: -1.3rem;
+                    }
+                }
+
+                .dislikes {
+                    margin-left: 3.5rem;
+
+                    .icon {
+                        -webkit-transform: scaleX(-1);
+                        transform: scaleX(-1);
+                        margin-top: .4rem;
+                    }
+                }
+            }
+
+            .comments-form {
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                margin-top: 5rem;
+
+                h5 {
+                    font-size: 2.2rem;
+                    opacity:0.67;
+                    margin-bottom: 1.5rem;
+                    @include breakpoint(tabs) {
+                        font-size: 1.8rem;
+                        min-width: 14.5rem;
+                    }
+                    @include breakpoint(mobile) {
+                        width: 100%;
+                        margin-bottom: 1.5rem;
+                    }
+                }
+
+                input {
+                    font-size: 1.6rem;
+                    font-weight: 700;
+                    width: 34rem;
+                    margin: 0 0 1.5rem 1.8rem;
+                    padding: .99rem 3rem;
+
+                    @include breakpoint(tabs) {
+                        font-size: 1.6rem;
+                        margin: 0 0 1.5rem 0;
+                    }
+
+                    @include breakpoint(mobile) {
+                        margin: 0;
+                        width: 100%;
+                    }
+
+                    @include breakpoint(smallmobile) {
+                        width: 100%;
+                        font-size: 1.4rem;
+                    }
+                }
+
+                .image-upload {
+                    margin-left: 1rem;
+                    margin-bottom: 1.5rem;
+
+                    @include breakpoint(mobile) {
+                        margin-top: 2rem;
+                        margin-left: 0;
+                    }
+
+                    @include breakpoint(smallmobile) {
+                        margin: 1rem 0;
+                        // text-align: center;
+                    }
+
+                    label {
+                        font-size: 1.8rem;
+                        font-weight: 700;
+                        background-color: $inputbg;
+                        color: white;
+                        border-radius: 5rem;
+                        padding: .87rem 3.6rem;
+                        cursor: pointer;
+
+                        @include breakpoint(tabs) {
+                            font-size: 1.6rem;
+                        }
+                        @include breakpoint(smallmobile) {
+                            margin-top: 1rem;
+                        }
+
+                        span {
+                            margin-left: 1.2rem;
+                        }
+                    }
+
+                    .selected-file {
+                        font-size: 2rem;
+                        font-weight: 700;
+                        margin: 0 2rem;
+                        @include breakpoint(mobile) {
+                            font-size: 1.6rem;
+                            margin-left: 0;
+                        }
+                    }
+                }
+            }
+
+            .submit-btn {
+                margin-left: 14.6rem;
+
+                @include breakpoint(tabs) {
+                    margin-left: 14.5rem;
+                }
+
+                @include breakpoint(mobile) {
+                    margin-left: 0;
+                    // text-align: center;
+                }
+                @include breakpoint(smallmobile) {
+                    margin-top: 1rem;
+                }
+
+                .submit {
+                    font-size: 1.9rem;
+                    font-weight: 700;
+                    color: $navy-blue;
+                    background-color: $azure;
+                    letter-spacing: -1px;
+                    border-radius: 5rem;
+                    padding: 1rem 4.75rem 0.5rem;
+
+                    @include breakpoint(tabs) {
+                        font-size: 1.6rem;
+                    }
+                }
+            }
+
+            .submit-btn1 {
+                margin-left: 3rem;
+                margin-bottom: 2.1rem;
+
+                @include breakpoint(tabs) {
+                    margin-left: 14.5rem;
+                }
+
+                @include breakpoint(mobile) {
+                    margin-left: 0;
+                    // text-align: center;
+                }
+                @include breakpoint(smallmobile) {
+                    margin-top: 1rem;
+                }
+
+                .submit {
+                    font-size: 1.9rem;
+                    font-weight: 700;
+                    color: $navy-blue;
+                    background-color: $azure;
+                    letter-spacing: -1px;
+                    border-radius: 5rem;
+                    padding: 1rem 4.75rem 0.5rem;
+
+                    @include breakpoint(tabs) {
+                        font-size: 1.6rem;
+                    }
+                }
+            }
+
+
+            .comment-list {
+                .comment-item {
+                    margin-top: 4.3rem;
+                    display: flex;
+                    @include breakpoint(smallmobile) {
+                        display: block;
+                    }
+                    .user-profile {
+                        min-width: 14.5rem;
+                        .profile-photo {
+                            width: 4.5rem;
+                        }
+                        .user-name {
+                            font-size: 1.7rem;
+                            margin-top: .6rem;
+                        }
+                        @include breakpoint(smallmobile) {
+                            margin-bottom: 1rem;
+                        }
+                    }
+                    .comment-wrapper {
+                        display: flex;
+                        margin-bottom: 2rem;
+                        @include breakpoint(tabs) {
+                            display: block;
+                        }
+                        .comment-image {
+                            max-width: 16rem;
+                            margin-right: 2.5rem;
+                            img {
+                                border-radius: 15px;
+                            }
+                            @include breakpoint(tabs) {
+                                margin-bottom: 1rem;
+                            }
+                        }
+                        .comment-desc {
+                            p {
+                                font-size: 1.4rem;
+                                line-height: 1.29;
+                                font-weight: 600;
+                                padding: 0;
+                                opacity: 0.56;
+                                margin-bottom: 0.8rem;
+    
+                            }
+                            .reply-link {
+                                font-size: 1.7rem;
+                                font-weight: 700;
+                                color: $secondary;
+                                line-height: 0.94;
+                                background: transparent;
+                                padding: 0;
+                            }
+                        }
+                        &.reply {
+                            padding-left: 4rem;
+                            @include breakpoint(smallmobile) {
+                                padding-left: 3rem;
+                            }
+                        }
+                        .delete-comment {
+                            display: flex;
+                            align-items: center;
+                            justify-content: flex-end;
+                            min-width: 8rem;
+                            margin: auto;
+                            height: 3rem;
+                            background: transparent;
+                            transform: translateY(-2rem);
+                            // margin-left: .7rem;
+                            font-size: 1.3rem;
+                            color: $deleteText;
+                            font-weight: 700;
+                            // display: inline-block;
+                            @include breakpoint(tabs) {
+                                justify-content: flex-start;
+                                margin: .5rem 0 0;
+                                padding: 0;
+                                transform: none;
+        
+                            }
+        
+                            .close-icon {
+                                width: 1.8rem;
+                            }
+        
+                            // span {
+                            //     margin-left: .7rem;
+                            //     font-size: 1.3rem;
+                            //     color: $deleteText;
+                            //     font-weight: 700;
+                            //     display: inline-block;
+                            // }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.form-control {
+    background: #313579;
+    border-radius: 5rem;
+    padding: 1.5rem 3rem;
+    color: #fff;
+    font-size: 1.4rem;
+    border: none;
+    height: auto;
+    margin-bottom: 1.2rem;
+    position: relative;
+    margin-left: 10%;
+}
+.delete-class {
+    max-width: 80%;
+    margin: 0 auto;
+  
+    h6 {
+      color: $orange;
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+  
+    p {
+      margin-bottom: 2.5rem;
+      padding: 0;
+    }
+
+
+  }
+  p {
+    word-break: break-all;
+  }
+
+
+  
+
+  

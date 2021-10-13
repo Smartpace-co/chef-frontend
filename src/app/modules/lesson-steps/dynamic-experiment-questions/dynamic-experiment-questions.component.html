@@ -1,0 +1,267 @@
+<div *ngIf="questionData?.questionType=='essay'" class="assessment-body-1 kitchen-bg">
+  <app-scroll-down></app-scroll-down>
+  <div class="mr-4 experiment-audio">
+    <span *ngIf="questionData?.questionTrack">
+      <audio controls autoplay controlsList="nodownload">
+        <source [src]="questionData?.questionTrack" type="audio/mp3">
+      </audio>
+    </span>
+  </div>
+  <div class="container">
+    <div class="content-wrapper">
+      <div class="card-wihtout-header-blue assessment-card">
+        <h3 class="exp-heading">{{'student.assigned-lessons.lesson-steps.experiment-question-label'| translate }}</h3>
+        <h6>{{questionData?.question_desc}}</h6>
+        <h6>{{questionData?.question}}</h6>
+        <p *ngIf="questionData?.measurementList" class="instuctions" (click)="viewMeasurement()">View US measurement
+          reference sheet</p>
+        <ul *ngIf="viewMeasure" class="measurement-list">
+          <li *ngFor="let item of questionData?.measurementList">
+            <p>{{item.info}}</p>
+          </li>
+        </ul>
+        <div class="answer-wrapper" [formGroup]="experimentGroup">
+          <div class="custom-control-input-lable input-box dynamic-input" *ngFor="let fm of questionData?.form">
+            <!-- <label class="lable">{{fm.placeholder}}</label> -->
+            <input class="input" type="text" (keyup)="onInputValueChange($event.target.value)"
+              formControlName={{fm.formCtrlName}} />
+          </div>
+        </div>
+        <div *ngIf="questionData?.reference && isReference" class="card-wihtout-header-dark-blue assessment-reference">
+          <div class="close-btn-wrapper">
+            <a class="icon-close">
+              <img src="./assets/images/close.png" alt="" class="img-fluid" (click)="closeReference()" />
+            </a>
+          </div>
+          <ul class="reference-list">
+            <li *ngFor="let item of questionData?.reference">
+              <h6>{{item.reference}}</h6>
+              <div class="image-wrapper">
+                <img src="./assets/images/reference.png" alt="" class="img-fluid" />
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div *ngIf="questionData?.hint && isHint" class="card-wihtout-header-dark-blue assessment-hint">
+          <div class="close-btn-wrapper">
+            <a class="icon-close">
+              <img src="./assets/images/close.png" alt="" class="img-fluid" (click)="closeHint()" />
+            </a>
+          </div>
+          <h6 class="hint">Hint</h6>
+          <h6>{{ questionData?.hint }}</h6>
+        </div>
+        <div class="reference-hint-wrapper">
+          <app-button *ngIf="questionData?.reference" classes="btn btn-secondary mr-4" (click)="showReference()"
+            [submit]="true">
+            <span aria-hidden="true">Reference</span>
+          </app-button>
+          <app-button *ngIf="questionData?.hint" classes="btn btn-secondary" [submit]="true" (click)="showHint()">
+            <span aria-hidden="true">Hint</span>
+          </app-button>
+        </div>
+      </div>
+      <span class="final-editaion-img-wrapper">
+        <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
+      </span>
+    </div>
+  </div>
+</div>
+<div *ngIf="questionData?.questionType=='singleSelection'">
+  <!-- <ng-container *ngIf="questionData?.hasModal; else noModal"> -->
+  <div class="assessment-body-6 kitchen-bg">
+    <div class="blur-bg">
+      <app-scroll-down></app-scroll-down>
+      <div class="mr-4 experiment-audio">
+        <span *ngIf="questionData?.questionTrack">
+          <audio controls autoplay controlsList="nodownload">
+            <source [src]="questionData?.questionTrack" type="audio/mp3">
+          </audio>
+        </span>
+      </div>
+      <div class="container">
+        <div class="final-editaion">
+          <div class="content-wrapper">
+            <span class="card-wihtout-header-blue">
+              <h3 class="exp-heading">{{'student.assigned-lessons.lesson-steps.experiment-question-label'| translate }}
+              </h3>
+              <div class="question-wrapper">
+                <h6>{{questionData?.question}}</h6>
+              </div>
+              <div class="option-wrapper">
+                <ul>
+                  <li *ngFor="let element of questionData?.options">
+                    <input type="radio" id={{element.option}} name="selector" (click)="singleSelectedValue(element)">
+                    <label for={{element.option}}>{{ element.option}}</label>
+                  </li>
+                </ul>
+              </div>
+            </span>
+            <span class="final-editaion-img-wrapper">
+              <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- </ng-container>
+ <ng-template #noModal>
+   <div class="assessment-body-4 kitchen-bg">
+    <app-scroll-down></app-scroll-down>
+  <div class="container">
+    <div class="content-wrapper">
+        <div class="card-wihtout-header-blue assessment-card">
+          <div class="question">
+            <h6>{{questionData?.question}}</h6>
+          </div>
+          <div class="answers">
+            <div *ngFor="let item of questionData?.options" class="option">
+              <input type="radio" id="{{ item.name }}" name="selector"value="{{item.name}}" (click)="onRadioClick($event)">
+              <label for="{{item.name}}">
+                  <div class="card-wihtout-header-white">
+                    <div [ngClass]="item.name == 'Lisa' ? 'option-image-3' : 'option-image-1'">
+                      <img src="{{item.icon}}" alt="" class="img-fluid" />
+                    </div>
+                    <div class="ans-btn">
+                      <app-button classes="btn small-btn btn-legend-option" [submit]="true">
+                        <span aria-hidden="true">{{item.name}}</span>
+                      </app-button>
+                    </div>
+                  </div>
+              </label>
+            </div>
+          </div>
+        </div>
+        <span class="final-editaion-img-wrapper">
+          <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
+        </span>
+    </div>
+  </div>
+</div>
+ </ng-template>  -->
+</div>
+<div *ngIf="questionData?.questionType=='multipleSelection'" class="assessment-body-5 kitchen-bg">
+  <div class="assessment-body-6 kitchen-bg">
+    <div class="blur-bg">
+      <app-scroll-down></app-scroll-down>
+      <div class="mr-4 experiment-audio">
+        <span *ngIf="questionData?.questionTrack">
+          <audio controls autoplay controlsList="nodownload">
+            <source [src]="questionData?.questionTrack" type="audio/mp3">
+          </audio>
+        </span>
+      </div>
+      <div class="container">
+        <div class="final-editaion">
+          <div class="content-wrapper">
+            <span class="card-wihtout-header-blue">
+              <h3 class="exp-heading">{{'student.assigned-lessons.lesson-steps.experiment-question-label'| translate }}
+              </h3>
+              <div class="question-wrapper">
+                <h6>{{questionData?.question}}</h6>
+              </div>
+              <div class="option-wrapper">
+                <ul>
+                  <li *ngFor="let element of questionData?.options">
+                    <input type="checkbox" [(ngModel)]="element.isSelect" id={{element.option}} name="selector"
+                      (change)="onMultiOptionClick(element)">
+                    <label for={{element.option}}>{{ element.option}}</label>
+                  </li>
+                </ul>
+              </div>
+            </span>
+            <span class="final-editaion-img-wrapper">
+              <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="container">
+    <div class="content-wrapper">
+        <div class="card-wihtout-header-blue assessment-card">
+          <h6>{{ questionData?.question }}</h6>
+            <div class="answers">
+              <div class="option" *ngFor="let option of questionData?.options">
+                <div class="check-mark">
+                  <input type="checkbox" id="checkbox{{option.id}}" (click)="onOptionalClick(option)"/>
+                  <label [attr.for]="'checkbox' + option.id">
+                    <div class="card-wihtout-header-white">
+                      <div class="option-image">
+                        <img src="{{option.icon}}" alt="" class="img-fluid" />
+                      </div>
+                      <div class="ans-btn">
+                        <app-button classes="btn small-btn btn-legend-option" [submit]="true" >
+                          <span aria-hidden="true">{{option.name}}</span>
+                        </app-button>
+                      </div>
+                    </div>
+                  </label>
+                </div>
+              </div>
+            </div>
+        </div>
+        <span class="final-editaion-img-wrapper">
+          <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
+        </span>
+    </div>
+  </div> -->
+</div>
+<div *ngIf="questionData?.questionType=='dragAndDrop'" class="assessment-body-5 kitchen-bg">
+  <div class="assessment-body-6 kitchen-bg">
+    <app-scroll-down></app-scroll-down>
+    <div class="mr-4 experiment-audio">
+      <span *ngIf="questionData?.questionTrack">
+        <audio controls autoplay controlsList="nodownload">
+          <source [src]="questionData?.questionTrack" type="audio/mp3">
+        </audio>
+      </span>
+    </div>
+    <div class="active-action-body">
+      <div class="container">
+        <div class="final-editaion">
+          <div class="content-wrapper">
+            <div class="card-wihtout-header-blue">
+              <h3 class="exp-heading">{{'student.assigned-lessons.lesson-steps.experiment-question-label'| translate }}
+              </h3>
+              <div class="active-action-wrapper">
+                <p> {{ questionData?.question }}</p>
+              </div>
+              <div class="chef-hat">
+                <div id="drag1" class="write-answer" (drop)="drop($event)" (dragover)="allowDrop($event)">
+                </div>
+              </div>
+              <!-- Only for potion as title not image
+                 <div class="options" id="options">
+                <div class="card-white" *ngFor="let item of questionData?.options">
+                  <div id="{{item.id}}" draggable="true" (dragstart)="drag($event,item)">
+                    <span>{{ item.option}}</span>
+                  </div>
+                </div>
+              </div> -->
+              <div class="options" id="options">
+                <div class="card-white" *ngFor="let item of questionData?.options">
+                  <ng-container *ngIf="item.image; else noImage">
+                    <div draggable="true" (dragstart)="drag($event,item)">
+                      <img id="{{item.id}}" src="{{ item.image }}">
+                    </div>
+                  </ng-container>
+                  <ng-template #noImage>
+                    <div id="{{item.id}}" draggable="true" (dragstart)="drag($event,item)">
+                      <span>{{ item.option}}</span>
+                    </div>
+                  </ng-template>
+                </div>
+              </div>
+            </div>
+            <span class="final-editaion-img-wrapper">
+              <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

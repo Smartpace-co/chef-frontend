@@ -1,0 +1,351 @@
+<app-student-nav></app-student-nav>
+<div class="ProfileInfo">
+  <div class="container">
+    <div class="top-nav">
+      <div class="back-button-wrapper">
+        <app-button classes="btn small-btn btn-secondary mr-4 icon-btn btn-back" [submit]="true"
+          [routerLink]="['/student/student-landing']">
+          <span aria-hidden="true">
+            <fa-icon [icon]="LeftArrow"></fa-icon> {{'common.back'| translate}}
+          </span>
+        </app-button>
+      </div>
+      <h3>{{'student.profile.profile-label'| translate }}</h3>
+    </div>
+    <div class="profile-info-wraper">
+      <form [formGroup]="ProfileInfo" class="ProfileInfo__form schoolForm">
+        <fieldset>
+          <div class="row">
+            <!-- Read only form -->
+            <div class="col-lg-8" *ngIf="!isDetailsEditable">
+              <div class="legend-card-white-form">
+                <legend>{{'student.profile.profile-info-label'| translate}}</legend>
+                <div class="profile-header">
+                  <div class="row">
+                    <div class="col-md-3 col-sm-5 profile-image">
+                      <div class="profile-pic">
+                        <img src="{{ profileImg }}" class="img-fluid" alt="">
+                        <span class="edit-profile" aria-hidden="true" [routerLink]="['/student/profile-picture']">
+                          <fa-icon [icon]="Pencil"></fa-icon>
+                        </span>
+                      </div>
+                      <div class="change-profile"><a [routerLink]="['/student/profile-picture']">
+                          {{'student.profile.change-profile-picture-label'| translate }}</a>
+                      </div>
+                    </div>
+                    <div class="col-md-9 col-sm-7">
+                      <div class="row enter-name">
+                        <div class="col-md-6 col-sm-8 pic-wrapper">
+                          <label>{{'district.district-profile.agent-component.name-field.label'| translate}}</label>
+                          <input class="form-control-white" types="text"
+                            value="{{currentStudent?.firstName}} {{currentStudent?.lastName}}" disabled="disabled" />
+                        </div>
+                        <div class="col-md-6 col-sm-4 details-wrapper">
+                          <div class="edit-details"><a (click)="editForm()">{{'student.profile.edit-details-label'|
+                              translate }}</a></div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-3 col-sm-8">
+                          <label>{{'district.district-profile.agent-component.gender-field.label'| translate}}</label>
+                          <input class="form-control-white" disabled="disabled" types="text"
+                            value="{{currentStudent?.gender}}" />
+                        </div>
+                        <div class="col-md-3 col-sm-4">
+                          <label>{{'school.class.add-class.grade-field' | translate}}</label>
+                          <input class="form-control-white grade" types="text" value="{{currentStudent?.grade?.grade}}"
+                            disabled="disabled" />
+                        </div>
+                        <div class="col-md-2 col-sm-4">
+                          <label>{{'student.profile.age-label'| translate }}</label>
+                          <input class="form-control-white age" types="text" value="{{currentStudent?.age}}"
+                            disabled="disabled" />
+                        </div>
+                        <div class="col-md-4 col-sm-8">
+                          <label>{{'school.student.add-student.personal-info.ethnicity' | translate}}</label>
+                          <input class="form-control-white" types="text" value="{{currentStudent?.ethnicity?.title}}"
+                            disabled="disabled" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="details">
+                  <h2>{{'student.profile.parent-guardian-info-label'| translate }}</h2>
+                  <div class="row contact-wraper">
+                    <div class="col-md-5">
+                      <label>{{'student.profile.phone-number-label'| translate }}</label>
+                      <input class="form-control-white" types="text" disabled="disabled"
+                        value="{{currentStudent?.contactPersonNumber}}" />
+                    </div>
+                    <div class="col-md-5">
+                      <label>{{'student.profile.account-email-label'| translate }}</label>
+                      <input class="form-control-white" types="text" disabled="disabled"
+                        value="{{currentStudent?.contactPersonEmail}}" />
+                    </div>
+                  </div>
+                  <div class="medical">
+                    <h2>{{'student.profile.medical-information-label'| translate }}</h2>
+                    <div class="row medical-condition">
+                      <div class="col-md-12">
+                        <div class="row">
+                          <div class="col-12">
+                            <label>{{'student.profile.current-medical-condition-label'| translate }}</label>
+                          </div>
+
+                          <div class="col-md-4 col-sm-6" *ngFor="let item of currentStudent?.medicalConditions">
+                            <input class="form-control-white" types="text" disabled="disabled" value="{{item.title}}" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="row">
+                          <div class="col-12">
+                            <label>{{'student.profile.allergy-label'| translate }}</label>
+                          </div>
+                          <div class="col-md-4 col-sm-6" *ngFor="let item of currentStudent?.allergens">
+                            <input class="form-control-white" types="text" value="{{item.allergenTitle}}"
+                              disabled="disabled" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-8" *ngIf="isDetailsEditable">
+              <div class="legend-card-white-form">
+                <legend>{{'student.profile.profile-info-label'| translate}}</legend>
+                <div class="profile-header">
+                  <div class="row">
+                    <div class="col-md-3  profile-image">
+                      <div class="profile-pic">
+                        <img src="{{ profileImg }}" class="img-fluid" alt="">
+                        <span class="edit-profile" aria-hidden="true" [routerLink]="['/student/profile-picture']">
+                          <fa-icon [icon]="Pencil"></fa-icon>
+                        </span>
+                      </div>
+                      <div class="change-profile"><a [routerLink]="['/student/profile-picture']">
+                          {{'student.profile.change-profile-picture-label'| translate }}</a>
+                      </div>
+                    </div>
+                    <div class="col-md-9">
+                      <div class="row enter-name">
+                        <div class="col-sm-6 pic-wrapper">
+                          <label>{{'school.teacher.add-teacher.first-name.first-name-field' | translate}} (*)</label>
+                          <app-input-field classes="form-control" types="text"
+                            placeholders="{{'school.teacher.add-teacher.first-name.placeholder' | translate}}"
+                            ids="firstName" fieldControl="firstName" [form]="ProfileInfo"
+                            [ngClass]="{ 'is-invalid': formControl.firstName.touched && formControl.firstName.errors }">
+                          </app-input-field>
+                          <div *ngIf="formControl.firstName.errors" class="invalid-feedback">
+                            <div class="error" *ngIf="formControl.firstName.errors?.required">
+                              {{'school.teacher.add-teacher.first-name.required' | translate}}</div>
+                            <div class="error" *ngIf="formControl.firstName.errors?.pattern">
+                              {{'school.teacher.add-teacher.first-name.valid' | translate}}</div>
+                          </div>
+                        </div>
+                        <div class="col-sm-6 pic-wrapper">
+                          <label>{{'school.teacher.add-teacher.last-name.last-name-field' | translate}} (*)</label>
+                          <app-input-field classes="form-control" types="text" placeholders="Enter name"
+                            ids="lastName" fieldControl="lastName" [form]="ProfileInfo"
+                            [ngClass]="{ 'is-invalid': formControl.lastName.touched && formControl.lastName.errors }">
+                          </app-input-field>
+                          <div *ngIf="formControl.lastName.errors" class="invalid-feedback">
+                            <div class="error" *ngIf="formControl.lastName.errors?.required">
+                              {{'school.teacher.add-teacher.last-name.required' | translate}}</div>
+                            <div class="error" *ngIf="formControl.lastName.errors?.pattern">
+                              {{'school.teacher.add-teacher.last-name.valid'|translate}}</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <label>{{'district.district-profile.agent-component.gender-field.label'| translate}} {{'student.profile.optional-label'| translate }}</label>
+                          <app-drop-down fieldControl="gender" class="formDropdown" [dropDownButtonName]="genderTitle"
+                            [dropDownIcon]="genderIcon" [dropDownItemList]="genderList"
+                            (registerDropdownValueChange)="genderChange($event)">
+                          </app-drop-down>
+                        </div>
+                        <div class="col-sm-6">
+                          <label>{{'school.class.add-class.grade-field' | translate}} {{'student.profile.optional-label'| translate }}</label>
+                          <app-drop-down fieldControl="grade" class="formDropdown" [dropDownButtonName]="gradeTitle"
+                            [dropDownIcon]="gradeIcon" [dropDownItemList]="gradeList"
+                            (registerDropdownValueChange)="gradeChange($event)">
+                          </app-drop-down>
+                          <!-- <div *ngIf="formControl.grade.errors" class="invalid-feedback">
+                              <div class="error" *ngIf="formControl.grade.errors?.required">{{'school.class.add-class.grade-required'|translate}}</div>
+                          </div> -->
+                        </div>
+                        <div class="col-sm-6">
+                          <label>{{'school.student.add-student.personal-info.birth-date' | translate}} (*)</label>
+                          <div class="form-group">
+                            <div class="input-group">
+                              <input class="form-control"
+                                placeholder="{{'school.student.add-student.personal-info.date' | translate}}" ids="dob"
+                                name="dp" fieldControl="dob" (dateSelect)="onDateSelection($event)"
+                                [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedDate" ngbDatepicker
+                                #d="ngbDatepicker">
+                              <div class="input-group-append">
+                                <button class="calendarIcon" (click)="d.toggle()" type="button">
+                                  <fa-icon [icon]="Calendar"></fa-icon>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-6">
+                          <label>{{'school.student.add-student.personal-info.ethnicity' | translate}} {{'student.profile.optional-label'| translate }}</label>
+                          <app-drop-down fieldControl="ethnicity" class="formDropdown"
+                            [dropDownButtonName]="ethnicityTitle" [dropDownIcon]="ethnicityIcon"
+                            [dropDownItemList]="ethnicityList" (registerDropdownValueChange)="ethnicityChange($event)">
+                          </app-drop-down>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="details">
+                  <div class="medical">
+                    <h2>{{'student.profile.medical-information-label'| translate }}</h2>
+                    <div class="row medical-condition">
+                      <div class="col-md-6">
+                        <label>{{'student.profile.current-medical-condition-label'| translate }} {{'student.profile.optional-label'| translate }}</label>
+                        <app-multi-select-dropdown [dropDownItemList]="conditionList"
+                          [selectedItems]="selectedCondition" [placeholderText]="'Select condition'"
+                          fieldControl="medicalCondition" [selectedValue]="selectedConditionValue"
+                          (onSelectValue)="onSelectConditions($event)" (onDeSelectValue)="onDeSelectConditions($event)"
+                          (onSelectAllValue)="onSelectAllConditions($event)"
+                          (onDeselectAllValue)="onDeselectAllConditions($event)">
+                        </app-multi-select-dropdown>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <label>{{'student.profile.allergy-label'| translate }} {{'student.profile.optional-label'| translate }}</label>
+                        <app-multi-select-dropdown [dropDownItemList]="allergensList" [selectedItems]="allergens"
+                          [placeholderText]="'Select allergens'" fieldControl="allergens"
+                          [selectedValue]="selectedAllergensValue" (onSelectValue)="onSelectAllergens($event)"
+                          (onDeSelectValue)="onDeSelectAllergens($event)"
+                          (onSelectAllValue)="onSelectAllAllergens($event)"
+                          (onDeselectAllValue)="onDeselectAllAllergens($event)">
+                        </app-multi-select-dropdown>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-center">
+                    <app-button classes="btn btn-secondary mr-4" [submit]="true" (click)="onCancel()">
+                      <span aria-hidden="true">{{'common.cancel'| translate}}</span>
+                    </app-button>
+                    <app-button classes="btn btn-primary btn-block" [submit]="true" (click)="editStudentProfile()"
+                      [disabled]="ProfileInfo.invalid">
+                      <span aria-hidden="true">{{'common.update'| translate}}</span>
+                    </app-button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="inqurier">
+                <div class="legend-card-white">
+                  <legend class="level">{{'student.profile.achievements.level-label'| translate }}: {{
+                    achievements?.currentLevel?.title }}
+                    <span class="nopath"><img src="./assets/images/nopath.png" class="img-fluid" alt=""></span>
+                  </legend>
+                  <div class="inqurier-wraper inqurier-space">
+                    <div class='logo-wrapper'>
+                      <img src="./assets/images/detective.png" class="img-fluid" alt="">
+                    </div>
+                    <div class="level-heading-wraper">
+                      <h4 class="level-heading">
+                        <span class="heading-static">{{'student.profile.achievements.you-are-an-label'| translate
+                          }}</span>
+                        <span class="heading-dynamic">{{achievements?.currentLevel?.title}}</span>
+                      </h4>
+                    </div>
+                    <div class="i_image">
+                      <span class="info-icon" (click)="open(classDetails)"><img src="./assets/images/info-icon.svg"
+                          alt="" class="img-fluid" /></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="inqurier">
+                <div class="legend-card-white">
+                  <div class="globe-wraper">
+                    <div>
+                      <img src="./assets/images/stamps.png" class="img-fluid" alt="">
+                    </div>
+                    <div class="inquirer-content-wrapper">
+                      <div class="inquirer-heading heading-border">
+                        <h4>
+                          <span class="stamp-letter">{{ achievements?.stampsEarned }}</span>
+                          <span class="stamp-earned">{{'student.profile.achievements.stamps-earned-label'| translate
+                            }}</span>
+                        </h4>
+                      </div>
+                    </div>
+                    <!-- <div class="seperator"></div> -->
+                    <!-- <div class="inquirer-content-wrapper">
+                      <h3>
+                        <span class="points-num">140</span>
+                        <span class="points-left">Points Left</span>
+                      </h3>
+                    </div> -->
+                  </div>
+                  <div class="btn-wrapper">
+                    <app-button classes="btn btn-secondary mr-4 icon-btn" (click)="openLockerModal()">
+                      <span aria-hidden="true">{{'student.profile.achievements.open-your-passport-label'| translate }}
+                        <fa-icon [icon]="RightArrow">
+                        </fa-icon></span>
+                    </app-button>
+                  </div>
+                </div>
+              </div>
+              <div class="inqurier">
+                <div class="legend-card-white">
+                  <div class="globe-wraper">
+                    <div>
+                      <img src="./assets/images/inquirer_earth.png" class="img-fluid" alt="">
+                    </div>
+                    <div class="inquirer-heading">
+                      <h4>
+                        <span class="stamp-letter">{{ achievements?.countriesVisited }}</span>
+                        <span class="stamp-earned">{{'student.profile.achievements.countries-visited-label'| translate
+                          }}</span>
+                      </h4>
+                    </div>
+                  </div>
+                  <div class="btn-wrapper">
+                    <app-button classes="btn btn-secondary mr-4 icon-btn" [routerLink]="['/student/explore-lesson']">
+                      <span aria-hidden="true">{{'student.profile.achievements.go-to-globe-label'| translate }}<fa-icon
+                          [icon]="RightArrow"></fa-icon>
+                      </span>
+                    </app-button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>
+
+<ng-template #classDetails let-modal>
+  <div class="inquery-details-header">
+    <div class="header-image"><img src="./assets/images/inquirer.png" alt=""></div>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <!-- <span aria-hidden="true">&times;</span> -->
+      <img src="./assets/images/close.png" alt="" class="img-fluid" />
+    </button>
+  </div>
+  <div class="class-details-body">
+    <h4>{{achievements?.currentLevel?.title}}</h4>
+    <p>{{'student.profile.achievements.current-level-desc'| translate }}</p>
+  </div>
+</ng-template>

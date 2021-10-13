@@ -1,0 +1,33 @@
+<app-lessons-headerbar [lessonHederConfig]="lessonHederConfig"></app-lessons-headerbar>
+<div class="story-body-4">
+  <app-scroll-down></app-scroll-down>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 earth-img">
+        <span class="clouds">
+          <img src="./assets/images/cloud.png" alt="" class="img-fluid" />
+        </span>
+        <span class="globe-img-wrapper">
+          <img src="./assets/images/earth-2.png" alt="" class="img-fluid" />
+        </span>
+        <span class="final-editaion-img-wrapper">
+          <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
+          
+        </span>
+        <div class="tooltip-wrapper">
+          <div class="speech-tooltip sm-tooltip left-bottom-tip">
+            <div class="speech-tooltip-inner">
+                <p class="message">
+                  Awesome! You found {{countryName}}
+                </p>
+                <span class="tip">
+                  <img src="./assets/images/left-bottom-tip.svg" alt="" class="img-fluid" />
+                </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-lessons-footer (onNext)="onNext()" (onPrevious)="onPrevious()"></app-lessons-footer>

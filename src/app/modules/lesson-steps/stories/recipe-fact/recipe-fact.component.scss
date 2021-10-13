@@ -1,0 +1,120 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+.story-body-6 {
+  background: center no-repeat;
+  background-size: cover;
+  overflow: hidden;
+  min-height: calc(100vh - 24.2rem);
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  @include breakpoint(mobile) {
+    min-height: calc(100vh - 5rem);
+  }
+  .final-editaion {
+    justify-content: center;
+    padding-top: 9rem;
+    .content-wrapper {
+      .final-editaion-img-wrapper {
+        max-width: 42rem;
+        position: relative;
+        display: block;
+        margin: 0 auto;
+        margin-bottom: -6rem;
+        @include breakpoint(tabs) {
+          max-width: 19rem;
+          margin-bottom: 1rem;
+        }
+        @include breakpoint(sm-mobile) {
+          margin-left: 24%;
+        }
+        .final-editaion-img {
+          transform: rotateY(180deg);
+        }
+        .left-tooltip-wrapper {
+          position: absolute;
+          top: 3rem;
+          left: -12rem;
+          @include breakpoint(tabs) {
+            left: -22rem;
+            top: -7rem;
+          }
+          @include breakpoint(mobile) {
+            left: -21rem;
+            top: -9rem;
+          }
+          @include breakpoint(sm-mobile) {
+            left: -3rem;
+            top: -17rem;
+          }
+        }
+        .right-tooltip-wrapper {
+          position: absolute;
+          top: 4rem;
+          right: -26rem;
+          @include breakpoint(tabs) {
+            right: -25rem;
+            top: -6rem;
+          }
+          @include breakpoint(mobile) {
+            right: -19rem;
+            top: -9rem;
+          }
+          @include breakpoint(sm-mobile) {
+            right: -5rem;
+            top: -4rem;
+          }
+        }
+      }
+    }
+    .kitchen-table {
+      position: absolute;
+      width: 41rem;
+      display: inline-block;
+      left: 0;
+      bottom: -19rem;
+      @include breakpoint(tabs) {
+        width: 33rem;
+      }
+      @include breakpoint(mobile) {
+        width: 29rem;
+        bottom: -16rem;
+      }
+      @include breakpoint(sm-mobile) {
+        width: 24rem;
+        bottom: -16rem;
+        left: -3rem;
+      }
+    }
+    .recipe {
+      position: absolute;
+      width: 15rem;
+      height: 15rem;
+      display: inline-block;
+      left: 13rem;
+      bottom: 17rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      border-radius: 100%;
+      @include breakpoint(tabs) {
+        left: 10rem;
+        bottom: 11rem;
+      }
+      @include breakpoint(mobile) {
+        left: 6rem;
+        bottom: 10rem;
+      }
+      @include breakpoint(sm-mobile) {
+        width: 12rem;
+        height: 12rem;
+        left: 3rem;
+        /* background: red; */
+        bottom: 5rem;
+      }
+    }
+  }
+}

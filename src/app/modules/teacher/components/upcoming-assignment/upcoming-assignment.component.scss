@@ -1,0 +1,139 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+
+.assignment-filter{
+    background: $twilight-blue;
+    .container{
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    form{
+        display: flex;
+        align-items: center;
+        .form-control{
+            background: transparent;
+        }
+    }
+    .filter-droplist{
+        display: flex;
+        margin-left: auto;
+        align-items: center;
+        @include breakpoint(mobile){
+            margin-left:0;
+            flex-wrap: wrap;
+        }
+    }
+}
+
+
+.assignment-header{
+    margin:3rem 0;
+    .assignment-header-main{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        h2{
+            font-size:2.5rem;
+            margin: 0;
+            span{
+                color:$secondary;
+            }
+            @include breakpoint(mobile){
+                font-size:1.8rem;
+                margin-bottom:1.5rem;
+            }
+        }
+    }
+}
+
+.upcoming-assignment-list{
+    margin-top:2rem;
+    .col-md-4{
+        margin-bottom:3rem;
+    }
+    .assignmentItem{
+        display: flex;
+        justify-content: space-between;
+        min-height: 30rem;
+        &.card{
+            padding: 0;
+        }
+        &__image{
+            position: relative;
+            border-radius:1.2rem 1.2rem 0 0;
+            height: 20rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            img{
+                max-width: 100%;
+                max-height: 100%;
+            }
+        }
+        &__start{
+            position: absolute;
+            left:-1px;
+            top:1.5rem;
+            border-left:0.6rem solid $black;
+            padding:1rem 3rem;
+            background:$white;
+            color: $black;
+            font-weight: bold;
+            &.completed{
+                border-color:$success;
+                fa-icon{
+                    color: $success;
+                    margin-left:0.5rem;
+                    font-size: 1.6rem;
+                }
+            }
+        }
+        &__info{
+            padding:2rem;
+        }
+        &__name{
+            max-height:4.2rem;
+            min-height:4.2rem;
+            font-size: 1.8rem;
+            max-width:80%;
+            @include breakpoint(mobile){
+                font-size: 1.6rem;
+            }
+        }
+        &__time{
+            li{
+                font-size:1.2rem;
+                color:rgba($white,0.5);
+                font-weight: 700;
+                label{
+                    padding-right: 0.5rem;
+                }
+            }
+        }
+        &__instruction{
+            margin-top:2rem;
+            li{
+                margin-bottom:1rem;
+                font-weight: 700;
+            }
+            fa-icon{
+                color: $azure;
+                margin-right:1rem;
+                display: inline-block;
+            }
+        }
+        &__links{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 2rem;
+            a{
+                color:$secondary;
+                font-weight: bold;
+            }
+        }
+    }
+}

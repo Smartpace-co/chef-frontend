@@ -1,0 +1,183 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+.performance-wrapper{
+  .back-button-wrapper{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    @include breakpoint(xtrasmallmobile){
+      justify-content: center;
+    }
+    .performance-header{
+      display: flex;
+      align-items: center;
+      h3{
+        display: inline-flex;
+      }
+    }
+    .print-btn{
+      margin-left: 1rem;
+      @include breakpoint(xtrasmallmobile){
+        margin-left: 0;
+      }
+      fa-icon{
+        color: $white;
+      }
+    }
+  }
+  .read-button-wrapper{
+    display: flex;
+    justify-content: flex-end;
+    @include breakpoint(xtrasmallmobile){
+      justify-content: center;
+    }
+  }
+  .performance-report{
+    width: 100%;
+    margin-top: 4rem;
+    margin-bottom: 2.5rem;
+    .nav-tabs{
+      border:none;
+      position: relative;
+      display:none;
+      &.activity-tab-nav{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        @include breakpoint(mobile){
+          display: none;
+        }
+      }
+      // &:after{
+      //     content: '';
+      //     width:100%;
+      //     height:0.1rem;
+      //     // background:$border-color;
+      //     position: absolute;
+      //     left: 0rem;
+      //     bottom: 0;
+      // }
+      .nav-item{
+          margin:0;
+          .nav-link{
+              color:rgba($white, 0.5);
+              font-size:1.8rem;
+              padding:0.5rem 0rem;
+              position: relative;
+              border:none;
+              margin-right: 5rem;
+              font-weight: 700;
+              &:after{
+                  content: '';
+                  width:100%;
+                  height:0.2rem;
+                  background:transparent;
+                  position: absolute;
+                  left:0rem;
+                  bottom:0;
+                  z-index: 1;
+              }
+              &:hover{
+                  border:none;
+              }
+              &.active{
+                  background: transparent;
+                  color: $white;
+                  line-height: 1.5;
+                  border:none;
+                  &:after{
+                      background:$white;
+                  }
+              }
+          }
+      }
+    }
+    @include breakpoint(mobile-min){
+      .nav-tabs {
+          display: flex;
+      }
+      .panal-card {
+          border: none;
+          .panal-card-header {
+            display:none;
+          }  
+          .collapse{
+            display:block;
+           }
+      
+      }
+    }
+    @include breakpoint(mobile){
+      .tab-content > .tab-pane {
+          display: block !important;
+          opacity: 1;
+      }
+      .panal-card {
+        .panal-card-header {
+          // border-bottom: 1px solid $border-color;
+          padding: 1.5rem;    
+          background-color: $blue-transferent;
+          width: 100%;
+          h5{
+            a{
+              display: block;
+            }
+          }
+        }
+      }
+    }
+    .performance-details{
+      margin-top: 7.5rem;
+      .row{
+        justify-content: center;
+      }
+      .card-wrapper{
+        margin-bottom: 6rem;
+        .legend-card-white{
+          padding: 3.5rem;
+          padding-top: 0;
+          max-width: 32rem;
+          margin: 0 auto;
+          legend{
+            background-color: $green-shade-1;
+            color: $white;
+            font-size: 1.6rem;
+            @include breakpoint(tabs){
+              font-size: 1.5rem;
+            }
+          }
+          .report-data-wrapper{
+            display: flex;
+            justify-content: space-around;
+            padding-top: 2rem;
+            h2{
+              font-size: 4.4rem;
+              @include breakpoint(tabs){
+                font-size: 3.4rem;
+              }
+            }
+            span{
+              font-size: 1.2rem;
+              font-weight: 700;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.report-modal-header{
+  &.modal-header{
+    border-bottom: none;
+    padding: 0;
+  }
+ .close {
+    @include breakpoint(mobile){
+      min-width: 3rem;
+      padding: 0;
+      width: 3rem;
+      right: 1px;
+      top: -3px;
+    }
+  }
+}

@@ -1,0 +1,69 @@
+<div class="add-roles">
+  <div class="container">
+    <div class="back-button-wrapper">
+      <app-button classes="btn small-btn btn-secondary mr-4 icon-btn btn-back mt-4" [submit]="true"
+        (click)="onCancel()">
+        <span aria-hidden="true">
+          <fa-icon [icon]="LeftArrow"></fa-icon> {{'common.back'| translate}}
+        </span>
+      </app-button>
+    </div>
+    <div class="add-role-wrapper legend-card">
+      <h2 *ngIf="!isEdit" class="role-heading">{{'school.roles.add-role.label'|translate}}</h2>
+      <h2 *ngIf="isEdit" class="role-heading">{{'school.roles.update-role.label'|translate}}</h2>
+      <h6 *ngIf="!isEdit"class="role-sub-heading">{{'school.roles.add-role.desc'|translate}}</h6>
+      <h6 *ngIf="isEdit" class="role-sub-heading">{{'school.roles.update-role.desc'|translate}}</h6>
+      <form [formGroup]="addRolesForm" class="add-role-form">
+        <div class="row">
+          <div class="col-md-12">
+            <label>{{'school.roles.add-role.field'|translate}} (*)</label>
+            <app-input-field classes="form-control schoolForm" placeholders="{{'school.roles.add-role.placeholder'|translate}}" ids="roleName"
+              fieldControl="roleName" [form]="addRolesForm"
+              [ngClass]="{ 'is-invalid': formControl.roleName.touched && formControl.roleName.errors }">
+            </app-input-field>
+            <div *ngIf="formControl.roleName.errors" class="invalid-feedback">
+              <div class="error" *ngIf="formControl.roleName.errors?.required">{{'school.roles.add-role.required'|translate}}
+              </div>
+              <div class="error" *ngIf="formControl.roleName.errors?.pattern">{{'school.roles.add-role.valid'|translate}}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <label class="access-label">{{'school.roles.add-role.hasAccessField'|translate}}</label>
+            <div class="roles-access">
+              <div *ngFor="let option of rolesAccessList" class="check-wrapper">
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" [checked] ="option.check" id="{{option}}" (click)="onAccessClick($event,option)">
+                  <label class="custom-control-label" for={{option}}>{{option.title}}</label>
+                </div>
+              </div>
+            </div>
+          </div>          
+          <div class="col-12 radio-btn-wrapper">
+            <label>{{'school.teacher.add-teacher.status'|translate}} (*)</label>
+            <div class="custom-control custom-radio">
+              <app-radio [form]="addRolesForm" fieldControl="status" classes="custom-control-input" types="radio"
+              names="status" values="active"></app-radio>
+              <label class="custom-control-label" for="Active">{{'table-search-filter-container.status.active'| translate}}</label>
+            </div>
+            <div class="custom-control custom-radio">
+              <app-radio [form]="addRolesForm" fieldControl="status" classes="custom-control-input" types="radio"
+              names="status" values="inactive"></app-radio>
+              <label class="custom-control-label" for="Inactive">{{'table-search-filter-container.status.inactive'| translate}}</label>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="form-btn-wrapper">
+        <app-button classes="btn btn-secondary mr-4 btn-form" [submit]="true" (click)="onCancel()">
+          <span aria-hidden="true">{{'common.cancel'| translate}}</span>
+        </app-button>
+        <app-button classes="btn btn-primary btn-form" [submit]="true" [disabled]="addRolesForm.invalid"
+          (click)="onSave()">
+          <span *ngIf="!isEdit" aria-hidden="true">{{'common.add'| translate}}</span>
+          <span *ngIf="isEdit" aria-hidden="true">{{'common.update'| translate}}</span>
+        </app-button>
+      </div>
+    </div>
+  </div>
+</div>

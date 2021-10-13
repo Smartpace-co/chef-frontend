@@ -1,0 +1,111 @@
+<app-student-nav></app-student-nav>
+<div class="assignment-details">
+    <div class="container">
+        <div class="top-nav">
+            <div class="back-button-wrapper">
+                <app-button classes="btn small-btn btn-secondary mr-4 icon-btn btn-back" [submit]="true"
+                    [routerLink]="['/student/assignment']">
+                    <span aria-hidden="true">
+                        <fa-icon [icon]="LeftArrow"></fa-icon>{{'common.back'| translate}}
+                    </span>
+                </app-button>
+            </div>
+            <h3>{{currentUser.firstName}}, {{currentUser.lastName}}</h3>
+        </div>
+        <div class="content-wrapper">
+            <div *ngIf="isLoad" class="card-wihtout-header-blue content-card">
+                <div class="content-header">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <h4>
+                                <span>{{'student.lesson-report.start-and'| translate | uppercase }}</span>
+                                <span>{{'student.lesson-report.end-date'| translate | uppercase }}</span>
+                            </h4>
+                            <ul class="date-details">
+                                <li>{{ allDetails?.startedAt | date:'h:mm a , dd/MM/yyyy'}}</li>
+                                <li>{{allDetails?.endedAt | date:'h:mm a , dd/MM/yyyy'}}</li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-4">
+                            <h4>
+                                <span>{{'school.teacher.add-teacher.status'|translate |
+                                    uppercase}} + </span>
+                                <span>{{'student.lesson-report.skill-proficiency-label'| translate | uppercase }}</span>
+                            </h4>
+                            <div class="status">
+                                <p>{{'student.lesson-report.completed'| translate }}</p>
+                                <p>{{ allDetails?.skill }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-main">
+                    <ul *ngIf="questionList && questionList.length > 0" class="que-ans">
+                        <li *ngFor="let item of questionList" class="que-ans-list">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label>{{'student.lesson-report.question'| translate }}</label>
+                                    <p>{{item.question}}</p>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>{{'student.lesson-report.answer'| translate }}</label>
+                                    <p>{{ item.studentAnswer }}</p>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="attempts-wraper">
+                                        <ng-container *ngIf="item.isEssayQuestion; else noEssay">
+                                            <div class="attempts">
+                                                <label>{{'student.lesson-report.correct'| translate | uppercase
+                                                    }}</label>
+                                                <label *ngIf="item.isCorrect != null" class="checkmark-container">
+                                                    <input type="checkbox" checked="item.isCorrect">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                            <div class="attempts">
+                                                <label>{{'student.lesson-report.in-correct'| translate |
+                                                    uppercase}}</label>
+                                                <label *ngIf="item.isCorrect != null" class="checkmark-container">
+                                                    <input type="checkbox">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                        </ng-container>
+                                        <ng-template #noEssay>
+                                            <div class="attempts">
+                                                <label>{{'student.lesson-report.incorrect-attempts'| translate |
+                                                    uppercase}}</label>
+                                                <p>{{item.incorrectAttempt }}</p>
+                                            </div>
+                                            <div class="attempts">
+                                                <label>{{'student.lesson-report.number-of-attempts'| translate |
+                                                    uppercase }}</label>
+                                                <p>{{item.totalAttempt}}</p>
+                                            </div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="step-list">
+                        <li>
+                            <div>
+                                <div>
+                                    <label>{{'student.lesson-report.completed-exp-activities-label'| translate }}
+                                    </label>
+                                </div>
+                                <div>
+                                    <ul class="activities">
+                                        <li *ngFor="let step of allDetails.steps">
+                                            {{step.charAt(0).toUpperCase() + step.slice(1)}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

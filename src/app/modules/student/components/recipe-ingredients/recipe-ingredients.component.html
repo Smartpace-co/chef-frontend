@@ -1,0 +1,72 @@
+<app-lessons-headerbar [isButtonSection]="isButtonSection"></app-lessons-headerbar>
+<div class="recipe-ingredients-body">
+  <div class="container">
+    <div class="recipe">
+      <ul id="tabs" class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a id="tabIngredients" href="#paneIngredients" class="nav-link active" data-toggle="tab" role="tab">Ingredients</a>
+        </li>
+        <li class="nav-item">
+            <a id="tabCookingPreparation" href="#panelCookingPreparation" class="nav-link" data-toggle="tab" role="tab">Cooking Preparation</a>
+        </li>
+        <li class="nav-item">
+            <a id="tabCooking" href="#paneCooking" class="nav-link" data-toggle="tab" role="tab">Cooking</a>
+        </li>
+      </ul>
+      <div id="content" class="tab-content" role="tablist">
+        <div id="paneIngredients" class="panal-card tab-pane fade show active" role="tabpanel" aria-labelledby="tabIngredients">
+            <div class="panal-card-header" role="tab" id="headingIngredients">
+                <h5 class="mb-0">
+                    <a data-toggle="collapse" href="#collapseIngredients" aria-expanded="true" aria-controls="collapseIngredients">
+                      Ingredients
+                    </a>
+                </h5>
+            </div>
+            <div id="collapseIngredients" class="collapse show" data-parent="#content" role="tabpanel" aria-labelledby="headingIngredients">
+              <div class="legend-card-white ingredients-card">
+                <legend>Ingredients</legend>
+                <div class="ingredients-wrapper">
+                  <div class="ingredients-list" *ngFor="let item of ingredientsList">
+                    <div class="profile-pic">
+                      <img src="{{item.icon}}" alt="" class="img-fluid" />
+                    </div>
+                    <p>{{item.quantity}}</p>
+                    <div class="btn-wrapper">
+                      <app-button classes="btn small-btn btn-secondary ingredients-btn disabled-ptr" [submit]="true">
+                        <span aria-hidden="true">{{item.name}}</span>
+                      </app-button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div id="panelCookingPreparation" class="panal-card tab-pane fade" role="tabpanel" aria-labelledby="tabCookingPreparation">
+            <div class="panal-card-header" role="tab" id="headingCookingPreparation">
+                <h5 class="mb-0">
+                    <a class="collapsed" data-toggle="collapse" href="#collapseCookingPreparation" aria-expanded="false" aria-controls="collapseCookingPreparation">
+                      Cooking Preparation
+                    </a>
+                </h5>
+            </div>
+            <div id="collapseCookingPreparation" class="collapse" data-parent="#content" role="tabpanel" aria-labelledby="headingCookingPreparation">
+              Cooking Preparation
+            </div>
+        </div>
+        <div id="paneCooking" class="panal-card tab-pane fade" role="tabpanel" aria-labelledby="tabCooking">
+            <div class="panal-card-header" role="tab" id="headingReports">
+                <h5 class="mb-0">
+                    <a class="collapsed" data-toggle="collapse" href="#collapseReports" aria-expanded="false" aria-controls="collapseReports">
+                      Cooking
+                    </a>
+                </h5>
+            </div>
+            <div id="collapseReports" class="collapse" role="tabpanel" data-parent="#content" aria-labelledby="headingReports">
+              Cooking
+            </div>
+        </div>
+    </div>
+    </div>
+  </div>
+</div>
+<app-lessons-footer [isVisibleNext]="isVisibleNext" (onNext)="onNext()" (onPrevious)="onPrevious()"></app-lessons-footer>

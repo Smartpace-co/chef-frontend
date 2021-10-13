@@ -1,0 +1,136 @@
+<ng-container *ngIf="classId; else allLessons">
+  <app-student-nav [chefIcon]="true" [showTeacherImg]="true" [classInfo]="true" (onClassInfo)="showClassInfo()">
+  </app-student-nav>
+</ng-container>
+<ng-template #allLessons>
+  <app-student-nav [chefIcon]="true" [backBtn]="true"></app-student-nav>
+</ng-template>
+
+<div class="assignment-body">
+  <div class="planet-image-bg">
+    <img src="./assets/images/planet.png" alt="" class="img-fluid" />
+  </div>
+  <div class="container">
+    <div class="assignment-content-wrapper">
+      <div class="assignment-btn-wrapper">
+        <div class="btn btn-secondary assignment-btn mr-4 icon-btn" (click)="openQuestionModal(questionModal)">
+          <span aria-hidden="true">{{'student.assigned-lessons.assignments-label'| translate }}<fa-icon
+              [icon]="UpArrow"></fa-icon></span>
+        </div>
+      </div>
+      <ng-container *ngIf="assignmentList && assignmentList.length > 0; else noAssignment">
+        <ngx-slick-carousel *ngIf="isLoad" (mousewheel)="slideChange($event)" class="assignment__main"
+          #slickModal="slick-carousel" [config]="slideConfig">
+          <div ngxSlickItem class="assignment-wrapper" *ngFor="let item of assignmentList">
+            <div class="class-assignment-list">
+              <div class="legend-card-white btn-card-white"
+                (click)="item.status === 'Start' ? open(startModal,item): startAssignment(item)">
+                <legend>{{item.title}}</legend>
+                <span class="ingredient-link">
+                  <a class="link" [routerLink]="['/student/order-ingredient',item.id]">
+                    <fa-icon [icon]="cart"></fa-icon>
+                    Order Ingredients
+                  </a>
+                </span>
+                <div class="assignment-details">
+                  <div class="icon-wrapper">
+                    <img src="{{item.icon}}" alt="" class="img-fluid" />
+                  </div>
+                  <div class="menu-info">
+                    <h6>{{item.menu}}</h6>
+                    <p>{{'student.assigned-lessons.duration'| translate }}: {{item.duration}}
+                      {{'student.assigned-lessons.mins-label'| translate }} </p>
+                    <p *ngIf="item.status === 'Continue' || item.status ==='Completed'">
+                      {{'student.assigned-lessons.started-on'| translate }}: {{item.startedOn |
+                      date:'MM/dd/yyyy'}}</p>
+                    <p *ngIf="item.status === 'Completed'">{{'student.assigned-lessons.completed-on'| translate }}:
+                      {{item.endedOn | date:'MM/dd/yyyy'}}</p>
+                    <div class="progress" *ngIf="item.status === 'Continue' || item.status === 'Completed'">
+                      <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0"
+                        aria-valuemax="100" [style.width]="item.percent+ '%'">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="btn-wrapper">
+                  <app-button classes="btn btn-secondary icon-btn btn-std" [disabled]="item.disabled" [submit]="true">
+                    <span aria-hidden="true">{{item.status}}<fa-icon [icon]="RightArrow"
+                        (click)="item.status !== 'Start' ? '': open(startModal,item)"></fa-icon></span>
+                  </app-button>
+                  <!-- [disabled]="item.status === 'Completed' ? false:true" -->
+                  <app-button *ngIf="item.status === 'Completed'" classes="btn btn-secondary icon-btn btn-std"
+                    [submit]="true" [routerLink]="['/student/lesson-report',item.id]">
+                    <span aria-hidden="true">{{'student.assigned-lessons.lesson-report'| translate }}<fa-icon
+                        [icon]="RightArrow"></fa-icon></span>
+                  </app-button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ngx-slick-carousel>
+        <div class="please-scroll">
+          <span>Please scroll down to see more assignments.</span>
+        </div>
+      </ng-container>
+      <ng-template #noAssignment>
+        <h3 style="margin-left: 22rem;">{{'table-component.no-record'| translate}}</h3>
+      </ng-template>
+    </div>
+  </div>
+  <div class="swipe-arrow pr-4">
+    <span class="finger"><img src="./assets/images/finger.png" alt="" class="img-fluid" /></span>
+    <span class="swipe-text">
+      <h6>{{'student.assigned-lessons.swipe-or-click-arrow'| translate }}
+        <br />{{'student.assigned-lessons.to-explore-the-globe'| translate }}
+      </h6>
+    </span>
+    <span class="icon-bg-yellow" (click)="exploreGlobe()"><img src="./assets/images/right-arrow.png" alt=""
+        class="img-fluid" /></span>
+  </div>
+</div>
+<ng-template #startModal let-modal>
+  <div class="modal-header start-assignment-header">
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <img src="./assets/images/close.png" alt="" class="img-fluid" />
+    </button>
+  </div>
+  <div class="modal-body start-assignment-body">
+    <div class="row">
+      <div class="legend-card-white btn-card-white">
+        <div class="assignment-start">
+          <div class="image-wrapper">
+            <img [src]="assignmentInfo.icon" alt="" class="img-fluid" />
+          </div>
+          <h4>
+            <span>{{assignmentInfo?.menu}}</span>
+            <p>{{'student.assigned-lessons.duration'| translate }}:{{assignmentInfo?.duration}}</p>
+          </h4>
+        </div>
+        <div class="btn-wrapper">
+          <app-button classes="btn btn-primary mr-4 icon-btn" [submit]="true" (click)="startAssignment(assignmentInfo)">
+            <span aria-hidden="true">{{'student.assigned-lessons.start'| translate }}<fa-icon [icon]="RightArrow">
+              </fa-icon></span>
+          </app-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #questionModal let-modal>
+  <div class="modal-header question-modal-header">
+    <button type="button" class="close" aria-label="Close" (click)="closeQuestionModal()">
+      <img src="./assets/images/close.png" alt="" class="img-fluid" />
+    </button>
+  </div>
+  <div class="modal-body question-modal-body">
+    <p class="question-info">To continue, please have your parents next to you, and
+      answer the following question</p>
+    <h4 class="question">What is Avogadro’s number? </h4>
+    <div class="legend-card-white">
+      <h2>6.</h2>
+      <div class="answer-box mr-5"></div>
+      <div class="answer-box"></div>
+    </div>
+  </div>
+</ng-template>

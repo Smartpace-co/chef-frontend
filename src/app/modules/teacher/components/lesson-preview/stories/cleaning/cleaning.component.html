@@ -1,0 +1,32 @@
+<app-ingreditent-nav></app-ingreditent-nav>
+<app-lessons-headerbar [lessonHederConfig]="lessonHederConfig"></app-lessons-headerbar>
+<div class="cleaning-body">
+  <!-- <app-scroll-down></app-scroll-down> -->
+  <div class="container">
+    <div class="final-editaion">
+      <div class="content-wrapper">
+        <ul class="card-wihtout-header-blue"> 
+          <li *ngFor="let item of cleaningStepList">
+            <div>
+              <!-- <div [ngClass]="item.isChecked == true ? ' classCheck1 check-mark' : 'check-mark classCheck2'">
+              <input type="checkbox" id="checkbox{{item.id}}" [checked]="item.isChecked"/> -->
+              <label [attr.for]="'checkbox' + item.id"></label>
+            </div>
+            <div class="card-wihtout-header-white cooking-preparation-wrapper">
+              <div class="description">
+                <span class="image"  *ngIf="item.image" ><img src="{{item.image}}" alt="" class="img-fluid" /></span>
+                <span class="description-info">
+                  <h6>{{item.text}}</h6>
+                </span>
+              </div>
+            </div> 
+          </li>
+        </ul>
+    </div>
+    <span class="final-editaion-img-wrapper">
+      <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" /> 
+    </span>
+  </div>
+  </div>
+</div>
+<app-lessons-footer (onNext)="onNext()" (onPrevious)="onPrevious()"></app-lessons-footer>

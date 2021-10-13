@@ -1,0 +1,84 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+.add-roles{
+  max-width: 70rem;
+  margin: 0 auto;
+  .back-button-wrapper{
+    margin-bottom: 3rem;
+    display: flex;
+    justify-content: space-between;
+  }
+  .add-role-wrapper{
+    padding: 4rem;
+    @include breakpoint(mobile){
+      padding: 2rem;
+    }
+    .role-heading{
+      text-align: center;
+      font-size: 3.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .role-sub-heading{
+      text-align: center;
+      font-size: 1.4rem;
+      margin-bottom: 2.5rem;
+    }
+    .add-role-form{
+      .department-heading{
+        margin-bottom: 1.5rem;
+        padding-left: 1.5rem;
+        margin-top: 3rem;
+        color: $light-blue-shade;
+      }
+      label{
+        font-size: 1.4rem;
+        color: $light-blue-shade;
+        font-weight: 700;
+        padding-left: 3rem;
+      }
+      .lable-wrapper{
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        a{
+          text-decoration: underline;
+          font-size: 1.4rem;
+          color: $light-blue-shade;
+          font-weight: 600;
+          padding-left: 3rem;
+          margin-bottom: 0.5rem;
+        }
+      }
+      .access-label{
+        font-size: 1.8rem;
+      }
+      .roles-access{
+        background-color: $inputbg;
+        border-radius: 5rem;
+        padding: 3rem 3rem 1rem;
+        margin-bottom: 1.2rem;
+        .custom-control-label{
+          padding-left: 1.5rem;
+        }
+      }
+      .radio-btn-wrapper{
+        label{
+          display: block;
+        }
+        .custom-radio{
+          display: inline-block;
+          margin-left:2rem;
+          margin-top:1rem;
+          label{
+              padding-left: 0;
+          }
+        }
+      }
+    }
+    .form-btn-wrapper{
+      display: flex;
+      justify-content: center;
+      margin-top: 4rem;
+    }
+  }
+}

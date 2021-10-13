@@ -1,0 +1,58 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+.exercise-body{
+  padding-top: 8rem;
+  padding-bottom: 10rem;
+  min-height: calc(100vh - 24.2rem);
+  position: relative;
+  @include breakpoint(mobile) {
+    min-height: calc(100vh - 33rem);
+    padding-top: 0rem;
+  }
+  .content-wrapper{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    .card-wihtout-header-blue{
+      display: inline-block;
+      max-width: 48rem;
+      padding: 3rem;
+      .question-wrapper{
+        padding-top: 2rem;
+        line-height: 1.4;
+        margin-bottom: 2rem;
+      }
+      .instuctions{
+        color:$text-muted;
+        padding:1rem;
+      }
+      .input{
+        padding-top: 2rem;
+        .form-control{
+          font-size: 1.8rem;
+          font-weight: 700;
+          max-width: 18rem;
+          margin: 0 auto;
+          background-color: $blue-shade-1;
+          padding: 1rem 2rem;
+          text-align: center;
+        }
+      }
+    }
+  }
+  .done-btn{
+    position: absolute;
+    z-index: 1;
+    text-align: center;
+    bottom: -2rem;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+  }
+ 
+}
+.exercise-footer{
+  background-color: #1a46c5;
+  height: 10rem;
+  width: 100%;
+}

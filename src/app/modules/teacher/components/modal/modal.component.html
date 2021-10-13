@@ -1,0 +1,55 @@
+<!-- Create Class Modal
+
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <img src="./assets/images/close.png" alt="" class="img-fluid" />
+    </button>
+    <div class="modal-body">
+        <div class="create-class-form">
+            <h2 class="modal-title">Create Class</h2>
+            <form [formGroup]="createClass" >
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Class Title</label>
+                        <app-input-field classes="form-control" types="text" ids="classTitle" fieldControl="title"
+                            [form]="createClass" placeholders="Enter your class title"></app-input-field>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Grade</label>
+                       
+                        <app-drop-down class="formDropdown" [dropDownButtonName]="GradeTitle" [dropDownIcon]=""
+                            [dropDownItemList]="GradeList"></app-drop-down>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Standards</label>
+                        <app-input-field classes="form-control" types="text" placeholders="Select learning standards"
+                            ids="standards" fieldControl="standard" [form]="createClass"></app-input-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="custom-control custom-radio">
+                            <app-input-field classes="custom-control-input" types="radio" ids="Active"
+                                fieldControl="active" [form]="createClass" names="activeInactive"></app-input-field>
+                            <label class="custom-control-label" for="Active">Active</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <app-input-field classes="custom-control-input" types="radio" ids="Inactive"
+                                fieldControl="inactive" [form]="createClass" names="activeInactive"></app-input-field>
+                            <label class="custom-control-label" for="Inactive">Inactive</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-btns">
+                    <app-button classes="btn btn-secondary" [submit]="true" (click)="modal.close('Save click')">
+                        <span aria-hidden="true">Cancel</span>
+                    </app-button>
+                    <app-button classes="btn btn-primary btn-block" [submit]="true">
+                        <span aria-hidden="true">Add Student Roster</span>
+                    </app-button>
+                </div>
+            </form>
+        </div>
+    </div>
+ -->

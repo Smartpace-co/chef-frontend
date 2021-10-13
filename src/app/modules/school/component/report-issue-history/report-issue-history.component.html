@@ -1,0 +1,60 @@
+<div class="discussion-forum">
+    <div class="container">
+        <div class="discussion-forum-profile-wrapper legend-card">
+            <legend>{{'school.report-issue.report-history-label'|translate}}</legend>
+            <!-- <div class="roster-header-button">
+                <app-button classes="btn btn-primary icon-btn" [submit]="true" (click)="open(newTopic)">
+                  <fa-icon [icon]="PlusIcon"></fa-icon>
+                  <span aria-hidden="true">Add New Topic</span>
+                </app-button>
+              </div> -->
+            <div class="row discussion-list">
+                <div class="col-lg-6 col-md-6 col-sm-12" *ngFor="let reportIssueHistory of reportHistoryList" (click)="getReportReplies(reportIssueHistory)">
+                    <div class="discussion-item">
+                      <span hidden>{{reportIssueHistory.id}}</span>
+                        <h5 class="title">{{reportIssueHistory.description}}</h5>
+                        <p class="description">{{reportIssueHistory.type}}</p>                     
+                    </div>
+                </div>               
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #newTopic let-modal>
+    <button type="button" class="close" aria-label="Close" (click)="closeOpenModal()">
+      <img src="./assets/images/close.png" alt="" class="img-fluid" />
+    </button>
+    <div class="modal-body">
+      <div class="form-create-class district-modal">
+        <h2 class="modal-title"> {{'school.discussion-forum.add-new-topic.add-new-topic-label'|translate}}</h2>
+        <form [formGroup]="newTopicForm">
+          <div class="row">
+            <div class="col-md-12">
+              <label>{{'school.discussion-forum.add-new-topic.discussion-topic-label'|translate}}  (*)</label>
+              <app-input-field classes="form-control" types="text" ids="topic" fieldControl="topic"
+                [form]="newTopicForm" placeholders="{{'school.discussion-forum.add-new-topic.discussion-topic-placeholder'|translate}} " [ngClass]="{ 'is-invalid': formControl.topic.touched && formControl.topic.errors }">
+              </app-input-field>
+                <div class="error" *ngIf="newTopicForm.controls.topic.errors?.required">{{'school.discussion-forum.add-new-topic.discussion-topic-required'|translate}}</div>
+              
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <label>{{'school.discussion-forum.add-new-topic.description-label'|translate}}</label>
+              <textarea  class="form-control schoolForm" placeholder="{{'school.discussion-forum.add-new-topic.description-placeholder'|translate}}" ids="description" fieldControl="description"
+              [(ngModel)]="description" [ngModelOptions]="{standalone: true}" rows="6"></textarea>
+            
+            </div>
+          </div>
+          <div class="footer-btns">
+            <app-button classes="btn btn-secondary mb-3 mr-3" [submit]="true" (click)="closeOpenModal()">
+              <span aria-hidden="true">{{'common.cancel'|translate}}</span>
+            </app-button>
+            <app-button classes="btn btn-primary mb-3" [submit]="true" [disabled]="newTopicForm.invalid" (click)="onSave()">
+              <span aria-hidden="true">{{'common.submit'|translate}}</span>
+            </app-button>
+          </div>
+        </form>
+      </div>
+    </div>
+</ng-template>

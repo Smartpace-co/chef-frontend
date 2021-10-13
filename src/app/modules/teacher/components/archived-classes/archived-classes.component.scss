@@ -1,0 +1,100 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+
+.archived-filter{
+    background: $twilight-blue;
+    .container{
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    form{
+        display: flex;
+        align-items: center;
+        .form-control{
+            background: transparent;
+        }
+    }
+    .filter-droplist{
+        display: flex;
+        margin-left: auto;
+        align-items: center;
+        @include breakpoint(mobile){
+            margin-left:0;
+            flex-wrap: wrap;
+        }
+    }
+}
+
+
+.archived-header{
+    margin:3rem 0;
+    .archived-header-main{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        h2{
+            font-size:2.5rem;
+            margin: 0;
+            span{
+                color:$secondary;
+            }
+            @include breakpoint(mobile){
+                font-size:1.8rem;
+                margin-bottom:1.5rem;
+            }
+        }
+    }
+}
+
+.archived-classes-list{
+    margin-top:2rem;
+    .col-md-4{
+        margin-bottom:3rem;
+    }
+    .archivedItem{
+        &.card{
+            padding: 0;
+        }
+        &__image{
+            position: relative;
+            border-radius:1.2rem 1.2rem 0 0;
+            img{
+                max-width: 100%;
+                border-radius:1.2rem 1.2rem 0 0;
+                background: #f0f0f0;
+                text-align: center;
+            }
+        }
+        &__info{
+            padding:2rem;
+        }
+        &__name{
+            max-height:4.2rem;
+            min-height:4.2rem;
+            font-size: 1.8rem;
+            max-width:80%;
+            font-size: 1.4rem;
+            margin-bottom: 1.6rem;
+            min-height: 4.5rem;
+        }
+        &__details{
+            li{
+                font-size:1.2rem;
+                font-weight: 600;
+                color:rgba($white,0.5);
+            }
+        }
+        &__links{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 2.5rem;
+            a{
+                color:$secondary;
+                font-weight: bold;
+            }
+        }
+    }
+}

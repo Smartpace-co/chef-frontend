@@ -1,0 +1,10 @@
+<div>
+  <h2 style="color: black;">Sidebar : {{userRole}}</h2>
+
+  <div *ngFor="let i of sideMenuContents">
+    <h2 *ngIf="i.showMenu == true" style="color: crimson;"> Menu : {{i.menu}}</h2>
+    <div *ngFor="let j of i.submenu">
+      <h4 *ngIf="j.showSubMenu == true" style="color: darkgrey;"> SubMenu : {{j.name}}</h4>
+    </div>
+  </div>
+</div>

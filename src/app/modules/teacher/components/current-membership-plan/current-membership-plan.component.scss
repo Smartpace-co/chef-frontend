@@ -1,0 +1,139 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+.user-membership{
+  padding: 5rem 0rem;
+  .membership-heading-wrapper{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+    @include breakpoint(sm-mobile) {
+      flex-wrap: wrap;
+    }
+    .heading{
+      display: flex;
+      align-items: center;
+      @include breakpoint(sm-mobile) {
+        margin-bottom: 2rem;
+      }
+      h4{
+        margin: 0;
+      }
+    }
+  }
+  .user-membership-wrapper{
+    max-width: 85%;
+    padding: 4rem;
+    @include breakpoint(mobile){
+      max-width: 100%;
+      padding: 2rem;
+    }
+    .membership-sub-heading{
+      margin-bottom: 2.3rem;
+      @include breakpoint(sm-mobile) {
+        margin-bottom: 1.5rem;
+        margin-top: 2rem;
+      }
+      h5{
+        color: $secondary;
+        margin: 0;
+      }
+    }
+    .membership-label{
+      margin-bottom: 2.5rem;
+      @include breakpoint(sm-mobile) {
+        margin-bottom: 1rem;
+      }
+      &.ach-type{
+        margin-bottom: 1rem;
+        label{
+          padding-left: 3.5rem;
+          @include breakpoint(sm-mobile) {
+            padding-left: 2rem;
+          }
+        }
+      }
+      label{
+        color: $light-blue-shade;
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 0;
+      }
+    }
+    .membership-info{
+      margin-bottom: 2.5rem;
+      @include breakpoint(sm-mobile) {
+        margin-bottom: 1rem;
+      }
+      &.ach-type{
+        margin-bottom: 1rem;
+        p{
+          padding-bottom: 0;
+          @include breakpoint(sm-mobile) {
+            padding-left: 2rem;
+          }
+        }
+      }
+      p{
+        font-size: 1.5rem;
+        font-weight: 700;
+        padding: 0;
+        padding-bottom: 1rem;
+      }
+    }
+    .edit-Payment-wrapper{
+      @include breakpoint(sm-mobile) {
+        margin-bottom: 1rem;
+      }
+      .edit-Payment{
+        color: $yellow-shade-5;
+        font-weight: 700;
+        font-size: 1.4rem;
+        span{
+          width: 1.6rem;
+          height: 1.6rem;
+        }
+      }
+    }
+    .plan-details{
+      margin-bottom: 4rem;
+      @include breakpoint(sm-mobile) {
+        margin-bottom: 2rem;
+      }
+      .plan-details-box{
+        padding: 2rem;
+        display: flex;
+        background-color: $twilight-blue;
+        border: 1px solid $border-color;
+        border-radius: 3rem;
+        max-width: 30rem;
+        justify-content: space-between;
+        margin-bottom: 2rem;
+        text-align: center;
+        .numeric-info-label{
+          h3{
+            margin: 0;
+            font-size: 2.3rem;
+            @include breakpoint(sm-mobile) {
+              font-size: 1.8rem;
+            }
+          }
+          label{
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0;
+          }
+        }
+      }
+    }
+    .view-uses-details{
+      a{
+        text-decoration: underline;
+        font-size: 1.4rem;
+        font-weight: 700;
+      }
+    }
+    .download-recipt{
+      margin-top:10rem;
+    }
+  }
+}

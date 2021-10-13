@@ -1,0 +1,103 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+
+.student-landing{
+    max-width:54%;
+    margin: 0 auto;
+    @include breakpoint(iPad){
+        max-width:70%;
+    }  
+    @include breakpoint(mobile){
+        max-width:80%;
+    }   
+    @include breakpoint(smallmobile){
+        max-width:90%;
+    }  
+    .col-md-6{
+        margin-bottom:6rem;
+    }
+    .card{
+        &--white{
+            background: $white;
+            border:none;
+            border-radius:6rem;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            @include breakpoint(mobile){
+                border-radius:4rem;
+                min-height: 25rem;
+            }
+            img{
+                max-width:80%;
+            }
+            .achievement-wraper{
+                display: flex;
+                justify-content: center;
+                width: 100%;
+                .passport{
+                    margin-left: 0;
+                }
+                .locker{
+                    margin-left: 8rem;
+                }
+                .report{
+                    position: absolute;
+                }
+                .achievement{
+                    max-width: 9rem;
+                    a{
+                        img{
+                            max-width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+        app-button{
+            position: absolute;
+            left:0;
+            bottom:-2rem;
+            width:100%;
+            display: flex;
+            justify-content: center;
+            margin: auto;            
+        }
+    }
+    .home-class-page{
+        margin:0 0 3rem;
+        width:100%;
+        justify-content: center;
+    }
+}
+// pop-up//
+.student-header{
+    border-bottom: none;
+    .logo{
+      max-width: 8.5rem;
+      position: absolute;
+      top: -4rem;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+    }
+    h4{
+      margin: 0 auto;
+      padding-top: 2rem;
+    }
+  }
+  .journal-body{
+    p{
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: 700;
+      padding-top: 0;
+      padding-bottom: 2rem;
+    }
+    .close-btn-wrapper{
+     display: flex;
+     justify-content: center;
+     text-align: center;
+    }
+  }
+  

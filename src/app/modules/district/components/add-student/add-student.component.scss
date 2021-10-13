@@ -1,0 +1,68 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+
+.AddStudent{
+    margin:8rem 0;
+    &__form{
+        background: $primary;
+        border:1px solid $border-color;
+        border-radius:3rem;
+        position: relative;
+        padding:8rem 4rem;
+        padding-top: 0;
+        fieldset{
+            max-width:90%;
+            @include breakpoint(mobile){
+                max-width:100%;
+            }
+            legend{
+                font-size:2rem;
+                font-weight: bold;
+                color:$navy-blue;
+                background:$secondary;
+                padding:1.5rem 3rem;
+                border-radius:1.2rem;
+                margin-bottom:2rem;
+                display: inline-block;
+                width: auto;
+                transform: translate(0, -50%);
+            }
+        }
+    }
+    label{
+        font-size: 1.4rem;
+        color: $light-blue-shade;
+        font-weight: 700;
+        padding-left: 3rem;
+      //   padding-left:3rem;
+      //   color:rgba($white, 0.5);
+      //   display: block;
+    }
+    .custom-radio{
+        display: inline-block;
+        margin-left:2rem;
+        margin-bottom:1.5rem;
+        label{
+            padding-left: 0;
+        }
+    }
+    h2{
+        font-size:2rem;
+        color:rgba($white, 0.5);
+        margin-bottom: 1.5rem;
+    }
+    .personal-info{
+        margin:4rem 0;
+    }
+    .medical-info{
+        margin-top: 4rem;
+        margin-bottom: 2rem;
+        @include breakpoint(tabs){
+            .row{
+                &:last-child{
+                    margin-top:1.5rem;
+                }
+            }
+        }
+    }
+}

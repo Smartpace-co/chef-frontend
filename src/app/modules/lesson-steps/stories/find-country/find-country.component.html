@@ -1,0 +1,30 @@
+<app-lessons-headerbar [lessonHederConfig]="lessonHederConfig"></app-lessons-headerbar>
+<div class="story-body-3">
+  <app-scroll-down></app-scroll-down>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 earth-img">
+        <div class="explore-lesson">
+          <div class="globe"><div #globeContainer></div></div>
+        </div>
+        <span class="final-editaion-img-wrapper">
+          <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
+          
+        </span>
+        <div class="tooltip-wrapper">
+          <div class="speech-tooltip sm-tooltip left-bottom-tip">
+            <div class="speech-tooltip-inner">
+                <p class="message">
+                  Try to find the {{countryName}} on the globe.
+                </p>
+                <span class="tip">
+                  <img src="./assets/images/left-bottom-tip.svg" alt="" class="img-fluid" />
+                </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 
+<app-lessons-footer (onNext)="onNext()" (onPrevious)="onPrevious()"></app-lessons-footer>

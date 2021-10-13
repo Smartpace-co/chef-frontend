@@ -1,0 +1,22 @@
+<div *ngIf="dropDownItemList">
+  <ng-multiselect-dropdown
+    [ngClass]="selectedItems?.length > 0 ? 'multiselected' : ''"
+    [placeholder]="placeholderText"
+    [data]="dropDownItemList"
+    [(ngModel)]="selectedItems"
+    [settings]="dropdownSettings"
+    (onSelect)="onItemSelect($event)"
+    (onSelectAll)="onSelectAll($event)"
+    (onDeSelect)="OnItemDeSelect($event)"
+    (onDeSelectAll)="onDeSelectAll($event)"
+  >
+  </ng-multiselect-dropdown>
+</div>
+<div class="multi-select">
+    <span *ngFor="let item of selectedValue; let i = index">
+      <span class="multi-select__item">
+        {{ item.item_text }}
+        <fa-icon [icon]="timesIcon" (click)="OnItemDeSelect(item)">x</fa-icon> 
+      </span>
+    </span>
+</div>  

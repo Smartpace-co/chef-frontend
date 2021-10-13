@@ -1,0 +1,72 @@
+@import "../../../../../../../assets/styles/helpers/variables";
+@import "../../../../../../../assets/styles/helpers/mixins";
+.journal-header{
+    border-bottom: none;
+    legend{
+        transform: translate(100%, -50%);
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: $navy-blue;
+        background: $secondary;
+        padding: 1rem 2.5rem;
+        border-radius: 3.5rem;
+        display: inline-table;
+        width: auto;
+    }
+}
+.journal-body{
+    padding: 0rem 3rem 3rem;
+  .legend-card-white{
+    padding: 1rem;
+    border-radius: 0rem;
+    &.journal-list-wrapper{
+        ul{
+            li{
+                border-bottom: 1px dotted $navy-blue;
+                .date{
+                    span{
+                        display: inline-block;
+                        float: right;
+                        font-size: 1rem;
+                        color: $grey-shade-2;
+                    }
+                }
+                .info{
+                    color: $navy-blue;
+                    font-size: 1.9rem;
+                    font-weight: 700;
+                    padding: 0;
+                }
+            }
+        }
+        .journel-note-link{
+            a{
+                font-size: 1.8rem;
+                font-weight: bold;
+                color: $navy-blue;  
+            }
+        } 
+    }
+  }
+  .journal-list-search{
+    background-color: $twilight-blue;
+    padding:1rem 2.5rem;
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+        .form-control{
+        background-color: transparent;
+        border: none;
+        display: inline-block;
+        margin-left:1rem;
+        width:50rem;
+        padding:0.5rem 1rem;
+        margin-bottom: 0;
+            @include breakpoint(mobile){
+                width:90%;
+            }
+        }
+    }
+}

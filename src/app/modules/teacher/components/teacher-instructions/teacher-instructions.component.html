@@ -1,0 +1,32 @@
+<app-ingreditent-nav></app-ingreditent-nav>
+<div class="teacher-instructions">
+  <div class="container">
+      <div class="row">
+          <div class="col-lg-10">
+              <div class="instructions-wrapper">
+                <ul class="legend-card instructions-list"> 
+                    <legend>{{'teacher.order-ingredients.instruction-for-teacher-label'|translate}}</legend>
+                    <div class="heading-wraper">
+                        <h4 class="heading">{{recipeTitle}} </h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-11">
+                            <li *ngFor="let item of instructionsSteps; let i = index ">
+                              <div class="legend-card-white btn-card-white teacher-instructions-wrapper">
+                                <legend class="index">{{i+1}}</legend>
+                                <div class="description">
+                                  <span class="description-info">
+                                    <p>{{item.text}}</p>
+                                  </span>
+                                </div>
+                              </div>
+                            </li>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+          </div>
+      </div>
+  </div>
+</div>
+

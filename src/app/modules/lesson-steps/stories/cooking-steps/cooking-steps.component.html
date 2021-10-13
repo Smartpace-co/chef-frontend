@@ -1,0 +1,63 @@
+<app-lessons-headerbar [lessonHederConfig]="lessonHederConfig"></app-lessons-headerbar>
+<div class="cooking-step-1">
+  <app-scroll-down></app-scroll-down>
+  <div class="mr-4 cooking-step-audio">
+    <span *ngIf="audioTrack">
+      <audio controls autoplay controlsList="nodownload">
+        <source [src]="audioTrack" type="audio/mp3">
+      </audio>
+    </span>
+  </div>
+  <div class="container">
+    <div class="final-editaion">
+      <div class="content-wrapper">
+        <ul class="card-wihtout-header-blue">
+          <div class="content-scroll">
+            <li *ngFor="let item of cookingSteps">
+              <div>
+                <label [attr.for]="'checkbox' + item.id"></label>
+              </div>
+              <div class="legend-card-white btn-card-white cooking-preparation-wrapper">
+                <legend class="index">{{item.id}}</legend>
+                <div class="chef-label-wraper">
+                  <legend *ngIf="item.isBigChef" class="legend-big">{{'student.assigned-lessons.lesson-steps.big-chef'|
+                    translate }}
+                    <span class="profile-pic"><img src="{{item.isBigChef}}" alt="" class="img-fluid" /></span>
+                  </legend>
+                  <legend *ngIf="item.isLittleChef" class="legend-little">
+                    {{'student.assigned-lessons.lesson-steps.little-chef'| translate }}
+                    <span class="profile-pic"><img src="{{item.isLittleChef}}" alt="" class="img-fluid" /></span>
+                  </legend>
+                </div>
+                <ng-container *ngIf="item.video; else noVideo">
+                  <div class="description with-video">
+                    <div class="video">
+                      <iframe class="img-fluid" [src]="getSanitizeUrl(item.video)">
+                      </iframe>
+                    </div>
+                    <div class="description-info">
+                      <h6>{{item.info}}</h6>
+                    </div>
+                  </div>
+                </ng-container>
+                <ng-template #noVideo>
+                  <div class="description" *ngIf="item.image">
+                    <div class="image"><img src="{{item.image}}" alt="" class="img-fluid" /></div>
+                    <span class="description-info">
+                      <h6>{{item.info}}</h6>
+                    </span>
+                  </div>
+                </ng-template>
+              </div>
+            </li>
+          </div>
+        </ul>
+      </div>
+      <span class="final-editaion-img-wrapper">
+        <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
+      </span>
+    </div>
+  </div>
+</div>
+<app-lessons-footer [isVisibleNext]="isVisibleNext" [isVisiblePrevious]="isVisiblePrevious" (onNext)="onNext()"
+  (onPrevious)="onPrevious()"></app-lessons-footer>

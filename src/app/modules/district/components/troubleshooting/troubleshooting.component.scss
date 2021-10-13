@@ -1,0 +1,80 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+
+.troubleshooting {
+    padding: 5rem 0rem;
+
+    .troubleshooting-profile-wrapper {
+        padding: 0rem 4rem;
+        width: 83.63%;
+
+        @include breakpoint(mobile) {
+            padding: 0rem 2rem;
+            width: 100%;
+        }
+
+        .troubleshoot-label {
+            font-size: 1.7rem;
+            line-height: 1.18;
+            padding: 0 2.7rem;
+
+            @include breakpoint(mobile) {
+                padding: 0rem;
+            }
+        }
+
+        .troubleshooting-list {
+            padding: 0 2.7rem;
+
+            @include breakpoint(mobile) {
+                padding: 0rem;
+            }
+
+            li {
+                display: flex;
+                align-items: center;
+                padding: 3rem 0rem;
+                border-bottom: 1px solid $border-color;
+
+                &:last-child {
+                    border-bottom: none;
+                }
+
+                @include breakpoint(mobile) {
+                    flex-wrap: wrap;
+                }
+
+                .troubleshooting-details {
+                    padding-left: 3rem;
+
+                    @include breakpoint(mobile) {
+                        padding-left: 2rem;
+                        width: calc(100% - 5rem);
+                    }
+
+                    .title {
+                        font-size: 1.6rem;
+                        line-height: 1.63;
+                        padding: 0;
+                        font-weight: 700;
+                        &.visited {
+                            color: $blueBorder;
+                        }
+                    }
+
+                    .message {
+                        margin-bottom: 0rem;
+                        font-size: 1.3rem;
+                        line-height: 2;
+                        color: $secondary;
+                        ;
+
+                        &.visited {
+                            color: $blueBorder;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

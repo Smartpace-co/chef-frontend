@@ -1,0 +1,268 @@
+<div class="class-activity-report">
+  <!-- <div class="schools-report-header">
+    <div class="container">
+      <app-button classes="btn btn-transferent active icon-btn mr-3">
+        <span aria-hidden="true"><fa-icon [icon]="activity"></fa-icon>Activity Report</span>
+      </app-button>
+      <app-button classes="btn btn-transferent icon-btn mr-3">
+        <span aria-hidden="true"><fa-icon [icon]="performance"></fa-icon>Performance Report</span>
+      </app-button>
+      <app-button classes="btn btn-transferent icon-btn mr-3">
+        <span aria-hidden="true"><fa-icon [icon]="leaderboard"></fa-icon>Leaderboard</span>
+      </app-button>
+    </div>
+  </div> -->
+  <div class="activity-report-main">
+    <div class="report-heading-wrapper">
+      <div class="container">
+        <h4>{{'school.class-activity-report.label'| translate}}</h4>
+        <div class="btn-wrapper">
+          <app-button classes="btn btn-primary icon-btn mb-3 mr-3" (click)="open(createClass)">
+            <span aria-hidden="true"><fa-icon [icon]="settings"></fa-icon>{{'school.class-activity-report.change-criteria-button' | translate}}</span>
+          </app-button>
+          <app-button classes="btn btn-primary print-icon-btn icon-btn mr-3 mb-3" (click)="generatePDF()" printTitle="Print Title" printSectionId="print-section" ngxPrint>
+            <span aria-hidden="true"><span class="print-icon mr-3"><img src="./assets/images/print-icon.png" alt="" class="img-fluid" id="print-section" /></span>{{'school.billing.print-report' | translate}}</span>
+          </app-button>
+        </div>
+      </div>
+    </div>
+    <div class="schools-report-wrapper" id="generatePdf">
+        <div class="schools-activity">
+          <div class="container"> 
+            <ul id="tabs" class="nav nav-tabs activity-tab-nav" role="tablist">
+              <li class="nav-item">
+                <a id="tabClassActivity" href="#classActivity" (click)="getClassActivityReport('week')" class="nav-link active" data-toggle="tab" role="tab">{{'school.class-activity-report.class-activity-label' | translate}}</a>
+            </li>
+            <li class="nav-item">
+              <a id="tabTeacherActivity" href="#teacherActivity" (click)="getTeacherActivityReport('week')" class="nav-link" data-toggle="tab" role="tab">{{'school.class-activity-report.teacher-activity-label' | translate}}</a>
+          </li>
+            </ul>
+          </div>
+          <div id="content" class="tab-content" role="tablist">
+            <div id="classActivity" class="panal-card tab-pane fade show active" role="tabpanel" aria-labelledby="tabClassActivity">
+              <div class="container">  
+                <div class="panal-card-header" role="tab" id="headingInfo">
+                      <h5 class="mb-0">
+                          <a data-toggle="collapse" href="#collapseClassActivity" aria-expanded="true" aria-controls="collapseClassActivity">
+                            {{'school.class-activity-report.class-activity-label' | translate}}
+                          </a>
+                      </h5>
+                  </div>
+                </div>
+                <div id="collapseClassActivity" class="collapse show" data-parent="#content" role="tabpanel" aria-labelledby="headingInfo">
+                  <div class="school-active-details">
+                    <div class="roster-filter">
+                      <div class="container">
+                        <ul class="filters-list desktop-only">
+                          <li class="filters-item">
+                              <a (click)="getClassActivityReport('week')" class="filter active" [ngClass]="{'active': duration === 'week'}">{{'school.class-activity-report.this-week-label' | translate}}</a>
+                          </li>
+                          <li class="filters-item">
+                            <a (click)="getClassActivityReport('month')" class="filter" [ngClass]="{'active': duration === 'month'}">{{'school.class-activity-report.this-month-label' | translate}}</a>
+                          </li>
+                          <li class="filters-item">
+                            <a (click)="getClassActivityReport('quarter')" class="filter" [ngClass]="{'active': duration === 'quarter'}">{{'school.class-activity-report.this-quarter-label' | translate}}</a>
+                          </li>
+                          <li class="filters-item">
+                            <a (click)="getClassActivityReport('year')" class="filter" [ngClass]="{'active': duration === 'year'}">{{'school.class-activity-report.this-year-label' | translate}}</a>
+                          </li>
+                        </ul>
+
+                        <div class="filter-droplist">
+                          <app-drop-down class="transparentbg  mobile-only"
+                            [dropDownButtonName]="filterTitle" [dropDownIcon]="" [dropDownItemList]="filterList"></app-drop-down>
+                          <app-drop-down class="transparentbg" (registerDropdownValueChange)="changeView($event)"
+                            [dropDownButtonName]="ViewTitle" [dropDownIcon]="ViewIcon" [dropDownItemList]="ViewList"></app-drop-down>
+                        </div>
+                        <div (click)="openRead(readReport)" class="report-help">
+                          <a  class="help">{{'school.class-activity-report.how-to-read-this-report-label' | translate}}</a>
+                        </div>
+                      </div>
+                    </div>
+                      <div class="legend-card-wrapper" id="generatePdf">
+                        <div class="container">
+                          <div *ngIf="gridview" class="dist-school-grid">
+                              <div class="row">
+                                <div class="col-lg-4 col-md-6 col-sm-6" *ngFor="let item of classActivityList">
+                                  <div class="schoolItem">
+                                    <div class="schoolItem__heading">
+                                      <h6 class="schoolItem__heading__name">{{ item.schoolName}}</h6>
+                                      <a class="schoolItem__heading__dots"> <fa-icon [icon]="faDots"></fa-icon></a>
+                                    </div> 
+                                    <!-- <div class="schoolItem__heading">
+                                      <h6 class="schoolItem__heading__name">Room {{ item.room}}</h6>
+                                    </div> -->
+                                    <div class="schoolItem__info-wrapper">
+                                      <div class="schoolItem__info-wrapper__photo">
+                                        <img src="{{ item.profilePic }}" alt="" class="img-fluid"/>
+                                      </div>
+                                      <div class="schoolItem__info-wrapper__name-id">
+                                        <h6 class="schoolItem__info-wrapper__name-id__name">{{ item.className}}</h6>
+                                         <p class="schoolItem__info-wrapper__name-id__id"> <label>{{'district.district-schools.id' | translate}}:</label><span>{{ item.displayCode }}</span></p> 
+                                      </div>
+                                    </div>
+                                    <div class="schoolItem__school-info">
+                                      <h6> {{'district.district-schools.students-title' | translate}} - {{item.students}}</h6>
+                                      <h6>{{'school.class-activity-report.time-label' | translate}}  - {{item.time}}</h6>
+                                    </div>
+                                    <!-- <ul class="schoolItem__action">
+                                      <li>
+                                        <a>Info<fa-icon [icon]="rightArrow" class="ml-2"></fa-icon></a>
+                                      </li>
+                                      <li>
+                                        <a>Students<fa-icon [icon]="rightArrow" class="ml-2"></fa-icon></a>
+                                      </li>
+                                      <li>
+                                        <a>Reports<fa-icon [icon]="rightArrow" class="ml-2"></fa-icon></a>
+                                      </li>
+                                    </ul> -->
+                                  </div>
+                                </div>
+                              </div>
+                          </div>
+                        </div>
+                        <div *ngIf="listview">
+                          <app-tables  [dataSource]="classActivityList"
+                            [tableHeaders]="classActivityHeadersList" [page]="1" [pageSize]="10"></app-tables>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+            </div>
+            <div id="teacherActivity" class="panal-card tab-pane fade show" role="tabpanel" aria-labelledby="tabTeacherActivity">
+              <div class="container">  
+                <div class="panal-card-header" role="tab" id="headingInfo">
+                      <h5 class="mb-0">
+                          <a data-toggle="collapse" (click)="getTeacherActivityReport('week')" href="#collapseTeacherActivity" aria-expanded="true" aria-controls="collapseTeacherActivity">
+                            {{'school.class-activity-report.teacher-activity-label' | translate}}
+                          </a>
+                      </h5>
+                  </div>
+                </div>
+                <div id="collapseTeacherActivity" class="collapse show" data-parent="#content" role="tabpanel" aria-labelledby="headingInfo">
+                  <div class="school-active-details">
+                    <div class="roster-filter">
+                      <div class="container">
+                        <ul class="filters-list desktop-only">
+                          <li class="filters-item">
+                            <a (click)="getTeacherActivityReport('week')" class="filter active" [ngClass]="{'active': duration === 'week'}">{{'school.class-activity-report.this-week-label' | translate}}</a>
+                        </li>
+                        <li class="filters-item">
+                          <a (click)="getTeacherActivityReport('month')" class="filter" [ngClass]="{'active': duration === 'month'}">{{'school.class-activity-report.this-month-label' | translate}}</a>
+                        </li>
+                        <li class="filters-item">
+                          <a (click)="getTeacherActivityReport('quarter')" class="filter" [ngClass]="{'active': duration === 'quarter'}">{{'school.class-activity-report.this-quarter-label' | translate}}</a>
+                        </li>
+                        <li class="filters-item">
+                          <a (click)="getTeacherActivityReport('year')" class="filter" [ngClass]="{'active': duration === 'year'}">{{'school.class-activity-report.this-year-label' | translate}}</a>
+                        </li>
+                        </ul>
+
+                        <div class="filter-droplist">
+                          <app-drop-down class="transparentbg  mobile-only"
+                            [dropDownButtonName]="filterTitle" [dropDownIcon]="" [dropDownItemList]="filterList"></app-drop-down>
+                          <app-drop-down class="transparentbg" (registerDropdownValueChange)="changeView($event)"
+                            [dropDownButtonName]="ViewTitle" [dropDownIcon]="ViewIcon" [dropDownItemList]="ViewList"></app-drop-down>
+                        </div>
+                        <div (click)="openRead(readReport)" class="report-help">
+                          <a  class="help">{{'common.download' | translate}}</a>
+                        </div>
+                      </div>
+                    </div>
+                      <div class="legend-card-wrapper">
+                        <div class="container">
+                          <div *ngIf="gridview" class="dist-school-grid">
+                              <div class="row">
+                                <div class="col-lg-4 col-md-6 col-sm-6" *ngFor="let item of teacherActivityList">
+                                  <div class="schoolItem">
+                                    <div class="schoolItem__heading">
+                                      <h6 class="schoolItem__heading__name">{{ item.schoolName}}</h6>
+                                      <a class="schoolItem__heading__dots"> <fa-icon [icon]="faDots"></fa-icon></a>
+                                    </div>
+                                     <!-- <div class="schoolItem__heading">
+                                      <h6 class="schoolItem__heading__name">Grade: {{ item.grade}}</h6>
+                                    </div> -->
+                                    <div class="schoolItem__info-wrapper">
+                                      <div class="schoolItem__info-wrapper__photo">
+                                        <img src="{{ item.profilePic }}" alt="" class="img-fluid"/>
+                                      </div>
+                                      <div class="schoolItem__info-wrapper__name-id">
+                                        <h6 class="schoolItem__info-wrapper__name-id__name">{{ item.teacherName}}</h6>
+                                        <!-- <p class="schoolItem__info-wrapper__name-id__id"> <label>ID:</label><span>{{ item.schoolId }}</span></p>  -->
+                                      </div>
+                                    </div>
+                                    <div class="schoolItem__school-info">
+                                      <h6>{{'school.class-activity-report.sessions-label' | translate}} - {{item.sessions}}</h6>
+                                      <h6>{{'school.class-activity-report.average-time-label' | translate}} - {{item.time}}</h6>
+                                    </div>
+                                    <!-- <ul class="schoolItem__action">
+                                      <li>
+                                        <a>Info<fa-icon [icon]="rightArrow" class="ml-2"></fa-icon></a>
+                                      </li>
+                                      <li>
+                                        <a>Students<fa-icon [icon]="rightArrow" class="ml-2"></fa-icon></a>
+                                      </li>
+                                      <li>
+                                        <a>Reports<fa-icon [icon]="rightArrow" class="ml-2"></fa-icon></a>
+                                      </li>
+                                    </ul> -->
+                                  </div>
+                                </div>
+                              </div>
+                          </div>
+                        </div>
+                        <div *ngIf="listview">
+                          <app-tables  [dataSource]="teacherActivityList"
+                            [tableHeaders]="teacherHeadersList" [page]="1" [pageSize]="10"></app-tables>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+<ng-template #createClass let-modal>
+  <button type="button" class="close" aria-label="Close" (click)="closeOpenModal()">
+    <img src="./assets/images/close.png" alt="" class="img-fluid" />
+  </button>
+  <div class="modal-body">
+    <h3 class="access-label">{{'school.class-activity-report.change-criteria-button' | translate}}</h3>
+    <div class="roles-access" *ngIf="this.teacher==false">
+      <div  class="check-wrapper" *ngFor="let option of headersList" >
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" [checked] ="option.check" (click)="hideContentColumns($event,option)" class="custom-control-input">
+          <label class="custom-control-label">{{option.title}}</label>
+        </div>
+      </div>
+
+      
+    </div>
+    <div class="roles-access" *ngIf="this.teacher==true">
+    <div class="check-wrapper" *ngFor="let option of teacherList" >
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" [checked] ="option.check" (click)="hideContentColumns($event,option)" class="custom-control-input">
+        <label class="custom-control-label">{{option.title}}</label>
+      </div>
+    </div>
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-template #readReport let-modal>
+  <button type="button" class="close" aria-label="Close" (click)="closeOpenModal1()">
+    <img src="./assets/images/close.png" alt="" class="img-fluid" />
+  </button>
+  <div class="modal-body">
+    <h3 class="access-label">{{'school.class-activity-report.how-to-read-this-report-label' | translate}}</h3>
+    <div class="modal-body journal-body">
+      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s
+        standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
+        type specimen book. </p>     
+    </div>
+    
+  </div>
+</ng-template>

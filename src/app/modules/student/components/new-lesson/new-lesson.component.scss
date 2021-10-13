@@ -1,0 +1,97 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+.new-lesson{
+  padding: 8rem 0rem 4rem;
+  .content-wrapper{
+    display: flex;
+    justify-content: space-between;
+    @include breakpoint(mobile){
+      flex-wrap: wrap;
+      justify-content: flex-start;
+    }
+    .points{
+      max-width: 10rem;
+      position: relative;
+      .point-value{
+        position: absolute;
+        font-size: 1.3rem;
+        top: 40px;
+        left: 31px;
+      }
+      .point-title{
+        position: absolute;
+        font-size: 1.3rem;
+        top: 60px;
+        left: 28px;
+      }
+    }
+    .recipe{
+      text-align: center;
+      color: $navy-blue;
+      max-width: calc(100% - 30rem);
+      @include breakpoint(mobile){
+        max-width: 100%;
+        width: 100%;
+      }
+      .recipe-heading{
+        display: inline-block;
+        text-align: right;
+        h2{
+          font-size: 4rem;
+          font-weight: 500;
+          @include breakpoint(mobile){
+            font-size: 2.8rem;
+          }
+        }
+        .date{
+          font-size: 1.3rem;
+          font-weight: 700;
+        }
+      }
+      .recipe-image{
+        max-width: 53rem;
+        @include breakpoint(mobile){
+          margin: 0 auto;
+          margin-top: -5rem;
+        }
+      }
+    }
+    .Inquirer{
+      max-width: 20rem;
+      @include breakpoint(mobile){
+        padding-top: 5rem;
+        margin: 0 auto;
+      }
+      .Inquirer-bord{
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .inquirer-title{
+          position: absolute;
+          display: inline-block;
+          margin-top: 1rem;
+        }
+        .inquirer-img{
+          max-width: 5.8rem;
+          position: absolute;
+          display: inline-block;
+          top: -5.1rem;
+          z-index: 1;
+          &::after{
+            content: '';
+            width: 0; 
+            height: 0; 
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 20px solid #955ba5;
+            position: absolute;
+            top: 33px;
+            left: 6px;
+            z-index: -1;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,108 @@
+<div class="notifications">
+    <div class="container">
+      <div class="top-nav">
+        <div class="back-button-wrapper">
+            <app-button classes="btn btn-transparent mr-4 icon-btn" [submit]="true">
+              <span aria-hidden="true">
+                <fa-icon [icon]="LeftArrow"></fa-icon> Back
+              </span>
+            </app-button>
+            <span class="notify-text">Notifications</span>
+        </div>
+    </div>
+      <div class="notifications-wrapper">
+        <div class="notifications-tab">
+          <ul id="tabs" class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+              <a id="classroom" href="#classroomNote" class="nav-link active" data-toggle="tab" role="tab">Classroom notifications  </a>
+            </li>
+            <li class="nav-item">
+              <a id="platform" href="#platformNote" class="nav-link" data-toggle="tab" role="tab">Platform notifications</a>
+            </li>
+          </ul>
+          <div id="content" class="tab-content" role="tablist">
+            <div id="classroomNote" class="panal-card tab-pane fade show active" role="tabpanel" aria-labelledby="classroom">
+              <div class="panal-card-header" role="tab" id="headingInfo">
+                <h5 class="mb-0">
+                  <a data-toggle="collapse" href="#collapseInfo" aria-expanded="true" aria-controls="collapseInfo">
+                    Classroom notifications  
+                  </a>
+                </h5>
+              </div>
+              <div id="collapseInfo" class="collapse show" data-parent="#content" role="tabpanel"
+                aria-labelledby="headingInfo">
+                <div class="classroom-body">
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="card-wihtout-header">
+                          <div class="notifications-List">
+                            <ul>
+                              <li *ngFor="let item of classroomList">
+                                <span class="icon-bg-yellow">
+                                  <img src="./assets/images/bell-icon.png" alt="" class="img-fluid" />
+                                </span>
+                                <div class="description">
+                                  <p class="sub-info-heading">{{item.type}}</p>
+                                  <p class="main-info">{{item.info}}</p>
+                                  <p class="sub-info">{{item.time}}</p>
+                                </div>
+                                <span class="status-btn-wrapper" *ngIf="item.status">
+                                  <app-button classes="btn btn-primary mr-4" [submit]="true">
+                                    <span aria-hidden="true">{{item.status}}</span>
+                                  </app-button>
+                                </span>
+                              </li>
+                            </ul>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="platformNote" class="panal-card tab-pane fade" role="tabpanel" aria-labelledby="platform">
+              <div class="panal-card-header" role="tab" id="headingStudents">
+                <h5 class="mb-0">
+                  <a class="collapsed" data-toggle="collapse" href="#collapseStudents" aria-expanded="false"
+                    aria-controls="collapseStudents">
+                    Platform notifications
+                  </a>
+                </h5>
+              </div>
+              <div id="collapseStudents" class="collapse" data-parent="#content" role="tabpanel"
+                aria-labelledby="headingStudents">
+                <div class="platform-body">
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="card-wihtout-header">
+                        <div class="heading-wraper"><h3 class="heading">What’s happening at Chef Koochooloo?</h3></div>
+                          <div class="notifications-List">
+                            <ul>
+                              <li *ngFor="let item of platformList">
+                                <span class="icon-bg-yellow">
+                                  <img src="./assets/images/bell-icon.png" alt="" class="img-fluid" />
+                                </span>
+                                <div class="description">
+                                  <p class="sub-info-heading">{{item.type}}</p>
+                                  <p class="main-info">{{item.info}}</p>
+                                  <p class="sub-info">{{item.time}}</p>
+                                </div>
+                                <span class="status-btn-wrapper" *ngIf="item.status">
+                                  <app-button classes="btn btn-primary mr-4" [submit]="true">
+                                    <span aria-hidden="true">{{item.status}}</span>
+                                  </app-button>
+                                </span>
+                              </li>
+                            </ul>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

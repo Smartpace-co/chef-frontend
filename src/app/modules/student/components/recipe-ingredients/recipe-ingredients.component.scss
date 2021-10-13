@@ -1,0 +1,131 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+.recipe-ingredients-body{
+  padding: 10rem 8rem;
+  display: flex;
+  // align-items: flex-end;
+  min-height: calc(100vh - 24rem);
+  @include breakpoint(tabs) {
+    padding: 5rem 5rem;
+  }
+  @include breakpoint(mobile) {
+    min-height: calc(100vh - 33rem);
+    padding: 5rem 1rem;
+  }
+  .nav-tabs{
+    border:none;
+    position: relative;
+    display:none;
+    &:after{
+        content: '';
+        width:calc(100% + 8rem);
+        height:0.1rem;
+        // background:$border-color;
+        position: absolute;
+        left:-4rem;
+        bottom: 0;
+        @include breakpoint(mobile){
+            width: calc(100% + 4rem);
+            left: -2rem;
+        }
+    }
+    .nav-item{
+        margin:0;
+        .nav-link{
+            color:rgba($white, 0.5);
+            font-size:1.8rem;
+            padding:0.5rem 0rem;
+            position: relative;
+            border:none;
+            margin-right: 5rem;
+            font-weight: 700;
+            &:after{
+                content: '';
+                width:calc(100% + 6rem);
+                height:0.2rem;
+                background:transparent;
+                position: absolute;
+                left:-3rem;
+                bottom:0;
+                z-index: 1;
+                @include breakpoint(mobile) {
+                  width:calc(100% + 4rem);
+                  left:-2rem;
+                }
+            }
+            &:hover{
+                border:none;
+            }
+            &.active{
+                background: transparent;
+                color: $white;
+                border:none;
+                &:after{
+                    background:$white;
+                }
+            }
+        }
+    }
+  }
+  @include breakpoint(mobile-min){
+    .nav-tabs {
+        display: flex;
+        justify-content: center;
+    }
+    .panal-card {
+        border: none;
+        .panal-card-header {
+          display:none;
+        }  
+        .collapse{
+          display:block;
+        }
+    
+    }
+  }
+
+  @include breakpoint(mobile){
+    .tab-content > .tab-pane {
+        display: block !important;
+        opacity: 1;
+    }
+    .panal-card {
+      .panal-card-header {
+        border-bottom: 1px solid $border-color;
+        padding: 1.5rem;    
+        background-color: $blue-transferent;
+      }
+    }
+  }
+  .legend-card-white{
+    margin-top: 6rem;
+    &.ingredients-card{
+      margin-bottom: 0rem;
+      .ingredients-wrapper{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: left;
+        @include breakpoint(tabs) {
+          justify-content: center;
+        }
+        .ingredients-list{
+          margin: 15px 5px;
+          // min-width: calc( 25% - 10px);
+          flex: 0 0 calc((100% - 5rem) / 4);
+          text-align: center;
+          p{
+            color: $black;
+            font-weight: 600;
+          }
+          .btn-wrapper{
+            justify-content: center;
+            margin-top: 0;
+            app-button{
+              transform: none;
+            }
+          }
+        }
+      }
+    } 
+  }
+}

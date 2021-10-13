@@ -1,0 +1,104 @@
+<header class="dist-header">
+    <div class="container-fluid">
+        <div class="top-nav">
+            <div class="dist-name desktop-only">
+                <a><img src="./assets/images/noun_sidebar.svg" alt="" (click)="utilityService.toggleMenu()"
+                        class="img-fluid" /><span>{{districtDetails?.district}}</span></a>
+            </div>
+            <ul class="desktop-only">
+             <!-- <li class="search">
+                    <a>
+                        <fa-icon [icon]="explore"></fa-icon>
+                    </a>
+                </li>-->
+                <li class="notification">
+                    <a routerLink="/district/notifications">
+                        <span class="notification__count">{{count}}</span>
+                        <img src="./assets/images/notification.svg" class="img-fluid" />
+                    </a>
+                </li> 
+            </ul>
+            <!-- <div class="seperator desktop-only">
+                <a>
+                    <fa-icon [icon]="faDots"></fa-icon>
+                </a>
+            </div>  -->
+            <div class="user-dropdown desktop-only">
+                <div class="user-image">
+                    <img src="{{districtDetails?.img}}" alt="" class="img-fluid" />
+                </div>
+                <app-drop-down class="dist-profile-dropdown ml-auto" [dropDownButtonName]="districtDetails?.name"
+                    (registerDropdownValueChange)="onDropdownValueChange($event)" [dropDownItemList]="ProfileMenuList">
+                </app-drop-down>
+            </div>
+        </div>
+        <div class="collapse navbar-collapse mobile-nav" id="navbarNavDropdown">
+            <ul class="top-header">
+                <!-- <li class="search">
+                    <a>
+                        <fa-icon [icon]="explore"></fa-icon>
+                    </a>
+                </li>
+                <li class="notification">
+                    <a>
+                        <span class="notification__count">3</span>
+                        <img src="./assets/images/notification.svg" class="img-fluid" />
+                    </a>
+                </li> -->
+            </ul>
+            <ul class="profile-nav">
+                <li>
+                    <div class="teacher-info">
+                        <div class="teacher-image">
+                            <img src="./assets/images/teacher.png" alt="" class="img-fluid" />
+                        </div>
+                        <span class="teaher-name">Ms. Paula</span>
+                    </div>
+                    <ul class="teacher-menu">
+                        <li *ngFor="let item of ProfileMenuList">
+                            <a [routerLink]="item.link">
+                                <fa-icon [icon]="item.icon"></fa-icon>
+                                <span>{{item.menu}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="line"></span>
+            <span class="line"></span>
+            <span class="line"></span>
+        </button>
+    </div>
+    <div *ngIf="isPerformanceHeader" class="bottom-header">
+        <div class="container">
+            <ul class="bottom-nav">
+                <li>
+                    <a (click)="getReport()" [ngClass]="{'active': linkActive}">
+                        <fa-icon [icon]="activity"></fa-icon>
+                        {{'school.content-reports.activity-report-label' | translate}}
+                    </a>
+                </li>
+                <li>
+                    <a (click)="getPerformance()" [ngClass]="{'active': linkPerformance}">
+                        <fa-icon [icon]="performance"></fa-icon>
+                        {{'school.content-reports.performance-report-label' | translate}}
+                    </a>
+                </li>
+                <!-- <li>
+                    <a>
+                        <fa-icon [icon]="leaderboard"></fa-icon>
+                        Leaderboard
+                    </a>
+                </li> -->
+            </ul>
+            <!-- <div class="more-actions desktop-only" *ngIf="dropDownMenuList.length > 0">
+            <app-drop-down class="" [dropDownButtonName]="SettingTitle" [dropDownIcon]="SettingIconMain"
+                [dropDownItemList]="SettingList" (registerDropdownValueChange)="onDropdownValueChange($event)">
+            </app-drop-down>
+        </div> -->
+        </div>
+    </div>
+</header>

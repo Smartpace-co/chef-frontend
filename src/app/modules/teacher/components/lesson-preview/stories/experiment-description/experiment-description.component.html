@@ -1,0 +1,36 @@
+<app-ingreditent-nav></app-ingreditent-nav>
+<app-lessons-headerbar [isButtonSection]="isButtonSection" [showBackBtn]="false"></app-lessons-headerbar>
+
+<div class="science-experiment-body-7">
+    <div class="blur-bg">
+        <div class="container">
+            <div class="final-editaion">
+                <div class="content-wrapper">
+                    <div class="tooltip-wrapper">
+                        <div class="speech-tooltip xxl-tooltip right-bottom-tip">
+                            <div class="speech-tooltip-inner">
+                                <p class="message">
+                                    <ngx-slick-carousel [config]="slideConfig">
+                                        <ul *ngFor="let obj of experimentFacts" ngxSlickItem>
+                                            <li>
+                                                <h6>{{ obj }} </h6>
+                                            </li>
+                                        </ul>
+                                    </ngx-slick-carousel>
+                                </p>
+                                <span class="tip">
+                                    <img src="./assets/images/right-bottom-tip.svg" alt="" class="img-fluid" />
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="final-editaion-img-wrapper">
+                        <img src="./assets/images/ck_science.png" alt="" class="img-fluid" />
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-lessons-footer [isVisibleNext]="isVisibleNext" (onNext)="onNext()" (onPrevious)="onPrevious()">
+</app-lessons-footer>

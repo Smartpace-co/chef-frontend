@@ -1,0 +1,38 @@
+<div class="btn-wrapper">
+    <app-button classes="btn btn-secondary" [submit]="true" (click)="open(journalModal)">
+      open
+    </app-button>
+  </div>
+  <ng-template #journalModal let-modal>
+    <div class="modal-header journal-header">
+      <legend>Journal</legend>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <img src="./assets/images/close.png" alt="" class="img-fluid" />
+      </button>
+    </div>
+    <div class="modal-body journal-body">
+        <div class="journal-list-search">
+          <fa-icon [icon]="SearchIcon"></fa-icon>
+          <input class="form-control" type="text" name="search"
+              placeholder="Search" />
+              <!-- <div class="input-group-append">
+              <button class="calendarIcon" (click)="datepicker.toggle()" type="button">
+                    <fa-icon [icon]="Calendar"></fa-icon>
+                </button>
+            </div> -->
+        </div>
+        <div class="legend-card-white journal-list-wrapper">
+            <ul>
+              <li *ngFor="let item of journalList">
+                <div class="date">
+                  <span>{{item.date}}</span>
+                </div>
+                <p class="info">{{item.info}}</p>
+              </li>
+            </ul>
+            <div class="journel-note-link">
+              <a href="">| Add a note to your journal here</a>
+            </div>
+        </div>
+    </div>
+  </ng-template>  

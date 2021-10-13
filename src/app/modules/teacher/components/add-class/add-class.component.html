@@ -1,0 +1,292 @@
+<div class="AddStudent">
+  <div class="container">
+    <form [formGroup]="AddStudent" class="AddStudent__form">
+      <fieldset>
+        <legend>{{classlabel=='Create'?'Create':'Edit'}} {{'school.student.add-student.student-label' | translate}}
+        </legend>
+        <div class="row">
+          <div class="col-md-4" *ngIf="localData.parentId && DistrictList.length > 0">
+            <label>{{'school.school-profile.school-district-label' | translate}} (Optional)</label>
+            <app-drop-down fieldControl="districtId" class="formDropdown" [dropDownButtonName]="DistrictTitle"
+              [dropDownIcon]="DistrictIcon" [dropDownItemList]="DistrictList"
+              (registerDropdownValueChange)="districtChange($event)"></app-drop-down>
+          </div>
+
+          <div class="col-md-4" *ngIf="!localData.parentId || DistrictList.length == 0">
+            <label>{{'district.district-profile.district-component.name-field.label' | translate}}</label>
+            <app-input-field classes="form-control" types="text" placeholders="Enter name" ids="customDistrictName"
+              fieldControl="customDistrictName" [form]="AddStudent">
+            </app-input-field>
+          </div>
+
+
+          <div class="col-md-4" *ngIf="localData.parentId && SchoolList.length > 0">
+            <label>{{'school.user-profile.school-title' | translate}} (Optional)</label>
+            <app-drop-down fieldControl="schoolId" class="formDropdown" [dropDownButtonName]="SchoolTitle"
+              [dropDownIcon]="SchoolIcon" [dropDownItemList]="SchoolList"
+              (registerDropdownValueChange)="schoolChange($event)"></app-drop-down>
+          </div>
+
+          <div class="col-md-4" *ngIf="!localData.parentId || SchoolList.length == 0">
+            <label>{{'school.school-profile.school-name-label' | translate}}</label>
+            <app-input-field classes="form-control" types="text" placeholders="Enter name" ids="customSchoolName"
+              fieldControl="customSchoolName" [form]="AddStudent">
+            </app-input-field>
+          </div>
+
+          <div class="col-md-4">
+            <label>{{'school.student.add-student.class.student-class' | translate}} (Optional)</label>
+            <app-multi-select-dropdown [dropDownItemList]="classList" [selectedItems]="selectedClass"
+              [placeholderText]="'Select class'" name="classIds" fieldControl="classIds" [selectedValue]="selectedValue"
+              (onSelectValue)="onSelectClass($event)" (onDeSelectValue)="onDeSelectClass($event)"
+              (onSelectAllValue)="onSelectAllClass($event)" (onDeselectAllValue)="onDeselectAllClass($event)">
+            </app-multi-select-dropdown>
+          </div>
+
+          <!-- <div class="col-md-4">
+            <label>Class </label>
+            <app-drop-down fieldControl="class" class="formDropdown" [dropDownButtonName]="ClassTitle"
+              [dropDownIcon]="ClassIcon" [dropDownItemList]="ClassList"
+              (registerDropdownValueChange)="classChange($event)"></app-drop-down>
+          </div> -->
+        </div>
+        <div class="personal-info">
+          <h2>{{'school.student.add-student.personal-info.label' | translate}}</h2>
+          <div class="row">
+            <div class="col-md-6">
+              <label>{{'school.teacher.add-teacher.last-name.last-name-field' | translate}} (*)</label>
+              <app-input-field classes="form-control" types="text" placeholders="Enter name" ids="lastName"
+                fieldControl="lastName" [form]="AddStudent"
+                [ngClass]="{ 'is-invalid': formControl.lastName.touched && formControl.lastName.errors }">
+              </app-input-field>
+              <div *ngIf="formControl.lastName.errors" class="invalid-feedback">
+                <div class="error" *ngIf="formControl.lastName.errors?.required">
+                  {{'school.teacher.add-teacher.last-name.required' | translate}}</div>
+                <div class="error" *ngIf="formControl.lastName.errors?.pattern">
+                  {{'school.teacher.add-teacher.last-name.valid' | translate}}</div>
+              </div>
+
+            </div>
+            <div class="col-md-6">
+              <label>{{'school.teacher.add-teacher.first-name.first-name-field' | translate}} (*)</label>
+              <app-input-field classes="form-control" types="text" placeholders="Enter name" ids="firstName"
+                fieldControl="firstName" [form]="AddStudent"
+                [ngClass]="{ 'is-invalid': formControl.firstName.touched && formControl.firstName.errors }">
+              </app-input-field>
+              <div *ngIf="formControl.firstName.errors" class="invalid-feedback">
+                <div class="error" *ngIf="formControl.firstName.errors?.required">
+                  {{'school.teacher.add-teacher.first-name.required' | translate}}</div>
+                <div class="error" *ngIf="formControl.firstName.errors?.pattern">
+                  {{'school.teacher.add-teacher.first-name.valid' | translate}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <label>{{'school.student.add-student.personal-info.birth-date' | translate}} (*)</label>
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control"
+                    placeholder="{{'school.student.add-student.personal-info.date' | translate}}" [readonly]="true"
+                    style="background: #313579;" ids="dob" name="dp" fieldControl="dob"
+                    (dateSelect)="onDateSelection($event)" [ngModelOptions]="{standalone: true}" [maxDate]="dateField"
+                    [(ngModel)]="selectedDate" ngbDatepicker #d="ngbDatepicker">
+                  <div class="input-group-append">
+                    <button class="calendarIcon" (click)="d.toggle()" type="button">
+                      <fa-icon [icon]="Calendar"></fa-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- <div class="col-md-4">
+              <label>Date of Birth*</label>
+              <app-input-field classes="form-control" types="text" placeholders="Select Date" ids="dob"
+                fieldControl="dob" [form]="AddStudent"></app-input-field>
+            </div> -->
+
+
+            <div class="col-md-4">
+              <label>{{'district.district-profile.agent-component.gender-field.label'| translate}} (Optional) </label>
+              <app-drop-down fieldControl="gender" class="formDropdown" [dropDownButtonName]="GenderTitle"
+                [dropDownIcon]="GenderIcon" [dropDownItemList]="GenderList"
+                (registerDropdownValueChange)="genderChange($event)"></app-drop-down>
+            </div>
+            <div class="col-md-4">
+              <label>{{'school.student.add-student.personal-info.ethnicity' | translate}} (Optional)</label>
+              <app-drop-down fieldControl="ethnicityId" class="formDropdown" [dropDownButtonName]="EthnicityTitle"
+                [dropDownIcon]="EthnicityIcon" [dropDownItemList]="EthnicityList"
+                (registerDropdownValueChange)="ethnicityChange($event)"></app-drop-down>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label>{{'school.class.add-class.grade-field' | translate}} (*)</label>
+              <app-drop-down fieldControl="gradeId" class="formDropdown" [dropDownButtonName]="GradeTitle"
+                [dropDownIcon]="GradeIcon" [dropDownItemList]="GradeList"
+                (registerDropdownValueChange)="gradeChange($event)"></app-drop-down>
+            </div>
+
+            <div class="col-md-6">
+              <label>{{'forgot-Password-component.username-field-label'| translate}} (*)</label>
+              <app-input-field classes="form-control" types="text" placeholders="Enter Username" ids="userName"
+                fieldControl="userName" [form]="AddStudent"
+                [ngClass]="{ 'is-invalid': formControl.userName.touched && formControl.userName.errors }">
+              </app-input-field>
+              <div *ngIf="formControl.userName.errors" class="invalid-feedback">
+                <div class="error" *ngIf="formControl.userName.errors?.required">
+                  {{'school.student.add-student.personal-info.username.required' | translate}}</div>
+              </div>
+            </div>
+            <!-- <div class="col-md-6">
+              <label>{{'school.student.add-student.personal-info.parent-guardian-label' | translate}} (*)</label>
+              <app-drop-down fieldControl="contactType" class="formDropdown" [dropDownButtonName]="GuardianTitle"
+                [dropDownIcon]="GuardianIcon" [dropDownItemList]="GuardianList"
+                (registerDropdownValueChange)="guardianChange($event)"></app-drop-down>
+            </div> -->
+            <!-- <div class="col-md-8">
+              <label>Email</label>
+              <app-input-field classes="form-control" types="text" placeholders="Enter Email" ids="email"
+                fieldControl="email" [form]="AddStudent"
+                [ngClass]="{ 'is-invalid': formControl.email.touched && formControl.email.errors }"></app-input-field>
+              <div *ngIf="formControl.email.errors" class="invalid-feedback">
+                <div class="error" *ngIf="formControl.email.errors?.required">Email is required</div>
+                <div class="error" *ngIf="formControl.email.errors?.pattern">Email is not valid</div>
+              </div>
+            </div> -->
+          </div>
+          <!-- <div class="row"> -->
+
+          <!-- <div class="col-md-6">
+              <label>{{'forgot-Password-component.username-field-label'| translate}} (*)</label>
+              <app-input-field classes="form-control" types="text" placeholders="Enter Username" ids="userName"
+                fieldControl="userName" [form]="AddStudent"
+                [ngClass]="{ 'is-invalid': formControl.userName.touched && formControl.userName.errors }">
+              </app-input-field>
+              <div *ngIf="formControl.userName.errors" class="invalid-feedback">
+                <div class="error" *ngIf="formControl.userName.errors?.required">
+                  {{'school.student.add-student.personal-info.username.required' | translate}}</div>
+              </div>
+            </div> -->
+          <!-- </div> -->
+        </div>
+        <div class="contact-info">
+          <h2>{{'school.student.add-student.personal-info.contact-info.label' | translate}}</h2>
+          <div class="row">
+            <div class="col-md-6">
+              <label>{{'school.student.add-student.personal-info.parent-guardian-label' | translate}} (*)</label>
+              <app-drop-down fieldControl="contactType" class="formDropdown" [dropDownButtonName]="GuardianTitle"
+                [dropDownIcon]="GuardianIcon" [dropDownItemList]="GuardianList"
+                (registerDropdownValueChange)="guardianChange($event)"></app-drop-down>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label>{{'school.student.add-student.personal-info.contact-info.contact-name.label' | translate}}
+                (*)</label>
+              <app-input-field classes="form-control" types="text" placeholders="Enter Name" ids="contactPersonName"
+                fieldControl="contactPersonName" [form]="AddStudent"
+                [ngClass]="{ 'is-invalid': formControl.contactPersonName.touched && formControl.contactPersonName.errors }">
+              </app-input-field>
+              <div *ngIf="formControl.contactPersonName.errors" class="invalid-feedback">
+                <div class="error" *ngIf="formControl.contactPersonName.errors?.required">
+                  {{'school.student.add-student.personal-info.contact-info.contact-name.required' | translate}}</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label>{{'school.student.add-student.personal-info.contact-info.contact-relationship' | translate}}
+                (*)</label>
+              <app-drop-down fieldControl="contactPersonRelationId" class="formDropdown"
+                [dropDownButtonName]="RelationshipTitle" [dropDownIcon]="RelationshipIcon"
+                [dropDownItemList]="RelationshipList" (registerDropdownValueChange)="relationshipChange($event)">
+              </app-drop-down>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label>{{'school.student.add-student.personal-info.contact-info.email.label' | translate}} (*)</label>
+              <app-input-field classes="form-control" types="text" placeholders="Enter Email" ids="contactPersonEmail"
+                fieldControl="contactPersonEmail" [form]="AddStudent"
+                [ngClass]="{ 'is-invalid': formControl.contactPersonEmail.touched && formControl.contactPersonEmail.errors }">
+              </app-input-field>
+              <div *ngIf="formControl.contactPersonEmail.errors" class="invalid-feedback">
+                <div class="error" *ngIf="formControl.contactPersonEmail.errors?.required">
+                  {{'school.student.add-student.personal-info.contact-info.email.required' | translate}}
+                </div>
+                <div class="error" *ngIf="formControl.contactPersonEmail.errors?.pattern">
+                  {{'school.student.add-student.personal-info.contact-info.email.valid' | translate}}
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label>{{'school.teacher.add-teacher.contact.label' | translate}} (*)</label>
+              <app-input-field classes="form-control" types="tel" placeholders="Enter Number" ids="contactPersonNumber"
+                fieldControl="contactPersonNumber" [form]="AddStudent" (change)="formatNumber($event.target.value)"
+                [ngClass]="{ 'is-invalid': formControl.contactPersonNumber.touched && formControl.contactPersonNumber.errors }">
+              </app-input-field>
+              <div class="error" *ngIf="formControl.contactPersonNumber.errors?.minlength">
+                {{'school.teacher.add-teacher.contact.length' | translate}}</div>
+              <!-- <div class="error" *ngIf="formControl.contactPersonNumber.errors?.contactDigitValidate">Contact number is not
+                valid(Valid lengths are 10, 12 and 13 digit)</div> -->
+
+            </div>
+          </div>
+        </div>
+        <div class="medical-info">
+          <h2>{{'school.student.add-student.personal-info.medical-info.label' | translate}}</h2>
+          <div class="row">
+            <div class="col-md-6">
+              <label class="desktop-only">&nbsp;</label>
+              <app-multi-select-dropdown [dropDownItemList]="AllergenList" [selectedItems]="selectedAllergen"
+                [placeholderText]="'Select Allergens (Optional)'" fieldControl="allergenIds"
+                [selectedValue]="selectedAllergenValue" (onSelectValue)="onSelectAllergens($event)"
+                (onDeSelectValue)="onDeSelectAllergens($event)" (onSelectAllValue)="onSelectAllAllergens($event)"
+                (onDeselectAllValue)="onDeselectAllAllergens($event)">
+              </app-multi-select-dropdown>
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <label>{{'school.student.add-student.personal-info.medical-info.medical-conditions.label' | translate}} (Optional)
+              </label>
+              <app-multi-select-dropdown [dropDownItemList]="ConditionList" [selectedItems]="selectedCondition"
+                [placeholderText]="'Select condition'" fieldControl="medicalConditionIds"
+                [selectedValue]="selectedConditionValue" (onSelectValue)="onSelectConditions($event)"
+                (onDeSelectValue)="onDeSelectConditions($event)" (onSelectAllValue)="onSelectAllConditions($event)"
+                (onDeselectAllValue)="onDeselectAllConditions($event)">
+              </app-multi-select-dropdown>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="custom-control custom-radio">
+              <app-radio [form]="AddStudent" fieldControl="status" classes="custom-control-input" types="radio"
+                names="status" [values]="true"></app-radio>
+              <label class="custom-control-label" for="Active">{{'table-search-filter-container.status.active'|
+                translate}}</label>
+            </div>
+            <div class="custom-control custom-radio">
+              <app-radio [form]="AddStudent" fieldControl="status" classes="custom-control-input" types="radio"
+                names="status" [values]="false"></app-radio>
+              <label class="custom-control-label" for="Inactive">{{'table-search-filter-container.status.inactive'|
+                translate}}</label>
+            </div>
+
+          </div>
+        </div>
+        <div class="d-flex justify-content-center">
+          <app-button classes="btn btn-secondary mr-4" [submit]="true" routerLink="/teacher/roster-group-tabs">
+            <span aria-hidden="true">{{'common.cancel'| translate}}</span>
+          </app-button>
+          <app-button classes="btn btn-primary btn-block" [submit]="true" [disabled]="AddStudent.invalid"
+            (click)="addstudents()">
+            <span aria-hidden="true">{{'common.save'| translate}}</span>
+          </app-button>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>

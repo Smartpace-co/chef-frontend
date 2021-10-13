@@ -1,0 +1,306 @@
+<div class="roster-assignment-details">
+    <div class="container">
+        <div class="roster-header">
+            <h4 class="heading">Assignment Details</h4>
+            <app-button classes="btn btn-secondary icon-btn btn-back" routerLink="/teacher/upcoming-assignment">
+                <span aria-hidden="true">
+                  <fa-icon [icon]="leftArrow"></fa-icon>{{'common.back'| translate}}
+                </span>
+              </app-button>
+        </div>
+
+      <div class="card-wihtout-header-blue">
+        <div class="roster-assignment-wrapper">
+          <div class="table-roster-assignment">
+              
+                  <div class="row table-wraper">
+                    <div class="col-4 table-heading assignment-heading">{{'school.student.add-student.student-label' | translate | uppercase}} {{'district.district-profile.district-component.name-field.label'| translate | uppercase}}</div>
+                    <div class="col-4 table-heading date-wraper">{{'student.lesson-report.start-and'| translate | uppercase }} {{'student.lesson-report.end-date'| translate | uppercase }}</div>
+                    <div class="col-4 table-heading">{{'school.teacher.add-teacher.status'|translate |
+                        uppercase}} + {{'student.lesson-report.skill-proficiency-label'| translate | uppercase }}</div>
+                  </div>
+                  <div class="row" *ngFor="let item of assignmentDetails ; let i = index">
+                    <div data-toggle="collapse" [attr.data-target]="'#collape' + i"  class="col-12 accordion-toggle visible-row settings collapsed">
+                      <div class="row student-row">
+                        <div class="col-4 student-name">{{item?.firstName}},{{item?.lastName}} 
+                          
+                            <span class="right-arrow-icon">
+                            <a (click)="getStudentReport(item)">
+                                <fa-icon [icon]="RightArrow"></fa-icon></a>
+                              </span>
+                              <span class="down-arrow-icon">
+                                <fa-icon [icon]="DownArrow"></fa-icon>
+                              </span>
+                            <!-- <span class="right-arrow-icon" *ngIf="item.subList.length > 0">
+                            <fa-icon [icon]="RightArrow"></fa-icon>
+                          </span>
+                          <span class="down-arrow-icon" *ngIf="item.subList.length > 0">
+                            <fa-icon [icon]="DownArrow"></fa-icon>
+                          </span> -->
+                        </div>
+                        <div class="col-4 time-wraper">
+                            <span class="open-time">{{item?.startDate | date:
+                                'h:mm a dd/MM/yyyy'}}</span>
+                            <span class="close-time">{{item?.endDate | date:
+                                'h:mm a dd/MM/yyyy'}}</span>
+                        </div>
+                        <div class="col-4 status">
+                            <a class="status-icon" *ngIf="item.showIcon == true"><fa-icon [icon]="exclamation"></fa-icon></a>
+                          <span>{{item.status}} + {{item?.proficiency}}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12 accordian-body collapse hiddenRow hidden-row settings" [id]="'collape' + i">
+                        <div class="content-main">
+                            <ul class="que-ans" >
+                                <li *ngFor="let ques of questionList" class="que-ans-list">
+                                    <div class="row">
+                                        <div class="col-4 col-align">
+                                            <label>{{'student.lesson-report.question'| translate }}</label>
+                                            <p>{{ques?.question}}</p>
+                                        </div>
+                                        <div class="col-4 col-align">
+                                            <label>{{'student.lesson-report.answer'| translate }}</label>
+                                            <p>{{ques?.studentAnswer}}</p>
+                                        </div>
+                                        <div class="col-3 col-align">
+                                            <div class="attempts-wraper">
+                                                <ng-container *ngIf="ques.isEssayQuestion; else noEssay">
+                                                    <div class="attempts">
+                                                        <label>{{'student.lesson-report.correct'| translate |
+                                                            uppercase}}</label>
+                                                        <label class="checkmark-container">
+                                                            <input type="radio" name="answer" value="true" (click)="UpdateAnswer($event,ques,item)">
+                                                            <span class="checkmark"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="attempts">
+                                                        <label>{{'student.lesson-report.in-correct'| translate |
+                                                            uppercase}}</label>
+                                                        <label class="checkmark-container">
+                                                            <input type="radio" name="answer" value="false" (click)="UpdateAnswer($event,ques,item)">
+                                                            <span class="checkmark"></span>
+                                                        </label>
+                                                    </div>
+                                                   
+                                                </ng-container>
+                                                <ng-template #noEssay>
+                                                    <div class="attempts">
+                                                        <label>{{'student.lesson-report.incorrect-attempts'| translate |
+                                                            uppercase}}</label>
+                                                        <p>{{ques.incorrectAttempt }}</p>
+                                                    </div>
+                                                    <div class="attempts">
+                                                        <label>{{'student.lesson-report.number-of-attempts'| translate |
+                                                            uppercase }}</label>
+                                                        <p>{{ques.totalAttempt}}</p>
+                                                    </div>
+                                                </ng-template>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </li>
+                              
+                            </ul>
+                            <ul class="que-ans">
+                                <li>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-align">
+                                            <div>
+                                                <label>{{'student.lesson-report.completed-exp-activities-label'| translate }}
+                                                </label>
+                                            </div>
+                                            <div class="activities">
+                                                <ul *ngFor="let step of reportData?.steps">
+                                                    <li> {{step.charAt(0).toUpperCase() + step.slice(1)}}</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <!-- </div> -->
+                        </div>
+                    </div>
+                  </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<!-- ------------ -->
+<!-- <div class="col-12 accordian-body collapse hiddenRow hidden-row settings" [id]="'collape' + i">
+
+    <div class="content-main">
+        <ul class="que-ans" *ngFor="let questions of reportData?.questionsAnswered">
+            
+            <li class="que-ans-list" *ngIf="questions.isEssayQuestion == true">
+                <div class="row">
+                    <div class="col-sm-4 col-align">
+                        <label>Question</label>
+                        <p>{{questions?.question}}</p>
+                    </div>
+                    <div class="col-sm-4 col-align">
+                        <label>Answer</label>
+                        <p>{{questions?.studentAnswer}}</p>
+                    </div>
+                    <div class="col-sm-2 col-6 col-align">
+                        <div class="attempts-wraper">
+                            <div class="attempts">
+                                <label>CORRECT</label>
+                                <label class="checkmark-container">
+                                    <input type="radio">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="attempts">
+                                <label>INCORRECT</label>
+                                <label class="checkmark-container">
+                                    <input type="radio">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 col-4 col-align skip-btn">
+                        <button class="btn btn-primary">
+                            <span>Skip</span>
+                        </button>
+                    </div>
+                </div>
+            </li>
+            <li class="que-ans-list" *ngIf="questions.isEssayQuestion == false">
+                <div class="row">
+                    <div class="col-sm-4 col-align">
+                        <label>Question</label>
+                        <p>{{questions?.question}}</p>
+                    </div>
+                    <div class="col-sm-4 col-align">
+                        <label>Answer</label>
+                    
+                        <p>answer</p>
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-sm-4 col-6 col-align">
+                        <div class="attempts-wraper">
+                            <div class="attempts">
+                                <label>INCORRECT ATTEMPTS</label>
+                                <p>{{questions?.incorrectAttempt}}</p>
+                            </div>
+                            <div class="attempts">
+                                <label>NUMBER OF ATTEMPTS</label>
+                                <p>{{questions?.totalAttempt}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <ul class="que-ans">
+            <li>
+                <div class="row">
+                    <div class="col-sm-12 col-align">
+                        <div>
+                            <label>Performed experiments and activities </label>
+                        </div>
+                        <div>
+                            <ul class="activities" *ngFor="let item of reportData?.steps">
+                                <li>{{item}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+</div> -->
+  <!-- ---------- -->
+
+   <!-- <div class="col-12 accordian-body collapse hiddenRow hidden-row settings" id="{{'collape' + item.Id}}" *ngIf="item.subList.length > 0">
+                        <div *ngFor="let subitem of item.subList">
+                                <div class="content-main">
+                                    <ul class="que-ans">
+                                        <li class="que-ans-list">
+                                            <div class="row">
+                                                <div class="col-sm-4 col-align">
+                                                    <label>Question</label>
+                                                    <p>{{subitem.question1}}</p>
+                                                </div>
+                                                <div class="col-sm-4 col-align">
+                                                    <label>Answer</label>
+                                                    <p>{{subitem.answer1}}</p>
+                                                </div>
+                                                <div class="col-lg-2 col-md-4 col-sm-4 col-6 col-align">
+                                                    <div class="attempts-wraper">
+                                                        <div class="attempts">
+                                                            <label>INCORRECT ATTEMPTS</label>
+                                                            <p>{{subitem.incorrectAttempts}}</p>
+                                                        </div>
+                                                        <div class="attempts">
+                                                            <label>NUMBER OF ATTEMPTS</label>
+                                                            <p>{{subitem.numberOfAttempts}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="que-ans-list">
+                                            <div class="row">
+                                                <div class="col-sm-4 col-align">
+                                                    <label>Question</label>
+                                                    <p>{{subitem.question2}}</p>
+                                                </div>
+                                                <div class="col-sm-4 col-align">
+                                                    <label>Answer</label>
+                                                    <p>{{subitem.answer1}}</p>
+                                                </div>
+                                                <div class="col-sm-2 col-6 col-align">
+                                                    <div class="attempts-wraper">
+                                                        <div class="attempts">
+                                                            <label>CORRECT</label>
+                                                            <label class="checkmark-container">
+                                                                <input type="radio">
+                                                                <span class="checkmark"></span>
+                                                              </label>
+                                                        </div>
+                                                        <div class="attempts">
+                                                            <label>INCORRECT</label>
+                                                            <label class="checkmark-container">
+                                                                <input type="radio" >
+                                                                <span class="checkmark"></span>
+                                                              </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2 col-4 col-align skip-btn">
+                                                    <button class="btn btn-primary">
+                                                        <span>Skip</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="row">
+                                                <div class="col-sm-12 col-align">
+                                                    <div>
+                                                        <label>Performed experiments and activities </label>
+                                                    </div>
+                                                    <div>
+                                                        <ul class="activities">
+                                                            <li>{{subitem.boiling}}</li>
+                                                            <li>{{subitem.cooking}}</li>
+                                                            <li>{{subitem.cleaing}}</li>
+                                                            <li>{{subitem.culinary}}</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                        </div>
+                    </div> -->

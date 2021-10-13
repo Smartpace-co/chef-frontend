@@ -1,0 +1,111 @@
+<app-student-nav></app-student-nav>
+
+<div class="explore-lessons">
+    <div class="container">
+        <div class="d-flex">
+            <div class="right-col" [ngClass]="{'': classApplied, 'noSideBar':!classApplied }">
+                <h2 class="page-title">Find your next delicious lesson</h2>
+                <div class="explore-search">
+                    <!-- <fa-icon [icon]="SearchIcon"></fa-icon> -->
+                    <input class="form-control" type="text" name="term" [(ngModel)]="term"
+                        placeholder="Try Common Core Math Grade 4 Measurement & Data" />
+                </div>
+                <div class="featuredList" *ngIf="( featuredList | filter : term) as result">
+                    <div class="explore-landing-header">
+                        <h5 class="subtitle">Featured</h5>
+                    </div>
+                    <ngx-slick-carousel class="featuredList__main" #slickModal="slick-carousel" [config]="slideConfig">
+                        <div ngxSlickItem *ngFor="let item of featuredList | filter: term" class="featuredList__item"
+                            >
+                            <div class="featuredList__info">
+                                <h4 class="featuredList__title">{{item.title}}</h4>
+                                <h5 class="featuredList__shortTitle">{{item.shortTitle}}</h5>
+                                <h5 class="featuredList__subTitle">{{item.subTitle}}</h5>
+                            </div>
+                            <div class="grade">{{item.Grade}}</div>
+                        </div>
+                    </ngx-slick-carousel>
+                    <span *ngIf="result.length == 0">No lesson found</span>
+
+                    <!-- <div class="featuredList__main">
+                        <div class="featuredList__item" *ngFor="let item of featuredList | filter: term ">
+                           
+                            <div class="grade">{{item.Grade}}</div>
+                        </div>
+                        <span *ngIf="result.length == 0">No lesson found</span>
+
+                    </div> -->
+                    <!-- slick-carousel Code for future  -->
+
+                </div>
+                <div class="topRated" *ngIf="( topRated | filter : term) as result">
+                    <div class="explore-landing-header">
+                        <h5 class="subtitle">Top Rated</h5>
+                        <a *ngIf="result.length != 0">See All</a>
+                    </div>
+                    <div class="topRated__main">
+                        <div class="topRated__item" *ngFor="let item of topRated | filter: term">
+                            <div class="topRated__icon">
+                                <img src="{{item.image}}" alt="img-fluid" />
+                            </div>
+                            <h3 class="topRated__title">{{item.title}}</h3>
+                        </div>
+                    </div>
+                    <span *ngIf="result.length == 0">No lesson found</span>
+                </div>
+                <div class="featureSubject" *ngIf="( featureSubject | filter : term) as result">
+                    <div class="explore-landing-header">
+                        <h5 class="subtitle">Featured by subject</h5>
+                        <a *ngIf="result.length != 0">See All</a>
+                    </div>
+                    <ngx-slick-carousel class="featureSubject__main" #slickModal="slick-carousel"
+                        [config]="slideConfig">
+                        <div ngxSlickItem *ngFor="let item of featureSubject | filter: term"
+                            class="featureSubject__item">
+                            <div class="featureSubject__image">
+                                <img src="{{item.image}}" alt="img-fluid" />
+                            </div>
+                            <div class="featureSubject__info">
+                                <h3 class="featureSubject__title">{{item.title}}</h3>
+                                <p class="featureSubject__lessons">{{item.lessonsCount}} lessons</p>
+                            </div>
+                        </div>
+                    </ngx-slick-carousel>
+                    <!-- <div class="featureSubject__main">
+                        <div class="featureSubject__item" *ngFor="let item of featureSubject | filter: term">
+                            <div class="featureSubject__image">
+                                <img src="{{item.image}}" alt="img-fluid" />
+                            </div>
+                            <div class="featureSubject__info">
+                                <h3 class="featureSubject__title">{{item.title}}</h3>
+                                <p class="featureSubject__lessons">{{item.lessonsCount}} lessons</p>
+                            </div>
+                        </div>
+                    </div> -->
+                    <span *ngIf="result.length == 0">No lesson found</span>
+
+                </div>
+
+                <div class="recommended" *ngIf="( recommended | filter : term) as result">
+                    <div class="explore-landing-header">
+                        <h5 class="subtitle">Recommended for You</h5>
+                        <a *ngIf="result.length != 0">See All</a>
+                    </div>
+                    <div class="recommended__main">
+                        <div class="recommended__item" *ngFor="let item of recommended | filter: term">
+                            <div class="recommended__image">
+                                <img src="{{item.image}}" alt="img-fluid" />
+                            </div>
+                            <div class="recommended__info">
+                                <h3 class="recommended__title">{{item.title}}</h3>
+                                <p class="recommended__lessons">{{item.lessonsCount}} lessons</p>
+                            </div>
+                        </div>
+                    </div>
+                    <span *ngIf="result.length == 0">No lesson found</span>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,99 @@
+<!-- <div *ngIf="schoolList?.length == 0" class="district-school-landing">
+  <div class="create-class">
+    <img src="./assets/images/class.svg" alt="" class="img-fluid" />
+    <h3>No schools</h3>
+    <p>Start adding students to your class either by uploading their information or by inviting them to this class.</p>
+    <app-button classes="btn btn-primary w-50" [submit]="true">
+      <span aria-hidden="true">Upload Student Info</span>
+    </app-button>
+    <p class="mb-0">or</p>
+    <app-button classes="btn btn-secondary w-50" [submit]="true">
+      <span aria-hidden="true">Invite Students</span>
+    </app-button>
+  </div>
+</div> -->
+
+<!-- <div *ngIf="schoolList?.length > 0" class="roster-list"> -->
+<div class="roster-list">
+  <div class="roster-header">
+    <div class="container dist_container">
+      <div class="roster-header-main">
+        <h3 class="school-count">
+          {{'table-component.you-have-record'| translate :{count: schoolList.length, label:'schools'} }} .
+        </h3>
+        <div class="roster-header-button">
+          <app-button classes="btn btn-primary icon-btn" [submit]="true" [routerLink]="['/district/add-schools']">
+            <fa-icon [icon]="PlusIcon"></fa-icon>
+            <span aria-hidden="true">{{'district.district-schools.add-schools'| translate}}</span>
+          </app-button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="roster-filter">
+    <div class="container dist_container">
+      <fa-icon [icon]="SearchIcon"></fa-icon>
+      <input id="table-filter" class="form-control transparentbg" type="text" placeholder="Search" name="term"
+        [(ngModel)]="term" />
+      <div class="filter-droplist">
+        <app-drop-down class="transparentbg" (registerDropdownValueChange)="changeView($event)"
+          [dropDownButtonName]="ViewTitle" [dropDownIcon]="ViewIcon" [dropDownItemList]="ViewList"></app-drop-down>
+        <app-drop-down class="transparentbg" [dropDownButtonName]="schoolListtitle" [dropDownIcon]=""
+          [dropDownItemList]="filterList" (registerDropdownValueChange)="schoolFilter($event)"></app-drop-down>
+        <!-- <app-drop-down class="transparentbg" [dropDownButtonName]="SortByGradeTitle" [dropDownIcon]=""
+          [dropDownItemList]="SortByGradeList"></app-drop-down> -->
+      </div>
+    </div>
+  </div>
+  <div *ngIf="gridview">
+    <ng-container *ngIf="schoolList && schoolList.length > 0 && isLoadUser; else noData">
+      <div class="schoolList">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-6" *ngFor="let item of schoolList | filter: term">
+              <div class="schoolItem" (click)="editSchool(item)">
+                <div class="schoolItem__heading">
+                  <h5 class="schoolItem__heading__name">{{ item.name}}</h5>
+                  <a class="schoolItem__heading__dots">
+                    <fa-icon [icon]="faDots"></fa-icon>
+                  </a>
+                </div>
+                <div class="schoolItem__info-wrapper">
+                  <div class="schoolItem__info-wrapper__photo">
+                    <img src="{{ item.profilePic }}" alt="" class="img-fluid" />
+                  </div>
+                  <div class="schoolItem__info-wrapper__name-id">
+                    <h6 class="schoolItem__info-wrapper__name-id__name">{{ item.principalname}}</h6>
+                    <p class="schoolItem__info-wrapper__name-id__id"> <label>{{'district.district-schools.id'| translate}}:</label><span>{{ item.id }}</span></p>
+                  </div>
+                </div>
+                <div class="schoolItem__school-info">
+                  <h6>{{'district.district-schools.classes-title'| translate}} - {{item.clssess}}</h6>
+                  <h6> {{'district.district-schools.students-title'| translate}} - {{item.students}}</h6>
+                </div>
+                <ul class="schoolItem__action">
+                  <li>
+                    <a (click)="editSchool(item,'Info')">{{'district.district-schools.info-title'| translate}}<fa-icon [icon]="rightArrow" class="ml-2"></fa-icon></a>
+                  </li>
+                  <li>
+                    <a (click)="editSchool(item,'Students')">{{'district.district-schools.students-title'| translate}}<fa-icon [icon]="rightArrow" class="ml-2"></fa-icon></a>
+                  </li>
+                  <li>
+                    <a (click)="editSchool(item,'Reports')">{{'district.district-schools.reports-title'| translate}}<fa-icon [icon]="rightArrow" class="ml-2"></fa-icon></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #noData>
+      <h5 style="margin-left: 120px;margin-top: 20px;">{{'table-component.no-record'|translate}}</h5>
+    </ng-template>
+  </div>
+  <div *ngIf="listview && isLoadUser">
+    <app-tables [term]="term" [dataSource]="schoolList" (rowClick)="editSchool($event)"
+      [tableHeaders]="schoolHeadersList" [page]="1" [pageSize]="10"></app-tables>
+  </div>
+</div>
