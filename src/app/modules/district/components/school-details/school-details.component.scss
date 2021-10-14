@@ -27,7 +27,12 @@
           display: flex;
           align-items: center;
           .photo{
-            max-width: 4.5rem;
+            width: 4.5rem;
+            height: 4.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
           }
           .staff-name{
             margin-left: 1.5rem;
@@ -229,7 +234,7 @@
             margin-top: 2rem;
             align-items: center;
             flex-wrap: wrap;
-            h4{
+            h5{
               color: $blue-shade-3;
               @include breakpoint(mobile){
                 margin-bottom: 1rem;
@@ -269,9 +274,8 @@
           margin-top: 3rem;
           align-items: center;
           flex-wrap: wrap;
-          h4{
+          h5{
             color: $blue-shade-3;
-            font-size: 2.1rem;
             @include breakpoint(mobile){
               margin-bottom: 1rem;
             }

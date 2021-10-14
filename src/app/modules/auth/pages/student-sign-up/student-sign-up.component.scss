@@ -92,7 +92,15 @@
                         background-color: transparent;
                         margin-bottom: 0rem;
                         padding: 1rem 0rem 0rem;
+                        @include breakpoint(xtrasmallmobile){
+                            max-width: 20rem;
+                        }
                         .breadcrumb-item{
+                            @include breakpoint(xtrasmallmobile){
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                            }
                           &::before{
                             color: $yellow-shade-3;
                             font-size: 1.3rem;

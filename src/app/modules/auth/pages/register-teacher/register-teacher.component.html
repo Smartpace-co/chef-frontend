@@ -22,7 +22,7 @@
               <div class="error" *ngIf="formControl.district_id.errors?.required">District is required</div>
             </div>
           </div>
-          <div class="col-6" *ngIf="registerTeacherForm.get('district_id').value === ''">
+          <div class="col-md-6" *ngIf="registerTeacherForm.get('district_id').value === ''">
 
             <label>District Name (Optional)</label>
             <app-input-field classes="form-control teacherForm" placeholders="Enter your district name" types=""
@@ -44,7 +44,7 @@
             </div>
           </div>
 
-          <div class="col-6">
+          <div class="col-md-6">
             <label>First name (*)</label>
             <app-input-field classes="form-control teacherForm" placeholders="Enter Teacher First Name" types=""
               ids="first_name" fieldControl="first_name" [form]="registerTeacherForm"
@@ -58,7 +58,7 @@
             </div>
           </div>
 
-          <div class="col-6">
+          <div class="col-md-6">
             <label>Last name (*)</label>
             <app-input-field classes="form-control teacherForm" placeholders="Enter Teacher Last Name" types=""
               ids="last_name" fieldControl="last_name" [form]="registerTeacherForm"

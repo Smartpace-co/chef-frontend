@@ -64,6 +64,10 @@
     @include breakpoint(iPad){
         max-width: 100%;
     }
+    @include breakpoint(mobile){
+        margin-left: 0;
+        margin-right: 0;
+    }
     h4{
         margin-bottom: 2.5rem;
     }
@@ -127,16 +131,19 @@
     @include breakpoint(iPad){
         max-width: 100%;
     }
+    @include breakpoint(mobile){
+        margin-left: 0;
+        margin-right: 0;
+    }
     margin-bottom: 2.5rem;
     justify-content: center;
+    .main{
+        @include breakpoint(mobile){
+            margin-bottom: 2.5rem;  
+        }
+    }
     .user-name{
         margin-bottom: 2.5rem;
-    }
-    // max-width: calc(100% - 10rem);
-    .card{
-        @include breakpoint(mobile){
-            margin-bottom: 2.5rem;
-        }
     }
 }
 .class-chart{

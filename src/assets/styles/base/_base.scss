@@ -1067,7 +1067,13 @@ section {
           margin-top: 2.5rem;
           &__photo{
             width: 4.5rem;
+            height: 4.5rem;
             margin-right: 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
           }
           &__name-id{
             &__name{
@@ -1127,14 +1133,16 @@ section {
         } 
         &__photo{                
             margin-bottom:1.5rem;
-            width:5rem;
-            height:5rem;
+            min-width:5rem;
+            min-height:5rem;
+            max-width:5rem;
+            max-height:5rem;
             border-radius:100%;
             overflow:hidden;
             background:$light-blue-shade;
             display: flex;
             justify-content: center;
-            // align-items: center;
+            align-items: center;
         }
         &__name{
             font-size:1.8rem;
@@ -1165,6 +1173,7 @@ section {
             li{
                 font-size: 1.2rem;
                 color:rgba($white, 0.6);
+                font-weight: 700;
                 .student-color{
                    width:1rem;
                    height:1rem;

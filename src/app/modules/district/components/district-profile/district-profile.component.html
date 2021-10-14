@@ -1,5 +1,12 @@
 <div class="user-profile">
   <div class="container">
+    <div class="edit-btn-wrapper">
+      <app-button classes="btn btn-primary icon-btn" (click)="openEditModal(editDistrict)">
+        <span aria-hidden="true">
+          <fa-icon [icon]="faEdit"></fa-icon>{{'district.district-profile.edit-profile-title'| translate}}
+        </span>
+      </app-button>
+    </div>
     <div class="user-profile-wrapper legend-card">
       <legend>{{'district.district-profile.your-profile-title'| translate}}</legend>
       <div class="district-info">
@@ -150,13 +157,6 @@
           </app-button>
         </div>
       </div>
-    </div>
-    <div class="edit-btn-wrapper">
-      <app-button classes="btn btn-primary icon-btn" (click)="openEditModal(editDistrict)">
-        <span aria-hidden="true">
-          <fa-icon [icon]="faEdit"></fa-icon>{{'district.district-profile.edit-profile-title'| translate}}
-        </span>
-      </app-button>
     </div>
   </div>
 </div>

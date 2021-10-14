@@ -1,38 +1,46 @@
 @import "../../../../../assets/styles/helpers/variables";
 @import "../../../../../assets/styles/helpers/mixins";
 
-.student-plan-body{
+.student-plan-body {
   padding: 3rem 0rem;
-  .content-wrapper{
+  .content-wrapper {
     display: flex;
-    @include breakpoint(mobile){
+    @include breakpoint(mobile) {
       flex-wrap: wrap;
     }
-    .card-wihtout-header{ 
-        max-width: calc(100% - 25rem);
-        @include breakpoint(mobile){
-          max-width:100%;
-          margin-top: 2rem;
-        }
-      header{
+    .card-wihtout-header {
+      max-width: calc(100% - 25rem);
+      @include breakpoint(mobile) {
+        max-width: 100%;
+        margin-top: 2rem;
+      }
+      header {
         display: flex;
         align-items: center;
-        margin-bottom:2rem;
-        .logo{
-            max-width:8.8rem;
+        margin-bottom: 2rem;
+        .logo {
+          max-width: 8.8rem;
         }
-        .content{
+        .content {
           margin: auto 0;
           margin-left: 2rem;
-          h5{
+          h5 {
             margin-bottom: 0rem;
           }
-          .breadcrumb{
+          .breadcrumb {
             background-color: transparent;
             margin-bottom: 0rem;
             padding: 1rem 0rem 0rem;
-            .breadcrumb-item{
-              &::before{
+            @include breakpoint(xtrasmallmobile) {
+              max-width: 20rem;
+            }
+            .breadcrumb-item {
+              @include breakpoint(xtrasmallmobile) {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+              }
+              &::before {
                 color: $yellow-shade-3;
                 font-size: 1.3rem;
                 margin: 0rem 1.2rem;
@@ -40,34 +48,37 @@
                 display: flex;
                 align-items: center;
               }
-              a{
+              a {
                 color: $border-color;
                 font-size: 1.6rem;
                 font-weight: 600;
               }
-              &.active{
+              &.active {
                 color: $yellow-shade-3;
                 font-size: 1.6rem;
                 font-weight: 600;
+                &:hover{
+                  color: $yellow-shade-3;
+                }
               }
             }
           }
         }
       }
-      .slider-wrapper{
+      .slider-wrapper {
         position: relative;
-        .plans{
+        .plans {
           max-width: 90%;
           display: flex;
           justify-content: center;
           flex-wrap: wrap;
           margin: 0 auto;
           z-index: 9;
-          input{
+          input {
             opacity: 0;
             width: 15rem;
             height: 3.5rem;
-            bottom: 1.5rem;            
+            bottom: 1.5rem;
             position: absolute;
             left: 0;
             right: 0;
@@ -75,59 +86,58 @@
             cursor: pointer;
             margin: 0 auto;
           }
-          .option{
+          .option {
             margin: 1rem;
             position: relative;
             text-align: center;
-            label{
-              .transferent-card{
+            label {
+              .transferent-card {
                 background: transparent;
-                border:1px solid $border-color;
-                border-radius:1.2rem;
+                border: 1px solid $border-color;
+                border-radius: 1.2rem;
                 position: relative;
-                padding:1rem;
+                padding: 1rem;
                 width: 21rem;
                 min-height: 22rem;
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
-                .info-btn-wrapper{
-                  .info-btn{
+                .info-btn-wrapper {
+                  .info-btn {
                     display: flex;
                     justify-content: flex-end;
                     margin-bottom: 0.5rem;
-                    .info-icon{
+                    .info-icon {
                       width: 1.8rem;
                       height: 1.8rem;
                     }
                   }
-                  .plan-heading{
+                  .plan-heading {
                     color: $azure;
                     margin-bottom: 0;
                   }
                 }
-                .monthly-price{
+                .monthly-price {
                   font-size: 1.4rem;
                   font-weight: 700;
                 }
-
               }
-              .select-btn-wrapper{
-                .total-price{
+              .select-btn-wrapper {
+                .total-price {
                   font-size: 1.4rem;
                   font-weight: 700;
                   padding-top: 0;
                 }
                 width: 100%;
               }
-            } 
-            input[type=radio]{
+            }
+            input[type="radio"] {
               opacity: 0;
-              &:checked ~ label{
-                .transferent-card{
+              &:checked ~ label {
+                .transferent-card {
                   background-color: $white-transferent;
-                  .info-btn-wrapper{
-                    .plan-heading{
+                  .info-btn-wrapper {
+                    .plan-heading {
                       color: $yellow-shade-4;
                     }
                   }
@@ -135,14 +145,14 @@
               }
             }
           }
-          .next-btn{
+          .next-btn {
             position: absolute;
             right: 0;
             top: 0;
             bottom: 0;
             margin: auto;
           }
-          .prev-btn{
+          .prev-btn {
             position: absolute;
             left: 0;
             top: 0;
@@ -150,11 +160,11 @@
             margin: auto;
           }
         }
-        .next-btn-wrapper{
+        .next-btn-wrapper {
           background: $yellow-shade-5;
           font-size: 1.5rem;
           font-weight: 700;
-          width: 3rem ;
+          width: 3rem;
           height: 3rem;
           position: absolute;
           border-radius: 50%;
@@ -165,16 +175,16 @@
           display: flex;
           justify-content: center;
           align-items: center;
-          fa-icon{
+          fa-icon {
             color: $black;
             padding-top: 0.2rem;
           }
         }
-        .prev-btn-wrapper{
+        .prev-btn-wrapper {
           background: $yellow-shade-5;
           font-size: 1.5rem;
           font-weight: 700;
-          width: 3rem ;
+          width: 3rem;
           height: 3rem;
           position: absolute;
           border-radius: 50%;
@@ -185,34 +195,36 @@
           display: flex;
           justify-content: center;
           align-items: center;
-          fa-icon{
+          fa-icon {
             color: $black;
             padding-top: 0.2rem;
           }
         }
       }
-      .agree-signup{
+      .agree-signup {
         max-width: 70%;
         text-align: center;
         margin: 0 auto;
         margin-top: 2rem;
-        p{
+        p {
           font-size: 1.2rem;
           padding: 2rem 0;
           font-weight: 700;
         }
       }
-      .agree-signup-btn-wrapper{
+      .agree-signup-btn-wrapper {
         text-align: center;
         margin-bottom: 6rem;
       }
     }
   }
 }
-.membership-header{
+
+//pop-up
+.membership-header {
   border-bottom: none;
-  padding: 2rem 0rem;
-  .logo{
+  padding: 2rem 0rem 1rem;
+  .logo {
     max-width: 8.5rem;
     position: absolute;
     top: -6rem;
@@ -220,26 +232,29 @@
     right: 0;
     margin: 0 auto;
   }
-  h4{
+  h4 {
     margin: 0 auto;
+    color: $yellow-shade-5;
+    text-align: center;
   }
 }
-.journal-body{
-  p{
+.journal-body {
+  p {
     text-align: center;
     font-size: 1.3rem;
     font-weight: 700;
-    padding: 2rem 0rem;
+    padding: 0rem;
   }
-  .Total{
+  .Total {
     text-align: center;
+    margin: 2rem 0;
   }
-  .month{
+  .month {
     text-align: center;
     font-weight: 700;
     padding: 1rem 0rem 2rem;
   }
-  .close-btn-wrapper{
-   text-align: center;
+  .close-btn-wrapper {
+    text-align: center;
   }
 }

@@ -40,7 +40,15 @@
           align-items: center;
 
           .photo {
+            min-width: 4.5rem;
+            min-height: 4.5rem;
             max-width: 4.5rem;
+            max-width: 4.5rem;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
           }
 
           .staff-name {
@@ -279,7 +287,7 @@
             align-items: center;
             flex-wrap: wrap;
 
-            h4 {
+            h5 {
               color: $blue-shade-3;
 
               @include breakpoint(mobile) {
@@ -524,7 +532,7 @@
 }
 
 .archive-class {
-  max-width: 80%;
+  max-width: 90%;
   margin: 0 auto;
 
   h6 {
@@ -536,25 +544,28 @@
   p {
     margin-bottom: 3rem;
     padding: 0;
+    font-weight: 700;
   }
 }
 
 .delete-class {
-  max-width: 80%;
+  max-width: 90%;
   margin: 0 auto;
+
+    p{
+      margin-bottom: 0;
+      font-weight: 700;
+    }
 
   h6 {
     color: $orange;
     font-size: 1.8rem;
     font-weight: bold;
   }
-
-  p {
-    margin-bottom: 2.5rem;
-    padding: 0;
-  }
 }
-
+form{
+  font-weight: 700;
+}
 .user-profile{
   margin-top: 6rem;
   .container{

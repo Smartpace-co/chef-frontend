@@ -47,7 +47,7 @@
             margin-left: auto;
             display: flex;
             flex-direction:column;
-            align-items: flex-end;
+            align-items: center;
             justify-content:center;
             padding:0 3% 0 18%;
             max-width:50%;
@@ -71,8 +71,9 @@
             header{
               display: block;
               text-align: center;
+              margin-top: 2.8rem;
                 .logo{
-                    max-width:20%;
+                    max-width:8.2rem;
                     margin: 0 auto;
                 }
             }
@@ -87,6 +88,7 @@
               justify-content: center;
               flex-wrap: wrap;
               margin: 0 auto;
+              margin-top: 2rem;
               input{
                 opacity: 0;
                 width: calc(12rem + 0rem);
@@ -104,7 +106,7 @@
               .option{
                 flex: 0 0 calc((80% - 5rem) / 2);
                 margin: 1rem;
-                margin-bottom: 4rem;
+                margin-bottom: 3.5rem;
                 position: relative;
                 text-align: center;
                 label{

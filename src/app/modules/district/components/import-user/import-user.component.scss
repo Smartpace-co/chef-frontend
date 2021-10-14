@@ -30,8 +30,16 @@
             font-size: 1.9rem;
             font-weight: 700;
             margin-top: 4rem;
+            a{
+              margin-right: 0.5rem;
+             text-decoration: underline;
+            }
           }
         }
+      }
+      .download-link{
+        text-decoration: underline;
+        font-weight: 700;
       }
       .upload-in-progress{
         width: 100%;
