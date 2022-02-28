@@ -62,8 +62,8 @@ export class ServingComponent implements OnInit {
           this.currentAssignedLesson = response.data;
           this.audioTrack = response.data.recipe.servingStepsTrack;
           this.isVisibleNext = false;
-          this.servingData = response.data.recipe.servingSteps[0].text.split(".");
-          this.servingData = this.servingData.filter(e => e && e.trim() != "");
+          this.servingData = response.data.recipe.servingSteps[0].text ? response.data.recipe.servingSteps[0].text.match(/.{1,154}(\s|$)/g) : undefined;
+          // this.servingData = this.servingData.filter(e => e && e.trim() != "");
           this.getSlideConfig();
         }
       },
@@ -82,7 +82,7 @@ export class ServingComponent implements OnInit {
       nextArrow: false,
       // nextArrow: '<div class=\'nav-btn next-slide\'>>></div>',
       // prevArrow: '<div class=\'nav-btn prev-slide\'><<</div>',
-      dots: true,
+      dots: this.servingData && this.servingData.length > 1 ? true : false,
       infinite: false,
     };
     this.isLoad = true;

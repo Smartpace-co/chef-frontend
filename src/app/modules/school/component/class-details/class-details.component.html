@@ -102,7 +102,7 @@
               <div class="students-wrapper">
                 <div class="students-detail">
                   <div class="students-wrapper">
-                    <h4>{{'table-component.you' | translate}} {{'table-component.have' | translate}}  {{studentList.length}} students in this class</h4>
+                    <h5>{{'table-component.you' | translate}} {{'table-component.have' | translate}}  {{studentList.length}} students in this class</h5>
                     <div class="btn-wrapper">
                       <!-- <app-button classes="btn btn-primary icon-btn mr-3 mb-3">
                             <span aria-hidden="true"><fa-icon [icon]="faEdit"></fa-icon>Add Class</span>
@@ -571,7 +571,7 @@
         </div>
         <div class="row">
           <div class="col-md-12">
-            <label>{{'district.district-schools.students-title' | translate}}</label>
+            <label>{{'district.district-schools.students-title' | translate}} {{'student.profile.optional-label'| translate }}</label>
             <app-multi-select-dropdown [dropDownItemList]="studList" [selectedItems]="selectedStudent"
               [placeholderText]="'Select the class student'" fieldControl="student"
               [selectedValue]="selectedStudentValue" (onSelectValue)="onSelectStudent($event)"
@@ -621,7 +621,7 @@
               <h6>{{'school.student.add-student.personal-info.medical-info.allergens-label.label' | translate}}</h6>
             </div>
             <div class="profile-sub-info">
-              <h6>{{allergenList}}</h6>
+              <h6>{{studentDetails?.allergieString}}</h6>
             </div>
           </li>
           <li>

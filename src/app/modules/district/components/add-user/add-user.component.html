@@ -67,12 +67,13 @@
               fieldControl="contactNumber" [form]="addUserForm"
               [ngClass]="{ 'is-invalid': formControl.contactNumber.touched && formControl.contactNumber.errors }">
             </app-input-field>
+            
             <div *ngIf="formControl.contactNumber.errors" class="invalid-feedback">
               <div class="error" *ngIf="formControl.contactNumber.errors?.required">{{'district.district-profile.agent-component.phone-field.required'|translate}}
               </div>
               <div class="error" *ngIf="formControl.contactNumber.errors?.pattern">{{'district.district-profile.agent-component.phone-field.pattern'|translate}}</div>
-              <div class="error" *ngIf="formControl.contactNumber.errors?.minlength">{{'district.district-profile.agent-component.phone-field.minlength'|translate}}</div>
-              <div class="error" *ngIf="formControl.contactNumber.errors?.digitValidate">{{'school.teacher.add-teacher.contact.digit-validate' | translate}}</div>
+              <!-- <div class="error" *ngIf="formControl.contactNumber.errors?.minlength">{{'district.district-profile.agent-component.phone-field.minlength'|translate}}</div> -->
+              <!-- <div class="error" *ngIf="formControl.contactNumber.errors?.digitValidate">{{'school.teacher.add-teacher.contact.digit-validate' | translate}}</div> -->
                 <div class="error" *ngIf="formControl.contactNumber.errors?.contactValidate"> 
                   <div class="error">{{'district.district-profile.agent-component.phone-field.validate'|translate}}</div>
                   </div>

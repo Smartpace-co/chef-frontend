@@ -129,7 +129,6 @@ export class EditMemberShipComponent implements OnInit {
                 
                 return obj;
               }).filter(notUndefined);
-              console.log(this.planList)
             }
           },
           (error) => {

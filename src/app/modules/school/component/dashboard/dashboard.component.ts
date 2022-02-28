@@ -23,7 +23,7 @@ import {
 import { AuthService } from '@modules/auth/services/auth.service';
 import { SchoolService } from '@modules/school/services/school.service';
 import { TeacherInstructionsComponent } from '@modules/teacher/components/teacher-instructions/teacher-instructions.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToasterService } from '@appcore/services/toaster.service';
 
 @Component({
@@ -64,9 +64,6 @@ export class DashboardComponent implements OnInit {
   faUserPlus=faUserPlus;
   faPlus= faPlus;
    menubarStatus: boolean = false;
-   isLoadUser = false;
-   filter = [];
-   schoolList = [];
    teacherList = [];
    selectedValue = [];
   selectedStandard = null
@@ -74,7 +71,6 @@ export class DashboardComponent implements OnInit {
   selectedTeacher = null;
   selectedStudentValue = [];
   selectedStudent = null
-  classList = [];
   standardList = [];
   allStudentList = [];
   studentList=[]
@@ -298,7 +294,8 @@ export class DashboardComponent implements OnInit {
   classesListtitle = "All Classes";
   SortByGradeTitle = "Sort by Grade";
   schoolDetails:any
-
+  closeResult = '';
+  loggedInUser;
  // strikeCheckout:any = null; 
   constructor(private authService:AuthService,
     private schoolService:SchoolService,
@@ -307,20 +304,28 @@ export class DashboardComponent implements OnInit {
     private modalService: NgbModal) { }
 
   ngOnInit(): void {
-
-   this.schoolDetails=JSON.parse(localStorage.getItem("schoolDetails"))
-   this.getPracticeAndGrowthReport(this.schoolDetails.id)
-
-    
-    this.authService.currentUser.subscribe((data) => {
+    this.loggedInUser =  JSON.parse(window.sessionStorage.getItem('currentUser'));
+    this.schoolService.getSchoolDetailsByUserId(this.loggedInUser.id).subscribe(
+      (response) => {
+        if (response && response.data) {
+          this.schoolDetails = response.data[0];
+          this.getPracticeAndGrowthReport(this.schoolDetails.id);
+          this.getAllActiveTeachers(this.schoolDetails.id);
+          this.getTeachersCount();
+        }
+      },
+      (error) => {
+        console.log(error);
+        this.toast.showToast(error.error.message, '', 'error');
+      }
+    );
+    this.authService.currentUser.subscribe((data: any) => {
       if (data) {
       this.activateUserData=data
-        this.currentUser = data['admin_account_name'] ? data['admin_account_name'] : undefined;
+        this.currentUser = data.admin_account_name ? data.admin_account_name : undefined;
       } 
     });
     this.getAllClassList();
-    this.getSchoolList();
-    this.getAllActiveTeachers(this.schoolDetails.id);
     this.getAllGradeList();
     this.getStudentList();
     this.getAllLearningStandards();  
@@ -335,7 +340,6 @@ export class DashboardComponent implements OnInit {
     });
     this.authService.setuserlang();
 
-    this.getTeachersCount()
     this.getStudentsCount()
     this.getInactiveStudents();
     this.getTopActiveStudents('week');
@@ -354,7 +358,7 @@ export class DashboardComponent implements OnInit {
   getTeachersCount(){
     if(this.schoolDetails.id)
     {
-    this.schoolService.getAllTeacher(this.schoolDetails.id).subscribe(
+    this.schoolService.getAllTeacher(undefined,this.schoolDetails.id).subscribe(
       (response) => {
         if(response && response.data.rows)
         {
@@ -390,7 +394,17 @@ export class DashboardComponent implements OnInit {
       this.schoolService.verifyMaxUserCountClass(this.activateUserData.id, this.activateUserData.role.id).subscribe((res) => {
         if(res.status==200)
         {
-            this.closeModal = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true, windowClass: 'create-class-modal' });
+          this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true,windowClass: 'create-class-modal' }).result.then((result) => {
+            this.closeResult = `Closed with: ${result}`;
+            if(result === 'Save'){
+              this.onSave();
+            }else{
+              this.resetForm();
+            }
+          }, (reason) => {
+            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+            this.resetForm();
+          });
         }       
       },
       (error) => {
@@ -401,6 +415,16 @@ export class DashboardComponent implements OnInit {
   closeOpenModal() {
     this.closeModal.close();
     this.resetForm();
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 
   resetForm() {
@@ -521,52 +545,32 @@ export class DashboardComponent implements OnInit {
     this.selectedStudentValue = item;
     this.createClassForm.get('students').setValue(this.selectedStudentValue);
   }
-  classFilter(item: any): void {
-    this.classesListtitle = item.menu;
-    if (item && item.id) {
-      this.getAllClassList(item.id);
-    } else {
-      this.getAllClassList();
-    }
-  }
-  gradeFilter(event) {
-    this.SortByGradeTitle = event.menu;
-    if (event && event.value) {
-      this.getAllClassList(undefined, event.value);
-    } else {
-      this.getAllClassList();
-    }
-  }
+  // classFilter(item: any): void {
+  //   this.classesListtitle = item.menu;
+  //   if (item && item.id) {
+  //     this.getAllClassList(item.id);
+  //   } else {
+  //     this.getAllClassList();
+  //   }
+  // }
+  // gradeFilter(event) {
+  //   this.SortByGradeTitle = event.menu;
+  //   if (event && event.value) {
+  //     this.getAllClassList(undefined, event.value);
+  //   } else {
+  //     this.getAllClassList();
+  //   }
+  // }
 
   
 /**
  * API call to get all classes.
  */
- getAllClassList(filter?: any, sortBy?: string): void {
-  this.schoolService.getAllClasses(filter, sortBy).subscribe(
+ getAllClassList(): void {
+  this.schoolService.getAllClasses(1).subscribe(
     (response) => {
       if (response && response.data && response.data.rows) {
         this.classCount=response.data.rows.length
-        this.classList = _.map(response.data.rows, item => {
-          let obj = {
-            classId: item.id,
-            className: item.title,
-            teacherName: item && !_.isEmpty(item.class_teachers) ? `${item.class_teachers[0].first_name} ${item.class_teachers[0].last_name}` : '',
-            grade: item.grade.grade,
-            students: item.class_students.length
-          }
-          return obj;
-        });
-        this.classList.forEach(element => {
-          element.room = 10,
-            element.actions = [
-              'Info',
-              'Students',
-              'Reports'
-            ]
-          element.profilePic = "./assets/images/student-icon.svg"
-        });
-        this.isLoadUser = true;
       }
     },
     (error) => {
@@ -577,9 +581,7 @@ export class DashboardComponent implements OnInit {
 }
 
   getAllActiveTeachers(schoolId): void {
-    this.filter = [];
-    this.filter.push(1, schoolId)
-    this.schoolService.getAllTeacher(this.filter).subscribe(
+    this.schoolService.getAllTeacher(1,schoolId).subscribe(
       (response) => {
         if (response && response.data && response.data.rows) {
           this.teacherList = _.map(response.data.rows, item => {
@@ -598,25 +600,25 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  getSchoolList(): void {
-    this.schoolService.getSchools(1).subscribe(
-      (response) => {
-        if (response && response.data && response.data.rows) {
-          this.schoolList = _.map(response.data.rows, item => {
-            let obj = {
-              id: item.school.id,
-              menu: item.school.name
-            }
-            return obj;
-          });
-        }
-      },
-      (error) => {
-        console.log(error);
-        this.toast.showToast(error.error.message, '', 'error');
-      }
-    );
-  }
+  // getSchoolList(): void {
+  //   this.schoolService.getSchools(1).subscribe(
+  //     (response) => {
+  //       if (response && response.data && response.data.rows) {
+  //         this.schoolList = _.map(response.data.rows, item => {
+  //           let obj = {
+  //             id: item.school.id,
+  //             menu: item.school.name
+  //           }
+  //           return obj;
+  //         });
+  //       }
+  //     },
+  //     (error) => {
+  //       console.log(error);
+  //       this.toast.showToast(error.error.message, '', 'error');
+  //     }
+  //   );
+  // }
   getAllGradeList(): void {
     this.schoolService.getGradeList().subscribe(
       (response) => {
@@ -660,8 +662,8 @@ export class DashboardComponent implements OnInit {
    * To get student list.
    *
    */
-   getStudentList(filter?: any): void {
-    this.schoolService.getAllStudents(filter).subscribe(
+   getStudentList(): void {
+    this.schoolService.getAllStudents(1).subscribe(
       (response) => {
         if (response && response.data && response.data.rows) {
           this.studentList = _.map(response.data.rows, item => {
@@ -712,7 +714,7 @@ export class DashboardComponent implements OnInit {
         (data) => {
           if (data) {
             this.toast.showToast(`${formData.title} : Class added successfully.`, '', 'success');
-            this.closeOpenModal();
+            this.resetForm();
             this.getAllClassList();
           }
         }, (error) => {
@@ -798,7 +800,6 @@ export class DashboardComponent implements OnInit {
     this.schoolService.studentWithAboveAndBelowAverageActivity("week").subscribe((res) => {
       if (res && res.data && res.status == 200) {
         this.sessionData = res.data;
-        console.log(this.sessionData)
         this.donutChart = [];
         this.donutChart.push({
           label: 'Above average',

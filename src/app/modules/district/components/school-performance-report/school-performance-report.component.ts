@@ -13,7 +13,9 @@ import { DistrictService } from '@modules/district/services/district.service';
 import * as _ from 'lodash';
 import html2canvas from 'html2canvas';
 import jspdf from 'jspdf';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap'
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { ExcelService } from '../../../../shared/services/excel.service';
+
 @Component({
   selector: 'app-school-performance-report',
   templateUrl: './school-performance-report.component.html',
@@ -34,6 +36,7 @@ export class SchoolPerformanceReportComponent implements OnInit {
   planList = [];
   closeModal: any;
   closeModal1: any;
+  downlaodModal: any;
   ViewList = [
     {
       id: '1',
@@ -170,7 +173,7 @@ export class SchoolPerformanceReportComponent implements OnInit {
       icon: '',
     }
   ]
-  constructor(private districtService: DistrictService, private modalService: NgbModal) { }
+  constructor(private districtService: DistrictService, private modalService: NgbModal, private excelService: ExcelService) { }
 
   ngOnInit(): void {
     this.getSchoolPerformanceReport("week")
@@ -259,6 +262,14 @@ export class SchoolPerformanceReportComponent implements OnInit {
   closeOpenModal1() {
     this.closeModal1.close();
   } 
+
+  openDownloadModal(content) {
+    this.downlaodModal = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true, windowClass: 'dist-modal' });
+  }
+  closeDownlaodModal() {
+    this.downlaodModal.close();
+  }
+
   generatePDF() {
     var data = document.getElementById('generatePdf');
     html2canvas(data).then((canvas) => {
@@ -272,6 +283,28 @@ export class SchoolPerformanceReportComponent implements OnInit {
       pdf.save('school_performance_report.pdf');
     });
   }
+
+  printExcelSheet(): void {
+    let newArray = [];
+    let i = 1;
+    if (this.schoolList.length) {
+      for (let element of this.schoolList) {
+        let obj = {};
+        obj["SL.No."] = i++;
+        for (let elm in element) {
+          if (elm === "schoolName") obj["School Title"] = element[elm];
+          if (elm === "ELA") obj["CCSS-ELA PROFICIENCY"] = element[elm];
+          if (elm === "MATH") obj["CCSS-MATH PROFICIENCY"] = element[elm];
+          if (elm === "NGSS") obj["NGSS PROFICIENCY"] = element[elm];
+          if (elm === "NCSS") obj["NCSS PROFICIENCY"] = element[elm];
+        }
+        newArray.push(obj);
+      }
+      this.excelService.exportAsExcelFile(newArray, 'School Activity Report');
+    }
+    this.closeDownlaodModal();
+  }
+
   openRead(content) {
     this.closeModal1 = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true, windowClass: 'dist-modal' });
   }

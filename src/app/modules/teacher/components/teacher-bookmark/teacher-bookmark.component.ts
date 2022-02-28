@@ -5,7 +5,7 @@ import { ToasterService } from '@appcore/services/toaster.service';
 import { FaConfig } from '@fortawesome/angular-fontawesome';
 import { faSearch, faAngleDoubleLeft, faStar, faChevronRight, faBookmark, faCalendarAlt, faExclamationTriangle,faInfoCircle,faPlus ,faThLarge,faList,faSort} from '@fortawesome/free-solid-svg-icons';
 import { TeacherService } from '@modules/teacher/services/teacher.service';
-import { NgbCalendar, NgbDate, NgbDateParserFormatter, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCalendar, NgbDate, NgbDateParserFormatter, NgbDatepickerConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SortByPipe } from '@shared/pipes/sort-by.pipe';
 import * as _ from 'lodash';
 import * as moment from 'moment';
@@ -59,6 +59,8 @@ export class TeacherBookmarkComponent implements OnInit {
   equipments :any;
   bookmark :boolean;
    itemInfo:any;
+   selectedDate: any;
+   lessonTime:any;
   ViewList = [
     {
       id: '1',
@@ -101,13 +103,19 @@ lessonList = [];
     private modalService: NgbModal,
     private calendar: NgbCalendar,
     private sortBy: SortByPipe,
-     public formatter: NgbDateParserFormatter) 
+     public formatter: NgbDateParserFormatter,
+     private config: NgbDatepickerConfig) 
     { 
     faConfig.defaultPrefix = 'far';
     let today = calendar.getToday()
     this.fromDate = new NgbDate(today.year, today.month, today.day)
     this.toDate = new NgbDate(today.year, today.month, today.day),
-    this.img = './assets/recipe.jpeg'; }
+    this.img = './assets/recipe.jpeg';
+    const current = new Date();
+    config.minDate = {
+      year: current.getFullYear(), month:
+        current.getMonth() + 1, day: current.getDate()
+    }; }
 
   ngOnInit(): void {
     this.AssignLesson = new FormGroup({
@@ -175,6 +183,7 @@ lessonList = [];
 
   onInfoClick(item, i) {
     this.itemInfo=item;
+    this.lessonTime= item.lessonTime;
     this.teacherService.getLessonInfo(item.id).subscribe((res) => {
     this.showInfo = i+1;
     this.selectedIndex = i
@@ -374,7 +383,9 @@ lessonList = [];
               "id": 1,
               "culinaryTechniqueTitle": 'Culinary Technique',
               "estimatedTime": item.recipe.recipeTechniques.map(elem => elem.estimatedTime ? elem.estimatedTime: 0).reduce((a, b) => a + b),
-              "status": item.recipe.recipeTechniques.some(elem => elem.culinaryTechnique.status == true)
+              // "status": item.recipe.recipeTechniques.some(elem => elem.culinaryTechnique.status == true)
+              "status": item.recipe.recipeTechniques.some(elem => elem.status == true)
+
             }],
           };
           activities.push(cooking);
@@ -671,6 +682,7 @@ AdvanceLink() {
     this.resultLessonInfo["defaultSetting"] = this.advance;
     this.resultLessonInfo["classList"] = this.classList;
     this.teacherService.setLessonData( this.resultLessonInfo);
+    sessionStorage.setItem('lsData',JSON.stringify(this.resultLessonInfo));
     this.router.navigate(['/teacher/explore-lessons-setting', this.lessonInfo.id]);
   }
    

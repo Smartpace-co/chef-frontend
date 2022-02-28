@@ -1,41 +1,125 @@
 @import "../../../../../../../assets/styles/helpers/variables";
 @import "../../../../../../../assets/styles/helpers/mixins";
-.ingredients-body-1{
-  min-height: calc(100vh - 10rem);
-  padding: 14rem 0;
+// .ingredients-body-1{
+//   min-height: calc(100vh - 10rem);
+//   padding: 14rem 0;
+//   position: relative;
+//   @include breakpoint(tabs) { 
+//     padding-bottom: 5rem;
+//   }
+//   @include breakpoint(mobile) {
+//     min-height: calc(100vh - 33rem);
+//   }
+//   .card-wihtout-header-white{
+//     &.ingredients{
+//       margin-bottom: 0rem;
+//       .ingredients-wrapper{
+//         display: flex;
+//         flex-wrap: wrap;
+//         justify-content: left;
+//         @include breakpoint(tabs) {
+//           justify-content: center;
+//         }
+//         .ingredients-list{
+//           margin: 15px 5px;
+//           display: flex;
+//           flex-direction: column;
+//           flex: 0 0 calc((100% - 5rem) / 4);
+//           text-align: center;
+//           justify-content: space-around;
+//           p{
+//             color: $black;
+//             font-weight: 600;
+//           }
+//           .substitute-btn-wrapper{
+//             padding-top: 1rem;
+//             color: #001243;
+//             a{
+//               .icon{
+//                 width: 2rem;
+//                 height: 2rem;
+//                 border: 1px solid;
+//                 border-radius: 50%;
+//                 display: inline-block;
+//                 font-size: 1.2rem;
+//                 line-height: 1.7;
+//               }
+//               u{
+//                 font-size: 1.2rem;
+//                 padding-left: 0.5rem;
+//                 font-weight: 600;
+//               }
+//             }
+
+//           }
+//         }
+//       }
+//     } 
+//   }
+// }
+
+.ingredients-body-1 {
+  padding: 10rem 0;
   position: relative;
   @include breakpoint(tabs) {
-    padding-bottom: 5rem;
+    padding: 5rem 0;
   }
   @include breakpoint(mobile) {
     min-height: calc(100vh - 33rem);
   }
-  .card-wihtout-header-white{
-    &.ingredients{
+  .card-wihtout-header-white {
+    &.ingredients {
       margin-bottom: 0rem;
-      .ingredients-wrapper{
+      .ingredients-wrapper {
         display: flex;
         flex-wrap: wrap;
         justify-content: left;
         @include breakpoint(tabs) {
           justify-content: center;
         }
-        .ingredients-list{
+        .ingredients-list {
           margin: 15px 5px;
-          display: flex;
-          flex-direction: column;
+          // min-width: calc( 25% - 10px);
           flex: 0 0 calc((100% - 5rem) / 4);
           text-align: center;
-          justify-content: space-around;
-          p{
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          .profile-pic-list {
+            width: 9.5rem;
+            height: 9.5rem;
+            min-height: 4.5rem;
+            min-width: 4.5rem;
+            border: 0.5rem solid #001243;
+            border-radius: 50%;
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #fff;
+            overflow: hidden;
+            img {
+              width: 80%;
+            }
+          }
+          p {
             color: $black;
             font-weight: 600;
           }
-          .substitute-btn-wrapper{
+          .btn-wrapper {
+            .optional-wraper {
+              font-size: 1.2rem;
+              color: $inputbg;
+              font-weight: 700;
+              padding-bottom: 1rem;
+              padding-top: 0;
+            }
+          }
+          .substitute-btn-wrapper {
             padding-top: 1rem;
             color: #001243;
-            a{
-              .icon{
+            a {
+              .icon {
                 width: 2rem;
                 height: 2rem;
                 border: 1px solid;
@@ -44,17 +128,16 @@
                 font-size: 1.2rem;
                 line-height: 1.7;
               }
-              u{
+              u {
                 font-size: 1.2rem;
                 padding-left: 0.5rem;
                 font-weight: 600;
               }
             }
-
           }
         }
       }
-    } 
+    }
   }
 }
 .substitute-header{

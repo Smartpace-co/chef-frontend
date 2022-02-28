@@ -1,16 +1,26 @@
 .explore-lesson{
   .globe{
       text-align: center;
+      @include breakpoint(smallDesktop){
+        svg{
+          transform: scale(0.8);
+        }
+      }
       @include breakpoint(mobile){
         width:100%;
+        transform: translateY(-15%)
         // > div{
         //   display: flex;
         //   justify-content: center;
         // }
         svg{
-          transform: scale(0.6) translate(0, -35%);
+          transform: scale(0.6);
           margin: 3rem auto 0;
         }
+      }
+      @include breakpoint(sm-mobile){
+        transform: translate(-25%, -10%);
+        margin: 0;
       }
   }
   #globe {
@@ -67,5 +77,6 @@
       color: $navy-blue;
       font-size: 1.4rem;
       font-weight: 700;
+      z-index: 1;
     }
 }

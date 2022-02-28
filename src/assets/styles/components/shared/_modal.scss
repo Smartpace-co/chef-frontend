@@ -29,6 +29,7 @@
         position: relative;
         padding: 3rem;
         width:100%;
+        font-weight: 700;
         @include breakpoint(mobile){
             padding: 2rem;
             border-radius: 2rem;

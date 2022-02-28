@@ -42,15 +42,29 @@ export class ContentSettingsComponent implements OnInit {
   // }];
   subjectList = [];
   gradeList = [];
-  standardList = [];
+  elaStandardList = [];
+  mathStandardList = [];
+  ngssStandardList = [];
+  ncssStandardList = [];
   cnt = 0;
+  selectedElaStandard= null;
+  selectedElaStandardValue=[];
+  selectedMathStandardValue= [];
+  selectedMathStandard= null;
+  selectedNgssStandardValue= [];
+  selectedNgssStandard= null;
+  selectedNcssStandardValue= [];
+  selectedNcssStandard=null;
   constructor(private districtService: DistrictService, private toast: ToasterService) { }
 
   ngOnInit(): void {
     const grade = this.districtService.getGradeList();
     const subject = this.districtService.getSubjectList();
-    const standard = this.districtService.getLearningStandardList();
-    forkJoin([grade, subject, standard]).subscribe(res => {
+    const elastandard = this.districtService.getELAStandards();
+    const mathstandard = this.districtService.getMathStandards();
+    const ngssStandard = this.districtService.getNGSSStandards();
+    const ncssStandard = this.districtService.getNCSSStandards();
+    forkJoin([grade, subject, elastandard, mathstandard, ngssStandard, ncssStandard]).subscribe(res => {
       this.gradeList = _.map(res[0].data, item => {
         let obj = {
           id: item.id,
@@ -65,14 +79,35 @@ export class ContentSettingsComponent implements OnInit {
         }
         return obj;
       });
-      this.standardList = _.map(res[2].data, item => {
+      this.elaStandardList = _.map(res[2].data, item => {
         let obj = {
-          id: item.id,
-          menu: item.standardTitle
+          item_id: item.id,
+          item_text: item.standardTitle
         }
         return obj;
       });
-      if (this.gradeList || this.subjectList || this.standardList) {
+      this.mathStandardList = _.map(res[3].data, item => {
+        let obj = {
+          item_id: item.id,
+          item_text: item.standardTitle
+        }
+        return obj;
+      });
+      this.ngssStandardList = _.map(res[4].data, item => {
+        let obj = {
+          item_id: item.id,
+          item_text: item.standardTitle
+        }
+        return obj;
+      });
+      this.ncssStandardList = _.map(res[5].data, item => {
+        let obj = {
+          item_id: item.id,
+          item_text: item.standardTitle
+        }
+        return obj;
+      });
+      if (this.gradeList || this.subjectList || this.elaStandardList || this.mathStandardList || this.ngssStandardList || this.ncssStandardList) {
         this.getSettingsList();
       }
     });
@@ -88,7 +123,6 @@ export class ContentSettingsComponent implements OnInit {
         if (response && response.data) {
           let mappedSettings = [];
           let newGrade = [];
-          let newStandards = [];
           let newSubjects = [];
           mappedSettings = _.map(response.data, item => {
             if (item.key === 'contentFullAccess') {
@@ -123,17 +157,39 @@ export class ContentSettingsComponent implements OnInit {
               item['options'] = newSubjects;
             } else if (item.key === 'contentStandards') {
               item['title'] = 'Standards enabled';
-              // item['status'] = 'unlocked';
-              item['type'] = "checkmark";
-              newStandards = _.map(this.standardList, ele => {
+              item['type'] = 'dropdown';
+              _.map(this.elaStandardList, ele => {
                 _.forEach(item.content, o => {
-                  if (o === ele.id) {
-                    ele.isEnable = true;
+                  if (o === ele.item_id) {
+                    this.selectedElaStandardValue.push(ele)
+                    this.selectedElaStandard=this.selectedElaStandardValue;
                   }
                 });
-                return ele;
               });
-              item['options'] = newStandards;
+              _.map(this.mathStandardList, ele => {
+                _.forEach(item.content, o => {
+                  if (o === ele.item_id) {
+                    this.selectedMathStandardValue.push(ele);
+                    this.selectedMathStandard=this.selectedMathStandardValue;
+                  }
+                });
+              });
+              _.map(this.ngssStandardList, ele => {
+                _.forEach(item.content, o => {
+                  if (o === ele.item_id) {
+                    this.selectedNgssStandardValue.push(ele);
+                    this.selectedNgssStandard=this.selectedNgssStandardValue;
+                  }
+                });
+              });
+              _.map(this.ncssStandardList, ele => {
+                _.forEach(item.content, o => {
+                  if (o === ele.item_id) {
+                    this.selectedNcssStandardValue.push(ele);
+                    this.selectedNcssStandard=this.selectedNcssStandardValue;
+                  }
+                });
+              });
             }
             return item;
           });
@@ -178,6 +234,147 @@ export class ContentSettingsComponent implements OnInit {
         isEnable: !item.isEnable
       });
     }
+    this.districtService.editSettings(data).subscribe(
+      (response) => {
+        if (response && response.data) {
+          this.toast.showToast('Settings updated successfully.', '', 'success');
+        }
+      },
+      (error) => {
+        console.log(error);
+        this.toast.showToast(error.error.message, '', 'error');
+      }
+    );
+  }
+
+  onSelect(item, type,id) {
+    switch (type) {
+      case 'ela':
+        this.selectedElaStandardValue.push(item);
+        this.selectedElaStandard= this.selectedElaStandardValue;   
+        this.updateDropdownSetting(id)
+        break;
+      case 'math':
+        this.selectedMathStandardValue.push(item);
+        this.selectedMathStandard= this.selectedMathStandardValue;   
+        this.updateDropdownSetting(id)     
+        break;
+      case 'ngss':
+        this.selectedNgssStandardValue.push(item);
+        this.selectedNgssStandard= this.selectedNgssStandardValue; 
+        this.updateDropdownSetting(id)       
+        break;
+      case 'ncss':
+        this.selectedNcssStandardValue.push(item);
+        this.selectedNcssStandard= this.selectedNcssStandardValue; 
+        this.updateDropdownSetting(id)       
+        break;
+
+    }
+  }
+
+  onDeSelect(index, type,id) {
+    switch (type) {
+      case 'ela':
+        this.selectedElaStandardValue = [];
+        this.selectedElaStandard = this.selectedElaStandard.filter(function (obj) {
+          return obj.item_id !== index.item_id;
+        });
+        this.selectedElaStandardValue = this.selectedElaStandard;
+        this.updateDropdownSetting(id)
+
+        break;
+      case 'math':
+        this.selectedMathStandardValue = [];
+        this.selectedMathStandard = this.selectedMathStandard.filter(function (obj) {
+          return obj.item_id !== index.item_id;
+        });
+        this.selectedMathStandardValue = this.selectedMathStandard;
+        this.updateDropdownSetting(id)
+        break;
+      case 'ngss':
+        this.selectedNgssStandardValue = [];
+        this.selectedNgssStandard = this.selectedNgssStandard.filter(function (obj) {
+          return obj.item_id !== index.item_id;
+        });
+        this.selectedNgssStandardValue = this.selectedNgssStandard;
+        this.updateDropdownSetting(id)
+        break;
+      case 'ncss':
+        this.selectedNcssStandardValue = [];
+        this.selectedNcssStandard = this.selectedNcssStandard.filter(function (obj) {
+          return obj.item_id !== index.item_id;
+        });
+        this.selectedNcssStandardValue = this.selectedNcssStandard;
+        this.updateDropdownSetting(id)
+        break;
+
+    }
+
+
+  }
+
+  onSelectAll(item, type, id) {
+    switch (type) {
+      case 'ela':
+        this.selectedElaStandardValue = [];
+        this.selectedElaStandardValue = item;
+        this.selectedElaStandard = this.selectedElaStandardValue;
+        this.updateDropdownSetting(id)
+        break;
+      case 'math':
+        this.selectedMathStandardValue = [];
+        this.selectedMathStandardValue = item;
+        this.selectedMathStandard = this.selectedMathStandardValue;
+        this.updateDropdownSetting(id)
+        break;
+      case 'ngss':
+        this.selectedNgssStandardValue = [];
+        this.selectedNgssStandardValue = item;
+        this.selectedNgssStandard = this.selectedNgssStandardValue;
+        this.updateDropdownSetting(id)
+        break;
+      case 'ncss':
+        this.selectedNcssStandardValue = [];
+        this.selectedNcssStandardValue = item;
+        this.selectedNcssStandard = this.selectedNcssStandardValue;
+        this.updateDropdownSetting(id)
+        break;
+
+    }
+  }
+
+  onDeselectAll(item, type, id) {
+    switch (type) {
+      case 'ela':
+        this.selectedElaStandardValue = item;
+        this.updateDropdownSetting(id)
+
+        break;
+      case 'math':
+        this.selectedMathStandardValue = item;
+        this.updateDropdownSetting(id)
+
+        break;
+      case 'ngss':
+        this.selectedNgssStandardValue = item;
+        this.updateDropdownSetting(id)
+
+        break;
+      case 'ncss':
+        this.selectedNcssStandardValue = item;
+        this.updateDropdownSetting(id)
+        break;
+
+    }
+  }
+
+  updateDropdownSetting(id){
+    
+    let contentArray=this.selectedElaStandardValue.concat(this.selectedMathStandardValue,this.selectedNgssStandardValue,this.selectedNcssStandardValue)
+    let data = {
+      settings: [{ id: id, content: contentArray.map(res=>res.item_id) }]
+    };
     this.districtService.editSettings(data).subscribe(
       (response) => {
         if (response && response.data) {

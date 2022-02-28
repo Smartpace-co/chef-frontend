@@ -14,6 +14,7 @@ export class TeacherService {
   private subject = new Subject<any>();
   private reportTypeSubject = new Subject<any>();
   navchange: EventEmitter<number> = new EventEmitter();
+  private allLessonSubject = new Subject<any>();
   private lessonSubject = new Subject<any>();
   private topRatedLessonSubject = new Subject<any>();
   private stanardLessonSubject = new Subject<any>();
@@ -39,7 +40,6 @@ export class TeacherService {
   constructor(private http: HttpClient) { }
 
   setTeachersHeader(flag) {
-    console.log("setTeachersHeader : ", flag);
 
     this.hideteacherHeader = flag;
   }
@@ -154,6 +154,13 @@ export class TeacherService {
   getNotificationCount(): Observable<any> {
     return this.subject.asObservable();
   }
+  sendFilteredAllLessonData(data: any) {
+    this.allLessonSubject.next({ allLessonData: data });
+  }
+
+  getFilteredALLLessonData(): Observable<any> {
+    return this.allLessonSubject.asObservable();
+  }
 
   sendFilteredLessonData(data: any) {
     this.lessonSubject.next({ lessonData: data });
@@ -235,6 +242,10 @@ export class TeacherService {
     return this.http.get<any[]>(`${API_USERS_URL}/lesson?viewMore=${this.viewMore}`);
   }
 
+  getFeaturedLessons(viewstatus): Observable<any> {
+    return this.http.get<any[]>(`${API_USERS_URL}/lesson?isFeatured=true&viewMore=${this.viewMore}`);
+  }
+
   getTopRatedLessons(viewstatus): Observable<any> {
     return this.http.get<any[]>(`${API_USERS_URL}/lesson/topRated?viewMore=${this.viewMore}`);
   }
@@ -248,6 +259,12 @@ export class TeacherService {
     return this.http.get<any[]>(`${API_USERS_URL}/lesson/standardLessons?lessonIds=${lessonIds}`);
   }
 
+
+
+
+  getStudentStandardList(assignmentId,classId,studentId):Observable<any>{
+    return this.http.get<any[]>(`${API_USERS_URL}/report/studentStandardReport?assignmentIds=${assignmentId}&classId=${classId}&studentId=${studentId}`);
+  }
 
   findLesson(param, searchBy): Observable<any> {
     return this.http.get<any[]>(`${API_USERS_URL}/lesson/find?searchParam=${param}&searchBy=${searchBy}`);
@@ -320,7 +337,7 @@ export class TeacherService {
   }
 
   getArchieveClassList() {
-    return this.http.get<any>(`${API_USERS_URL}/class?archive=1`);
+    return this.http.get<any>(`${API_USERS_URL}/class?archieve=1`);
   }
 
   getCurrentAssignmentList(id) {
@@ -461,8 +478,12 @@ export class TeacherService {
     return this.http.get<any>(`${API_USERS_URL}/master/lessonFilters`)
   }
 
-  getFilteredLessons(obj) {
+  getAllFilteredLessons(obj) {
     return this.http.get<any>(`${API_USERS_URL}/lesson?filters=${obj}&viewMore=${this.viewMore}`);
+  }
+
+  getFilteredLessons(obj) {
+    return this.http.get<any>(`${API_USERS_URL}/lesson?isFeatured=true&filters=${obj}&viewMore=${this.viewMore}`);
   }
 
   getFilteredTopRatedLessons(obj) {
@@ -498,8 +519,8 @@ export class TeacherService {
     return this.http.get<any>(`${API_USERS_URL}/lessonInfo/${id}`)
   }
 
-  getPerformanceCatgList(duration: any, id: any): Observable<any> {
-    return this.http.get<any>(`${API_USERS_URL}/report/category/${id}?duration=${duration}`)
+  getPerformanceCatgList(duration: any, id: any, studentId: any): Observable<any> {
+    return this.http.get<any>(`${API_USERS_URL}/report/category/${id}?duration=${duration}&studentId=${studentId}`)
   }
 
   getReportList(assignmentids, classId, questionTypeKey): Observable<any> {
@@ -508,6 +529,10 @@ export class TeacherService {
 
   getStandardReportList(assignmentids, classId, questionTypeKey): Observable<any> {
     return this.http.get<any>(`${API_USERS_URL}/report/reportByStandard?classId=${classId}&assignmentIds=${assignmentids}&questionTypeKey=${questionTypeKey}`);
+  }
+
+  getStudentStandardReport(assignmentids, classId, questionTypeKey, studentId) {
+    return this.http.get<any>(`${API_USERS_URL}/report/studentStandardReport?classId=${classId}&assignmentIds=${assignmentids}&questionTypeKey=${questionTypeKey}&studentId=${studentId}`);
   }
 
   getClassStudentReport(duration, classId): Observable<any> {

@@ -98,3 +98,13 @@
         }
     }
 }
+
+.create-class-form{
+    label{
+        word-break: break-word;
+    }
+    .footer-btns {
+        display: flex;
+        justify-content: center;
+    }
+}

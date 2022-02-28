@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ToasterService } from '@appcore/services/toaster.service';
+import { UtilityService } from '@appcore/services/utility.service';
 import {
   faAngleLeft
-  } from '@fortawesome/free-solid-svg-icons';
+} from '@fortawesome/free-solid-svg-icons';
 import { TeacherService } from '@modules/teacher/services/teacher.service';
 import { NotificationService } from '@shared/services/notification.service';
 import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
@@ -15,11 +16,11 @@ import * as _ from 'lodash';
 })
 export class NotificationsComponent implements OnInit {
   LeftArrow = faAngleLeft;
-  notificationList=[];
-  currentUser:any;
+  notificationList = [];
+  currentUser: any;
   page = 1;
   pageSize = 10;
-  notificationCount:any;
+  notificationCount: any;
   // notificationList=[
   //   {
   //     id:'1',
@@ -51,13 +52,14 @@ export class NotificationsComponent implements OnInit {
   //   }
   // ]
 
-  teacherData:any;
-  constructor( private teacherService: TeacherService,
-              private notificationService:NotificationService,
-              private toast: ToasterService,
-              private config: NgbPaginationConfig,) { 
-                this.config.boundaryLinks = true;
-              }
+  teacherData: any;
+  constructor(private teacherService: TeacherService,
+    private notificationService: NotificationService,
+    private toast: ToasterService,
+    private config: NgbPaginationConfig,
+    public utiltiService: UtilityService) {
+    this.config.boundaryLinks = true;
+  }
 
   ngOnInit(): void {
     this.currentUser = JSON.parse(window.sessionStorage.getItem('currentUser'));
@@ -67,10 +69,9 @@ export class NotificationsComponent implements OnInit {
   /**
    * To get notification list.
    */
-   getNotificationList(): void {
+  getNotificationList(): void {
     this.notificationService.getNotificationDetails(this.currentUser.user_id, this.currentUser.role.id).subscribe(
       (response) => {
-        console.log("notificationList data",response.data)
         this.notificationList = response.data;
         this.updateNotificationStatus();
       },
@@ -84,25 +85,26 @@ export class NotificationsComponent implements OnInit {
   /**
    * To get notification list.
    */
-   updateNotificationStatus(): void {
+  updateNotificationStatus(): void {
     let seenNotificationIds = [];
-    console.log('notificationlist',this.notificationList);
     _.filter(this.notificationList, item => {
       if (item && !item.isSeen) {
         seenNotificationIds.push(item.id);
       }
     });
-    this.notificationService.updateNotification(this.currentUser.user_id, this.currentUser.role.id,seenNotificationIds).subscribe(
-      (response) => {
-        // console.log("Res",response);
-        this.toast.showToast('Notification seen', '', 'success');
-        this.getCount();
-      },
-      (error) => {
-        console.log(error);
-        this.toast.showToast(error.error.message, '', 'error');
-      }
-    );
+    if (seenNotificationIds.length > 0) {
+      this.notificationService.updateNotification(this.currentUser.user_id, this.currentUser.role.id, seenNotificationIds).subscribe(
+        (response) => {
+          // console.log("Res",response);
+          this.getCount();
+        },
+        (error) => {
+          console.log(error);
+          this.toast.showToast(error.error.message, '', 'error');
+        }
+      );
+    }
+
   }
 
   getCount(): void {
@@ -119,11 +121,8 @@ export class NotificationsComponent implements OnInit {
     );
   }
 
-/**
-   * compare dates.
-   * @param data 
-   */
- isSameDay(data: any): boolean {
-  return new Date(data.createdAt).getDay() === new Date().getDay();
-}
+  /**
+     * compare dates.
+     * @param data 
+     */
 }

@@ -22,6 +22,17 @@
           }
       }
   }
+  .schoolItem {
+    &__action {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 3rem;
+      a {
+        color: $yellow-shade-5;
+        font-weight: 700;
+      }
+    }
+  }
 }
   .form-create-class{
     label{

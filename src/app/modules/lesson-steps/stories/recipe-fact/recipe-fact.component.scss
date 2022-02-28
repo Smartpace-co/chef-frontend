@@ -1,7 +1,7 @@
 @import "../../../../../assets/styles/helpers/variables";
 @import "../../../../../assets/styles/helpers/mixins";
 .story-body-6 {
-  background: center no-repeat;
+  background: url("../../../../../assets/images/kitchen-bg.jpg") center no-repeat;
   background-size: cover;
   overflow: hidden;
   min-height: calc(100vh - 24.2rem);
@@ -11,7 +11,8 @@
   flex-wrap: wrap;
   justify-content: flex-end;
   @include breakpoint(mobile) {
-    min-height: calc(100vh - 5rem);
+    min-height: 100vh;
+    align-items: flex-start;
   }
   .final-editaion {
     justify-content: center;
@@ -24,47 +25,71 @@
         margin: 0 auto;
         margin-bottom: -6rem;
         @include breakpoint(tabs) {
-          max-width: 19rem;
-          margin-bottom: 1rem;
+          max-width: 23rem;
+          margin-bottom: -3rem;
         }
-        @include breakpoint(sm-mobile) {
-          margin-left: 24%;
+        @include breakpoint(mobile) {
+          bottom: -7rem;
         }
         .final-editaion-img {
           transform: rotateY(180deg);
         }
         .left-tooltip-wrapper {
           position: absolute;
-          top: 3rem;
-          left: -12rem;
+          top: -4rem;
+          left: -21rem;
           @include breakpoint(tabs) {
-            left: -22rem;
-            top: -7rem;
+            left: -27rem;
+            top: -11rem;
           }
           @include breakpoint(mobile) {
-            left: -21rem;
-            top: -9rem;
-          }
-          @include breakpoint(sm-mobile) {
             left: -3rem;
-            top: -17rem;
+            top: -21rem;
           }
+          
         }
         .right-tooltip-wrapper {
           position: absolute;
-          top: 4rem;
-          right: -26rem;
+          top: -4rem;
+          right: -31rem;
           @include breakpoint(tabs) {
-            right: -25rem;
+            right: -31rem;
             top: -6rem;
           }
           @include breakpoint(mobile) {
-            right: -19rem;
-            top: -9rem;
-          }
-          @include breakpoint(sm-mobile) {
-            right: -5rem;
+            right: -4rem;
             top: -4rem;
+          }
+          .speech-tooltip {
+            .speech-tooltip-inner {
+              .tip{
+                @include breakpoint(mobile){
+                  left: 19rem;
+                }
+              }
+            }
+          }
+        }
+        .speech-tooltip {
+          .speech-tooltip-inner {
+            min-width: 35rem;
+            @include breakpoint(mobile) {
+              min-width: 29rem;
+            }
+            .message {
+              overflow: unset;
+              li {
+                p{
+                  font-size: 1.6rem;
+                  color: $black;
+                  font-weight: 700;
+                  padding: 0;
+                  @include breakpoint(tabs) {
+                    font-size: 1.3rem;
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -84,7 +109,7 @@
       }
       @include breakpoint(sm-mobile) {
         width: 24rem;
-        bottom: -16rem;
+        bottom: -23rem;
         left: -3rem;
       }
     }
@@ -113,7 +138,7 @@
         height: 12rem;
         left: 3rem;
         /* background: red; */
-        bottom: 5rem;
+        bottom: -2rem;
       }
     }
   }

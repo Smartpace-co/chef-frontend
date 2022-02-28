@@ -1,0 +1,121 @@
+
+@import "../../../../../../../assets/styles/helpers/variables";
+@import "../../../../../../../assets/styles/helpers/mixins";
+
+.story-body-1{
+    background:url("../../../../../../../assets/images/kitchen-bg.jpg") center no-repeat;
+    background-size: cover;
+    min-height: calc(100vh - 5rem);
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    @include breakpoint(mobile) {
+      min-height: calc(100vh - 15rem);
+    }
+    .container {
+      @include breakpoint(tabs) {
+        padding: 0;
+      }
+      .final-editaion {
+        margin-bottom: -3rem;
+        padding-top: 10rem;
+        .content-wrapper {
+          flex: 0 0 100%;
+          max-width: 100%;
+          .final-editaion-img-wrapper {
+            max-width: 30rem;
+            position: relative;
+            display: block;
+            margin: 0 auto;
+            @include breakpoint(tabs) {
+              max-width: 21rem;
+              margin-bottom: 5rem;
+            }
+            @include breakpoint(xtrasmallmobile) {
+              margin-left: 32%;
+            }
+            .left-tooltip-wrapper {
+              position: absolute;
+              top: -14rem;
+              left: -32rem;
+              @include breakpoint(tabs) {
+                top: -11rem;
+                left: -12rem;
+              }
+              @include breakpoint(mobile) {
+                top: -11rem;
+                left: -7rem;
+              }
+              .speech-tooltip {
+                .speech-tooltip-inner {
+                  min-width: 50rem;
+                  min-height: 18rem;
+                  @include breakpoint(mobile) {
+                    min-width: 26rem;
+                  }
+                  .message {
+                    overflow: unset;
+                    li {
+                      p {
+                        max-height: 10rem;
+                        overflow: auto;
+                        font-weight: 700;
+                        color: $black;
+                        font-size: 1.6rem;
+                        &::-webkit-scrollbar {
+                          width: 0.2rem;
+                        }
+                        &::-webkit-scrollbar-thumb {
+                          background: $yellow-shade-5;
+                        }
+                        @include breakpoint(mobile) {
+                          font-size: 1.3rem;
+                        }
+                      }
+                    }
+                  }
+                }
+                .tip{
+                  @include breakpoint(tabs){
+                    left: 10rem;
+                  }
+                }
+              }
+            }
+            .right-tooltip-wrapper {
+              position: absolute;
+              top: 5rem;
+              right: -10rem;
+              @include breakpoint(tabs) {
+                top: 2rem;
+                right: -8rem;
+              }
+              @include breakpoint(xtrasmallmobile) {
+                top: 0rem;
+                right: -2rem;
+              }
+            }
+          }
+          .table-img-wrapper {
+            max-width: 87rem;
+            position: relative;
+            display: block;
+            margin: 0 auto;
+            margin-top: -13rem;
+            @include breakpoint(tabs) {
+              max-width: 100%;
+              overflow: hidden;
+              margin-top: -15rem;
+            }
+            img {
+              @include breakpoint(tabs) {
+                max-width: 87rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }

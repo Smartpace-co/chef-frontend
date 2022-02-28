@@ -109,7 +109,6 @@ export class AddRolesComponent implements OnInit {
         return obj !== item.id;
       }); 
     }
-    console.log(this.accessList)
   }
 
   /**

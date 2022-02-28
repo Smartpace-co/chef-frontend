@@ -1,13 +1,14 @@
 <div ngbDropdown class="">
   <button class="" id="dropdownBasic1" ngbDropdownToggle>
     <fa-icon [icon]="dropDownIcon" *ngIf="dropDownIcon"></fa-icon>
-    <span [ngStyle]="disableGray?{'color': 'rgba($white, 0.5)'} : {'color': 'white'}"
+    <span *ngIf="!isSetting" [ngStyle]="disableGray?{'color': 'rgba($white, 0.5)'} : {'color': 'white'}"
     >{{dropDownButtonName}}</span>
+    <span *ngIf="isSetting" >{{dropDownButtonName}}</span>
   </button>
 
   <div ngbDropdownMenu aria-labelledby="dropdownBasic1" *ngIf="dropDownItemList && dropDownItemList.length > 0">
    
-    <button ngbDropdownItem [disabled]="item.isSubscriptionPause" *ngFor="let item of dropDownItemList" (click)="onDropdownValueChange(item)">
+    <button ngbDropdownItem [disabled]="item.isSubscriptionPause || disableDropDownItem " *ngFor="let item of dropDownItemList" (click)="onDropdownValueChange(item)">
       <fa-icon [icon]= "item.icon" *ngIf="item.icon"></fa-icon>{{item.menu}} {{item.maxUser ? '- ' + item.maxUser + ' users yearly' :''}}  </button>
   </div>
 </div>

@@ -5,6 +5,7 @@ import * as _ from 'lodash';
 import html2canvas from 'html2canvas';
 import jspdf from 'jspdf';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { ExcelService } from '../../../../shared/services/excel.service';
 
 @Component({
   selector: 'app-schools-report',
@@ -128,7 +129,8 @@ export class SchoolsReportComponent implements OnInit {
   ];
   closeModal: any;
   closeModal1: any;
-  constructor(private districtService: DistrictService, private modalService: NgbModal) {}
+  downlaodModal: any;
+  constructor(private districtService: DistrictService, private modalService: NgbModal, private excelService: ExcelService) { }
 
   ngOnInit(): void {
     this.getAllSchools('week');
@@ -142,6 +144,13 @@ export class SchoolsReportComponent implements OnInit {
   }
   closeOpenModal1() {
     this.closeModal1.close();
+  }
+
+  openDownloadModal(content) {
+    this.downlaodModal = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true, windowClass: 'dist-modal' });
+  }
+  closeDownlaodModal() {
+    this.downlaodModal.close();
   }
 
   getAllSchools(duration) {
@@ -164,21 +173,21 @@ export class SchoolsReportComponent implements OnInit {
                 if (response.data && response.data.rows) {
                   _.map(response.data.rows, (item) => {
 
-                  _.map(item.class_students, (itemStudent) => {
-                    let mins = 0;
-                    this.districtService.getTopActiveSessionStudents(duration, itemStudent.id).subscribe((res) => {
-                      if (res && res.data) {
-                        let score = res.data.count;
-                        averageScore = score + averageScore;
-                        _.map(res.data.rows, (objItem) => {
-                          mins = mins + objItem.session_mins / score;
-                          averageMins = mins + averageMins;
-                        });
-                        obj.time = (averageMins / 60).toFixed(4);
-                      }
+                    _.map(item.class_students, (itemStudent) => {
+                      let mins = 0;
+                      this.districtService.getTopActiveSessionStudents(duration, itemStudent.id).subscribe((res) => {
+                        if (res && res.data) {
+                          let score = res.data.count;
+                          averageScore = score + averageScore;
+                          _.map(res.data.rows, (objItem) => {
+                            mins = mins + objItem.session_mins / score;
+                            averageMins = mins + averageMins;
+                          });
+                          obj.time = (averageMins / 60).toFixed(4);
+                        }
+                      });
                     });
                   });
-                });
                 }
               });
             }
@@ -229,6 +238,26 @@ export class SchoolsReportComponent implements OnInit {
 
       pdf.save('school_report.pdf');
     });
+  }
+
+  printExcelSheet(): void {
+    let newArray = [];
+    let i = 1;
+    if (this.schoolList.length) {
+      for (let element of this.schoolList) {
+        let obj = {};
+        obj["SL.No."] = i++;
+        for (let elm in element) {
+          if (elm === "schoolId") obj["School Id"] = element[elm];
+          if (elm === "schoolName") obj["School Name"] = element[elm];
+          if (elm === "teachername") obj["Teacher Name"] = element[elm];
+          if (elm === "time") obj["Time"] = element[elm];
+          if (elm === "students") obj["Students"] = element[elm];
+        }
+        newArray.push(obj);
+      }
+      this.excelService.exportAsExcelFile(newArray, 'School Report');
+    }
   }
 
   openRead(content) {

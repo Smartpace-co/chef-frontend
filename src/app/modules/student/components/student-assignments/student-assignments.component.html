@@ -25,7 +25,12 @@
             <div class="class-assignment-list">
               <div class="legend-card-white btn-card-white"
                 (click)="item.status === 'Start' ? open(startModal,item): startAssignment(item)">
-                <legend>{{item.title}}</legend>
+                <ng-container *ngIf="item.startInFuture; else inFuture">
+                  <legend>{{item.otherTitle}}</legend>
+                </ng-container>
+                <ng-template #inFuture>
+                  <legend>{{item.title}}</legend>
+                </ng-template>
                 <span class="ingredient-link">
                   <a class="link" [routerLink]="['/student/order-ingredient',item.id]">
                     <fa-icon [icon]="cart"></fa-icon>
@@ -69,11 +74,11 @@
           </div>
         </ngx-slick-carousel>
         <div class="please-scroll">
-          <span>Please scroll down to see more assignments.</span>
+          <span>{{'student.assigned-lessons.please-scroll-down-label'| translate }}</span>
         </div>
       </ng-container>
       <ng-template #noAssignment>
-        <h3 style="margin-left: 22rem;">{{'table-component.no-record'| translate}}</h3>
+        <h3>{{'table-component.no-record'| translate}}</h3>
       </ng-template>
     </div>
   </div>

@@ -15,14 +15,7 @@ export class ExperimentDescriptionComponent implements OnInit {
   experimentData;
   experimentFacts = [];
   isVisibleNext = true;
-  slideConfig = {
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    nextArrow: '<div class=\'nav-btn next-slide\'></div>',
-    prevArrow: '<div class=\'nav-btn prev-slide\'></div>',
-    dots: true,
-    infinite: false,
-  };
+  slideConfig;
   constructor(private router: Router, private utilityService: UtilityService, private studentService: StudentService, private toast: ToasterService) {
   }
 
@@ -58,8 +51,10 @@ export class ExperimentDescriptionComponent implements OnInit {
             title: this.experimentData.experimentTitle ? this.experimentData.experimentTitle : undefined
           };
           // this.experimentFacts = this.experimentData.fact.match(/.{1,100}/g);
-          this.experimentFacts = this.experimentData.fact.split(".");
-          this.experimentData = this.experimentFacts.filter(e => e && e.trim() != "");
+          // this.experimentFacts = this.experimentData.fact.split(".");
+          this.experimentFacts = this.experimentData.fact ? this.experimentData.fact.match(/.{1,180}(\s|$)/g) : undefined;
+          // this.experimentFacts = this.experimentFacts.filter(e => e && e.trim() != "");
+          this.getSliderConfig();
           this.isVisibleNext = false;
         }
       },
@@ -68,6 +63,18 @@ export class ExperimentDescriptionComponent implements OnInit {
         this.toast.showToast(error.error.message, '', 'error');
       }
     );
+  }
+
+  getSliderConfig(): void {
+    this.slideConfig = {
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      nextArrow: '<div class=\'nav-btn next-slide\'></div>',
+      prevArrow: '<div class=\'nav-btn prev-slide\'></div>',
+      dots: this.experimentFacts && this.experimentFacts.length > 1 ? true : false,
+      infinite: false,
+    };
+
   }
   tryAgain(): void {
     this.router.navigate(['/student/experiment']);

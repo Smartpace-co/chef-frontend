@@ -18,7 +18,6 @@ export class ConversationalSentenceComponent implements OnInit {
   currentAssignedLesson;
   lesson;
   isLoad = false;
-  countryBgImg;
   constructor(private toast: ToasterService, private utilityService: UtilityService, private router: Router, private studentService: StudentService) {
     this.lessonHederConfig['stepBoard'] = null;
   }
@@ -58,7 +57,6 @@ export class ConversationalSentenceComponent implements OnInit {
           if (!this.conversationText) {
             this.toast.showToast('There is no conversation sentence.', '', 'warning');
           }
-          this.countryBgImg = response.data.recipe.country.backgroundImage;
           this.isLoad = true;
           this.isVisibleNext = false;
         }
@@ -117,7 +115,7 @@ export class ConversationalSentenceComponent implements OnInit {
    * on Previous click event
   */
   onPrevious(): void {
-    this.router.navigate(['student/let-start']);
+    this.router.navigate(['/student/recipe-fact']);
   }
 
 }

@@ -1,6 +1,9 @@
 @import "../../../../../assets/styles/helpers/variables";
 @import "../../../../../assets/styles/helpers/mixins";
 .locker-room {
+  @include breakpoint(iPad){
+    padding-bottom: 16rem;
+  }
   .top-nav {
     margin: 4rem 0;
     display: flex;

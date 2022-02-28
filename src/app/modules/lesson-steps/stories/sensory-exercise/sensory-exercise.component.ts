@@ -140,19 +140,18 @@ export class SensoryExerciseComponent implements OnInit {
             this.router.navigate(['/student/cooking-technique']);
           }
           break;
+        } else if (ob.title === 'Learning Activities' && ob.status === true) {
+          let isExperiment = _.find(ob.Activities, function (item) { return item.lable === 'Science Experiment'; });
+          if (isExperiment && isExperiment.status === true) {
+            this.router.navigate(['/student/experiment'])
+            break;
+          }
+        } else if (ob.title === 'Assessments' && ob.status === true) {
+          this.router.navigate(['/student/assessment-question']);
+          break;
+        } else {
+          this.router.navigate(['/student/action-activities']);
         }
-        //  else if (ob.title === 'Learning Activities' && ob.status === true) {
-        //   let isExperiment = _.find(ob.Activities, function (item) { return item.lable === 'Science Experiment'; });
-        //   if (isExperiment && isExperiment.status === true) {
-        //     this.router.navigate(['/student/experiment'])
-        //     break;
-        //   }
-        // } else if (ob.title === 'Assessments' && ob.status === true) {
-        //   this.router.navigate(['/student/assessment-question']);
-        //   break;
-        // } else {
-        //   this.router.navigate(['/student/action-activities']);
-        // }
       }
     } else if (this.lesson === 'Explore') {
       if (!_.isEmpty(this.currentAssignedLesson.recipe.preparationSteps)) {

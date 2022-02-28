@@ -1,11 +1,11 @@
 @import "../../../../../../../assets/styles/helpers/variables";
 @import "../../../../../../../assets/styles/helpers/mixins";
-
+ 
 .science-experiment-body-6{
     min-height: calc(100vh - 24.2rem);
     display: flex;
     align-items: flex-end;
-    padding-top: 10rem;
+    padding-top: 2rem;
     @include breakpoint(tabs) {
       padding-top: 5rem;
     }
@@ -206,14 +206,17 @@
                 .description-info{
                   padding-left: 2rem;
                   width:calc(100% - 10rem);
+                  
                   @include breakpoint(mobile){
                     padding-left: 1rem;
-                    width:calc(100% - 5rem);
+                    width:100%;
                   }
                   h6{
                     font-size: 1.6rem;
+                    margin-right: 1rem;
                     @include breakpoint(mobile){
                       font-size: 1.4rem;
+                      margin-right: 0;
                     }
                   }
                 }

@@ -29,7 +29,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '@modules/auth/services/auth.service';
 import { DistrictService } from '@modules/district/services/district.service';
-import { Subject } from 'rxjs';
+import { NotificationService } from '@shared/services/notification.service';
+import { interval, Subject, Subscription } from 'rxjs';
 @Component({
   selector: 'app-district-header',
   templateUrl: './district-header.component.html',
@@ -53,7 +54,7 @@ export class DistrictHeaderComponent implements OnInit, AfterContentChecked {
   activity = faHistory;
   linkActive: boolean=true;
   linkPerformance: boolean=false;
-  count=0;
+  count;
   ProfileMenuList = [];
   sessionData: any;
   userName: any;
@@ -65,6 +66,7 @@ export class DistrictHeaderComponent implements OnInit, AfterContentChecked {
   profilePic: string;
   unsubscribe$: Subject<boolean> = new Subject();
   language: any;
+  subscription: Subscription;
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -72,6 +74,7 @@ export class DistrictHeaderComponent implements OnInit, AfterContentChecked {
     private districtService: DistrictService,
     private activatedRoute: ActivatedRoute,
     private translate : TranslationService,
+    private notificationService:NotificationService,
     public utilityService: UtilityService) {
     this.profilePic = './assets/images/user-profile.png'
   }
@@ -128,6 +131,10 @@ export class DistrictHeaderComponent implements OnInit, AfterContentChecked {
       this.getProfileList();
     }
     this.districtService.getProfileObs().subscribe(profile => this.districtDetails = profile);
+    this.getNotificationCount();
+    // get notification after every 10 second.
+    const source = interval(10000);
+    this.subscription = source.subscribe(val => this.getNotificationCount());
   }
 
   ngAfterContentChecked(): void {
@@ -195,7 +202,7 @@ export class DistrictHeaderComponent implements OnInit, AfterContentChecked {
           districtData.district_admin.role = {...response.data.role}
           localStorage.setItem('districtDetails', JSON.stringify(districtData.district_admin));
           this.authService.setuserlang();
-          this.getNotificationCount(districtData.id)
+          // this.getNotificationCount(districtData.id)
 
         }
       },
@@ -225,7 +232,7 @@ export class DistrictHeaderComponent implements OnInit, AfterContentChecked {
           this.districtDetails = distObj;
           districtData.role = {...response.data.role}
           this.authService.setuserlang();
-          this.getNotificationCount(districtData.id)
+          // this.getNotificationCount(districtData.id)
         
       },
       (error) => {
@@ -249,7 +256,8 @@ export class DistrictHeaderComponent implements OnInit, AfterContentChecked {
       this.router.navigate(['/district/settings']);
     } else if (event.value === 'help') {
       this.router.navigate(['/district/get-help']);
-    } else if (event.value === 'signout') {
+    } 
+    else if (event.value === 'signout') {
       this.authService.logoutUser().subscribe(
         (data) => {
           if (data) {
@@ -267,15 +275,20 @@ export class DistrictHeaderComponent implements OnInit, AfterContentChecked {
   getNotifications(schoolId){
     this.router.navigate(['/district/notifications']);
   }
-  getNotificationCount(schoolId)
+  getNotificationCount()
   {
-    this.districtService.getNotificationsUnreadCount(schoolId,this.sessionData.role_id).subscribe(
+    this.notificationService.getNotificationCount(this.sessionData.id, this.sessionData.role.id).subscribe(
       (res) => {
         if(res && res.data)
         {
 
           this.count=res.data;
+        }else{
+          this.count = undefined;
         }
+      },(error) => {
+        console.log(error);
+        this.toast.showToast(error.error.message, '', 'error');
       });
    
   }
@@ -283,5 +296,6 @@ export class DistrictHeaderComponent implements OnInit, AfterContentChecked {
   ngOnDestroy() {
     this.unsubscribe$.next(true);
     this.unsubscribe$.complete();
+    this.subscription.unsubscribe();
   }
 }

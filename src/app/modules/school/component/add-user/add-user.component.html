@@ -58,7 +58,7 @@
               </div>
               <div class="error" *ngIf="formControl.emailAddress.errors?.pattern">{{'district.district-profile.agent-component.email-field.valid'| translate}}
               </div>
-              <div class="error" *ngIf="formControl.emailAddress.errors?.emailValidate">{{'district.district-profile.agent-component.email-field.exist'| translate}}<</div>
+              <div class="error" *ngIf="formControl.emailAddress.errors?.emailValidate">{{'district.district-profile.agent-component.email-field.exist'| translate}}</div>
             </div>
           </div>
           <div class="col-md-6">
@@ -67,14 +67,16 @@
               fieldControl="contactNumber" [form]="addUserForm"
               [ngClass]="{ 'is-invalid': formControl.contactNumber.touched && formControl.contactNumber.errors }">
             </app-input-field>
+            
             <div *ngIf="formControl.contactNumber.errors" class="invalid-feedback">
               <div class="error" *ngIf="formControl.contactNumber.errors?.required">{{'school.teacher.add-teacher.contact.required' | translate}}
               </div>
               <div class="error" *ngIf="formControl.contactNumber.errors?.pattern">{{'school.teacher.add-teacher.contact.valid' | translate}}</div>
-              <div class="error" *ngIf="formControl.contactNumber.errors?.minlength">{{'school.teacher.add-teacher.contact.length' | translate}}</div>
-                <div class="error" *ngIf="formControl.contactNumber.errors?.contactValidate"> 
-                  <div class="error">{{'school.teacher.add-teacher.contact.exist' | translate}}</div>
-                  </div>
+              <!-- <div class="error" *ngIf="formControl.contactNumber.errors?.minlength">{{'school.teacher.add-teacher.contact.length' | translate}}</div> -->
+              <div class="error" *ngIf="formControl.contactNumber.errors?.contactValidate">
+                <div class="error">{{'school.teacher.add-teacher.contact.exist' | translate}}</div>
+              </div>
+              <!-- <div class="error" *ngIf="formControl.contactNumber.errors?.contactDigitValidate">{{'school.teacher.add-teacher.contact.digit-validate' | translate}}</div> -->
             </div>
           </div>
           <div class="col-12 radio-btn-wrapper">

@@ -1,53 +1,52 @@
 @import "../../../../../assets/styles/helpers/variables";
 @import "../../../../../assets/styles/helpers/mixins";
-.roster-list{
-  padding:2rem 0;
-  .roster-header{
+.roster-list {
+  padding: 2rem 0;
+  .roster-header {
     margin-bottom: 2rem;
-      .roster-header-main{
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          flex-wrap: wrap;
-          h3{
-              font-size:2.1rem;
-              margin: 0;
-              span{
-                  color:$secondary;
-              }
-              @include breakpoint(mobile){
-                  font-size:1.8rem;
-                  margin-bottom:1.5rem;
-              }
-          }
+    .roster-header-main {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      h3 {
+        font-size: 2.1rem;
+        margin: 0;
+        span {
+          color: $secondary;
+        }
+        @include breakpoint(mobile) {
+          font-size: 1.8rem;
+        }
       }
+    }
   }
 }
-.roles_info{
+.roles_info {
   max-width: 59rem;
   display: flex;
   align-items: center;
   border: 1px solid $secondary;
   padding: 2rem;
-  @include breakpoint(xtrasmallmobile){
+  @include breakpoint(xtrasmallmobile) {
     flex-wrap: wrap;
     justify-content: center;
   }
-  &.info{
+  &.info {
     margin: 0;
   }
-  .icon_wrapper{
+  .icon_wrapper {
     font-size: 3rem;
-    fa-icon{
+    fa-icon {
       margin: 0;
     }
   }
-  .roles_content{
+  .roles_content {
     padding: 0rem 2rem;
     font-size: 1.4rem;
     font-weight: 700;
   }
-  .review{
+  .review {
     font-size: 1.6rem;
     font-weight: 700;
     color: $secondary;

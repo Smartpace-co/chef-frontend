@@ -12,6 +12,10 @@
     padding: 4rem;
     @include breakpoint(mobile){
       padding: 2rem;
+      margin-bottom: 5rem;
+    }
+    @include breakpoint(sm-mobile){
+      padding: 1rem;
     }
     .role-heading{
       text-align: center;

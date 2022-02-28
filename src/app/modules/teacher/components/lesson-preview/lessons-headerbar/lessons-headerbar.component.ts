@@ -86,8 +86,7 @@ export class LessonsHeaderbarComponent implements OnInit {
     this.assignmentId = localStorage.getItem('assignmentId')
     this.sessionData = JSON.parse(window.sessionStorage.getItem('currentUser'));
     this.lessonData = this.teacherService.getAssignLessonData();
-    console.log("Lesson Data",this.lessonData);
-    this.assignmentTitle = this.lessonData.assignmentTitle;
+    this.assignmentTitle = this.lessonData.recipe.recipeTitle;
     this.reciepe_icon = this.lessonData.recipe.recipeImage ? this.lessonData.recipe.recipeImage : this.defaultRecipeImg;
 
     // this.getStudentData()

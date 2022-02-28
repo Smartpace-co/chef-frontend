@@ -10,6 +10,7 @@ import { NgbCalendar, NgbDate, NgbDatepickerConfig, NgbDateStruct } from '@ng-bo
 import { SchoolService } from '@modules/school/services/school.service';
 import * as _ from 'lodash';
 import { AuthService } from '@modules/auth/services/auth.service';
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-add-student',
   templateUrl: './add-student.component.html',
@@ -34,8 +35,8 @@ export class AddStudentComponent implements OnInit {
 
   dateField: NgbDate | null;
   constructor(private config: NgbDatepickerConfig,private router: Router, private authService: AuthService,
-    private calendar: NgbCalendar, private schoolService: SchoolService,
-    private actRoute: ActivatedRoute, private utilityService: UtilityService, private utiltiService: UtilityService, private toast: ToasterService) {
+    private calendar: NgbCalendar, private schoolService: SchoolService,private location: Location,
+    private actRoute: ActivatedRoute, private utilityService: UtilityService, private toast: ToasterService) {
     this.studId = this.actRoute.snapshot.queryParams.id;
     this.classId = this.actRoute.snapshot.queryParams.classId;
 
@@ -108,20 +109,20 @@ export class AddStudentComponent implements OnInit {
   gradeTitle = 'Select Grade';
   gradeIcon = '';
   gradeList = [];
-  guardianTitle = 'Select Guardian';
-  guardianIcon = '';
-  guardianList = [
-    {
-      id: '1',
-      menu: 'Parent',
-      type: 'parent'
-    },
-    {
-      id: '2',
-      menu: 'Guardian',
-      type: 'guardian'
-    }
-  ];
+  // guardianTitle = 'Select Guardian';
+  // guardianIcon = '';
+  // guardianList = [
+  //   {
+  //     id: '1',
+  //     menu: 'Parent',
+  //     type: 'parent'
+  //   },
+  //   {
+  //     id: '2',
+  //     menu: 'Guardian',
+  //     type: 'guardian'
+  //   }
+  // ];
   conditionList = [];
   relationshipTitle = 'Select Relationship';
   relationshipIcon = '';
@@ -149,26 +150,27 @@ export class AddStudentComponent implements OnInit {
     this.getSchoolList();
     this.getAllGradeList();
     this.getEthnicities();
+    this.getRelationships();
     this.getStudentMedicalConditionsList();
     this.getAllAllergensList();
    
 
     this.AddStudent = new FormGroup({
-      lastName: new FormControl('', [Validators.required]),
-      firstName: new FormControl('', [Validators.required]),
+      lastName: new FormControl('', [Validators.required, Validators.pattern(CustomRegex.namePatteren)]),
+      firstName: new FormControl('', [Validators.required, Validators.pattern(CustomRegex.namePatteren)]),
       dob: new FormControl(this.dob, [Validators.required]),
-      userName: new FormControl('', [Validators.required]),
+      userName: new FormControl('', [Validators.required, this.validateUserName.bind(this)]),
       contactPersonName: new FormControl('', [Validators.required]),
       contactPersonEmail: new FormControl('', [Validators.email, Validators.required, Validators.pattern(CustomRegex.emailPattern)]),
-      contactPersonNumber: new FormControl('', [Validators.required, Validators.pattern(CustomRegex.phoneNumberPattern), Validators.minLength(10)]),
+      contactPersonNumber: new FormControl('', [Validators.required, Validators.pattern(CustomRegex.phoneNumberPattern)]),
       status: new FormControl('active', [Validators.required]),
       allergens: new FormControl('',[]),
       school: new FormControl('', []),
       class: new FormControl('', []),
       gender: new FormControl('', []),
       ethnicity: new FormControl('', []),
-      grade: new FormControl('', []),
-      guardian: new FormControl('', [Validators.required]),
+      grade: new FormControl('', [Validators.required]),
+      // guardian: new FormControl('', [Validators.required]),
       relationship: new FormControl('', [Validators.required]),
       medicalCondition: new FormControl('', [])
     });
@@ -188,6 +190,14 @@ export class AddStudentComponent implements OnInit {
     return this.AddStudent.controls;
   }
   
+  // validatePhoneNumberDigit(control: AbstractControl): any {
+  //   if (control && control.value) {
+  //     if (control.value.length === 11 || control.value.length > 13) {
+  //       return { 'digitValidate': true }
+  //     }
+  //   }
+  // }
+
   getSchoolList(): void {
     this.schoolService.getSchools(1).subscribe(
       (response) => {
@@ -286,10 +296,10 @@ export class AddStudentComponent implements OnInit {
           this.selectedValue = this.selectedClass;
           this.AddStudent.get('firstName').setValue(this.currentStudent.firstName);
           this.AddStudent.get('lastName').setValue(this.currentStudent.lastName);
-          this.AddStudent.get('dob').setValue(this.utilityService.formatDate(this.currentStudent.dob));
-          this.selectedDate = this.utilityService.formatDate(this.currentStudent.dob);
+          this.AddStudent.get('dob').setValue(this.currentStudent.dob);
+          this.selectedDate = this.currentStudent.dob;
           this.AddStudent.get('gender').setValue(this.currentStudent.gender);
-          this.AddStudent.get('userName').setValue(this.currentStudent.username);
+          // this.AddStudent.get('userName').setValue(this.currentStudent.userName);
 
           if (this.currentStudent && this.currentStudent.gender) {
             this.genderTitle = this.currentStudent.gender;
@@ -304,8 +314,8 @@ export class AddStudentComponent implements OnInit {
             this.gradeTitle = this.currentStudent.grade.grade;
           }
           this.AddStudent.get('contactPersonEmail').setValue(this.currentStudent.contactPersonEmail);
-          this.AddStudent.get('guardian').setValue(this.currentStudent.contactType);
-          this.guardianTitle = this.currentStudent.contactType;
+          // this.AddStudent.get('guardian').setValue(this.currentStudent.contactType);
+          // this.guardianTitle = this.currentStudent.contactType;
           this.AddStudent.get('userName').setValue(this.currentStudent.userName);
           this.AddStudent.get('contactPersonName').setValue(this.currentStudent.contactPersonName);
           this.AddStudent.get('relationship').setValue(this.currentStudent.relation.title);
@@ -322,7 +332,6 @@ export class AddStudentComponent implements OnInit {
             return obj;
           });
           this.selectedConditionValue = this.selectedCondition;
-         // console.log(this.currentStudent.allergens)
           this.AddStudent.get('allergens').setValue(this.currentStudent.allergens);
           this.selectedAllergen = _.map(this.currentStudent.allergens, item => {
             let obj = {
@@ -384,9 +393,11 @@ export class AddStudentComponent implements OnInit {
   validateUserName(control: AbstractControl): any {
     if (control && control.value) {
       let uName = control.value;
-      // let isValid = control.value.match(CustomRegex.schoolNamePattern);
       if (uName && uName) {
-        if (this.isEdit && this.currentStudent && this.currentStudent.user_name === control.value) {
+        if (uName.match(CustomRegex.emailPattern)) {
+          return { 'invalidUserName': true }
+        }
+        if (this.isEdit && this.currentStudent && this.currentStudent.userName === control.value) {
           uName = undefined;
         }
         if (uName) {
@@ -403,8 +414,8 @@ export class AddStudentComponent implements OnInit {
     }
   }
 
-  getRelationships(relationType: any): void {
-    this.schoolService.getStudentRelationList(relationType).subscribe(
+  getRelationships(): void {
+    this.schoolService.getStudentRelationList().subscribe(
       (response) => {
         if (response && response.data) {
           this.relationshipList = _.map(response.data, ele => {
@@ -508,15 +519,15 @@ export class AddStudentComponent implements OnInit {
     }
   }
 
-  guardianChange(event) {
-    this.guardianTitle = event.menu;
-    this.AddStudent.get('guardian').setValue(event);
-    if (event && event.type) {
-      this.relationshipTitle = 'Select Relationship';
-      this.AddStudent.get('relationship').setValue(null);
-      this.getRelationships(event.type);
-    }
-  }
+  // guardianChange(event) {
+  //   this.guardianTitle = event.menu;
+  //   this.AddStudent.get('guardian').setValue(event);
+  //   if (event && event.type) {
+  //     this.relationshipTitle = 'Select Relationship';
+  //     this.AddStudent.get('relationship').setValue(null);
+  //     this.getRelationships(event.type);
+  //   }
+  // }
 
   relationshipChange(event) {
     this.relationshipTitle = event.menu;
@@ -610,7 +621,12 @@ export class AddStudentComponent implements OnInit {
 
   onCancel(): void {
     this.AddStudent.reset();
-    this.router.navigate(['/school/admin-student']);
+    if (this.classId) {
+      this.router.navigate(['/school/class-details'], { queryParams: { id: this.classId,action:'Students' } });
+    } else {
+      this.location.back();
+      // this.router.navigate(['/school/admin-student']);
+    }
   }
 
   /**
@@ -629,27 +645,33 @@ export class AddStudentComponent implements OnInit {
       submission.schoolId = this.AddStudent.value.school && this.AddStudent.value.school.id ? this.AddStudent.value.school.id : undefined;
       submission.gender = this.AddStudent.value.gender && this.AddStudent.value.gender.menu ? this.AddStudent.value.gender.menu : undefined;
       submission.ethnicityId = this.AddStudent.value.ethnicity && this.AddStudent.value.ethnicity.id ? this.AddStudent.value.ethnicity.id : undefined;
-      submission.contactType = this.AddStudent.value.guardian.type;
+      // submission.contactType = this.AddStudent.value.guardian.type;
       submission.status = this.AddStudent.value.status === 'active' ? true : false;
       submission.contactPersonRelationId = this.AddStudent.value.relationship && this.AddStudent.value.relationship.id ? this.AddStudent.value.relationship.id : undefined;
       submission.parentId=this.parent_id
 
-      _.forEach(this.selectedCondition, ob => {
-        temp.push(ob.item_id);
-      });
-      _.forEach(this.selectedClass, cls => {
-        arr.push(cls.item_id);
-      });
-      _.forEach(this.selectedAllergen, al => {
-        temp1.push(al.item_id);
-      });
+      if(this.selectedConditionValue){
+        _.forEach(this.selectedConditionValue, ob => {
+          temp.push(ob.item_id);
+        });
+      }
+      if(this.selectedValue){
+        _.forEach(this.selectedValue, cls => {
+          arr.push(cls.item_id);
+        });
+      }
+      if(this.selectedAllergenValue){
+        _.forEach(this.selectedAllergenValue, al => {
+          temp1.push(al.item_id);
+        });
+      }
       submission.classIds = arr;
       submission.medicalConditionIds = temp;
-      submission.dob = this.selectedDate;
+      submission.dob = this.utilityService.formatDate(this.selectedDate);
       submission.gradeId = this.AddStudent.value.grade.id;
       submission.contactPersonEmail = this.AddStudent.value.contactPersonEmail;
       submission.allergenIds = temp1
-      let finalSubmission = _.omit(submission, ['relationship', 'school', 'class', 'grade', 'ethnicity', 'medicalCondition', 'guardian','allergens']);
+      let finalSubmission = _.omit(submission, ['relationship', 'school', 'class', 'grade', 'ethnicity', 'medicalCondition','allergens']);
       if (this.isEdit) {
         this.schoolService.editStudentDetails(this.studId, finalSubmission).subscribe(
           (data) => {

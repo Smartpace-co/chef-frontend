@@ -31,6 +31,9 @@
               </div>
             </div>
           </div>
+          <div>
+            <app-button classes="btn btn-primary" (click)="reset()">Reset</app-button>
+          </div>
         </div>
         <span class="final-editaion-img-wrapper">
           <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
@@ -40,5 +43,5 @@
   </div>
 </div>
 
-<app-lessons-footer [isVisibleNext]="isVisibleNext" [isVisiblePrevious]="isVisiblePrevious" (onNext)="onNext()"
+<app-lessons-footer  [isVisiblePrevious]="isVisiblePrevious" (onNext)="onNext()"
   (onPrevious)="onPrevious()"></app-lessons-footer>

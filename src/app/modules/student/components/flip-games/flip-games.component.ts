@@ -43,7 +43,7 @@ export class FlipGamesComponent implements OnInit {
 
     if (this.questionsAttempted == this.imageFlipQuestions.length) {
       this.router.navigateByUrl('/');
-    } else if (this.questionsAttempted > 0) {
+    } else if (this.questionsAttempted >= 0) {
       this.i++;
       this.lessonHederConfig['stepBoard'] = {
         stepTitle: 'Level ' + this.imageFlipQuestions[this.i].level,

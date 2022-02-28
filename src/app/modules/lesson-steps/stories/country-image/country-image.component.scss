@@ -1,0 +1,15 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+.story-body-1{
+  background:center no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  // align-items: flex-end;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  @include breakpoint(mobile) {
+    min-height: calc(100vh - 33rem);
+  }   
+}

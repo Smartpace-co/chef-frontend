@@ -18,6 +18,24 @@ export class RecipeFactComponent implements OnInit,OnDestroy {
   recipeImg: string;
   defaultRecipeImg: string;
   lessonData:any;
+  funFactList = [];
+  socialStudiesFactList = [];
+  slickConfig = {
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    nextArrow: '<div class=\'nav-btn next-slide\'></div>',
+    prevArrow: '<div class=\'nav-btn prev-slide\'></div>',
+    dots: true,
+    infinite: false,
+  };
+  slideConfig = {
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    nextArrow: '<div class=\'nav-btn next-slide\'></div>',
+    prevArrow: '<div class=\'nav-btn prev-slide\'></div>',
+    dots: true,
+    infinite: false,
+  };
   isLoad = false;
    countryBgImg;
   constructor(private toast: ToasterService, private router: Router, 
@@ -34,7 +52,9 @@ export class RecipeFactComponent implements OnInit,OnDestroy {
     this.lessonData = this.teacherService.getAssignLessonData();
     this.assignmentData = this.lessonData.lesson;
     this.recipeImg = this.lessonData.recipe.recipeImage ? this.lessonData.recipe.recipeImage : this.defaultRecipeImg;
-    this.countryBgImg = this.lessonData.recipe.country.backgroundImage;
+    this.funFactList = this.lessonData.lesson.funFact ? this.lessonData.lesson.funFact.match(/.{1,95}(\s|$)/g) : undefined;
+    this.socialStudiesFactList = this.lessonData.lesson.socialStudiesFact ? this.lessonData.lesson.socialStudiesFact.match(/.{1,95}(\s|$)/g) : undefined;
+    // this.countryBgImg = this.lessonData.recipe.country.backgroundImage;
     this.isLoad = true;
     this.teacherService.setTeachersHeader(true);
   }
@@ -47,14 +67,15 @@ export class RecipeFactComponent implements OnInit,OnDestroy {
   * on Next click event
  */
   onNext(): void {
-    this.router.navigate(['teacher/recipe-content']);
+    this.router.navigate(['teacher/conversional-sentence']);
   }
 
-  /**
+  /** 
    * on Previous click event
   */
   onPrevious(): void {
-    this.router.navigate(['teacher/greeting']);
+    this.router.navigate(['teacher/chef-introduction']);
   }
 
 }
+ 

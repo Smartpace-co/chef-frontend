@@ -1,5 +1,5 @@
 <div class="explore-lessons">
-    <div class="container-fluid">
+    <div class="container">
         <div class="btn-top">
             <app-button classes="btn btn-secondary small-btn" (click)="OnBackClick()">
                 <span aria-hidden="true">Back</span>
@@ -24,7 +24,7 @@
                         <h5 class="subtitle">Featured by standards</h5>
                     </div>
                     <div class="row">
-                        <div class="col-lg-3 col-sm-6" *ngFor="let item of standardList| filter: term; let i = index">
+                        <div class="col-lg-4 col-sm-6" *ngFor="let item of standardList| filter: term; let i = index">
                             <div class="featureSubject__main ">
                                 <div class="featureSubject__image">
                                     <img src="./assets/images/assignment-image.jpg" alt="img-fluid" />

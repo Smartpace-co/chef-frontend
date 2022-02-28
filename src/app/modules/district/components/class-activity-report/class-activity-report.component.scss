@@ -186,3 +186,16 @@
     }
   }
 }
+
+//Download-pdf Pop-up//
+
+.download-pdf{
+  text-align: center;
+  .download-button{
+    display: flex;
+    flex-direction: column;
+    app-button{
+      margin: 3rem 0;
+    }
+  }
+}

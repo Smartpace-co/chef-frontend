@@ -57,7 +57,7 @@ export class ClassDetailsComponent implements OnInit {
   term: string;
   selectedAllergenValue=[];
   selectedAllergen=null;
-  allergenList=[];
+  allergenList:string;
   studentDetails;
   currentClassStudents;
   profileModal;
@@ -65,6 +65,8 @@ export class ClassDetailsComponent implements OnInit {
   planList:any;
   standardsProficiencyList = [];
   inactiveStudents:any;
+  sortBy;
+  status;
   filterList = [
     {
       menu: 'All Students'
@@ -172,119 +174,6 @@ export class ClassDetailsComponent implements OnInit {
     }
   ];
   studentList = [];
-  //   {
-  //     district: "District 1",
-  //     school: "School 2",
-  //     class: "Class 2",
-  //     studentPhoto: "./assets/imaegs/student-icon.svg",
-  //     studentName: "Samuel, Aaron",
-  //     studentId: "36273",
-  //     studentGroup: "Red",
-  //     actions: [
-  //       "Profile",
-  //       "Reports"
-  //     ],
-  //     studentDob: "22/10/1995",
-  //     gender: "Male",
-  //     grade: "Grade 1",
-  //     email: "samual.aron@xyzschools.net",
-  //     ethnicity: "Ethnicity 1",
-  //     guardian: "Guardian 1",
-  //     username: "sam@13",
-  //     contactName: "Danial",
-  //     contactRelationship: "Relationship 1",
-  //     contactEmail: "dan@gmail.com",
-  //     contactNumber: "1234567890",
-  //     interests: "Cooking",
-  //     medicalCondition: "Condition 1",
-  //     allergies: "Allergies - Gluten, Latex ",
-  //     status: "active"
-  //   },
-  //   {
-  //     district: "District 1",
-  //     school: "School 2",
-  //     class: "Class 2",
-  //     studentPhoto: "./assets/images/student-icon.svg",
-  //     studentName: "Ruaz, Kevin",
-  //     studentId: "36272",
-  //     studentGroup: "Green",
-  //     actions: [
-  //       "Profile",
-  //       "Reports"
-  //     ],
-  //     studentDob: "22/10/1993",
-  //     gender: "Male",
-  //     grade: "Grade 2",
-  //     email: "ruaz.kevin@xyzschools.net",
-  //     ethnicity: "Ethnicity 2",
-  //     guardian: "Guardian 2",
-  //     username: "kevin@13",
-  //     contactName: "Danial",
-  //     contactRelationship: "Father",
-  //     contactEmail: "dan@gmail.com",
-  //     contactNumber: "1234567890",
-  //     interests: "Cooking, Singing",
-  //     medicalCondition: "Condition 1",
-  //     allergies: "Allergies - Gluten, Latex",
-  //     status: "inactive"
-  //   },
-  //   {
-  //     district: "District 1",
-  //     school: "School 2",
-  //     class: "Class 2",
-  //     studentPhoto: "./assets/images/student-icon.svg",
-  //     studentName: "Keil, Exie",
-  //     studentId: "36271",
-  //     studentGroup: "Yellow",
-  //     actions: [
-  //       "Profile",
-  //       "Reports"
-  //     ],
-  //     studentDob: "2/10/1995",
-  //     gender: "Male",
-  //     grade: "Grade 3",
-  //     email: "keil.exie@xyzschools.net",
-  //     ethnicity: "Ethnicity 3",
-  //     guardian: "Guardian 1",
-  //     username: "Keil@12",
-  //     contactName: "Danial",
-  //     contactRelationship: "Father",
-  //     contactEmail: "dan@gmail.com",
-  //     contactNumber: "1234567890",
-  //     interests: "Magic, Scientific Experiments",
-  //     medicalCondition: "Condition 1",
-  //     allergies: "Allergies - Gluten, Latex",
-  //     status: "active"
-  //   },
-  //   {
-  //     district: "District 1",
-  //     school: "School 2",
-  //     class: "Class 2",
-  //     studentPhoto: "./assets/images/student-icon.svg",
-  //     studentName: "Samuel, Aaron",
-  //     studentId: "36274",
-  //     studentGroup: "Red",
-  //     actions: [
-  //       "Profile",
-  //       "Reports"
-  //     ],
-  //     studentDob: "22/1/1995",
-  //     gender: "Male",
-  //     grade: "Grade 3",
-  //     email: "samual.aron@xyzschools.net",
-  //     ethnicity: "Ethnicity 3",
-  //     guardian: "Guardian 3",
-  //     username: "sram21",
-  //     contactName: "Danial",
-  //     contactRelationship: "Father",
-  //     contactEmail: "dan@gmail.com",
-  //     contactNumber: "1234567890",
-  //     interests: "Cooking, Magic, Scientific Experiments",
-  //     medicalCondition: "Condition 3",
-  //     allergies: "Allergies - Gluten, Latex",
-  //     status: "active"
-  //   }
-  // ];
   studentHeaders = [
     {
       title: "Student Id",
@@ -351,7 +240,7 @@ export class ClassDetailsComponent implements OnInit {
   teachers: string;
   students: string;
   userForm: FormGroup;
-  addStudentForm: FormGroup;
+  // addStudentForm: FormGroup;
   deleteClassForm: FormGroup;
   editClassForm: FormGroup;
   selectedClass = null;
@@ -394,10 +283,10 @@ export class ClassDetailsComponent implements OnInit {
     this.userForm = new FormGroup({
 
     });
-    this.addStudentForm = new FormGroup({
-      studentName: new FormControl(''),
-      allergies: new FormControl('')
-    });
+    // this.addStudentForm = new FormGroup({
+    //   studentName: new FormControl(''),
+    //   allergies: new FormControl('')
+    // });
     this.deleteClassForm = new FormGroup({
       delete: new FormControl('', [Validators.required])
     });
@@ -426,17 +315,6 @@ export class ClassDetailsComponent implements OnInit {
   }
   closeOpenModal() {
     this.closeModal.close();
-  }
-
-  addAllergy() {
-    if (this.addStudentForm.controls['allergies'].value != "") {
-      this.allergies.push(this.addStudentForm.controls['allergies'].value);
-      this.addStudentForm.value.allergies = this.allergies;
-    }
-  }
-  removeAllergy(index) {
-    this.allergies.splice(index, 1);
-    this.addStudentForm.value.allergies = this.allergies;
   }
   openEditClassModal(modal: any): void {
     this.editClassModal = this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true, windowClass: 'add-student--modal' });
@@ -524,7 +402,7 @@ export class ClassDetailsComponent implements OnInit {
           this.schoolDetails = response.data[0];
           this.contactPersonName = this.schoolDetails.contact_person_name;
           this.classOwner = this.schoolDetails.admin_account_name;
-          this.getAllActiveTeachers(this.schoolDetails);
+          this.getAllActiveTeachers();
         }
       },
       (error) => {
@@ -572,11 +450,8 @@ export class ClassDetailsComponent implements OnInit {
     }
   }
 
-  getAllActiveTeachers(schoolDetails): void {
-    let filter=[];
-    filter[0]=1;
-    filter[1]=schoolDetails.id;
-    this.schoolService.getAllTeacher(filter).subscribe(
+  getAllActiveTeachers(): void {    
+    this.schoolService.getAllTeacher(1,this.schoolDetails.id).subscribe(
       (response) => {
         if (response && response.data && response.data.rows) {
           this.teacherList = _.map(response.data.rows, item => {
@@ -635,8 +510,8 @@ export class ClassDetailsComponent implements OnInit {
     );
   }
 
-  getStudentList(filter?: any): void {
-    this.schoolService.getAllStudents(filter).subscribe(
+  getStudentList(): void {
+    this.schoolService.getAllStudents(1).subscribe(
       (response) => {
         if (response && response.data && response.data.rows) {
           this.studList = _.map(response.data.rows, item => {
@@ -896,34 +771,32 @@ export class ClassDetailsComponent implements OnInit {
   }
   studentFilter(item: any): void {
     this.classesListtitle = item.menu;
-    if (item && item.id) {
-      this.getStudentsByClassId(item.id);
-    } else {
-      this.getStudentsByClassId();
-    }
+    this.status = item.id ? item.id : undefined;
+    this.getStudentsByClassId();
   }
 
   studentIdFilter(event) {
     this.SortByIdTitle = event.menu;
-    if (event && event.value) {
-      this.getStudentsByClassId(undefined, event.value);
-    } else {
-      this.getStudentsByClassId();
-    }
+    this.sortBy = event.value ? event.value : undefined;
+    this.getStudentsByClassId();
   }
 
-  getStudentsByClassId(filter?: any, sortBy?: string): void {
-    this.schoolService.getStudentsByClassId(this.classID, filter, sortBy).subscribe(
+  getStudentsByClassId(): void {
+    this.schoolService.getStudentsByClassId(this.classID, this.status, this.sortBy).subscribe(
       (response) => {
         if (response && response.data && response.data.rows) {
-        
-
           this.studentList = _.map(response.data.rows, item => {
-            this.allergenList=[];
-            
-            _.map(item.student.allergens,allergen =>{
-              this.allergenList.push(allergen.allergen.allergenTitle)
+            let allergy = [];
+            this.allergenList = null;
+            _.map(item.student.allergens, allergen => {
+              if (!_.isEmpty(allergen.allergen.allergenTitle)) {
+                allergy.push(allergen.allergen.allergenTitle)
+              }
             });
+            if (allergy && allergy.length > 0) {
+              this.allergenList = allergy.toString();
+              this.allergenList = this.allergenList.replace(/,/g, ", ");
+            }
             let obj = {
               studentId: item.studentId,
               studentName: item.student.firstName + "," + item.student.lastName,
@@ -970,8 +843,20 @@ export class ClassDetailsComponent implements OnInit {
     } else if (name.action === 'Profile' && studentId) {
       showPopup = true;
     }
+    let allergy = [];
+    let allergieString: string;
     if (showPopup) {
       this.studentDetails = this.currentClassStudents.find(o => o.id === studentId);
+      _.forEach(this.studentDetails.allergens, ob => {
+        if (!_.isEmpty(ob.allergen.allergenTitle)) {
+          allergy.push(ob.allergen.allergenTitle)
+        }
+      });
+      if (allergy && allergy.length > 0) {
+        allergieString = allergy.toString();
+        allergieString = allergieString.replace(/,/g, ", ");
+      }
+      this.studentDetails['allergieString'] = allergieString;
       this.studentDetails.img = './assets/images/student-icon.svg';
       this.openProfile(this.ProfileModal);
     }

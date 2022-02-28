@@ -1,92 +1,103 @@
 @import "../../../../../assets/styles/helpers/variables";
 @import "../../../../../assets/styles/helpers/mixins";
-.roster-list{
-  padding:2rem 0;
-  .roster-header{
+.roster-list {
+  padding: 2rem 0;
+  .roster-header {
     margin-bottom: 2rem;
-      .roster-header-main{
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          flex-wrap: wrap;
-          h3{
-              font-size:2.1rem;
-              margin: 0;
-              span{
-                  color:$secondary;
-              }
-              @include breakpoint(mobile){
-                  font-size:1.8rem;
-                  margin-bottom:1.5rem;
-              }
-          }
+    .roster-header-main {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      h3 {
+        font-size: 2.1rem;
+        margin: 0;
+        span {
+          color: $secondary;
+        }
+        @include breakpoint(mobile) {
+          font-size: 1.8rem;
+          margin-bottom: 1.5rem;
+        }
       }
+    }
+  }
+  .schoolItem {
+    &__action {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 3rem;
+      a {
+        color: $yellow-shade-5;
+        font-weight: 700;
+      }
+    }
   }
 }
-  .form-create-class{
-    label{
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: $light-blue-shade;
-      padding-left: 3rem;
-    }
+.form-create-class {
+  label {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: $light-blue-shade;
+    padding-left: 3rem;
   }
-  .footer-btns{
-    margin-top: 2rem;
-  }
-  .access-code-modal{
-    max-width: 36rem;
-    max-width: 36rem;
+}
+.footer-btns {
+  margin-top: 2rem;
+}
+.access-code-modal {
+  max-width: 36rem;
+  max-width: 36rem;
+  margin: 0 auto;
+  text-align: center;
+  .logo {
+    max-width: 7.2rem;
     margin: 0 auto;
+    margin-bottom: 1rem;
+  }
+  h2 {
+    margin-bottom: 1rem;
+  }
+  p {
+    padding: 0;
+    margin-bottom: 1rem;
+  }
+  .footer-btns {
+    justify-content: center;
+    margin-top: 1rem;
+  }
+}
+.journal-body {
+  p {
     text-align: center;
-    .logo{
-      max-width: 7.2rem;
-      margin: 0 auto;
-      margin-bottom: 1rem;
-    }
-    h2{
-      margin-bottom: 1rem;
-    }
-    p{
-      padding: 0;
-      margin-bottom: 1rem;
-    }
-    .footer-btns{
-      justify-content: center;
-      margin-top: 1rem;
-    }
-  }
-  .journal-body{
-    p{
-      text-align: center;
-      font-size: 1.3rem;
-      font-weight: 700;
-      padding: 2rem 0rem;
-    }
-    .Total{
-      text-align: center;
-    }
-    .month{
-      text-align: center;
-      font-weight: 700;
-      padding: 1rem 0rem 2rem;
-    }
-    .close-btn-wrapper{
-     text-align: center;
-    }
-  }
-  .membership-header{
-    border-bottom: none;
+    font-size: 1.3rem;
+    font-weight: 700;
     padding: 2rem 0rem;
-    .logo{
-      max-width: 8.5rem;
-      position: absolute;
-      top: -6rem;
-      left: 0;
-      right: 0;
-      margin: 0 auto;
-    }
-    h4{
-      margin: 0 auto;
-    }
   }
+  .Total {
+    text-align: center;
+  }
+  .month {
+    text-align: center;
+    font-weight: 700;
+    padding: 1rem 0rem 2rem;
+  }
+  .close-btn-wrapper {
+    text-align: center;
+  }
+}
+.membership-header {
+  border-bottom: none;
+  padding: 2rem 0rem;
+  .logo {
+    max-width: 8.5rem;
+    position: absolute;
+    top: -6rem;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+  }
+  h4 {
+    margin: 0 auto;
+  }
+}

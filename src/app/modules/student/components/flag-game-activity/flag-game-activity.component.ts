@@ -91,6 +91,9 @@ export class FlagGameActivityComponent implements OnInit {
         this.questionsAttempted++;
         this.onNext();
       }
+      else{
+        this.assignmentQuestion[this.i].optionFlags.sort(() => Math.random() - 0.5)
+      }
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
@@ -112,13 +115,11 @@ export class FlagGameActivityComponent implements OnInit {
   onNext(): void {
     if (this.questionsAttempted == this.assignmentQuestion.length) {
       this.router.navigate(['/student/games-listing']);
-    } else if (this.questionsAttempted > 0) {
+    } else if (this.questionsAttempted >= 0) {
       this.i++;
       this.lessonHederConfig['stepBoard'] = {
         stepTitle: 'Level '+this.assignmentQuestion[this.i].level
       };
-      console.log(this.i);
-      console.log("question attempt",this.questionsAttempted)
       this.isVisibleNext = true;
     }
   }

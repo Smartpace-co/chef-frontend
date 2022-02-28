@@ -1,11 +1,17 @@
-
-
 <div class="user-notitications">
   <div class="container">
-    <h4 class="notification-count">{{'school.class.class-list.you-have-label'|translate}} <span>{{count}}</span> {{'school.notitification.notification-label'|translate}}.</h4>
+    <h4 class="notification-count">{{'school.class.class-list.you-have-label'|translate}}
+      <ng-container *ngIf="count; else noNoti">
+        <span>{{count}}</span>
+      </ng-container>
+      <ng-template #noNoti>
+        <span>0</span>
+      </ng-template>
+      {{'school.notitification.notification-label'|translate}}.
+    </h4>
     <div class="user-notitications-profile-wrapper legend-card">
-      <ul class="notifiction-list" >
-        <li *ngFor="let item of notifications">
+      <ul class="notifiction-list">
+        <li *ngFor="let item of notifications | slice: (page-1) * pageSize : page * pageSize">
           <div class="bell-icon">
             <a class="icon-bg">
               <img src="./assets/images/bell-icon.png" alt="" class="img-fluid" />
@@ -14,12 +20,14 @@
           <div class="notitications-details">
             <p [ngClass]="item.isSeen == true ? 'title visited' : 'title'">{{item.notificationType?.title}}</p>
             <h6 [ngClass]="item.isSeen == true ? 'message visited' : 'message'">{{item?.description}}</h6>
-            <ng-container *ngIf="isSameDay(item); else diffDate">
-              <p class="sub-info" *ngIf="item.createdAt" [ngClass]="item.isSeen == true ? 'time visited' : 'time'"> {{ item.createdAt |date:'h' }} {{ 'student.notification.hours-ago-label' |
+            <ng-container *ngIf="utiltiService.isSameDay(item); else diffDate">
+              <p class="sub-info" *ngIf="item.createdAt" [ngClass]="item.isSeen == true ? 'time visited' : 'time'"> {{
+                utiltiService.hrCalulator(item.createdAt)  }} {{ 'student.notification.hours-ago-label' |
                 translate }} </p>
             </ng-container>
             <ng-template #diffDate>
-              <p class="sub-info" *ngIf="item.createdAt" [ngClass]="item.isSeen == true ? 'time visited' : 'time'"> {{item.createdAt | date:'EEEE,MM/dd/yyyy'}} </p>
+              <p class="sub-info" *ngIf="item.createdAt" [ngClass]="item.isSeen == true ? 'time visited' : 'time'">
+                {{item.createdAt | date:'EEEE,MM/dd/yyyy'}} </p>
             </ng-template>
           </div>
           <!-- <div class="notifocation-btn-wrapper">
@@ -30,6 +38,15 @@
         </li>
       </ul>
     </div>
+    <div *ngIf="notifications && notifications.length > 0" class="table-pagination">
+      <ngb-pagination [collectionSize]="notifications.length" [(page)]="page" [pageSize]="pageSize">
+        <ng-template ngbPaginationFirst class="first">{{'table-component.first'| translate}}</ng-template>
+        <ng-template ngbPaginationLast class="last">{{'table-component.last'| translate}}</ng-template>
+        <ng-template ngbPaginationPrevious class="previous">{{'table-component.prev'| translate}}</ng-template>
+        <ng-template ngbPaginationNext class="next">{{'table-component.next'| translate}}</ng-template>
+        <ng-template ngbPaginationEllipsis>...</ng-template>
+        <ng-template ngbPaginationNumber let-page>{{ page }}</ng-template>
+      </ngb-pagination>
+    </div>
   </div>
 </div>
-

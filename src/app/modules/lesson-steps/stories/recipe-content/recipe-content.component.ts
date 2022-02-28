@@ -17,14 +17,15 @@ export class RecipeContentComponent implements OnInit {
   recipeImg: string;
   recipeIngredients = [];
   isLoad = false;
-  countryBgImg;
+  lesson;
   constructor(private router: Router, private toast: ToasterService, private studentService: StudentService, private utilityService: UtilityService) {
     this.lessonHederConfig['stepBoard'] = null;
     this.defaultRecipeImg = './assets/images/nsima-bent-icon.png';
   }
 
   ngOnInit(): void {
-    this.assignmentId = localStorage.getItem('assignmentId')
+    this.assignmentId = localStorage.getItem('assignmentId');
+    this.lesson = localStorage.getItem('lessonType');
     this.getStudentData();
     let previousTime = this.utilityService.calculateTimeBetweenDates();
     this.updateLessonProgress(previousTime);
@@ -59,6 +60,12 @@ export class RecipeContentComponent implements OnInit {
           if (contentTwo) {
             this.recipeIngredients.push(contentTwo);
           }
+          let assignmentTitle;
+          // if (this.lesson === 'Explore') {
+            assignmentTitle = response.data.recipe.recipeTitle;
+          // } else {
+          //   assignmentTitle = response.data.assignmentTitle;
+          // }
           let titleOne = contentOne && contentOne.ingredient ? contentOne.ingredient.ingredientTitle : '';
           let titleTwo = contentTwo && contentTwo.ingredient ? contentTwo.ingredient.ingredientTitle : '';
           this.recipeImg = response.data.recipe.recipeImage ? response.data.recipe.recipeImage : this.defaultRecipeImg;
@@ -70,8 +77,7 @@ export class RecipeContentComponent implements OnInit {
           } else if (titleTwo) {
             ingredientTitleString = `${titleTwo}`
           }
-          this.recipeContent = `${response.data.assignmentTitle} is made of ${ingredientTitleString} sauteed together.`;
-          this.countryBgImg = response.data.recipe.country.backgroundImage;
+          this.recipeContent = `${assignmentTitle} is made of ${ingredientTitleString} sauteed together.`;
           this.isLoad = true;
         }
       },

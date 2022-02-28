@@ -12,6 +12,7 @@ export class MultiSelectDropdownComponent implements OnInit {
   @Input() selectedValue;
   @Input() selectedItems;
   @Input() placeholderText;
+  @Input() isSelectedShow;
   @Output() onSelectValue = new EventEmitter();
   @Output() onDeSelectValue = new EventEmitter();
   @Output() onSelectAllValue = new EventEmitter();

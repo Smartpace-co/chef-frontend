@@ -11,6 +11,7 @@ export class DropDownComponent implements OnInit {
   @Input() dropDownIcon;
   @Input() dropDownMenuIcon;
   @Input() disableDropDownItem;
+  @Input() isSetting;
   @Output() registerDropdownValueChange = new EventEmitter();
   disableGray: boolean;
 

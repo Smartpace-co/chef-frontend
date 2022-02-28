@@ -28,7 +28,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '@modules/auth/services/auth.service';
 import { SchoolService } from '@modules/school/services/school.service';
-import { Subject } from 'rxjs';
+import { interval, Subject, Subscription } from 'rxjs';
+import { NotificationService } from '@shared/services/notification.service';
 @Component({
   selector: 'app-school-header',
   templateUrl: './school-header.component.html',
@@ -53,7 +54,8 @@ export class SchoolHeaderComponent implements OnInit, AfterContentChecked {
   linkActive: boolean = true;
   linkPerformance: boolean = false;
   messages: any
-  count = 0;
+  count;
+  subscription: Subscription;
   ProfileMenuList = [];
   sessionData: any;
   userName: any;
@@ -72,7 +74,8 @@ export class SchoolHeaderComponent implements OnInit, AfterContentChecked {
     private schoolService: SchoolService,
     private activatedRoute: ActivatedRoute,
     public utilityService: UtilityService,
-    public translate: TranslationService
+    public translate: TranslationService,
+    private notificationService:NotificationService
   ) {
     this.profilePic = './assets/images/user-profile.png';
   }
@@ -126,6 +129,10 @@ export class SchoolHeaderComponent implements OnInit, AfterContentChecked {
       this.getProfileList(this.sessionData.id);
     }
     this.schoolService.getProfileObs().subscribe((profile) => (this.schoolDetails = profile));
+    this.getNotificationCount();
+    // get notification after every 10 second.
+    const source = interval(10000);
+    this.subscription = source.subscribe(val => this.getNotificationCount());
 
   }
 
@@ -167,7 +174,7 @@ export class SchoolHeaderComponent implements OnInit, AfterContentChecked {
         if (response && response.data) {
           let schoolData = response.data;
           //  this.getNotifications(schoolData.id)
-          this.getNotificationCount(schoolData.id)
+          // this.getNotificationCount(schoolData.id)
           let schoolObj = {
             id: schoolData.id,
             name: schoolData.school.admin_account_name,
@@ -196,7 +203,7 @@ export class SchoolHeaderComponent implements OnInit, AfterContentChecked {
           (res) => {
             let schoolData = res.data[0];
             //  this.getNotifications(schoolData.id)
-            this.getNotificationCount(schoolData.id)
+            // this.getNotificationCount(schoolData.id)
 
             let schoolObj = {
               id: schoolData.id,
@@ -229,7 +236,8 @@ export class SchoolHeaderComponent implements OnInit, AfterContentChecked {
       this.router.navigate(['/school/school-settings']);
     } else if (event.value === 'help') {
       this.router.navigate(['/school/get-help']);
-    } else if (event.value === 'signout') {
+    } 
+    else if (event.value === 'signout') {
       this.authService.logoutUser().subscribe(
         (data) => {
           if (data) {
@@ -246,19 +254,20 @@ export class SchoolHeaderComponent implements OnInit, AfterContentChecked {
   ngOnDestroy() {
     this.unsubscribe$.next(true);
     this.unsubscribe$.complete();
+    this.subscription.unsubscribe();
   }
-
-  getNotifications(schoolId) {
-    this.router.navigate(['/school/notification']);
-  }
-
-  getNotificationCount(schoolId) {
-    this.schoolService.getNotificationsUnreadCount(schoolId, this.sessionData.role_id).subscribe(
+  getNotificationCount() {
+    this.notificationService.getNotificationCount(this.sessionData.id, this.sessionData.role.id).subscribe(
       (res) => {
         if (res && res.data) {
 
           this.count = res.data;
+        }else{
+          this.count = undefined;
         }
+      },(error) => {
+        console.log(error);
+        this.toast.showToast(error.error.message, '', 'error');
       });
 
   }

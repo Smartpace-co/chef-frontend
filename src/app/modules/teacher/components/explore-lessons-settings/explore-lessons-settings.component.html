@@ -13,7 +13,7 @@
                             <div class="lesson_info__content__top">
                                 <h6>{{formInfo.title}}</h6>
                                 <div class="rating-bookmark">
-                                    <span class="rating">4.5 <fa-icon [icon]="Star"></fa-icon></span>
+                                    <span *ngIf="allLessonInfo?.lesson?.rating" class="rating">{{ allLessonInfo?.lesson?.rating }} <fa-icon [icon]="Star"></fa-icon></span>
                                     <span class="bookmark" [class.active]="bookmark">
                                         <span (click)="bookmarkClass(lessonInfo)">
                                             <fa-icon [icon]="BookmarkIcon" class="addBookmark"></fa-icon>
@@ -27,7 +27,8 @@
                             <ul>
                                 <li>
                                     <label>{{'student.assigned-lessons.duration'| translate }}:</label>
-                                    <strong> {{lessonInfo?.estimatedMakeTime}}</strong>
+                                    <!-- <strong> {{lessonInfo?.estimatedMakeTime}}</strong> -->
+                                    <strong> {{lessonTime}} minutes</strong>
                                 </li>
                                 <li>
                                     <label>{{'teacher.explore-lessons.grades'|translate}}:</label>
@@ -50,7 +51,7 @@
                                         [(ngModel)]="selectedFromDate"
                                         [ngModelOptions]="{standalone: true}"
                                         disabled
-                                        [value]="dateValue(fromDate)"
+                                        [value]="fromDate"
                                         (input)="fromDate = validateInput(fromDate, dpFromDate.value)">
                                 <div class="input-group-append">
                                     <button class="calendarIcon" (click)="datepicker.toggle()" type="button">
@@ -68,7 +69,7 @@
                                         [(ngModel)]="selectedToDate"
                                         [ngModelOptions]="{standalone: true}"
                                         disabled
-                                        [value]="dateValue(toDate)"
+                                        [value]="toDate"
                                         (input)="toDate = validateInput(toDate, dpToDate.value)">
                                 <div class="input-group-append">
                                     <button class="calendarIcon" (click)="datepicker.toggle()" type="button">

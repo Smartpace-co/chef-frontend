@@ -34,10 +34,54 @@
                                     </label>
                                 </div>
                             </li>
+                            <div *ngIf="item.type=='dropdown'">
+                                <div>
+                                    <label>Common Core ELA Standards</label>
+                                    <app-multi-select-dropdown [dropDownItemList]="elaStandardList"  [selectedValue]="selectedElaStandardValue"
+                                        [selectedItems]="selectedElaStandard" [placeholderText]="'Select Standards'"
+                                        (onSelectValue)="onSelect($event,'ela',item.id)"
+                                        (onDeSelectValue)="onDeSelect($event,'ela',item.id)"
+                                        (onSelectAllValue)="onSelectAll($event,'ela',item.id)"
+                                        (onDeselectAllValue)="onDeselectAll($event,'ela',item.id)">
+                                    </app-multi-select-dropdown>
+                                </div>
+                                <div>
+                                    <label>Common Core Math Standards</label>
+                                    <app-multi-select-dropdown [dropDownItemList]="mathStandardList" [selectedValue]="selectedMathStandardValue"
+                                        [selectedItems]="selectedMathStandard" [placeholderText]="'Select Standards'"
+                                        (onSelectValue)="onSelect($event,'math',item.id)"
+                                        (onDeSelectValue)="onDeSelect($event,'math',item.id)"
+                                        (onSelectAllValue)="onSelectAll($event,'math',item.id)"
+                                        (onDeselectAllValue)="onDeselectAll($event,'math',item.id)">
+                                    </app-multi-select-dropdown>
+                                </div>
+                                <div>
+                                    <label>New Generation Science Standards</label>
+                                    <app-multi-select-dropdown [dropDownItemList]="ngssStandardList" [selectedValue]="selectedNgssStandardValue"
+                                    [selectedItems]="selectedNgssStandard" [placeholderText]="'Select Standards'"
+                                    (onSelectValue)="onSelect($event,'ngss',item.id)"
+                                    (onDeSelectValue)="onDeSelect($event,'ngss',item.id)"
+                                    (onSelectAllValue)="onSelectAll($event,'ngss',item.id)"
+                                    (onDeselectAllValue)="onDeselectAll($event,'ngss',item.id)">
+                                    </app-multi-select-dropdown>
+                                </div>
+                                <div>
+                                    <label>National Curriculum Standards for Social Studies</label>
+                                    <app-multi-select-dropdown [dropDownItemList]="ncssStandardList" [selectedValue]="selectedNcssStandardValue"
+                                        [selectedItems]="selectedNcssStandard" [placeholderText]="'Select Standards'"
+                                        (onSelectValue)="onSelect($event,'ncss',item.id)"
+                                        (onDeSelectValue)="onDeSelect($event,'ncss',item.id)"
+                                        (onSelectAllValue)="onSelectAll($event,'ncss',item.id)"
+                                        (onDeselectAllValue)="onDeselectAll($event,'ncss',item.id)">>
+                                    </app-multi-select-dropdown>
+                                </div>
+                            </div>
                         </ul>
+
                     </div>
                 </li>
             </ul>
+
         </div>
     </div>
 </div>

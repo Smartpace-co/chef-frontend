@@ -63,8 +63,9 @@
         </div>
     </div>
 </div>
-
-<app-lessons-footer [showNext]="showNext" [showPrevious]="false" [dynamicBtn]="true" [dynamicBtnName]="'Go back to home'" (onDynamicBtnClick)="goToAssignedLessonList()" ></app-lessons-footer>
+<app-lessons-footer [showNext]="showNext" [showPrevious]="showPrevBtn" [dynamicBtn]="dynamicBtn"
+    [dynamicBtnName]="'Go back to home'" (onDynamicBtnClick)="goToAssignedLessonList()" (onPrevious)="onPrevious()"
+    (onNext)="onNext()"></app-lessons-footer>
 <ng-template #modal let-modal>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <img src="./assets/images/close.png" alt="" class="img-fluid" />

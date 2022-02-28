@@ -42,12 +42,15 @@
           .logo{
             text-align: center;
             span{
-              display: inline-block;
               width: 47px;
               height: 47px;
               padding: 9px 10px 11px;
               background-color: $azure;
               border-radius: 50%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              overflow: hidden;
               img{
                 width: 27px;
                 height: 27px;
@@ -128,9 +131,13 @@
     @include breakpoint(mobile){
       padding: 0rem 0rem 2rem;
     }
+    h6{
+      word-break: break-word;
+    }
     p{
       padding: 0px;
       font-size: 1.2rem;
+      font-weight: 600;
     }
   }
 }

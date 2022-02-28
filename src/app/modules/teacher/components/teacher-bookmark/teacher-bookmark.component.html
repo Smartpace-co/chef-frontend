@@ -45,7 +45,7 @@
                 <h4 class="lessonList__title">{{item.recipe?.recipeTitle}}</h4>
                 <div class="lessonList__time">
                   <label>{{'student.assigned-lessons.duration'| translate }}:</label>
-                  <strong class="lessonList__time">{{item.recipe?.estimatedMakeTime}} {{'teacher.assignment.min-label'|translate}}</strong>
+                  <strong class="lessonList__time"> {{item.lessonTime}} {{'teacher.assignment.min-label'|translate}}</strong>
                 </div>
               </div>
               <div class="lessonList__info__right">
@@ -77,7 +77,8 @@
               <h2 class="moreInfo__title mt-">{{resultLessonInfo.recipe?.recipeTitle}}</h2>
               <ul class="moreInfo__tags">
                 <li>{{resultLessonInfo.recipe.country?.countryName}}</li>
-                <li>{{resultLessonInfo.recipe?.estimatedMakeTime}} min</li>
+                <!-- <li>{{resultLessonInfo.recipe?.estimatedMakeTime}} min</li> -->
+                <li>{{lessonTime}} min</li>
               </ul>
             </div>
             <ul class="moreInfo__primary">
@@ -91,7 +92,8 @@
               </li>
               <li>
                 <label>{{'teacher.explore-lessons.full'|translate}} {{'student.assigned-lessons.duration'| translate }}:</label>
-                <strong>{{resultLessonInfo.recipe?.estimatedMakeTime}}</strong>
+                <!-- <strong>{{resultLessonInfo.recipe?.estimatedMakeTime}}</strong> -->
+                <strong> {{lessonTime}} minutes</strong>
               </li>
             </ul>
             <div class="moreInfo__secondary">
@@ -148,7 +150,7 @@
                   <div class="lesson_info__content__top">
                       <h6>{{lessonInfo.recipe.recipeTitle}}</h6>
                       <div class="rating-bookmark">
-                          <span class="rating">4.8 <fa-icon [icon]="Star"></fa-icon></span>
+                          <span *ngIf="lessonInfo?.rating" class="rating">{{ lessonInfo?.rating }} <fa-icon [icon]="Star"></fa-icon></span>
                           <span class="bookmark" [class.active]="lessonInfo.bookmark">
                               <span (click)="bookmarkClass(lessonInfo)">
                                   <fa-icon [icon]="BookmarkIcon" class="addBookmark"></fa-icon>
@@ -162,7 +164,8 @@
                   <ul>
                       <li>
                           <label>{{'student.assigned-lessons.duration'| translate }}:</label>
-                          <strong> {{lessonInfo.recipe?.estimatedMakeTime}} Min</strong>
+                          <strong> {{lessonInfo.lessonTime}} {{'teacher.assignment.min-label'|
+                            translate }}</strong>
                       </li>
                       <li>
                           <label>{{'teacher.explore-lessons.grades'|translate}}:</label>
@@ -218,7 +221,8 @@
                                   name="dpFromDate"
                                   formControlName="fromDate"
                                   disabled
-                                  [value]="formatter.format(fromDate)"
+                                  [value]="formatter.format(fromDate)" 
+                                  [(ngModel)]="selectedDate"
                                   (input)="fromDate = validateInput(fromDate, dpFromDate.value)">
                           <div class="input-group-append">
                               <button class="calendarIcon" (click)="datepicker.toggle()" type="button">
@@ -279,7 +283,7 @@
                       </div>
                   </div> -->
                   <div class="col-md-12">
-                      <div class="custom-control custom-checkbox assign-lesson-checkbox">
+                      <div class="custom-control custom-checkbox assign-lesson-checkbox mt-3">
                           <input type="checkbox" class="custom-control-input" id="lesson" name="lesson">
                           <label class="custom-control-label" for="lesson">{{'teacher.explore-lessons.assign-the-lesson-confirm-text'|translate }}</label>
                       </div>

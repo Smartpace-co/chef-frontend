@@ -138,7 +138,7 @@
                       <label>{{ 'school.setting.set-languge-label' | translate }}</label>
                     </li>
                     <div class="language">
-                      <app-drop-down class="class-dropdown" [dropDownButtonName]="languageTitle"
+                      <app-drop-down class="class-dropdown" [isSetting]="true" [dropDownButtonName]="languageTitle"
                         (registerDropdownValueChange)="onLanguageChange($event)" [dropDownItemList]="languageList">
                       </app-drop-down>
                     </div>

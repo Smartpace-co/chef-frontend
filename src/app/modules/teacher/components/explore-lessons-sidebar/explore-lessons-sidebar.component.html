@@ -22,17 +22,59 @@
             <fa-icon [icon]="dropIcon"></fa-icon>
         </div>
         <div #collapse="ngbCollapse" [(ngbCollapse)]="!item.isCollapsed">
-            <ul class="checklist">
+            <ul *ngIf="item.reqkey!='standards'"class="checklist">
                 <li *ngFor="let category of item.categoryList | slice:0:catLength;">
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="{{category.id}}" name="{{category.id}}"
-                        (change)="onChange(item,category)" [checked] = "category?.selected"> 
+                        (change)="onChange(category)" [checked] = "category?.selected"> 
                         <label class="custom-control-label" for="{{category.id}}">{{category.label}}</label>
                     </div>
                 </li>
                 <span *ngIf="catLength < item.categoryList.length" (click)="showMore()"> <fa-icon [icon]="Plus"></fa-icon> {{'table-component.show'| translate}} {{'district.dashboard.more'|translate}}</span>
                 <span *ngIf="catLength == item.categoryList.length" (click)="showLess()"> <fa-icon [icon]="Minus"></fa-icon> {{'table-component.show'| translate}} {{'teacher.explore-lessons.less'|translate }}</span>
             </ul>
+            <div *ngIf="item.reqkey=='standards'">
+                <div class="mt-5">
+                    <label>Common Core ELA Standards</label>
+                    <app-multi-select-dropdown [isSelectedShow]="true" [dropDownItemList]="elaStandardList"  [selectedValue]="selectedElaStandardValue"
+                        [selectedItems]="selectedElaStandard" [placeholderText]="'Select Standards'"
+                        (onSelectValue)="onSelect($event,'ela',item)"
+                        (onDeSelectValue)="onDeSelect($event,'ela',item)"
+                        (onSelectAllValue)="onSelectAll($event,'ela',item)"
+                        (onDeselectAllValue)="onDeselectAll($event,'ela',item)">
+                    </app-multi-select-dropdown>
+                </div>
+                <div class="mt-5">
+                    <label>Common Core Math Standards</label>
+                    <app-multi-select-dropdown [isSelectedShow]="true" [dropDownItemList]="mathStandardList" [selectedValue]="selectedMathStandardValue"
+                        [selectedItems]="selectedMathStandard" [placeholderText]="'Select Standards'"
+                        (onSelectValue)="onSelect($event,'math',item)"
+                        (onDeSelectValue)="onDeSelect($event,'math',item)"
+                        (onSelectAllValue)="onSelectAll($event,'math',item)"
+                        (onDeselectAllValue)="onDeselectAll($event,'math',item)">
+                    </app-multi-select-dropdown>
+                </div>
+                <div class="mt-5">
+                    <label>New Generation Science Standards</label>
+                    <app-multi-select-dropdown [isSelectedShow]="true" [dropDownItemList]="ngssStandardList" [selectedValue]="selectedNgssStandardValue"
+                    [selectedItems]="selectedNgssStandard" [placeholderText]="'Select Standards'"
+                    (onSelectValue)="onSelect($event,'ngss',item)"
+                    (onDeSelectValue)="onDeSelect($event,'ngss',item)"
+                    (onSelectAllValue)="onSelectAll($event,'ngss',item)"
+                    (onDeselectAllValue)="onDeselectAll($event,'ngss',item)">
+                    </app-multi-select-dropdown>
+                </div>
+                <div class="mt-5">
+                    <label>National Curriculum Standards for Social Studies</label>
+                    <app-multi-select-dropdown [isSelectedShow]="true" [dropDownItemList]="ncssStandardList" [selectedValue]="selectedNcssStandardValue"
+                        [selectedItems]="selectedNcssStandard" [placeholderText]="'Select Standards'"
+                        (onSelectValue)="onSelect($event,'ncss',item)"
+                        (onDeSelectValue)="onDeSelect($event,'ncss',item)"
+                        (onSelectAllValue)="onSelectAll($event,'ncss',item)"
+                        (onDeselectAllValue)="onDeselectAll($event,'ncss',item)">>
+                    </app-multi-select-dropdown>
+                </div>
+            </div>
         </div>
     </div>
 </div>

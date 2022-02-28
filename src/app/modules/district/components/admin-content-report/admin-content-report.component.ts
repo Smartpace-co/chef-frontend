@@ -18,6 +18,7 @@ import * as _ from 'lodash';
 import html2canvas from 'html2canvas';
 import jspdf from 'jspdf';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { ExcelService } from '../../../../shared/services/excel.service';
 
 @Component({
   selector: 'app-admin-content-report',
@@ -42,6 +43,7 @@ export class AdminContentReportComponent implements OnInit {
   duration = 'week';
   closeModal: any;
   closeModal1: any;
+  downlaodModal: any;
   filterList = [
     {
       id: '1',
@@ -178,7 +180,7 @@ export class AdminContentReportComponent implements OnInit {
       check:false
     }
   ];
-  constructor(private districtService: DistrictService, private modalService: NgbModal) {}
+  constructor(private districtService: DistrictService, private modalService: NgbModal, private excelService: ExcelService) {}
 
   ngOnInit(): void {
     this.activateUserData = JSON.parse(window.sessionStorage.getItem('currentUser'));
@@ -287,6 +289,14 @@ export class AdminContentReportComponent implements OnInit {
   openRead(content) {
     this.closeModal1 = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true, windowClass: 'dist-modal' });
   }
+
+  openDownloadModal(content) {
+    this.downlaodModal = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true, windowClass: 'dist-modal' });
+  }
+  closeDownlaodModal() {
+    this.downlaodModal.close();
+  }
+
   generatePDF() {
     var data = document.getElementById('generatePdf');
     html2canvas(data).then((canvas) => {
@@ -300,6 +310,37 @@ export class AdminContentReportComponent implements OnInit {
       pdf.save('content_report.pdf');
     });
   }
+
+  printExcelSheet(): void {
+
+    let newArray = [];
+    let i = 1;
+
+    if (this.adminContentList.length) {
+      for (let element of this.adminContentList) {
+        let obj = {};
+        obj["SL.No."] = i++;
+        for (let elm in element) {
+          if (elm === "lesson") obj["Lesson"] = element[elm];
+          if (elm === "grade") obj["Grade"] = element[elm];
+          if (elm === "rating") obj["Rating"] = element[elm].filter(obj => obj).length;
+          if (elm === "standard") {
+            let standards = '';
+            for (let i = 0; i < element[elm].length; i++) {
+              if (i < element[elm].length - 1) standards = standards + element[elm][i] + ', ';
+              else standards = standards + element[elm];
+            }
+            obj["Standard"] = standards;
+          }
+          if (elm === "time") obj["Time"] = element[elm];
+        }
+        newArray.push(obj);
+      }
+      this.excelService.exportAsExcelFile(newArray, 'Lesson report');
+    }
+    this.closeDownlaodModal();
+  }
+
   hideContentColumns(e, value) {
     this.adminContentHeadersList = this.adminContentHeadersList.filter(function (obj) {
       return obj.title !== value;
@@ -324,8 +365,10 @@ export class AdminContentReportComponent implements OnInit {
               if (objItem.session_mins != null || objItem.session_mins != NaN) mins =mins + objItem.session_mins;
 
             });
-            averageStudentMins=mins/studentCount;
-            totalMins=averageStudentMins
+            if(studentCount){
+              averageStudentMins=mins/studentCount;
+              totalMins=averageStudentMins
+            }
           }
         });
       });
@@ -339,10 +382,11 @@ export class AdminContentReportComponent implements OnInit {
               if (objItem.session_mins != null || objItem.session_mins != NaN)
                teacherMins = teacherMins + objItem.session_mins
             });
-            averageTeacherMins=teacherMins/teacherCount;
-            totalMins=(totalMins+averageStudentMins)/60
-            this.reportDataList[2].data=parseFloat(totalMins).toFixed(4) +" hr";
-
+            if(teacherCount){
+              averageTeacherMins=teacherMins/teacherCount;
+              totalMins=(totalMins+averageStudentMins)/60
+              this.reportDataList[2].data=parseFloat(totalMins).toFixed(4) +" hr";
+            }
           }
         });
       });

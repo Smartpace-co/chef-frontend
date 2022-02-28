@@ -23,7 +23,13 @@
         <tr *ngFor="let data of dataSource | filter: term | slice: (page-1) * pageSize : page * pageSize"
           (click)="onRowClick(data)">
           <td *ngFor="let col of tableHeaders">
-            <span *ngIf="!col.isClickable && !col.isStarRating">{{data[col.data]}}</span>
+            <span  *ngIf="!col.isClickable && !col.isStarRating">
+              {{data[col.data]}}
+              <!-- class="pop-over-wraper"<span class="pop-over">
+                <span>CCSS.MATH.CONTENT.4.OA.A.1
+                </span>
+              </span> -->
+            </span>
             <span *ngIf="col.isClickable">
               <div *ngFor="let action of data[col.data]">
                 <a style="font-style: bold;color:#fed600" class="ml-2" (click)="onRowClick(data,action)">{{ action

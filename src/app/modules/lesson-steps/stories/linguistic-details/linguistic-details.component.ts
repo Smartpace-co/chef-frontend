@@ -12,6 +12,8 @@ export class LinguisticDetailsComponent implements OnInit {
   lessonHederConfig = {};
   assignmentId: string;
   lessonData: any;
+  linguisticList = [];
+  slideConfig;
   constructor(private router: Router, private utilityService: UtilityService, private toast: ToasterService, private studentService: StudentService) {
     this.lessonHederConfig['stepBoard'] = null;
   }
@@ -44,6 +46,8 @@ export class LinguisticDetailsComponent implements OnInit {
       (response) => {
         if (response && response.data) {
           this.lessonData = response.data.lesson;
+          this.linguisticList = response.data.lesson.goodbyeLinguistic ? response.data.lesson.goodbyeLinguistic.match(/.{1,154}(\s|$)/g) : undefined;
+          this.getSliderConfig();
         }
       },
       (error) => {
@@ -52,7 +56,17 @@ export class LinguisticDetailsComponent implements OnInit {
       }
     );
   }
+  getSliderConfig(): void {
+    this.slideConfig = {
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      nextArrow: '<div class=\'nav-btn next-slide\'></div>',
+      prevArrow: '<div class=\'nav-btn prev-slide\'></div>',
+      dots: this.linguisticList && this.linguisticList.length > 1 ? true : false,
+      infinite: false,
+    };
 
+  }
   /**
   * on Next click event
  */

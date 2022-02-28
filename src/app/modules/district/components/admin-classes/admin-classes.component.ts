@@ -131,6 +131,8 @@ export class AdminClassesComponent implements OnInit {
   accessCodeForm: FormGroup;
   activateUserData: any
   closeModal1;
+  sortBy;
+  classStatus;
   constructor(
     private router: Router,
     private toast: ToasterService,
@@ -142,9 +144,9 @@ export class AdminClassesComponent implements OnInit {
     this.activateUserData = JSON.parse(window.sessionStorage.getItem("currentUser"))
     this.getAllClassList();
     this.getSchoolList();
-    this.getAllActiveTeachers();
+    this.getAllActiveTeachers(undefined,false);
     this.getAllGradeList();
-    this.getStudentList();
+    this.getStudentList(undefined,false);
     this.getAllLearningStandards();
     this.createClassForm = new FormGroup({
       school: new FormControl(''),
@@ -165,8 +167,8 @@ export class AdminClassesComponent implements OnInit {
   /**
  * API call to get all classes.
  */
-  getAllClassList(filter?: any, sortBy?: string): void {
-    this.districtService.getAllClasses(filter, sortBy).subscribe(
+  getAllClassList(): void {
+    this.districtService.getAllClasses(this.classStatus, this.sortBy).subscribe(
       (response) => {
         if (response && response.data && response.data.rows) {
           this.classList = _.map(response.data.rows, item => {
@@ -235,21 +237,37 @@ export class AdminClassesComponent implements OnInit {
       this.districtService.verifyMaxUserCountClass(this.activateUserData.id, this.activateUserData.role.id).subscribe((res) => {
         if(res.status==200)
         {
-            this.closeModal = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true, windowClass: 'create-class-modal' });
-        }       
+            this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true,windowClass: 'create-class-modal' }).result.then((result) => {
+              this.closeResult = `Closed with: ${result}`;
+              if(result === 'Save'){
+                this.onSave();
+              }else{
+                this.resetForm();
+              }
+            }, (reason) => {
+              this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+              this.resetForm();
+            });
+        }
       },
       (error) => {
         this.closeModal1 = this.modalService.open(this.proceedMembershipClassModal, { ariaLabelledBy: 'modal-basic-title', centered: true, windowClass: 'proceed-membership-class-modal' });
       });
     }
   }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
   openAccessModal(content)
   {
       this.closeModal = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true, windowClass: 'access-code-modal' });
-  }
-  closeOpenModal() {
-    this.closeModal.close();
-    this.resetForm();
   }
 
   resetForm() {
@@ -262,9 +280,11 @@ export class AdminClassesComponent implements OnInit {
     this.selectedStudentValue = [];
     this.selectedValue = [];
     this.selectedTeacherValue = [];
+    this.getStudentList(undefined,false);
+    this.getAllActiveTeachers(undefined,false);
   }
   editClass(item: any, action?: any): void {
-    this.router.navigate(['/district/class-details'], { queryParams: { id: item.classId, action } });
+    this.router.navigate(['/district/class-details'], { queryParams: { id: item.classId, action : action || item.action } });
   }
 
   onSave(): void {
@@ -300,7 +320,7 @@ export class AdminClassesComponent implements OnInit {
         (data) => {
           if (data) {
             this.toast.showToast(`${formData.title} : Class added successfully.`, '', 'success');
-            this.closeOpenModal();
+            this.resetForm();
             this.getAllClassList();
           }
         }, (error) => {
@@ -311,10 +331,8 @@ export class AdminClassesComponent implements OnInit {
     }
   }
 
-  getAllActiveTeachers(schoolId?: any): void {
-    this.filter = [];
-    this.filter.push(1, schoolId)
-    this.districtService.getAllTeacher(this.filter).subscribe(
+  getAllActiveTeachers(schoolId?: any,existInSchool?:boolean): void {
+    this.districtService.getAllTeacher(1,schoolId,undefined,existInSchool).subscribe(
       (response) => {
         if (response && response.data && response.data.rows) {
           this.teacherList = _.map(response.data.rows, item => {
@@ -394,8 +412,8 @@ export class AdminClassesComponent implements OnInit {
    * To get student list.
    *
    */
-  getStudentList(): void {
-    this.districtService.getAllStudents(1).subscribe(
+  getStudentList(sId?:any,existInSchool?:any): void {
+    this.districtService.getAllStudents(1,undefined,undefined,sId,existInSchool).subscribe(
       (response) => {
         if (response && response.data && response.data.rows) {
           this.allStudentList = _.map(response.data.rows, item => {
@@ -507,25 +525,26 @@ export class AdminClassesComponent implements OnInit {
 
   classFilter(item: any): void {
     this.classesListtitle = item.menu;
-    if (item && item.id) {
-      this.getAllClassList(item.id);
-    } else {
-      this.getAllClassList();
-    }
+    this.classStatus = item.id ? item.id : undefined;
+    this.getAllClassList();
   }
   gradeFilter(event) {
     this.SortByGradeTitle = event.menu;
-    if (event && event.value) {
-      this.getAllClassList(undefined, event.value);
-    } else {
-      this.getAllClassList();
-    }
+    this.sortBy = event.value ? event.value : undefined;
+    this.getAllClassList();
   }
   schoolChange(event) {
     this.schoolTitle = event.menu;
     this.createClassForm.get('school').setValue(event);
     if (event && event.id) {
       this.getAllActiveTeachers(event.id);
+      this.getStudentList(event.id);
+      this.selectedTeacher = null;
+      this.selectedStandard = null;
+      this.selectedStudent = null;
+      this.selectedStudentValue = [];
+      this.selectedValue = [];
+      this.selectedTeacherValue = [];
     }
   }
   onProceed() {

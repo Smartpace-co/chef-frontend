@@ -100,7 +100,7 @@
         "profile": "Profile",
         "setting": "Setting",
         "help": "Help",
-        "signout": "Signout"
+        "signout": "Sign Out"
       }
     },
     "district-profile": {
@@ -129,7 +129,7 @@
           "label": "Phone",
           "placeholder": "Enter phone number",
           "required": "Phone number is required",
-          "pattern": "Phone number is not valid(Format - (000)-000-0000)",
+          "pattern": "Phone number is not valid. (Required length is 6 to 18 digits)",
           "minlength": "Phone number is not valid(Reuired Length is 10 digit)",
           "validate": "Phone number already exists"
         },
@@ -168,7 +168,7 @@
           "label": "Phone",
           "placeholder": "Enter phone number",
           "required": "Phone number is required",
-          "pattern": "Phone number is not valid(Format - (000)-000-0000)",
+          "pattern": "Phone number is not valid. (Required length is 6 to 18 digits)",
           "minlength": "Phone number is not valid(Required Length is 10 digit)",
           "validate": "Phone number already exists"
         }
@@ -198,7 +198,7 @@
       "address-same": "Use same school address",
       "emergency-label": "Emergency contact no",
       "emergency-required": "Emergency contact number is required",
-      "emergency-valid": "Emergency contact number is not valid(Format - (000)-000-0000)",
+      "emergency-valid": "Emergency contact number is not valid. (Required length is 6 to 18 digits)",
       "emergency-digit-valid": "Emergency contact number is not valid(Required length is 10,12,13 digit)",
       "emergency-length": "Emergency contact number is not valid(Reuired Length is 10 digit)",
       "school-details": {
@@ -250,8 +250,8 @@
         "contact": {
           "label": "Contact Number",
           "placeholder": "Enter Contact Number",
-          "valid": "Contact number not valid(Format - (000)-000-0000)",
-          "length": "Contact number not valid(Required Length is 10 digit)",
+          "valid": "Contact number not valid. (Required length is 6 to 18 digits)",
+          "length": "Contact number not valid(Required minimum length is 10 digit)",
           "required": "Contact Number Is Required",
           "digit-validate": "Contact number is not valid(Required length is 10,12,13 digit)",
           "exist": "Contact number already exists"
@@ -371,14 +371,16 @@
       "your-membership-label": "Current Plan Information",
       "subscription-type-and-users-label": "Subscription Type and Users",
       "users-label": "Users",
-      "renew-date-label": "Renew Date Label"
+      "renew-date-label": "Renew Date"
     },
     "billing": {
       "billing-desc": "Your billing history",
       "change-payment-method": "Change Payment Method",
       "print-report": "Print Report",
+      "download-pdf": "Download as PDF",
+      "download-excel": "Download as Excel",
       "success": "Success",
-      "fail": "Fail"
+      "fail": "Failed"
     },
     "edit-membership": {
       "label": "Edit Membership",
@@ -586,13 +588,14 @@
       "filter": {
         "contries": "Countries",
         "culinary-technique": "Culinary Technique",
-        "cook-time": "Cook Time",
+        "cook-time": "Duration of the Lesson",
         "seasonal": "Seasonal"
       },
       "lesson-title": "Lesson Title",
       "recipe": "Recipe",
       "heading-text": "Find your next delicious lesson",
       "featured": "Featured",
+      "all":"All",
       "assign": "Assign",
       "full": "Full",
       "languages": "Languages",
@@ -813,7 +816,8 @@
       "completed-on": "Completed on",
       "lesson-report": "Lesson Report",
       "start": "Start",
-      "swipe-or-click-arrow": "swipe or click arrow",
+      "swipe-or-click-arrow": "Swipe or click arrow",
+      "please-scroll-down-label":"Please scroll down to see more assignments.",
       "to-explore-the-globe": "to explore the globe",
       "scroll-down-label": "Scroll down to go to next step",
       "print-page": "Print Page",
@@ -824,6 +828,7 @@
       "mins-label": "Mins",
       "lesson-steps": {
         "summary-view": {
+	        "goal-for-lesson":"Goals for This Lesson",
           "overview": "Overview",
           "find": "Find",
           "philippines": "Philippines",
@@ -884,16 +889,17 @@
           "nine-label": "9"
         },
         "let-start-text": "Now we know about today's recipe,let's get cooking!",
-        "yes-iam-ready": "Yes, I am ready",
-        "go-over-the-recipe-again": "Go over it again",
+        "yes-iam-ready": "Yes, I am ready!",
+        "go-over-the-recipe-again": "Go over it again.",
         "season": "Season",
         "nutrients": "Nutrients",
         "little-chef": "Little Chef",
         "big-chef": "Big Chef",
         "experiment-warning-label": "WARNING! Perform this experiment only under the supervision of a Big Chef.",
         "start-experiment-text": "Should we go to the next step?",
-        "go-exp-again": "Go over it again",
+        "go-exp-again": "Go over it again.",
         "response": "Response",
+        "please-try-again":"Please try again.",
         "experiment-question-label": "Experiment Question",
         "take-action-activity": "Take Action Activity",
         "hint": "Hint",
@@ -905,7 +911,8 @@
         "no-stamps": "There are no any new stamps.",
         "select-to-earn-stamps": "Please select to earn more stamps.",
         "congratulations-label": "Congratulations !",
-        "you-have-earned-these": "You have earned these stamps."
+        "you-have-earned-these": "You have earned these stamps.",
+        "learn-more-label":"Learn more"
       }
     },
     "lesson-report": {
@@ -928,7 +935,8 @@
     },
     "explore-lessons": {
       "explore": "Explore",
-      "recipes": "Recipes"
+      "recipes": "Recipes",
+      "filter-by-student-grade":"Filter by Student Grade"
     },
     "activities-and-games": {
       "mini-games": {

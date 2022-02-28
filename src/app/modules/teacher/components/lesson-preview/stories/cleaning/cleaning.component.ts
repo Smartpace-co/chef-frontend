@@ -10,7 +10,7 @@ import { TeacherService } from '@modules/teacher/services/teacher.service';
   styleUrls: ['./cleaning.component.scss']
 })
 export class CleaningComponent implements OnInit,OnDestroy {
-
+ 
   scrollTop = 0;
   isChecked: boolean;
   lessonHederConfig = {};
@@ -21,6 +21,7 @@ export class CleaningComponent implements OnInit,OnDestroy {
   sessionData: any;
   isVisibleNext: boolean;
   lessonData : any;
+  defaultLessonImage: string;
   constructor(private router: Router, private toast: ToasterService,
      private studentService: StudentService, private utilityService: UtilityService,
      private teacherService : TeacherService) {
@@ -29,6 +30,7 @@ export class CleaningComponent implements OnInit,OnDestroy {
       stepTitle: 'Cleaning',
       stepLogo: './assets/images/wash-your-hands.png'
     }
+    this.defaultLessonImage = './assets/images/default-lesson.png';
   }
 
   ngOnInit(): void {

@@ -123,12 +123,12 @@
                             flex-wrap: wrap;
                             .check-wrapper {
                                 margin: 0 1rem 1.8rem;
-    
                                 label {
                                     font-size: 1.6rem;
                                     font-weight: 600;
                                     color: $white;
                                     margin-top: -0.4rem;
+                                    word-break: break-word;
                                 }
                             }
                         }

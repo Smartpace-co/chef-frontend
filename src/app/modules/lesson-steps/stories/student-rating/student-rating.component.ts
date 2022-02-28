@@ -49,7 +49,11 @@ export class StudentRatingComponent implements OnInit {
     this.studentService.getAssignedLessonById(parseInt(this.assignmentId)).subscribe(
       (response) => {
         if (response && response.data) {
-          this.assignmentTitle = response.data.assignmentTitle;
+          // if (this.lesson === 'Explore') {
+            this.assignmentTitle = response.data.recipe.recipeTitle;
+          // } else {
+          //   this.assignmentTitle = response.data.assignmentTitle;
+          // }
           this.isLoad = true;
         }
       },

@@ -26,11 +26,10 @@
           <div class="form-group">
             <div class="input-group">
               <input class="form-control" placeholder="{{'table-search-filter-container.search'|translate}}" ids="dob"
-                name="dp" fieldControl="dob" (change)="onChange()" (dateSelect)="onDateSelection()"
-                [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedSearchValue" ngbDatepicker
-                #d="ngbDatepicker">
+                (keyup)="onChange()" name="d2" (dateSelect)="onDateSelection()" [ngModelOptions]="{standalone: true}"
+                [(ngModel)]="selectedSearchValue" ngbDatepicker #d2="ngbDatepicker" [minDate]="{year: 1980, month:1, day: 1}">
               <div class="input-group-append">
-                <button class="calendarIcon" (click)="d.toggle()" type="button">
+                <button class="calendarIcon" (click)="d2.toggle()" type="button">
                   <fa-icon [icon]="Calendar"></fa-icon>
                 </button>
               </div>
@@ -42,7 +41,7 @@
             <ng-container *ngIf="allJournalList && allJournalList.length>0; else noJournal">
               <ul class="action-details" *ngFor="let item of allJournalList">
                 <li>
-                  <div class="add-date pb-1">{{item.createdAt | date:'h:mm a , dd/MM/yyyy'}}</div>
+                  <div class="add-date pb-1">{{item.createdAt | date:'h:mm a , MM/dd/yyyy'}}</div>
                   <div class="add-text">{{item.note}}</div>
                 </li>
               </ul>

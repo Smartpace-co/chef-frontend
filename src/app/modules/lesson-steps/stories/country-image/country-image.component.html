@@ -1,0 +1,5 @@
+<app-lessons-headerbar [lessonHederConfig]="lessonHederConfig"></app-lessons-headerbar>
+<div *ngIf="isLoad" class="story-body-1" [ngStyle]="styleOb">
+    <app-scroll-down></app-scroll-down>
+</div>
+<app-lessons-footer [showPrevious]="showPrevious" (onNext)="onNext()"></app-lessons-footer>

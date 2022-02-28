@@ -243,7 +243,6 @@ export class RosterGroupTabsComponent implements OnInit {
           element.groupName = '';
         }
       })
-      console.log("student indo", this.StudentList);
 
       this.filterStudentList = [];
       this.filterStudentList = _.cloneDeep(this.StudentList);
@@ -421,7 +420,6 @@ export class RosterGroupTabsComponent implements OnInit {
 
         let colorData = this.colorList.filter(obj => obj.colorCode == '#EE204D')[0];
 
-        console.log(colorData);
         this.createClass.get('groupColorId').setValue(colorData.id);
         this.groupColorId = colorData.id;
         this.colorvalue = colorData.colorCode;
@@ -504,7 +502,6 @@ export class RosterGroupTabsComponent implements OnInit {
   }
 
   editGroupModel(content, item) {
-    console.log("itemdata", item);
     this.classLabel = "edit";
     this.groupItem = item;
     this.groupId = item.id;
@@ -535,7 +532,6 @@ export class RosterGroupTabsComponent implements OnInit {
     this.teacherService.validateColorAndTitle(obj).subscribe(
       (data) => {
         if (data.status === 200) {
-          console.log("createobj", obj)
           obj["studentIds"] = this.studentID;
           obj["status"] = this.createClass.value.status;
           this.teacherService.postNewGroup(obj).subscribe(
@@ -558,7 +554,6 @@ export class RosterGroupTabsComponent implements OnInit {
     );
   }
   selectionChanged(event) {
-    console.log(event.value);
     this.createClass.get('groupColorId').setValue(event.value.menu);
     this.groupColorId = event.value.id;
     this.colorvalue = event.value.colorCode;

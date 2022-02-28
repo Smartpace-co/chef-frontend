@@ -1,20 +1,21 @@
 <app-ingreditent-nav></app-ingreditent-nav>
 <app-lessons-headerbar [lessonHederConfig]="lessonHederConfig"></app-lessons-headerbar>
 <div class="cooking-preparation-1">
-  <!-- <app-scroll-down></app-scroll-down> -->
   <div class="container">
     <div class="final-editaion">
       <div class="content-wrapper card-wihtout-header-blue">
         <ul class=""> 
           <li *ngFor="let item of recipesPreparationList">
             <div class="legend-card-white btn-card-white cooking-preparation-wrapper">
-              <legend *ngIf="item.isBigChef">{{'student.assigned-lessons.lesson-steps.big-chef'|
-                translate }}
-                <span class="profile-pic"><img src="{{item.isBigChef}}" alt="" class="img-fluid" /></span>
-              </legend>
-              <legend *ngIf="item.isLittleChef" class="legend-2">{{'student.assigned-lessons.lesson-steps.little-chef'| translate }}
-                <span class="profile-pic"><img src="{{item.isLittleChef}}" alt="" class="img-fluid" /></span>
-              </legend>
+              <div _ngcontent-ycq-c22="" class="chef-label-wraper">
+                <legend *ngIf="item.isBigChef" class="legend-big">{{'student.assigned-lessons.lesson-steps.big-chef'|
+                  translate }}
+                  <span class="profile-pic"><img src="{{item.isBigChef}}" alt="" class="img-fluid" /></span>
+                </legend>
+                <legend *ngIf="item.isLittleChef" class="legend-little">{{'student.assigned-lessons.lesson-steps.little-chef'| translate }}
+                  <span class="profile-pic"><img src="{{item.isLittleChef}}" alt="" class="img-fluid" /></span>
+                </legend>
+              </div>
               <div class="description">
                 <span class="image"><img src="{{item.image}}" alt="" class="img-fluid" /></span>
                 <span class="description-info">

@@ -13,6 +13,8 @@ import { TeacherService } from '@modules/teacher/services/teacher.service';
 export class LearningObjectiveComponent implements OnInit,OnDestroy {
   lessonHederConfig = {};
   isVisibleNext = false;
+  defaultRecipeImg: string;
+  recipeImg: string;
   showPrevious = false; // To hide previous button
   slideConfig = {
     slidesToShow: 1,
@@ -38,6 +40,7 @@ export class LearningObjectiveComponent implements OnInit,OnDestroy {
     private utilityService: UtilityService,
     private teacherService:TeacherService) {
     this.lessonHederConfig['stepBoard'] = null;
+    this.defaultRecipeImg = './assets/images/nsima-bent-icon.png';
   }
 
   ngOnInit(): void {
@@ -46,9 +49,14 @@ export class LearningObjectiveComponent implements OnInit,OnDestroy {
     this.sessionData = JSON.parse(window.sessionStorage.getItem('currentUser'));
     this.lessonData = this.teacherService.getAssignLessonData();
     this.assignmentTitle =  this.lessonData.assignmentTitle;
+    this.recipeImg = this.lessonData.recipe.recipeImage ? this.lessonData.recipe.recipeImage : this.defaultRecipeImg;
+
     this.learnObjString =  this.lessonData.lesson.learningObjectivesForStudent.replace(/&nbsp;|<[^>]+>/g, '');    
-    this.learningObjective = this.learnObjString.match(/.{1,220}/g);
-    this.countryBgImg = this.lessonData.recipe.country.backgroundImage;
+    this.learningObjective = this.learnObjString ? this.learnObjString.split(".") : undefined;
+    this.learningObjective = this.learningObjective.filter(e => e && e.trim() != "");
+   
+    // this.learningObjective = this.learnObjString.match(/.{1,220}/g);
+    // this.countryBgImg = this.lessonData.recipe.country.backgroundImage;
     this.isLoad = true;
     this.teacherService.setTeachersHeader(true);
   }
@@ -63,4 +71,4 @@ export class LearningObjectiveComponent implements OnInit,OnDestroy {
   onNext(): void {
     this.router.navigate(['teacher/greeting']);
   }
-}
+} 

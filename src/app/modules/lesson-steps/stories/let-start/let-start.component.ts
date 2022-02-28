@@ -12,15 +12,12 @@ import { StudentService } from '@modules/student/services/student.service';
 export class LetStartComponent implements OnInit {
   lessonHederConfig = {};
   assignmentId: string;
-  isLoad = false;
-  countryBgImg;
   constructor(private router: Router, private utilityService: UtilityService, private studentService: StudentService, private toast: ToasterService) {
     this.lessonHederConfig['stepBoard'] = null;
   }
 
   ngOnInit(): void {
     this.assignmentId = localStorage.getItem('assignmentId');
-    this.getStudentData();
     let previousTime = this.utilityService.calculateTimeBetweenDates();
     this.updateLessonProgress(previousTime);
   }
@@ -41,22 +38,7 @@ export class LetStartComponent implements OnInit {
         this.toast.showToast(error.error.message, '', 'error');
       }
     );
-  }
-
-  getStudentData() {
-    this.studentService.getAssignedLessonById(parseInt(this.assignmentId)).subscribe(
-      (response) => {
-        if (response && response.data) {
-          this.countryBgImg = response.data.recipe.country.backgroundImage;
-          this.isLoad = true;
-        }
-      },
-      (error) => {
-        console.log(error);
-        this.toast.showToast(error.error.message, '', 'error');
-      }
-    );
-  }
+  } 
 
   /**
   * on Next click event
@@ -69,6 +51,6 @@ export class LetStartComponent implements OnInit {
    * on Previous click event
   */
   onPrevious(): void {
-    this.router.navigate(['student/recipe-content']);
+    this.router.navigate(['/student/recipe-fact']);
   }
 }

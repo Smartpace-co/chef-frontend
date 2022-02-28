@@ -30,14 +30,16 @@ export class StudentAuthGuard implements CanActivate {
       state.url.includes('student/explore-lesson') ||
       state.url.includes('student/learning-objective') ||
       state.url.includes('student/summary-view') ||
+      state.url.includes('student/country-image') ||
+      state.url.includes('student/chef-introduction') ||
       state.url.includes('student/greeting') ||
       state.url.includes('student/introduction') ||
       state.url.includes('student/find-country') ||
       state.url.includes('student/country-location') ||
       state.url.includes('student/recipe-fact') ||
-      state.url.includes('student/recipe-content') ||
+      // state.url.includes('student/recipe-content') ||
       state.url.includes('student/linguistic-details') ||
-      state.url.includes('student/let-start') ||
+      // state.url.includes('student/let-start') ||
       state.url.includes('student/conversional-sentence') ||
       state.url.includes('student/safety-hygiene') ||
       state.url.includes('student/ingredient-list') ||

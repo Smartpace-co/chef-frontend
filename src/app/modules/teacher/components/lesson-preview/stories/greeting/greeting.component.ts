@@ -17,7 +17,16 @@ export class GreetingComponent implements OnInit,OnDestroy {
   assignmentData: any;
   lessonData:any;
   countryBgImg;
+  linguisticList = [];
   isLoad = false;
+  slideConfig = {
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    nextArrow: '<div class=\'nav-btn next-slide\'></div>',
+    prevArrow: '<div class=\'nav-btn prev-slide\'></div>',
+    dots: true,
+    infinite: false,
+  };
   constructor(private router: Router, private toast: ToasterService, 
     private utilityService: UtilityService, private studentService: StudentService,
     private teacherService : TeacherService) {
@@ -30,11 +39,12 @@ export class GreetingComponent implements OnInit,OnDestroy {
     this.sessionData = JSON.parse(window.sessionStorage.getItem('currentUser'));
     this.lessonData = this.teacherService.getAssignLessonData();
     this.assignmentData = this.lessonData.lesson;
-    this.countryBgImg = this.lessonData.recipe.country.backgroundImage;
+    this.linguisticList = this.lessonData.lesson.linguistic ? this.lessonData.lesson.linguistic.match(/.{1,154}(\s|$)/g) : undefined;
+    // this.countryBgImg = this.lessonData.recipe.country.backgroundImage;
     this.isLoad = true;
     this.teacherService.setTeachersHeader(true);
     
-  }
+  } 
  
   ngOnDestroy(){
     this.teacherService.setTeachersHeader(false);
@@ -43,7 +53,7 @@ export class GreetingComponent implements OnInit,OnDestroy {
   * on Next click event
  */
   onNext(): void {
-    this.router.navigate(['teacher/recipe-fact']);
+    this.router.navigate(['teacher/chef-introduction']);
   }
 
   /**

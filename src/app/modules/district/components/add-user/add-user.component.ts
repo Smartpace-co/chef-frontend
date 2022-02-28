@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -28,6 +29,7 @@ export class AddUserComponent implements OnInit {
   constructor(private router: Router,
     private toast: ToasterService,
     private authService: AuthService,
+    private location:Location,
     private districtService: DistrictService,
     private activatedRoute: ActivatedRoute) {
     this.userID = this.activatedRoute.snapshot.queryParams && this.activatedRoute.snapshot.queryParams.id;
@@ -43,7 +45,7 @@ export class AddUserComponent implements OnInit {
       lastName: new FormControl("", [Validators.required, Validators.pattern(CustomRegex.namePatteren)]),
       firstName: new FormControl("", [Validators.required, Validators.pattern(CustomRegex.namePatteren)]),
       emailAddress: new FormControl("", [Validators.required, Validators.pattern(CustomRegex.emailPattern), this.validateEmail.bind(this)]),
-      contactNumber: new FormControl("", [Validators.required, Validators.pattern(CustomRegex.phoneNumberPattern), Validators.minLength(10), this.validPhoneNumber.bind(this)]),
+      contactNumber: new FormControl("", [Validators.required, Validators.pattern(CustomRegex.phoneNumberPattern), this.validPhoneNumber.bind(this)]),
       status: new FormControl('active', [Validators.required]),
     });
   }
@@ -127,9 +129,9 @@ export class AddUserComponent implements OnInit {
     if (control && control.value) {
       let isValid = control.value.match(CustomRegex.phoneNumberPattern);
       let contactNo = control.value;
-      if (control.value.length === 11 || control.value.length > 13) {
-        return { 'digitValidate': true }
-      }
+      // if (control.value.length === 11 || control.value.length > 13) {
+      //   return { 'digitValidate': true }
+      // }
       if (isValid && isValid.input) {
         if (this.isEdit && this.currentUser && this.currentUser.phone_number === control.value) {
           contactNo = undefined;
@@ -157,7 +159,8 @@ export class AddUserComponent implements OnInit {
   }
 
   onCancel(): void {
-    this.router.navigate(['/district/admin-user']);
+    this.location.back();
+    // this.router.navigate(['/district/admin-user']);
   }
 
   onSave(): void {

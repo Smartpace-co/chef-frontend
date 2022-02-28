@@ -69,7 +69,7 @@ export class SafetyDragndropComponent implements OnInit {
 
     if (this.questionsAttempted == this.assignmentQuestion.length) {
       this.router.navigateByUrl('/');
-    } else if (this.questionsAttempted > 0) {
+    } else if (this.questionsAttempted >= 0) {
       this.i++;
       this.lessonHederConfig['stepBoard'] = {
         stepTitle: 'Level '+this.assignmentQuestion[this.i].level,
@@ -165,10 +165,40 @@ export class SafetyDragndropComponent implements OnInit {
           this.answerArray = [];
           this.fillArray = false;
         }
+        else {
+      }
+      } else {
+        let xyz = 0
+        this.finalAnswerArray.forEach(element => {
+          if (element.answer != "") {
+            // this.allFieldFilled++
+            xyz++
+          }
+        });
+        if (counter != this.assignmentQuestion[i].subQuestions.length && xyz == this.assignmentQuestion[i].subQuestions.length) {
+          this.toast.showToast('Please try again', '', 'error');
+          this.reset();
+          break;
+
+        }
       }
     }
   }
 
+  reset() {
+    for (let i = 0; i < this.assignmentQuestion[this.i].options.length; i++) {
+      for (let j = 0; j < this.answerArray.length; j++) {
+
+        if (this.assignmentQuestion[this.i].options[i].id == this.answerArray[j].answerID) {
+
+          document.getElementById(i.toString()).appendChild(this.answerArray[j].answerObj);
+          this.answerArray[j].answerObj = '';
+          this.answerArray[j].answerID = '';
+      }
+    }
+  }
+
+  }
   dropIntoOption(ev, option) {
     ev.preventDefault();
     this.optionNumber = option;

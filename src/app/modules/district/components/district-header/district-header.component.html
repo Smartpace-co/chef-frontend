@@ -13,7 +13,7 @@
                 </li>-->
                 <li class="notification">
                     <a routerLink="/district/notifications">
-                        <span class="notification__count">{{count}}</span>
+                        <span *ngIf="count" class="notification__count" [innerText]="count"></span>
                         <img src="./assets/images/notification.svg" class="img-fluid" />
                     </a>
                 </li> 
@@ -34,29 +34,24 @@
         </div>
         <div class="collapse navbar-collapse mobile-nav" id="navbarNavDropdown">
             <ul class="top-header">
-                <!-- <li class="search">
-                    <a>
-                        <fa-icon [icon]="explore"></fa-icon>
-                    </a>
-                </li>
                 <li class="notification">
-                    <a>
-                        <span class="notification__count">3</span>
+                    <a routerLink="/district/notifications">
+                        <span *ngIf="count" class="notification__count" [innerText]="count"></span>
                         <img src="./assets/images/notification.svg" class="img-fluid" />
                     </a>
-                </li> -->
+                </li>
             </ul>
             <ul class="profile-nav">
                 <li>
                     <div class="teacher-info">
                         <div class="teacher-image">
-                            <img src="./assets/images/teacher.png" alt="" class="img-fluid" />
+                            <img src="{{districtDetails?.img}}" alt="" class="img-fluid" />
                         </div>
-                        <span class="teaher-name">Ms. Paula</span>
+                        <span class="teaher-name">{{districtDetails?.name}}</span>
                     </div>
                     <ul class="teacher-menu">
-                        <li *ngFor="let item of ProfileMenuList">
-                            <a [routerLink]="item.link">
+                        <li *ngFor="let item of ProfileMenuList" (click)="onDropdownValueChange(item)">
+                            <a>
                                 <fa-icon [icon]="item.icon"></fa-icon>
                                 <span>{{item.menu}}</span>
                             </a>

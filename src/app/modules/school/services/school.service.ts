@@ -169,13 +169,13 @@ export class SchoolService {
   /**
    * To get all teacher.
    */
-  getAllTeacher(filter: any, sortBy?: string): Observable<any> {
+  getAllTeacher(filter: any, schoolId?: any, sortBy?: string): Observable<any> {
     let params = new HttpParams();
-    if (filter[0] && filter[1]) {
-      params = params.append('status', filter[0]);
-      params = params.append('school_id', filter[1]);
-    } else {
-      params = params.append('school_id', filter);
+    if (filter) {
+      params = params.append('status', filter);
+    }
+    if (schoolId) {
+      params = params.append('school_id', schoolId);
     }
     if (sortBy) {
       params = params.append('sort_by', 'teacher_id');
@@ -223,14 +223,13 @@ export class SchoolService {
   /**
    * To get all class.
    */
-  getAllClasses(filter: any, sortBy?: string): Observable<any> {
+  getAllClasses(filter: any, schoolId?: any, sortBy?: string): Observable<any> {
     let params = new HttpParams();
     if (filter) {
-      if (filter == 1 || filter == 0) {
-        params = params.append('status', filter);
-      } else {
-        params = params.append('school_id', filter);
-      }
+      params = params.append('status', filter);
+    }
+    if (schoolId) {
+      params = params.append('school_id', schoolId);
     }
 
     if (sortBy) {
@@ -350,12 +349,12 @@ export class SchoolService {
   /**
    * To get student relationship list.
    */
-  getStudentRelationList(filter: any): Observable<any> {
-    let params = new HttpParams();
-    if (filter) {
-      params = params.append('type', filter);
-    }
-    return this.http.get<any[]>(`${API_USERS_URL}/master/relation`, { params: params });
+  getStudentRelationList(): Observable<any> {
+    // let params = new HttpParams();
+    // if (filter) {
+    //   params = params.append('type', filter);
+    // }
+    return this.http.get<any[]>(`${API_USERS_URL}/master/relation`);
   }
   /**
    * To get all student.
@@ -430,7 +429,6 @@ export class SchoolService {
    * @param data
    */
   insertStudentBulkData(data: any): Observable<any> {
-    console.log(data);
     return this.http.post(`${API_USERS_URL}/student/file`, data, {
       reportProgress: true,
       observe: 'events'
@@ -717,20 +715,6 @@ export class SchoolService {
     params=params.append('duration', duration);
     return this.http.get<any[]>(`${API_USERS_URL}/teacher`, { params: params });
   }
-
-  getNotifications(entityId: any, roleId: any): Observable<any> {
-    return this.http.get<any[]>(`${API_USERS_URL}/notification/${entityId}/${roleId}`);
-  }
-
-  getNotificationsUnreadCount(entityId: any, roleId: any): Observable<any> {
-    return this.http.get<any[]>(`${API_USERS_URL}/notificationCount/${entityId}/${roleId}`);
-  }
-/**
-   * To update notification.
-   */
- updateNotification(id: number, rid: any): Observable<any> {
-  return this.http.put(`${API_USERS_URL}/notification/seen/${id}/${rid}`,{});
-}
 
 showContactInformationToStudent(): Observable<any> {
   return this.http.get<any[]>(`${API_USERS_URL}/showContactInformationToStudent`);

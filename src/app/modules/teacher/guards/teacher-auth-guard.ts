@@ -88,7 +88,6 @@ export class TeacherAuthGuard implements CanActivate {
       state.url.includes('teacher/edit-membership') ||
       state.url.includes('teacher/billing')
     ) {
-      console.log("hi teacher")
       if (this.authService.isUserSignedIn() === true && this.authService.getCurrentUserRole() === 'teacher') {
         return true;
       } else {

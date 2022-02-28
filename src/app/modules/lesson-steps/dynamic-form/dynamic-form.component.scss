@@ -787,11 +787,14 @@
     // display: flex;
     // align-items: flex-end;
     padding-top: 2rem;
+    padding-bottom: 5rem;
     @include breakpoint(tabs){
-      padding-top: 5rem
+      padding-top: 5rem;
+      
     }
     @include breakpoint(mobile) {
-      min-height: calc(100vh - 33rem);
+      min-height: calc(100vh - 0rem);
+      padding-bottom: 15rem;
     }
     .container{
       @include breakpoint(tabs){
@@ -889,7 +892,7 @@
             @include breakpoint(mobile) {
               max-width: 20rem;
               right: -7rem;
-              bottom: -4rem;
+              bottom: -19rem;
             }
           }
         }

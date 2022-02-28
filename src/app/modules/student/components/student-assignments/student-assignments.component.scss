@@ -79,6 +79,11 @@
     }
     .assignment-wrapper {
       padding-top: 2rem;
+      padding-bottom: 3rem;
+      min-height: 25rem;
+      @include breakpoint(xtrasmallmobile){
+        min-height: 35rem;
+      }
       .class-assignment-list {
         display: flex;
         @include breakpoint(mobile) {
@@ -86,7 +91,7 @@
           margin-left: unset;
         }
         .legend-card-white {
-          margin-bottom: 3rem;
+          // margin-bottom: 3rem;
           // max-width: 39rem;
           min-width: 42rem;
           padding: 0rem 3rem;
@@ -138,6 +143,9 @@
               border-bottom: 0.2rem solid rgba($color: $blue-shade-2, $alpha: 0.1);
               @include breakpoint(mobile) {
                 padding-right: 0rem;
+              }
+              @include breakpoint(sm-mobile) {
+                margin-top: 1rem;
               }
             }
             p {
@@ -261,3 +269,4 @@
     }
   }
 }
+

@@ -76,7 +76,9 @@ export class IngredientListComponent implements OnInit {
                 icon: item.ingredient.images[0] ? item.ingredient.images[0].image : this.defaultIngredientImg,
                 quantity: item.quantity ? item.quantity : undefined,
                 unit: item && item.unitOfMeasurement ? item.unitOfMeasurement.unitOfMeasure : undefined,
-                name: item.ingredient.ingredientTitle
+                name: item.ingredient.ingredientTitle,
+                isOptional: item.isOptional,
+                isSpotlight: item.isSpotlight
               }
               return obj;
             }

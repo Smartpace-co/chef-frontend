@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { SchoolService } from '../../services/school.service';
+import { UtilityService } from '@appcore/services/utility.service';
 import { faEdit, faDownload } from '@fortawesome/free-solid-svg-icons';
 import { ToasterService } from '@appcore/services/toaster.service';
+import { NotificationService } from '@shared/services/notification.service';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-notification',
@@ -14,66 +16,83 @@ export class NotificationComponent implements OnInit {
   id: any;
   roleId: any;
   faDownload = faDownload;
-  constructor(private schoolService: SchoolService,private toast: ToasterService) {}
+  constructor(private notificationService: NotificationService, private toast: ToasterService, public utiltiService: UtilityService) { }
   billingList = [];
-  count:any
-  notifications:any
+  count: any
+  notifications: any
+  page = 1;
+  pageSize = 10;
 
   ngOnInit(): void {
     this.currentUser = JSON.parse(window.sessionStorage.getItem('currentUser'));
-    if (this.currentUser && this.currentUser.parentId) {
-      this.id = this.currentUser.parentId;
-    } else {
-      this.id = this.currentUser.id;
-    }
-
-    this.getNotificationCount(this.id);
-    this.getNotifications(this.id);
-    this.updateNotificationStatus(this.id);
-
+    // if (this.currentUser && this.currentUser.parentId) {
+    //   this.id = this.currentUser.parentId;
+    // } else {
+    //   this.id = this.currentUser.id;
+    // }
+    this.id = this.currentUser.id;
+    this.getCount();
   }
 
-  getNotificationCount(schoolId)
-  {
-        this.schoolService.getNotificationsUnreadCount(schoolId,this.currentUser.role.id).subscribe(
+  /**
+     * To get notification count.
+     */
+  getCount() {
+    this.notificationService.getNotificationCount(this.id, this.currentUser.role.id).subscribe(
       (res) => {
-        if(res && res.data)  
-          this.count=res.data;
-        else
-         this.count=0;
-      });
-  }
-
-  getNotifications(schoolId){
-    this.schoolService.getNotifications(schoolId,this.currentUser.role_id).subscribe(
-      (res) => {
-        if(res && res.data)
-        {
-         this.notifications=res.data;
+        if (res && res.data) {
+          this.count = res.data;
+        } else {
+          this.count = undefined;
         }
+        this.getNotificationList();
+      }, (error) => {
+        console.log(error);
+        this.toast.showToast(error.error.message, '', 'error');
       });
   }
-/**
-   * To get notification list.
-   */
- updateNotificationStatus(schoolId): void {
-  this.schoolService.updateNotification(schoolId, this.currentUser.role_id).subscribe(
-    (response) => {
-      // console.log("Res",response);
-      this.toast.showToast('Notification seen', '', 'success');
-    
-    },
-    (error) => {
-      console.log(error);
-      this.toast.showToast(error.error.message, '', 'error');
-    }
-  );
-}
-/**
-   * compare dates.
-   * @param data 
-   */
- isSameDay(data: any): boolean {
-  return new Date(data.createdAt).getDay() === new Date().getDay();
-}
+
+  /**
+     * To get notification list.
+     */
+  getNotificationList() {
+    this.notificationService.getNotificationDetails(this.id, this.currentUser.role_id).subscribe(
+      (res) => {
+        if (res && res.data) {
+          this.notifications = res.data;
+          if (this.count > 0) {
+            this.updateNotificationStatus();
+          }
+        }
+      },
+      (error) => {
+        console.log(error);
+        this.toast.showToast(error.error.message, '', 'error');
+      }
+    );
+  }
+  /**
+     * To update notification status.
+     */
+  updateNotificationStatus(): void {
+    let seenNotificationIds = [];
+    _.filter(this.notifications, item => {
+      if (item && !item.isSeen) {
+        seenNotificationIds.push(item.id);
+      }
+    });
+    this.notificationService.updateNotification(this.id, this.currentUser.role_id, seenNotificationIds).subscribe(
+      (response) => {
+
+      },
+      (error) => {
+        console.log(error);
+        this.toast.showToast(error.error.message, '', 'error');
+      }
+    );
+  }
+  /**
+     * compare dates.
+     * @param data 
+     */
 }

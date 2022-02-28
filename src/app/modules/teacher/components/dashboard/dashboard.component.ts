@@ -108,7 +108,6 @@ export class DashboardComponent implements OnInit {
           strokeDashoffset: (100 - (100 - res.data.belowAveragePercent) + parseInt(this.donutChart[1].strokeDashoffset)).toString()
         });
 
-        console.log(this.donutChart);
       }
 
     },

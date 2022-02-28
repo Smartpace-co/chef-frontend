@@ -30,11 +30,24 @@
            text-align: center;
            z-index: 9;
            position: relative;
-           .speech-tooltip{
-            .message{
-              h6{
-                @include breakpoint(tabs){
-                  font-size: 1.6rem;
+           .speech-tooltip {
+            .speech-tooltip-inner {
+              min-width: 50rem;
+              @include breakpoint(mobile) {
+                min-width: 26rem;
+              }
+              .message {
+                overflow: unset;
+                li {
+                  p {
+                    font-size: 1.6rem;
+                    font-weight: 700;
+                    color: $black;
+                    padding: 0;
+                    @include breakpoint(tabs) {
+                      font-size: 1.3rem;
+                    }
+                  }
                 }
               }
             }

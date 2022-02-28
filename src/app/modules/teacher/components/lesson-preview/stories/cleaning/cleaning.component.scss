@@ -1,42 +1,51 @@
 @import "../../../../../../../assets/styles/helpers/variables";
 @import "../../../../../../../assets/styles/helpers/mixins";
+ 
 
-.classCheck1{
-  visibility : visible !important;
-}
-.classCheck2{
-  visibility : hidden !important;
-}
-.cleaning-body{
+.cleaning-body {
   min-height: calc(100vh - 24.2rem);
   position: relative;
-  padding-top: 0rem;
-  display: flex;
-  align-items: flex-end;
+  padding-top: 10rem;
+  // display: flex;
+  // align-items: flex-end;
   overflow: hidden;
-  flex-wrap: wrap;
-  @include breakpoint(tabs) {
-    padding-top: 0rem;
-  }
+  // flex-wrap: wrap;
   @include breakpoint(mobile) {
     min-height: calc(100vh - 33rem);
   }
-  .final-editaion{
+  .cleaning-audio {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .final-editaion {
     position: relative;
-    padding: 15rem 0;
-    .content-wrapper{
+    padding-bottom: 15rem;
+    .content-wrapper {
       flex: 0 0 100%;
       max-width: 100%;
       position: relative;
-      ul{
-        padding: 6rem;
-        @include breakpoint(mobile){
-          padding: 6rem 2rem;
+      ul {
+        padding: 2rem;
+        @include breakpoint(mobile) {
+          padding: 1rem;
         }
-        li{
-          display: flex;
-          justify-content: center;
-          .check-mark{
+        .content-scroll {
+          overflow: auto;
+          max-height: 36rem;
+          padding: 4rem;
+          &::-webkit-scrollbar {
+            width: 0.5rem;
+          }
+          &::-webkit-scrollbar-thumb {
+            background: $yellow-shade-5;
+          }
+          @include breakpoint(mobile) {
+            padding: 6rem 0rem;
+          }
+          li {
+            display: flex;
+            justify-content: center;
+            .check-mark {
               position: relative;
               visibility: hidden;
               padding-left: 4rem;
@@ -76,38 +85,40 @@
               input[type="checkbox"]:checked + label:after {
                 opacity: 1;
               }
-          }
-          .cooking-preparation-wrapper{
-            padding: 0rem 6rem;
-            width: calc(100% - 4rem);
-            min-height: 12rem;
-            display: flex;
-            margin-bottom: 7rem;
-            @include breakpoint(mobile){
-              padding: 0rem 2rem;
-              margin-bottom: 2rem;
             }
-            .description{
-              align-items: center;
+            .cooking-preparation-wrapper {
+              padding: 0rem 6rem;
+              width: calc(100% - 4rem);
+              min-height: 12rem;
               display: flex;
-              .image{
-                max-width: 7.3rem;
-                display: flex;
-                align-items: center;
-                @include breakpoint(mobile){
-                  max-width: 4.5rem;
-                }
+              margin-bottom: 7rem;
+              @include breakpoint(mobile) {
+                padding: 0rem 2rem;
+                margin-bottom: 2rem;
               }
-              .description-info{
-                padding-left: 2rem;
-                width:calc(100% - 10rem);
-                @include breakpoint(mobile){
-                  width:calc(100% - 5rem);
+              .description {
+                align-items: center;
+                display: flex;
+                padding: 1rem 0;
+                .image {
+                  max-width: 7.3rem;
+                  display: flex;
+                  align-items: center;
+                  @include breakpoint(mobile) {
+                    max-width: 4.5rem;
+                  }
                 }
-                h6{
-                  font-size: 1.6rem;
-                  @include breakpoint(mobile){
-                    font-size: 1.4rem;
+                .description-info {
+                  padding-left: 2rem;
+                  width: 100%;
+                  // @include breakpoint(mobile){
+                  //   width:calc(100% - 5rem);
+                  // }
+                  h6 {
+                    font-size: 1.6rem;
+                    @include breakpoint(mobile) {
+                      font-size: 1.4rem;
+                    }
                   }
                 }
               }
@@ -116,12 +127,16 @@
         }
       }
     }
-    .final-editaion-img-wrapper{
+    .final-editaion-img-wrapper {
       max-width: 30rem;
-      display:block;
+      display: block;
       position: absolute;
       bottom: -11rem;
       left: -6rem;
+      @include breakpoint(mobile) {
+        max-width: 25rem;
+        bottom: -9rem;
+      }
     }
   }
 }

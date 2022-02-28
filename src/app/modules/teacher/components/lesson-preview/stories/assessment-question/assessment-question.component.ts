@@ -146,7 +146,6 @@ export class AssessmentQuestionComponent implements OnInit,OnDestroy {
       let url = this.router.url.split("?")[0].split('/teacher')[1];
       let urlToEdit = url + '?index=' + this.questionIndex;
       this.location.replaceState(urlToEdit);
-      console.log("form", this.form);
       // this.updateLessonProgress();
     }
   }
@@ -259,8 +258,6 @@ export class AssessmentQuestionComponent implements OnInit,OnDestroy {
     this.isVisibleNext = true;
     this.attempt = 0;
     this.dynamicComponent.isHint = false;
-    console.log("AllQuestionsList",this.AllQuestionsList);
-    console.log("questionIndex",this.questionIndex);
     if (this.AllQuestionsList.length === this.questionIndex) {
       // this.router.navigate(['teacher/action-activities']);
       this.router.navigate(['teacher/linguistic-details']); 

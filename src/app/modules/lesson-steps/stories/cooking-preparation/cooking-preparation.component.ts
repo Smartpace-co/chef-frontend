@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToasterService } from '@appcore/services/toaster.service';
 import { UtilityService } from '@appcore/services/utility.service';
@@ -23,7 +24,7 @@ export class CookingPreparationComponent implements OnInit {
   currentAssignedLesson;
   lesson;
   defaultLessonImage: string;
-  constructor(private router: Router, private toast: ToasterService, private studentService: StudentService, private utilityService: UtilityService) {
+  constructor(private router: Router,private sanitizer: DomSanitizer, private toast: ToasterService, private studentService: StudentService, private utilityService: UtilityService) {
     this.lessonHederConfig['stepBoard'] = {
       stepNumber: 'Step 4',
       stepTitle: 'Cooking Preparation',
@@ -66,10 +67,15 @@ export class CookingPreparationComponent implements OnInit {
           this.isVisibleNext = false;
           this.isVisiblePrevious = false;
           this.recipesPreparationList = _.map(response.data.recipe.preparationSteps, item => {
+            let secureUrl;
+            if (item && item.link) {
+              secureUrl = this.sanitizer.bypassSecurityTrustResourceUrl(item.link);
+            }
             let obj = {
               id: item.id,
               info: item.text,
               image: item.image ? item.image : this.defaultLessonImage,
+              video: secureUrl,
               isBigChef: item.isApplicableForBigChef === true ? './assets/images/teacher-1.png' : undefined,
               isLittleChef: item.isApplicableForLittleChef === true ? './assets/images/profile-icon-13.png' : undefined,
             }

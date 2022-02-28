@@ -8,10 +8,10 @@
           <div *ngIf="isLoad" class="culinary-technique-wrapper">
             <ngx-slick-carousel [config]="slideConfig">
               <ul *ngFor="let obj of cookingTechniqueList" ngxSlickItem>
-                <li>{{obj.dialogue}}</li>
-                <li *ngIf="obj?.animationLink">
+                <li>{{obj.description}}</li>
+                <li *ngIf="obj.link">
                   <div class="video">
-                    <iframe [src]="getSanitizeUrl(obj?.animationLink)">
+                    <iframe [src]="obj.link">
                     </iframe>
                   </div>
                 </li>

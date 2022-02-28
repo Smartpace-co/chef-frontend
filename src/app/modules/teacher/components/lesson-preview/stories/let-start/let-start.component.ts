@@ -30,10 +30,10 @@ export class LetStartComponent implements OnInit,OnDestroy {
     this.assignmentId = localStorage.getItem('assignmentId');
     this.lessonData = this.teacherService.getAssignLessonData();
     this.sessionData = JSON.parse(window.sessionStorage.getItem('currentUser'));
-    this.countryBgImg = this.lessonData.recipe.country.backgroundImage;
+    // this.countryBgImg = this.lessonData.recipe.country.backgroundImage;
     this.isLoad = true;
 
-  }
+  } 
 
   ngOnDestroy(){
     this.teacherService.setTeachersHeader(false);
@@ -49,6 +49,7 @@ export class LetStartComponent implements OnInit,OnDestroy {
    * on Previous click event
   */
   onPrevious(): void {
-    this.router.navigate(['teacher/recipe-content']);
+    this.router.navigate(['teacher/recipe-fact']);
   }
 }
+

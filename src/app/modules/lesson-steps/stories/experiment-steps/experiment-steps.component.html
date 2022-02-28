@@ -2,7 +2,7 @@
 <app-scroll-down></app-scroll-down>
 <div class="mr-4 experiment-step-audio">
     <span *ngIf="experimentData?.experimentStepsTrack">
-        <audio controls autoplay controlsList="nodownload">
+        <audio controls controlsList="nodownload">
             <source [src]="experimentData?.experimentStepsTrack" type="audio/mp3">
         </audio>
     </span>
@@ -35,9 +35,9 @@
                                         <fa-icon [icon]="play"></fa-icon>
                                     </div>
                                 </span> -->
-                                <span *ngIf="item.start" class="with-video">
+                                <span *ngIf="item.videoUrl" class="with-video">
                                     <div class="video-wraper">
-                                        <iframe class="vedio" [src]="getSanitizeUrl(item.start)">
+                                        <iframe class="vedio" [src]="item.videoUrl">
                                         </iframe>
                                     </div>
                                 </span>

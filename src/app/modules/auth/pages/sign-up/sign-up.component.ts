@@ -29,7 +29,6 @@ export class SignUpComponent implements OnInit {
   getAllRole(): void {
     this.authService.getAllMasterRoleDetails().subscribe(
       (response) => {
-        console.log(response)
         let mappedData = [];
         if (response && response.data) {
           mappedData = _.map(response.data, item => {

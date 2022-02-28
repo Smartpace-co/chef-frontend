@@ -1,5 +1,12 @@
 <div class="user-profile">
   <div class="container">
+    <div class="edit-btn-wrapper">
+      <app-button classes="btn btn-primary icon-btn" (click)="editProfileDetails(editProfile)">
+        <span aria-hidden="true">
+          <fa-icon [icon]="faEdit"></fa-icon>{{'district.district-profile.edit-profile-title'| translate}}
+        </span>
+      </app-button>
+    </div>
     <div class="user-profile-wrapper legend-card">
       <legend> {{'district.district-profile.your-profile-title'| translate}}</legend>
       <ul class="user-details" *ngIf="userDetails">
@@ -65,13 +72,6 @@
         </app-button>
       </div>
     </div>
-    <div class="edit-btn-wrapper">
-      <app-button classes="btn btn-primary icon-btn" (click)="editProfileDetails(editProfile)">
-        <span aria-hidden="true">
-          <fa-icon [icon]="faEdit"></fa-icon>{{'district.district-profile.edit-profile-title'| translate}}
-        </span>
-      </app-button>
-    </div>
   </div>
 </div>
 <ng-template #editProfile let-modal id="editProfile">
@@ -84,7 +84,7 @@
       <form [formGroup]="editProfileForm">
         <div class="row">
           <div class="col-md-12">
-            <label>{{'district.district-profile.agent-component.name-field.label'| translate}}</label>
+            <label>{{'district.district-profile.agent-component.name-field.label'| translate}} (*)</label>
             <app-input-field classes="form-control" placeholders="{{'district.district-profile.agent-component.name-field.placeholder'| translate}}" ids="name" fieldControl="name"
               [form]="editProfileForm">
             </app-input-field>
@@ -94,7 +94,7 @@
               </div>
           </div>
           <div class="col-md-12">
-            <label>{{'district.district-profile.agent-component.email-field.label'| translate}}</label>
+            <label>{{'district.district-profile.agent-component.email-field.label'| translate}} (*)</label>
             <app-input-field classes="form-control" placeholders="{{'district.district-profile.agent-component.email-field.placeholder'| translate}}" ids="emailAddress"
               fieldControl="emailAddress" [form]="editProfileForm">
             </app-input-field>
@@ -105,7 +105,7 @@
             <div class="error" *ngIf="formControl.emailAddress.errors?.emailValidate">Email already exists</div>
           </div>
           <div class="col-md-12">
-            <label>{{'school.user-profile.school-title' | translate}}</label>
+            <label>{{'school.user-profile.school-title' | translate}} (*)</label>
             <app-input-field classes="form-control" types="text" ids="school" fieldControl="school"
               [form]="editProfileForm" placeholders="{{'school.user-profile.placeholder' | translate}}">
             </app-input-field>
@@ -116,16 +116,17 @@
           </div>
           <div class="col-md-12">
             <div class="lable-wrapper">
-              <label>{{'school.user-profile.address-title'| translate}}</label>
+              <label>{{'school.user-profile.address-title'| translate}} {{'student.profile.optional-label'| translate }}</label>
             </div>
             <textarea class="form-control" placeholder="{{'district.district-profile.district-component.address-field.placeholder'| translate}}" ids="address" fieldControl="address"
               name="address" [(ngModel)]="address" [ngModelOptions]="{standalone: true}"></textarea>
           </div>
           <div class="col-md-12">
-            <label>{{'district.district-profile.district-component.phone-field.label'| translate}}</label>
+            <label>{{'district.district-profile.district-component.phone-field.label'| translate}} (*)</label>
             <app-input-field classes="form-control" placeholders="{{'district.district-profile.district-component.phone-field.placeholder'| translate}}" ids="contact" fieldControl="contact"
               [form]="editProfileForm">
             </app-input-field>
+            
             <div class="error" *ngIf="editProfileForm.controls.contact.errors?.required">{{'district.district-profile.agent-component.phone-field.required'| translate}}
             </div>
              <div class="error" *ngIf="editProfileForm.controls.contact.errors?.pattern">{{'district.district-profile.agent-component.phone-field.pattern'| translate}}

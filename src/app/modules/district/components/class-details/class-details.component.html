@@ -27,9 +27,16 @@
             <span class="photo">
               <img src="./assets/images/district-profile.png" alt="" class="img-fluid" />
             </span>
-            <span class="staff-name">
-              <h6>{{currentClass?.school?.name}}, {{currentClass?.school?.school_address}}</h6>
-            </span>
+            <ng-container *ngIf="currentClass?.school?.school_address; else noAddress">
+              <span class="staff-name">
+                <h6>{{currentClass?.school?.name}}, {{currentClass?.school?.school_address}}</h6>
+              </span>
+            </ng-container>
+            <ng-template #noAddress>
+              <span class="staff-name">
+                <h6>{{currentClass?.school?.name}}</h6>
+              </span>
+            </ng-template>
           </div>
         </div>
       </div>
@@ -117,7 +124,7 @@
               <div class="students-wrapper">
                 <div class="students-detail">
                   <div class="students-wrapper">
-                    <h4>{{'table-component.you' | translate}} {{'table-component.have' | translate}} {{studentList.length}} students in this class</h4>
+                    <h5>{{'table-component.you' | translate}} {{'table-component.have' | translate}} {{studentList.length}} students in this class</h5>
                     <div class="btn-wrapper">
                       <!-- <app-button classes="btn btn-primary icon-btn mr-3 mb-3">
                             <span aria-hidden="true"><fa-icon [icon]="faEdit"></fa-icon>Add Class</span>
@@ -179,7 +186,7 @@
                                     <p>Allergens</p>
                                   </div> -->
                               <div class="studentItem__allergies">
-                                <p>{{ item.allergies }}</p>
+                                <p>{{'school.student.add-student.personal-info.medical-info.allergens-label.label' | translate}} - {{ item.allergies }}</p>
                               </div>
                               <ul class="studentItem__action">
                                 <li *ngFor="let act of item.actions" (click)="onActionClick(item,act)">
@@ -409,7 +416,7 @@
     </div>
   </div>
 </div>
-<ng-template #addStudent let-modal>
+<!-- <ng-template #addStudent let-modal>
   <button type="button" class="close" aria-label="Close" (click)="closeOpenModal()">
     <img src="./assets/images/close.png" alt="" class="img-fluid" />
   </button>
@@ -458,7 +465,7 @@
       </form>
     </div>
   </div>
-</ng-template>
+</ng-template> -->
 
 <!-- Error Modal -->
 <ng-template #errormodal let-modal id="archive">
@@ -601,7 +608,7 @@
         </div>
         <div class="row">
           <div class="col-md-12">
-            <label>{{'district.district-schools.students-title'|translate}}</label>
+            <label>{{'district.district-schools.students-title'|translate}} {{'student.profile.optional-label'| translate }}</label>
             <app-multi-select-dropdown [dropDownItemList]="allStudentList" [selectedItems]="selectedStudent"
               [placeholderText]="'Select Student'" fieldControl="student" [selectedValue]="selectedStudentValue"
               (onSelectValue)="onSelectStudent($event)" (onDeSelectValue)="onDeSelectStudent($event)"
@@ -650,7 +657,7 @@
               <h6>{{'school.student.add-student.personal-info.medical-info.allergens-label.label' | translate}}</h6>
             </div>
             <div class="profile-sub-info">
-              <h6>{{allergenList}}</h6>
+              <h6>{{studentDetails?.allergieString}}</h6>
             </div>
           </li>
           <li>

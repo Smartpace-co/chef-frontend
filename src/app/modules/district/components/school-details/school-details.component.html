@@ -115,7 +115,7 @@
               <div class="students-wrapper">
                 <div class="students-detail">
                   <div class="students-wrapper">
-                    <h4>{{'school.class.class-list.you-have-label'|translate}} {{allStudents.length}} students in this school</h4>
+                    <h5>{{'school.class.class-list.you-have-label'|translate}} {{allStudents.length}} students in this school</h5>
                     <div class="btn-wrapper">
                       <app-button classes="btn btn-primary icon-btn mr-3 mb-3" (click)="openCreateClass(createClass)">
                         <span aria-hidden="true">
@@ -177,7 +177,7 @@
                                     <p>Allergens</p>
                                   </div> -->
                               <div class="studentItem__allergies">
-                                <p>{{ item.allergies }}</p>
+                                <p>{{'school.student.add-student.personal-info.medical-info.allergens-label.label' | translate}} - {{ item.allergies }}</p>
                               </div>
                               <ul class="studentItem__action">
                                 <li *ngFor="let act of item.actions" (click)="onActionClick(item,act)">
@@ -215,7 +215,7 @@
               aria-labelledby="headingReports">
               <div class="report-wrapper">
                 <div class="report-heading">
-                  <h4>{{'school.class.class-details.your-class-reports' | translate}}</h4>
+                  <h5>{{'school.class.class-details.your-class-reports' | translate}}</h5>
                   <div class="btn-wrapper">
                     <app-button classes="btn btn-primary print-icon-btn icon-btn mr-3 mb-3" (click)="generatePDF()" printTitle="Print Title" printSectionId="print-section" ngxPrint>
                       <span aria-hidden="true"><span class="print-icon mr-3"><img src="./assets/images/print-icon.png" alt="" class="img-fluid" id="print-section" /></span>Print Report</span>
@@ -267,7 +267,7 @@
                   </div>
                   <div class="col-md-4">
                     <div class="class-chart card">
-                      <h6 class="chart-title">Application usage report</h6>
+                      <h6 class="chart-title">Application Usage Report</h6>
                       <div class="chart">
                         <!-- <div class="donut instalment1">
                                   <div class="donut-default"></div>
@@ -425,7 +425,7 @@
             </div>
           </div>
           <div class="col-12">
-            <label>Address</label>
+            <label>Address {{'student.profile.optional-label'| translate }}</label>
             <textarea class="form-control" placeholder="Enter Address" ids="schoolAddress" [(ngModel)]="schoolAddress"
               [ngModelOptions]="{standalone: true}"></textarea>
           </div>
@@ -435,14 +435,15 @@
               fieldControl="pNumber" types="" [form]="editSchoolForm"
               [ngClass]="{ 'is-invalid': formControl.pNumber.touched && formControl.pNumber.errors }">
             </app-input-field>
+            
             <div *ngIf="formControl.pNumber.errors" class="invalid-feedback">
               <div class="error" *ngIf="formControl.pNumber.errors?.required">Contact number
                 is required</div>
               <div class="error" *ngIf="formControl.pNumber.errors?.pattern">Contact number is not
-                valid(Format - (000)-000-0000)</div>
-              <div class="error" *ngIf="formControl.pNumber.errors?.minlength">Contact number is not
-                valid(Reuired Length is 10 digit)</div>
-              <div class="error" *ngIf="formControl.pNumber.errors?.digitValidate">Contact number is not valid(Required length is 10,12,13 digit)</div>
+                valid. (Required length is 6 to 18 digits)</div>
+              <!-- <div class="error" *ngIf="formControl.pNumber.errors?.minlength">Contact number is not
+                valid(Reuired Length is 10 digit)</div> -->
+              <!-- <div class="error" *ngIf="formControl.pNumber.errors?.digitValidate">Contact number is not valid(Required length is 10,12,13 digit)</div> -->
               <div class="error" *ngIf="formControl.pNumber.errors?.contactValidate">
                 <div class="error">Contact number already exists</div>
               </div>
@@ -476,21 +477,22 @@
             </div>
           </div>
           <div class="col-md-6">
-            <label>Contact number</label>
+            <label>Contact number {{'student.profile.optional-label'| translate }}</label>
             <app-input-field classes="form-control" placeholders="Enter phone number" ids="phoneNumber"
               fieldControl="phoneNumber" types="" [form]="editSchoolForm"
               [ngClass]="{ 'is-invalid': formControl.phoneNumber.touched && formControl.phoneNumber.errors }">
             </app-input-field>
+            
             <div *ngIf="formControl.phoneNumber.errors" class="invalid-feedback">
               <div class="error" *ngIf="formControl.phoneNumber.errors?.pattern">Contact number is not
-                valid(Format - (000)-000-0000)</div>
-              <div class="error" *ngIf="formControl.phoneNumber.errors?.minlength">Contact number is not
-                valid(Reuired Length is 10 digit)</div>
-                <div class="error" *ngIf="formControl.phoneNumber.errors?.phoneValidate">Contact number is not valid(Required length is 10,12,13 digit)</div>
+                valid. (Required length is 6 to 18 digits)</div>
+              <!-- <div class="error" *ngIf="formControl.phoneNumber.errors?.minlength">Contact number is not
+                valid(Reuired Length is 10 digit)</div> -->
+                <!-- <div class="error" *ngIf="formControl.phoneNumber.errors?.phoneValidate">Contact number is not valid(Required length is 10,12,13 digit)</div> -->
             </div>
           </div>
           <div class="col-md-6">
-            <label>Contact Email</label>
+            <label>Contact Email {{'student.profile.optional-label'| translate }}</label>
             <app-input-field classes="form-control" placeholders="Enter email address" ids="emailAddress"
               fieldControl="emailAddress" [form]="editSchoolForm" types=""
               [ngClass]="{ 'is-invalid': formControl.emailAddress.touched && formControl.emailAddress.errors }">
@@ -502,7 +504,7 @@
           </div>
           <div class="col-12">
             <div class="lable-wrapper">
-              <label>Address</label>
+              <label>Address {{'student.profile.optional-label'| translate }}</label>
               <a style="float: right;" (click)="sameAddress()">Use same school address</a>
             </div>
             <textarea class="form-control" placeholder="Enter Address" ids="principalAddress"
@@ -514,15 +516,16 @@
               fieldControl="emergencyContact" [form]="editSchoolForm" types=""
               [ngClass]="{ 'is-invalid': formControl.emergencyContact.touched && formControl.emergencyContact.errors }">
             </app-input-field>
+            
             <div *ngIf="formControl.emergencyContact.errors" class="invalid-feedback">
               <div class="error" *ngIf="formControl.emergencyContact.errors?.required">Emergency contact number
                 is required</div>
               <div class="error" *ngIf="formControl.emergencyContact.errors?.pattern">Emergency contact number is not
-                valid(Format - (000)-000-0000)</div>
-              <div class="error" *ngIf="formControl.emergencyContact.errors?.minlength">Emergency contact number is
+                valid. (Required length is 6 to 18 digits)</div>
+              <!-- <div class="error" *ngIf="formControl.emergencyContact.errors?.minlength">Emergency contact number is
                 not
-                valid(Reuired Length is 10 digit)</div>
-                <div class="error" *ngIf="formControl.emergencyContact.errors?.contactDigitValidate">Emergency contact number is not valid(Required length is 10,12,13 digit)</div>
+                valid(Reuired Length is 10 digit)</div> -->
+                <!-- <div class="error" *ngIf="formControl.emergencyContact.errors?.contactDigitValidate">Emergency contact number is not valid(Required length is 10,12,13 digit)</div> -->
             </div>
           </div>
         </div>
@@ -564,7 +567,7 @@
               <h6>Allergens</h6>
             </div>
             <div class="profile-sub-info">
-              <h6>{{allergenList}}</h6>
+              <h6>{{studentDetails?.allergieString}}</h6>
             </div>
           </li>
           <li>
@@ -601,7 +604,7 @@
           </li>
           <li>
             <div class="profile-heading">
-              <h6>Relation</h6>
+              <h6>{{'school.student.add-student.personal-info.contact-info.contact-relationship' | translate}}</h6>
             </div>
             <div class="profile-sub-info">
               <h6>{{studentDetails?.relation?.title}}</h6>
@@ -622,7 +625,7 @@
 </ng-template>
 <!-- Create class in student tab -->
 <ng-template #createClass let-modal>
-  <button type="button" class="close" aria-label="Close" (click)="closeCreateClassModal()">
+  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
     <img src="./assets/images/close.png" alt="" class="img-fluid" />
   </button>
   <div class="modal-body">
@@ -634,7 +637,7 @@
             <label>School</label>
             <app-drop-down fieldControl="school" class="formDropdown" [dropDownButtonName]="schoolTitle"
               [dropDownIcon]="schoolIcon" [dropDownItemList]="schoolList" [disableDropDownItem]="true"
-              (registerDropdownValueChange)="schoolChange($event)"></app-drop-down>
+              ></app-drop-down>
           </div>
         </div>
         <div class="row">
@@ -682,7 +685,7 @@
         </div>
         <div class="row">
           <div class="col-md-12">
-            <label>Students</label>
+            <label>Students {{'student.profile.optional-label'| translate }}</label>
             <app-multi-select-dropdown [dropDownItemList]="allStudentList" [selectedItems]="selectedStudent"
               [placeholderText]="'Select Student'" fieldControl="student" [selectedValue]="selectedStudentValue"
               (onSelectValue)="onSelectStudent($event)" (onDeSelectValue)="onDeSelectStudent($event)"
@@ -691,14 +694,14 @@
           </div>
         </div>
         <div class="footer-btns">
-          <app-button classes="btn btn-secondary mb-3 mr-3" [submit]="true" (click)="closeCreateClassModal()">
+          <app-button classes="btn btn-secondary mb-3 mr-3" [submit]="true" (click)="modal.dismiss('Cross click')">
             <span aria-hidden="true">Cancel</span>
           </app-button>
           <!-- <app-button classes="btn btn-primary mb-3 mr-3" [submit]="true">
             <span aria-hidden="true">Add Students to Class</span>
           </app-button> -->
           <app-button classes="btn btn-primary mb-3" [submit]="true" [disabled]="createClassForm.invalid"
-            (click)="onSaveClass()">
+            (click)="modal.close('Save')">
             <span aria-hidden="true">Save</span>
           </app-button>
         </div>

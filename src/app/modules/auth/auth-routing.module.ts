@@ -18,6 +18,7 @@ import { EndComponent } from './pages/end/end.component';
 import { StudentSignUpComponent } from './pages/student-sign-up/student-sign-up.component';
 import { SchoolAdminComponent } from './pages/register-school/register-school-admin.component';
 import { RegisterTeacherComponent } from './pages/register-teacher/register-teacher.component';
+import { GeneratePasswordComponent } from './pages/generate-password/generate-password.component';
 
 const routes: Routes = [
   {
@@ -66,6 +67,10 @@ const routes: Routes = [
         path: 'reset-password',
         component: ResetPasswordComponent,
       },
+      {
+        path: 'generate-password',
+        component: GeneratePasswordComponent,
+      },      
       {
         path: 'reset-password-link',
         component: ResetPasswordLinkComponent,

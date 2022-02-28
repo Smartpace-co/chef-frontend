@@ -27,6 +27,7 @@ export class SummaryViewComponent implements OnInit {
   currentAssignedLesson;
   isLoad = false;
   isCountryLoad = false;
+  countryBgImg;
   LeftArrow = faAngleLeft;
   constructor(private studentService: StudentService, private router: Router, private toast: ToasterService, private location: Location, private authService: AuthService,
     private utilityService: UtilityService) { }
@@ -164,6 +165,7 @@ export class SummaryViewComponent implements OnInit {
       (response) => {
         if (response && response.data) {
           this.countryName = response.data.recipe.country.countryName;
+          this.countryBgImg = response.data.recipe.country.backgroundImage;
           this.isCountryLoad = true;
         }
       },
@@ -225,7 +227,6 @@ export class SummaryViewComponent implements OnInit {
   * on Next click event
  */
   onNext(): void {
-    // window.scroll(0,0);
     this.router.navigate(['student/greeting']);
   }
 

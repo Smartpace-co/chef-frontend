@@ -15,6 +15,7 @@
         <app-input-field classes="form-control" types="email" placeholders="Email Address/Username" ids="email"
           fieldControl="email" [form]="loginForm"
           [ngClass]="{ 'is-invalid': formControl.email.touched && formControl.email.errors }"></app-input-field>
+          <p class="mb-3 p-0 ml-5">Note: Please enter username for student login</p>
         <div *ngIf="formControl.email.errors" class="invalid-feedback">
           <div class="error" *ngIf="formControl.email.errors?.required">Email is required</div>
         </div>
@@ -25,10 +26,10 @@
           <div class="error" *ngIf="formControl.password.errors?.required">Password is required</div>
         </div>
         <div class="remember-me">
-          <div class="custom-control custom-checkbox same-above-checkbox">
+          <!-- <div class="custom-control custom-checkbox same-above-checkbox">
             <input type="checkbox" class="custom-control-input" id="rememberMe" name="rememberMe" fieldControl="rememberMe">
             <label class="custom-control-label login-remember">Remember Me</label>
-          </div>
+          </div> -->
           <!-- <div class="custom-control custom-checkbox">
             <app-input-field classes="custom-control-input" types="checkbox" ids="rememberMe" fieldControl="rememberMe"
               [form]="loginForm"></app-input-field>

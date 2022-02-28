@@ -150,7 +150,6 @@ export class SchoolSettingsComponent implements OnInit {
       this.schoolService.showContactInformationToStudent().subscribe(
         (response) => {
           if (response) {
-           console.log(response) 
           };
         });
       }   

@@ -27,6 +27,7 @@ export class AdminBillingComponent implements OnInit {
 
 
   getBillingHistory() {
+    this.currentUser = JSON.parse(window.sessionStorage.getItem('currentUser'));
     this.districtService.getDistrictProfile().subscribe(res => {
       this.id = res.data.id
       if (this.id) {
@@ -40,6 +41,27 @@ export class AdminBillingComponent implements OnInit {
     
   }
 
+  downloadPDF(item){
+    let doc = new jspdf('p', 'mm', 'a4');
+
+   doc.setFont("times", "normal");
+
+   doc.text("INVOICE", 105,30,{ align:'center'});
+   
+   let Username= "Name : "+this.currentUser.name;
+   doc.text(Username, 20,60,{ align:'left'});
+   doc.text("Email : "+this.currentUser.email, 20,70,{ align:'left'});
+   doc.text("Contact No : "+this.currentUser.phone_number, 20,80,{ align:'left'});
+
+   var date=new Date(item.createdAt).toDateString();
+   doc.text("Start Date : "+date, 20,90,{ align:'left'});
+   doc.text("Price : "+'$'+item.subscription_package.price, 20,100,{ align:'left'});
+   
+   doc.save('invoice.pdf');
+
+
+  }
+  
   generatePDF() {
     var data = document.getElementById('generatePdf');
     html2canvas(data).then((canvas) => {

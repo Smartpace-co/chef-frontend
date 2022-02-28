@@ -10,19 +10,19 @@
                     (registerDropdownValueChange)="onDropdownValueChange($event)" *ngIf="dropDownMenuList.length > 0">
                 </app-drop-down>
                 <ul class="desktop-only">
-                    <li>
+                    <li [ngStyle]="{'pointer-events':localData.isSubscriptionPause==true ? 'none' : '' }">
                         <a routerLink="/teacher/explore-lessons-list" routerLinkActive="active">
                             <fa-icon [icon]="explore"></fa-icon>
                             {{'teacher.dashboard.explore-lessons'|translate}}
                         </a>
                     </li>
                     <li>
-                        <a (click)="open(create)">
+                        <a (click)="localData.isSubscriptionPause ? $event.stopPropagation():open(create)">
                             <fa-icon [icon]="PlusIcon"></fa-icon>
                             {{'teacher.dashboard.create-class'|translate}}
                         </a>
                     </li>
-                    <li class="bookmark">
+                    <li [ngStyle]="{'pointer-events':localData.isSubscriptionPause==true ? 'none' : '' }" class="bookmark">
                         <a routerLink="/teacher/teacher-bookmark" routerLinkActive="active">
                             <img src="./assets/images/bookmark.svg" /></a>
                     </li>
@@ -36,7 +36,7 @@
 
                 <div class="user-dropdown desktop-only">
                     <div class="user-image">
-                        <img src="./assets/images/teacher.png" alt="" class="img-fluid" />
+                        <img src="{{teacherDetails?.profile_image}}" alt="" class="img-fluid" />
                     </div>
                     <app-drop-down class="profile-dropdown ml-auto" [dropDownButtonName]="ProfileMenu"
                         [dropDownItemList]="ProfileMenuList"
@@ -73,13 +73,13 @@
                     <li>
                         <div class="teacher-info">
                             <div class="teacher-image">
-                                <img src="./assets/images/teacher.png" alt="" class="img-fluid" />
+                                <img src="{{teacherDetails?.profile_image}}" alt="" class="img-fluid" />
                             </div>
-                            <span class="teaher-name">Ms. Paula</span>
+                            <span class="teaher-name">{{teacherDetails?.first_name}} {{teacherDetails?.last_name}}</span>
                         </div>
                         <ul class="teacher-menu">
-                            <li *ngFor="let item of ProfileMenuList">
-                                <a [routerLink]="item.link">
+                            <li *ngFor="let item of ProfileMenuList"  (click)="onDropdownValueChange(item)">
+                                <a >
                                     <fa-icon [icon]="item.icon"></fa-icon>
                                     <span>{{item.menu}}</span>
                                 </a>
@@ -106,14 +106,14 @@
                         {{'teacher.dashboard.home'|translate}}
                     </a>
                 </li>
-                <li>
+                <li [ngStyle]="{'pointer-events':localData.isSubscriptionPause==true ? 'none' : '' }">
                     <a routerLink="/teacher/upcoming-assignment" routerLinkActive="active">
                         <fa-icon [icon]="Assignment"></fa-icon>
                         {{'teacher.dashboard.assignment'|translate}}
 
                     </a>
                 </li>
-                <li>
+                <li [ngStyle]="{'pointer-events':localData.isSubscriptionPause==true ? 'none' : '' }">
                     <!-- <a routerLink="/teacher/student-list"> -->
                     <a routerLink="/teacher/roster-group-tabs" routerLinkActive="active">
 
@@ -121,7 +121,7 @@
                         {{'teacher.dashboard.roster'|translate}}
                     </a>
                 </li>
-                <li>
+                <li [ngStyle]="{'pointer-events':localData.isSubscriptionPause==true ? 'none' : '' }">
                     <!-- <a routerLinkActive="active">
                         <fa-icon [icon]="Performance"></fa-icon>
                         {{'teacher.dashboard.performance'|translate}}
@@ -133,7 +133,7 @@
                     </app-drop-down>
                 </li>
             </ul>
-            <div class="more-actions desktop-only" *ngIf="dropDownMenuList.length > 0">
+            <div class="more-actions desktop-only" [ngStyle]="{'pointer-events':localData.isSubscriptionPause==true ? 'none' : '' }" *ngIf="dropDownMenuList.length > 0">
                 <app-drop-down class="" [dropDownButtonName]="SettingTitle" [dropDownIcon]="SettingIconMain"
                     [dropDownItemList]="SettingList"
                     (registerDropdownValueChange)="OnProfileMenuListDropdownChange($event)">
@@ -185,20 +185,50 @@
 
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
-                        <label class="desktop-only">{{'school.class.add-class.standards-field'|translate}} (*)</label>
-                        <app-multi-select-dropdown [dropDownItemList]="standardList" [selectedItems]="selectedStandard"
-                            fieldControl="standard" [selectedValue]="selectedValue"
-                            (onSelectValue)="onSelectStandrd($event)" (onDeSelectValue)="onDeSelectStandard($event)"
-                            (onSelectAllValue)="onSelectAllStandard($event)"
-                            (onDeselectAllValue)="onDeselectAllStandard($event)"
-                            ></app-multi-select-dropdown>
-                 
+                    <div class="col-md-12 mt-4">
+                        <label>Common Core ELA Standards</label>
+                        <app-multi-select-dropdown [isSelectedShow]="false" [dropDownItemList]="elaStandardList"  [selectedValue]="selectedElaStandardValue"
+                            [selectedItems]="selectedElaStandard" [placeholderText]="'Select Standards'"
+                            (onSelectValue)="onSelect($event,'ela')"
+                            (onDeSelectValue)="onDeSelect($event,'ela')"
+                            (onSelectAllValue)="onSelectAll($event,'ela')"
+                            (onDeselectAllValue)="onDeselectAll($event,'ela')">
+                        </app-multi-select-dropdown>
+                    </div>
+                    <div class="col-md-12 mt-4">
+                        <label>Common Core Math Standards</label>
+                        <app-multi-select-dropdown [isSelectedShow]="false" [dropDownItemList]="mathStandardList" [selectedValue]="selectedMathStandardValue"
+                            [selectedItems]="selectedMathStandard" [placeholderText]="'Select Standards'"
+                            (onSelectValue)="onSelect($event,'math')"
+                            (onDeSelectValue)="onDeSelect($event,'math')"
+                            (onSelectAllValue)="onSelectAll($event,'math')"
+                            (onDeselectAllValue)="onDeselectAll($event,'math')">
+                        </app-multi-select-dropdown>
+                    </div>
+                    <div class="col-md-12 mt-4">
+                        <label>New Generation Science Standards</label>
+                        <app-multi-select-dropdown [isSelectedShow]="false" [dropDownItemList]="ngssStandardList" [selectedValue]="selectedNgssStandardValue"
+                        [selectedItems]="selectedNgssStandard" [placeholderText]="'Select Standards'"
+                        (onSelectValue)="onSelect($event,'ngss')"
+                        (onDeSelectValue)="onDeSelect($event,'ngss')"
+                        (onSelectAllValue)="onSelectAll($event,'ngss')"
+                        (onDeselectAllValue)="onDeselectAll($event,'ngss')">
+                        </app-multi-select-dropdown>
+                    </div>
+                    <div class="col-md-12 mt-4">
+                        <label>National Curriculum Standards for Social Studies</label>
+                        <app-multi-select-dropdown [isSelectedShow]="false" [dropDownItemList]="ncssStandardList" [selectedValue]="selectedNcssStandardValue"
+                            [selectedItems]="selectedNcssStandard" [placeholderText]="'Select Standards'"
+                            (onSelectValue)="onSelect($event,'ncss')"
+                            (onDeSelectValue)="onDeSelect($event,'ncss')"
+                            (onSelectAllValue)="onSelectAll($event,'ncss')"
+                            (onDeselectAllValue)="onDeselectAll($event,'ncss')">>
+                        </app-multi-select-dropdown>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12 mt-4">
                         <div class="custom-control custom-radio">
                             <app-radio classes="custom-control-input" types="radio" fieldControl="status"
                                 [form]="createClass" names="status" [values]="true">

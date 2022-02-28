@@ -19,9 +19,9 @@
           <p class="status" *ngIf="item.isActive == true">{{ 'school.billing.success' | translate }}</p>
           <p class="status" *ngIf="item.isActive == false">{{ 'school.billing.fail' | translate }}</p>
 
-          <app-button classes="btn btn-primary icon-btn">
+           <app-button classes="btn btn-primary icon-btn" (click)="downloadPDF(item)">
             <span aria-hidden="true"> <fa-icon [icon]="faDownload"></fa-icon>{{ 'common.download' | translate }} </span>
-          </app-button>
+          </app-button> 
         </li>
       </ul>
     </div>

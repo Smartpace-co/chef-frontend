@@ -3,7 +3,7 @@
         <div class="container">
             <div class="report-heading-wrapper">
                 <div class="heading-contain">
-                    <app-button classes="btn btn-secondary icon-btn" *ngIf="performance4">
+                    <app-button classes="btn btn-secondary icon-btn" *ngIf="performance4" (click)="onBack()">
                         <span aria-hidden="true">
                             <fa-icon [icon]="leftArrow"></fa-icon>{{'common.back'| translate}}
                         </span>
@@ -14,10 +14,10 @@
                         {{'teacher.performance.by-student.performance-by-assignments'| translate }}</h4>
                     <h4 class="standard-heading" *ngIf="heading3">
                         {{'teacher.performance.by-student.performance-by-students'| translate }}</h4>
-                    <h4 class="heading" *ngIf="performance1">{{'teacher.performance.by-student.your-class-performance'|
-                        translate }}</h4>
+                    <!-- <h4 class="heading" *ngIf="performance1">{{'teacher.performance.by-student.your-class-performance'|
+                        translate }}</h4> -->
                     <div class="student" *ngIf="performance1">
-                        <app-button classes="btn btn-secondary icon-btn">
+                        <app-button classes="btn btn-secondary icon-btn" (click)="onBack()">
                             <span aria-hidden="true">
                                 <fa-icon [icon]="leftArrow"></fa-icon>{{'common.back'| translate}}
                             </span>
@@ -27,8 +27,9 @@
                                 <img src="./assets/images/student.png" class="img-fluid" alt="">
                             </div>
                             <div class="student-name">
-                                <span class="name">Samuel, Aaron</span>
-                                <span class="student-id">{{'district.district-schools.id'| translate}}: 36271</span>
+                                <span class="name">{{ studentData.firstName }}, {{ studentData.lastName }} </span>
+                                <span class="student-id">{{'district.district-schools.id'| translate}}: {{
+                                    studentData.id }}</span>
                             </div>
                         </div>
                     </div>
@@ -40,24 +41,31 @@
                             translate }}
                         </span>
                     </app-button>
-                    <app-button classes="btn btn-primary print-icon-btn icon-btn mr-3 mb-3" (click)="generatePDF()">
+                    <app-button classes="btn btn-primary print-icon-btn icon-btn mr-3 mb-3"
+                        (click)="openDownloadModal(downloadReport)">
                         <span aria-hidden="true"><span class="print-icon mr-3"><img src="./assets/images/print-icon.png"
                                     alt="" class="img-fluid" /></span>{{ 'school.billing.print-report' | translate
                             }}</span>
                     </app-button>
+                    <!-- <app-button classes="btn btn-primary print-icon-btn icon-btn mr-3 mb-3" (click)="printExcelSheet()">
+                        <span aria-hidden="true"><span class="print-icon mr-3"><img src="./assets/images/print-icon.png"
+                                    alt="" class="img-fluid" /></span>{{ 'school.billing.download-excel' | translate
+                            }}</span>
+                    </app-button> -->
                 </div>
             </div>
             <div class="standard-text" *ngIf="performance4">
                 <div class="text">
-                    <span class="text-data">Fresh Spring Rolls with Thai Dipping Sauce</span>
-                    <span class="date">01/23/2020 - 01/23/2020</span>
+                    <span class="text-data">{{assignmentTitle}}</span>
+                    <span class="date">{{assignmentStartDate| date:'dd/MM/yyyy' }} - {{assignmentEndDate|
+                        date:'dd/MM/yyyy' }}</span>
                 </div>
                 <div class="performance-index">
                     <ul class="index">
-                        <li class="extra-dark">0</li>
-                        <li class="dark">2</li>
-                        <li class="medium">6</li>
-                        <li class="light">8</li>
+                        <li class="extra-dark">{{notStartedCount}}</li>
+                        <li class="dark">{{needHelpCount}}</li>
+                        <li class="medium">{{makingProgressCount}}</li>
+                        <li class="light">{{completedCount}}</li>
                     </ul>
                     <ul class="index-text">
                         <li>{{'teacher.performance.by-student.not-started'| translate }}</li>
@@ -71,7 +79,6 @@
         <div id="generatePdf">
             <!-- <div class="schools-report-wrapper" id="generatePdf"> -->
             <div class="schools-report-wrapper">
-
                 <div class="schools-activity">
                     <div class="school-active-details">
                         <div class="roster-filter">
@@ -103,13 +110,13 @@
                                     </li>
                                 </ul>
                                 <ul id="tabs" class="nav nav-tabs" role="tablist" *ngIf="tabs">
-                                    <li class="nav-item">
+                                    <!-- <li class="nav-item">
                                         <a id="classroom" href="#classroomNote" class="nav-link active"
                                             data-toggle="tab"
                                             role="tab">{{'teacher.performance.by-student.skills-label'| translate }}</a>
-                                    </li>
+                                    </li> -->
                                     <li class="nav-item">
-                                        <a id="platform" href="#platformNote" class="nav-link" data-toggle="tab"
+                                        <a id="platform" href="#platformNote" class="nav-link active" data-toggle="tab"
                                             role="tab">{{'district.district-schools.students-title'|translate}}</a>
                                     </li>
                                 </ul>
@@ -185,7 +192,7 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="row table-wraper col-border-bottom">
-                                            <div class="col-6">
+                                            <div class="col-8">
                                                 <div class="row heading-wrapper">
                                                     <div class="col-9 standard-heading pl-4 col-border-right">
                                                         {{'school.class.add-class.standards-field'|translate
@@ -196,18 +203,18 @@
                                                         |uppercase }}</div>
                                                 </div>
                                             </div>
-                                            <div class="col-6">
+                                            <div class="col-4">
                                                 <div class="row heading-wrapper">
-                                                    <div class="col-3 standard-heading col-border-right text-center">
+                                                    <div class="col-6 standard-heading col-border-right text-center">
                                                         {{'student.lesson-report.correct'| translate | uppercase }}
                                                         {{'student.assigned-lessons.lesson-steps.response'| translate |
                                                         uppercase}}</div>
-                                                    <div class="col-3 standard-heading col-border-right text-center">
+                                                    <div class="col-6 standard-heading col-border-right text-center">
                                                         {{'student.lesson-report.incorrect-attempts'| translate |
                                                         uppercase}}</div>
-                                                    <div class="col-6 standard-heading text-center">
+                                                    <!-- <div class="col-6 standard-heading text-center">
                                                         {{'teacher.performance.by-student.growth-label'| translate |
-                                                        uppercase }}</div>
+                                                        uppercase }}</div> -->
                                                 </div>
 
                                             </div>
@@ -218,10 +225,10 @@
                                             <div data-toggle="collapse" [attr.data-target]="'#collape' + item.Id"
                                                 class="col-12 accordion-toggle visible-row settings collapsed">
                                                 <div class="row">
-                                                    <div class="col-6">
+                                                    <div class="col-8">
                                                         <div class="row">
                                                             <div class="col-9 student-name col-border-right">
-                                                                {{item.operation}}
+                                                                {{item.title}}
                                                                 <span class="right-arrow-icon"
                                                                     *ngIf="item.subList.length > 0">
                                                                     <fa-icon [icon]="upArrow"></fa-icon>
@@ -231,20 +238,23 @@
                                                                     <fa-icon [icon]="DownArrow"></fa-icon>
                                                                 </span>
                                                             </div>
-                                                            <div class="col-3 col-border-right">
+                                                            <div class="col-3 col-border-right text-center report-lesson">
+                                                                {{ item.proficiency }}
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-6">
+                                                    <div class="col-4">
                                                         <div class="row h-100">
-                                                            <div class="col-3 col-border-right">&nbsp;</div>
-                                                            <div class="col-3 col-border-right">&nbsp;</div>
-                                                            <div class="col-6">&nbsp;</div>
+                                                            <div class="col-6 report-lesson col-border-right text-center">{{
+                                                                item.correcResponseCount }}</div>
+                                                            <div class="col-6 report-lesson col-border-right text-center">{{
+                                                                item.incorrectAttemptsCount }}</div>
+                                                            <!-- <div class="col-6">&nbsp;</div> -->
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-12 accordian-body collapse hiddenRow visible-row hidden-row settings sub-list"
+                                            <!-- <div class="col-12 accordian-body collapse hiddenRow visible-row hidden-row settings sub-list"
                                                 id="{{'collape' + item.Id}}" *ngIf="item.subList.length > 0">
                                                 <div data-toggle="collapse" [attr.data-target]="'#info' + subitem.Id"
                                                     class="row accordion-toggle visible-row collapsed collapsible-row"
@@ -277,7 +287,6 @@
                                                             </div>
                                                             <div class="col-6 pt-3 text-center pb-3">
                                                                 {{subitem.growth}}
-                                                                <!-- <fa-icon class="long-up" [icon]="longArrowUp"></fa-icon> -->
                                                             </div>
                                                         </div>
                                                     </div>
@@ -287,7 +296,7 @@
                                                         <p class=" pl-4">{{subitem.info}}</p>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                 </div>
@@ -316,7 +325,7 @@
                                             </div>
                                             <div class="col-6 spectrum-heading-wrapper" *ngIf="showHeader">
                                                 <div class="spectrum-heading">
-                                                    <h5 class="heading text-center">
+                                                    <h5 class="heading">
                                                         {{'teacher.performance.by-student.proficiency-spectrum'|
                                                         translate |
                                                         uppercase}}</h5>
@@ -499,7 +508,9 @@
                                                     <div class="col-6">
                                                         <div class="row">
                                                             <div class="col-9 student-name col-border-right">
-                                                                {{item.assignmentTitle}}
+                                                                <!-- {{item.assignmentTitle}} -->
+                                                                <a
+                                                                    (click)="openReport(item)">{{item.assignmentTitle}}</a>
                                                                 <!-- <span class="right-arrow-icon"
                                                                 *ngIf="item.subList.length > 0">
                                                                 <fa-icon [icon]="upArrow"></fa-icon>
@@ -611,7 +622,7 @@
                 <div class="notifications-wrapper" *ngIf="performance4">
                     <div class="notifications-tab">
                         <div id="content" class="tab-content" role="tablist">
-                            <div id="classroomNote" class="panal-card tab-pane fade show active" role="tabpanel"
+                            <!-- <div id="classroomNote" class="panal-card tab-pane fade show active" role="tabpanel"
                                 aria-labelledby="classroom">
                                 <div id="collapseInfo" class="collapse show" data-parent="#content" role="tabpanel"
                                     aria-labelledby="headingInfo">
@@ -706,8 +717,7 @@
                                                                 </div>
                                                                 <div class="col-12 accordian-body collapse hiddenRow visible-row hidden-row sub-info-wrapper col-border-top col-border-bottom"
                                                                     id="{{'infom' + item.id}}">
-                                                                    <!-- <h6 class="pt-4  pl-4">{{item.operationName}}
-                                                                        </h6> -->
+                                                                    
                                                                     <p class=" pl-4">{{item.info}}</p>
                                                                 </div>
                                                             </div>
@@ -718,8 +728,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div id="platformNote" class="panal-card tab-pane fade" role="tabpanel"
+                            </div> -->
+                            <div id="platformNote" class="panal-card tab-pane fade show active" role="tabpanel"
                                 aria-labelledby="platform">
                                 <div id="collapseStudents" class="collapse show" data-parent="#content" role="tabpanel"
                                     aria-labelledby="headingStudents">
@@ -734,11 +744,10 @@
                                                                     <div class="row heading-wrapper">
                                                                         <div
                                                                             class="col-8 standard-heading pl-4 col-border-right">
-                                                                            {{'school.student.add-student.student-label'
+                                                                            {{'school.student.add-student.student-name.lable'
                                                                             |
                                                                             translate | uppercase}}
-                                                                            {{'district.district-profile.district-component.name-field.label'|
-                                                                            translate | uppercase}}</div>
+                                                                        </div>
                                                                         <div
                                                                             class="col-4 standard-heading col-border-right text-center">
                                                                             {{'school.teacher.add-teacher.status'|translate
@@ -759,17 +768,33 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
-                                                            <div class="row" *ngFor="let item of studentDetails">
+                                                            <div class="row"
+                                                                *ngFor="let item of studentDetails ; let i = index">
                                                                 <div data-toggle="collapse"
-                                                                    [attr.data-target]="'#collape' + item.Id"
+                                                                    [attr.data-target]="'#collape' + i"
                                                                     class="col-12 accordion-toggle visible-row settings collapsed">
                                                                     <div class="row">
                                                                         <div class="col-7">
                                                                             <div class="row">
                                                                                 <div
                                                                                     class="col-8 student-name col-border-right">
-                                                                                    {{item.studentName}}
+                                                                                    {{item.firstName}},{{item.lastName}}
+
+
                                                                                     <span class="right-arrow-icon"
+                                                                                        (click)="getStudentStandards(item,i)">
+                                                                                        <a>
+                                                                                            <!-- *ngIf="item['upArrow']" -->
+                                                                                            <fa-icon [icon]="upArrow">
+                                                                                            </fa-icon>
+                                                                                        </a>
+                                                                                    </span>
+                                                                                    <span class="down-arrow-icon">
+                                                                                        <fa-icon [icon]="DownArrow ">
+                                                                                        </fa-icon>
+                                                                                    </span>
+
+                                                                                    <!-- <span class="right-arrow-icon"
                                                                                         *ngIf="item.subList.length > 0">
                                                                                         <fa-icon [icon]="upArrow">
                                                                                         </fa-icon>
@@ -778,33 +803,84 @@
                                                                                         *ngIf="item.subList.length > 0">
                                                                                         <fa-icon [icon]="DownArrow">
                                                                                         </fa-icon>
-                                                                                    </span>
+                                                                                    </span> -->
                                                                                 </div>
                                                                                 <div
                                                                                     class="col-4 avg-proficiency col-border-right">
-                                                                                    {{item.avgProficiency}}
+                                                                                    {{item.status}}
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="col-5">
+                                                                        <div class="col-5"
+                                                                            *ngIf="item.status ==='Completed'">
                                                                             <div class="row h-100 ">
                                                                                 <div class="col-6 skill-action">
-                                                                                    <fa-icon class="search"
-                                                                                        [icon]="search">
-                                                                                    </fa-icon>
-                                                                                    {{item.action1}}
+                                                                                <a (click)="showStudentStandardReport(item)"><fa-icon class="search"
+                                                                                    [icon]="search">
+                                                                                </fa-icon>
+                                                                               View Student Report</a>    
                                                                                 </div>
-                                                                                <div class="col-6 skill-action">
-                                                                                    <fa-icon class="search"
-                                                                                        [icon]="eye">
-                                                                                    </fa-icon>
-                                                                                    {{item.action2}}
+                                    
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12 accordian-body collapse hiddenRow hidden-row settings"
+                                                                    [id]="'collape' + i">
+
+                                                                    <div data-toggle="collapse"
+                                                                        class="row accordion-toggle visible-row collapsed collapsible-row"
+                                                                        *ngFor="let subitem of subList">
+                                                                        <div class="col-7">
+                                                                            <div class="row">
+                                                                                <div
+                                                                                    class="col-8 content-heading col-border-right">
+                                                                                    <span class="plus-icon"
+                                                                                        *ngIf="subList.length > 0">
+                                                                                        <fa-icon [icon]="plus">
+                                                                                        </fa-icon>
+                                                                                    </span>
+                                                                                    <!-- <span class="minus-icon" *ngIf="subList.length > 0">
+                                                                                            <fa-icon [icon]="minus">
+                                                                                            </fa-icon>
+                                                                                        </span> -->
+                                                                                    {{subitem.title}}
+
+                                                                                </div>
+                                                                                <div
+                                                                                    class="col-4 avg-proficiency text-center col-border-right">
+                                                                                    <!-- <div class="exc-wraper">
+                                                                                            <fa-icon class="exclamation" [icon]="exclamation" *ngIf="subitem.avgExclamation">
+                                                                                            </fa-icon>
+                                                                                        </div> -->
+                                                                                    {{subitem.proficiency}}
+                                                                                </div>
+                                                                            </div>
+                                                                           
+                                                                        </div>
+                                                                        <div class="col-5" *ngIf="subitem.proficiency === 'Emerging'">
+                                                                            <div class="row h-100">
+                                                                                <div class="col skill-action">
+                                                                                    <a routerLink="/teacher/explore-all-lesson">
+                                                                                        <fa-icon class="search" [icon]="search">
+                                                                                        </fa-icon>
+                                                                                        Assign more Lessons on this Standard
+                                                                                    </a>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
+                                                                        <!-- <div class="col-12 accordian-body collapse hiddenRow visible-row hidden-row sub-information-wrapper col-border-top col-border-bottom"
+                                                                                id="{{'info' + subitem.id}}">
+                                                                                <h6 class="pt-4  pl-4">
+                                                                                    {{subitem.operationName}}
+                                                                                </h6>
+                                                                                <p class=" pl-4">{{subitem.info}}</p>
+                                                                            </div> -->
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-12 accordian-body collapse hiddenRow visible-row hidden-row settings sub-list"
+
+                                                                <!-- <div class="col-12 accordian-body collapse hiddenRow visible-row hidden-row settings sub-list"
                                                                     id="{{'collape' + item.Id}}"
                                                                     *ngIf="item.subList.length > 0">
                                                                     <div data-toggle="collapse"
@@ -847,7 +923,7 @@
                                                                                         [icon]="search">
                                                                                     </fa-icon>
                                                                                     {{subitem.action}}
-                                                                                    <!-- <fa-icon class="long-up" [icon]="longArrowUp"></fa-icon> -->
+                                                                                
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -859,7 +935,7 @@
                                                                             <p class=" pl-4">{{subitem.info}}</p>
                                                                         </div>
                                                                     </div>
-                                                                </div>
+                                                                </div> -->
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1022,8 +1098,10 @@
                                     <a (click)="openStudentProfile(profile, item.id)">{{'student.profile.profile-label'|
                                         translate }}<fa-icon [icon]="rightArrow">
                                         </fa-icon> </a>
-                                    <!-- <a>{{'teacher.assignment.report-label'|translate}}<fa-icon [icon]="rightArrow">
-                                        </fa-icon></a> -->
+                                    <a (click)="showStudentStandardReport(item)">{{'teacher.assignment.report-label'|translate}}
+                                        <fa-icon [icon]="rightArrow">
+                                        </fa-icon>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -1033,6 +1111,30 @@
         </div>
     </div>
 </div>
+
+<ng-template #downloadReport let-modal>
+    <div class="btn-wrapper">
+        <button type="button" class="close" aria-label="Close" (click)="closeDownlaodModal()">
+            <img src="./assets/images/close.png" alt="" class="img-fluid" />
+        </button>
+    </div>
+    <div class="download-pdf">
+        <h4>Download</h4>
+        <div class="download-button">
+            <app-button classes="btn btn-primary print-icon-btn icon-btn" (click)="generatePDF()">
+                <span aria-hidden="true"><span class="print-icon mr-3"><img src="./assets/images/print-icon.png" alt=""
+                            class="img-fluid" /></span>{{ 'school.billing.download-pdf' | translate
+                    }}</span>
+            </app-button>
+            <app-button classes="btn btn-primary print-icon-btn icon-btn" (click)="printExcelSheet()">
+                <span aria-hidden="true"><span class="print-icon mr-3"><img src="./assets/images/print-icon.png" alt=""
+                            class="img-fluid" /></span>{{ 'school.billing.download-excel' | translate
+                    }}</span>
+            </app-button>
+        </div>
+    </div>
+</ng-template>
+
 <ng-template #readReport let-modal>
     <button type="button" class="close" aria-label="Close" (click)="closeOpenModal1()">
         <img src="./assets/images/close.png" alt="" class="img-fluid" />

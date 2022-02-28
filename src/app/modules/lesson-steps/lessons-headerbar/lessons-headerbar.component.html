@@ -59,6 +59,7 @@
                     class="img-fluid" /></span>
                 <p class="step">{{ lessonHederConfig?.stepBoard?.stepNumber }}</p>
                 <span class="seperator"> - </span>
+                <h5 class="step-heading">{{ lessonHederConfig?.stepBoard?.stepTopTitle }}</h5>
                 <h6 class="step-heading">{{lessonHederConfig?.stepBoard?.stepTitle}}</h6>
               </div>
             </span>
@@ -110,7 +111,7 @@
             <span class="journal-text">{{'student.journal.journal-desc'| translate }}</span>
           </a>
         </li>
-        <li #printBox class="print">
+        <!-- <li #printBox class="print">
           <a class="icon-bg" (click)="collapse.toggle()">
             <img src="./assets/images/print-icon.png" alt="" class="img-fluid" />
           </a>
@@ -132,7 +133,7 @@
               </div>
             </div>
           </div>
-        </li>
+        </li> -->
         <li>
           <a class="icon-close" (click)="onClose()">
             <img src="./assets/images/close.png" alt="" class="img-fluid" />

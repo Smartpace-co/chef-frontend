@@ -50,7 +50,7 @@
         </div>
     </div>
     <div class="row dashboard-main">
-        <div class="col-md-4">
+        <div class="col-md-4 main">
             <div class="class-chart card">
                 <h3 class="chart-title" [translate]="'district.dashboard.amnt-of-practice'"></h3>
 
@@ -105,7 +105,7 @@
               </div> -->
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 main">
             <div class="class-chart card">
                 <h3 class="chart-title" [translate]="'district.dashboard.evidence-of-growth'"></h3>
                 <div class="chart">
@@ -160,7 +160,7 @@
               </div> -->
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 main">
             <div class="class-chart card">
                 <h3 class="chart-title" [translate]="'district.dashboard.time-spent'"></h3>
                 <div class="chart donut-chart">
@@ -210,7 +210,7 @@
 </div>
 
 <ng-template #createClass let-modal>
-  <button type="button" class="close" aria-label="Close" (click)="closeOpenModal()">
+  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
     <img src="./assets/images/close.png" alt="" class="img-fluid" />
   </button>
   <div class="modal-body">
@@ -263,7 +263,7 @@
         </div>
         <div class="row">
           <div class="col-md-12">
-            <label>{{'district.district-schools.students-title'|translate}}</label>
+            <label>{{'district.district-schools.students-title'|translate}} {{'student.profile.optional-label'| translate }}</label>
             <app-multi-select-dropdown [dropDownItemList]="studentList" [selectedItems]="selectedStudent"
               [placeholderText]="'Select the class student'" fieldControl="student"
               [selectedValue]="selectedStudentValue" (onSelectValue)="onSelectStudent($event)"
@@ -273,14 +273,14 @@
           </div>
         </div>
         <div class="footer-btns">
-          <app-button classes="btn btn-secondary mb-3 mr-3" [submit]="true" (click)="closeOpenModal()">
+          <app-button classes="btn btn-secondary mb-3 mr-3" [submit]="true" (click)="modal.dismiss('Cross click')">
             <span aria-hidden="true">{{'common.cancel'|translate}}</span>
           </app-button>
           <!-- <app-button classes="btn btn-primary mb-3 mr-3" [submit]="true">
             <span aria-hidden="true">Add Students to Class</span>
           </app-button> -->
           <app-button classes="btn btn-primary mb-3" [submit]="true" [disabled]="createClassForm.invalid"
-            (click)="onSave()">
+            (click)="modal.close('Save')">
             <span aria-hidden="true">{{'common.save'|translate}}</span>
           </app-button>
         </div>

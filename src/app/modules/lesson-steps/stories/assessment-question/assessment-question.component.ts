@@ -249,6 +249,10 @@ export class AssessmentQuestionComponent implements OnInit {
     this.studentService.saveAnswerToAPI(submission).subscribe(
       (response: any) => {
         if (response && response.data) {
+          this.selectedEassyAns = null;
+          this.getSingleSelectValue = null;
+          this.getMultiselectedValues = null;
+          this.draggedItem = null;
           this.showNextScreen();
         }
       },
@@ -443,6 +447,15 @@ export class AssessmentQuestionComponent implements OnInit {
       this.validateAndSaveData(submission);
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      // attempt check after click outside/backspace/esc
+      this.attempt = this.attempt + 1;
+      submission['isCorrect'] = this.isRightAns;
+      if (this.attempt && this.attempt === 1) {
+        submission['pointsEarned'] = 1;
+      } else if (this.attempt === 2) {
+        submission['pointsEarned'] = 0.25;
+      }
+      this.validateAndSaveData(submission);
     });
 
   }

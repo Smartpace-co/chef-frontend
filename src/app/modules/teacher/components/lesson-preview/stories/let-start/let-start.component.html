@@ -1,7 +1,6 @@
 <app-ingreditent-nav></app-ingreditent-nav>
 <app-lessons-headerbar [lessonHederConfig]="lessonHederConfig"></app-lessons-headerbar>
-  <div *ngIf="isLoad" class="story-body-1"
-   [ngStyle]=" countryBgImg ? {background: ' url(' + countryBgImg + ')'} : {background: ' url(' + './assets/images/kitchen-bg-blur.jpg' + ')'}">
+  <div *ngIf="isLoad" class="story-body-1">
   <div class="container">
     <div class="final-editaion">
       <div class="content-wrapper">
@@ -12,8 +11,8 @@
             <div class="speech-tooltip md-tooltip right-bottom-tip">
               <div class="speech-tooltip-inner">
                 <p class="message">
-                  {{ textMsg }}
-                </p>
+                  {{ textMsg }} 
+                </p> 
                 <span class="tip">
                   <img src="./assets/images/right-bottom-tip.svg" alt="" class="img-fluid" />
                 </span>

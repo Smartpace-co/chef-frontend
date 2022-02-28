@@ -68,24 +68,26 @@
               fieldControl="contactNumber" [form]="addTeacherForm"
               [ngClass]="{ 'is-invalid': formControl.contactNumber.touched && formControl.contactNumber.errors }">
             </app-input-field>
+            
             <div *ngIf="formControl.contactNumber.errors" class="invalid-feedback">
               <div class="error" *ngIf="formControl.contactNumber.errors?.required">{{'school.teacher.add-teacher.contact.required' | translate}}
               </div>
               <div class="error" *ngIf="formControl.contactNumber.errors?.pattern">{{'school.teacher.add-teacher.contact.valid' | translate}}</div>
-              <div class="error" *ngIf="formControl.contactNumber.errors?.minlength">{{'school.teacher.add-teacher.contact.length' | translate}}</div>
+              <!-- <div class="error" *ngIf="formControl.contactNumber.errors?.minlength">{{'school.teacher.add-teacher.contact.length' | translate}}</div> -->
               <div class="error" *ngIf="formControl.contactNumber.errors?.contactValidate">
                 <div class="error">{{'school.teacher.add-teacher.contact.exist' | translate}}</div>
               </div>
+              <!-- <div class="error" *ngIf="formControl.contactNumber.errors?.contactDigitValidate">{{'school.teacher.add-teacher.contact.digit-validate' | translate}}</div> -->
             </div>
           </div>
           <div class="col-md-6">
-            <label>{{'district.district-profile.agent-component.gender-field.label'| translate}} </label>
+            <label>{{'district.district-profile.agent-component.gender-field.label'| translate}} {{'student.profile.optional-label'| translate }}</label>
             <app-drop-down fieldControl="gender" class="formDropdown schoolForm" [dropDownButtonName]="genderTitle"
               [dropDownItemList]="genderList" (registerDropdownValueChange)="changeGender($event)"
               [ngClass]="{ 'is-invalid': formControl.gender.touched && formControl.gender.errors }">
             </app-drop-down>
           </div>
-          <div class="col-md-3 col-sm-6 image-upload">
+          <div class="col-md-6 image-upload">
             <div class="profile-heading">
               <span class="profile-image">
                 <img src="{{this.profileImage}}" alt="" class="img-fluid" />

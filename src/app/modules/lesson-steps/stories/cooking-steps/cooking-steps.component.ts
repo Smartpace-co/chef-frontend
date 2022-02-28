@@ -70,11 +70,15 @@ export class CookingStepsComponent implements OnInit {
           this.isVisibleNext = false;
           this.isVisiblePrevious = false;
           this.cookingSteps = _.map(response.data.recipe.cookingSteps, item => {
+            let secureUrl;
+            if (item && item.link) {
+              secureUrl = this.sanitizer.bypassSecurityTrustResourceUrl(item.link);
+            }
             let obj = {
               id: cnt,
               info: item.text,
               image: item.image ? item.image : this.defaultLessonImage,
-              video: item.link,
+              video: secureUrl,
               isBigChef: item.isApplicableForBigChef === true ? './assets/images/teacher-1.png' : undefined,
               isLittleChef: item.isApplicableForLittleChef === true ? './assets/images/profile-icon-13.png' : undefined,
             }
@@ -134,7 +138,4 @@ export class CookingStepsComponent implements OnInit {
     }
   }
 
-  getSanitizeUrl(url) {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
-  }
 }

@@ -43,7 +43,6 @@ export class ImportStudentComponent implements OnInit {
   getTeacherData() {
     this.classService.getTeacherData(this.localData.id).subscribe((response: any) => {
       if (response && response.data) {
-        console.log(response.data);
 
         if (response.data.teacher.district_id)
           this.teacherData.districtId = response.data.teacher.district_id;

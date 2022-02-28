@@ -1,34 +1,35 @@
 @import "../../../../../assets/styles/helpers/variables";
 @import "../../../../../assets/styles/helpers/mixins";
-.user-profile{
+.user-profile {
   margin-top: 6rem;
-  .container{
+  .edit-btn-wrapper {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     @include breakpoint(mobile) {
-      flex-wrap: wrap;
+      justify-content: flex-start;
+      margin-bottom: 5rem;
     }
   }
-  .district-info{
+  .district-info {
     max-width: 65rem;
     margin: 0 auto;
   }
-  .agent-info{
+  .agent-info {
     max-width: 65rem;
     margin: 0 auto;
     margin-top: 4rem;
   }
-  .heading-info{
+  .heading-info {
     margin-bottom: 2.5rem;
   }
-  .user-profile-wrapper{
+  .user-profile-wrapper {
     width: calc(100% - 22rem);
     padding-bottom: 4rem;
     @include breakpoint(mobile) {
       padding: 4rem 2rem;
       padding-top: 0;
     }
-    margin-bottom:5rem;
+    margin-bottom: 5rem;
     @include breakpoint(tabs) {
       width: calc(100% - 20rem);
     }
@@ -36,11 +37,11 @@
       width: 100%;
       order: 2;
     }
-    .heading-info{
+    .heading-info {
       margin-bottom: 2.5rem;
     }
-    .user-details{
-      li{
+    .user-details {
+      li {
         display: flex;
         padding-bottom: 2.6rem;
         // max-width: 65rem;
@@ -48,35 +49,35 @@
         @include breakpoint(sm-mobile) {
           flex-wrap: wrap;
         }
-        .profile-heading{
-            min-width: 16rem;
-            @include breakpoint(mobile) {
-              min-width: 14rem
-            }
-            @include breakpoint(sm-mobile) {
-              width: 100%;
-            }
-          .profile-image{
+        .profile-heading {
+          min-width: 16rem;
+          @include breakpoint(mobile) {
+            min-width: 14rem;
+          }
+          @include breakpoint(sm-mobile) {
+            width: 100%;
+          }
+          .profile-image {
             display: inline-flex;
             width: 10rem;
             height: 10rem;
             background-color: $secondary;
             border-radius: 50%;
             justify-content: center;
-           // align-items: flex-end;
-            overflow :hidden;
+            align-items: center;
+            overflow: hidden;
             @include breakpoint(sm-mobile) {
               margin-bottom: 1rem;
             }
           }
-          h6{
+          h6 {
             font-size: 1.6rem;
             color: $light-blue-shade;
             margin-bottom: 0;
             line-height: 2;
           }
         }
-        .profile-sub-info{
+        .profile-sub-info {
           width: calc(100% - 16rem);
           @include breakpoint(mobile) {
             width: calc(100% - 14rem);
@@ -84,7 +85,7 @@
           @include breakpoint(sm-mobile) {
             width: 100%;
           }
-          h6{
+          h6 {
             font-size: 1.6rem;
             line-height: 2;
             margin-bottom: 0;
@@ -92,14 +93,14 @@
               word-break: break-all;
             }
           }
-          p{
+          p {
             font-weight: 700;
           }
-          .edit-profile{
+          .edit-profile {
             color: $yellow-shade-5;
             font-weight: 700;
             cursor: pointer;
-            span{
+            span {
               width: 1.6rem;
               height: 1.6rem;
             }
@@ -107,46 +108,36 @@
         }
       }
     }
-    .change-password-btn-wrapper{
-      text-align: center;  
-    }
-  }
-  .edit-btn-wrapper{
-    margin-left: 3rem;
-    @include breakpoint(mobile) {
-      width: 100%;
-      order: 1;
-      text-align: left;
-      margin-left: auto;
-      margin-bottom: 4rem;
+    .change-password-btn-wrapper {
+      text-align: center;
     }
   }
 }
-.change-password-class{
-  max-width:80%;
+.change-password-class {
+  max-width: 80%;
   margin: 0 auto;
-  .modal-title{
+  .modal-title {
     @include breakpoint(mobile) {
       font-size: 2.2rem;
     }
   }
-  h4{
-      color: $orange;
-      font-size:1.8rem;
-      font-weight: bold;
-      text-align: center;
-      margin-bottom: 2rem;
+  h4 {
+    color: $orange;
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 2rem;
   }
-  p{
-      margin-bottom:3rem;
-      padding: 0;
+  p {
+    margin-bottom: 3rem;
+    padding: 0;
   }
 }
-.custom-radio{
+.custom-radio {
   display: inline-block;
-  margin-left:2rem;
-  margin-top:1rem;
-  label{
-      padding-left: 0;
+  margin-left: 2rem;
+  margin-top: 1rem;
+  label {
+    padding-left: 0;
   }
 }

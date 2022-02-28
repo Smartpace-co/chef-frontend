@@ -61,7 +61,7 @@ export class UserProfileComponent implements OnInit {
       distName: new FormControl('', [Validators.required]),
       address: new FormControl([], []),
       contact: new FormControl("", [Validators.required, Validators.pattern(CustomRegex.phoneNumberPattern),
-      Validators.minLength(10), this.validPhoneNumber.bind(this)]),
+      this.validPhoneNumber.bind(this)]),
       gender: new FormControl('Male', [])
     });
     this.passwordForm = this.fb.group({
@@ -317,9 +317,9 @@ export class UserProfileComponent implements OnInit {
     if(control && control.value){
       let isValid = control.value.match(CustomRegex.phoneNumberPattern);
       let contactNo = control.value;
-      if (control.value && control.value.length === 11 || control.value.length > 13) {
-        return { 'digitValidate': true }
-      }
+      // if (control.value && control.value.length === 11 || control.value.length > 13) {
+      //   return { 'digitValidate': true }
+      // }
       if (isValid && isValid.input) {
         if (this.userDetails && this.userDetails.phone === control.value) {
           contactNo = undefined;

@@ -34,6 +34,8 @@ import html2canvas from 'html2canvas';
 import jspdf from 'jspdf';
 import * as _ from 'lodash';
 import { TranslationService } from '@appcore/services/translation.service';
+import { ExcelService } from '../../../../shared/services/excel.service';
+import { UtilityService } from '@appcore/services/utility.service';
 
 @Component({
   selector: 'app-teacher-performance',
@@ -77,6 +79,7 @@ export class TeacherPerformanceComponent implements OnInit, OnDestroy {
   closeModal: any;
   closeModal1: any;
   criteriaModal: any;
+  downlaodModal: any;
   profileModal: any;
   // Variable decalarations
   subscription: Subscription;
@@ -85,6 +88,16 @@ export class TeacherPerformanceComponent implements OnInit, OnDestroy {
   selectedClassId: number;
   duration = 'week';
   standard: boolean = false;
+  assignmentTitle: any;
+  assignmentStartDate: any;
+  assignmentEndDate: any;
+  notStartedCount: any;
+  needHelpCount: any;
+  makingProgressCount: any;
+  completedCount: any;
+
+
+  subList: any;
 
   ViewTitle = 'Tile View';
   ViewList = [];
@@ -197,17 +210,20 @@ export class TeacherPerformanceComponent implements OnInit, OnDestroy {
     }
   ];
 
-  operationDetails = [
-  ];
+  operationDetails = [];
 
-  skillDetails = [
-  ];
+  skillDetails = [];
 
   studentDetails = [];
 
   headersList = [];
   showHeader = true;
   graphicalDetails = [];
+  studentData = {
+    id: null,
+    firstName: '',
+    lastName: ''
+  };
 
   profileInfo: any;
   allergens: any;
@@ -218,30 +234,16 @@ export class TeacherPerformanceComponent implements OnInit, OnDestroy {
   NextArrow = faAngleDoubleRight;
   trash = faTrashAlt;
 
-  // graphicalDetails = [
-  //   {
-  //     id: 1,
-  //     name: "Samuel, Aaron",
-  //     studentID: "36271",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Samuel, Aaron",
-  //     studentID: "36271",
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Samuel, Aaron",
-  //     studentID: "36271",
-  //   },
-  // ]
+
   constructor(
     private router: Router,
     private teacherService: TeacherService,
     private toast: ToasterService,
     private actRoute: ActivatedRoute,
     private modalService: NgbModal,
-    private translate: TranslationService
+    private translate: TranslationService,
+    private excelService: ExcelService,
+    private utilityService: UtilityService
   ) {
     this.reportTypeId = this.actRoute.snapshot.params.id;
     this.selectedClassId = this.teacherService.getSelectedClassId();
@@ -291,6 +293,7 @@ export class TeacherPerformanceComponent implements OnInit, OnDestroy {
     this.selectedClassId = this.teacherService.getSelectedClassId();
     // console.log('print subject id ==  ' + this.reportTypeId);
     if (this.reportTypeId == 1) {
+      this.performance1 = false;
       this.performance4 = false;
       this.performance5 = false;
       this.performance3 = false;
@@ -299,6 +302,8 @@ export class TeacherPerformanceComponent implements OnInit, OnDestroy {
       this.heading2 = false;
       this.heading1 = true;
       this.slider = true;
+      this.tabs = false;
+      this.Filters = true;
       this.getPlanList();
       this.showHeader = true;
       this.headersList = [
@@ -317,6 +322,7 @@ export class TeacherPerformanceComponent implements OnInit, OnDestroy {
       ]
     }
     if (this.reportTypeId == 2) {
+      this.performance1 = false;
       this.performance4 = false;
       this.performance5 = false;
       this.performance3 = true;
@@ -325,6 +331,8 @@ export class TeacherPerformanceComponent implements OnInit, OnDestroy {
       this.heading1 = false;
       this.heading2 = true;
       this.slider = true;
+      this.tabs = false;
+      this.Filters = true;
       this.getPlanList();
       this.showHeader = true;
       this.headersList = [
@@ -347,6 +355,7 @@ export class TeacherPerformanceComponent implements OnInit, OnDestroy {
       ]
     }
     if (this.reportTypeId == 3) {
+      this.performance1 = false;
       this.performance4 = false;
       this.performance3 = false;
       this.performance2 = false;
@@ -355,6 +364,7 @@ export class TeacherPerformanceComponent implements OnInit, OnDestroy {
       this.heading3 = true;
       this.slider = false;
       this.performance5 = true;
+      this.tabs = false;
       this.getStudentReports(this.selectedClassId);
       this.showHeader = true;
       this.headersList = [
@@ -379,21 +389,30 @@ export class TeacherPerformanceComponent implements OnInit, OnDestroy {
     // console.log(this.headersList);
   }
 
+  onBack() {
+    this.setData();;
+  }
+
   filterDuration(param) {
     this.duration = param;
-    if (this.reportTypeId == 2 || this.reportTypeId == 1) this.getPlanList();
+    if (this.reportTypeId == 2 || this.reportTypeId == 1 || this.performance1 == true) this.getPlanList();
     if (this.reportTypeId == 3) this.getStudentReports(this.selectedClassId);
   }
 
   getPlanList() {
+
     this.planList = [];
     this.operationDetails = [];
-    this.teacherService.getPerformanceCatgList(this.duration, this.selectedClassId).subscribe(
+    this.teacherService.getPerformanceCatgList(this.duration, this.selectedClassId, this.studentData.id).subscribe(
       (response: any) => {
         if (response && response.data && response.status === 200) {
           this.planList = response.data;
           for (let i = 0; i < this.planList.length; i++) {
             this.planList[i].id = i;
+          }
+          if (this.reportTypeId == 3 || this.performance1) {
+            this.getStudentStandardReport(this.planList[0]);
+            return;
           }
           if (this.reportTypeId == 2) {
             this.getReportList(this.planList[0]);
@@ -409,14 +428,14 @@ export class TeacherPerformanceComponent implements OnInit, OnDestroy {
   }
 
   getReportList(item) {
-
     if (this.reportTypeId == 1) this.getReportListByStandard(item);
     if (this.reportTypeId == 2) this.getAssignmentReportList(item);
+    if (this.reportTypeId == 3) this.getStudentStandardReport(item);
   }
 
   getAssignmentReportList(item) {
     if (item && item.assignmentIds.length) {
-      this.teacherService.getReportList(JSON.stringify(item.assignmentIds), this.selectedClassId,  item.questionTypeInfo.key).subscribe(
+      this.teacherService.getReportList(JSON.stringify(item.assignmentIds), this.selectedClassId, item.questionTypeInfo.key).subscribe(
         (response: any) => {
           if (response && response.data && response.status === 200) {
             this.operationDetails = response.data;
@@ -427,6 +446,8 @@ export class TeacherPerformanceComponent implements OnInit, OnDestroy {
           this.toast.showToast(error.error.message, '', 'error');
         }
       );
+    } else {
+      this.operationDetails = [];
     }
   }
 
@@ -439,6 +460,8 @@ export class TeacherPerformanceComponent implements OnInit, OnDestroy {
           this.operationDetails.map(obj => obj.subList = []);
         }
       });
+    } else {
+      this.operationDetails = [];
     }
   }
   getStudentReports(classId) {
@@ -469,6 +492,52 @@ export class TeacherPerformanceComponent implements OnInit, OnDestroy {
 
       }
     });
+  }
+
+  getStudentStandardReport(item) {
+    if (item && item.assignmentIds.length) {
+      this.teacherService.getStudentStandardReport(JSON.stringify(item.assignmentIds), this.selectedClassId, item.questionTypeInfo.key, this.studentData.id).subscribe((response: any) => {
+        if (response && response.data && response.status === 200) {
+          // console.log("standard Respnse",response);
+          this.operationDetails = response.data;
+          this.operationDetails.map(obj => obj.subList = []);
+        }
+      });
+    } else {
+      this.operationDetails = [];
+    }
+  }
+
+  showStudentStandardReport(studentData) {
+    this.studentData = studentData;
+
+    this.performance4 = false;
+    this.performance5 = false;
+    this.performance3 = false;
+    this.performance2 = false;
+    this.performance1 = true;
+
+    this.heading3 = false;
+    this.heading2 = false;
+    this.heading1 = true;
+    this.slider = true;
+    this.getPlanList();
+    this.showHeader = true;
+
+    this.headersList = [
+      {
+        title: 'PROFICIENCY',
+        check: true
+      },
+      {
+        title: 'CORRECT RESPONSE',
+        check: true
+      },
+      {
+        title: 'INCORRECT ATTEMPTS',
+        check: true
+      }
+    ]
   }
 
   changeView(event) {
@@ -507,6 +576,13 @@ export class TeacherPerformanceComponent implements OnInit, OnDestroy {
     this.criteriaModal = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true, windowClass: 'dist-modal' });
   }
 
+  openDownloadModal(content) {
+    this.downlaodModal = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true, windowClass: 'dist-modal' });
+  }
+  closeDownlaodModal() {
+    this.downlaodModal.close();
+  }
+
   onChange(data) {
     this.headersList.filter(obj => obj.title === data.title)[0].check = !data.check;
 
@@ -535,18 +611,8 @@ export class TeacherPerformanceComponent implements OnInit, OnDestroy {
       // console.log("student Info", this.profileInfo);
     },
       (error) => {
-        // console.log(error);
         this.toast.showToast(error.error.message, '', 'error');
       });
-    // this.StudentList.forEach((element, index) => {
-    //   if (element.studentId == student.studentId) {
-    //     if (!Array.isArray(element.studentName)) {
-    //       element.studentName = element.studentName.split(',');
-    //     }
-    //     this.profileInfo = element;
-    //     this.studIndex = index;
-    //   }
-    // });
 
   }
 
@@ -560,6 +626,62 @@ export class TeacherPerformanceComponent implements OnInit, OnDestroy {
       });
   }
 
+  openReport(item) {
+    this.performance4 = true;
+    this.performance3 = false;
+    this.slider = false;
+    this.Filters = false;
+    this.tabs = true;
+    this.heading1 = true;
+    this.heading2 = false;
+
+    this.assignmentTitle = item.assignmentTitle;
+    this.assignmentStartDate = item.startDate;
+    this.assignmentEndDate = item.endDate;
+    this.makingProgressCount = item.makingProgressCount;
+    this.needHelpCount = item.needHelpCount;
+    this.completedCount = item.completedCount;
+    this.notStartedCount = item.notStartedCount;
+
+    this.teacherService.getAssignmentStudentList(item.id).subscribe((res) => {
+      if (res && res.data && res.status == 200) {
+
+        this.studentDetails = res.data;
+        // this.studentDetails.forEach(element => {
+        //   element.upArrow = true;
+        // });
+      }
+    }, (error) => {
+      console.log(error);
+    })
+
+  }
+
+
+  getStudentStandards(item, i) {
+    this.subList = [];
+    this.teacherService.getStudentStandardList(JSON.stringify(item.assignmentId), item.classId, item.id).subscribe((res) => {
+      if (res && res.data && res.status == 200) {
+        if (res.data.length) {
+          this.subList = res.data;
+          // item['upArrow'] = false;
+          // this.upArrow= true;
+          // document.getElementById(("anchor" + i)).click();
+
+        } else {
+          // item['upArrow'] = true;
+          this.subList = [];
+          this.toast.showToast('No standards found for the', '', 'error');
+        }
+
+        // this.studentDetails = res.data;
+      }
+    }, (error) => {
+      console.log(error);
+    })
+  }
+
+
   generatePDF() {
     var data = document.getElementById('generatePdf');
     html2canvas(data).then((canvas) => {
@@ -572,8 +694,108 @@ export class TeacherPerformanceComponent implements OnInit, OnDestroy {
 
       pdf.save('teacher_report.pdf');
     });
-
   }
+
+  printExcelSheet(): void {
+
+    let newArray = [];
+    let i = 1;
+
+    if (this.performance2) {
+      for (let element of this.operationDetails) {
+        let obj = {};
+        for (let elm in element) {
+          if (elm === "id") obj["SL.No."] = i++;
+          if (elm === "title") obj["Standards"] = element[elm];
+          if (elm === "completePercent") obj["Lesson Assigned & Completed"] = element[elm];
+          if (elm === "emerging") obj["Emerging"] = element[elm];
+          if (elm === "proficient") obj["Proficient"] = element[elm];
+          if (elm === "advanced") obj["Advanced"] = element[elm];
+        }
+        newArray.push(obj);
+      }
+      this.excelService.exportAsExcelFile(newArray, 'Report By Standard');
+
+    }
+    if (this.performance3) {
+      for (let element of this.operationDetails) {
+        let obj = {};
+        for (let elm in element) {
+          if (elm === "id") obj["Sl.No."] = i++;
+          if (elm === "assignmentTitle") obj["Assignment Name"] = element[elm];
+          if (elm === "startDate") obj["Assignment Dates"] = this.utilityService.customLessonformatDate(element[elm]);
+          if (elm === "endDate") obj["Assignment Dates"] = obj["Assignment Dates"] + ' - ' + this.utilityService.customLessonformatDate(element[elm]);
+          if (elm === "notStartedCount") obj["Not Started"] = element[elm];
+          if (elm === "needHelpCount") obj["Need Help"] = element[elm];
+          if (elm === "makingProgressCount") obj["Making Progress"] = element[elm];
+          if (elm === "completedCount") obj["Completed"] = element[elm];
+        }
+        newArray.push(obj);
+      }
+      this.excelService.exportAsExcelFile(newArray, 'Report By Assignment');
+
+    }
+
+    if (this.performance5) {
+      for (let element of this.graphicalDetails) {
+        let obj = {};
+        for (let elm in element) {
+          if (elm === "id") {
+            obj["Sl.No."] = i++;
+            obj["Student Id"] = element[elm];
+          }
+          if (elm === "firstName") obj["Name"] = element[elm];
+          if (elm === "lastName") obj["Name"] = obj["Name"] + ' ' + element[elm];
+          if (elm === "totalAssignments") obj["Assignments"] = element[elm];
+
+          if (elm === "notStartedCount") obj["Not Started"] = element[elm];
+          if (elm === "needHelpCount") obj["Need Help"] = element[elm];
+          if (elm === "makingProgressCount") obj["Making Progress"] = element[elm];
+          if (elm === "completedCount") obj["Completed"] = element[elm];
+
+          if (elm === "standards") obj["Standards"] = element[elm];
+          if (elm === "emerging") obj["Emerging"] = element[elm];
+          if (elm === "proficient") obj["Proficient"] = element[elm];
+          if (elm === "advanced") obj["Advanced"] = element[elm];
+        }
+        newArray.push(obj);
+      }
+      this.excelService.exportAsExcelFile(newArray, 'Report By Student');
+
+    }
+
+    if (this.performance1) {
+      for (let element of this.operationDetails) {
+        let obj = {};
+        for (let elm in element) {
+          if (elm === "id") obj["Sl.No."] = i++;
+          if (elm === "title") obj["Standards"] = element[elm];
+          if (elm === "proficiency") obj["Proficiency"] = element[elm];
+          if (elm === "correcResponseCount") obj["Correct Reponse"] = element[elm];
+          if (elm === "incorrectAttemptsCount") obj["Incorrect Response"] = element[elm];
+        }
+        newArray.push(obj);
+      }
+      this.excelService.exportAsExcelFile(newArray, 'Student performance');
+
+    }
+
+    if (this.performance4) {
+      for (let element of this.studentDetails) {
+        let obj = {};
+        for (let elm in element) {
+          if (elm === "id") obj["SL.No"] = i++;
+          if (elm === "firstName") obj["STUDENT NAME"] = element[elm];
+          if (elm === "lastName") obj["STUDENT NAME"] = obj["STUDENT NAME"] + " " + element[elm];
+          if (elm === "status") obj["STATUS + SKILL PROFICIENCY"] = element[elm];
+        }
+        newArray.push(obj);
+      }
+      this.excelService.exportAsExcelFile(newArray, 'Students report');
+
+    }
+  }
+
   /*hideContentColumns(e, value) {
       if(this.reportTypeId == 1){
     this.operationDetails = this.operationDetails.filter(function (obj) {
@@ -588,3 +810,4 @@ export class TeacherPerformanceComponent implements OnInit, OnDestroy {
 }*/
 
 }
+

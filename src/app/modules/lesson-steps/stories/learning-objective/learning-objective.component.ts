@@ -12,32 +12,28 @@ import { StudentService } from '@modules/student/services/student.service';
 export class LearningObjectiveComponent implements OnInit {
   lessonHederConfig = {};
   isVisibleNext = false;
+  defaultRecipeImg: string;
+  recipeImg: string;
   showPrevious = false; // To hide previous button
-  slideConfig = {
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    prevArrow: false,
-    nextArrow: false,
-    // nextArrow: '<div class=\'nav-btn next-slide\'>>></div>',
-    // prevArrow: '<div class=\'nav-btn prev-slide\'><<</div>',
-    dots: true,
-    infinite: false,
-  };
+  slideConfig;
   assignmentTitle: any;
   assignmentList: any;
   assignmentId: string;
   isLoad = false;
+  countryBgImg;
   learningObjective = [];
   learnObjString: string;
   audioTrack;
-  countryBgImg;
+  lesson;
   constructor(private router: Router, private toast: ToasterService, private studentService: StudentService, private utilityService: UtilityService) {
     this.lessonHederConfig['stepBoard'] = null;
+    this.defaultRecipeImg = './assets/images/nsima-bent-icon.png';
   }
 
   ngOnInit(): void {
     this.assignmentId = localStorage.getItem('assignmentId')
     this.getStudentData();
+    this.lesson = localStorage.getItem('lessonType');
     let previousTime = this.utilityService.calculateTimeBetweenDates();
     this.updateLessonProgress(previousTime);
   }
@@ -64,14 +60,23 @@ export class LearningObjectiveComponent implements OnInit {
     this.studentService.getAssignedLessonById(parseInt(this.assignmentId)).subscribe(
       (response) => {
         if (response && response.data) {
-          this.assignmentTitle = response.data.assignmentTitle;
-          this.countryBgImg = response.data.recipe.country.backgroundImage;
+          // if (this.lesson === 'Explore') {
+          this.assignmentTitle = response.data.recipe.recipeTitle;
+          // } else {
+          //   this.assignmentTitle = response.data.assignmentTitle;
+          // }
+          this.recipeImg = response.data.recipe.recipeImage ? response.data.recipe.recipeImage : this.defaultRecipeImg;
           this.audioTrack = response.data.lesson.learningObjectivesForStudentTrack;
+          this.countryBgImg = response.data.recipe.country.backgroundImage;
+          this.showPrevious = this.countryBgImg ? true : false;
           this.learnObjString = response.data.lesson.learningObjectivesForStudent.replace(/&nbsp;|<[^>]+>/g, '');
           // this.learnObjString = '<ol><li><strong>learn special class and have? a specilaization recipie cooking learn special. class and have a specilaization recipie cookinglearn special class and have a specilaization. recipie cookinglearn special class and have a specilaization recipie cookinglearn special. class and have a specilaization recipie cookinglearn special class and have. a specilaization recipie cookinglearn special class and have a specilaization recipie cookinglearn special class and have a specilaization recipie cookinglearn special class and have a specilaization recipie cookinglearn special class and have a specilaization recipie cookinglearn special class and have a specilaization recipie cookinglearn special class and have a specilaization recipie cookinglearn special class and have a specilaization recipie cooking</strong></li></ol>'
           // let stripedHtml = this.learnObjString.replace(/<[^>]+>/g, '');
           // this.learningObjective = stripedHtml.split(/[!,?,.]/);         
-          this.learningObjective = this.learnObjString.match(/.{1,220}/g);
+          // this.learningObjective = this.learnObjString ? this.learnObjString.match(/.{1,175}(\s|$)/g) : undefined;
+          this.learningObjective = this.learnObjString ? this.learnObjString.split(".") : undefined;
+          this.learningObjective = this.learningObjective.filter(e => e && e.trim() != "");
+          this.getSliderConfig();
           this.isLoad = true;
         }
       },
@@ -82,10 +87,27 @@ export class LearningObjectiveComponent implements OnInit {
     );
   }
 
+  getSliderConfig(): void {
+    this.slideConfig = {
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      nextArrow: '<div class=\'nav-btn next-slide\'></div>',
+      prevArrow: '<div class=\'nav-btn prev-slide\'></div>',
+      dots: this.learningObjective && this.learningObjective.length > 1 ? true : false,
+      infinite: false,
+    };
+  }
   /**
   * on Next click event
  */
   onNext(): void {
     this.router.navigate(['/student/summary-view']);
+  }
+
+  /**
+  * on Previous click event
+ */
+  onPrevious(): void {
+    this.router.navigate(['/student/country-image']);
   }
 }

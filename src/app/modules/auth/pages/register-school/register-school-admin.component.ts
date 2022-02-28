@@ -30,7 +30,6 @@ export class SchoolAdminComponent implements OnInit {
   allPackages = [];
   currentPackage;  
   stripe:any
-  distID:any
   months:any;
   constructor(
     private authService: AuthService,
@@ -66,23 +65,19 @@ export class SchoolAdminComponent implements OnInit {
       this.validateEmail.bind(this),
       ]),
       adminPhoneNumber: new FormControl("", [Validators.required, Validators.pattern(CustomRegex.phoneNumberPattern),
-        Validators.minLength(10) 
-        // this.validPhoneNumberLength.bind(this),
+        // Validators.minLength(10),
+        this.validPhoneNumber.bind(this),
       ]),
       contactPersonName: new FormControl("", [Validators.required, Validators.pattern('^[a-zA-Z \-\']+')]),
-      contactPersonNumber: new FormControl("", [Validators.pattern(CustomRegex.phoneNumberPattern), Validators.minLength(10) 
+      contactPersonNumber: new FormControl("", [Validators.pattern(CustomRegex.phoneNumberPattern),
+        //  Validators.minLength(10),
         // this.validPhoneNumberLength.bind(this)
       ]),
-      contactPersonEmail: new FormControl("", [Validators.pattern(CustomRegex.emailPattern),
-        Validators.minLength(10)
-        // this.validPhoneNumberLength.bind(this)
-      ]),
+      contactPersonEmail: new FormControl("", [Validators.pattern(CustomRegex.emailPattern)]),
       package: new FormControl("", [Validators.required]),
-      district: new FormControl(""),
-      status: new FormControl('active', [Validators.required])
+      district: new FormControl("")
     });
-    this.loadMasters();
-    console.log("roleid", this.roleID);
+    // this.loadMasters();
   }
 
   /**
@@ -130,22 +125,22 @@ export class SchoolAdminComponent implements OnInit {
     );
   }
 
-  loadMasters(): void {
-    this.authService.getAllDistrictDetails().subscribe(
-      (response) => {
-        this.districtList = _.map(response.data, item => {
-          const obj = {
-            id: item.id,
-            menu: item.name
-          }
-          return obj;
-        });
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
+  // loadMasters(): void {
+  //   this.authService.getAllDistrictDetails().subscribe(
+  //     (response) => {
+  //       this.districtList = _.map(response.data, item => {
+  //         const obj = {
+  //           id: item.id,
+  //           menu: item.name
+  //         }
+  //         return obj;
+  //       });
+  //     },
+  //     (error) => {
+  //       console.log(error);
+  //     }
+  //   );
+  // }
   get formControl() {
     return this.registerAdminForm.controls;
   }
@@ -186,20 +181,21 @@ export class SchoolAdminComponent implements OnInit {
    *   
    */
   validPhoneNumber(control: AbstractControl): any {
-    let isValid = control.value.match(CustomRegex.phoneNumberPattern);
-    if (control.value.length === 11 || control.value.length > 14) {
-      return { 'contactDigitValidate': true }
-    }
-
-    if (isValid && isValid.input) {
-      this.districtService.contactValidator(control.value).subscribe(
-        (data) => {
-        },
-        (error) => {
-          console.log(error);
-          this.registerAdminForm.controls['adminPhoneNumber'].setErrors({ 'contactValidate': true });
-        }
-      );
+    if (control && control.value) {
+      let isValid = control.value.match(CustomRegex.phoneNumberPattern);
+      // if (isValid && (control.value.length < 10 || control.value.length === 11 || control.value.length > 13)) {
+      //   return { 'contactPnumberValidate': true }
+      // }
+      if (isValid && isValid.input) {
+        this.districtService.contactValidator(control.value).subscribe(
+          (data) => {
+          },
+          (error) => {
+            console.log(error);
+            this.registerAdminForm.controls['adminPhoneNumber'].setErrors({ 'contactValidate': true });
+          }
+        );
+      }
     }
   }
 
@@ -236,11 +232,11 @@ export class SchoolAdminComponent implements OnInit {
     this.openModal.close();
   }
 
-  changeDistrict(event) {
-     this.distID = event.target.value;
-    this.registerAdminForm.get('district').setValue(parseInt(this.distID));
+  // changeDistrict(event) {
+  //    this.distID = event.target.value;
+  //   this.registerAdminForm.get('district').setValue(parseInt(this.distID));
 
-  }
+  // }
 
   onCheckBoxChange(value) {
     console.log(value);
@@ -285,10 +281,10 @@ export class SchoolAdminComponent implements OnInit {
         contact_person_email: this.registerAdminForm.value.contactPersonEmail,
         contact_person_address: this.registerAdminForm.value.contactPersonName,
         emergency_contact_number: this.registerAdminForm.value.contactPersonNumber,
-        package_id:this.registerAdminForm.value.package.id
+        package_id:this.registerAdminForm.value.package.id,
+        customDistrictName:this.registerAdminForm.value.district
       };
 
-      if(this.distID) submission["district_id"] = this.distID;
       this.authService.registerSchoolAdmin(submission,this.token).subscribe(
         (dt:any) => {
           if (dt) {
@@ -302,11 +298,14 @@ export class SchoolAdminComponent implements OnInit {
 
             this.authService.createStripePaymentSession(stripeData,this.token).subscribe((dt) => {
               sessionStorage.removeItem("priceId")
-              this.stripe.redirectToCheckout({
+              setTimeout(() => {
+                this.toast.showToast('Yay! You just successfully signed up for Chef Koochooloo! Check your email for next steps.', '', 'success');
+                this.router.navigate(['/auth/login']);
+              }, 1000);              
+             /*  this.stripe.redirectToCheckout({
                 sessionId: dt.data,
+              }) */
               })
-              })
-           //console.log(dt)
            // this.toast.showToast('We sent an email with a verification link to ' + this.registerAdminForm.value.adminEmailAddress, '', 'success');
            // this.router.navigate(['/']);
           }

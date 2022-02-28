@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateAdapter, NgbDateParserFormatter, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -26,6 +26,8 @@ import { ViewportScroller } from '@angular/common';
 import { filter } from 'rxjs/operators';
 import { environment } from '../environments/environment';
 import { AuthService } from '@modules/auth/services/auth.service';
+import { CustomAdapter } from './shared/formatter/date-formatter';
+import { CustomDateParserFormatter } from './shared/formatter/date-formatter';
 
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -69,7 +71,9 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptor,
       multi: true
-    }
+    },
+    { provide: NgbDateAdapter, useClass: CustomAdapter },
+    { provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter }
   ],
   bootstrap: [AppComponent],
   exports: [TranslateModule]

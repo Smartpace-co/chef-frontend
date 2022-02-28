@@ -34,15 +34,12 @@
         li{
             display: flex;
             justify-content: space-between;
+            align-items: center;
             margin-bottom:2.5rem;
             font-size:1.8rem;
             font-weight: bold;
-            &:last-child{
-                margin-bottom: 0;
-            }
             label{
                 width: calc(100% - 6rem);
-                margin-bottom: 2rem;
             }
             .switch{
                 width:4.8rem;

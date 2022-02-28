@@ -5,6 +5,9 @@
       <div class="content-wrapper">
         <div class="card-wihtout-header-blue">
           <div class="active-action-wrapper">
+            <p>Find two same images.</p>
+          </div>
+          <div class="active-action-wrapper">
             <p>Click on the DONE button to submit your answer</p>
             <app-button classes="btn btn-primary icon-btn btn-back"  (click)="checkForMatch()" [submit]="true">
           <div aria-hidden="true">
@@ -35,7 +38,7 @@
     </div>
   </div>
 </div>
-<app-lessons-footer [isVisibleNext]="isVisibleNext" [isVisiblePrevious]="isVisiblePrevious" (onNext)="onNext()"
+<app-lessons-footer  [isVisiblePrevious]="isVisiblePrevious" (onNext)="onNext()"
   (onPrevious)="onPrevious()"></app-lessons-footer>
   <ng-template #correctAnsModal let-modal>
     <div class="modal-header response-header">

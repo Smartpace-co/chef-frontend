@@ -13,7 +13,7 @@
       <form [formGroup]="addTeacherForm" class="add-teacher-form">
         <div class="row">
           <div class="col-lg-4 col-md-6">
-            <label>{{'school.school-profile.school-name-label' | translate}}</label>
+            <label>{{'school.school-profile.school-name-label' | translate}} {{'student.profile.optional-label'| translate }}</label>
             <app-drop-down fieldControl="schoolName" class="formDropdown schoolForm" [dropDownButtonName]="schoolTitle"
               [dropDownItemList]="schoolList" (registerDropdownValueChange)="changeSchool($event)">
               <!-- [ngClass]="{ 'is-invalid': formControl.schoolName.touched && formControl.schoolName.errors }"> -->
@@ -23,60 +23,74 @@
             <h5 class="department-heading">{{'school.teacher.add-teacher.personal-info-label' | translate}}</h5>
           </div>
           <div class="col-md-6">
-            <label>{{'school.teacher.add-teacher.last-name.last-name-field' | translate}}  (*)</label>
-            <app-input-field classes="form-control schoolForm" placeholders="{{'school.teacher.add-teacher.first-name.placeholder' | translate}}" ids="lastName"
+            <label>{{'school.teacher.add-teacher.last-name.last-name-field' | translate}} (*)</label>
+            <app-input-field classes="form-control schoolForm"
+              placeholders="{{'school.teacher.add-teacher.first-name.placeholder' | translate}}" ids="lastName"
               fieldControl="lastName" [form]="addTeacherForm"
               [ngClass]="{ 'is-invalid': formControl.lastName.touched && formControl.lastName.errors }">
             </app-input-field>
             <div *ngIf="formControl.lastName.errors" class="invalid-feedback">
-              <div class="error" *ngIf="formControl.lastName.errors?.required">{{'school.teacher.add-teacher.last-name.required' | translate}}
+              <div class="error" *ngIf="formControl.lastName.errors?.required">
+                {{'school.teacher.add-teacher.last-name.required' | translate}}
               </div>
             </div>
           </div>
           <div class="col-md-6">
             <label>{{'school.teacher.add-teacher.first-name.first-name-field' | translate}} (*)</label>
-            <app-input-field classes="form-control schoolForm" placeholders="{{'school.teacher.add-teacher.first-name.placeholder' | translate}}" ids="firstName"
+            <app-input-field classes="form-control schoolForm"
+              placeholders="{{'school.teacher.add-teacher.first-name.placeholder' | translate}}" ids="firstName"
               fieldControl="firstName" [form]="addTeacherForm"
               [ngClass]="{ 'is-invalid': formControl.firstName.touched && formControl.firstName.errors }">
             </app-input-field>
             <div *ngIf="formControl.firstName.errors" class="invalid-feedback">
-              <div class="error" *ngIf="formControl.firstName.errors?.required">{{'school.teacher.add-teacher.first-name.required' | translate}}
+              <div class="error" *ngIf="formControl.firstName.errors?.required">
+                {{'school.teacher.add-teacher.first-name.required' | translate}}
               </div>
             </div>
           </div>
           <div class="col-md-6">
             <label>{{'district.district-profile.agent-component.email-field.label'| translate}} (*)</label>
-            <app-input-field classes="form-control schoolForm" placeholders="{{'district.district-profile.agent-component.email-field.placeholder'| translate}}" ids="emailAddress"
-              fieldControl="emailAddress" [form]="addTeacherForm"
+            <app-input-field classes="form-control schoolForm"
+              placeholders="{{'district.district-profile.agent-component.email-field.placeholder'| translate}}"
+              ids="emailAddress" fieldControl="emailAddress" [form]="addTeacherForm"
               [ngClass]="{ 'is-invalid': formControl.emailAddress.touched && formControl.emailAddress.errors }">
             </app-input-field>
             <div *ngIf="formControl.emailAddress.errors" class="invalid-feedback">
-              <div class="error" *ngIf="formControl.emailAddress.errors?.required">{{'district.district-profile.agent-component.email-field.required'| translate}}
+              <div class="error" *ngIf="formControl.emailAddress.errors?.required">
+                {{'district.district-profile.agent-component.email-field.required'| translate}}
               </div>
-              <div class="error" *ngIf="formControl.emailAddress.errors?.pattern">{{'district.district-profile.agent-component.email-field.valid'| translate}}
+              <div class="error" *ngIf="formControl.emailAddress.errors?.pattern">
+                {{'district.district-profile.agent-component.email-field.valid'| translate}}
               </div>
-              <div class="error" *ngIf="formControl.emailAddress.errors?.emailValidate">{{'district.district-profile.agent-component.email-field.exist'| translate}}</div>
+              <div class="error" *ngIf="formControl.emailAddress.errors?.emailValidate">
+                {{'district.district-profile.agent-component.email-field.exist'| translate}}</div>
             </div>
           </div>
           <div class="col-md-6">
             <label>{{'school.teacher.add-teacher.contact.label' | translate}} (*)</label>
-            <app-input-field classes="form-control schoolForm" placeholders="{{'school.teacher.add-teacher.contact.placeholder' | translate}}" ids="contactNumber"
+            <app-input-field classes="form-control schoolForm"
+              placeholders="{{'school.teacher.add-teacher.contact.placeholder' | translate}}" ids="contactNumber"
               fieldControl="contactNumber" [form]="addTeacherForm"
               [ngClass]="{ 'is-invalid': formControl.contactNumber.touched && formControl.contactNumber.errors }">
             </app-input-field>
+            
             <div *ngIf="formControl.contactNumber.errors" class="invalid-feedback">
-              <div class="error" *ngIf="formControl.contactNumber.errors?.required">{{'school.teacher.add-teacher.contact.required' | translate}}
+              <div class="error" *ngIf="formControl.contactNumber.errors?.required">
+                {{'school.teacher.add-teacher.contact.required' | translate}}
               </div>
-              <div class="error" *ngIf="formControl.contactNumber.errors?.pattern">{{'school.teacher.add-teacher.contact.valid' | translate}}</div>
-              <div class="error" *ngIf="formControl.contactNumber.errors?.minlength">{{'school.teacher.add-teacher.contact.length' | translate}}</div>
-              <div class="error" *ngIf="formControl.contactNumber.errors?.digitValidate">Contact number is not valid(Required length is 10,12,13 digit)</div>
+              <div class="error" *ngIf="formControl.contactNumber.errors?.pattern">
+                {{'school.teacher.add-teacher.contact.valid' | translate}}</div>
+              <!-- <div class="error" *ngIf="formControl.contactNumber.errors?.minlength">
+                {{'school.teacher.add-teacher.contact.length' | translate}}</div> -->
+              <!-- <div class="error" *ngIf="formControl.contactNumber.errors?.digitValidate">Contact number is not
+                valid(Required length is 10,12,13 digit)</div> -->
               <div class="error" *ngIf="formControl.contactNumber.errors?.contactValidate">
                 <div class="error">{{'school.teacher.add-teacher.contact.exist' | translate}}</div>
               </div>
             </div>
           </div>
           <div class="col-md-6">
-            <label>{{'district.district-profile.agent-component.gender-field.label'| translate}} </label>
+            <label>{{'district.district-profile.agent-component.gender-field.label'| translate}} {{'student.profile.optional-label'| translate }} </label>
             <app-drop-down fieldControl="gender" class="formDropdown schoolForm" [dropDownButtonName]="genderTitle"
               [dropDownItemList]="genderList" (registerDropdownValueChange)="changeGender($event)">
             </app-drop-down>
@@ -92,8 +106,8 @@
               <fa-icon [icon]="PlusIcon"></fa-icon> <span>{{selectedFile ? 'Replace' : 'Profile image'}}</span>
             </label>
           </div> -->
-          <div class="col-md-3 col-sm-6 image-upload">
-            <div class="profile-heading ml-4">
+          <div class="col-md-6 image-upload">
+            <div class="profile-heading">
               <span class="profile-image">
                 <img src="{{profileImage}}" alt="" class="img-fluid" />
               </span>
@@ -101,21 +115,24 @@
             <div class="profile-sub-info">
               <input type="file" id="actual-btn" accept="image/*" (change)="onFileSelected($event)" hidden />
               <label for="actual-btn">
-                <fa-icon [icon]="PlusIcon"></fa-icon> <span>{{selectedFile ? 'Replace Profile Image' : 'Profile Image'}}</span>
+                <fa-icon [icon]="PlusIcon"></fa-icon> <span>{{selectedFile ? 'Replace Profile Image' : 'Profile
+                  Image'}}</span>
               </label>
-            </div>           
+            </div>
           </div>
           <div class="col-12 radio-btn-wrapper">
             <label>{{'school.teacher.add-teacher.status' | translate}}</label>
             <div class="custom-control custom-radio">
               <app-radio [form]="addTeacherForm" fieldControl="status" classes="custom-control-input" types="radio"
                 names="status" values="active"></app-radio>
-              <label class="custom-control-label" for="Active">{{'table-search-filter-container.status.active'| translate}}</label>
+              <label class="custom-control-label" for="Active">{{'table-search-filter-container.status.active'|
+                translate}}</label>
             </div>
             <div class="custom-control custom-radio">
               <app-radio [form]="addTeacherForm" fieldControl="status" classes="custom-control-input" types="radio"
                 names="status" values="inactive"></app-radio>
-              <label class="custom-control-label" for="Inactive">{{'table-search-filter-container.status.inactive'| translate}}</label>
+              <label class="custom-control-label" for="Inactive">{{'table-search-filter-container.status.inactive'|
+                translate}}</label>
             </div>
           </div>
         </div>

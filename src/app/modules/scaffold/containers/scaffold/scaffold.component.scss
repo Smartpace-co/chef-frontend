@@ -13,6 +13,7 @@
             flex-wrap: wrap;
         }
         .landing-content{
+            margin-right: 4.6rem;
             h1{
                 font-size:4rem;
                 @include breakpoint(mobile){
@@ -24,10 +25,13 @@
             }
             @include breakpoint(tabs) {
                 text-align: center;
+                margin-right: 0;
             }
         }
         .right-landing{
             width:40%;
+            margin-left: 4.6rem;
+
             img{
                 max-width:90%;
             }
@@ -38,6 +42,7 @@
                 width: 100%;
                 margin:0 auto;
                 text-align: center;
+                margin-left: 0;
                 img{
                     max-width:50%;
                     margin: auto;

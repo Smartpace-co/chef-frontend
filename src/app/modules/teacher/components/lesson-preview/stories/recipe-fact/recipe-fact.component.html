@@ -1,19 +1,24 @@
 <app-ingreditent-nav></app-ingreditent-nav>
 <app-lessons-headerbar [lessonHederConfig]="lessonHederConfig"></app-lessons-headerbar>
-<!-- <div class="story-body-6"> -->
-  <!-- <app-scroll-down></app-scroll-down> -->
-  <div *ngIf="isLoad" class="story-body-6"
-   [ngStyle]=" countryBgImg ? {background: ' url(' + countryBgImg + ')'} : {background: ' url(' + './assets/images/kitchen-bg-blur.jpg' + ')'}">
+
+  <div *ngIf="isLoad" class="story-body-6">
   <div class="container">
-    <div class="row final-editaion">
+    <div class="row final-editaion recipe-fact">
       <div class="col-sm-12 content-wrapper">
         <span class="final-editaion-img-wrapper">
           <img src="./assets/images/final-editaion.png" alt="" class="img-fluid final-editaion-img" />
           <div class="left-tooltip-wrapper">
             <div class="speech-tooltip sm-tooltip right-bottom-tip">
-              <div class="speech-tooltip-inner">
+              <div class="speech-tooltip-inner recipe-inner">
                   <p class="message">
-                    {{ assignmentData?.funFact }}
+                    <ngx-slick-carousel [config]="slideConfig">
+                      <ul *ngFor="let obj of funFactList" ngxSlickItem>
+                        <li>
+                          <p>{{ obj }}</p>
+                        </li>
+                      </ul>
+                    </ngx-slick-carousel>
+                    <!-- {{ assignmentData?.funFact }} -->
                   </p>
                   <span class="tip">
                     <img src="./assets/images/right-bottom-tip.svg" alt="" class="img-fluid" />
@@ -23,9 +28,16 @@
           </div>
           <div class="right-tooltip-wrapper">
             <div class="speech-tooltip md-tooltip left-bottom-tip">
-              <div class="speech-tooltip-inner">
+              <div class="speech-tooltip-inner recipe-inner">
                   <p class="message">
-                    {{ assignmentData?.socialStudiesFact }}
+                    <ngx-slick-carousel [config]="slickConfig">
+                      <ul *ngFor="let obj of socialStudiesFactList" ngxSlickItem>
+                        <li>
+                          <p>{{ obj }}</p>
+                        </li>
+                      </ul>
+                    </ngx-slick-carousel>
+                    <!-- {{ assignmentData?.socialStudiesFact }} -->
                   </p>
                   <span class="tip">
                     <img src="./assets/images/left-bottom-tip.svg" alt="" class="img-fluid" />

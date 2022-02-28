@@ -47,10 +47,13 @@
                   (registerDropdownValueChange)="schoolChange($event)"></app-drop-down> -->
               </div>
               <div class="col-md-4">
-                <label>Grade {{'student.profile.optional-label'| translate }}</label>
+                <label>Grade (*)</label>
                 <app-drop-down fieldControl="grade" class="formDropdown" [dropDownButtonName]="gradeTitle"
                   [dropDownIcon]="gradeIcon" [dropDownItemList]="gradeList"
                   (registerDropdownValueChange)="gradeChange($event)"></app-drop-down>
+                  <div *ngIf="formControl.grade.errors" class="invalid-feedback">
+                  <div class="error" *ngIf="formControl.grade.errors?.required">Grade is required</div>
+                  </div>
               </div>
             </div>
             <div class="personal-info">
@@ -80,53 +83,71 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <label>Date of Birth (*)</label>
                   <div class="form-group">
                     <div class="input-group">
-                      <input class="form-control" placeholder="Select Date" ids="dob" name="dp" fieldControl="dob" 
-                        (dateSelect)="onDateSelection($event)" [ngModelOptions]="{standalone: true}"
-                        [(ngModel)]="selectedDate" ngbDatepicker #d="ngbDatepicker">
+                      <input class="form-control" placeholder="Select Date" ids="dob" name="d2" fieldControl="dob"
+                        [readonly]="true" [ngModelOptions]="{standalone: true}" (dateSelect)="onDateSelection($event)"
+                        [(ngModel)]="selectedDate" ngbDatepicker #d2="ngbDatepicker"
+                        [minDate]="{year: 1980, month:1, day: 1}">
                       <div class="input-group-append">
-                        <button class="calendarIcon" (click)="d.toggle()" type="button">
+                        <button class="calendarIcon" (click)="d2.toggle()" type="button">
                           <fa-icon [icon]="Calendar"></fa-icon>
                         </button>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <label>Gender {{'student.profile.optional-label'| translate }}</label>
                   <app-drop-down fieldControl="gender" class="formDropdown" [dropDownButtonName]="genderTitle"
                     [dropDownIcon]="genderIcon" [dropDownItemList]="genderList"
                     (registerDropdownValueChange)="genderChange($event)"></app-drop-down>
                 </div>
-                <div class="col-md-4">
+
+              </div>
+              <div class="row">
+                <div class="col-md-6">
                   <label>Ethnicity {{'student.profile.optional-label'| translate }}</label>
                   <app-drop-down fieldControl="ethnicity" class="formDropdown" [dropDownButtonName]="ethnicityTitle"
                     [dropDownIcon]="ethnicityIcon" [dropDownItemList]="ethnicityList"
                     (registerDropdownValueChange)="ethnicityChange($event)"></app-drop-down>
                 </div>
-              </div>
-              <div class="row">
                 <div class="col-md-6">
                   <label>Username (*)</label>
                   <app-input-field classes="form-control" types="text" placeholders="Enter username" ids="userName"
                     fieldControl="userName" [form]="signInStudent"
                     [ngClass]="{ 'is-invalid': formControl.userName.touched && formControl.userName.errors }">
                   </app-input-field>
+                  <p class="mb-3 p-0 ml-5">Note: Please use username for login</p>
                   <div *ngIf="formControl.userName.errors" class="invalid-feedback">
                     <div class="error" *ngIf="formControl.userName.errors?.required">Username is required</div>
-                    <div class="error" *ngIf="formControl.userName.errors?.pattern">User name is not valid</div>
+                    <!-- <div class="error" *ngIf="formControl.userName.errors?.pattern">User name is not valid</div> -->
                     <div class="error" *ngIf="formControl.userName.errors?.userNameValidate">User name already exists
                     </div>
+                    <div class="error" *ngIf="formControl.userName.errors?.invalidUserName">User name is not valid</div>
                   </div>
                 </div>
               </div>
             </div>
             <div class="contact-info">
-              <h2>Contact Info</h2>
+              <h2>Parent or Guardian Contact Information</h2>
               <div class="row">
+                <!-- <div class="col-md-6">
+                  <label>{{'school.student.add-student.personal-info.parent-guardian-label' | translate}} (*)</label>
+                  <app-drop-down fieldControl="guardian" class="formDropdown" [dropDownButtonName]="guardianTitle"
+                    [dropDownIcon]="guardianIcon" [dropDownItemList]="guardianList"
+                    (registerDropdownValueChange)="guardianChange($event)"></app-drop-down>
+                </div> -->
+                <div class="col-md-6">
+                  <label>{{'school.student.add-student.personal-info.contact-info.contact-relationship' | translate}}
+                    (*)</label>
+                  <app-drop-down fieldControl="relationship" class="formDropdown"
+                    [dropDownButtonName]="relationshipTitle" [dropDownIcon]="relationshipIcon"
+                    [dropDownItemList]="relationshipList" (registerDropdownValueChange)="relationshipChange($event)">
+                  </app-drop-down>
+                </div>
                 <div class="col-md-6">
                   <label>Contact Name (*)</label>
                   <app-input-field classes="form-control" types="text" placeholders="Enter Name" ids="contactPersonName"
@@ -138,13 +159,6 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-md-6">
-                  <label>Contact Relationship (*)</label>
-                  <app-drop-down fieldControl="relationship" class="formDropdown"
-                    [dropDownButtonName]="relationshipTitle" [dropDownIcon]="relationshipIcon"
-                    [dropDownItemList]="relationshipList" (registerDropdownValueChange)="relationshipChange($event)">
-                  </app-drop-down>
-                </div>
               </div>
               <div class="row">
                 <div class="col-md-6">
@@ -154,9 +168,11 @@
                     [ngClass]="{ 'is-invalid': formControl.contactPersonEmail.touched && formControl.contactPersonEmail.errors }">
                   </app-input-field>
                   <div *ngIf="formControl.contactPersonEmail.errors" class="invalid-feedback">
-                    <div class="error" *ngIf="formControl.contactPersonEmail.errors?.required">Contact email address is required
+                    <div class="error" *ngIf="formControl.contactPersonEmail.errors?.required">Contact email address is
+                      required
                     </div>
-                    <div class="error" *ngIf="formControl.contactPersonEmail.errors?.pattern">Contact email address is not valid
+                    <div class="error" *ngIf="formControl.contactPersonEmail.errors?.pattern">Contact email address is
+                      not valid
                     </div>
                   </div>
                 </div>
@@ -166,15 +182,18 @@
                     ids="contactPersonNumber" fieldControl="contactPersonNumber" [form]="signInStudent"
                     [ngClass]="{ 'is-invalid': formControl.contactPersonNumber.touched && formControl.contactPersonNumber.errors }">
                   </app-input-field>
+                  
                   <div *ngIf="formControl.contactPersonNumber.errors" class="invalid-feedback">
-                    <div class="error" *ngIf="formControl.contactPersonNumber.errors?.required">Contact number is required
+                    <div class="error" *ngIf="formControl.contactPersonNumber.errors?.required">Contact number is
+                      required
                     </div>
-                    <div class="error" *ngIf="formControl.contactPersonNumber.errors?.pattern">Contact number is not
-                      valid(Format
-                      - (000)-000-0000)</div>
-                    <div class="error" *ngIf="formControl.contactPersonNumber.errors?.minlength">Contact number is not
-                      valid(Reuired Length is 10 digit)</div>
-                    <div class="error" *ngIf="formControl.contactPersonNumber.errors?.contactDigitValidate">Contact number is not valid(Required length is 10,12,13 digit)</div>    
+                    <div class="error" *ngIf="formControl.contactPersonNumber.errors?.pattern">Contact number is
+                      invalid. (Required length is 6 to 18 digits)
+                    </div>
+                    <!-- <div class="error" *ngIf="formControl.contactPersonNumber.errors?.minlength">Contact number is not
+                      valid(Reuired Length is 11 digit)</div> -->
+                    <!-- <div class="error" *ngIf="formControl.contactPersonNumber.errors?.contactDigitValidate">Contact
+                      number is not valid(Required length is 10,12,13 digit)</div> -->
                   </div>
                 </div>
               </div>

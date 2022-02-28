@@ -50,7 +50,7 @@
       <div class="schoolList">
         <div class="container">
           <div class="row">
-            <div class="col-lg-4 col-md-6 col-sm-6" *ngFor="let item of schoolList | filter: term">
+            <div class="col-lg-4 col-md-6 col-sm-6 sItem" *ngFor="let item of schoolList | filter: term">
               <div class="schoolItem" (click)="editSchool(item)">
                 <div class="schoolItem__heading">
                   <h5 class="schoolItem__heading__name">{{ item.name}}</h5>

@@ -8,6 +8,7 @@ import { NgbModal, NgbDate, NgbCalendar, NgbDateParserFormatter, NgbDateStruct }
 import { UtilityService } from '@appcore/services/utility.service';
 import { ClassesService } from '@modules/teacher/services/classes.service';
 import { TeacherService } from '@modules/teacher/services/teacher.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-explore-lessons-settings',
@@ -52,11 +53,13 @@ export class ExploreLessonsSettingsComponent implements OnInit {
   reciepe_icon: any;
   defaultRecipeImg: any;
   viewFrom: any;
+  lessonTime:any;
+  allLessonInfo;
   // Date Picker
   hoveredDate: NgbDate | null = null;
 
-  fromDate: NgbDate | null;
-  toDate: NgbDate | null;
+  fromDate: any;
+  toDate: any;
 
   constructor(
     private router: Router,
@@ -70,12 +73,12 @@ export class ExploreLessonsSettingsComponent implements OnInit {
     private classService: ClassesService
   ) {
     this.lessonid = this.activatedroute.snapshot.params.id;
-    let today = calendar.getToday()
-    this.fromDate = new NgbDate(today.year, today.month, today.day)
-    this.toDate = new NgbDate(today.year, today.month, today.day)
   }
 
   ngOnInit(): void {
+    let today = this.calendar.getToday();
+    this.fromDate = this.dateValue(new NgbDate(today.year, today.month, today.day));
+    this.toDate = this.dateValue(new NgbDate(today.year, today.month, today.day));
 
     this.AssignLesson = new FormGroup({
       title: new FormControl('', [Validators.required]),
@@ -86,14 +89,21 @@ export class ExploreLessonsSettingsComponent implements OnInit {
 
     });
     this.localData = JSON.parse(window.sessionStorage.getItem('currentUser'));
-    this.formInfo = JSON.parse(localStorage.getItem('settings'));
+
+    if(!this.teacherservice.getLessonData()){
+      this.teacherservice.setLessonData(JSON.parse(sessionStorage.getItem('lsData')));
+    }
 
     this.recipeData = this.teacherservice.getLessonData();
+
+    
+
     this.custmiseType = this.recipeData.type;
     if (this.custmiseType === "edit") {
       this.getEditData(this.recipeData);
       this.isEdit = true;
     } else {
+    this.formInfo = JSON.parse(localStorage.getItem('settings'));
       this.getData(this.recipeData);
       this.isEdit = false;
     }
@@ -105,7 +115,8 @@ export class ExploreLessonsSettingsComponent implements OnInit {
   }
 
   getData(data) {
-
+    this.allLessonInfo = data;
+    this.lessonTime=data.lesson.lessonTime;
     this.lessonInfo = data.recipe;
     this.activities = data.activities;
     this.classList = data.classList;
@@ -113,18 +124,14 @@ export class ExploreLessonsSettingsComponent implements OnInit {
     this.lessonInfo.bookmark = this.bookmark;
 
     this.AssignLesson.get('title').setValue(this.formInfo.title);
-
-    let fromDateObj = this.formInfo.fromDate;
-    let toDateObj = this.formInfo.toDate;
-
-    this.formInfo.fromDate = fromDateObj.year + '/' + fromDateObj.month + '/' + fromDateObj.day;
+    // this.formInfo.fromDate = fromDateObj.year + '/' + fromDateObj.month + '/' + fromDateObj.day;
 
     this.AssignLesson.get('fromDate').setValue(this.utilityService.LessonformatDate(this.formInfo.fromDate));
-    this.selectedFromDate = this.utilityService.LessonformatDate(this.formInfo.fromDate);
+    this.selectedFromDate = this.formInfo.fromDate;
 
-    this.formInfo.toDate = toDateObj.year + '/' + toDateObj.month + '/' + toDateObj.day;
+    // this.formInfo.toDate = toDateObj.year + '/' + toDateObj.month + '/' + toDateObj.day;
     this.AssignLesson.get('toDate').setValue(this.utilityService.LessonformatDate(this.formInfo.toDate));
-    this.selectedToDate = this.utilityService.LessonformatDate(this.formInfo.toDate);
+    this.selectedToDate = this.formInfo.toDate;
 
     this.AssignLesson.get('class').setValue(this.formInfo.class);
     if (this.formInfo.class) {
@@ -133,30 +140,30 @@ export class ExploreLessonsSettingsComponent implements OnInit {
   }
 
   getEditData(data) {
-
+    this.lessonTime=data.lesson.lessonTime;
     this.lessonInfo = data.recipe;
     this.activities = data.activities;
     this.classList = data.classList;
     this.bookmark = data.bookmark;
-    this.AssignLesson.get('title').setValue(data.recipe.recipeTitle);
-
-    this.AssignLesson.get('fromDate').setValue(this.utilityService.LessonformatDate(data.startDate));
-    this.selectedFromDate = this.utilityService.LessonformatDate(data.startDate);
 
 
-    this.AssignLesson.get('toDate').setValue(this.utilityService.LessonformatDate(data.endDate));
-    this.selectedToDate = this.utilityService.LessonformatDate(data.endDate);
 
+    this.AssignLesson.get('title').setValue(data.assignmentTitle);
+
+    this.AssignLesson.get('fromDate').setValue(this.utilityService.customLessonformatDate(data.startDate));
+    this.selectedFromDate = this.utilityService.customLessonformatDate(data.startDate);
+
+    this.AssignLesson.get('toDate').setValue(this.utilityService.customLessonformatDate(data.endDate));
+    this.selectedToDate = this.utilityService.customLessonformatDate(data.endDate);
 
     this.AssignLesson.get('class').setValue(data.classId);
     if (data.classId) {
       this.classTitle = data.classList.filter(function (x) { return x.id === data.classId }).map(function (x) {
         return x.menu;
       });
-
     }
-
     this.AssignLesson.get('settingName').setValue(data.customSetting.settingName);
+    this.formInfo = this.AssignLesson.value;
   }
 
   get formControl() {
@@ -214,17 +221,19 @@ export class ExploreLessonsSettingsComponent implements OnInit {
 
   onDateSelection(date: NgbDate) {
     if (!this.fromDate && !this.toDate) {
-      this.fromDate = date;
-    } else if (this.fromDate && !this.toDate && date && date.after(this.fromDate)) {
-      this.toDate = date;
-      let dateObj = new Date(this.toDate.month, this.toDate.day, this.toDate.year);
-      this.AssignLesson.controls.toDate.setValue(dateObj);
+      this.AssignLesson.controls.fromDate.setValue(this.fromDate);
+
+    } else if (this.fromDate && !this.toDate && date) {
+      this.toDate = this.dateValue(date);
+      // let dateObj = new NgbDate(this.toDate.year, this.toDate.month, this.toDate.day);
+      this.AssignLesson.controls.toDate.setValue(this.toDate);
     } else {
       this.toDate = null;
-      this.fromDate = date;
-      let dateObj = new Date(this.fromDate.month, this.fromDate.day, this.fromDate.year);
-      this.AssignLesson.controls.fromDate.setValue(dateObj);
+      this.fromDate = this.dateValue(date);
+      // let dateObj = new NgbDate(this.fromDate.year, this.fromDate.month, this.fromDate.day);
+      this.AssignLesson.controls.fromDate.setValue(this.fromDate);
     }
+
   }
 
   isHovered(date: NgbDate) {
@@ -381,8 +390,13 @@ export class ExploreLessonsSettingsComponent implements OnInit {
       let scrData = this.AssignLesson.value;
       this.startDate = this.utilityService.LessonformatDate(scrData.fromDate);
       this.endDate = this.utilityService.LessonformatDate(scrData.toDate);
+
+      // console.log('print src data === ', scrData);
+
       // this.startDate = moment.utc(new Date(scrData.fromDate.year, scrData.fromDate.month - 1, scrData.fromDate.day + 1));
       // this.endDate = moment.utc(new Date(scrData.toDate.year, scrData.toDate.month - 1, scrData.toDate.day + 1));
+
+
       let obj = {};
       obj['assignmentTitle'] = scrData.title;
       obj['startDate'] = this.startDate;
@@ -392,6 +406,7 @@ export class ExploreLessonsSettingsComponent implements OnInit {
 
       if (this.isEdit) {
         obj['defaultSetting'] = true;
+        obj['classId'] = scrData.class.id;
         obj['customSettingId'] = this.recipeData.customSetting.id;
         this.teacherservice.editLesson(this.recipeData.id, obj).subscribe(
           (data) => {

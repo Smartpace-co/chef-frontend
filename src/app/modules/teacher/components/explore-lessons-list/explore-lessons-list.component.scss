@@ -30,7 +30,7 @@
     margin:4rem 0;
     margin-top: 1rem;
     width:100%;
-    overflow-x: hidden;
+    overflow: hidden;
     .btn-top{
         display: flex;
         justify-content: flex-end;
@@ -142,6 +142,9 @@
             background: white;
             text-align: center;
             height: 12rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         &__info{
             padding:2rem;
@@ -155,7 +158,7 @@
                 width: 7rem;
                 display: flex;
                 align-items: flex-start;
-                justify-content: space-between;
+                justify-content: flex-end;
                 .rating{
                     color: $secondary;
                     border:1px solid $secondary;
@@ -163,6 +166,7 @@
                     display: flex;
                     align-items:center;
                     font-size: 1rem;
+                    margin-right: 1rem;
                     fa-icon{
                         margin-left:0.5rem;
                         display: inline-block;
@@ -313,15 +317,20 @@
                     padding: 0;
                     font-weight: bold;
                     color:rgba($white, 0.5);
+                    margin-top: 1rem;
                 }
             }
             &__title{
                 font-size:1.6rem;   
                 width: 100%;
                 margin-bottom: 0;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
+                word-wrap: break-word;
+                // white-space: nowrap;
+                // overflow: hidden;
+                // text-overflow: ellipsis;
+                // display: -webkit-box;
+                // -webkit-line-clamp: 3;
+                // -webkit-box-orient: vertical;
             }
             &__image{
                 overflow: hidden;
@@ -331,6 +340,9 @@
                 img{
                     max-width: 100%;
                 }
+            }
+            .list{
+                display: flex;
             }
         }
         .recommended{
@@ -389,6 +401,7 @@
                 font-size:1.8rem;   
                 width: 80%;
                 margin-bottom: 0;
+                word-break: break-word;
             }
             &__image{
                 overflow: hidden;
@@ -555,6 +568,9 @@
             justify-content: flex-end;
             margin:1rem 0 0 0;
         }
+    }
+    .lesson-filter{
+        overflow: unset;
     }
 }
 .assign-lesson-form{

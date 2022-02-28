@@ -64,6 +64,9 @@
     align-items: center;
     justify-content: center;
     margin-left: auto;
+    @include breakpoint(sm-mobile){
+      margin-top: 1rem;
+    }
     li {
       float: left;
       padding-left: 3rem;

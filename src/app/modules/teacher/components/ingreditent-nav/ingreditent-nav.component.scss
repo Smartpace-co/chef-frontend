@@ -16,13 +16,23 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      @include breakpoint(mobile){
+        flex-direction: column;
+        align-items: flex-start;
+      }
       .nav-tabs{
         border: none;
         font-weight: 700;
+        @include breakpoint(sm-mobile){
+          flex-direction: column;
+        }
         .nav-item{
           .nav-link{
             padding: 1.5rem 1rem;
             border: none;
+            @include breakpoint(mobile){
+              padding: 1.5rem 0;
+            }
             fa-icon{
               color: $yellow-shade-6;
               padding: 0 1rem;
@@ -41,6 +51,10 @@
       }
       .instruction-text-wraper{
         max-width: 17rem;
+        @include breakpoint(mobile){
+          max-width: 100%;
+          margin-left: 2rem;
+        }
         .text{
           color: $yellow-shade-6;
           font-size: 1.2rem;

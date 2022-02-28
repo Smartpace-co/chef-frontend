@@ -15,6 +15,8 @@ export class GreetingComponent implements OnInit {
   assignmentData: any;
   countryBgImg;
   isLoad = false;
+  linguisticList = [];
+  slideConfig;
   constructor(private router: Router, private toast: ToasterService, private utilityService: UtilityService, private studentService: StudentService) {
     this.lessonHederConfig['stepBoard'] = null;
   }
@@ -48,7 +50,9 @@ export class GreetingComponent implements OnInit {
       (response) => {
         if (response && response.data) {
           this.assignmentData = response.data.lesson;
+          this.linguisticList = response.data.lesson.linguistic ? response.data.lesson.linguistic.match(/.{1,154}(\s|$)/g) : undefined;
           this.countryBgImg = response.data.recipe.country.backgroundImage;
+          this.getSliderConfig();
           this.isLoad = true;
         }
       },
@@ -58,13 +62,21 @@ export class GreetingComponent implements OnInit {
       }
     );
   }
-
+  getSliderConfig(): void {
+    this.slideConfig = {
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      nextArrow: '<div class=\'nav-btn next-slide\'></div>',
+      prevArrow: '<div class=\'nav-btn prev-slide\'></div>',
+      dots: this.linguisticList && this.linguisticList.length > 1 ? true : false,
+      infinite: false,
+    };
+  }
   /**
   * on Next click event
  */
   onNext(): void {
-    this.router.navigate(['student/recipe-fact']);
-    // this.router.navigate(['/student/introduction']);
+    this.router.navigate(['/student/chef-introduction']);
   }
 
   /**

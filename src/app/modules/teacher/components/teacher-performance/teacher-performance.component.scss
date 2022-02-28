@@ -74,6 +74,10 @@
       .student {
         display: flex;
         margin-top: 2rem;
+        @include breakpoint(xtrasmallmobile){
+          flex-direction: column;
+          align-items: center;
+        }
         .student-details {
           display: flex;
           margin-left: 2rem;
@@ -592,6 +596,11 @@
               }
             }
           }
+        }
+        .report-lesson{
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
       }
     }
@@ -1643,6 +1652,19 @@
       @include breakpoint(xtrasmallmobile){
         margin: 0 1rem;
       }
+    }
+  }
+}
+
+//Download-pdf Pop-up//
+
+.download-pdf{
+  text-align: center;
+  .download-button{
+    display: flex;
+    flex-direction: column;
+    app-button{
+      margin: 3rem 0;
     }
   }
 }

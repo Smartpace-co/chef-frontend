@@ -2,7 +2,7 @@
   <app-scroll-down></app-scroll-down>
   <div class="mr-4 dynamic-form-audio">
     <span *ngIf="questionData?.questionTrack">
-      <audio controls autoplay controlsList="nodownload">
+      <audio controls controlsList="nodownload">
         <source [src]="questionData?.questionTrack" type="audio/mp3">
       </audio>
     </span>
@@ -73,7 +73,7 @@
       <app-scroll-down></app-scroll-down>
       <div class="mr-4 assignment-question-audio">
         <span *ngIf="questionData?.questionTrack">
-          <audio controls autoplay controlsList="nodownload">
+          <audio controls controlsList="nodownload">
             <source [src]="questionData?.questionTrack" type="audio/mp3">
           </audio>
         </span>
@@ -138,13 +138,13 @@
 </div>
  </ng-template>  -->
 </div>
-<div *ngIf="questionData?.questionType=='multipleSelection'" class="assessment-body-5 kitchen-bg">
+<div *ngIf="questionData?.questionType=='multipleSelection'">
   <div class="assessment-body-6 kitchen-bg">
     <div class="blur-bg">
       <app-scroll-down></app-scroll-down>
       <div class="mr-4 assignment-question-audio">
         <span *ngIf="questionData?.questionTrack">
-          <audio controls autoplay controlsList="nodownload">
+          <audio controls controlsList="nodownload">
             <source [src]="questionData?.questionTrack" type="audio/mp3">
           </audio>
         </span>
@@ -204,12 +204,12 @@
     </div>
   </div> -->
 </div>
-<div *ngIf="questionData?.questionType=='dragAndDrop'" class="assessment-body-5 kitchen-bg">
+<div *ngIf="questionData?.questionType=='dragAndDrop'">
   <div class="assessment-body-6 kitchen-bg">
     <app-scroll-down></app-scroll-down>
     <div class="mr-4 assignment-question-audio">
       <span *ngIf="questionData?.questionTrack">
-        <audio controls autoplay controlsList="nodownload">
+        <audio controls controlsList="nodownload">
           <source [src]="questionData?.questionTrack" type="audio/mp3">
         </audio>
       </span>

@@ -160,8 +160,6 @@ export class DistrictService {
    * @param userData 
    */
   editUserDetails(id: any, userData: any): Observable<any> {
-    console.log(id)
-    console.log(userData)
 
     return this.http.put(`${API_USERS_URL}/districtUser/${id}`, userData);
   }
@@ -235,22 +233,19 @@ export class DistrictService {
   /**
   * To get all teacher.
   */
-   getAllTeacher(filter: any,sortBy?: string ): Observable<any> {
+  getAllTeacher(filter?: any, schoolId?: any, sortBy?: string, existInSchool?: boolean): Observable<any> {
     let params = new HttpParams();
-
-    if(filter.length>0){
-    if (filter[0] && filter[1]) {
-      params = params.append('status', filter[0]);
-      params = params.append('school_id', filter[1]);
-
+    if (filter) {
+      params = params.append('status', filter);
     }
-    else
-    {
-      params = params.append('status', filter[0]);
+    if (schoolId) {
+      params = params.append('school_id', schoolId);
     }
-  }
+    if (existInSchool || existInSchool === false) {
+      params = params.append('existInSchool', existInSchool.toString());
+    }
     if (sortBy) {
-      params = params.append('sort_by', 'teacher_id');
+      // params = params.append('sort_by', 'teacher_id');
       params = params.append('sort_order', sortBy);
     }
     return this.http.get<any[]>(`${API_USERS_URL}/teacher`, { params: params });
@@ -293,6 +288,28 @@ export class DistrictService {
   getLearningStandardList(): Observable<any> {
     return this.http.get<any[]>(`${API_USERS_URL}/master/standard`);
   }
+ /**
+  * To get ELA standard 
+  */
+  getELAStandards(): Observable<any> {
+    return this.http.get<any[]>(API_CMS_ADMIN+'/standard?filters[subjects]=[{"f":"title","v":"ELA"}]&sorting[root]=[{"f":"standardTitle","o":"ASC"}]');
+  }
+  /**
+  * To get maths' standard  
+  */
+   getMathStandards(): Observable<any> {
+    return this.http.get<any[]>(API_CMS_ADMIN+'/standard?filters[subjects]=[{"f":"title","v":"MATH"}]&sorting[root]=[{"f":"standardTitle","o":"ASC"}]');
+  }/**
+  * To get NGSS standard
+  */
+  getNGSSStandards(): Observable<any> {
+    return this.http.get<any[]>(API_CMS_ADMIN+'/standard?filters[subjects]=[{"f":"title","v":"NGSS"}]&sorting[root]=[{"f":"standardTitle","o":"ASC"}]');
+  }/**
+  * To get NCSS standard
+  */
+  getNCSSStandards(): Observable<any> {
+    return this.http.get<any[]>(API_CMS_ADMIN+'/standard?filters[subjects]=[{"f":"title","v":"NCSS"}]&sorting[root]=[{"f":"standardTitle","o":"ASC"}]');
+  }
   /**
     * To validate class with name is already exists/not.
     */
@@ -321,7 +338,7 @@ export class DistrictService {
   /**
   * To get all class.
   */
-  getAllClasses(filter: any, sortBy?: string, schoolId?: any): Observable<any> {
+  getAllClasses(filter: any, sortBy?: string, schoolId?: any, existInSchool?: any): Observable<any> {
     let params = new HttpParams();
     if (filter) {
       params = params.append('status', filter);
@@ -332,6 +349,9 @@ export class DistrictService {
     if (sortBy) {
       params = params.append('sort_by', 'grade');
       params = params.append('sort_order', sortBy);
+    }
+    if (existInSchool || existInSchool === false) {
+      params = params.append('existInSchool', existInSchool.toString());
     }
     return this.http.get<any[]>(`${API_USERS_URL}/class`, { params: params });
   }
@@ -355,12 +375,12 @@ export class DistrictService {
   /**
   * To get student relationship list.
   */
-  getStudentRelationList(filter: any): Observable<any> {
-    let params = new HttpParams();
-    if (filter) {
-      params = params.append('type', filter);
-    }
-    return this.http.get<any[]>(`${API_USERS_URL}/master/relation`, { params: params });
+  getStudentRelationList(): Observable<any> {
+    // let params = new HttpParams();
+    // if (filter) {
+    //   params = params.append('type', filter);
+    // }
+    return this.http.get<any[]>(`${API_USERS_URL}/master/relation`);
   }
   /**
     * To get student ethnicity list.
@@ -420,15 +440,15 @@ export class DistrictService {
   /**
   * To get all student.
   */
-  getAllStudents(filter: any, sortByGrade?: any, sortById?: string, schoolId?: any): Observable<any> {
+  getAllStudents(filter: any, sortByGrade?: any, sortById?: string, schoolId?: any,existInSchool?:any): Observable<any> {
     let params = new HttpParams();
     if (filter) {
       params = params.append('status', filter);
     }
     if (schoolId) {
       params = params.append('school_id', schoolId);
-      params=params.append('duration',"week")
     }
+    // params=params.append('duration',"week")
     if (sortById) {
       params = params.append('sort_by', 'student_id');
       params = params.append('sort_order', sortById);
@@ -436,6 +456,9 @@ export class DistrictService {
     if (sortByGrade) {
       params = params.append('sort_by', 'grade');
       params = params.append('sort_order', sortByGrade);
+    }
+    if (existInSchool || existInSchool === false) {
+      params = params.append('existInSchool', existInSchool.toString());
     }
     return this.http.get<any[]>(`${API_USERS_URL}/student`, { params: params });
   }
@@ -745,20 +768,6 @@ addComment(data: any): Observable<any> {
       params=params.append('duration', duration);
     return this.http.get<any[]>(`${API_USERS_URL}/student`, { params: params });
   }
-
-  getNotifications(entityId: any, roleId: any): Observable<any> {
-    return this.http.get<any[]>(`${API_USERS_URL}/notification/${entityId}/${roleId}`);
-  }
-
-  getNotificationsUnreadCount(entityId: any, roleId: any): Observable<any> {
-    return this.http.get<any[]>(`${API_USERS_URL}/notificationCount/${entityId}/${roleId}`);
-  }
-/**
-   * To update notification.
-   */
- updateNotification(id: number, rid: any): Observable<any> {
-  return this.http.put(`${API_USERS_URL}/notification/seen/${id}/${rid}`,{});
-}
 
  /**
    * To get all package list.

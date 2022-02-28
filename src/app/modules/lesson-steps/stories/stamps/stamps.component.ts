@@ -11,18 +11,25 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class StampsComponent implements OnInit {
   showNext = false;
+  showPrevBtn = false;
+  dynamicBtn = true;
   closeResult = '';
   closeModal;
   allStampDetails = [];
   currentLevel;
   stampItems;
+  lesson;
+  assignmentId;
   // loadItems = false;
   currentStamp;
   constructor(private router: Router, private modalService: NgbModal, private toast: ToasterService,
     private studentService: StudentService) { }
 
   ngOnInit(): void {
+    this.lesson = localStorage.getItem('lessonType');
+    this.assignmentId = localStorage.getItem('assignmentId');
     this.getAllStamps();
+    this.getStudentData();
   }
   // onSelectStamps(item: any): void {
   //   this.currentStamp = item;
@@ -34,6 +41,23 @@ export class StampsComponent implements OnInit {
   //     this.toast.showToast('There are no items to be selected.', '', 'warning');
   //   }
   // }
+  getStudentData() {
+    this.studentService.getAssignedLessonById(parseInt(this.assignmentId)).subscribe(
+      (response) => {
+        if (response && response.data && response.data.lesson) {
+          if (response.data.lesson.links && response.data.lesson.links.length > 0) {
+            this.dynamicBtn = false;
+            this.showNext = true;
+            this.showPrevBtn = true;
+          }
+        }
+      },
+      (error) => {
+        console.log(error);
+        this.toast.showToast(error.error.message, '', 'error');
+      }
+    );
+  }
 
   onSelectItem(content: any, item: any): void {
     this.currentLevel = item;
@@ -73,7 +97,7 @@ export class StampsComponent implements OnInit {
       );
   }
   onPrevious(): void {
-    this.router.navigate(['student/ratings']);
+    this.router.navigate(['/student/ratings']);
   }
   closeModalPopup(): void {
     this.closeModal.close();
@@ -94,8 +118,15 @@ export class StampsComponent implements OnInit {
         }
       );
   }
+  onNext(): void {
+    this.router.navigate(['/student/reference']);
+  }
 
   goToAssignedLessonList(): void {
-    this.router.navigate(['/student/assignment']);
+    if (this.lesson === 'Explore') {
+      this.router.navigate(['/student/explore-lesson']);
+    } else {
+      this.router.navigate(['/student/assignment']);
+    }
   }
 }

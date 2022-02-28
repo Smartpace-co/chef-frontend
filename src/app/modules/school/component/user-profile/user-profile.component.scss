@@ -2,11 +2,12 @@
 @import "../../../../../assets/styles/helpers/mixins";
 .user-profile{
   margin-top: 6rem;
-  .container{
+  .edit-btn-wrapper{
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     @include breakpoint(mobile) {
-      flex-wrap: wrap;
+      justify-content: flex-start;
+      margin-bottom: 5rem;
     }
   }
   .user-profile-wrapper{
@@ -48,7 +49,7 @@
             background-color: $secondary;
             border-radius: 50%;
             justify-content: center;
-            //align-items: flex-end;
+            align-items: center;
             overflow :hidden;
             @include breakpoint(sm-mobile) {
               margin-bottom: 1rem;
@@ -94,16 +95,6 @@
     }
     .change-password-btn-wrapper{
       text-align: center;  
-    }
-  }
-  .edit-btn-wrapper{
-    margin-left: 3rem;
-    @include breakpoint(mobile) {
-      width: 100%;
-      order: 1;
-      text-align: right;
-      margin-left: auto;
-      margin-bottom: 4rem;
     }
   }
 }

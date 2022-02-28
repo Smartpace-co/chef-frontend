@@ -53,7 +53,8 @@ export class ClassDetailsComponent implements OnInit {
   SettingTitle = 'More Actions';
   planList:any;
   hrs:any
-
+  sortBy;
+  status;
   tabTitle:string;
   SettingList = [
     {
@@ -86,7 +87,7 @@ export class ClassDetailsComponent implements OnInit {
   sortByList = [
     {
       id: "1",
-      menu: 'Sort by Grade:None'
+      menu: 'Sort by student ID:None'
     },
     {
       id: '1',
@@ -117,7 +118,7 @@ export class ClassDetailsComponent implements OnInit {
   filterListtitle = "All Students";
   selectedAllergenValue=[];
   selectedAllergen=null;
-  allergenList=[];
+  allergenList:string;
   filterList = [
     {
       menu: 'All Students'
@@ -179,7 +180,7 @@ export class ClassDetailsComponent implements OnInit {
   stdList = [];
   standards: string;
   userForm: FormGroup;
-  addStudentForm: FormGroup;
+  // addStudentForm: FormGroup;
   deleteClassForm: FormGroup;
   editClassForm: FormGroup;
   classSetting: any;
@@ -202,10 +203,8 @@ export class ClassDetailsComponent implements OnInit {
     this.activateUserData = JSON.parse(window.sessionStorage.getItem('currentUser'));
     if (this.classID) {
       this.getClassDetails();
-      this.getAllActiveTeachers(undefined);
       this.getAllGradeList();
       this.getAllLearningStandards();
-      this.getStudentList();
       this.getSchoolList();
       this.studentRefresh();
       this.settingsRefresh();
@@ -222,10 +221,10 @@ export class ClassDetailsComponent implements OnInit {
     this.userForm = new FormGroup({
 
     });
-    this.addStudentForm = new FormGroup({
-      studentName: new FormControl(''),
-      allergies: new FormControl('')
-    });
+    // this.addStudentForm = new FormGroup({
+    //   studentName: new FormControl(''),
+    //   allergies: new FormControl('')
+    // });
     this.deleteClassForm = new FormGroup({
       delete: new FormControl('', [Validators.required])
     });
@@ -258,17 +257,6 @@ export class ClassDetailsComponent implements OnInit {
   closeOpenModal() {
     this.closeModal.close();
   }
-
-  addAllergy() {
-    if (this.addStudentForm.controls['allergies'].value != "") {
-      this.allergies.push(this.addStudentForm.controls['allergies'].value);
-      this.addStudentForm.value.allergies = this.allergies;
-    }
-  }
-  removeAllergy(index) {
-    this.allergies.splice(index, 1);
-    this.addStudentForm.value.allergies = this.allergies;
-  }
   openEditClassModal(modal: any): void {
     this.editClassModal = this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title', centered: true, windowClass: 'add-student--modal' });
     this.editClassForm.get('title').setValue(this.currentClass.title);
@@ -277,7 +265,6 @@ export class ClassDetailsComponent implements OnInit {
       this.schoolTitle = this.currentClass.school.name;
     }
     if (this.currentClass && this.currentClass.class_teachers) {
-      console.log(this.currentClass.class_teachers)
 
       this.editClassForm.get('teacherName').setValue(this.currentClass.class_teachers);
       this.selectedTeacher = _.map(this.currentClass.class_teachers, item => {
@@ -289,7 +276,6 @@ export class ClassDetailsComponent implements OnInit {
       });
 
       this.selectedTeacherValue = this.selectedTeacher;
-      console.log(this.selectedTeacherValue)
     }
     this.editClassForm.get('grade').setValue(this.currentClass.grade.grade);
     this.gradeTitle = this.currentClass.grade.grade;
@@ -325,6 +311,8 @@ export class ClassDetailsComponent implements OnInit {
       (response) => {
         if (response && response.data) {
           this.currentClass = response.data;
+          this.getStudentList();
+          this.getAllActiveTeachers();
           this.currentClassStudents = response.data.class_students;
           let stdArr = [];
           _.forEach(this.currentClass.class_standards, item => {
@@ -378,8 +366,17 @@ export class ClassDetailsComponent implements OnInit {
     }
   }
 
-  getAllActiveTeachers(schoolId: any): void {
-    this.districtService.getAllTeacher(1, schoolId).subscribe(
+  getAllActiveTeachers(schoolId?: any): void {
+    let sId;
+    if (schoolId) {
+      sId = schoolId;
+    } else if (this.currentClass && this.currentClass.school && this.currentClass.school.id) {
+      sId = this.currentClass.school.id;
+    } else {
+      sId = undefined;
+    }
+    let existInSchool = sId ? undefined : false;
+    this.districtService.getAllTeacher(1, sId, undefined, existInSchool).subscribe(
       (response) => {
         if (response && response.data && response.data.rows) {
           this.teacherList = _.map(response.data.rows, item => {
@@ -463,8 +460,17 @@ export class ClassDetailsComponent implements OnInit {
    * To get student list.
    *
    */
-  getStudentList(): void {
-    this.districtService.getAllStudents(1, undefined).subscribe(
+  getStudentList(schoolId?: any): void {
+    let sId;
+    if (schoolId) {
+      sId = schoolId;
+    } else if (this.currentClass && this.currentClass.school && this.currentClass.school.id) {
+      sId = this.currentClass.school.id;
+    } else {
+      sId = undefined;
+    }
+    let existInSchool = sId ? undefined : false;
+    this.districtService.getAllStudents(1, undefined, undefined, sId, existInSchool).subscribe(
       (response) => {
         if (response && response.data && response.data.rows) {
           this.allStudentList = _.map(response.data.rows, item => {
@@ -539,9 +545,12 @@ export class ClassDetailsComponent implements OnInit {
     this.schoolTitle = event.menu;
     if (event && event.id) {
       this.getAllActiveTeachers(event.id);
+      this.getStudentList(event.id);
       this.editClassForm.get('teacherName').setValue(null);
       this.selectedTeacherValue = [];
       this.selectedTeacher = null;
+      this.selectedStudent = null;
+      this.selectedStudentValue = []
     }
   }
 
@@ -700,16 +709,22 @@ export class ClassDetailsComponent implements OnInit {
    * To show student list.
    * 
    */
-  getStudentsByClassId(filter?: any, sortBy?: any): void {
-    this.districtService.getStudentsByClassId(this.classID, filter, sortBy).subscribe(
+  getStudentsByClassId(): void {
+    this.districtService.getStudentsByClassId(this.classID, this.status, this.sortBy).subscribe(
       (response) => {
         if (response && response.data) {
           this.studentList = _.map(response.data.rows, item => {
-            this.allergenList=[];
-            
-            _.map(item.student.allergens,allergen =>{
-              this.allergenList.push(allergen.allergen.allergenTitle)
+            let allergy = [];
+            this.allergenList = null;
+            _.map(item.student.allergens, allergen => {
+              if (!_.isEmpty(allergen.allergen.allergenTitle)) {
+                allergy.push(allergen.allergen.allergenTitle)
+              }
             });
+            if (allergy && allergy.length > 0) {
+              this.allergenList = allergy.toString();
+              this.allergenList = this.allergenList.replace(/,/g, ", ");
+            }
             let obj = {
               studentId: item.studentId,
               studentName: item.student.firstName + "," + item.student.lastName,
@@ -742,11 +757,8 @@ export class ClassDetailsComponent implements OnInit {
   }
   gradeFilter(event) {
     this.sortByIdTitle = event.menu;
-    if (event && event.value) {
-      this.getStudentsByClassId(undefined, event.value);
-    } else {
-      this.getStudentsByClassId();
-    }
+    this.sortBy = event.value ? event.value : undefined;
+    this.getStudentsByClassId();
   }
   /**
    * Active/inactive filter.
@@ -754,11 +766,8 @@ export class ClassDetailsComponent implements OnInit {
    */
   studentFilter(item: any): void {
     this.filterListtitle = item.menu;
-    if (item && item.id) {
-      this.getStudentsByClassId(item.id);
-    } else {
-      this.getStudentsByClassId();
-    }
+    this.status = item.id ? item.id : undefined;
+    this.getStudentsByClassId();
   }
   /**
    * API call on to delete class.
@@ -849,8 +858,20 @@ export class ClassDetailsComponent implements OnInit {
     } else if (name.action === 'Profile' && studentId) {
       showPopup = true;
     }
+    let allergy = [];
+    let allergieString: string;
     if (showPopup) {
       this.studentDetails = this.currentClassStudents.find(o => o.id === studentId);
+      _.forEach(this.studentDetails.allergens, ob => {
+        if (!_.isEmpty(ob.allergen.allergenTitle)) {
+          allergy.push(ob.allergen.allergenTitle)
+        }
+      });
+      if (allergy && allergy.length > 0) {
+        allergieString = allergy.toString();
+        allergieString = allergieString.replace(/,/g, ", ");
+      }
+      this.studentDetails['allergieString'] = allergieString;
       this.studentDetails.img = './assets/images/student-icon.svg';
       this.openProfile(this.ProfileModal);
     }

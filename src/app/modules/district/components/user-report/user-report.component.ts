@@ -19,6 +19,7 @@ import * as _ from 'lodash';
 import html2canvas from 'html2canvas';
 import jspdf from 'jspdf';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { ExcelService } from '../../../../shared/services/excel.service';
 
 
 @Component({
@@ -197,10 +198,11 @@ export class UserReportComponent implements OnInit {
   duration = 'week';
   clicked: boolean = false;
   activateUserData: any;
-  closeModal:any
-  closeModal1:any
+  closeModal:any;
+  closeModal1:any;
+  downlaodModal: any;
 
-  constructor(private districtService: DistrictService, private modalService: NgbModal) {}
+  constructor(private districtService: DistrictService, private modalService: NgbModal, private excelService: ExcelService) {}
 
   ngOnInit(): void {
     this.activateUserData = JSON.parse(window.sessionStorage.getItem('currentUser'));
@@ -209,6 +211,13 @@ export class UserReportComponent implements OnInit {
 
   closeOpenModal1() {
     this.closeModal1.close();
+  }
+
+  openDownloadModal(content) {
+    this.downlaodModal = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true, windowClass: 'dist-modal' });
+  }
+  closeDownlaodModal() {
+    this.downlaodModal.close();
   }
   
   getReport(duration) {
@@ -269,8 +278,10 @@ export class UserReportComponent implements OnInit {
               if (objItem.session_mins != null || objItem.session_mins != NaN) mins =mins + objItem.session_mins;
 
             });
+            if(studentCount){
             averageStudentMins=mins/studentCount;
             totalMins=averageStudentMins
+            }
           }
         });
       });
@@ -285,9 +296,11 @@ export class UserReportComponent implements OnInit {
                 if (objItem.session_mins != null || objItem.session_mins != NaN)
                  teacherMins = teacherMins + objItem.session_mins
               });
-              averageTeacherMins=teacherMins/teacherCount;
-              totalMins=((totalMins+averageStudentMins)/60).toFixed(4)
-              this.reportDataList[2].data=totalMins +" hr";
+              if(teacherCount){
+                averageTeacherMins=teacherMins/teacherCount;
+                totalMins=((totalMins+averageStudentMins)/60).toFixed(4)
+                this.reportDataList[2].data=totalMins +" hr";
+              }
             }
           });
         });
@@ -390,5 +403,44 @@ export class UserReportComponent implements OnInit {
 
       pdf.save('user_report.pdf');
     });
+  }
+
+  printExcelSheet(): void {
+    let newArray = [];
+    let i = 1;
+    if (this.studentList.length) {
+      for (let element of this.studentList) {
+        let obj = {};
+        obj["SL.No."] = i++;
+        for (let elm in element) {
+          if (elm === "id") obj["Student Id"] = element[elm];
+          if (elm === "name") obj["Name"] = element[elm];
+          if (elm === "grade") obj["Grade"] = element[elm];
+          if (elm === "score") obj["Score"] = element[elm];
+          if (elm === "time") obj["Time"] = element[elm];
+        }
+        newArray.push(obj);
+      }
+      // this.excelService.exportAsExcelFile(newArray, 'Active Students List');
+    }
+
+    let teacherRows = [];
+    let j = 1;
+    if (this.teacherList.length) {
+      for (let element of this.teacherList) {
+        let obj = {};
+        obj["SL.No."] = j++;
+        for (let elm in element) {
+          // if (elm === "id") obj["teacher Id"] = element[elm];
+          if (elm === "name") obj["Teacher Name"] = element[elm];
+          if (elm === "score") obj["Score"] = element[elm];
+          if (elm === "time") obj["Time"] = element[elm];
+        }
+        teacherRows.push(obj);
+      }
+      // this.excelService.exportAsExcelFile(teacherRows, 'Teacher Activity Report');
+      this.excelService.exportMuliSheetExcelFile(newArray, teacherRows, 'Active Students List', 'Teacher Activity Report', 'User Report');
+      this.closeDownlaodModal();
+    }
   }
 }

@@ -100,9 +100,11 @@
     }
 
     .radio-btn-wrapper{
-        // label{
-        // display: block;
-        // }
+        font-weight: 700;
+        @include breakpoint(mobile){
+            display: flex;
+            flex-direction: column;
+        }
         .custom-radio{
           display: inline-block;
           margin-left:2rem;

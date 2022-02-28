@@ -69,10 +69,14 @@ export class LessonsHeaderbarComponent implements OnInit {
   }
 
   getLessonInfo(): void {
-    this.studentService.getAssignedLessonById(parseInt(this.assignmentId)).subscribe(
+    this.studentService.getAssignedRecipeTitle(parseInt(this.assignmentId)).subscribe(
       (response) => {
         if (response && response.data) {
-          this.assignmentTitle = response.data.assignmentTitle;
+          // if (this.lesson === 'Explore') {
+            this.assignmentTitle = response.data.recipe.recipeTitle;
+          // } else {
+          //   this.assignmentTitle = response.data.assignmentTitle;
+          // }
           this.reciepe_icon = response.data.recipe.recipeImage ? response.data.recipe.recipeImage : this.defaultRecipeImg;
         }
       },

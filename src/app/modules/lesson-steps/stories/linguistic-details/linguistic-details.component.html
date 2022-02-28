@@ -3,13 +3,13 @@
   <app-scroll-down></app-scroll-down>
   <div class="mr-4 linguistic-audio">
     <span *ngIf="lessonData?.goodbyeTrack">
-      <audio controls autoplay controlsList="nodownload">
+      <audio controls controlsList="nodownload">
         <source [src]="lessonData?.goodbyeTrack" type="audio/mp3">
       </audio>
     </span>
   </div>
   <div class="container">
-    <div class="final-editaion">
+    <div class="final-editaion linguistic-pop-up">
       <div class="content-wrapper">
         <span class="final-editaion-img-wrapper">
           <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
@@ -30,7 +30,13 @@
             <div class="speech-tooltip sm-tooltip left-bottom-tip">
               <div class="speech-tooltip-inner">
                 <p class="message">
-                  {{ lessonData?.goodbyeLinguistic }}
+                  <ngx-slick-carousel [config]="slideConfig">
+                    <ul *ngFor="let obj of linguisticList" ngxSlickItem>
+                      <li>
+                        <p>{{ obj }}</p>
+                      </li>
+                    </ul>
+                  </ngx-slick-carousel>
                 </p>
                 <span class="tip">
                   <img src="./assets/images/left-bottom-tip.svg" alt="" class="img-fluid" />

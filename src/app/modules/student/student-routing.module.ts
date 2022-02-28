@@ -17,7 +17,7 @@ import { FindCountryComponent } from '../lesson-steps/stories/find-country/find-
 import { CountryLocationComponent } from '../lesson-steps/stories/country-location/country-location.component';
 import { CookingTechniqueComponent } from '../lesson-steps/stories/cooking-technique/cooking-technique.component';
 import { RecipeFactComponent } from '../lesson-steps/stories/recipe-fact/recipe-fact.component';
-import { RecipeContentComponent } from '../lesson-steps/stories/recipe-content/recipe-content.component';
+// import { RecipeContentComponent } from '../lesson-steps/stories/recipe-content/recipe-content.component';
 import { ConversationalSentenceComponent } from '../lesson-steps/stories/conversational-sentence/conversational-sentence.component';
 import { SafetyHygieneComponent } from '../lesson-steps/stories/safety-hygiene/safety-hygiene.component';
 import { IngredientListComponent } from '../lesson-steps/stories/ingredient-list/ingredient-list.component';
@@ -48,7 +48,7 @@ import { SafetyDragndropComponent } from './components/safety-dragndrop/safety-d
 import { ExploreCatagoriesComponent } from './components/explore-catagories/explore-catagories.component';
 import { FlagGameComponent } from '../lesson-steps/stories/flag-game/flag-game.component';
 import { HealthHygieneWaterQuestionComponent } from './components/health-hygiene-water-question/health-hygiene-water-question.component';
-import { LetStartComponent } from '@modules/lesson-steps/stories/let-start/let-start.component';
+// import { LetStartComponent } from '@modules/lesson-steps/stories/let-start/let-start.component';
 import { StudentActionActivityComponent } from '@modules/lesson-steps/stories/student-action-activity/student-action-activity.component';
 import { StartExperimentComponent } from '@modules/lesson-steps/stories/start-experiment/start-experiment.component';
 import { ExperimentDescriptionComponent } from '@modules/lesson-steps/stories/experiment-description/experiment-description.component';
@@ -64,6 +64,9 @@ import { HealthHygieneFruitAndVeggiesComponent } from './components/health-hygie
 import { LessonReportComponent } from './components/lesson-report/lesson-report.component';
 import { FlipGamesComponent } from './components/flip-games/flip-games.component';
 import { OrderIngredientsComponent } from './components/order-ingredients/order-ingredients.component';
+import { CountryImageComponent } from '@modules/lesson-steps/stories/country-image/country-image.component';
+import { ChefIntroductionComponent } from '@modules/lesson-steps/stories/chef-introduction/chef-introduction.component';
+import { ReferenceComponent } from '@modules/lesson-steps/stories/reference/reference.component';
 
 
 const routes: Routes = [
@@ -118,6 +121,16 @@ const routes: Routes = [
         canActivate: [StudentAuthGuard]
       },
       {
+        path: 'country-image',
+        component: CountryImageComponent,
+        canActivate: [StudentAuthGuard]
+      },
+      {
+        path: 'chef-introduction',
+        component: ChefIntroductionComponent,
+        canActivate: [StudentAuthGuard]
+      },
+      {
         path: 'summary-view',
         component: SummaryViewComponent,
         canActivate: [StudentAuthGuard]
@@ -147,21 +160,21 @@ const routes: Routes = [
         component: RecipeFactComponent,
         canActivate: [StudentAuthGuard]
       },
-      {
-        path: 'recipe-content',
-        component: RecipeContentComponent,
-        canActivate: [StudentAuthGuard]
-      },
+      // {
+      //   path: 'recipe-content',
+      //   component: RecipeContentComponent,
+      //   canActivate: [StudentAuthGuard]
+      // },
       {
         path: 'linguistic-details',
         component: LinguisticDetailsComponent,
         canActivate: [StudentAuthGuard]
       },
-      {
-        path: 'let-start',
-        component: LetStartComponent,
-        canActivate: [StudentAuthGuard]
-      },
+      // {
+      //   path: 'let-start',
+      //   component: LetStartComponent,
+      //   canActivate: [StudentAuthGuard]
+      // },
       {
         path: 'conversional-sentence',
         component: ConversationalSentenceComponent,
@@ -294,6 +307,11 @@ const routes: Routes = [
       {
         path: 'stamps',
         component: StampsComponent,
+        canActivate: [StudentAuthGuard]
+      },
+      {
+        path: 'reference',
+        component: ReferenceComponent,
         canActivate: [StudentAuthGuard]
       },
       {

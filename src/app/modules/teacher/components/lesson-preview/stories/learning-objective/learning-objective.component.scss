@@ -1,10 +1,10 @@
 @import "../../../../../../../assets/styles/helpers/variables";
-@import "../../../../../../../assets/styles/helpers/mixins";
-.story-body-11 {
+@import "../../../../../../../assets/styles/helpers/mixins"; 
+.story-body-11 { 
     background-color: $white;
     .blur-bg {
-      // background:url("../../../../../../../assets/images/kitchen-bg-blur.jpg") center no-repeat ,;
-      background:center no-repeat;
+      background:url("../../../../../../../assets/images/kitchen-bg.jpg") center no-repeat ,;
+      // background:center no-repeat;
       background-size: cover;
       min-height: calc(100vh - 24.2rem);
       position: relative;
@@ -85,16 +85,23 @@
               }
             }
             .bowl{
-              max-width: 20rem;
+              width: 15rem;
+              height: 15rem;
+              border-radius: 50%;
               position: absolute;
               display: block;
               margin-right: auto;
               left: 5rem;
               bottom: 10rem;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              overflow: hidden;
               @include breakpoint(mobile) {
                 max-width: 10rem;
                 left: 0rem;
                 bottom: 0rem;
+                display: none;
               }
             }
           }

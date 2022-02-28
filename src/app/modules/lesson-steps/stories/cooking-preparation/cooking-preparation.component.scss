@@ -88,12 +88,47 @@
               align-items: center;
               display: flex;
               margin: 1rem 0;
+              &.with-video {
+                @include breakpoint(mobile) {
+                  flex-wrap: wrap;
+                  padding: 1rem 0;
+                }
+                @include breakpoint(xtrasmallmobile) {
+                  padding-top: 3rem;
+                }
+                .video-js {
+                  background: $black;
+                }
+              }
               .image {
                 max-width: 7.3rem;
                 min-width: 5rem;
                 @include breakpoint(mobile) {
                   max-width: 4.5rem;
                   min-width: 3rem;
+                }
+              }
+              .video {
+                min-width: 30rem;
+                padding: 2rem 0rem;
+                @include breakpoint(mobile) {
+                  display: inline-block;
+                  text-align: center;
+                  text-align: center;
+                  margin: 0 auto;
+                }
+                @include breakpoint(xtrasmallmobile) {
+                  width: 20rem;
+                  min-width: 20rem;
+                  width: 20rem;
+                }
+                video {
+                  max-width: 32rem;
+                  max-height: 24rem;
+                  padding: 2rem 0rem;
+                  @include breakpoint(mobile) {
+                    max-width: 22rem;
+                  }
                 }
               }
               .description-info {

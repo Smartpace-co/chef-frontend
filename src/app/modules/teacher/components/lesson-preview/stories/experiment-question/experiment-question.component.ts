@@ -146,117 +146,117 @@ export class ExperimentQuestionComponent implements OnInit,OnDestroy {
   /**
    * map submission and pass data to show popup.
    */
-  checkCurrentAnswers(): void {
-    let mappedIds = [];
-    let submission = {
-      assignLessonId: parseInt(this.assignmentId),
-      questionId: this.AllQuestionsList[this.questionIndex] && this.AllQuestionsList[this.questionIndex].id ? this.AllQuestionsList[this.questionIndex].id : undefined,
-      answerTypeId: this.AllQuestionsList[this.questionIndex] && this.AllQuestionsList[this.questionIndex].answerTypeId ? this.AllQuestionsList[this.questionIndex].answerTypeId : undefined,
-    };
-    if (this.AllQuestionsList[this.questionIndex].questionType === 'essay') {
-      this.attempt = 0;
-      submission['essay'] = this.selectedEassyAns;
-      this.validateAndSaveData(submission, 'isEssay');
-    } else if (this.AllQuestionsList[this.questionIndex].questionType === 'singleSelection') {
-      submission['answerIds'] = this.getSingleSelectValue && this.getSingleSelectValue.id ? [this.getSingleSelectValue.id] : undefined;
-      this.openResultPopup('single', this.getSingleSelectValue, undefined, undefined, submission);
-    } else if (this.AllQuestionsList[this.questionIndex].questionType === 'multipleSelection') {
-      _.forEach(this.getMultiselectedValues, item => {
-        mappedIds.push(item.id);
-      });
-      submission['answerIds'] = mappedIds;
-      this.openResultPopup('multiple', undefined, this.getMultiselectedValues, undefined, submission);
-    } else if (this.AllQuestionsList[this.questionIndex].questionType === 'dragAndDrop') {
-      submission['answerIds'] = this.draggedItem && this.draggedItem.id ? [this.draggedItem.id] : undefined;
-      this.openResultPopup('drag', undefined, undefined, this.draggedItem, submission);
-    }
-  }
+  // checkCurrentAnswers(): void {
+  //   let mappedIds = [];
+  //   let submission = {
+  //     assignLessonId: parseInt(this.assignmentId),
+  //     questionId: this.AllQuestionsList[this.questionIndex] && this.AllQuestionsList[this.questionIndex].id ? this.AllQuestionsList[this.questionIndex].id : undefined,
+  //     answerTypeId: this.AllQuestionsList[this.questionIndex] && this.AllQuestionsList[this.questionIndex].answerTypeId ? this.AllQuestionsList[this.questionIndex].answerTypeId : undefined,
+  //   };
+  //   if (this.AllQuestionsList[this.questionIndex].questionType === 'essay') {
+  //     this.attempt = 0;
+  //     submission['essay'] = this.selectedEassyAns;
+  //     this.validateAndSaveData(submission, 'isEssay');
+  //   } else if (this.AllQuestionsList[this.questionIndex].questionType === 'singleSelection') {
+  //     submission['answerIds'] = this.getSingleSelectValue && this.getSingleSelectValue.id ? [this.getSingleSelectValue.id] : undefined;
+  //     this.openResultPopup('single', this.getSingleSelectValue, undefined, undefined, submission);
+  //   } else if (this.AllQuestionsList[this.questionIndex].questionType === 'multipleSelection') {
+  //     _.forEach(this.getMultiselectedValues, item => {
+  //       mappedIds.push(item.id);
+  //     });
+  //     submission['answerIds'] = mappedIds;
+  //     this.openResultPopup('multiple', undefined, this.getMultiselectedValues, undefined, submission);
+  //   } else if (this.AllQuestionsList[this.questionIndex].questionType === 'dragAndDrop') {
+  //     submission['answerIds'] = this.draggedItem && this.draggedItem.id ? [this.draggedItem.id] : undefined;
+  //     this.openResultPopup('drag', undefined, undefined, this.draggedItem, submission);
+  //   }
+  // }
 
   /**
    * to check no. of attempt and correct answers.
    */
-  validateAndSaveData(submission: any, isEssay?: any): void {
-    if (isEssay) {
-      this.isRightAns = true;
-    }
-    if (this.attempt < 2 && this.isRightAns) {
-      this.onAnswerSubmit(submission);
-    } else if (this.attempt === 2) {
-      this.onAnswerSubmit(submission);
-    } else if (this.attempt > 2) {
-      this.showNextScreen();
-    }
-  }
+  // validateAndSaveData(submission: any, isEssay?: any): void {
+  //   if (isEssay) {
+  //     this.isRightAns = true;
+  //   }
+  //   if (this.attempt < 2 && this.isRightAns) {
+  //     this.onAnswerSubmit(submission);
+  //   } else if (this.attempt === 2) {
+  //     this.onAnswerSubmit(submission);
+  //   } else if (this.attempt > 2) {
+  //     this.showNextScreen();
+  //   }
+  // }
 
   /**
    * API call to save answers.
    * @param submission 
    */
-  onAnswerSubmit(submission: any): void {
-    this.studentService.saveAnswerToAPI(submission).subscribe(
-      (response: any) => {
-        if (response && response.data) {
-          this.showNextScreen();
-        }
-      },
-      (error) => {
-        console.log(error);
-        if (error && error.error.status === 400) {
-          this.toast.showToast(error.error.message, '', 'error');
-          setTimeout(() => {
-            this.showNextScreen();
-          }, 2000);
-        }
-      }
-    );
-  }
+  // onAnswerSubmit(submission: any): void {
+  //   this.studentService.saveAnswerToAPI(submission).subscribe(
+  //     (response: any) => {
+  //       if (response && response.data) {
+  //         this.showNextScreen();
+  //       }
+  //     },
+  //     (error) => {
+  //       console.log(error);
+  //       if (error && error.error.status === 400) {
+  //         this.toast.showToast(error.error.message, '', 'error');
+  //         setTimeout(() => {
+  //           this.showNextScreen();
+  //         }, 2000);
+  //       }
+  //     }
+  //   );
+  // }
 
   /**
    * to show next questions.
    */
-  showNextScreen(): void {
-    // if (this.questionIndex != 0) {
-    //   this.questionIndex = parseInt(localStorage.getItem('expQuestionIndex'))
-    // }
-    let tempIndex = parseInt(this.panelIndex);
-    if (tempIndex && this.AllQuestionsList.length === tempIndex && this.questionIndex === tempIndex) {
-      this.questionIndex = this.AllQuestionsList.length;
-    } else {
-      this.questionIndex = this.questionIndex + 1;
-    }
-    // localStorage.setItem('expQuestionIndex', this.questionIndex.toString())
-    this.form = this.AllQuestionsList[this.questionIndex];
-    // this.updateLessonProgress();
-    this.isVisibleNext = true;
-    this.attempt = 0;
-    this.dynamicComponent.isHint = false;
-    if (this.AllQuestionsList.length === this.questionIndex) {
-      if (this.currentAssignedLesson.customSetting && this.currentAssignedLesson.customSetting.content) {
-        for (let ob of this.currentAssignedLesson.customSetting.content) {
-          if (ob.title === 'Cooking' && ob.status === true) {
-            this.router.navigate(['/student/cleaning']);
-            break;
-          } else if (ob.title === 'Assessments' && ob.status === true) {
-            this.router.navigate(['/student/assessment-question']);
-            break;
-          } else {
-            this.router.navigate(['/student/action-activities']);
-          }
-        }
-      }
-    }
-  }
+  // showNextScreen(): void {
+  //   // if (this.questionIndex != 0) {
+  //   //   this.questionIndex = parseInt(localStorage.getItem('expQuestionIndex'))
+  //   // }
+  //   let tempIndex = parseInt(this.panelIndex);
+  //   if (tempIndex && this.AllQuestionsList.length === tempIndex && this.questionIndex === tempIndex) {
+  //     this.questionIndex = this.AllQuestionsList.length;
+  //   } else {
+  //     this.questionIndex = this.questionIndex + 1;
+  //   }
+  //   // localStorage.setItem('expQuestionIndex', this.questionIndex.toString())
+  //   this.form = this.AllQuestionsList[this.questionIndex];
+  //   // this.updateLessonProgress();
+  //   this.isVisibleNext = true;
+  //   this.attempt = 0;
+  //   this.dynamicComponent.isHint = false;
+  //   if (this.AllQuestionsList.length === this.questionIndex) {
+  //     if (this.currentAssignedLesson.customSetting && this.currentAssignedLesson.customSetting.content) {
+  //       for (let ob of this.currentAssignedLesson.customSetting.content) {
+  //         if (ob.title === 'Cooking' && ob.status === true) {
+  //           this.router.navigate(['/student/cleaning']);
+  //           break;
+  //         } else if (ob.title === 'Assessments' && ob.status === true) {
+  //           this.router.navigate(['/student/assessment-question']);
+  //           break;
+  //         } else {
+  //           this.router.navigate(['/student/action-activities']);
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 
-  ngAfterContentChecked(): void {
-    if (this.assignmentData && this.AllQuestionsList.length - 1 === this.questionIndex) {
-      this.showNext = false;
-    } else {
-      this.showNext = true;
-    }
-    if (this.questionIndex > 0) {
-      this.isVisiblePrevious = true;
-    }
-  }
+  // ngAfterContentChecked(): void {
+  //   if (this.assignmentData && this.AllQuestionsList.length - 1 === this.questionIndex) {
+  //     this.showNext = false;
+  //   } else {
+  //     this.showNext = true;
+  //   }
+  //   if (this.questionIndex > 0) {
+  //     this.isVisiblePrevious = true;
+  //   }
+  // }
 
   /**
    * on Previous click event
@@ -265,31 +265,40 @@ export class ExperimentQuestionComponent implements OnInit,OnDestroy {
     // if (this.questionIndex != 0) {
     //   this.questionIndex = parseInt(localStorage.getItem('expQuestionIndex'))
     // }
-    this.questionIndex = this.questionIndex - 1;
-    // localStorage.setItem('expQuestionIndex', this.questionIndex.toString())
-    this.form = this.AllQuestionsList[this.questionIndex]
-    if (this.questionIndex < 0) {
-      this.router.navigate(['/teacher/start-experiment']);
 
-      // if (this.currentAssignedLesson.customSetting && this.currentAssignedLesson.customSetting.content) {
-      //   for (let ob of this.currentAssignedLesson.customSetting.content) {
-      //     if (ob.title === 'Cooking' && ob.status === true) {
-      //       this.router.navigate(['/student/serving']);
-      //       break;
-      //     } else if (ob.title === 'Learning Activities' && ob.status === true) {
-      //       let isExperiment = _.find(ob.Activities, function (item) { return item.lable === 'Science Experiment'; });
-      //       if (isExperiment && isExperiment.status === true) {
-      //         this.router.navigate(['/student/experiment']);
-      //         break;
-      //       }
-      //     } else if (ob.title === 'Story' && ob.status === true) {
-      //       this.router.navigate(['/student/conversional-sentence'])
-      //     }
-      //   }
-      // }
-     }
+    if (this.AllQuestionsList === undefined || this.AllQuestionsList.length === 0) {
+      this.router.navigate(['/teacher/experiment-description']);
+    } else {
+      this.questionIndex = this.questionIndex - 1;
+
+      if (this.questionIndex != 0) {
+        this.form = this.AllQuestionsList[this.questionIndex]
+      }
+
+      // localStorage.setItem('expQuestionIndex', this.questionIndex.toString())
+      // this.form = this.AllQuestionsList[this.questionIndex]
+      if (this.questionIndex < 0) {
+        this.router.navigate(['/teacher/start-experiment']);
+
+        // if (this.currentAssignedLesson.customSetting && this.currentAssignedLesson.customSetting.content) {
+        //   for (let ob of this.currentAssignedLesson.customSetting.content) {
+        //     if (ob.title === 'Cooking' && ob.status === true) {
+        //       this.router.navigate(['/student/serving']);
+        //       break;
+        //     } else if (ob.title === 'Learning Activities' && ob.status === true) {
+        //       let isExperiment = _.find(ob.Activities, function (item) { return item.lable === 'Science Experiment'; });
+        //       if (isExperiment && isExperiment.status === true) {
+        //         this.router.navigate(['/student/experiment']);
+        //         break;
+        //       }
+        //     } else if (ob.title === 'Story' && ob.status === true) {
+        //       this.router.navigate(['/student/conversional-sentence'])
+        //     }
+        //   }
+        // }
+      }
+    }
   }
-
   /**
    * to get value of multi-select type of questions.
    * @param selectedItems
@@ -347,43 +356,43 @@ export class ExperimentQuestionComponent implements OnInit,OnDestroy {
   /**
    * to show answers on popup for all type of questions.
    */
-  openResultPopup(ansType?: any, singleData?: any, multiData?: any, dragData?: any, submission?: any): void {
-    if (ansType === 'single') {
-      if (singleData && singleData.isAnswer === true) {
-        this.isRightAns = true;
-      } else {
-        this.isRightAns = false;
-      }
-    } else if (ansType === 'drag') {
-      if (dragData.isAnswer === true) {
-        this.isRightAns = true;
-      } else {
-        this.isRightAns = false;
-      }
-    } else if (ansType === 'multiple') {
-      let isCorrect = this.calculateMultiSelectAnswer();
-      if (multiData && multiData.length > 0 && isCorrect) {
-        this.isRightAns = true;
-      } else {
-        this.isRightAns = false;
-      }
-    }
-    this.hint = this.AllQuestionsList[this.questionIndex] && this.AllQuestionsList[this.questionIndex].hint ? this.AllQuestionsList[this.questionIndex].hint : undefined;
-    this.modalService.open(this.CorrectAnsModal, { ariaLabelledBy: 'modal-basic-title', centered: true }).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-      this.attempt = this.attempt + 1;
-      submission['isCorrect'] = this.isRightAns;
-      if (this.attempt && this.attempt === 1) {
-        submission['pointsEarned'] = 1;
-      } else if (this.attempt === 2) {
-        submission['pointsEarned'] = 0.25;
-      }
-      this.validateAndSaveData(submission);
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+  // openResultPopup(ansType?: any, singleData?: any, multiData?: any, dragData?: any, submission?: any): void {
+  //   if (ansType === 'single') {
+  //     if (singleData && singleData.isAnswer === true) {
+  //       this.isRightAns = true;
+  //     } else {
+  //       this.isRightAns = false;
+  //     }
+  //   } else if (ansType === 'drag') {
+  //     if (dragData.isAnswer === true) {
+  //       this.isRightAns = true;
+  //     } else {
+  //       this.isRightAns = false;
+  //     }
+  //   } else if (ansType === 'multiple') {
+  //     let isCorrect = this.calculateMultiSelectAnswer();
+  //     if (multiData && multiData.length > 0 && isCorrect) {
+  //       this.isRightAns = true;
+  //     } else {
+  //       this.isRightAns = false;
+  //     }
+  //   }
+  //   this.hint = this.AllQuestionsList[this.questionIndex] && this.AllQuestionsList[this.questionIndex].hint ? this.AllQuestionsList[this.questionIndex].hint : undefined;
+  //   this.modalService.open(this.CorrectAnsModal, { ariaLabelledBy: 'modal-basic-title', centered: true }).result.then((result) => {
+  //     this.closeResult = `Closed with: ${result}`;
+  //     this.attempt = this.attempt + 1;
+  //     submission['isCorrect'] = this.isRightAns;
+  //     if (this.attempt && this.attempt === 1) {
+  //       submission['pointsEarned'] = 1;
+  //     } else if (this.attempt === 2) {
+  //       submission['pointsEarned'] = 0.25;
+  //     }
+  //     this.validateAndSaveData(submission);
+  //   }, (reason) => {
+  //     this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+  //   });
 
-  }
+  // }
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';

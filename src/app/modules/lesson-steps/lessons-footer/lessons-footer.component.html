@@ -14,7 +14,7 @@
   <div class="container">
     <div class="row previous-next">
       <div *ngIf="dynamicBtn" class="previous">
-        <app-button classes="btn btn-primary" [submit]="true" (click)="onDynamicBtn()">
+        <app-button classes="btn btn-primary btn-previous" [submit]="true" (click)="onDynamicBtn()">
           <span aria-hidden="true">{{ dynamicBtnName }}</span>
         </app-button>
       </div>

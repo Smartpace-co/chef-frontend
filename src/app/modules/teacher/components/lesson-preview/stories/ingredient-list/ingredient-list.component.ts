@@ -10,7 +10,7 @@ import { StudentService } from '@modules/student/services/student.service';
 import * as _ from 'lodash';
 import { ToasterService } from '@appcore/services/toaster.service';
 import { TeacherService } from '@modules/teacher/services/teacher.service';
-@Component({
+@Component({ 
   selector: 'app-ingredient-list',
   templateUrl: './ingredient-list.component.html',
   styleUrls: ['./ingredient-list.component.scss']
@@ -56,14 +56,18 @@ export class IngredientListComponent implements OnInit,OnDestroy {
       this.content = this.lessonData.activities;
     }
     this.ingredientsList = _.map(this.lessonData.recipe.recipeIngredients, item => {
+      if (item && item.ingredient) {
       let obj = {
         id: item.id,
         icon: item.ingredient.images[0] ? item.ingredient.images[0].image : this.defaultIngredientImg,
         quantity: item.quantity ? item.quantity : undefined,
         unit:item && item.unitOfMeasurement ? item.unitOfMeasurement.unitOfMeasure : undefined,
-        name: item.ingredient.ingredientTitle
+        name: item.ingredient.ingredientTitle,
+        isOptional: item.isOptional,
+        isSpotlight: item.isSpotlight
       }
       return obj;
+    }
     });  
   }
 

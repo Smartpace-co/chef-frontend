@@ -4,6 +4,7 @@ import { ToasterService } from '@appcore/services/toaster.service';
 import {
   faChevronRight,
 } from '@fortawesome/free-solid-svg-icons';
+import { AuthService } from '@modules/auth/services/auth.service';
 import { StudentService } from '@modules/student/services/student.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as _ from 'lodash';
@@ -19,10 +20,11 @@ export class StudentLandingComponent implements OnInit {
   closeModal;
   classList = [];
   showBadgeNoti = false;
-  constructor(private router: Router, private modalService: NgbModal, private toast: ToasterService, private studentService: StudentService) { }
+  constructor(private router: Router, private authService: AuthService,private modalService: NgbModal, private toast: ToasterService, private studentService: StudentService) { }
 
   ngOnInit(): void {
     this.getBadgeNotification();
+    this.authService.setuserlang();
   }
 
   gotoHomePage() {

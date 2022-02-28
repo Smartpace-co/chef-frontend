@@ -5,7 +5,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '@modules/auth/services/auth.service';
 import { ToasterService } from '@appcore/services/toaster.service';
-import { NgbModal, ModalDismissReasons, NgbDate, NgbCalendar, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons, NgbDate, NgbCalendar, NgbDateParserFormatter, NgbDateStruct, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ClassesService } from '@modules/teacher/services/classes.service';
 import { UtilityService } from '@appcore/services/utility.service';
 import { TeacherService } from '@modules/teacher/services/teacher.service';
@@ -29,6 +29,7 @@ export class ExploreLessonsListComponent implements OnInit {
   BookmarkIcon = faBookmark;
   term = "";
   searchList = [];
+  allLessonList: any;
   lessonList: any;
   topRatedList: any;
   Calendar = faCalendarAlt;
@@ -54,7 +55,7 @@ export class ExploreLessonsListComponent implements OnInit {
   // Date Picker
   hoveredDate: NgbDate | null = null;
   fromDate: any;
-  toDate: any;
+  toDate: any; 
   resultLessonInfo: any = [];
   selectedIndex: any = 0;
   lessonId: number;
@@ -73,6 +74,8 @@ export class ExploreLessonsListComponent implements OnInit {
   itemInfo: any;
   viewStatus = false;
   standardList: any;
+  selectedDate: any;
+  lessonTime:any;
   constructor(private classService: ClassesService,
     private utilityService: UtilityService,
     public faConfig: FaConfig,
@@ -82,12 +85,19 @@ export class ExploreLessonsListComponent implements OnInit {
     private router: Router,
     public teacherservice: TeacherService,
     private translate: TranslationService,
-    private calendar: NgbCalendar, public formatter: NgbDateParserFormatter) {
+    private calendar: NgbCalendar, public formatter: NgbDateParserFormatter,
+    private config: NgbDatepickerConfig) {
     faConfig.defaultPrefix = 'far';
 
     this.img = './assets/recipe.jpeg';
     this.teacherservice.viewMore = false;
     this.teacherservice.lessonFilterType = 'featured&toprated';
+    let today = calendar.getToday();
+    const current = new Date();
+    config.minDate = {
+      year: current.getFullYear(), month:
+        current.getMonth() + 1, day: current.getDate()
+    };
   }
 
   ngOnInit(): void {
@@ -99,11 +109,9 @@ export class ExploreLessonsListComponent implements OnInit {
       title: new FormControl('', [Validators.required]),
       class: new FormControl(null, [Validators.required]),
       fromDate: new FormControl(this.fromDate, [Validators.required]),
-      toDate: new FormControl(this.dateValue(this.toDate), [Validators.required]),
+      toDate: new FormControl(this.toDate, [Validators.required]),
       customSetting: new FormControl(null, []),
     });
-
-
 
     this.classTitle = this.translate.getStringFromKey('student.add-student.class.placeholder');
     this.settingTitle = this.translate.getStringFromKey('teacher.explore-lessons.select-setting');
@@ -125,7 +133,7 @@ export class ExploreLessonsListComponent implements OnInit {
 
     this.localData = JSON.parse(window.sessionStorage.getItem('currentUser'));
 
-    this.getlessonsData();
+    this.getAlllessonsData();
     this.getCustomList();
 
     this.subscription = this.teacherservice.getFilteredLessonData().subscribe(data => {
@@ -190,8 +198,32 @@ export class ExploreLessonsListComponent implements OnInit {
     return date ? ('0' + date.month).slice(-2) + "-" + ('0' + date.day).slice(-2) + "-" + date.year : null
   }
 
-  getlessonsData(): void {
+  getAlllessonsData(): void {
     this.teacherservice.getAllLessons(this.viewStatus).subscribe(
+      (response) => {
+        if (response && response.data) {
+          this.allLessonList = response.data.rows;
+
+          // this.teacherservice.lessonList = response.data.rows;
+          this.allLessonList.forEach((element) => {
+            if (element.bookmarkLesson.length === 0) {
+              element.bookmark = false;
+            } else {
+              this.bookmark = element.bookmarkLesson[0].isBookmarked;
+              element.bookmark = this.bookmark;
+            }
+          });
+          this.getFeaturedlessonsData();
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  getFeaturedlessonsData(): void {
+    this.teacherservice.getFeaturedLessons(this.viewStatus).subscribe(
       (response) => {
         if (response && response.data) {
           this.lessonList = response.data.rows;
@@ -258,6 +290,7 @@ export class ExploreLessonsListComponent implements OnInit {
   }
 
   getRecipeList(item) {
+    
     this.teacherservice.getLessonById(item.id).subscribe(
       (response: any) => {
         if (response && response.data) {
@@ -273,15 +306,16 @@ export class ExploreLessonsListComponent implements OnInit {
           const activities = [];
 
           let cooking = {
-            "time": item.recipe.recipeTechniques.map(elem => elem.estimatedTime ? elem.estimatedTime : 0).reduce((a, b) => a + b),
+            "time": item.recipe.estimatedTimeForCooking ? item.recipe.estimatedTimeForCooking: 0,
             "title": "Cooking",
-            "status": item.recipe.recipeTechniques.some(elem => elem.culinaryTechnique.status == true),
+            "status": item.recipe.status,
             "icon": "./assets/images/recipe.svg",
             "cooking": [{
               "id": 1,
               "culinaryTechniqueTitle": 'Culinary Technique',
               "estimatedTime": item.recipe.recipeTechniques.map(elem => elem.estimatedTime ? elem.estimatedTime : 0).reduce((a, b) => a + b),
-              "status": item.recipe.recipeTechniques.some(elem => elem.culinaryTechnique.status == true)
+              // "status": item.recipe.recipeTechniques.some(elem => elem.culinaryTechnique.status == true)
+              "status": item.recipe.recipeTechniques.some(elem => elem.status == true)
             }],
           };
           activities.push(cooking);
@@ -487,7 +521,6 @@ export class ExploreLessonsListComponent implements OnInit {
           if (_.isArray(res.data)) {
             this.allSettings = res.data;
             this.showCustomList = true
-            // console.log("alldata",this.allSettings);
 
           } else {
             this.allSettings = [res.data];
@@ -511,7 +544,8 @@ export class ExploreLessonsListComponent implements OnInit {
 
 
   viewLesson(lessonType) {
-    this.teacherservice.setLessonType(lessonType);
+    sessionStorage.setItem('lessonType', lessonType);
+    //this.teacherservice.setLessonType(lessonType);
     if (lessonType === "lessonStandard") {
       this.router.navigate(['/teacher/lesson-standard-list']);
     } else {
@@ -552,29 +586,21 @@ export class ExploreLessonsListComponent implements OnInit {
 
 
   onDateSelection(date: NgbDate) {
-    console.log('print date ===', this.dateValue(date));
-
-    console.log('test condition ====', date.after(this.fromDate));
 
     if (!this.fromDate && !this.toDate) {
-      console.log('from date function called');
-      this.AssignLesson.controls.fromDate.setValue(new NgbDate(date.year, date.month, date.day));
+      this.AssignLesson.controls.fromDate.setValue(this.fromDate);
 
     } else if (this.fromDate && !this.toDate && date) {
-      console.log('to date function called');
       this.toDate = this.dateValue(date);
       // let dateObj = new NgbDate(this.toDate.year, this.toDate.month, this.toDate.day);
-      this.AssignLesson.controls.toDate.setValue(new NgbDate(date.year, date.month, date.day));
+      this.AssignLesson.controls.toDate.setValue(this.toDate);
     } else {
-      console.log('Inside else part');
       this.toDate = null;
       this.fromDate = this.dateValue(date);
       // let dateObj = new NgbDate(this.fromDate.year, this.fromDate.month, this.fromDate.day);
-      this.AssignLesson.controls.fromDate.setValue(new NgbDate(date.year, date.month, date.day));
+      this.AssignLesson.controls.fromDate.setValue(this.fromDate);
     }
 
-    console.log('this.fromDate === ', this.fromDate);
-    console.log('this.toDate === ', this.toDate);
   }
 
   isHovered(date: NgbDate) {
@@ -614,12 +640,15 @@ export class ExploreLessonsListComponent implements OnInit {
   // }
   onInfoClick(item, i) {
     this.itemInfo = item;
+    // console.log("res", this.itemInfo);
+    this.lessonTime = item.lessonTime;
     this.teacherservice.getLessonInfo(item.id).subscribe((res) => {
       this.showInfo = i + 1;
       this.selectedIndex = i
       let count = this.classApplied ? 3 : 4;
       this.showInfo = Math.floor(this.selectedIndex / count) == 0 ? 1 : Math.floor(this.selectedIndex / count) * count + 1;
       this.resultLessonInfo = res.data;
+     
       this.resultLessonInfo.learningObjectivesForStudent = this.resultLessonInfo.learningObjectivesForStudent.replace(/&nbsp;|<[^>]+>/g, '');
       this.ingrdients = this.resultLessonInfo.recipe.recipeIngredients.map(x => x.ingredient.ingredientTitle).join(",");
       this.equipments = this.resultLessonInfo.experiment.experimentTools.map(x => x.tool.toolTitle).join(",");
@@ -679,6 +708,7 @@ export class ExploreLessonsListComponent implements OnInit {
       this.resultLessonInfo["type"] = "new";
       this.resultLessonInfo["classList"] = this.classList;
       this.teacherservice.setLessonData(this.resultLessonInfo);
+      sessionStorage.setItem('lsData',JSON.stringify(this.resultLessonInfo));
       this.router.navigate(['/teacher/explore-lessons-setting', this.lessonInfo.id]);
     }
 
@@ -777,13 +807,11 @@ export class ExploreLessonsListComponent implements OnInit {
       return;
     } else {
 
-      console.log(this.AssignLesson.value);
       let scrData = this.AssignLesson.value;
-      this.startDate = moment.utc(new Date(scrData.fromDate.year, scrData.fromDate.month - 1, scrData.fromDate.day));
-      this.endDate = moment.utc(new Date(scrData.toDate.year, scrData.toDate.month - 1, scrData.toDate.day));
-
-      console.log('srcdate ==', this.startDate);
-      console.log('endDate ==', this.endDate);
+      this.startDate = this.utilityService.LessonformatDate(scrData.fromDate);
+      this.endDate = this.utilityService.LessonformatDate(scrData.toDate);
+      // this.startDate = moment.utc(new Date(scrData.fromDate.year, scrData.fromDate.month - 1, scrData.fromDate.day));
+      // this.endDate = moment.utc(new Date(scrData.toDate.year, scrData.toDate.month - 1, scrData.toDate.day));
 
       let obj = {};
 
@@ -846,80 +874,4 @@ export class ExploreLessonsListComponent implements OnInit {
       }
     ]
   };
-
-  topRated = [
-    {
-      "id": "1",
-      "title": "Top 5 Breakfast Lessons - Grade 1",
-      "image": "./assets/images/breakfast.png"
-    },
-    {
-      "id": "2",
-      "title": "Top Health & Hygiene Lessons",
-      "image": "./assets/images/breakfast.png"
-    },
-    {
-      "id": "3",
-      "title": "Top Vegetarian Lessons",
-      "image": "./assets/images/breakfast.png"
-    }
-  ]
-  featureSubject = [
-    {
-      "id": "1",
-      "title": "Geometry",
-      "image": "./assets/images/assignment-image.jpg",
-      "lessonsCount": "27"
-    },
-    {
-      "id": "2",
-      "title": "Reading: Informational Text",
-      "image": "./assets/images/assignment-image.jpg",
-      "lessonsCount": "99"
-    },
-    {
-      "id": "3",
-      "title": "Matter and its Iteractions",
-      "image": "./assets/images/assignment-image.jpg",
-      "lessonsCount": "54"
-    },
-    {
-      "id": "1",
-      "title": "Geometry",
-      "image": "./assets/images/assignment-image.jpg",
-      "lessonsCount": "27"
-    },
-    {
-      "id": "2",
-      "title": "Reading: Informational Text",
-      "image": "./assets/images/assignment-image.jpg",
-      "lessonsCount": "99"
-    },
-    {
-      "id": "3",
-      "title": "Matter and its Iteractions",
-      "image": "./assets/images/assignment-image.jpg",
-      "lessonsCount": "54"
-    }
-  ]
-  recommended = [
-    {
-      "id": "1",
-      "title": "Floating & Sinking",
-      "image": "./assets/images/assignment-image.jpg",
-      "lessonsCount": "19"
-    },
-    {
-      "id": "2",
-      "title": "Ordering & Counting",
-      "image": "./assets/images/assignment-image.jpg",
-      "lessonsCount": "19"
-    },
-    {
-      "id": "3",
-      "title": "Word of the day",
-      "image": "./assets/images/assignment-image.jpg",
-      "lessonsCount": "19"
-    }
-  ]
 }

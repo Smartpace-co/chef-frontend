@@ -155,6 +155,7 @@
             padding: 0rem;
             @include breakpoint(tabs) {
               color: $white;
+              margin-left: 0.5rem;
             }
           }
         }

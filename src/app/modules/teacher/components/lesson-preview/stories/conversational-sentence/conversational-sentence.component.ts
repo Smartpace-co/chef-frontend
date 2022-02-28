@@ -12,7 +12,7 @@ import * as _ from 'lodash';
 })
 export class ConversationalSentenceComponent implements OnInit,OnDestroy{
 
-  lessonHederConfig = {};
+  lessonHederConfig = {}; 
   isVisibleNext = false;
   assignmentId: any;
   conversationText: string;
@@ -32,9 +32,7 @@ export class ConversationalSentenceComponent implements OnInit,OnDestroy{
     window.scroll(0, 0);
     this.assignmentId = localStorage.getItem('assignmentId')
     this.lessonData = this.teacherService.getAssignLessonData();
-    console.log("conv data",this.lessonData);    
     this.viewFrom = this.teacherService.getViewFrom();
-    console.log("viewFrom",this.viewFrom);
     if(this.viewFrom == "View"){
       this.conversationText = this.lessonData.conversationSentence.conversationSentence ? this.lessonData.conversationSentence.conversationSentence : undefined;
       this.content = this.lessonData.customSetting.content;
@@ -46,7 +44,6 @@ export class ConversationalSentenceComponent implements OnInit,OnDestroy{
       this.toast.showToast('There is no conversation sentence.', '', 'warning');
     }
     this.countryBgImg = this.lessonData.recipe.country.backgroundImage;
-    console.log("background image", this.countryBgImg);
     this.isLoad = true;
      this.isVisibleNext = false;
   }
@@ -99,7 +96,7 @@ export class ConversationalSentenceComponent implements OnInit,OnDestroy{
    * on Previous click event
   */
   onPrevious(): void {
-    this.router.navigate(['teacher/let-start']);
+    this.router.navigate(['teacher/recipe-fact']);
   }
 
 }

@@ -21,7 +21,7 @@
                     <div class="comments-form">
                         <h5>{{'school.discussion-forum.comments-label'|translate}}</h5>
                         <app-input-field classes="form-control commentClass" types="text" ids="comment" fieldControl="comment"
-                        [form]="commentForm" placeholders="Write Your Comment" style="margin-left: 1.5%;"></app-input-field>
+                        [form]="commentForm" placeholders="Write Your Comment"></app-input-field>
                        <div class="image-upload">
                              <input type="file" id="actual-btn" (change)="onFileSelected($event)" hidden />
                             <span class="selected-file" *ngIf="selectedFile">{{selectedFile}}</span>

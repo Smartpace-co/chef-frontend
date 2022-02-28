@@ -128,6 +128,8 @@ export class AdminTeacherComponent implements OnInit {
   term: string;
   profilePic: string;
   createClassForm: FormGroup;
+  sortById;
+  status;
   constructor(private router: Router,
     private toast: ToasterService,
     private utilityService:UtilityService,
@@ -140,13 +142,8 @@ export class AdminTeacherComponent implements OnInit {
     this.getAllTeacherList();
   }
 
-  getAllTeacherList(filter?: any, sortBy?: string): void {
-    let filter1=[]
-    if(filter!==undefined)
-    {
-      filter1.push(filter)
-    }
-    this.districtService.getAllTeacher(filter1,sortBy).subscribe(
+  getAllTeacherList(): void {
+    this.districtService.getAllTeacher(this.status,undefined,this.sortById).subscribe(
       (response) => {
         if (response && response.data && response.data.rows) {
           this.schoolList = _.map(response.data.rows, item => {
@@ -157,7 +154,7 @@ export class AdminTeacherComponent implements OnInit {
               userId: item.teacher.id,
               email: item.email,
               gender: item && item.teacher.gender && item.teacher.gender.charAt(0).toUpperCase() + item.teacher.gender.slice(1),
-              contactNumber: this.utilityService.formatPhoneNumber(item.phone_number),
+              contactNumber: item.phone_number,
               userPhoto: item.profile_image || this.profilePic,
               status: item.status === true ? 'Active' : 'Inactive',
               role: item.role.title,
@@ -197,19 +194,13 @@ export class AdminTeacherComponent implements OnInit {
 
   teacherFilter(item: any): void {
     this.userTitle = item.menu;
-    if (item && item.id) {
-      this.getAllTeacherList(item.id);
-    } else {
-      this.getAllTeacherList();
-    }
+    this.status = item.id;    
+    this.getAllTeacherList();
   }
   teacherIdFilter(event): void {
     this.SortByIdTitle = event.menu;
-    if (event && event.value) {
-      this.getAllTeacherList(undefined, event.value);
-    } else {
-      this.getAllTeacherList();
-    }
+    this.sortById = event.value;    
+    this.getAllTeacherList();
   }
 
   importUser(): void {

@@ -54,6 +54,10 @@
       .image-upload {
             display: flex;
             align-items: flex-end;
+            @include breakpoint(mobile){
+              align-items: center;
+              flex-direction: column;
+            }
         label {
             font-size: 1.8rem;
             font-weight: 700;
@@ -66,14 +70,16 @@
             margin-left:10%;
             text-align: center;
             width: 29rem;
+            @include breakpoint(iPad){
+              width: 22rem;
+              margin-left: 0;
+            }
 
             @include breakpoint(tabs) {
                 font-size: 1.6rem;
                 padding: 1.22rem 1rem;
             }
-            @include breakpoint(mobile){
-                width: 100%;
-              }
+           
 
             span {
                 margin-left: 1.2rem;

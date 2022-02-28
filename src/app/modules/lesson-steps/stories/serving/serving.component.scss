@@ -95,6 +95,8 @@
             ul{
               li{
                 margin-bottom: 3rem;
+                font-weight: 700;
+                font-size: 1.4rem;
                 h6{
                   line-height: 1.4;
                   @include breakpoint(mobile){

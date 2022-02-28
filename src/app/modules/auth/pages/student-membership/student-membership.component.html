@@ -45,6 +45,7 @@
                   <div class="select-btn-wrapper">
                     <div>
                       <p class="total-price">Total Price: ${{item.totalPrice}}</p>
+                      <h6 class="trial-period">Trial Period : 7 days</h6>
                     </div>
                     <app-button classes="btn  btn-small btn-secondary btn-select" [submit]="true">
                       <span aria-hidden="true">Select</span>
@@ -87,6 +88,7 @@
       standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
       type specimen book. </p>
     <h6 class="Total">Total Price : ${{selectedPlan?.totalPrice}}</h6>
+    <h6 class="TrialPeriod">Trial Period : 7 days</h6>
     <!-- <p class="month">{{selectedPlan?.monthlyPrice}}</p> -->
     <div class="close-btn-wrapper">
       <app-button classes="btn btn-primary membership-close-btn" [submit]="true" (click)="closePopup()">

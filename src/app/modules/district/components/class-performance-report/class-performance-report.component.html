@@ -7,7 +7,7 @@
           <app-button classes="btn btn-primary icon-btn mb-3 mr-3" (click)="open(createClass)">
             <span aria-hidden="true"><fa-icon [icon]="settings"></fa-icon>{{'school.class-activity-report.change-criteria-button' | translate}}</span>
           </app-button>
-          <app-button (click)="generatePDF()"  classes="btn btn-primary print-icon-btn icon-btn mr-3 mb-3">
+          <app-button (click)="openDownloadModal(downloadReport)"  classes="btn btn-primary print-icon-btn icon-btn mr-3 mb-3">
             <span aria-hidden="true"><span class="print-icon mr-3"><img src="./assets/images/print-icon.png" alt="" class="img-fluid" /></span>{{'school.billing.print-report' | translate}}</span>
           </app-button>
         </div>
@@ -71,28 +71,32 @@
                         <div *ngIf="gridview" class="dist-school-grid">
                             <div class="row">
                               <div class="col-lg-4 col-md-6 col-sm-6" *ngFor="let item of standardsProficiencyList;let i=index;">
-                                <div class="schoolItem">
-                                  <div class="schoolItem__heading">
-                                    <h6 class="schoolItem__heading__name">{{ item.schoolName}}</h6>
-                                  </div>
-                                  <div class="schoolItem__heading">
-                                    <h5 class="schoolItem__heading__name">{{ item.className}}</h5>
-                                  </div>
-                                  <div class="schoolItem__info-wrapper">
-                                    <div class="schoolItem__info-wrapper__photo">
-                                      <img src="{{ item.profilePic }}" alt="" class="img-fluid"/>
+                                <div class="schoolItem school-structure">
+                                  <div>
+                                    <div class="schoolItem__heading">
+                                      <h6 class="schoolItem__heading__name">{{ item.schoolName}}</h6>
                                     </div>
-                                    <div class="schoolItem__info-wrapper__name-id">
-                                      <h6 class="schoolItem__info-wrapper__name-id__name">{{ item.teachername}}</h6>
-                                      <!-- <p class="schoolItem__info-wrapper__name-id__id"> <label>ID:</label><span>{{ item.schoolId }}</span></p>  -->
+                                    <div class="schoolItem__heading">
+                                      <h5 class="schoolItem__heading__name">{{ item.className}}</h5>
                                     </div>
                                   </div>
-                                  <div class="schoolItem__school-info">
-                                    <h6>{{'school.class-performance-report.CCSS-label' | translate}}- {{planList[i].attempted[0]}} %, {{planList[i].proficiency[0]}} %</h6>
-                                    <h6>{{'school.class-performance-report.CCSS-MATH-label' | translate}}- {{planList[i].attempted[1]}} %, {{planList[i].proficiency[1]}} %</h6>
-                                    <h6>{{'school.class-performance-report.NGSS-label' | translate}}- {{planList[i].attempted[2]}} %, {{planList[i].proficiency[2]}} %</h6>
-                                    <h6>{{'school.class-performance-report.NCSS-label' | translate}}- {{planList[i].attempted[3]}} %, {{planList[i].proficiency[3]}} %</h6>
-
+                                  <div>
+                                    <div class="schoolItem__info-wrapper">
+                                      <div class="schoolItem__info-wrapper__photo">
+                                        <img src="{{ item.profilePic }}" alt="" class="img-fluid"/>
+                                      </div>
+                                      <div class="schoolItem__info-wrapper__name-id">
+                                        <h6 class="schoolItem__info-wrapper__name-id__name">{{ item.teachername}}</h6>
+                                        <!-- <p class="schoolItem__info-wrapper__name-id__id"> <label>ID:</label><span>{{ item.schoolId }}</span></p>  -->
+                                      </div>
+                                    </div>
+                                    <div class="schoolItem__school-info">
+                                      <h6>{{'school.class-performance-report.CCSS-label' | translate}}- {{planList[i].attempted[0]}} %, {{planList[i].proficiency[0]}} %</h6>
+                                      <h6>{{'school.class-performance-report.CCSS-MATH-label' | translate}}- {{planList[i].attempted[1]}} %, {{planList[i].proficiency[1]}} %</h6>
+                                      <h6>{{'school.class-performance-report.NGSS-label' | translate}}- {{planList[i].attempted[2]}} %, {{planList[i].proficiency[2]}} %</h6>
+                                      <h6>{{'school.class-performance-report.NCSS-label' | translate}}- {{planList[i].attempted[3]}} %, {{planList[i].proficiency[3]}} %</h6>
+  
+                                    </div>
                                   </div>
                                   <!-- <ul class="schoolItem__action">
                                     <li>
@@ -250,5 +254,28 @@
       </div>
     </div>
     </div>
+  </div>
+</ng-template>
+
+<ng-template #downloadReport let-modal>
+  <div class="btn-wrapper">
+      <button type="button" class="close" aria-label="Close" (click)="closeDownlaodModal()">
+          <img src="./assets/images/close.png" alt="" class="img-fluid" />
+      </button>
+  </div>
+  <div class="download-pdf">
+      <h4>Download</h4>
+      <div class="download-button">
+          <app-button classes="btn btn-primary print-icon-btn icon-btn" (click)="generatePDF()">
+              <span aria-hidden="true"><span class="print-icon mr-3"><img src="./assets/images/print-icon.png" alt=""
+                          class="img-fluid" /></span>{{ 'school.billing.download-pdf' | translate
+                  }}</span>
+          </app-button>
+          <app-button classes="btn btn-primary print-icon-btn icon-btn" (click)="printExcelSheet()">
+              <span aria-hidden="true"><span class="print-icon mr-3"><img src="./assets/images/print-icon.png" alt=""
+                          class="img-fluid" /></span>{{ 'school.billing.download-excel' | translate
+                  }}</span>
+          </app-button>
+      </div>
   </div>
 </ng-template>

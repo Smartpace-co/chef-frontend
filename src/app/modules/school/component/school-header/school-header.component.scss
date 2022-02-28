@@ -67,6 +67,7 @@
                     font-size: 1rem;
                     text-align: center;
                     line-height:1.8rem;
+                    font-weight: 700;
                 }
             }
         }
@@ -89,7 +90,7 @@
             overflow: hidden;
             display: flex;
             justify-content: center;
-            // align-items: flex-end;
+            align-items: center;
         }
       }
       .bottom-header{
@@ -144,6 +145,7 @@
       z-index: 1000;
       padding:0.5rem 1.5rem;
       margin-left: auto;
+      margin-top: 1rem;
       @include breakpoint(tabsAbove){
           display: none;
       }
@@ -230,6 +232,7 @@
               font-size: 1rem;
               text-align: center;
               line-height:1.8rem;
+              font-weight: 700;
           }
       }
       .search{
@@ -271,6 +274,7 @@
       .profile-nav{
           padding:2rem 1rem;
           padding-left:4rem;
+          font-weight: 700;
           .teacher-info{
               display: flex;
               align-items: center;

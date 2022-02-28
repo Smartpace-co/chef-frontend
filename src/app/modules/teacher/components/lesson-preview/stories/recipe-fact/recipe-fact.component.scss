@@ -1,97 +1,147 @@
 @import "../../../../../../../assets/styles/helpers/variables";
 @import "../../../../../../../assets/styles/helpers/mixins";
 .story-body-6{
-  // background:url("../../../../../../../assets/images/kitchen-bg.jpg") center no-repeat;
-  background:center no-repeat;
+  background:url("../../../../../../../assets/images/kitchen-bg.jpg") center no-repeat;
   background-size: cover;
   overflow: hidden;
-  min-height: calc(100vh - 24.2rem);
+  min-height: calc(100vh - 0rem);
   position: relative;
   display: flex;
   align-items: flex-end;
   flex-wrap: wrap;
   justify-content: flex-end;
   @include breakpoint(mobile) {
-    min-height: calc(100vh - 33rem);
+    min-height: 100vh;
+    align-items: flex-start;
   }
-  .final-editaion{
+  .final-editaion {
     justify-content: center;
     padding-top: 9rem;
-    .content-wrapper{
-      .final-editaion-img-wrapper{
+    @include breakpoint(mobile){
+      padding-top: 20rem;
+    }
+    .content-wrapper {
+      .final-editaion-img-wrapper {
         max-width: 42rem;
         position: relative;
-        display:block;
+        display: block;
         margin: 0 auto;
         margin-bottom: -6rem;
-        @include breakpoint(tabs){
-          max-width: 21rem;
-          margin-bottom: 1rem;
+        @include breakpoint(tabs) {
+          max-width: 23rem;
+          margin-bottom: -3rem;
         }
-        @include breakpoint(xtrasmallmobile){
-          margin-left: 8%;
+        @include breakpoint(mobile) {
+          bottom: -7rem;
         }
-        .final-editaion-img{
+        .final-editaion-img {
           transform: rotateY(180deg);
         }
-        .left-tooltip-wrapper{
+        .left-tooltip-wrapper {
           position: absolute;
-          top: 8rem;
-          left: -7rem;
-          @include breakpoint(tabs){
-            left: -4rem;
-            top: -1rem;
+          top: -4rem;
+          left: -21rem;
+          @include breakpoint(tabs) {
+            left: -27rem;
+            top: -16rem;
           }
-          @include breakpoint(xtrasmallmobile){
+          @include breakpoint(mobile) {
             left: -3rem;
+            top: -21rem;
           }
         }
-        .right-tooltip-wrapper{
+        .right-tooltip-wrapper {
           position: absolute;
-          top: 11rem;
-          right: -24rem;
-          @include breakpoint(tabs){
-            right: -14rem;
-            top: -2rem;
+          top: -4rem;
+          right: -31rem;
+          @include breakpoint(tabs) {
+            right: -31rem;
+            top: -6rem;
           }
-          @include breakpoint(xtrasmallmobile){
-            right: -9rem;
+          @include breakpoint(mobile) {
+            right: -4rem;
+            top: -4rem;
+          }
+          .speech-tooltip {
+            .speech-tooltip-inner {
+              .tip{
+                @include breakpoint(mobile){
+                  left: 19rem;
+                }
+              }
+            }
           }
         }
-        
+        .speech-tooltip {
+          .speech-tooltip-inner {
+            min-width: 35rem;
+            @include breakpoint(mobile) {
+              min-width: 29rem;
+            }
+            .message {
+              overflow: unset;
+              li {
+                p{
+                  font-size: 1.6rem;
+                  color: $black;
+                  font-weight: 700;
+                  padding: 0;
+                  @include breakpoint(tabs) {
+                    font-size: 1.3rem;
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
-    .kitchen-table{
+    .kitchen-table {
       position: absolute;
-      width: 46rem;
+      width: 41rem;
       display: inline-block;
       left: 0;
       bottom: -19rem;
-      @include breakpoint(tabs){
-        width: 40rem;
+      @include breakpoint(tabs) {
+        width: 33rem;
       }
-      @include breakpoint(mobile){
-       display: none;
+      @include breakpoint(mobile) {
+        width: 29rem;
+        bottom: -16rem;
+      }
+      @include breakpoint(sm-mobile) {
+        width: 24rem;
+        bottom: -23rem;
+        left: -3rem;
       }
     }
-    .recipe{
+    .recipe {
       position: absolute;
       width: 15rem;
       height: 15rem;
+      display: inline-block;
+      left: 13rem;
+      bottom: 17rem;
       display: flex;
       justify-content: center;
       align-items: center;
       overflow: hidden;
-      left: 14rem;
-      bottom: 21rem;
       border-radius: 100%;
-      @include breakpoint(tabs){
-        left: 13rem;
-        bottom: 16rem;
+      @include breakpoint(tabs) {
+        left: 10rem;
+        bottom: 11rem;
       }
-      @include breakpoint(mobile){
-        display: none;
-       }
+      @include breakpoint(mobile) {
+        left: 6rem;
+        bottom: 10rem;
+      }
+      @include breakpoint(sm-mobile) {
+        width: 12rem;
+        height: 12rem;
+        left: 3rem;
+        /* background: red; */
+        bottom: -2rem;
+      }
     }
   }
 }

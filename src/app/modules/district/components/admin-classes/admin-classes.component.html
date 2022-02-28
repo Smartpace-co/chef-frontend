@@ -80,7 +80,7 @@
   </div>
 </div>
 <ng-template #createClass let-modal>
-  <button type="button" class="close" aria-label="Close" (click)="closeOpenModal()">
+  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
     <img src="./assets/images/close.png" alt="" class="img-fluid" />
   </button>
   <div class="modal-body">
@@ -140,7 +140,7 @@
         </div>
         <div class="row">
           <div class="col-md-12">
-            <label>{{'district.district-schools.students-title'|translate}}</label>
+            <label>{{'district.district-schools.students-title'|translate}} {{'student.profile.optional-label'| translate }}</label>
             <app-multi-select-dropdown [dropDownItemList]="allStudentList" [selectedItems]="selectedStudent"
               [placeholderText]="'Select Student'" fieldControl="student" [selectedValue]="selectedStudentValue"
               (onSelectValue)="onSelectStudent($event)" (onDeSelectValue)="onDeSelectStudent($event)"
@@ -149,14 +149,14 @@
           </div>
         </div>
         <div class="footer-btns">
-          <app-button classes="btn btn-secondary mb-3 mr-3" [submit]="true" (click)="closeOpenModal()">
+          <app-button classes="btn btn-secondary mb-3 mr-3" [submit]="true" (click)="modal.dismiss('Cross click')">
             <span aria-hidden="true">{{'common.cancel'|translate}}</span>
           </app-button>
           <!-- <app-button classes="btn btn-primary mb-3 mr-3" [submit]="true">
             <span aria-hidden="true">Add Students to Class</span>
           </app-button> -->
           <app-button classes="btn btn-primary mb-3" [submit]="true" [disabled]="createClassForm.invalid"
-            (click)="onSave()">
+            (click)="modal.close('Save')">
             <span aria-hidden="true">{{'common.save'|translate}}</span>
           </app-button>
         </div>
@@ -165,7 +165,7 @@
   </div>
 </ng-template>
 <ng-template #accessCode let-modal>
-  <button type="button" class="close" aria-label="Close" (click)="closeOpenModal()">
+  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
     <img src="./assets/images/close.png" alt="" class="img-fluid" />
   </button>
   <div class="modal-body">

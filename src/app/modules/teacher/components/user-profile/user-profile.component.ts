@@ -36,7 +36,6 @@ export class UserProfileComponent implements OnInit {
   editProfileForm: FormGroup;
   passwordForm: FormGroup;
   teacherid: any;
-  schoolid: number;
 
   constructor(private modalService: NgbModal,
     private toast: ToasterService,
@@ -56,12 +55,13 @@ export class UserProfileComponent implements OnInit {
       emailAddress: new FormControl('', [Validators.required,
       Validators.pattern(CustomRegex.emailPattern),
       ]),
-      schoolName: new FormControl('', []),
-      address: new FormControl([], []),
+      customDistrictName: new FormControl(''),
+      customSchoolName: new FormControl(''),
+      // address: new FormControl([], []),
       contact: new FormControl('', [Validators.required,
-        Validators.pattern(CustomRegex.phoneNumberPattern),
-        Validators.minLength(10),
-        ]),
+      Validators.pattern(CustomRegex.phoneNumberPattern),
+      // Validators.minLength(10),
+      ]),
       gender: new FormControl('Male', [])
     });
     this.passwordForm = this.fb.group({
@@ -119,9 +119,10 @@ export class UserProfileComponent implements OnInit {
     this.editModal = this.modalService.open(form, { ariaLabelledBy: 'modal-basic-title', centered: true, windowClass: 'dist-modal' });
     this.editProfileForm.get('gender').setValue(this.userDetails.gender);
     this.editProfileForm.get('firstname').setValue(this.userDetails.firstname);
-    this.editProfileForm.get('lastname').setValue(this.userDetails.lastname)
-    this.editProfileForm.get('address').setValue(this.userDetails.address);
-    this.editProfileForm.get('schoolName').setValue(this.userDetails.school);
+    this.editProfileForm.get('lastname').setValue(this.userDetails.lastname);
+    // this.editProfileForm.get('address').setValue(this.userDetails.address);
+    this.editProfileForm.get('customDistrictName').setValue(this.userDetails.customDistrictName);
+    this.editProfileForm.get('customSchoolName').setValue(this.userDetails.customSchoolName);
     this.editProfileForm.get('contact').setValue(this.userDetails.phone);
     this.editProfileForm.get('emailAddress').setValue(this.userDetails.email);
   }
@@ -137,17 +138,16 @@ export class UserProfileComponent implements OnInit {
         return;
       } else {
         let submission = {
-          // school_id: this.schoolid,
           email: this.editProfileForm.value.emailAddress,
           phone_number: this.editProfileForm.value.contact,
           profile_image: this.userDetails.img,
           first_name: this.editProfileForm.value.firstname,
           last_name: this.editProfileForm.value.lastname,
-          address: this.editProfileForm.value.address,
+          // address: this.editProfileForm.value.address,
           gender: this.editProfileForm.value.gender,
         }
-        if (this.schoolid) submission["school_id"] = this.schoolid;
-
+        if (this.editProfileForm.value.customDistrictName) submission["custom_district_name"] = this.editProfileForm.value.customDistrictName;
+        if (this.editProfileForm.value.customDistrictName) submission["custom_school_name"] = this.editProfileForm.value.customSchoolName;
         this.updateProfile(this.teacherid, submission);
       }
     }
@@ -174,20 +174,25 @@ export class UserProfileComponent implements OnInit {
       (response) => {
         if (response && response.data) {
           let userData = response.data;
-          this.schoolid = userData.teacher.school ? userData.teacher.school.id : "";
           let obj = {
             firstname: userData.teacher.first_name,
             lastname: userData.teacher.last_name,
-            address: userData.teacher.school ? userData.teacher.school.school_address : " ",
+            address: userData.teacher.school ? userData.teacher.school.school_address : "",
             img: userData.profile_image || this.profilePic,
-            school: userData.teacher.school ? userData.teacher.school.name : "",
+            school: userData.teacher.school ? userData.teacher.school.name : '',
+            customDistrictName: userData.teacher.custom_district_name ? userData.teacher.custom_district_name : '',
+            customSchoolName: userData.teacher.custom_school_name ? userData.teacher.custom_school_name : '',
             gender: userData.teacher.gender ? userData.teacher.gender : "",
             phone: userData.phone_number,
             email: userData.email
           }
           this.userDetails = obj;
-          console.log(this.userDetails);
-          this.teacherService.setProfileObs(this.userDetails);
+          let details={
+            profile_image:this.userDetails.img,
+            first_name: this.userDetails.firstname,
+            last_name:this.userDetails.lastname,
+          }
+          this.teacherService.setProfileObs(details);
         }
       },
       (error) => {

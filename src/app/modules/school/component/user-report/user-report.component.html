@@ -1,15 +1,17 @@
-
-
 <div class="admin-content-report">
   <div class="report-heading-wrapper">
     <div class="container">
       <h4>{{'school.user-reports.user-reports-label'| translate}}</h4>
       <div class="btn-wrapper">
         <app-button classes="btn btn-primary icon-btn mb-3 mr-3">
-          <span aria-hidden="true"><fa-icon [icon]="settings"></fa-icon>{{'school.class-activity-report.change-criteria-button' | translate}}</span>
+          <span aria-hidden="true">
+            <fa-icon [icon]="settings"></fa-icon>{{'school.class-activity-report.change-criteria-button' | translate}}
+          </span>
         </app-button>
-        <app-button classes="btn btn-primary print-icon-btn icon-btn mr-3 mb-3" (click)="generatePDF()" printTitle="Print Title" printSectionId="print-section" ngxPrint>
-          <span aria-hidden="true"><span class="print-icon mr-3"><img src="./assets/images/print-icon.png" alt="" class="img-fluid" id="print-section" /></span>{{'school.billing.print-report' | translate}}</span>
+        <app-button classes="btn btn-primary print-icon-btn icon-btn mr-3 mb-3"
+          (click)="openDownloadModal(downloadReport)" printTitle="Print Title" printSectionId="print-section" ngxPrint>
+          <span aria-hidden="true"><span class="print-icon mr-3"><img src="./assets/images/print-icon.png" alt=""
+                class="img-fluid" id="print-section" /></span>{{'school.billing.print-report' | translate}}</span>
         </app-button>
       </div>
     </div>
@@ -19,24 +21,32 @@
       <div class="container">
         <ul class="filters-list desktop-only">
           <li class="filters-item">
-              <a (click)="getReport('week')" class="filter active"  [ngClass]="{'active': duration === 'week'}">{{'school.class-activity-report.this-week-label' | translate}}</a>
+            <a (click)="getReport('week')" class="filter active"
+              [ngClass]="{'active': duration === 'week'}">{{'school.class-activity-report.this-week-label' |
+              translate}}</a>
           </li>
           <li class="filters-item">
-            <a  (click)="getReport('month')" class="filter"  [ngClass]="{'active': duration === 'month'}">{{'school.class-activity-report.this-month-label' | translate}}</a>
+            <a (click)="getReport('month')" class="filter"
+              [ngClass]="{'active': duration === 'month'}">{{'school.class-activity-report.this-month-label' |
+              translate}}</a>
           </li>
           <li class="filters-item">
-            <a (click)="getReport('quarter')" class="filter" [ngClass]="{'active': duration === 'quarter'}">{{'school.class-activity-report.this-quarter-label' | translate}}</a>
+            <a (click)="getReport('quarter')" class="filter"
+              [ngClass]="{'active': duration === 'quarter'}">{{'school.class-activity-report.this-quarter-label' |
+              translate}}</a>
           </li>
           <li class="filters-item">
-            <a (click)="getReport('year')" class="filter"[ngClass]="{'active': duration === 'year'}" >{{'school.class-activity-report.this-year-label' | translate}}</a>
+            <a (click)="getReport('year')" class="filter"
+              [ngClass]="{'active': duration === 'year'}">{{'school.class-activity-report.this-year-label' |
+              translate}}</a>
           </li>
         </ul>
         <div class="filter-droplist">
-          <app-drop-down class="transparentbg  mobile-only"
-            [dropDownButtonName]="filterTitle" [dropDownIcon]="" [dropDownItemList]="filterList"></app-drop-down>
+          <app-drop-down class="transparentbg  mobile-only" [dropDownButtonName]="filterTitle" [dropDownIcon]=""
+            [dropDownItemList]="filterList"></app-drop-down>
         </div>
         <div (click)="openRead(readReport)" class="report-help">
-          <a  class="help">{{'school.class-activity-report.how-to-read-this-report-label' | translate}}</a>
+          <a class="help">{{'school.class-activity-report.how-to-read-this-report-label' | translate}}</a>
         </div>
       </div>
     </div>
@@ -51,37 +61,37 @@
             <div class="icon">
               <fa-icon [icon]="item.icon"></fa-icon>
             </div>
-           </div>
+          </div>
         </div>
       </div>
-    <div class="row  teacher-student-tables">
-      <div class="col-lg-4">
-        <div class="legend-card list-view">
-          <h6 class="mb-3">{{'school.user-reports.top-active-teachers-label' | translate}}</h6>
-          <p class="mb-3">{{'school.user-reports.number-of-times-signed-in' | translate}}.</p>
-          <div *ngIf="listview">
-            <app-tables  [dataSource]="teacherList"
-              [tableHeaders]="teacherHeadersList" [page]="1" [pageSize]="10"></app-tables>
-          </div>
-          <!-- <div class="view-link">
+      <div class="row  teacher-student-tables">
+        <div class="col-lg-4">
+          <div class="legend-card list-view">
+            <h6 class="mb-3">{{'school.user-reports.top-active-teachers-label' | translate}}</h6>
+            <p class="mb-3">{{'school.user-reports.number-of-times-signed-in' | translate}}.</p>
+            <div *ngIf="listview">
+              <app-tables [dataSource]="teacherList" [tableHeaders]="teacherHeadersList" [page]="1" [pageSize]="10">
+              </app-tables>
+            </div>
+            <!-- <div class="view-link">
             <a>View Full Report <fa-icon [icon]="rightIcon"></fa-icon></a>
           </div> -->
-        </div>
-      </div>
-      <div class="col-lg-8">
-        <div class="legend-card list-view">
-          <h6 class="mb-3">{{'school.user-reports.top-active-students-label' | translate}}</h6>
-          <p class="mb-3">{{'school.user-reports.number-of-times-signed-in' | translate}}</p>
-          <div *ngIf="listview">
-            <app-tables  [dataSource]="studentList"
-              [tableHeaders]="studentHeadersList" [page]="1" [pageSize]="10"></app-tables>
           </div>
-          <!-- <div class="view-link">
+        </div>
+        <div class="col-lg-8">
+          <div class="legend-card list-view">
+            <h6 class="mb-3">{{'school.user-reports.top-active-students-label' | translate}}</h6>
+            <p class="mb-3">{{'school.user-reports.number-of-times-signed-in' | translate}}</p>
+            <div *ngIf="listview">
+              <app-tables [dataSource]="studentList" [tableHeaders]="studentHeadersList" [page]="1" [pageSize]="10">
+              </app-tables>
+            </div>
+            <!-- <div class="view-link">
             <a>View Full Report <fa-icon [icon]="rightIcon"></fa-icon></a>
           </div> -->
+          </div>
         </div>
       </div>
-    </div>
     </div>
   </div>
 </div>
@@ -93,10 +103,33 @@
     <h3 class="access-label">{{'school.class-activity-report.how-to-read-this-report-label' | translate}}</h3>
     <div class="modal-body journal-body">
       <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s
-        standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
-        type specimen book. </p>     
+        standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
+        a
+        type specimen book. </p>
     </div>
-    
+
   </div>
 </ng-template>
 
+<ng-template #downloadReport let-modal>
+  <div class="btn-wrapper">
+    <button type="button" class="close" aria-label="Close" (click)="closeDownlaodModal()">
+      <img src="./assets/images/close.png" alt="" class="img-fluid" />
+    </button>
+  </div>
+  <div class="download-pdf">
+    <h4>Download</h4>
+    <div class="download-button">
+      <app-button classes="btn btn-primary print-icon-btn icon-btn" (click)="generatePDF()">
+        <span aria-hidden="true"><span class="print-icon mr-3"><img src="./assets/images/print-icon.png" alt=""
+              class="img-fluid" /></span>{{ 'school.billing.download-pdf' | translate
+          }}</span>
+      </app-button>
+      <app-button classes="btn btn-primary print-icon-btn icon-btn" (click)="printExcelSheet()">
+        <span aria-hidden="true"><span class="print-icon mr-3"><img src="./assets/images/print-icon.png" alt=""
+              class="img-fluid" /></span>{{ 'school.billing.download-excel' | translate
+          }}</span>
+      </app-button>
+    </div>
+  </div>
+</ng-template>

@@ -3,7 +3,7 @@
   <app-scroll-down></app-scroll-down>
   <div class="mr-4 cooking-step-audio">
     <span *ngIf="audioTrack">
-      <audio controls autoplay controlsList="nodownload">
+      <audio controls controlsList="nodownload">
         <source [src]="audioTrack" type="audio/mp3">
       </audio>
     </span>
@@ -20,11 +20,11 @@
               <div class="legend-card-white btn-card-white cooking-preparation-wrapper">
                 <legend class="index">{{item.id}}</legend>
                 <div class="chef-label-wraper">
-                  <legend *ngIf="item.isBigChef" class="legend-big">{{'student.assigned-lessons.lesson-steps.big-chef'|
+                  <legend *ngIf="item.isBigChef" >{{'student.assigned-lessons.lesson-steps.big-chef'|
                     translate }}
                     <span class="profile-pic"><img src="{{item.isBigChef}}" alt="" class="img-fluid" /></span>
                   </legend>
-                  <legend *ngIf="item.isLittleChef" class="legend-little">
+                  <legend *ngIf="item.isLittleChef" class="legend-2">
                     {{'student.assigned-lessons.lesson-steps.little-chef'| translate }}
                     <span class="profile-pic"><img src="{{item.isLittleChef}}" alt="" class="img-fluid" /></span>
                   </legend>
@@ -32,7 +32,7 @@
                 <ng-container *ngIf="item.video; else noVideo">
                   <div class="description with-video">
                     <div class="video">
-                      <iframe class="img-fluid" [src]="getSanitizeUrl(item.video)">
+                      <iframe class="img-fluid" [src]="item.video">
                       </iframe>
                     </div>
                     <div class="description-info">
@@ -60,4 +60,4 @@
   </div>
 </div>
 <app-lessons-footer [isVisibleNext]="isVisibleNext" [isVisiblePrevious]="isVisiblePrevious" (onNext)="onNext()"
-  (onPrevious)="onPrevious()"></app-lessons-footer>
+  (onPrevious)="onPrevious()"></app-lessons-footer> 

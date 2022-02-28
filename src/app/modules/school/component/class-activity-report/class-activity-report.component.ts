@@ -5,6 +5,7 @@ import * as _ from 'lodash';
 import html2canvas from 'html2canvas';
 import jspdf from 'jspdf';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { ExcelService } from '../../../../shared/services/excel.service';
 
 @Component({
   selector: 'app-class-activity-report',
@@ -235,8 +236,9 @@ export class ClassActivityReportComponent implements OnInit {
   ];
   closeModal: any;
   closeModal1: any;
+  downlaodModal: any;
 
-  constructor(private schoolService: SchoolService, private modalService: NgbModal) {}
+  constructor(private schoolService: SchoolService, private modalService: NgbModal, private excelService: ExcelService) { }
 
   ngOnInit(): void {
     this.activateUserData = JSON.parse(window.sessionStorage.getItem('currentUser'));
@@ -251,6 +253,13 @@ export class ClassActivityReportComponent implements OnInit {
   }
   closeOpenModal1() {
     this.closeModal1.close();
+  }
+
+  openDownloadModal(content) {
+    this.downlaodModal = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true, windowClass: 'dist-modal' });
+  }
+  closeDownlaodModal() {
+    this.downlaodModal.close();
   }
 
   getClassActivityReport(duration) {
@@ -278,17 +287,17 @@ export class ClassActivityReportComponent implements OnInit {
 
               _.map(item.class_students, (itemStudent) => {
                 let mins = 0;
-              this.schoolService.getTopActiveSessionStudents(duration, itemStudent.id).subscribe((res) => {
-                if (res && res.data) {
-                  let score = res.data.count;
-                  _.map(res.data.rows, (objItem) => {
-                    mins = mins + objItem.session_mins / score;
-                    averageMins=mins+averageMins;
-                  });
-                  obj.time = (averageMins/60).toFixed(4);;
-                }
+                this.schoolService.getTopActiveSessionStudents(duration, itemStudent.id).subscribe((res) => {
+                  if (res && res.data) {
+                    let score = res.data.count;
+                    _.map(res.data.rows, (objItem) => {
+                      mins = mins + objItem.session_mins / score;
+                      averageMins = mins + averageMins;
+                    });
+                    obj.time = (averageMins / 60).toFixed(4);;
+                  }
+                });
               });
-            });
               return obj;
             });
           }
@@ -305,7 +314,7 @@ export class ClassActivityReportComponent implements OnInit {
         this.schoolService.getClassActivityReport(res.data.school.id, duration).subscribe((res) => {
           if (res.data && res.data.rows) {
             let averageMins = 0;
-            let averageScore=0;
+            let averageScore = 0;
             this.teacherActivityList = _.map(res.data.rows, (item) => {
               let obj = {
                 className: item.title,
@@ -314,23 +323,23 @@ export class ClassActivityReportComponent implements OnInit {
                 profilePic: './assets/images/student-icon.svg',
                 grade: item.grade.grade,
                 sessions: 0,
-                time:""
+                time: ""
               };
               _.map(item.class_students, (itemStudent) => {
                 let mins = 0;
-              this.schoolService.getTopActiveSessionStudents(duration, itemStudent.id).subscribe((res) => {
-                if (res && res.data) {
-                  let score = res.data.count;
-                  averageScore=score+averageScore;
-                  obj.sessions=averageScore;
-                  _.map(res.data.rows, (objItem) => {
-                    mins = mins + objItem.session_mins / score;
-                    averageMins=mins+averageMins;
-                  });
-                  obj.time = (averageMins/60).toFixed(4);
-                }
+                this.schoolService.getTopActiveSessionStudents(duration, itemStudent.id).subscribe((res) => {
+                  if (res && res.data) {
+                    let score = res.data.count;
+                    averageScore = score + averageScore;
+                    obj.sessions = averageScore;
+                    _.map(res.data.rows, (objItem) => {
+                      mins = mins + objItem.session_mins / score;
+                      averageMins = mins + averageMins;
+                    });
+                    obj.time = (averageMins / 60).toFixed(4);
+                  }
+                });
               });
-            });
               return obj;
             });
           }
@@ -387,6 +396,50 @@ export class ClassActivityReportComponent implements OnInit {
 
       pdf.save('class_activity_report.pdf');
     });
+  }
+
+  printExcelSheet(): void {
+
+    let newArray = [];
+    let i = 1;
+
+    if (!this.teacher) {
+      for (let element of this.classActivityList) {
+        let obj = {};
+        obj["SL.No."] = i++;
+        for (let elm in element) {
+          if (elm === "displayCode") obj["Class Id"] = element[elm];
+          if (elm === "className") obj["Class Name"] = element[elm];
+          if (elm === "teachername") obj["Teacher Name"] = element[elm];
+          if (elm === "students") obj["Students"] = element[elm];
+          if (elm === "grade") obj["Grade"] = element[elm];
+          if (elm === "room") obj["Room"] = element[elm];
+          if (elm === "time") obj["Time"] = element[elm];
+        }
+        newArray.push(obj);
+      }
+      this.excelService.exportAsExcelFile(newArray, 'Class Activity Report');
+
+    }
+
+    if (this.teacher) {
+      for (let element of this.teacherActivityList) {
+        let obj = {};
+        obj["SL.No."] = i++;
+        for (let elm in element) {
+          if (elm === "className") obj["Class Name"] = element[elm];
+          if (elm === "teacherName") obj["Teacher Name"] = element[elm];
+          if (elm === "grade") obj["Grade"] = element[elm];
+          if (elm === "sessions") obj["Sessions"] = element[elm];
+          if (elm === "time") obj["Time"] = element[elm];
+        }
+        newArray.push(obj);
+      }
+      this.excelService.exportAsExcelFile(newArray, 'Teacher Activity Report');
+
+    }
+    this.closeDownlaodModal();
+
   }
 
   openRead(content) {

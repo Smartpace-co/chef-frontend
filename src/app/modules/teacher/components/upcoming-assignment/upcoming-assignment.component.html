@@ -53,7 +53,9 @@
             <ul class="assignmentItem__time">
               <li>
                 <label>{{'student.assigned-lessons.duration'| translate }}: </label>
-                <span>{{item.recipe?.estimatedMakeTime}}</span>
+                <!-- <span>{{item.recipe?.estimatedMakeTime}}</span> -->
+                <span>{{item.lessonTime}}</span>
+
                 <span> {{'teacher.assignment.min-label'|translate}}</span>
               </li>
               <li>

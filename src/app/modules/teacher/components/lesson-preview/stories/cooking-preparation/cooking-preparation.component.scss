@@ -4,38 +4,46 @@
 .cooking-preparation-1{
   min-height: calc(100vh - 24.2rem);
   position: relative;
-  padding-top: 0rem;
-  display: flex;
-  align-items: flex-end;
+  padding-top: 10rem;
+  // display: flex;
+  // align-items: flex-end;
   overflow: hidden;
-  flex-wrap: wrap;
+  // flex-wrap: wrap;
   // @include breakpoint(tabs) {
   //   padding-top: 5rem;
   // }
   @include breakpoint(mobile) {
     min-height: calc(100vh - 33rem);
   }
-  .final-editaion{
+  .final-editaion {
     justify-content: center;
     display: flex;
     flex-wrap: wrap;
     position: relative;
-    padding: 15rem 0;
-    .content-wrapper{
+    padding-bottom: 15rem;
+    .content-wrapper {
       flex: 0 0 100%;
       max-width: 100%;
       position: relative;
       padding: 3rem;
-      @include breakpoint(mobile){
+      @include breakpoint(mobile) {
         padding: 4rem 1rem;
       }
-      ul{
-        padding: 3rem;
-        @include breakpoint(mobile){
+      ul {
+        padding: 3.5rem;
+        overflow: auto;
+        max-height: 36rem;
+        &::-webkit-scrollbar {
+          width: 0.5rem;
+        }
+        &::-webkit-scrollbar-thumb {
+          background: $yellow-shade-5;
+        }
+        @include breakpoint(mobile) {
           padding: 3rem 1rem;
         }
-        li{
-          .cooking-preparation-wrapper{
+        li {
+          .cooking-preparation-wrapper {
             padding: 2.2rem 6rem 1rem;
             width: calc(100% - 4rem);
             min-height: 12rem;
@@ -45,26 +53,25 @@
             margin-right: auto;
             @include breakpoint(mobile) {
               padding: 2.2rem 1rem 1rem;
-              width:100%;
+              width: 100%;
               margin-bottom: 4rem;
             }
-            legend{
-              position: absolute;
+            legend {
               padding-right: 4rem;
-              transform: translate(40%, -100%);
-              @include breakpoint(mobile) {
-                font-size: 1.4rem;
-                transform: translate(0%, -100%);
-                padding: 1rem;
-                padding-right: 3.5rem;
-              }
-              &.legend-2{
-                transform: translate(150%, -100%);
-                @include breakpoint(mobile) {
-                  transform: translate(110%, -100%);
-                }
-              }
-              .profile-pic{
+              // transform: translate(40%, -100%);
+              // @include breakpoint(mobile) {
+              //   font-size: 1.4rem;
+              //   transform: translate(0%, -100%);
+              //   padding: 1rem;
+              //   padding-right: 3.5rem;
+              // }
+              // &.legend-2{
+              //   transform: translate(150%, -100%);
+              //   @include breakpoint(mobile) {
+              //     transform: translate(110%, -100%);
+              //   }
+              // }
+              .profile-pic {
                 right: -2rem;
                 top: -1rem;
                 background: white;
@@ -73,11 +80,11 @@
                 height: 5rem;
               }
             }
-            .description{
+            .description {
               align-items: center;
               display: flex;
               margin: 1rem 0;
-              .image{
+              .image {
                 max-width: 7.3rem;
                 min-width: 5rem;
                 @include breakpoint(mobile) {
@@ -85,13 +92,13 @@
                   min-width: 3rem;
                 }
               }
-              .description-info{
+              .description-info {
                 padding-left: 2rem;
-                width: calc(100% - 10rem);
+                width: 100%;
                 @include breakpoint(mobile) {
-                  width: calc(100% - 5rem);
+                  width: 100%;
                 }
-                h6{
+                h6 {
                   font-size: 1.6rem;
                   @include breakpoint(mobile) {
                     font-size: 1.3rem;
@@ -99,13 +106,32 @@
                 }
               }
             }
+            .chef-label-wraper {
+              display: flex;
+              justify-content: space-between;
+              width: 36rem;
+              position: absolute;
+              transform: translate(0, -50%);
+              @include breakpoint(sm-mobile) {
+                width: 100%;
+                transform: translate(-7%, -50%);
+                display: flex;
+                justify-content: flex-start;
+                legend {
+                  padding-left: 1rem;
+                }
+                legend:last-of-type{
+                  margin-left: 2rem;
+                }
+              }
+            }
           }
         }
       }
     }
-    .final-editaion-img-wrapper{
+    .final-editaion-img-wrapper {
       max-width: 30rem;
-      display:block;
+      display: block;
       position: absolute;
       bottom: -11rem;
       left: -6rem;
@@ -114,4 +140,104 @@
       }
     }
   }
+
+  // .final-editaion{
+  //   justify-content: center;
+  //   display: flex;
+  //   flex-wrap: wrap;
+  //   position: relative;
+  //   padding: 15rem 0;
+  //   .content-wrapper{
+  //     flex: 0 0 100%;
+  //     max-width: 100%;
+  //     position: relative;
+  //     padding: 3rem;
+  //     @include breakpoint(mobile){
+  //       padding: 4rem 1rem;
+  //     }
+  //     ul{
+  //       padding: 3rem;
+  //       @include breakpoint(mobile){
+  //         padding: 3rem 1rem;
+  //       }
+  //       li{
+  //         .cooking-preparation-wrapper{
+  //           padding: 2.2rem 6rem 1rem;
+  //           width: calc(100% - 4rem);
+  //           min-height: 12rem;
+  //           display: flex;
+  //           margin-bottom: 7rem;
+  //           margin-left: auto;
+  //           margin-right: auto;
+  //           @include breakpoint(mobile) {
+  //             padding: 2.2rem 1rem 1rem;
+  //             width:100%;
+  //             margin-bottom: 4rem;
+  //           }
+  //           legend{
+  //             position: absolute;
+  //             padding-right: 4rem;
+  //             transform: translate(40%, -100%);
+  //             @include breakpoint(mobile) {
+  //               font-size: 1.4rem;
+  //               transform: translate(0%, -100%);
+  //               padding: 1rem;
+  //               padding-right: 3.5rem;
+  //             }
+  //             &.legend-2{
+  //               transform: translate(150%, -100%);
+  //               @include breakpoint(mobile) {
+  //                 transform: translate(110%, -100%);
+  //               }
+  //             }
+  //             .profile-pic{
+  //               right: -2rem;
+  //               top: -1rem;
+  //               background: white;
+  //               position: absolute;
+  //               width: 5rem;
+  //               height: 5rem;
+  //             }
+  //           }
+  //           .description{
+  //             align-items: center;
+  //             display: flex;
+  //             margin: 1rem 0;
+  //             .image{
+  //               max-width: 7.3rem;
+  //               min-width: 5rem;
+  //               @include breakpoint(mobile) {
+  //                 max-width: 4.5rem;
+  //                 min-width: 3rem;
+  //               }
+  //             }
+  //             .description-info{
+  //               padding-left: 2rem;
+  //               width: calc(100% - 10rem);
+  //               @include breakpoint(mobile) {
+  //                 width: calc(100% - 5rem);
+  //               }
+  //               h6{
+  //                 font-size: 1.6rem;
+  //                 @include breakpoint(mobile) {
+  //                   font-size: 1.3rem;
+  //                 } 
+  //               }
+  //             }
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+  //   .final-editaion-img-wrapper{
+  //     max-width: 30rem;
+  //     display:block;
+  //     position: absolute;
+  //     bottom: -11rem;
+  //     left: -6rem;
+  //     @include breakpoint(mobile) {
+  //       max-width: 25rem;
+  //     }
+  //   }
+  // }
 }

@@ -118,6 +118,8 @@ export class AdminUsersComponent implements OnInit {
   closeModal;
   term: string;
   closeResult = '';
+  sortBy;
+  status;
   constructor(private router: Router,
     private toast: ToasterService,
     private districtService: DistrictService
@@ -126,10 +128,10 @@ export class AdminUsersComponent implements OnInit {
   ngOnInit(): void {
     this.getAllUserList();
   }
-  getAllUserList(filter?: any, sortBy?: string): void {
+  getAllUserList(): void {
     this.userList = [];
     this.activeUser = [];
-    this.districtService.getAllUser(filter, sortBy).subscribe(
+    this.districtService.getAllUser(this.status, this.sortBy).subscribe(
       (response) => {
         if (response && response.data) {
           this.count = response.data.count;
@@ -191,16 +193,13 @@ export class AdminUsersComponent implements OnInit {
   }
 
   userFilter(item: any): void {
-    this.getAllUserList(item.id);
+    this.status = item.id ? item.id : undefined;
     this.classesListtitle = item.menu;
+    this.getAllUserList();
   }
   userIdFilter(item: any): void {
     this.SortByIdTitle = item.menu;
-    if (item && item.value) {
-      this.getAllUserList(undefined, item.value);
-    } else {
-      this.getAllUserList();
-    }
+    this.sortBy = item.value ? item.value : undefined;    
+    this.getAllUserList();
   }
-
 }

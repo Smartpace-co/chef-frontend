@@ -77,6 +77,13 @@
                     word-break: break-all;
                 }
         }
+        .radio-btn-wrapper{
+            font-weight: 700;
+            @include breakpoint(mobile){
+                display: flex;
+                flex-direction: column;
+            }
+        }
     }
     .report-history {
         width: 80%;

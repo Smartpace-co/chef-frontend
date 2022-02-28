@@ -13,7 +13,7 @@ import { DropDownComponent } from './components/drop-down/drop-down.component';
 import { TabsComponent } from './components/tabs/tabs.component';
 import { TablesComponent } from './components/tables/tables.component';
 import { ToggleButtonComponent } from './components/toggle-button/toggle-button.component';
-import { NgbDateAdapter, NgbDateParserFormatter, NgbDropdownModule, NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule, NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { DataTablesModule } from 'angular-datatables';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
@@ -24,8 +24,6 @@ import { MultiSelectDropdownComponent } from './components/multi-select-dropdown
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { InfocardComponent } from './components/infocard/infocard.component';
 import { VjsPlayerComponent } from './components/vjs-player/vjs-player.component';
-import { CustomDateAdapter} from './formatter/date-formatter';
-import { CustomDateParserFormatter} from './formatter/date-formatter';
 import { NgxStripeModule } from 'ngx-stripe';
 import { PaymentSuccessComponent } from './components/payment-success/payment-success.component';
 import { PaymentCancelComponent } from './components/payment-cancel/payment-cancel.component';
@@ -98,7 +96,6 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     VjsPlayerComponent
   ],
   providers: [SortByPipe,
-    { provide: NgbDateAdapter, useClass: CustomDateAdapter },
-    { provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter }]
+  ]
 })
-export class SharedModule {}
+export class SharedModule { }

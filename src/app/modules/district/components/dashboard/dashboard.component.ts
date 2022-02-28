@@ -22,8 +22,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '@modules/auth/services/auth.service';
 import { DistrictService } from '@modules/district/services/district.service';
-import { TeacherInstructionsComponent } from '@modules/teacher/components/teacher-instructions/teacher-instructions.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToasterService } from '@appcore/services/toaster.service';
 
 @Component({
@@ -36,8 +35,8 @@ export class DashboardComponent implements OnInit {
 
   currentUser: string;
   schoolCount: any;
-  closeModal: any;
   closeModal1: any;
+  closeResult = '';
   classCount: any;
   activateUserData: any;
   usersCount: any;
@@ -312,12 +311,7 @@ export class DashboardComponent implements OnInit {
         this.activateUserData = data;
         this.currentUser = data['admin_account_name'] ? data['admin_account_name'] : undefined;
       }
-    });
-    this.getAllClassList();
-    this.getSchoolList();
-    this.getAllGradeList();
-    this.getStudentList();
-    this.getAllLearningStandards();
+    });   
     this.createClassForm = new FormGroup({
       school: new FormControl(''),
       teacherName: new FormControl('', [Validators.required]),
@@ -332,9 +326,6 @@ export class DashboardComponent implements OnInit {
     this.getClassCount();
     this.getUsersCount();
     this.getPracticeAndGrowthReport();
-    this.getInactiveStudents();
-    this.getTopActiveStudents('week');
-   // this.studentWithAboveAndBelowAverageActivity();
     this.getSessionReport();
   }
   get formControl() {
@@ -381,11 +372,22 @@ export class DashboardComponent implements OnInit {
     if (this.activateUserData) {
       this.districtService.verifyMaxUserCountClass(this.activateUserData.id, this.activateUserData.role.id).subscribe(
         (res) => {
-          if (res.status == 200) {
-            this.closeModal = this.modalService.open(content, {
-              ariaLabelledBy: 'modal-basic-title',
-              centered: true,
-              windowClass: 'create-class-modal'
+          if (res.status == 200) { 
+            this.getAllActiveTeachers(undefined,false); // To get all teacher.
+            this.getSchoolList();
+            this.getAllGradeList();
+            this.getStudentList(undefined,false);
+            this.getAllLearningStandards();           
+            this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true,windowClass: 'create-class-modal' }).result.then((result) => {
+              this.closeResult = `Closed with: ${result}`;
+              if(result === 'Save'){
+                this.onSave();
+              }else{
+                this.resetForm();
+              }
+            }, (reason) => {
+              this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+              this.resetForm();
             });
           }
         },
@@ -398,11 +400,7 @@ export class DashboardComponent implements OnInit {
         }
       );
     }
-  }
-  closeOpenModal() {
-    this.closeModal.close();
-    this.resetForm();
-  }
+  }  
 
   resetForm() {
     this.gradeTitle = 'Select the grade';
@@ -414,6 +412,8 @@ export class DashboardComponent implements OnInit {
     this.selectedStudentValue = [];
     this.selectedValue = [];
     this.selectedTeacherValue = [];
+    this.getStudentList(undefined,false);
+    this.getAllActiveTeachers(undefined,false);
   }
 
   validateClassName(control: AbstractControl): any {
@@ -519,66 +519,24 @@ export class DashboardComponent implements OnInit {
     this.selectedStudentValue = item;
     this.createClassForm.get('students').setValue(this.selectedStudentValue);
   }
-  classFilter(item: any): void {
-    this.classesListtitle = item.menu;
-    if (item && item.id) {
-      this.getAllClassList(item.id);
-    } else {
-      this.getAllClassList();
-    }
-  }
-  gradeFilter(event) {
-    this.SortByGradeTitle = event.menu;
-    if (event && event.value) {
-      this.getAllClassList(undefined, event.value);
-    } else {
-      this.getAllClassList();
-    }
-  }
-
+   
   schoolChange(event) {
     this.schoolTitle = event.menu;
     this.createClassForm.get('school').setValue(event);
     if (event && event.id) {
       this.getAllActiveTeachers(event.id);
+      this.getStudentList(event.id);
+      this.selectedTeacher = null;
+      this.selectedStandard = null;
+      this.selectedStudent = null;
+      this.selectedStudentValue = [];
+      this.selectedValue = [];
+      this.selectedTeacherValue = [];
     }
   }
-  /**
-   * API call to get all classes.
-   */
-  getAllClassList(filter?: any, sortBy?: string): void {
-    this.districtService.getAllClasses(filter, sortBy).subscribe(
-      (response) => {
-        if (response && response.data && response.data.rows) {
-          this.classList = _.map(response.data.rows, (item) => {
-            let obj = {
-              classId: item.id,
-              className: item.title,
-              teacherName:
-                item && !_.isEmpty(item.class_teachers) ? `${item.class_teachers[0].first_name} ${item.class_teachers[0].last_name}` : '',
-              grade: item.grade.grade,
-              students: item.class_students.length
-            };
-            return obj;
-          });
-          this.classList.forEach((element) => {
-            (element.room = 10), (element.actions = ['Info', 'Students', 'Reports']);
-            element.profilePic = './assets/images/student-icon.svg';
-          });
-          this.isLoadUser = true;
-        }
-      },
-      (error) => {
-        console.log(error);
-        this.toast.showToast(error.error.message, '', 'error');
-      }
-    );
-  }
-
-  getAllActiveTeachers(schoolId: any): void {
-    this.filter = [];
-    this.filter.push(1, schoolId);
-    this.districtService.getAllTeacher(this.filter).subscribe(
+  
+  getAllActiveTeachers(schoolId?: any,existInSchool?:boolean): void {    
+    this.districtService.getAllTeacher(1,schoolId,undefined,existInSchool).subscribe(
       (response) => {
         if (response && response.data && response.data.rows) {
           this.teacherList = _.map(response.data.rows, (item) => {
@@ -659,8 +617,8 @@ export class DashboardComponent implements OnInit {
    * To get student list.
    *
    */
-  getStudentList(): void {
-    this.districtService.getAllStudents(1).subscribe(
+  getStudentList(sId?:any,existInSchool?:any): void {
+    this.districtService.getAllStudents(1,undefined,undefined,sId,existInSchool).subscribe(
       (response) => {
         if (response && response.data && response.data.rows) {
           this.allStudentList = _.map(response.data.rows, (item) => {
@@ -711,7 +669,7 @@ export class DashboardComponent implements OnInit {
         (data) => {
           if (data) {
             this.toast.showToast(`${formData.title} : Class added successfully.`, '', 'success');
-            this.closeOpenModal();
+            this.resetForm();
             this.getClassCount();
           }
         },
@@ -722,6 +680,16 @@ export class DashboardComponent implements OnInit {
       );
     }
   }
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
   onProceed() {
     this.closePopup();
     this.router.navigate(['/district/edit-membership']);
@@ -744,50 +712,7 @@ export class DashboardComponent implements OnInit {
       }
     });
   }
-
-  getInactiveStudents() {
-    this.districtService.getInactiveStudents().subscribe((res) => {
-      if (res && res.data) {
-        if(res.data.count==0)
-          this.inactiveStudents=0
-        else
-           this.inactiveStudents=res.data.count
-      }
-    });
-  }
-
-  getTopActiveStudents(duration) {
-    this.districtService.getAllStudents(1).subscribe((response) => {
-      _.map(response.data.rows, (item) => {
-        this.districtService.getTopActiveSessionStudents(duration, item.id).subscribe((res) => {
-          if (res && res.data) {
-            let score = res.data.count;
-           if(score==0)
-             this.mins=0
-           else
-            _.map(res.data.rows, (objItem) => {
-              this.mins = (this.mins + objItem.session_mins / score)/60;
-              this.hrs=parseFloat(this.mins).toFixed(2) +" hr";
-            });
-          }
-        });
-      });
-    });
-   
-  }
-
- /* studentWithAboveAndBelowAverageActivity(){
-    this.districtService.studentWithAboveAndBelowAverageActivity("week").subscribe((response) => {
-      if(response && response.data)
-      {
-        this.studentWithBelowAverage=response.data.studentWithBelowAverage
-        this.studentWithAboveAverage=response.data.studentWithAboveAverage
-      }
-     
-
-    });
-  }*/
-
+ 
   getSessionReport() {
     this.districtService.studentWithAboveAndBelowAverageActivity("week").subscribe((res) => {
       if (res && res.data && res.status == 200) {

@@ -52,7 +52,6 @@ export class RegisterTeacherComponent implements OnInit {
       }
     }
     // this.roleID = this.activatedRoute.snapshot.queryParams && this.activatedRoute.snapshot.queryParams.role_id;
-    // console.log(this.roleID);
   }
 
   ngOnInit(): void {
@@ -64,9 +63,10 @@ export class RegisterTeacherComponent implements OnInit {
     }
     this.getPackageList();
     this.registerTeacherForm = new FormGroup({
-      district_id: new FormControl(""),
-      school_id: new FormControl(""),
+      // district_id: new FormControl(""),
+      // school_id: new FormControl(""),
       custom_district_name: new FormControl(""),
+      custom_school_name: new FormControl(""),
       first_name: new FormControl("", [Validators.required, Validators.pattern(CustomRegex.namePatteren)]),
       last_name: new FormControl("", [Validators.required, Validators.pattern(CustomRegex.namePatteren)]),
       email: new FormControl("", [Validators.required,
@@ -76,21 +76,20 @@ export class RegisterTeacherComponent implements OnInit {
       phone_number: new FormControl("", [Validators.required,
       Validators.pattern(CustomRegex.phoneNumberPattern),
       // this.validPhoneNumberLength.bind(this),
-      Validators.minLength(10),
+      // Validators.minLength(11),
       this.validPhoneNumber.bind(this),
       ]),
       contact_person_name: new FormControl("", [Validators.required, Validators.pattern(CustomRegex.namePatteren)]),
       contact_person_number: new FormControl("", [
         Validators.pattern(CustomRegex.phoneNumberPattern),
         // this.validPhoneNumberLength.bind(this),
-        Validators.minLength(10)
+        // Validators.minLength(10)
       ]),
       contact_person_email: new FormControl("", [Validators.pattern(CustomRegex.emailPattern)]),
       package: new FormControl("", [Validators.required]),
       status: new FormControl(true, [Validators.required])
     })
     this.loadMasters();
-    console.log("role ID", this.roleID);
   }
 
 
@@ -253,25 +252,24 @@ export class RegisterTeacherComponent implements OnInit {
   /**
    * On district dropdown value change and call school list api
    */
-  changeDistrict(e) {
-    console.log(e);
-    const distID = e.id;
-    this.dropdownDistrict = e.menu;
-    this.registerTeacherForm.get('district_id').setValue(parseInt(distID));
-    this.getSchools(distID);
-  }
+  // changeDistrict(e) {
+  //   console.log(e);
+  //   const distID = e.id;
+  //   this.dropdownDistrict = e.menu;
+  //   this.registerTeacherForm.get('district_id').setValue(parseInt(distID));
+  //   this.getSchools(distID);
+  // }
 
   /**
    * On school dropdown value change.
    */
-  changeSchool(event) {
-    const schid = event.id;
-    this.dropdownSchool = event.menu;
-    this.registerTeacherForm.get('school_id').setValue(parseInt(schid));
-  }
+  // changeSchool(event) {
+  //   const schid = event.id;
+  //   this.dropdownSchool = event.menu;
+  //   this.registerTeacherForm.get('school_id').setValue(parseInt(schid));
+  // }
 
   onCheckBoxChange(value) {
-    console.log(value);
     // this.checkBoxValue = !value;
     if (value) {
       this.registerTeacherForm.get("contact_person_name").setValue(this.registerTeacherForm.value.first_name + ' ' + this.registerTeacherForm.value.last_name);
@@ -315,26 +313,22 @@ export class RegisterTeacherComponent implements OnInit {
 
       this.authService.getGuestUserToken().subscribe(
         (response) => {
-          console.log(response);
-          console.log(response.data);
-
           token = response["data"].guestToken;
-          console.log(token);
         },
         (error) => {
           console.log(error);
         }
       );
       let omitArray = ['package'];
-      if (!this.registerTeacherForm.value.district_id) omitArray.push('district_id');
-      if (!this.registerTeacherForm.value.school_id) omitArray.push('school_id');
+      // if (!this.registerTeacherForm.value.district_id) omitArray.push('district_id');
+      // if (!this.registerTeacherForm.value.school_id) omitArray.push('school_id');
       if (!this.registerTeacherForm.value.custom_district_name) omitArray.push('custom_district_name');
+      if (!this.registerTeacherForm.value.custom_school_name) omitArray.push('custom_school_name');
       if (!this.registerTeacherForm.value.contact_person_number) omitArray.push('contact_person_number');
       const submission = _.omit(this.registerTeacherForm.value, omitArray);
       submission['status'] = false;
       submission['package_id'] = this.registerTeacherForm.value.package.id;
       submission['role_id'] = parseInt(this.roleID);
-
       this.authService.registerTeacher(submission, this.token).subscribe(
         (dt) => {
           if (dt) {
@@ -345,9 +339,13 @@ export class RegisterTeacherComponent implements OnInit {
             }
             this.authService.createStripePaymentSession(stripeData, this.token).subscribe((dt) => {
               sessionStorage.removeItem("priceId")
-              this.stripe.redirectToCheckout({
+              setTimeout(() => {
+                this.toast.showToast('Yay! You just successfully signed up for Chef Koochooloo! Check your email for next steps.', '', 'success');
+                this.router.navigate(['/auth/login']);
+              }, 1000);
+             /*  this.stripe.redirectToCheckout({
                 sessionId: dt.data,
-              })
+              }) */
             })
             // this.toast.showToast('We sent an email with a verification link to ' + this.registerTeacherForm.value.email, '', 'success');
             // this.router.navigate(['/auth/sign-up']);

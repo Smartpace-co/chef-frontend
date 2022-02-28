@@ -107,6 +107,9 @@ export class JournalComponent implements OnInit {
     this.getJournal(undefined, true);
   }
 
+  /**
+   * Search by text
+   */
   onChange(): void {
     this.getJournal(undefined, true);
   }

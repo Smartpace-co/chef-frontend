@@ -1,177 +1,173 @@
 @import "../../../../../assets/styles/helpers/variables";
 @import "../../../../../assets/styles/helpers/mixins";
-  .active-action-body{
-    background:url("../../../../../assets/images/kitchen-bg.jpg") center no-repeat ,;
-    background-size: cover;
-    position: relative;
-    overflow: hidden;
-    height: calc(100vh - 24rem);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    .container{
-      @include breakpoint(tabs){
-        padding: 0;
-      }
-      .final-editaion{
-        @include breakpoint(tabs) {
-          padding-top: 0rem;
-          overflow: hidden;
-        }
-        @include breakpoint(mobile){
-          padding-bottom: 6rem;
-        }
-        .content-wrapper{
-          text-align: center;
-          .card-wihtout-header-blue{
-            position: relative;
-            display: inline-block;
-            margin: 0 auto;
-            max-width: 50rem;
-            @include breakpoint(tabs){
-              max-width: 40rem;
-              padding: 2rem;
-            }
-            @include breakpoint(xtrasmallmobile){
-              max-width: 90%;
-            }
-            .active-action-wrapper{
-              p{
-                font-size: 2.6rem;
-                font-weight: 700;
-                text-align: center;
-              }
-            }
-            .chef-hat{
-                display: flex;
-                justify-content: space-between;
-                flex-wrap: wrap;
-                @include breakpoint(tabs){
-                  display: flex;
-                  justify-content: center;
-                  flex-wrap: wrap;
-                  padding-bottom: 18rem;
-                }
-                .option{
-                    margin: 1rem 0.5rem;  
-                    @include breakpoint(mobile){
-                      margin: 1rem;
-                    }
-                  label{
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    position: relative;
-                    margin: 0;
-                    top: 1rem;
-                    input{
-                      position: absolute;
-                      opacity: 0;
-                      cursor: pointer;
-                      width: 100%;
-                      height: 100%;
-                    }  
-                    input:hover ~ .flag-image{
-                      background-color: #ccc;
-                    }
-                    input:checked ~ .flag-image{
-                      background-color: yellow;
-                    }              
-                    .flag-image{
-                      border: 0.2rem dashed #fff;
-                      border-radius: 2rem;
-                      width: 20rem;
-                      height: 13rem;
-                      padding: 1.5rem 1rem;
-                      img{
-                        width: 80%;
-                        height: 100%;
-                      }
-                      
-                    }
-                  }
-                }
-            }
-          }
-          .locker-lady{
-            position: relative;
-            @include breakpoint(mobile){
-                transform: translate(0rem, 20rem);
-                max-width: 40rem;                 
-            }
-            .final-editaion-img-wrapper{
-                max-width: 25rem;
-                display:block;
-                position: absolute;
-                bottom: -20rem;
-                left: 0;
-                @include breakpoint(mobile){
-                  max-width: 16rem;
-                  bottom: 10rem;
-                  left: -3rem;
-                }
-              }
-            .tooltip-wrapper{
-                position: absolute;
-                left: 8rem;
-                bottom: 10rem;
-                @include breakpoint(mobile){
-                  left: 8rem;
-                  bottom: 26rem;
-                  }
-              }
-        }
-        }
-      }
-    }
-  }
-  .response-header{
-    &.modal-header{
-      border-bottom: none;
+.active-action-body {
+  background: url("../../../../../assets/images/kitchen-bg.jpg") center no-repeat;
+  background-size: cover;
+  position: relative;
+  overflow: hidden;
+  min-height: calc(100vh - 9rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .container {
+    @include breakpoint(tabs) {
       padding: 0;
     }
-  }
-  .response-footer{
-    &.modal-footer{
-      border-top: none;
-      justify-content: center;
-    }
-  }
-  .response-body{
-    .response-wrapper{
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      .check-mark{
-        flex-basis: 100%;
+    .final-editaion {
+      @include breakpoint(tabs) {
+        padding-top: 6rem;
+        padding-bottom: 6rem;
+        overflow: hidden;
+      }
+      .content-wrapper {
         text-align: center;
-        .icon{
+        .card-wihtout-header-blue {
+          position: relative;
           display: inline-block;
-          border: 0.8rem solid $white;
-          border-radius: 50%;
-          font-size: 5rem;
-          width: 8rem;
-          height: 8rem;
-          text-align: center;
-          background-color: $ring-blue;
+          margin: 0 auto;
+          max-width: 50rem;
+          @include breakpoint(tabs) {
+            max-width: 40rem;
+            padding: 2rem;
+          }
+          @include breakpoint(xtrasmallmobile) {
+            max-width: 90%;
+          }
+          .active-action-wrapper {
+            p {
+              font-size: 2.6rem;
+              font-weight: 700;
+              text-align: center;
+            }
+          }
+          .chef-hat {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            @include breakpoint(tabs) {
+              display: flex;
+              justify-content: center;
+              flex-wrap: wrap;
+              padding-bottom: 18rem;
+            }
+            .option {
+              margin: 1rem 0.5rem;
+              @include breakpoint(mobile) {
+                margin: 1rem;
+              }
+              label {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                margin: 0;
+                top: 1rem;
+                input {
+                  position: absolute;
+                  opacity: 0;
+                  cursor: pointer;
+                  width: 100%;
+                  height: 100%;
+                }
+                input:hover ~ .flag-image {
+                  background-color: #ccc;
+                }
+                input:checked ~ .flag-image {
+                  background-color: yellow;
+                }
+                .flag-image {
+                  border: 0.2rem dashed #fff;
+                  border-radius: 2rem;
+                  width: 20rem;
+                  height: 13rem;
+                  padding: 1.5rem 1rem;
+                  img {
+                    width: 80%;
+                    height: 100%;
+                  }
+                }
+              }
+            }
+          }
         }
-        &.wrong-ans{
-          .icon{
-            background-color: $alert;
+        .locker-lady {
+          position: relative;
+          @include breakpoint(mobile) {
+            transform: translate(0rem, 20rem);
+            max-width: 40rem;
+          }
+          .final-editaion-img-wrapper {
+            max-width: 25rem;
+            display: block;
+            position: absolute;
+            bottom: -12rem;
+            left: 0;
+            @include breakpoint(mobile) {
+              max-width: 16rem;
+              bottom: 10rem;
+              left: -3rem;
+            }
+          }
+          .tooltip-wrapper {
+            position: absolute;
+            left: 5rem;
+            bottom: 20rem;
+            @include breakpoint(mobile) {
+              left: 8rem;
+              bottom: 26rem;
+            }
           }
         }
       }
-      h1{
-        padding: 2rem;
-        @include breakpoint(mobile) {
-          padding: 2rem 1rem;
-          font-size: 2.4rem;
-        }
-      }
-      .btn-wrapper{
-        flex-basis: 100%;
-        text-align: center;
-      }
     }
   }
-
+}
+.response-header {
+  &.modal-header {
+    border-bottom: none;
+    padding: 0;
+  }
+}
+.response-footer {
+  &.modal-footer {
+    border-top: none;
+    justify-content: center;
+  }
+}
+.response-body {
+  .response-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    .check-mark {
+      flex-basis: 100%;
+      text-align: center;
+      .icon {
+        display: inline-block;
+        border: 0.8rem solid $white;
+        border-radius: 50%;
+        font-size: 5rem;
+        width: 8rem;
+        height: 8rem;
+        text-align: center;
+        background-color: $ring-blue;
+      }
+      &.wrong-ans {
+        .icon {
+          background-color: $alert;
+        }
+      }
+    }
+    h1 {
+      padding: 2rem;
+      @include breakpoint(mobile) {
+        padding: 2rem 1rem;
+        font-size: 2.4rem;
+      }
+    }
+    .btn-wrapper {
+      flex-basis: 100%;
+      text-align: center;
+    }
+  }
+}

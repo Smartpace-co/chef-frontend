@@ -25,7 +25,7 @@
                                         <a ngbNavLink>A - F</a>
                                         <ng-template ngbNavContent>
                                             <ul class="country-item-list">
-                                                <li class="letter"></li>
+                                                <!-- <li class="letter"></li> -->
                                                 <li *ngFor="let item of rangeArry[0] | filter: term"
                                                     (click)="oncountrychange(countries,item, $event)">
                                                     <span>{{item.name}}</span>
@@ -80,75 +80,19 @@
                                         </ng-template>
                                     </li>
                                 </ul>
-                                <!--    <ul ngbNav #nav="ngbNav" class="nav-tabs">
-                                    <li ngbNavItem *ngFor="let element of letterGrouplist">
-                                        <a ngbNavLink>{{ element }}</a>
-                                        <ng-template ngbNavContent>
-                                            <ul *ngIf="element === 'A - F'" class="country-item-list">
-                                                <li class="letter">A</li>
-                                                <li *ngFor="let country of countryDataList | filterAlphabet:'A'"><span>{{ country }}</span></li>
-                                                <li class="letter">B</li>
-                                                <li *ngFor="let country of countryDataList | filterAlphabet:'B'"><span>{{ country }}</span></li>
-                                                <li class="letter">C</li>
-                                                <li *ngFor="let country of countryDataList | filterAlphabet:'C'"><span>{{ country }}</span></li>
-                                                <li class="letter">D</li>
-                                                <li *ngFor="let country of countryDataList | filterAlphabet:'D'"><span>{{ country }}</span></li>
-                                                <li class="letter">E</li>
-                                                <li *ngFor="let country of countryDataList | filterAlphabet:'E'"><span>{{ country }}</span></li>
-                                                <li class="letter">F</li>
-                                                <li *ngFor="let country of countryDataList | filterAlphabet:'F'"><span>{{ country }}</span></li>
-                                            </ul>
-                                            <ul *ngIf="element === 'G - L'" class="country-item-list">
-                                                <li class="letter">G</li>
-                                                <li *ngFor="let country of countryDataList | filterAlphabet:'G'"><span>{{ country }}</span></li>
-                                                <li class="letter">H</li>
-                                                <li *ngFor="let country of countryDataList | filterAlphabet:'H'"><span>{{ country }}</span></li>
-                                                <li class="letter">I</li>
-                                                <li *ngFor="let country of countryDataList | filterAlphabet:'I'"><span>{{ country }}</span></li>
-                                                <li class="letter">J</li>
-                                                <li *ngFor="let country of countryDataList | filterAlphabet:'J'"><span>{{ country }}</span></li>
-                                                <li class="letter">K</li>
-                                                <li *ngFor="let country of countryDataList | filterAlphabet:'K'"><span>{{ country }}</span></li>
-                                                <li class="letter">L</li>
-                                                <li *ngFor="let country of countryDataList | filterAlphabet:'L'"><span>{{ country }}</span></li>
-                                            </ul>
-                                            <ul *ngIf="element === 'M - R'" class="country-item-list">
-                                                <li class="letter">M</li>
-                                                <li *ngFor="let country of countryDataList | filterAlphabet:'M'"><span>{{ country }}</span></li>
-                                                <li class="letter">N</li>
-                                                <li *ngFor="let country of countryDataList | filterAlphabet:'N'"><span>{{ country }}</span></li>
-                                                <li class="letter">O</li>
-                                                <li *ngFor="let country of countryDataList | filterAlphabet:'O'"><span>{{ country }}</span></li>
-                                                <li class="letter">P</li>
-                                                <li *ngFor="let country of countryDataList | filterAlphabet:'P'"><span>{{ country }}</span></li>
-                                                <li class="letter">Q</li>
-                                                <li *ngFor="let country of countryDataList | filterAlphabet:'Q'"><span>{{ country }}</span></li>
-                                                <li class="letter">R</li>
-                                                <li *ngFor="let country of countryDataList | filterAlphabet:'R'"><span>{{ country }}</span></li>
-                                            </ul>
-                                            <ul *ngIf="element === 'S - X'" class="country-item-list">
-                                                <li class="letter">S</li>
-                                                <li *ngFor="let country of countryDataList | filterAlphabet:'S'"><span>{{ country }}</span></li>
-                                                <li class="letter">T</li>
-                                                <li *ngFor="let country of countryDataList | filterAlphabet:'T'"><span>{{ country }}</span></li>
-                                                <li class="letter">U</li>
-                                                <li *ngFor="let country of countryDataList | filterAlphabet:'U'"><span>{{ country }}</span></li>
-                                                <li class="letter">V</li>
-                                                <li *ngFor="let country of countryDataList | filterAlphabet:'V'"><span>{{ country }}</span></li>
-                                                <li class="letter">W</li>
-                                                <li *ngFor="let country of countryDataList | filterAlphabet:'W'"><span>{{ country }}</span></li>
-                                                <li class="letter">X</li>
-                                                <li *ngFor="let country of countryDataList | filterAlphabet:'X'"><span>{{ country }}</span></li>
-                                            </ul>
-                                            <ul *ngIf="element === 'Y - Z'" class="country-item-list">
-                                                <li class="letter">Y</li>
-                                                <li *ngFor="let country of countryDataList | filterAlphabet:'Y'"><span>{{ country }}</span></li>
-                                                <li class="letter">Z</li>
-                                                <li *ngFor="let country of countryDataList | filterAlphabet:'Z'"><span>{{ country }}</span></li>
-                                            </ul>
-                                        </ng-template>
-                                    </li>
-                                </ul> -->
+                                <div class="explore-logo-wraper">
+                                    <div (click)="getRecipeListByCountry(undefined,true)">
+                                        <div class="chef-k-logo"><img class="img-fluid" src="./assets/images/Chef_Koochooloo_Logo.png" alt=""></div>
+                                        <h6 class="chef-k-logo-link">Try a Chef Koochooloo international recipe and
+                                            lesson</h6>
+                                    </div>
+                                    <!-- <div class="ambassador-logo"
+                                        (click)="getRecipeListByCountry(undefined,'isChefAmbassador')">
+                                        <img class="img-fluid" src="./assets/images/ambassador.png" alt="">
+                                    </div>
+                                    <h6>Chef Ambassador Specials</h6> -->
+                                </div>
+                                
                             </div>
                             <div class="country-list">
                                 <div [ngbNavOutlet]="nav"></div>
@@ -169,6 +113,10 @@
                 <li class="recipies-heading">
                     <div class="count ml-3">
                         <span>{{recipesList.length}}</span>{{'student.explore-lessons.recipes'| translate }}
+                        <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" [checked] ="filterByGrade" (change)="filterLessonsByGrade($event)" >
+                        <label class="custom-control-label" for="">{{'student.explore-lessons.filter-by-student-grade'|translate}}</label>     
+                    </div> 
                     </div>
                 </li>
                 <div class="recipies-lists">
@@ -177,7 +125,7 @@
                             <img src="{{item.image}}" alt="" class="img-fluid" />
                         </div>
                         <div class="recipes-info ml-3">
-                            <p class="recipes mb-2">{{item.menu}}</p>
+                            <p class="recipes mb-2">{{item.menu  | uppercase}}</p>
                             <p class="duration">Duration {{item.duration}} {{'student.assigned-lessons.mins-label'|
                                 translate }} </p>
                         </div>

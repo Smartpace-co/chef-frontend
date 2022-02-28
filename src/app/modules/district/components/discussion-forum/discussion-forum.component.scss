@@ -49,7 +49,6 @@
             [class*="col-"]:nth-child(odd) {
                 .discussion-item {
                     margin-right: 1rem;
-
                     @include breakpoint(mobile) {
                         margin-right: 0;
                     }
@@ -75,7 +74,13 @@
             padding: 2.3rem 2.7rem;
             min-height: 17rem;
             margin-bottom: 3rem;
-
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 90%;
+            @include breakpoint(sm-mobile){
+                padding: 2rem 1rem;
+            }
             .title {
                 font-size: 1.8rem;
                 font-weight: 700;

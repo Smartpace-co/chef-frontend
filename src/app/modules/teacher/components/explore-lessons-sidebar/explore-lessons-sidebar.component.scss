@@ -3,7 +3,7 @@
 
 .lesson-filter-main{
     width:100%;
-    overflow: hidden;
+    // overflow: hidden;
     .filter-title{
         margin-bottom:2.5rem;
         fa-icon{
@@ -32,4 +32,7 @@
             margin:2rem 0;
         }
     }
+ }
+ label{
+     font-weight: 700;
  }

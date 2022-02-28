@@ -1,11 +1,10 @@
 <app-lessons-headerbar [lessonHederConfig]="lessonHederConfig"></app-lessons-headerbar>
-<div *ngIf="isLoad" class="story-body-11"
-  [ngStyle]=" countryBgImg ? {background: ' url(' + countryBgImg + ')'} : {background: ' url(' + './assets/images/kitchen-bg-blur.jpg' + ')'}">
+<div *ngIf="isLoad" class="story-body-11">
   <div class="blur-bg">
     <app-scroll-down></app-scroll-down>
     <div class="mr-4 learning-audio">
       <span *ngIf="audioTrack">
-        <audio controls autoplay controlsList="nodownload">
+        <audio controls controlsList="nodownload">
           <source [src]="audioTrack" type="audio/mp3">
         </audio>
       </span>
@@ -15,10 +14,10 @@
         <div class="content-wrapper">
           <span class="card-wihtout-header-blue">
             <div class="recipe-info-wrapper">
-              <h1>{{assignmentTitle}}</h1>
+              <h1>{{'student.assigned-lessons.lesson-steps.summary-view.goal-for-lesson'| translate }}</h1>
               <ngx-slick-carousel [config]="slideConfig">
                 <ul *ngFor="let obj of learningObjective" ngxSlickItem>
-                  <li>{{obj}}</li>
+                  <li>{{obj}}.</li>
                 </ul>
               </ngx-slick-carousel>
             </div>
@@ -27,11 +26,11 @@
             <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
           </span>
           <span class="bowl">
-            <img src="./assets/images/Bowl.png" alt="" class="img-fluid" />
+            <img [src]="recipeImg" alt="" class="img-fluid" />
           </span>
         </div>
       </div>
     </div>
   </div>
 </div>
-<app-lessons-footer [showPrevious]="showPrevious" (onNext)="onNext()"></app-lessons-footer>
+<app-lessons-footer [showPrevious]="showPrevious" (onNext)="onNext()" (onPrevious)="onPrevious()"></app-lessons-footer>

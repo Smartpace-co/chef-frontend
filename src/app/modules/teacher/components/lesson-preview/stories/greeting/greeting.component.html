@@ -1,11 +1,8 @@
 <app-ingreditent-nav></app-ingreditent-nav>
 <app-lessons-headerbar [lessonHederConfig]="lessonHederConfig"></app-lessons-headerbar>
-<!-- <div class="story-body-1"> -->
-  <!-- <app-scroll-down></app-scroll-down> -->
-  <div *ngIf="isLoad" class="story-body-1"
-   [ngStyle]=" countryBgImg ? {background: ' url(' + countryBgImg + ')'} : {background: ' url(' + './assets/images/kitchen-bg-blur.jpg' + ')'}">
+  <div *ngIf="isLoad" class="story-body-1">
   <div class="container">
-    <div class="final-editaion">
+    <div class="final-editaion greeting-pop-up">
       <div class="content-wrapper">
         <span class="final-editaion-img-wrapper">
           <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
@@ -14,8 +11,7 @@
             <div class="speech-tooltip md-tooltip right-bottom-tip">
               <div class="speech-tooltip-inner">
                 <p class="message">
-                  {{assignmentData?.greeting}} <br> I am Chef koochooloo, your cooking buddy!
-                  <!-- {{assignmentData?.greeting}} -->
+                  {{assignmentData?.greeting}}
                 </p>
                 <span class="tip">
                   <img src="./assets/images/right-bottom-tip.svg" alt="" class="img-fluid" />
@@ -23,13 +19,17 @@
               </div>
             </div>
           </div>
-          <div class="right-tooltip-wrapper">
+          <div *ngIf="linguisticList && linguisticList.length > 0" class="right-tooltip-wrapper">
             <div class="speech-tooltip sm-tooltip left-bottom-tip">
               <div class="speech-tooltip-inner">
                 <p class="message">
-                  {{assignmentData?.linguistic}} 
-                  <!-- "Hello" in Filipino -->
-                  <!-- {{assignmentData?.linguistic}} -->
+                  <ngx-slick-carousel [config]="slideConfig">
+                    <ul *ngFor="let obj of linguisticList" ngxSlickItem>
+                      <li>
+                        <p>{{ obj }}</p>
+                      </li>
+                    </ul>
+                  </ngx-slick-carousel>
                 </p>
                 <span class="tip">
                   <img src="./assets/images/left-bottom-tip.svg" alt="" class="img-fluid" />
@@ -37,6 +37,18 @@
               </div>
             </div>
           </div>
+          <!-- <div class="right-tooltip-wrapper">
+            <div class="speech-tooltip sm-tooltip left-bottom-tip">
+              <div class="speech-tooltip-inner">
+                <p class="message">
+                  {{assignmentData?.linguistic}} 
+                </p>
+                <span class="tip">
+                  <img src="./assets/images/left-bottom-tip.svg" alt="" class="img-fluid" />
+                </span>
+              </div>
+            </div>
+          </div> -->
         </span>
       </div>
       <div class="content-wrapper">

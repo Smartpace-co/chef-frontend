@@ -15,7 +15,7 @@ import { ToasterService } from '@appcore/services/toaster.service';
 import { DistrictService } from '@modules/district/services/district.service';
 import * as _ from 'lodash';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CustomRegex } from '@appcore/validators/custom-regex';
 import html2canvas from 'html2canvas';
 import jspdf from 'jspdf';
@@ -41,9 +41,9 @@ export class SchoolDetailsComponent implements OnInit {
   gridView = true;
   schoolID: any;
   listView = false;
-  closeClassModal;
   ViewTitle = 'Tile View';
-  allergenList = [];
+  closeResult = '';
+  allergenList:string;
   classes: any;
   newStudents=0
   mins=0;
@@ -81,7 +81,7 @@ export class SchoolDetailsComponent implements OnInit {
   sortByList = [
     {
       id: '1',
-      menu: 'Sort by Grade:None'
+      menu: 'Sort by student ID:None'
     },
     {
       id: '1',
@@ -94,7 +94,7 @@ export class SchoolDetailsComponent implements OnInit {
       value: 'desc'
     }
   ];
-  schoolTitle = 'Select School';
+  schoolTitle = '';
   schoolIcon = '';
   schoolList = [];
   gradeTitle = 'Select the grade';
@@ -108,7 +108,8 @@ export class SchoolDetailsComponent implements OnInit {
   profileModal;
   studentDetails;
   hrs:any
-
+  sortBy;
+  status;
   // studentList = [
   //   {
   //     district: "District 1",
@@ -300,22 +301,22 @@ export class SchoolDetailsComponent implements OnInit {
       pNumber: new FormControl('', [
         Validators.required,
         Validators.pattern(CustomRegex.phoneNumberPattern),
-        Validators.minLength(10),
+        // Validators.minLength(10),
         this.validPhoneNumber.bind(this)
       ]),
       emailID: new FormControl('', [Validators.required, Validators.pattern(CustomRegex.emailPattern), this.validateEmail.bind(this)]),
       principalName: new FormControl('', [Validators.required]),
       phoneNumber: new FormControl('', [
         Validators.pattern(CustomRegex.phoneNumberPattern),
-        Validators.minLength(10),
-        this.validContactNumber.bind(this)
+        // Validators.minLength(10),
+        // this.validContactNumber.bind(this)
       ]),
       emailAddress: new FormControl('', [Validators.pattern(CustomRegex.emailPattern)]),
       emergencyContact: new FormControl('', [
         Validators.required,
         Validators.pattern(CustomRegex.phoneNumberPattern),
-        Validators.minLength(10),
-        this.validEmergencyPhoneNumber.bind(this)
+        // Validators.minLength(10),
+        // this.validEmergencyPhoneNumber.bind(this)
       ])
     });
     this.getTopActiveStudents("week")
@@ -419,9 +420,9 @@ export class SchoolDetailsComponent implements OnInit {
     if (control && control.value) {
       let isValid = control.value.match(CustomRegex.phoneNumberPattern);
       let contactNo = control.value;
-      if ((control.value && control.value.length === 11) || control.value.length > 13) {
-        return { digitValidate: true };
-      }
+      // if ((control.value && control.value.length === 11) || control.value.length > 13) {
+      //   return { digitValidate: true };
+      // }
       if (isValid && isValid.input) {
         if (this.currentSchool && this.currentSchool.phone_number === control.value) {
           contactNo = undefined;
@@ -439,20 +440,20 @@ export class SchoolDetailsComponent implements OnInit {
     }
   }
 
-  validContactNumber(control: AbstractControl): any {
-    if (control && control.value) {
-      if (control.value.length === 11 || control.value.length > 13) {
-        return { phoneValidate: true };
-      }
-    }
-  }
-  validEmergencyPhoneNumber(control: AbstractControl): any {
-    if (control && control.value) {
-      if (control.value.length === 11 || control.value.length > 13) {
-        return { contactDigitValidate: true };
-      }
-    }
-  }
+  // validContactNumber(control: AbstractControl): any {
+  //   if (control && control.value) {
+  //     if (control.value.length === 11 || control.value.length > 13) {
+  //       return { phoneValidate: true };
+  //     }
+  //   }
+  // }
+  // validEmergencyPhoneNumber(control: AbstractControl): any {
+  //   if (control && control.value) {
+  //     if (control.value.length === 11 || control.value.length > 13) {
+  //       return { contactDigitValidate: true };
+  //     }
+  //   }
+  // }
 
   /**
    * API call to edit school details.
@@ -639,37 +640,46 @@ export class SchoolDetailsComponent implements OnInit {
    * To get student list and disply in student tab & on drop-down in create class.
    *
    */
-  getStudentList(status?: any, sortByID?: any): void {
-    let isActive = status ? status : 1;
-    this.districtService.getAllStudents(isActive, undefined, sortByID, this.currentSchool.school.id).subscribe(
+  getStudentList(status?: any): void {
+    let filterByStatus = status ? status : this.status;
+    this.districtService.getAllStudents(filterByStatus, undefined, this.sortBy, this.currentSchool.school.id).subscribe(
       (response) => {
         if (response && response.data && response.data.rows) {
-          this.studentsInSchool = response.data.rows;
-          this.allStudents = _.map(response.data.rows, (item) => {
-            this.allergenList = [];
-
-            _.map(item.allergens, (allergen) => {
-              this.allergenList.push(allergen.allergen.allergenTitle);
+          if (status) { //Calculate student list and display in drop-down of create class.
+            this.allStudentList = _.map(response.data.rows, (item) => {
+              if (item && item.status) {
+                let obj = {
+                  item_id: item.id,
+                  item_text: `${item.firstName} ${item.lastName}`
+                };
+                return obj;
+              }
             });
-            let obj = {
-              studentId: item.id,
-              studentName: item.firstName + ',' + item.lastName,
-              allergies: this.allergenList
-            };
-            return obj;
-          });
-          this.allStudents.forEach((element) => {
-            element.studentPhoto = element.profileImage ? element.profileImage : './assets/images/student-icon.svg';
-            element.actions = ['SignIn Info', 'Profile', 'Reports'];
-          });
+          } else {
+            this.studentsInSchool = response.data.rows;
+            this.allStudents = _.map(response.data.rows, (item) => {
+              let allergy = [];
+              this.allergenList = null;
+              _.map(item.allergens, (allergen) => {
+                if (!_.isEmpty(allergen.allergen.allergenTitle)) {
+                  allergy.push(allergen.allergen.allergenTitle);
+                }
+              });
+              if (allergy && allergy.length > 0) {
+                this.allergenList = allergy.toString();
+                this.allergenList = this.allergenList.replace(/,/g, ", ");
+              }
+              let obj = {
+                studentId: item.id,
+                studentName: item.firstName + ',' + item.lastName,
+                allergies: this.allergenList,
+                studentPhoto: item.profileImage ? item.profileImage : './assets/images/student-icon.svg',
+                actions: ['SignIn Info', 'Profile', 'Reports']
+              };
+              return obj;
+            });                      
+          }
           this.isLoadAllStudents = true;
-          this.allStudentList = _.map(response.data.rows, (item) => {
-            let obj = {
-              item_id: item.id,
-              item_text: `${item.firstName} ${item.lastName}`
-            };
-            return obj;
-          });
         }
       },
       (error) => {
@@ -683,18 +693,31 @@ export class SchoolDetailsComponent implements OnInit {
   }
 
   openCreateClass(content: any): void {
-    this.closeClassModal = this.modalService.open(content, {
-      ariaLabelledBy: 'modal-basic-title',
-      centered: true,
-      windowClass: 'create-class-modal'
+    this.getStudentList(1);
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true, windowClass: 'create-class-modal' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+      if (result === 'Save') {
+        this.onSaveClass();
+      } else {
+        this.resetForm();
+      }
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      this.resetForm();
     });
     this.createClassForm.get('school').setValue(this.currentSchool.school);
     this.schoolTitle = this.currentSchool.school.name;
   }
-  closeCreateClassModal() {
-    this.closeClassModal.close();
-    this.resetForm();
-  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  } 
 
   onActionClick(item?: any, name?: any): void {
     let studentId = item ? item.studentId : name.studentId;
@@ -704,8 +727,20 @@ export class SchoolDetailsComponent implements OnInit {
     } else if (name.action === 'Profile' && studentId) {
       showPopup = true;
     }
+    let allergy = [];
+    let allergieString: string;
     if (showPopup) {
       this.studentDetails = this.studentsInSchool.find((o) => o.id === studentId);
+      _.forEach(this.studentDetails.allergens, ob => {
+        if (!_.isEmpty(ob.allergen.allergenTitle)) {
+          allergy.push(ob.allergen.allergenTitle)
+        }
+      });
+      if (allergy && allergy.length > 0) {
+        allergieString = allergy.toString();
+        allergieString = allergieString.replace(/,/g, ", ");
+      }
+      this.studentDetails['allergieString'] = allergieString;
       this.studentDetails.img = this.studentDetails.profileImage ? this.studentDetails.profileImage : './assets/images/student-icon.svg';
       this.openProfile(this.ProfileModal);
     }
@@ -740,6 +775,7 @@ export class SchoolDetailsComponent implements OnInit {
     }
   }
   resetForm() {
+    this.status = undefined;
     this.createClassForm.reset();
     this.selectedTeacher = null;
     this.selectedStandard = null;
@@ -757,10 +793,10 @@ export class SchoolDetailsComponent implements OnInit {
     this.gradeTitle = event.menu;
     this.createClassForm.get('grade').setValue(event);
   }
-  schoolChange(event) {
-    this.schoolTitle = event.menu;
-    this.createClassForm.get('school').setValue(event);
-  }
+  // schoolChange(event) {
+  //   this.schoolTitle = event.menu;
+  //   this.createClassForm.get('school').setValue(event);
+  // }
   onSelectStandrd(item) {
     this.selectedValue.push(item);
     this.selectedStandard = this.selectedValue;
@@ -843,9 +879,8 @@ export class SchoolDetailsComponent implements OnInit {
   }
   gradeFilter(event) {
     this.sortByIdTitle = event.menu;
-    if (event && event.value) {
-      this.getStudentList(1, event.value);
-    }
+    this.sortBy = event.value ? event.value : undefined; 
+    this.getStudentList();
   }
   /**
    * Active/inactive filter.
@@ -853,9 +888,8 @@ export class SchoolDetailsComponent implements OnInit {
    */
   studentFilter(item: any): void {
     this.filterListtitle = item.menu;
-    if (item && item.id) {
-      this.getStudentList(item.id);
-    }
+    this.status = item.id ? item.id : undefined; 
+    this.getStudentList();
   }
   onSaveClass(): void {
     if (this.createClassForm.invalid) {
@@ -887,7 +921,7 @@ export class SchoolDetailsComponent implements OnInit {
         (data) => {
           if (data) {
             this.toast.showToast(`${formData.title} : Class added successfully.`, '', 'success');
-            this.closeCreateClassModal();
+            this.resetForm();
             this.studentRefresh();
           }
         },

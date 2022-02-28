@@ -40,6 +40,9 @@ import { ActionActivityQuestionComponent } from './stories/action-activity-quest
 import { SensoryExerciseComponent } from './stories/sensory-exercise/sensory-exercise.component';
 import { StampsComponent } from './stories/stamps/stamps.component';
 import { StudentRatingComponent } from './stories/student-rating/student-rating.component';
+import { CountryImageComponent } from './stories/country-image/country-image.component';
+import { ChefIntroductionComponent } from './stories/chef-introduction/chef-introduction.component';
+import { ReferenceComponent } from './stories/reference/reference.component';
 @NgModule({
   declarations: [LessonsHeaderbarComponent, LessonsFooterComponent, CookingPreparationComponent,
     CleaningComponent, ServingComponent,
@@ -52,7 +55,7 @@ import { StudentRatingComponent } from './stories/student-rating/student-rating.
     IngredientComponent,
     CookingTechniqueComponent, StudentRatingComponent,
     CookingStepsComponent, ExperimentComponent, ExperimentStepsComponent,
-    AssessmentQuestionComponent, StudentActionActivityComponent, ScrollDownComponent, DynamicFormComponent, DynamicExperimentQuestionsComponent, LinguisticDetailsComponent, LetStartComponent, ExperimentObservationsComponent, ExperimentDescriptionComponent, StartExperimentComponent, ExperimentQuestionComponent, DynamicActivityQuestionsComponent, ActionActivityQuestionComponent, SensoryExerciseComponent, StampsComponent],
+    AssessmentQuestionComponent, StudentActionActivityComponent, ScrollDownComponent, DynamicFormComponent, DynamicExperimentQuestionsComponent, LinguisticDetailsComponent, LetStartComponent, ExperimentObservationsComponent, ExperimentDescriptionComponent, StartExperimentComponent, ExperimentQuestionComponent, DynamicActivityQuestionsComponent, ActionActivityQuestionComponent, SensoryExerciseComponent, StampsComponent, CountryImageComponent, ChefIntroductionComponent, ReferenceComponent],
 
   imports: [
     CommonModule,

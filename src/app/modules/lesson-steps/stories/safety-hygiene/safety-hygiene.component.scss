@@ -30,8 +30,11 @@
       padding: 3rem;
       position: relative;
       @include breakpoint(mobile){
-        max-width: 30rem;
+        max-width: 45rem;
         padding: 2rem;
+      }
+      @include breakpoint(sm-mobile){
+        max-width: 33rem;
       }
       ul{
         padding: 0rem;

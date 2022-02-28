@@ -63,7 +63,7 @@ export class AddTeacherComponent implements OnInit {
       lastName: new FormControl("", [Validators.required]),
       firstName: new FormControl("", [Validators.required]),
       emailAddress: new FormControl("", [Validators.required, Validators.pattern(CustomRegex.emailPattern), this.validateEmail.bind(this)]),
-      contactNumber: new FormControl("", [Validators.required, Validators.pattern(CustomRegex.phoneNumberPattern), Validators.minLength(10), this.validPhoneNumber.bind(this)]),
+      contactNumber: new FormControl("", [Validators.required, Validators.pattern(CustomRegex.phoneNumberPattern), this.validPhoneNumber.bind(this)]),
       gender: new FormControl("", []),
       status: new FormControl('active', [Validators.required]),
     });
@@ -73,7 +73,7 @@ export class AddTeacherComponent implements OnInit {
   }
 
   getAllSchools(): void {
-    this.districtService.getSchools().subscribe(
+    this.districtService.getSchools(1).subscribe(
       (response) => {
         if (response && response.data.rows) {
           this.schoolList = _.map(response.data.rows, item => {
@@ -163,9 +163,9 @@ export class AddTeacherComponent implements OnInit {
     if (control && control.value) {
       let isValid = control.value.match(CustomRegex.phoneNumberPattern);
       let contactNo = control.value;
-      if (control.value && control.value.length === 11 || control.value.length > 13) {
-        return { 'digitValidate': true }
-      }
+      // if (control.value && control.value.length === 11 || control.value.length > 13) {
+      //   return { 'digitValidate': true }
+      // }
       if (isValid && isValid.input) {
         if (this.isEdit && this.currentTeacher && this.currentTeacher.phone_number === control.value) {
           contactNo = undefined;

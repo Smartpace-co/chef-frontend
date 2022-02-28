@@ -71,7 +71,7 @@ export class CookingStepsComponent implements OnInit,OnDestroy {
       cnt = cnt + 1;
       return obj;
     });
-  
+   
   }
 
   ngOnDestroy(){

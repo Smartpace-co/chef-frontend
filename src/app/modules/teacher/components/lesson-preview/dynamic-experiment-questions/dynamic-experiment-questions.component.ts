@@ -77,7 +77,6 @@ export class DynamicExperimentQuestionsComponent implements OnInit {
   }
 
   onkey() {
-    console.log(this.experimentGroup)
   }
 
   showReference(): void {

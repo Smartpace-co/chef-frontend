@@ -57,7 +57,7 @@ export class CookingPreparationComponent implements OnInit,OnDestroy {
       }
       return obj;
     });
-
+ 
   }
   ngOnDestroy(){
     this.teacherService.setTeachersHeader(false);

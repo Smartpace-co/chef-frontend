@@ -24,6 +24,9 @@
           // min-width: calc( 25% - 10px);
           flex: 0 0 calc((100% - 5rem) / 4);
           text-align: center;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
           .profile-pic-list {
             width: 9.5rem;
             height: 9.5rem;
@@ -45,14 +48,15 @@
             color: $black;
             font-weight: 600;
           }
-          // .btn-wrapper {
-          //   // .optional-wraper {
-          //   //   padding: 1rem 0;
-          //   //   font-size: 1.2rem;
-          //   //   color: $inputbg;
-          //   //   font-weight: 700;
-          //   // }
-          // }
+          .btn-wrapper {
+            .optional-wraper {
+              font-size: 1.2rem;
+              color: $inputbg;
+              font-weight: 700;
+              padding-bottom: 1rem;
+              padding-top: 0;
+            }
+          }
           .substitute-btn-wrapper {
             padding-top: 1rem;
             color: #001243;

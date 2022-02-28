@@ -16,10 +16,7 @@
                 </div>
                 <ul>
                     <li *ngFor="let item of experimentSteps">
-                        <!-- <div class="check-mark">
-                            <input type="checkbox" id="checkbox{{item.id}}" [checked]="item.isChecked" />
-                            <label [attr.for]="'checkbox' + item.id"></label>
-                        </div> -->
+                       
                         <div class="legend-card-white btn-card-white cooking-preparation-wrapper">
                             <legend class="index">{{item.id}}</legend>
                             <div class="description">
@@ -28,11 +25,7 @@
                                 <span class="description-info">
                                     <h6>{{item.info}}</h6>
                                 </span>
-                                <!-- <span class="play-btn-wrapper" *ngIf="item.start">
-                                    <div class="play-btn">
-                                        <fa-icon [icon]="play"></fa-icon>
-                                    </div>
-                                </span> -->
+                                
                                 <span *ngIf="item.start" class="with-video">
                                     <div class="video-wraper">
                                         <iframe class="vedio" [src]="getSanitizeUrl(item.start)">
@@ -51,4 +44,4 @@
     </div>
 </div>
 <app-lessons-footer [isVisibleNext]="isVisibleNext" (onNext)="onNext()" (onPrevious)="onPrevious()">
-</app-lessons-footer>
+</app-lessons-footer> 

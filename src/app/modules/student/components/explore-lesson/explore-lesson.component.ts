@@ -10,6 +10,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { StudentService } from '@modules/student/services/student.service';
 import { Router } from '@angular/router';
 import { ToasterService } from '@appcore/services/toaster.service';
+import { AuthService } from '@modules/auth/services/auth.service';
 
 interface Item {
   name: string;
@@ -41,6 +42,7 @@ export class ExploreLessonComponent implements OnInit, AfterViewInit {
 
   @ViewChild('globeContainer') globeContainer: ElementRef;
   term: '';
+  filterByGrade=false;
   closeModal;
   recipesList = [];
   selectedRecipe;
@@ -74,11 +76,16 @@ export class ExploreLessonComponent implements OnInit, AfterViewInit {
     'Y - Z'
   ];
   defaultRecipeImg;
-  constructor(private modalService: NgbModal, private router: Router, private utilityService: UtilityService, private toast: ToasterService, private studentService: StudentService) {
+  recipeData=[];
+  currentUser: any;
+  constructor(private modalService: NgbModal, private router: Router,private authService:AuthService, private utilityService: UtilityService, private toast: ToasterService, private studentService: StudentService) {
     this.defaultRecipeImg = './assets/images/nsima-bent-icon.png';
+    this.currentUser=JSON.parse(window.sessionStorage.getItem('currentUser'));
+
   }
 
   ngOnInit(): void {
+    this.authService.setuserlang();
     /*  this.utilityService.documentClickedTarget
      .subscribe(target => this.outsideClickListner(target)); */
     d3.tsv('assets/names.tsv').then((data) => {
@@ -215,7 +222,7 @@ export class ExploreLessonComponent implements OnInit, AfterViewInit {
   }
 
   oncountrychange(cnt, sel, event) {
-    this.countryCollapsed = false;
+    // this.countryCollapsed = false;
     d3.select(this.countryTooltip).style('opacity', 0)
       .style('display', 'none');
 
@@ -287,9 +294,11 @@ export class ExploreLessonComponent implements OnInit, AfterViewInit {
     this.closeModal = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true });
   }
 
-  getRecipeListByCountry(country: string): void {
+  getRecipeListByCountry(country?: string, lessonType?: boolean): void {
     this.isSelectedCountry = true;
-    this.studentService.getExploreLessonList(country)
+    this.countryCollapsed = false;
+    var lngKey= sessionStorage.getItem('userlanguage');
+    this.studentService.getExploreLessonList(country, lessonType, lngKey)
       .subscribe((res) => {
         if (res && res.data && res.data.rows) {
           this.recipesList = _.map(res.data.rows, item => {
@@ -297,10 +306,13 @@ export class ExploreLessonComponent implements OnInit, AfterViewInit {
               id: item.id,
               menu: item.recipeTitle,
               image: item.recipeImage ? item.recipeImage : this.defaultRecipeImg,
-              duration: item.estimatedMakeTime,
+              duration: item.lesson.lessonTime,
+              isCountryBgImg: item.country && item.country.backgroundImage ? true : false,
+              gradeId:item.lesson.gradeId
             }
             return obj;
           });
+          this.recipeData=this.recipesList;
         }
       },
         (error) => {
@@ -313,7 +325,7 @@ export class ExploreLessonComponent implements OnInit, AfterViewInit {
     this.studentService.selfAssignLesson(item.id).subscribe(
       (response: any) => {
         if (response && response.data) {
-          this.startAssignment(response.data);
+          this.startAssignment(response.data, item);
         }
       },
       (error) => {
@@ -322,7 +334,7 @@ export class ExploreLessonComponent implements OnInit, AfterViewInit {
       }
     );
   }
-  startAssignment(data: any) {
+  startAssignment(data: any, recipe: any) {
     this.modalService.dismissAll();
     localStorage.setItem('assignmentId', data.id);
     localStorage.setItem('lessonId', data.lessonId);
@@ -336,7 +348,11 @@ export class ExploreLessonComponent implements OnInit, AfterViewInit {
       (response: any) => {
         if (response && response.data) {
           window.sessionStorage.setItem('previousDate', JSON.stringify(new Date()));
-          this.router.navigate(['/student/learning-objective']);
+          if (recipe && recipe.isCountryBgImg) {
+            this.router.navigate(['/student/country-image']);
+          } else {
+            this.router.navigate(['/student/learning-objective']);
+          }
         }
       },
       (error) => {
@@ -344,5 +360,19 @@ export class ExploreLessonComponent implements OnInit, AfterViewInit {
         this.toast.showToast(error.error.message, '', 'error');
       }
     );
+  }
+
+  filterLessonsByGrade(event){
+    if(event.target.checked){
+      if(this.currentUser.gradeId ==null){
+        this.toast.showToast("Student grade is not set", '', 'error');
+      }else{
+        this.recipesList= this.recipesList.filter((res)=>
+        res.gradeId===this.currentUser.gradeId );
+      }
+    }
+    else{
+      this.recipesList=this.recipeData;
+    }
   }
 }

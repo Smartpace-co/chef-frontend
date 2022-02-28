@@ -33,8 +33,8 @@
                       <div class="notitications-details">
                         <p [ngClass]="item.isSeen == true ? 'title visited' : 'title'">{{item.notificationType?.title}}</p>
                         <h6 [ngClass]="item.isSeen == true ? 'message visited' : 'message'">{{item?.description}}</h6>
-                        <ng-container *ngIf="isSameDay(item); else diffDate">
-                          <p class="sub-info" *ngIf="item.createdAt" [ngClass]="item.isSeen == true ? 'time visited' : 'time'"> {{ item.createdAt |date:'h' }} {{ 'student.notification.hours-ago-label' |
+                        <ng-container *ngIf="utiltiService.isSameDay(item); else diffDate">
+                          <p class="sub-info" *ngIf="item.createdAt" [ngClass]="item.isSeen == true ? 'time visited' : 'time'"> {{ utiltiService.hrCalulator(item.createdAt) }} {{ 'student.notification.hours-ago-label' |
                             translate }} </p>
                         </ng-container>
                         <ng-template #diffDate>
@@ -50,7 +50,7 @@
                   </ul>
                 </div>
             </div>
-            <div class="table-pagination">
+            <div *ngIf="notificationList && notificationList.length > 0" class="table-pagination">
               <ngb-pagination [collectionSize]="notificationList.length" [(page)]="page" [pageSize]="pageSize">
                 <ng-template ngbPaginationFirst class="first">{{'table-component.first'| translate}}</ng-template>
                 <ng-template ngbPaginationLast class="last">{{'table-component.last'| translate}}</ng-template>

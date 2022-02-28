@@ -53,13 +53,12 @@ export class DistrictProfileComponent implements OnInit {
       displayName: new FormControl('', []),
       districtName: new FormControl('', [Validators.required]),
       phone: new FormControl("", [Validators.required, Validators.pattern(CustomRegex.phoneNumberPattern),
-      Validators.minLength(10), this.validPhoneDistNumber.bind(this)]),
+      this.validPhoneDistNumber.bind(this)]),
       districtAddress: new FormControl('', []),
       name: new FormControl('', [Validators.required]),
-      emailAddress: new FormControl("", [Validators.pattern(CustomRegex.emailPattern), this.validateEmail.bind(this)]),
+      emailAddress: new FormControl("", [Validators.pattern(CustomRegex.emailPattern)]),
       title: new FormControl('', []),
-      contact: new FormControl("", [Validators.pattern(CustomRegex.phoneNumberPattern),
-      Validators.minLength(10), this.validPhoneNumber.bind(this)]),
+      contact: new FormControl("", [Validators.pattern(CustomRegex.phoneNumberPattern)]),
       gender: new FormControl('Male', [])
     });
 
@@ -125,6 +124,12 @@ export class DistrictProfileComponent implements OnInit {
           };
           this.districtDetails = distObj;
           this.agentDetails = obj;
+          let headerData = {
+            district: response.data.district_admin.name,
+            name: response.data.district_admin.admin_account_name,
+            img: response.data.profile_image
+          }
+          this.districtService.setProfileObs(headerData);
         }
       },
       (error) => {
@@ -272,30 +277,15 @@ export class DistrictProfileComponent implements OnInit {
    * To check valid phone agent's number
    *   
    */
-  validPhoneNumber(control: AbstractControl): any {
-    if (control && control.value) {
-      let isValid = control.value.match(CustomRegex.phoneNumberPattern);
-      let contactNo = control.value;
-      if (control.value && control.value.length === 11 || control.value.length > 13) {
-        return { 'digitValidate': true }
-      }
-      if (isValid && isValid.input) {
-        if (this.agentDetails && this.agentDetails.phone === control.value) {
-          contactNo = undefined;
-        }
-        if (contactNo) {
-          this.districtService.contactValidator(contactNo).subscribe(
-            (data) => {
-            },
-            (error) => {
-              console.log(error);
-              this.distProfileForm.controls['contact'].setErrors({ 'contactValidate': true });
-            }
-          );
-        }
-      }
-    }
-  }
+  // validPhoneNumber(control: AbstractControl): any {
+  //   if (control && control.value) {
+  //     let isValid = control.value.match(CustomRegex.phoneNumberPattern);
+  //     let contactNo = control.value;
+  //     if (control.value && control.value.length === 11 || control.value.length > 13) {
+  //       return { 'digitValidate': true }
+  //     }
+  //   }
+  // }
 
   /**
    * To check valid district's phone number
@@ -305,9 +295,9 @@ export class DistrictProfileComponent implements OnInit {
     if (control && control.value) {
       let isValid = control.value.match(CustomRegex.phoneNumberPattern);
       let contactNo = control.value;
-      if (control.value && control.value.length === 11 || control.value.length > 13) {
-        return { 'contactDigitValidate': true }
-      }
+      // if (control.value && control.value.length === 11 || control.value.length > 13) {
+      //   return { 'contactDigitValidate': true }
+      // }
       if (isValid && isValid.input) {
         if (this.districtDetails && this.districtDetails.phone === control.value) {
           contactNo = undefined;

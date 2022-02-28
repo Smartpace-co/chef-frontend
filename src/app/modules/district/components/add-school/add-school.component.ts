@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -17,7 +18,7 @@ export class AddSchoolComponent implements OnInit {
   schoolRole: any;
   districtRole: any;
   constructor(private router: Router,
-    private toast: ToasterService, private authService: AuthService,
+    private toast: ToasterService, private authService: AuthService,private location:Location,
     private districtService: DistrictService) { }
 
   ngOnInit(): void {
@@ -27,16 +28,14 @@ export class AddSchoolComponent implements OnInit {
       schoolName: new FormControl("", [Validators.required,Validators.pattern(CustomRegex.namePatteren), this.validateSchoolName.bind(this)]),
       adminAccountName: new FormControl("", [Validators.required, Validators.pattern('^[a-zA-Z \-\']+')]),
       pNumber: new FormControl("", [Validators.required, Validators.pattern(CustomRegex.phoneNumberPattern),
-      Validators.minLength(10), this.validPhoneNumber.bind(this)]),
+      this.validPhoneNumber.bind(this)]),
       schoolAddress: new FormControl("", []),
       email: new FormControl("", [Validators.required, Validators.pattern(CustomRegex.emailPattern), this.validateEmail.bind(this)]),
       principalName: new FormControl("", [Validators.required]),
-      phoneNumber: new FormControl("", [Validators.pattern(CustomRegex.phoneNumberPattern),
-      Validators.minLength(10),this.validContactNumber.bind(this)]),
+      phoneNumber: new FormControl("", [Validators.pattern(CustomRegex.phoneNumberPattern)]),
       emailAddress: new FormControl("", [Validators.pattern(CustomRegex.emailPattern)]),
       staffAddress: new FormControl("", []),
-      emergencyContact: new FormControl("", [Validators.required, Validators.pattern(CustomRegex.phoneNumberPattern),
-      Validators.minLength(10),this.validEmergencyPhoneNumber.bind(this)])
+      emergencyContact: new FormControl("", [Validators.required, Validators.pattern(CustomRegex.phoneNumberPattern)])
     });
   }
   get formControl() {
@@ -87,9 +86,9 @@ export class AddSchoolComponent implements OnInit {
   validPhoneNumber(control: AbstractControl): any {
     if (control && control.value) {
       let isValid = control.value.match(CustomRegex.phoneNumberPattern);      
-      if (control.value && control.value.length === 11 || control.value.length > 13) {
-        return { 'digitValidate': true }
-      }
+      // if (control.value && control.value.length === 11 || control.value.length > 13) {
+      //   return { 'digitValidate': true }
+      // }
       if (isValid && isValid.input) {
         this.districtService.contactValidator(control.value).subscribe(
           (data) => {
@@ -103,20 +102,20 @@ export class AddSchoolComponent implements OnInit {
     }
   }
 
-  validContactNumber(control: AbstractControl): any {
-    if (control && control.value) {
-      if (control.value.length === 11 || control.value.length > 13) {
-        return { 'phoneValidate': true }
-      }
-    }
-  }
-  validEmergencyPhoneNumber(control: AbstractControl): any {
-    if (control && control.value) {
-      if (control.value.length === 11 || control.value.length > 13) {
-        return { 'contactDigitValidate': true }
-      }
-    }
-  }
+  // validContactNumber(control: AbstractControl): any {
+  //   if (control && control.value) {
+  //     if (control.value.length === 11 || control.value.length > 13) {
+  //       return { 'phoneValidate': true }
+  //     }
+  //   }
+  // }
+  // validEmergencyPhoneNumber(control: AbstractControl): any {
+  //   if (control && control.value) {
+  //     if (control.value.length === 11 || control.value.length > 13) {
+  //       return { 'contactDigitValidate': true }
+  //     }
+  //   }
+  // }
   /**
    * to get district_id and role_id;
    */
@@ -159,7 +158,8 @@ export class AddSchoolComponent implements OnInit {
   }
 
   onCancel(): void {
-    this.router.navigate(['/district/district-schools']);
+    this.location.back();
+    // this.router.navigate(['/district/district-schools']);
   }
 
   onSave(): void {

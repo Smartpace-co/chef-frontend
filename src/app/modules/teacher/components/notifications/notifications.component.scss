@@ -98,8 +98,9 @@
     .notitications-details{
       padding-left: 3rem;
       @include breakpoint(mobile){
-        padding-left: 2rem;
+        padding-left: 0;
         width: calc(100% - 5rem);
+        margin-top: 2rem;
       }
       .title{
         text-transform: uppercase;

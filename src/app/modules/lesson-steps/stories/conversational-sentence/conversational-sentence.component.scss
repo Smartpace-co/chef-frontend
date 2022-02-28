@@ -1,7 +1,7 @@
 @import "../../../../../assets/styles/helpers/variables";
 @import "../../../../../assets/styles/helpers/mixins";
 .story-body-8{
-  background:center no-repeat;
+  background:url("../../../../../assets/images/kitchen-bg.jpg") center no-repeat;
   background-size: cover;
   min-height: calc(100vh - 24.2rem);
   display: flex;
@@ -139,7 +139,7 @@
             }
             @include breakpoint(xtrasmallmobile){
               bottom: 2rem;
-              left: -10rem;
+              left: -11rem;
             }
           }
           .right-btn-wrapper{
@@ -147,12 +147,12 @@
             bottom: 21rem;
             right: -10rem;
             @include breakpoint(tabs){
-              bottom: 13rem;
+              bottom: 7rem;
               right: -13rem;
               z-index: 1;
             }
             @include breakpoint(xtrasmallmobile){
-              bottom: 7rem;
+              bottom: 2rem;
               right: -6rem;
             }
           }

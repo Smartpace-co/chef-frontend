@@ -1,16 +1,13 @@
 <app-ingreditent-nav></app-ingreditent-nav>
 <app-lessons-headerbar [lessonHederConfig]="lessonHederConfig"></app-lessons-headerbar>
 <div class="cooking-step-1">
-  <!-- <app-scroll-down></app-scroll-down> -->
   <div class="container">
-    <div class="final-editaion">
+    <div class="final-editaion"> 
       <div class="content-wrapper">
         <ul class="card-wihtout-header-blue">
+          <div class="content-scroll">
           <li *ngFor="let item of cookingSteps">
             <div>
-
-              <!-- <div [ngClass]="item.isChecked == true ? ' classCheck1 check-mark' : 'check-mark classCheck2'"> -->
-              <!-- <input type="checkbox" id="checkbox{{item.id}}" [checked]="item.isChecked" /> -->
               <label [attr.for]="'checkbox' + item.id"></label>
             </div>
             <div class="legend-card-white btn-card-white cooking-preparation-wrapper">
@@ -43,35 +40,9 @@
                 </span>
               </div>
             </ng-template>
-              <!-- <div class="description" *ngIf="item.image">
-                <div class="image"><img src="{{item.image}}" alt="" class="img-fluid" /></div>
-                <span class="description-info">
-                  <h6>{{item.info}}</h6>
-                </span>
-              </div>
-
-              <div class="description" *ngIf="!item.image">
-                <div *ngIf="item.video" class="description with-video">
-                  <div class="row video">
-                    <iframe class="video-play" [src]="getSanitizeUrl(item.video)">
-                    </iframe>
-                     <span class="col-7 description-info">
-                      <h6>{{item.info}}</h6>
-                    </span> 
-                  </div>
-                </div>
-                <span class="description-info">
-                  <h6>{{item.info}}</h6>
-                </span>
-              </div>
-              <div *ngIf="item.video" class="col-12 description with-video">
-                <div class="row video">
-                  <iframe class="col-5" [src]="getSanitizeUrl(item.video)">
-                  </iframe>
-                </div>
-              </div> -->
             </div>
           </li>
+        </div>
         </ul>
       </div>
       <span class="final-editaion-img-wrapper">

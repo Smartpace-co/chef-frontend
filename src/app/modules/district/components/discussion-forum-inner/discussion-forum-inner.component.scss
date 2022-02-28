@@ -64,7 +64,7 @@
 
                     .count {
                         font-size: 1.4rem;
-                        margin-left: .5rem;
+                        margin-left: 0.5rem;
                         font-weight: 600;
                     }
 
@@ -85,7 +85,7 @@
                     .icon {
                         -webkit-transform: scaleX(-1);
                         transform: scaleX(-1);
-                        margin-top: .4rem;
+                        margin-top: 0.4rem;
                     }
                 }
             }
@@ -98,8 +98,7 @@
 
                 h5 {
                     font-size: 2.2rem;
-                    opacity:0.67;
-                    margin-bottom: 1.5rem;
+                    opacity: 0.67;
                     @include breakpoint(tabs) {
                         font-size: 1.8rem;
                         min-width: 14.5rem;
@@ -115,7 +114,7 @@
                     font-weight: 700;
                     width: 34rem;
                     margin: 0 0 1.5rem 1.8rem;
-                    padding: .99rem 3rem;
+                    padding: 0.99rem 3rem;
 
                     @include breakpoint(tabs) {
                         font-size: 1.6rem;
@@ -135,34 +134,21 @@
 
                 .image-upload {
                     margin-left: 1rem;
-                    margin-bottom: 1.5rem;
-
-                    @include breakpoint(mobile) {
-                        margin-top: 2rem;
+                    @include breakpoint(sm-mobile){
                         margin-left: 0;
                     }
-
-                    @include breakpoint(smallmobile) {
-                        margin: 1rem 0;
-                        // text-align: center;
-                    }
-
                     label {
                         font-size: 1.8rem;
                         font-weight: 700;
                         background-color: $inputbg;
                         color: white;
                         border-radius: 5rem;
-                        padding: .87rem 3.6rem;
+                        padding: 0.87rem 3.6rem;
                         cursor: pointer;
 
                         @include breakpoint(tabs) {
                             font-size: 1.6rem;
                         }
-                        @include breakpoint(smallmobile) {
-                            margin-top: 1rem;
-                        }
-
                         span {
                             margin-left: 1.2rem;
                         }
@@ -241,7 +227,6 @@
                 }
             }
 
-
             .comment-list {
                 .comment-item {
                     margin-top: 4.3rem;
@@ -253,10 +238,16 @@
                         min-width: 14.5rem;
                         .profile-photo {
                             width: 4.5rem;
+                            height: 4.5rem;
+                            border-radius: 50%;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            overflow: hidden;
                         }
                         .user-name {
                             font-size: 1.7rem;
-                            margin-top: .6rem;
+                            margin-top: 0.6rem;
                         }
                         @include breakpoint(smallmobile) {
                             margin-bottom: 1rem;
@@ -269,8 +260,16 @@
                             display: block;
                         }
                         .comment-image {
-                            max-width: 16rem;
+                            width: 16rem;
+                            height: 8rem;
                             margin-right: 2.5rem;
+                            max-width: 16rem;
+                            display: flex;
+                            justify-content: center;
+                            margin-right: 2.5rem;
+                            align-items: center;
+                            overflow: hidden;
+
                             img {
                                 border-radius: 15px;
                             }
@@ -286,7 +285,6 @@
                                 padding: 0;
                                 opacity: 0.56;
                                 margin-bottom: 0.8rem;
-    
                             }
                             .reply-link {
                                 font-size: 1.7rem;
@@ -319,16 +317,15 @@
                             // display: inline-block;
                             @include breakpoint(tabs) {
                                 justify-content: flex-start;
-                                margin: .5rem 0 0;
+                                margin: 0.5rem 0 0;
                                 padding: 0;
                                 transform: none;
-        
                             }
-        
+
                             .close-icon {
                                 width: 1.8rem;
                             }
-        
+
                             // span {
                             //     margin-left: .7rem;
                             //     font-size: 1.3rem;
@@ -358,25 +355,18 @@
 .delete-class {
     max-width: 80%;
     margin: 0 auto;
-  
+
     h6 {
-      color: $orange;
-      font-size: 1.8rem;
-      font-weight: bold;
+        color: $orange;
+        font-size: 1.8rem;
+        font-weight: bold;
     }
-  
+
     p {
-      margin-bottom: 2.5rem;
-      padding: 0;
+        margin-bottom: 2.5rem;
+        padding: 0;
     }
-
-
-  }
-  p {
+}
+p {
     word-break: break-all;
-  }
-
-
-  
-
-  
+}

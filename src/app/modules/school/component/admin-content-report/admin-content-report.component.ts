@@ -18,6 +18,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { SchoolService } from '@modules/school/services/school.service';
 import * as _ from 'lodash';
+import { ExcelService } from '../../../../shared/services/excel.service';
 
 @Component({
   selector: 'app-admin-content-report',
@@ -37,7 +38,7 @@ export class AdminContentReportComponent implements OnInit {
   filterTitle = 'This Week';
   clicked: boolean = false;
   adminContentList = [];
- 
+
   standardList = [];
   activateUserData: any;
   duration = 'week';
@@ -68,7 +69,7 @@ export class AdminContentReportComponent implements OnInit {
     }
   ];
   reportDataList = [
-  {
+    {
       id: 1,
       data: 0,
       title: 'Lessons Assigned',
@@ -178,7 +179,8 @@ export class AdminContentReportComponent implements OnInit {
   ];
   closeModal: any;
   closeModal1: any;
-  constructor(private schoolService: SchoolService, private modalService: NgbModal) {}
+  downlaodModal: any;
+  constructor(private schoolService: SchoolService, private modalService: NgbModal, private excelService: ExcelService) { }
 
   ngOnInit(): void {
     this.activateUserData = JSON.parse(window.sessionStorage.getItem('currentUser'));
@@ -208,21 +210,21 @@ export class AdminContentReportComponent implements OnInit {
   }
 
   getInactiveUsers(duration) {
-    let count=0;
+    let count = 0;
     this.schoolService.getAllInactiveUser(0, duration).subscribe((res) => {
       if (res && res['data']) {
-       count=count+res['data'].count
+        count = count + res['data'].count
       }
     });
     this.schoolService.getNewStudents(0, duration).subscribe((res) => {
       if (res && res['data']) {
-        count=count+res['data'].count
+        count = count + res['data'].count
 
       }
     });
     this.schoolService.getNewTeacher(0, duration).subscribe((res) => {
       if (res && res['data']) {
-        count=count+res['data'].count       
+        count = count + res['data'].count
         this.reportDataList[1].data = count;
 
       }
@@ -277,6 +279,14 @@ export class AdminContentReportComponent implements OnInit {
   closeOpenModal1() {
     this.closeModal1.close();
   }
+
+  openDownloadModal(content) {
+    this.downlaodModal = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true, windowClass: 'dist-modal' });
+  }
+  closeDownlaodModal() {
+    this.downlaodModal.close();
+  }
+
   hideContentColumns(e, value) {
     this.adminContentHeadersList = this.adminContentHeadersList.filter(function (obj) {
       return obj.title !== value;
@@ -305,44 +315,75 @@ export class AdminContentReportComponent implements OnInit {
     });
   }
 
+  printExcelSheet(): void {
+    let newArray = [];
+    let i = 1;
+
+    if (this.adminContentList.length) {
+      for (let element of this.adminContentList) {
+        let obj = {};
+        obj["SL.No."] = i++;
+        for (let elm in element) {
+          if (elm === "lesson") obj["Lesson"] = element[elm];
+          if (elm === "grade") obj["Grade"] = element[elm];
+          if (elm === "rating") obj["Rating"] = element[elm].filter(obj => obj).length;
+          if (elm === "standard") {
+            let standards = '';
+            for (let i = 0; i < element[elm].length; i++) {
+              if (i < element[elm].length - 1) standards = standards + element[elm][i] + ', ';
+              else standards = standards + element[elm];
+            }
+            obj["Standard"] = standards;
+          }
+          if (elm === "time") obj["Time"] = element[elm];
+        }
+        newArray.push(obj);
+      }
+      this.excelService.exportAsExcelFile(newArray, 'Lesson report');
+    }
+    this.closeDownlaodModal();
+  }
+
+
   getAverageSessionTime(duration) {
-    let teacherCount=0,studentCount=0,totalMins;
-   let mins=0, teacherMins=0,hrs=0
-    let averageTeacherMins=0,averageStudentMins=0;
-    this.schoolService.getNewStudents(1,duration).subscribe((response) => {
+    let teacherCount = 0, studentCount = 0, totalMins;
+    let mins = 0, teacherMins = 0, hrs = 0
+    let averageTeacherMins = 0, averageStudentMins = 0;
+    this.schoolService.getNewStudents(1, duration).subscribe((response) => {
       _.map(response.data.rows, (item) => {
         this.schoolService.getTopActiveSessionStudents(duration, item.id).subscribe((res) => {
           if (res && res.data) {
-            studentCount=res.data.count;
+            studentCount = res.data.count;
             _.map(res.data.rows, (objItem) => {
-              if (objItem.session_mins != null || objItem.session_mins != NaN) mins =mins + objItem.session_mins;
+              if (objItem.session_mins != null || objItem.session_mins != NaN) mins = mins + objItem.session_mins;
 
             });
-            averageStudentMins=mins/studentCount;
-            totalMins=averageStudentMins
+            if(studentCount){
+            averageStudentMins = mins / studentCount;
+            totalMins = averageStudentMins
+            }
           }
         });
       });
     });
 
-      this.schoolService.getNewTeacher(1,duration).subscribe((response) => {
-        _.map(response.data.rows, (item) => {
-          this.schoolService.getTopActiveSessionTeachers(duration,item.id).subscribe((res) => {
-            if (res && res.data) {
-              teacherCount=res.data.count;
-              _.map(res.data.rows, (objItem) => {
-                if (objItem.session_mins != null || objItem.session_mins != NaN)
-                 teacherMins = teacherMins + objItem.session_mins
-              });
-              averageTeacherMins=teacherMins/teacherCount;
-              totalMins=(totalMins+averageStudentMins)/60
-              this.reportDataList[2].data=parseFloat(totalMins).toFixed(4) +" hr";
-
+    this.schoolService.getNewTeacher(1, duration).subscribe((response) => {
+      _.map(response.data.rows, (item) => {
+        this.schoolService.getTopActiveSessionTeachers(duration, item.id).subscribe((res) => {
+          if (res && res.data) {
+            teacherCount = res.data.count;
+            _.map(res.data.rows, (objItem) => {
+              if (objItem.session_mins != null || objItem.session_mins != NaN)
+                teacherMins = teacherMins + objItem.session_mins
+            });
+            if(teacherCount){
+              averageTeacherMins = teacherMins / teacherCount;
+              totalMins = (totalMins + averageStudentMins) / 60
+              this.reportDataList[2].data = parseFloat(totalMins).toFixed(4) + " hr";
             }
-          });
+          }
         });
       });
+    });
   }
-
-
 }

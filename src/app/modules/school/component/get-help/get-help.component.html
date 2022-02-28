@@ -5,26 +5,27 @@
         </div>
 
         <div class="row help-list">
-            <div class="col-lg-5 col-md-6 col-sm-12" *ngFor="let item of contactList">
+            <div class="col-lg-5 col-md-6 col-sm-12">
                 <div class="help-item">
                     <div class="contact-details">
                         <ul>
                             <li>
-                                <h5 class="title">{{item.title}}</h5>
+                                <h5 class="title">Contact Helpdesk</h5>
 
                             </li>
                             <li>
-                                <label>{{'district.district-profile.agent-component.email-field.label'| translate}}</label>
-                                <h5 class="email">{{item.email}}</h5>
+                                <label>{{'district.district-profile.agent-component.email-field.label'|
+                                    translate}}</label>
+                                <h5 class="email">{{contactList.email}}</h5>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <label>{{'school.teacher.add-teacher.contact.label' | translate}}</label>
                                 <h5 class="contact">{{item.phoneNumber}}</h5>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                     <div class="profile-photo">
-                        <img src={{item.photo}} alt="">
+                        <img src={{contactList.photo}} alt="">
                     </div>
                 </div>
             </div>

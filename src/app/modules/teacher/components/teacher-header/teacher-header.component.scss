@@ -209,7 +209,7 @@ header{
     }
 }
 .archive-class{
-    max-width:80%;
+    max-width:90%;
     margin: 0 auto;
     h4{
         color: $orange;
@@ -219,20 +219,24 @@ header{
     p{
         margin-bottom:3rem;
         padding: 0;
+        font-weight: 700;
     }
 }
 
 .delete-class{
     max-width:80%;
     margin: 0 auto;
+    @include breakpoint(mobile){
+        max-width: 100%;
+        margin: 0;
+    }
     h4{
         color: $orange;
         font-size:1.8rem;
         font-weight: bold;
     }
     p{
-        margin-bottom: 2.5rem;
-        padding: 0;
+        font-weight: 700;
     }
 }
 
@@ -341,6 +345,7 @@ header{
     display: block !important;
     font-size: 1.4rem;
     overflow: auto;
+    font-weight: 700;
     @include breakpoint(tabsAbove){
         display: none !important;
     }

@@ -7,44 +7,36 @@
           <div class="col-12">
             <h5 class="department-heading">Teacher Info</h5>
           </div>
-          <div class="col-md-6">
+          <!-- <div class="col-md-6">
             <label>District (Optional)</label>
             <app-drop-down fieldControl="district_id" class="formDropdown teacherForm" [dropDownButtonName]="dropdownDistrict"
               [dropDownItemList]="districtList" (registerDropdownValueChange)="changeDistrict($event)"></app-drop-down>
-
-            <!-- <select class="form-control form-control-lg form-control-solid" placeholder="Select district"
-              name="district_id" (change)="changeDistrict($event)" formControlName="district_id">
-              <option value="" disabled>Select District </option>
-              <option value="{{district.id}}" *ngFor="let district of districtList">
-                {{district.name}}</option>
-            </select> -->
             <div *ngIf="formControl.district_id.errors" class="invalid-feedback">
               <div class="error" *ngIf="formControl.district_id.errors?.required">District is required</div>
             </div>
-          </div>
-          <div class="col-6" *ngIf="registerTeacherForm.get('district_id').value === ''">
-
+          </div> -->
+          <div class="col-md-6">
             <label>District Name (Optional)</label>
             <app-input-field classes="form-control teacherForm" placeholders="Enter your district name" types=""
               ids="custom_district_name" fieldControl="custom_district_name" [form]="registerTeacherForm">
             </app-input-field>
           </div>
           <div class="col-md-6">
+            <label>School Name (Optional)</label>
+            <app-input-field classes="form-control teacherForm" placeholders="Enter your school name" types=""
+              ids="custom_school_name" fieldControl="custom_school_name" [form]="registerTeacherForm">
+            </app-input-field>
+          </div>
+          <!-- <div class="col-md-6">
             <label>School (Optional)</label>
             <app-drop-down fieldControl="school_id" class="formDropdown teacherForm" [dropDownButtonName]="dropdownSchool"
               [dropDownItemList]="schoolList" (registerDropdownValueChange)="changeSchool($event)"></app-drop-down>
-            <!-- <select class="form-control form-control-lg form-control-solid" placeholder="Select school" name="school_id"
-              (change)="changeSchool($event)" formControlName="school_id">
-              <option value="" disabled>Select School </option>
-              <option value="{{school.id}}" *ngFor="let school of schoolList">
-                {{school.name}}</option>
-            </select> -->
             <div *ngIf="formControl.school_id.errors" class="invalid-feedback">
               <div class="error" *ngIf="formControl.school_id.errors?.required">School is required</div>
             </div>
-          </div>
+          </div> -->
 
-          <div class="col-6">
+          <div class="col-md-6">
             <label>First name (*)</label>
             <app-input-field classes="form-control teacherForm" placeholders="Enter Teacher First Name" types=""
               ids="first_name" fieldControl="first_name" [form]="registerTeacherForm"
@@ -58,7 +50,7 @@
             </div>
           </div>
 
-          <div class="col-6">
+          <div class="col-md-6">
             <label>Last name (*)</label>
             <app-input-field classes="form-control teacherForm" placeholders="Enter Teacher Last Name" types=""
               ids="last_name" fieldControl="last_name" [form]="registerTeacherForm"
@@ -78,6 +70,7 @@
               fieldControl="email" [form]="registerTeacherForm"
               [ngClass]="{ 'is-invalid': formControl.email.touched && formControl.email.errors }">
             </app-input-field>
+            <p class="mb-3 p-0 ml-5">Note: Please use email address for login</p>
             <div *ngIf="formControl.email.errors" class="invalid-feedback">
               <div class="error" *ngIf="formControl.email.errors?.required">Teacher email is required</div>
               <div class="error" *ngIf="formControl.email.errors?.pattern">Teacher email is not valid</div>
@@ -90,12 +83,12 @@
               ids="phone_number" fieldControl="phone_number" [form]="registerTeacherForm"
               [ngClass]="{ 'is-invalid': formControl.phone_number.touched && formControl.phone_number.errors }">
             </app-input-field>
+            
             <div *ngIf="formControl.phone_number.errors" class="invalid-feedback">
               <div class="error" *ngIf="formControl.phone_number.errors?.required">Phone number is required</div>
-              <div class="error" *ngIf="formControl.phone_number.errors?.pattern">Phone number is not valid(Format
-                - (000)-000-0000)</div>
-              <div class="error" *ngIf="formControl.phone_number.errors?.minlength">Phone number is not
-                valid(Reuired Length is 10 digit)</div>
+              <div class="error" *ngIf="formControl.phone_number.errors?.pattern">Phone number is invalid.(Required length is 6 to 18 digits)</div>
+              <!-- <div class="error" *ngIf="formControl.phone_number.errors?.minlength">Phone number is not
+                valid(Reuired Length is 11 digit)</div> -->
               <!-- <div class="error" *ngIf="formControl.phone_number.errors?.contactDigitValidate">Contact number is not
                 valid(Valid lengths are 10, 12 and 13 digit)</div> -->
 
@@ -112,8 +105,6 @@
               <label class="custom-control-label">Contact info same as above </label>
             </div>
           </div>
-
-
 
           <div class="col-md-12">
             <label>Contact Person Name (*)</label>
@@ -136,14 +127,12 @@
               ids="contact_person_number" fieldControl="contact_person_number" [form]="registerTeacherForm"
               [ngClass]="{ 'is-invalid': formControl.contact_person_number.touched && formControl.contact_person_number.errors }">
             </app-input-field>
-
+            
             <div *ngIf="formControl.contact_person_number.errors" class="invalid-feedback">
-              <div class="error" *ngIf="formControl.contact_person_number.errors?.pattern">Contact person number is not
-                valid(Format
-                - (000)-000-0000)</div>
-              <div class="error" *ngIf="formControl.contact_person_number.errors?.minlength">Contact person number is
+              <div class="error" *ngIf="formControl.contact_person_number.errors?.pattern">Contact person number is invalid. (Required length is 6 to 18 digits)</div>
+              <!-- <div class="error" *ngIf="formControl.contact_person_number.errors?.minlength">Contact person number is
                 not
-                valid(Reuired Length is 10 digit)</div>
+                valid(Reuired Length is 11 digit)</div> -->
                 <!-- <div class="error" *ngIf="formControl.contact_person_number.errors?.contactDigitValidate">Contact number is not
                   valid(Valid lengths are 10, 12 and 13 digit)</div> -->
             </div>
@@ -172,9 +161,6 @@
               <div class="error" *ngIf="formControl.package.errors?.required">Package type is required</div>
             </div>
           </div>
-
-
-
         </div>
       </form>
       <div class="form-btn-wrapper">
@@ -203,7 +189,7 @@
         <p class='total-price mb-5'> No of Students : {{currentPackage?.maxUser}}</p>
         <p class='total-price mb-5'> Valid From: {{ months[currentPackage?.validityFrom] }}</p>
         <p class='total-price mb-5'> Valid Upto: {{months[currentPackage?.validityTo] }}</p>
-
+        <p class='trial-period mb-5'> Trial Period : 7 days</p>
         <!-- <p class="monthly-price">$1.25 per Month</p> -->
       </div>
       <app-button classes="btn btn-primary icon-btn" [submit]="true" (click)="closePackageModal()">

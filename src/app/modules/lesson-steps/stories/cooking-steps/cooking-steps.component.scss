@@ -168,7 +168,7 @@
                   }
                 }
                 .video {
-                  max-width: 25rem;
+                  min-width: 30rem;
                   padding: 2rem 0rem;
                   @include breakpoint(mobile) {
                     display: inline-block;

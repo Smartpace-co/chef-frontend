@@ -1,5 +1,12 @@
 <div class="user-profile">
   <div class="container">
+    <div class="edit-btn-wrapper">
+      <app-button classes="btn btn-primary icon-btn" (click)="openEditModal(editDistrict)">
+        <span aria-hidden="true">
+          <fa-icon [icon]="faEdit"></fa-icon>{{'district.district-profile.edit-profile-title'| translate}}
+        </span>
+      </app-button>
+    </div>
     <div class="user-profile-wrapper legend-card">
       <legend>{{'district.district-profile.your-profile-title'| translate}}</legend>
       <div class="district-info">
@@ -151,13 +158,6 @@
         </div>
       </div>
     </div>
-    <div class="edit-btn-wrapper">
-      <app-button classes="btn btn-primary icon-btn" (click)="openEditModal(editDistrict)">
-        <span aria-hidden="true">
-          <fa-icon [icon]="faEdit"></fa-icon>{{'district.district-profile.edit-profile-title'| translate}}
-        </span>
-      </app-button>
-    </div>
   </div>
 </div>
 <!-- edit district profile details -->
@@ -181,14 +181,14 @@
             </div>
           </div>
           <div class="col-md-12">
-            <label>{{'district.district-profile.district-component.display-name-field.label'| translate}}</label>
+            <label>{{'district.district-profile.district-component.display-name-field.label'| translate}} {{'student.profile.optional-label'| translate }}</label>
             <app-input-field classes="form-control" placeholders="{{'district.district-profile.district-component.display-name-field.placeholder'| translate}}" ids="displayName"
               fieldControl="displayName" [form]="distProfileForm">
             </app-input-field>
           </div>
           <div class="col-md-12">
             <div class="lable-wrapper">
-              <label>{{'district.district-profile.district-component.address-field.label'| translate}}</label>
+              <label>{{'district.district-profile.district-component.address-field.label'| translate}} {{'student.profile.optional-label'| translate }}</label>
             </div>
             <textarea class="form-control" placeholder="{{'district.district-profile.district-component.address-field.placeholder'| translate}}" ids="districtAddress"
               [(ngModel)]="districtAddress" [ngModelOptions]="{standalone: true}"
@@ -200,11 +200,12 @@
               [form]="distProfileForm"
               [ngClass]="{ 'is-invalid': formControl.phone.touched && formControl.phone.errors }">
             </app-input-field>
+            
             <div *ngIf="formControl.phone.errors" class="invalid-feedback">
               <div class="error" *ngIf="formControl.phone.errors?.required">{{'district.district-profile.district-component.phone-field.required'| translate}}</div>
               <div class="error" *ngIf="formControl.phone.errors?.pattern">{{'district.district-profile.district-component.phone-field.pattern'| translate}}</div>
-              <div class="error" *ngIf="formControl.phone.errors?.minlength">{{'district.district-profile.district-component.phone-field.minlength'| translate}}</div>
-              <div class="error" *ngIf="formControl.phone.errors?.contactDigitValidate">{{'school.teacher.add-teacher.contact.digit-validate' | translate}}</div>
+              <!-- <div class="error" *ngIf="formControl.phone.errors?.minlength">{{'district.district-profile.district-component.phone-field.minlength'| translate}}</div> -->
+              <!-- <div class="error" *ngIf="formControl.phone.errors?.contactDigitValidate">{{'school.teacher.add-teacher.contact.digit-validate' | translate}}</div> -->
               <div class="error" *ngIf="formControl.phone.errors?.phoneValidate">
                 <div class="error">{{'district.district-profile.district-component.phone-field.validate'| translate}}</div>
               </div>
@@ -224,35 +225,34 @@
             </div>
           </div>
           <div class="col-md-12">
-            <label>{{'district.district-profile.agent-component.email-field.label'| translate}} (*)</label>
+            <label>{{'district.district-profile.agent-component.email-field.label'| translate}} </label>
             <app-input-field classes="form-control" placeholders="{{'district.district-profile.agent-component.email-field.label'| translate}}" ids="emailAddress"
-              fieldControl="emailAddress" [form]="distProfileForm">
-              <!-- [ngClass]="{ 'is-invalid': formControl.emailAddress.touched && formControl.emailAddress.errors }"> -->
+              fieldControl="emailAddress" [form]="distProfileForm"
+              [ngClass]="{ 'is-invalid': formControl.emailAddress.touched && formControl.emailAddress.errors }">
             </app-input-field>
-            <!-- <div *ngIf="formControl.emailAddress.errors" class="invalid-feedback">
-              <div class="error" *ngIf="formControl.emailAddress.errors?.required">{{'district.district-profile.agent-component.email-field.required'| translate}}</div>
-            </div> -->
+            <div *ngIf="formControl.emailAddress.errors" class="invalid-feedback">
+              <div class="error" *ngIf="formControl.emailAddress.errors?.pattern">{{'district.district-profile.agent-component.email-field.valid'| translate}}
+              </div>
+            </div>
           </div>
           <div class="col-md-12">
-            <label>{{'district.district-profile.agent-component.title-field.label'| translate}}</label>
+            <label>{{'district.district-profile.agent-component.title-field.label'| translate}} {{'student.profile.optional-label'| translate }}</label>
             <app-input-field classes="form-control" types="text" ids="title" fieldControl="title"
               [form]="distProfileForm" placeholders="{{'district.district-profile.agent-component.title-field.placeholder'| translate}}">
             </app-input-field>
           </div>
           <div class="col-12">
-            <label>{{'district.district-profile.agent-component.phone-field.placeholder'| translate}}</label>
+            <label>{{'district.district-profile.agent-component.phone-field.placeholder'| translate}} {{'student.profile.optional-label'| translate }}</label>
             <app-input-field classes="form-control" placeholders="{{'district.district-profile.agent-component.phone-field.placeholder'| translate}}" ids="contact"
               fieldControl="contact" [form]="distProfileForm"
               [ngClass]="{ 'is-invalid': formControl.contact.touched && formControl.contact.errors }">
             </app-input-field>
+            
             <div *ngIf="formControl.contact.errors" class="invalid-feedback">
               <!-- <div class="error" *ngIf="formControl.contact.errors?.required">{{'district.district-profile.agent-component.phone-field.required'| translate}}</div> -->
               <div class="error" *ngIf="formControl.contact.errors?.pattern">{{'district.district-profile.agent-component.phone-field.pattern'| translate}}</div>
-              <div class="error" *ngIf="formControl.contact.errors?.minlength">{{'district.district-profile.agent-component.phone-field.minlength'| translate}}</div>
-              <div class="error" *ngIf="formControl.contact.errors?.digitValidate">{{'school.teacher.add-teacher.contact.digit-validate' | translate}}</div>
-              <div class="error" *ngIf="formControl.contact.errors?.contactValidate">
-                <div class="error">{{'district.district-profile.agent-component.phone-field.validate'| translate}}</div>
-              </div>
+              <!-- <div class="error" *ngIf="formControl.contact.errors?.minlength">{{'district.district-profile.agent-component.phone-field.minlength'| translate}}</div> -->
+              <!-- <div class="error" *ngIf="formControl.contact.errors?.digitValidate">{{'school.teacher.add-teacher.contact.digit-validate' | translate}}</div> -->
             </div>
           </div>
           <div class="col-md-12 mb-4">

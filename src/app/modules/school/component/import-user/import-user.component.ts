@@ -9,6 +9,9 @@ import {
 import { AuthService } from '@modules/auth/services/auth.service';
 import { SchoolService } from '@modules/school/services/school.service';
 import * as _ from 'lodash';
+import { saveAs } from 'file-saver';
+import { environment } from '@environments/environment';
+
 @Component({
   selector: 'app-import-user',
   templateUrl: './import-user.component.html',
@@ -127,20 +130,19 @@ export class ImportUserComponent implements OnInit {
       if (this.importType === 'Users') {
         submission['parent_id'] = this.parent_id;
         apiRequest = this.schoolService.insertUserBulkData(submission)
-        console.log(apiRequest)
         this.activateUserData = JSON.parse(window.sessionStorage.getItem('currentUser'));
 
       } else if (this.importType === 'Teachers') {
         submission['district_id'] = this.schoolDetails.district_id;
+        submission['school_id'] = this.schoolDetails.id;
         submission['role_id'] = this.teacherRole.id;
         submission['parent_id'] = this.parent_id;
-        console.log(submission)
         apiRequest = this.schoolService.insertTeacherBulkData(submission)
       } else if (this.importType === 'Students') {
         submission['districtId'] = this.schoolDetails.district_id;
+        submission['schoolId'] = this.schoolDetails.id;
         submission['fileName'] = this.fileNameToSave;
         submission['parentId'] = this.parent_id;
-        console.log(submission)
         let finalSubmission = _.omit(submission, ['file_name']);
         apiRequest = this.schoolService.insertStudentBulkData(finalSubmission)
       } else {
@@ -188,7 +190,6 @@ export class ImportUserComponent implements OnInit {
    * on click of cancel/back
    */
   onCancel(): void {
-    console.log(this.importType)
     if (this.importType === 'Users') {
       this.router.navigate(['/school/admin-user']);
     } else if (this.importType === 'Teachers') {
@@ -222,6 +223,20 @@ export class ImportUserComponent implements OnInit {
       }
     );
     return this.schoolDetails ;
+  }
+
+  /**
+   * To download sample .xlsx, .xls, .csv file
+   */
+   onDownloadFile(): void {
+    let filename = this.importType === 'Users' ? 'schoolUsers' : this.importType.toLowerCase();
+    if (this.importType === 'Teachers') {
+      filename = 'teachers';
+    } else if (this.importType === 'Students') {
+      filename = 'students';
+    }
+    saveAs(environment.bucketUrl + `/uploads/` + `${filename}.xlsx`, `${this.importType}.xlsx`);
+    this.toast.showToast('File downloaded Successfully', '', 'success');
   }
   
 }

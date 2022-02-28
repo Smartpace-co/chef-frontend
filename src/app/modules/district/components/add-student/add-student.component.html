@@ -5,19 +5,23 @@
         <legend>{{ isEdit ? 'Update':'Add' }} {{'school.student.add-student.student-label' | translate}}</legend>
         <div class="row">
           <div class="col-md-4">
-            <label>{{'school.user-profile.school-title' | translate}}</label>
+            <label>{{'school.user-profile.school-title' | translate}} {{'student.profile.optional-label'| translate }}</label>
             <app-drop-down fieldControl="school" class="formDropdown" [dropDownButtonName]="SchoolTitle"
               [dropDownIcon]="SchoolIcon" [disableDropDownItem]="classId || schoolId ? true : false"
               [dropDownItemList]="schoolList" (registerDropdownValueChange)="schoolChange($event)"></app-drop-down>
           </div>
           <div class="col-md-4">
-            <label>{{'school.class.add-class.grade-field' | translate}}</label>
+            <label>{{'school.class.add-class.grade-field' | translate}} (*)</label>
             <app-drop-down fieldControl="grade" class="formDropdown" [dropDownButtonName]="gradeTitle"
               [dropDownIcon]="gradeIcon" [dropDownItemList]="gradeList" [disableDropDownItem]="classId ? true : false"
               (registerDropdownValueChange)="gradeChange($event)"></app-drop-down>
+              <div *ngIf="formControl.grade.errors" class="invalid-feedback">
+                <div class="error" *ngIf="formControl.grade.errors?.required">
+                  {{'school.class.add-class.grade-required'|translate}}</div>
+              </div>
           </div>
           <div class="col-md-4">
-            <label>{{'school.student.add-student.class.student-class' | translate}}</label>
+            <label>{{'school.student.add-student.class.student-class' | translate}} {{'student.profile.optional-label'| translate }}</label>
             <app-multi-select-dropdown [dropDownItemList]="classList" [selectedItems]="selectedClass"
               [placeholderText]="'Select class'" name="class" fieldControl="class" [selectedValue]="selectedValue"
               (onSelectValue)="onSelectClass($event)" (onDeSelectValue)="onDeSelectClass($event)"
@@ -62,11 +66,11 @@
               <div class="form-group">
                 <div class="input-group">
                   <input class="form-control"
-                    placeholder="{{'school.student.add-student.personal-info.date' | translate}}" ids="dob" name="dp"
+                    placeholder="{{'school.student.add-student.personal-info.date' | translate}}" ids="dob" name="d2" [readonly]="true"
                     fieldControl="dob" (dateSelect)="onDateSelection($event)" [ngModelOptions]="{standalone: true}"
-                    [(ngModel)]="selectedDate" ngbDatepicker #d="ngbDatepicker">
+                    [(ngModel)]="selectedDate" ngbDatepicker #d2="ngbDatepicker" [minDate]="{year: 1980, month:1, day: 1}">
                   <div class="input-group-append">
-                    <button class="calendarIcon" (click)="d.toggle()" type="button">
+                    <button class="calendarIcon" (click)="d2.toggle()" type="button">
                       <fa-icon [icon]="Calendar"></fa-icon>
                     </button>
                   </div>
@@ -74,13 +78,13 @@
               </div>
             </div>
             <div class="col-md-4">
-              <label>{{'district.district-profile.agent-component.gender-field.label'| translate}}</label>
+              <label>{{'district.district-profile.agent-component.gender-field.label'| translate}} {{'student.profile.optional-label'| translate }}</label>
               <app-drop-down fieldControl="gender" class="formDropdown" [dropDownButtonName]="genderTitle"
                 [dropDownIcon]="genderIcon" [dropDownItemList]="genderList"
                 (registerDropdownValueChange)="genderChange($event)"></app-drop-down>
             </div>
             <div class="col-md-4">
-              <label>{{'school.student.add-student.personal-info.ethnicity' | translate}}</label>
+              <label>{{'school.student.add-student.personal-info.ethnicity' | translate}} {{'student.profile.optional-label'| translate }}</label>
               <app-drop-down fieldControl="ethnicity" class="formDropdown" [dropDownButtonName]="ethnicityTitle"
                 [dropDownIcon]="ethnicityIcon" [dropDownItemList]="ethnicityList"
                 (registerDropdownValueChange)="ethnicityChange($event)"></app-drop-down>
@@ -97,8 +101,9 @@
               <div *ngIf="formControl.userName.errors" class="invalid-feedback">
                 <div class="error" *ngIf="formControl.userName.errors?.required">
                   {{'school.student.add-student.personal-info.username.required' | translate}}</div>
-                <div class="error" *ngIf="formControl.userName.errors?.pattern">
-                  {{'school.student.add-student.personal-info.username.valid' | translate}}</div>
+                  <div class="error" *ngIf="formControl.userName.errors?.invalidUserName">{{'school.student.add-student.personal-info.username.valid' | translate}}</div>
+                <!-- <div class="error" *ngIf="formControl.userName.errors?.pattern">
+                  {{'school.student.add-student.personal-info.username.valid' | translate}}</div> -->
                 <div class="error" *ngIf="formControl.userName.errors?.userNameValidate">
                   {{'school.student.add-student.personal-info.username.exist' | translate}}</div>
               </div>
@@ -108,21 +113,12 @@
         <div class="contact-info">
           <h2>{{'school.student.add-student.personal-info.contact-info.label' | translate}}</h2>
           <div class="row">
-            <div class="col-md-6">
+            <!-- <div class="col-md-6">
               <label>{{'school.student.add-student.personal-info.parent-guardian-label' | translate}} (*)</label>
               <app-drop-down fieldControl="guardian" class="formDropdown" [dropDownButtonName]="guardianTitle"
                 [dropDownIcon]="guardianIcon" [dropDownItemList]="guardianList"
                 (registerDropdownValueChange)="guardianChange($event)"></app-drop-down>
-            </div>
-            <div class="col-md-6">
-              <label>{{'school.student.add-student.personal-info.contact-info.contact-relationship' | translate}}
-                (*)</label>
-              <app-drop-down fieldControl="relationship" class="formDropdown" [dropDownButtonName]="relationshipTitle"
-                [dropDownIcon]="relationshipIcon" [dropDownItemList]="relationshipList"
-                (registerDropdownValueChange)="relationshipChange($event)"></app-drop-down>
-            </div>
-          </div>
-          <div class="row">
+            </div> -->
             <div class="col-md-6">
               <label>{{'school.student.add-student.personal-info.contact-info.contact-name.label' | translate}}
                 (*)</label>
@@ -137,23 +133,11 @@
               </div>
             </div>
             <div class="col-md-6">
-              <label>{{'school.teacher.add-teacher.contact.label' | translate}} (*)</label>
-              <app-input-field classes="form-control" types="tel"
-                placeholders="{{'school.teacher.add-teacher.contact.placeholder' | translate}}"
-                ids="contactPersonNumber" fieldControl="contactPersonNumber" [form]="AddStudent"
-                [ngClass]="{ 'is-invalid': formControl.contactPersonNumber.touched && formControl.contactPersonNumber.errors }">
-              </app-input-field>
-              <div *ngIf="formControl.contactPersonNumber.errors" class="invalid-feedback">
-                <div class="error" *ngIf="formControl.contactPersonNumber.errors?.required">
-                  {{'school.teacher.add-teacher.contact.required' | translate}}
-                </div>
-                <div class="error" *ngIf="formControl.contactPersonNumber.errors?.pattern">
-                  {{'school.teacher.add-teacher.contact.valid' | translate}}</div>
-                <div class="error" *ngIf="formControl.contactPersonNumber.errors?.minlength">
-                  {{'school.teacher.add-teacher.contact.length' | translate}}</div>
-                <div class="error" *ngIf="formControl.contactPersonNumber.errors?.digitValidate">
-                  {{'school.teacher.add-teacher.contact.digit-validate' | translate}}</div>
-              </div>
+              <label>{{'school.student.add-student.personal-info.contact-info.contact-relationship' | translate}}
+                (*)</label>
+              <app-drop-down fieldControl="relationship" class="formDropdown" [dropDownButtonName]="relationshipTitle"
+                [dropDownIcon]="relationshipIcon" [dropDownItemList]="relationshipList"
+                (registerDropdownValueChange)="relationshipChange($event)"></app-drop-down>
             </div>
           </div>
           <div class="row">
@@ -173,7 +157,27 @@
                 </div>
               </div>
             </div>
-          </div>
+            <div class="col-md-6">
+              <label>{{'school.teacher.add-teacher.contact.label' | translate}} (*)</label>
+              <app-input-field classes="form-control" types="tel"
+                placeholders="{{'school.teacher.add-teacher.contact.placeholder' | translate}}"
+                ids="contactPersonNumber" fieldControl="contactPersonNumber" [form]="AddStudent"
+                [ngClass]="{ 'is-invalid': formControl.contactPersonNumber.touched && formControl.contactPersonNumber.errors }">
+              </app-input-field>
+              
+              <div *ngIf="formControl.contactPersonNumber.errors" class="invalid-feedback">
+                <div class="error" *ngIf="formControl.contactPersonNumber.errors?.required">
+                  {{'school.teacher.add-teacher.contact.required' | translate}}
+                </div>
+                <div class="error" *ngIf="formControl.contactPersonNumber.errors?.pattern">
+                  {{'school.teacher.add-teacher.contact.valid' | translate}}</div>
+                <!-- <div class="error" *ngIf="formControl.contactPersonNumber.errors?.minlength">
+                  {{'school.teacher.add-teacher.contact.length' | translate}}</div> -->
+                <!-- <div class="error" *ngIf="formControl.contactPersonNumber.errors?.digitValidate">
+                  {{'school.teacher.add-teacher.contact.digit-validate' | translate}}</div> -->
+              </div>
+            </div>
+          </div>          
         </div>
         <div class="medical-info">
           <h2>{{'school.student.add-student.personal-info.medical-info.label' | translate}}</h2>

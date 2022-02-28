@@ -3,10 +3,13 @@
 .user-profile{
   margin-top: 6rem;
   .container{
-    display: flex;
-    justify-content: center;
-    @include breakpoint(mobile) {
-      flex-wrap: wrap;
+    .edit-btn-wrapper{
+      display: flex;
+      justify-content: flex-end;
+      @include breakpoint(mobile) {
+       justify-content: flex-start;
+       margin-bottom: 5rem;
+      }
     }
   }
   .user-profile-wrapper{
@@ -96,16 +99,6 @@
       text-align: center;  
     }
   }
-  .edit-btn-wrapper{
-    margin-left: 3rem;
-    @include breakpoint(mobile) {
-      width: 100%;
-      order: 1;
-      text-align: right;
-      margin-left: auto;
-      margin-bottom: 4rem;
-    }
-  }
 }
 .change-password-class{
   max-width:80%;
@@ -147,4 +140,7 @@
   label{
       padding-left: 0;
   }
+}
+.form-create-class{
+  font-weight: 700;
 }

@@ -23,7 +23,9 @@ export class ExperimentComponent implements OnInit {
   experimentData;
   lesson;
   isVisibleNext = true;
+  slideConfig;
   isVisiblePrevious = true;
+  experimentDescList = [];
   constructor(private toast: ToasterService, private utilityService: UtilityService, private studentService: StudentService, private router: Router) {
   }
 
@@ -58,9 +60,12 @@ export class ExperimentComponent implements OnInit {
         if (response && response.data) {
           this.currentAssignedLesson = response.data;
           this.experimentData = response.data.lesson.experiment;
+          this.experimentDescList = this.experimentData.description ? this.experimentData.description.match(/.{1,165}(\s|$)/g) : undefined;
+          // this.experimentDescList = this.experimentDescList.filter(e => e && e.trim() != "");
           this.isButtonSection = {
             title: this.experimentData.experimentTitle ? this.experimentData.experimentTitle : undefined
           };
+          this.getSliderConfig();
           this.isVisibleNext = false;
           this.isVisiblePrevious = false;
         }
@@ -71,7 +76,17 @@ export class ExperimentComponent implements OnInit {
       }
     );
   }
+  getSliderConfig(): void {
+    this.slideConfig = {
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      nextArrow: '<div class=\'nav-btn next-slide\'></div>',
+      prevArrow: '<div class=\'nav-btn prev-slide\'></div>',
+      dots: this.experimentDescList && this.experimentDescList.length > 1 ? true : false,
+      infinite: false,
+    };
 
+  }
   onPrevious(): void {
     if (this.currentAssignedLesson.customSetting && this.currentAssignedLesson.customSetting.content) {
       for (let ob of this.currentAssignedLesson.customSetting.content) {

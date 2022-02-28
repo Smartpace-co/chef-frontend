@@ -135,6 +135,8 @@ export class AdminClassesComponent implements OnInit {
   accessCodeForm: FormGroup;
   activateUserData: any;
   schoolDetails: any;
+  sortBy;
+  classStatus;
   constructor(
     private router: Router,
     private toast: ToasterService,
@@ -150,6 +152,7 @@ export class AdminClassesComponent implements OnInit {
     this.getAllActiveTeachers();
     this.getAllGradeList();
     this.getAllLearningStandards();
+    this.getStudentList();
 
     this.createClassForm = new FormGroup({
       teacherName: new FormControl('', [Validators.required]),
@@ -170,34 +173,26 @@ export class AdminClassesComponent implements OnInit {
   /**
  * API call to get all classes.
  */
-  getAllClassList(filter?: any, sortBy?: string): void {
+  getAllClassList(): void {
     this.schoolService.getSchoolDetailsByUserId(this.activateUserData.id).subscribe(
       (response) => {
         if (response && response.data) {
           this.schoolDetails = response.data[0];
-          if (!filter) {
-            filter = this.schoolDetails.id
-
-          }
-          this.schoolService.getAllClasses(filter, sortBy).subscribe(
+          this.schoolService.getAllClasses(this.classStatus, this.schoolDetails.id, this.sortBy).subscribe(
             (response) => {
               if (response && response.data && response.data.rows) {
                 this.classList = _.map(response.data.rows, item => {
-                 
-                    let obj = {
-                      displayCode:`CK00000${item.id}`,
-                      classId: item.id,
-                      className: item.title,
-                      teacherName: item && item.class_teachers ? `${item.class_teachers[0].first_name} ${item.class_teachers[0].last_name}` : 'teacher',
-                      grade: item.grade.grade,
-                      students: item.class_students.length
+                  let obj = {
+                    displayCode: `CK00000${item.id}`,
+                    classId: item.id,
+                    className: item.title,
+                    teacherName: item && item.class_teachers ? `${item.class_teachers[0].first_name} ${item.class_teachers[0].last_name}` : 'teacher',
+                    grade: item.grade.grade,
+                    students: item.class_students.length,
+                    profilePic: "./assets/images/student-icon.svg"
+                  }
+                  return obj;
 
-                    }
-                    return obj;
-                  
-                });
-                 this.classList.forEach(element => {
-                   element.profilePic = "./assets/images/student-icon.svg"
                 });
                 this.isLoadUser = true;
               }
@@ -234,6 +229,7 @@ export class AdminClassesComponent implements OnInit {
     if (event.menu === this.translate.instant('table-search-filter-container.view.tile-view')) {
       this.ViewTitle = this.translate.instant('table-search-filter-container.view.tile-view');
       this.listview = false;
+      this.gridview = true;
       this.ViewIcon = faThLarge;
     } else {
       this.ViewTitle =this.translate.instant('table-search-filter-container.view.list-view');
@@ -255,7 +251,17 @@ export class AdminClassesComponent implements OnInit {
             this.schoolService.verifyMaxUserCountClass(this.membershipUserId, this.membershipUserRoleId).subscribe((res) => {
               if(res.status==200)
               {
-                this.closeModal = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true, windowClass: 'create-class-modal' });
+                this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true,windowClass: 'create-class-modal' }).result.then((result) => {
+                  this.closeResult = `Closed with: ${result}`;
+                  if(result === 'Save'){
+                    this.onSave();
+                  }else{
+                    this.resetForm();
+                  }
+                }, (reason) => {
+                  this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+                  this.resetForm();
+                });
               }  
             },
             (error) => {
@@ -271,7 +277,17 @@ export class AdminClassesComponent implements OnInit {
         this.schoolService.verifyMaxUserCountClass(this.membershipUserId, this.membershipUserRoleId).subscribe((res) => {
           if(res.status==200)
           {
-            this.closeModal = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true, windowClass: 'create-class-modal' });
+            this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true,windowClass: 'create-class-modal' }).result.then((result) => {
+              this.closeResult = `Closed with: ${result}`;
+              if(result === 'Save'){
+                this.onSave();
+              }else{
+                this.resetForm();
+              }
+            }, (reason) => {
+              this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+              this.resetForm();
+            });
           }  
         },
         (error) => {
@@ -286,6 +302,17 @@ export class AdminClassesComponent implements OnInit {
   {
     this.closeModal = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true, windowClass: 'access-code-modal' });
   }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
   closeOpenModal() {
     this.closeModal.close();
     this.resetForm();
@@ -353,7 +380,7 @@ export class AdminClassesComponent implements OnInit {
               (data) => {
                 if (data) {
                   this.toast.showToast(`${formData.title} : Class added successfully.`, '', 'success');
-                  this.closeOpenModal();
+                  this.resetForm();
                   this.getAllClassList();
                 }
               },
@@ -372,14 +399,11 @@ export class AdminClassesComponent implements OnInit {
     }
   }
   getAllActiveTeachers(): void {
-    let filter = [];
-
     this.schoolService.getSchoolDetailsByUserId(this.activateUserData.id).subscribe(
       (schoolResponse) => {
         if (schoolResponse && schoolResponse.data) {
           this.schoolDetails = schoolResponse.data[0];
-          filter.push(1, this.schoolDetails.id)
-          this.schoolService.getAllTeacher(filter).subscribe(
+          this.schoolService.getAllTeacher(1,this.schoolDetails.id).subscribe(
             (response) => {
               if (response && response.data && response.data.rows) {
                 this.teacherList = _.map(response.data.rows, item => {
@@ -439,11 +463,17 @@ export class AdminClassesComponent implements OnInit {
       }
     );
   }
-  getStudentsByClassId(classId) {
-    this.schoolService.getStudentsByClassId(classId,1,undefined).subscribe(
+  getStudentList(): void {
+    this.schoolService.getAllStudents(1).subscribe(
       (response) => {
         if (response && response.data && response.data.rows) {
-           this.studentCount = response.data.rows.length
+          this.studentList = _.map(response.data.rows, item => {
+            let obj = {
+              item_id: item.id,
+              item_text: `${item.firstName} ${item.lastName}`
+            }
+            return obj;
+          });
         }
       },
       (error) => {
@@ -451,7 +481,6 @@ export class AdminClassesComponent implements OnInit {
         this.toast.showToast(error.error.message, '', 'error');
       }
     );
-    return this.studentCount;
   }
   /**
    * On grade dropdown value change
@@ -535,20 +564,14 @@ export class AdminClassesComponent implements OnInit {
 
   classFilter(item: any): void {
     this.classesListtitle = item.menu;
-    if (item && item.id) {
-      this.getAllClassList(item.id);
-    } else {
-      this.getAllClassList();
-    }
+    this.classStatus = item.id ? item.id : undefined;
+    this.getAllClassList();    
   }
 
   gradeFilter(event) {
     this.SortByGradeTitle = event.menu;
-    if (event && event.value) {
-      this.getAllClassList(undefined, event.value);
-    } else {
-      this.getAllClassList();
-    }
+    this.sortBy = event.value ? event.value : undefined;
+    this.getAllClassList();
   }
 
   onProceed() {

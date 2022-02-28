@@ -33,7 +33,7 @@ export class SchoolProfileComponent implements OnInit {
   passwordForm: FormGroup;
   currentUser: any;
   districtDetails: any;
-
+  hideDistrictField = false;
   get formControl() {
     return this.schoolProfileForm.controls;
   }
@@ -59,7 +59,7 @@ export class SchoolProfileComponent implements OnInit {
       schoolName: new FormControl('', [Validators.required,Validators.pattern('^[a-zA-Z \-\']+')]),
       schoolAddress: new FormControl(''),
       name: new FormControl('',[Validators.required,Validators.pattern('^[a-zA-Z \-\']+')]),
-      emailAddress: new FormControl("", [Validators.required, Validators.pattern(CustomRegex.emailPattern)]),
+      emailAddress: new FormControl("", [Validators.pattern(CustomRegex.emailPattern)]),
       title: new FormControl('',[Validators.pattern('^[a-zA-Z \-\']+')]),
       contact: new FormControl("", [Validators.pattern(CustomRegex.phoneNumberPattern)]),
       gender: new FormControl('Male', []),
@@ -97,8 +97,9 @@ export class SchoolProfileComponent implements OnInit {
     this.schoolProfileForm.get('schoolAddress').setValue(this.schoolDetails.schoolAddress);
     this.schoolProfileForm.get('schoolName').setValue(this.schoolDetails.schoolName);
     this.schoolProfileForm.get('schoolPhoneNumber').setValue(this.schoolDetails.schoolPhoneNumber);
-    this.schoolProfileForm.get('district').setValue(this.schoolDetails.district);
-
+    if(this.schoolDetails && this.schoolDetails.district){
+      this.schoolProfileForm.get('district').setValue(this.schoolDetails.district);
+    }
     this.schoolProfileForm.get('name').setValue(this.agentDetails.name);
     this.schoolProfileForm.get('title').setValue(this.agentDetails.title);
     this.schoolProfileForm.get('contact').setValue(this.agentDetails.phone);
@@ -111,8 +112,11 @@ export class SchoolProfileComponent implements OnInit {
       (response) => {
         if (response && response.data) {
           let schoolData = response.data;
-          if(schoolData.district_details!=null){
-            this.districtDetails=schoolData.district_details.name
+          if(schoolData.district_details === null){
+            this.hideDistrictField = true;
+            this.districtDetails = schoolData.school.customDistrictName;
+          }else{
+            this.districtDetails = schoolData.district_details.name;
           }
           let schoolObj = {
             schoolName: schoolData.school.name,
@@ -133,6 +137,12 @@ export class SchoolProfileComponent implements OnInit {
 
           this.schoolDetails = schoolObj;
           this.agentDetails = obj;
+          let headerData = {
+            school: response.data.school.name,
+            name: response.data.school.admin_account_name,
+            img: response.data.profile_image
+          }
+          this.schoolService.setProfileObs(headerData);
         }
       },
       (error) => {
@@ -141,6 +151,30 @@ export class SchoolProfileComponent implements OnInit {
       }
     );
   }
+
+  /**
+   * To check valid phone agent's number
+   *   
+   */
+  // validPhoneNumber(control: AbstractControl): any {
+  //   if (control && control.value) {
+  //     if (control.value && control.value.length === 11 || control.value.length > 13) {
+  //       return { 'digitValidate': true }
+  //     }
+  //   }
+  // }
+
+    /**
+   * To check valid district's phone number
+   *   
+   */
+  // validSchoolPhoneNumber(control: AbstractControl): any {
+  //   if (control && control.value) {
+  //     if (control.value && control.value.length === 11 || control.value.length > 13) {
+  //       return { 'contactDigitValidate': true }
+  //     }     
+  //   }
+  // }
 
   editProfileImage(event: any, user: string): void {
     if (event.target.files) {
@@ -205,6 +239,7 @@ export class SchoolProfileComponent implements OnInit {
         contact_person_gender: this.schoolProfileForm.value.gender,
        contact_person_title: this.schoolProfileForm.value.title
       }
+      submission['customDistrictName'] = this.schoolProfileForm.value.district;
     }
     this.schoolService.updateSchoolProfile(submission,this.currentUser.id).subscribe(
       (data) => {

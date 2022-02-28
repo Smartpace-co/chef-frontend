@@ -5,7 +5,7 @@ import { UtilityService } from '@appcore/services/utility.service';
 import { StudentService } from '@modules/student/services/student.service';
 import { TeacherService } from '@modules/teacher/services/teacher.service';
 import * as _ from 'lodash';
-
+ 
 @Component({
   selector: 'app-serving',
   templateUrl: './serving.component.html',
@@ -59,14 +59,16 @@ export class ServingComponent implements OnInit,OnDestroy {
   getServingData(data) {
    
           this.recipeImg = data.recipe.recipeImage ? data.recipe.recipeImage : this.defaultRecipeImg;
-          this.servingData = _.map(data.recipe.servingSteps, item => {
-            let obj = {
-              id: item.id,
-              text: item.text ? item.text : undefined,
-              image: item.image ? item.image : undefined
-            }
-            return obj;
-          });
+          // this.servingData = _.map(data.recipe.servingSteps, item => {
+          //   let obj = {
+          //     id: item.id,
+          //     text: item.text ? item.text : undefined,
+          //     image: item.image ? item.image : undefined
+          //   }
+          //   return obj;
+          // });
+
+          this.servingData = data.recipe.servingSteps[0].text ? data.recipe.servingSteps[0].text.match(/.{1,154}(\s|$)/g) : undefined;
           this.getSlideConfig();
        
   }

@@ -64,7 +64,6 @@ export class DynamicFormComponent implements OnInit {
   }
 
   onkey() {
-    console.log(this.assessmentGroup)
   }
 
   showReference(): void {

@@ -3,7 +3,7 @@
   <app-scroll-down></app-scroll-down>
   <div class="mr-4 cooking-audio">
     <span *ngIf="audioTrack">
-      <audio controls autoplay controlsList="nodownload">
+      <audio controls controlsList="nodownload">
         <source [src]="audioTrack" type="audio/mp3">
       </audio>
     </span>
@@ -24,12 +24,25 @@
                   <span class="profile-pic"><img src="{{item.isLittleChef}}" alt="" class="img-fluid" /></span>
                 </legend>
               </div>
-              <div class="description">
-                <span class="image"><img src="{{item.image}}" alt="" class="img-fluid" /></span>
-                <span class="description-info">
-                  <h6>{{item.info}}</h6>
-                </span>
-              </div>
+              <ng-container *ngIf="item.video; else noVideo">
+                <div class="description with-video">
+                  <div class="video">
+                    <iframe class="img-fluid" [src]="item.video">
+                    </iframe>
+                  </div>
+                  <div class="description-info">
+                    <h6>{{item.info}}</h6>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-template #noVideo>
+                <div class="description" *ngIf="item.image">
+                  <div class="image"><img src="{{item.image}}" alt="" class="img-fluid" /></div>
+                  <span class="description-info">
+                    <h6>{{item.info}}</h6>
+                  </span>
+                </div>
+              </ng-template>
             </div>
           </li>
         </ul>

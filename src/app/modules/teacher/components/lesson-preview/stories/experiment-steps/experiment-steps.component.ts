@@ -29,11 +29,13 @@ export class ExperimentStepsComponent implements OnInit,OnDestroy {
   questionIndex: number = 0;
   experimentSteps = [];
   lessonData :any;
+  defaultLessonImage:string;
   constructor(private toast: ToasterService, private modalService: NgbModal, 
     private studentService: StudentService,
     private sanitizer: DomSanitizer, private router: Router,
      private utilityService: UtilityService,
      private teacherService : TeacherService) {
+      this.defaultLessonImage = './assets/images/default-lesson.png'
   }
 
   ngOnInit(): void {
@@ -43,7 +45,7 @@ export class ExperimentStepsComponent implements OnInit,OnDestroy {
     this.sessionData = JSON.parse(window.sessionStorage.getItem('currentUser'));
     this.lessonData = this.teacherService.getAssignLessonData();
     this.getStudentData(this.lessonData);
-  }
+  } 
 
   ngOnDestroy(){
     this.teacherService.setTeachersHeader(false);
@@ -59,7 +61,7 @@ export class ExperimentStepsComponent implements OnInit,OnDestroy {
             let obj = {
               id: cnt,
               info: item.text,
-              image: item.image,
+              image: item.image ? item.image : this.defaultLessonImage,
               start: item.link,
             }
             cnt = cnt + 1;

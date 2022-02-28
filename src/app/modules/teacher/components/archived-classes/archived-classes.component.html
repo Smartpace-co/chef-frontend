@@ -69,41 +69,41 @@
       <div class="create-class-form">
           <h2 class="modal-title"> {{'school.student.add-student.class.student-class' | translate}} {{'district.district-schools.info-title' | translate}}</h2>
               <div class="row">
-                  <div class="col-md-6">
+                  <div class="col-md-6 col-sm-6 col-5">
                       <label>{{'school.class.add-class.class-field'|translate}} :</label>
                       
                   </div>
 
-                  <div class="col-md-6">
+                  <div class="col-md-6 col-sm-6 col-7">
                     <label>{{classInfo.title}} </label>
                   </div>
 
               </div>
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-6 col-sm-6 col-5">
                     <label>{{'school.class.add-class.grade-field' | translate}}  :</label>  
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 col-sm-6 col-7">
                     <label>{{classInfo.grade?.grade}} </label>
                 </div>
             </div>
               <div class="row">
-                  <div class="col-md-6">
+                  <div class="col-md-6 col-sm-6 col-5">
                       <label>{{'school.class.add-class.standards-field'|translate}}  :</label>
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-md-6 col-sm-6 col-7">
                     <label>{{classStandards}}</label>
                 </div>
               </div>
               <div class="row">
-                  <div class="col-md-6">
+                  <div class="col-md-6 col-sm-6 col-5">
                     <label>{{'school.teacher.add-teacher.status' | translate}}  :</label>
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-md-6 col-sm-6 col-7">
                     <label>{{classStatus}}</label>
                   </div>
               </div>
-              <div class="footer-btns">
+              <div class="footer-btns mt-4">
                   <app-button classes="btn btn-secondary" [submit]="true" (click)="closeOpenModal()">
                       <span aria-hidden="true">{{'common.cancel'| translate}}</span>
                   </app-button>

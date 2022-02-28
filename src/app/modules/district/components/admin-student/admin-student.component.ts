@@ -89,74 +89,9 @@ export class AdminStudentComponent implements OnInit {
     }
   ];
   studentList = [];
-  allergenList=[];
-
-  // userList = [
-  //   {
-  //     userPhoto: "./assets/images/student-icon.svg",
-  //     userName: "Samuel, Aaron",
-  //     userFirstName: "Samuel",
-  //     userLastName: "Aaron",
-  //     userId: "36273",
-  //     email: "samual.aron@xyzschools.net",
-  //     contactNumber: "1234567890",
-  //     status: "Active",
-  //     role: "admin",
-  //     grade: "H",
-  //     gender: "M",
-  //     dateOfBirth: "03-03-2015",
-  //     allergie: "Shell Fish",
-  //     dots: "...",
-  //   },
-  //   {
-  //     userPhoto: "./assets/images/student-icon.svg",
-  //     userName: "Ruaz, Kevin",
-  //     userFirstName: "Ruaz",
-  //     userLastName: "Kevin",
-  //     userId: "36272",
-  //     email: "ruaz.kevin@xyzschools.net",
-  //     contactNumber: "1234567890",
-  //     status: "Inactive",
-  //     role: "sub-admin",
-  //     grade: "H",
-  //     gender: "F",
-  //     dateOfBirth: "03-03-2015",
-  //     allergie: "-",
-  //     dots: "...",
-  //   },
-  //   {
-  //     userPhoto: "./assets/images/student-icon.svg",
-  //     userName: "Keil, Exie",
-  //     userFirstName: "Keil",
-  //     userLastName: "Exie",
-  //     userId: "36271",
-  //     email: "keil.exie@xyzschools.net",
-  //     contactNumber: "1234567890",
-  //     status: "Inactive",
-  //     role: "admin",
-  //     grade: "A",
-  //     gender: "F",
-  //     dateOfBirth: "03-03-2015",
-  //     allergie: "Peanut",
-  //     dots: "...",
-  //   },
-  //   {
-  //     userPhoto: "./assets/images/student-icon.svg",
-  //     userName: "Samuel, Aaron",
-  //     userFirstName: "Samuel",
-  //     userLastName: "Aaron",
-  //     userId: "36274",
-  //     email: "samual.aron@xyzschools.net",
-  //     contactNumber: "1234567890",
-  //     status: "Active",
-  //     role: "sub-admin",
-  //     grade: "K",
-  //     gender: "M",
-  //     dateOfBirth: "03-03-2015",
-  //     allergie: "Peanut",
-  //     dots: "...",
-  //   }
-  // ];
+  allergenList:string;
+  status;
+  sortByGrade; 
   userHeaders = [
     {
       title: "First Name",
@@ -194,11 +129,11 @@ export class AdminStudentComponent implements OnInit {
       title: "Allergies",
       data: "allergie"
     },
-    {
-      title: "",
-      data: "dots",
-      isClickable: true
-    }
+    // {
+    //   title: "",
+    //   data: "dots",
+    //   isClickable: true
+    // }
   ];
   closeModal;
   term: string;
@@ -215,28 +150,34 @@ export class AdminStudentComponent implements OnInit {
   /**
 * API call to get all classes.
 */
-  getStudentList(filter?: any, sortByGrade?: string): void {
-    this.districtService.getAllStudents(filter, sortByGrade).subscribe(
+  getStudentList(): void {
+    this.districtService.getAllStudents(this.status, this.sortByGrade).subscribe(
       (response) => {
         if (response && response.data && response.data.rows) {
           this.studentList = _.map(response.data.rows, item => {
-            this.allergenList=[];
-            
-            _.map(item.allergens,allergen =>{
-              this.allergenList.push(allergen.allergen.allergenTitle)
+            let allergy = [];
+            this.allergenList = null;
+            _.map(item.allergens, allergen => {
+              if (!_.isEmpty(allergen.allergen.allergenTitle)) {
+                allergy.push(allergen.allergen.allergenTitle);
+              }
             });
+            if (allergy && allergy.length > 0) {
+              this.allergenList = allergy.toString();
+              this.allergenList = this.allergenList.replace(/,/g, ", ");
+            }
             let obj = {
               userName: item.userName,
               userFirstName: item.firstName,
               userLastName: item.lastName,
               userId: item.id,
               email: item.contactPersonEmail,
-              contactNumber: item.contactPersonNumber ? this.utilityService.formatPhoneNumber(item.contactPersonNumber) : '',
+              contactNumber: item.contactPersonNumber ? item.contactPersonNumber : '',
               status: item.status === true ? 'Active' : 'Inactive',
               role: 'Student',
               grade: item.grade && item.grade.grade,
               gender: item && item.gender && item.gender.charAt(0).toUpperCase() + item.gender.slice(1),
-              dateOfBirth: this.utilityService.formatDate(item.dob),
+              dateOfBirth: this.utilityService.formatDate(item.dob, true),
               allergie: this.allergenList,
             }
             return obj;
@@ -279,20 +220,14 @@ export class AdminStudentComponent implements OnInit {
    */
   gradeFilter(event) {
     this.SortByGradeTitle = event.menu;
-    if (event && event.value) {
-      this.getStudentList(undefined, event.value);
-    } else {
-      this.getStudentList();
-    }
+    this.sortByGrade = event.value;    
+    this.getStudentList();
   }
 
   studentFilter(item: any): void {
     this.classesListtitle = item.menu;
-    if (item && item.id) {
-      this.getStudentList(item.id);
-    } else {
-      this.getStudentList();
-    }
+    this.status = item.id;    
+    this.getStudentList();
   }
   addStudent(item?: any): void {
     let studId = item && item.userId;

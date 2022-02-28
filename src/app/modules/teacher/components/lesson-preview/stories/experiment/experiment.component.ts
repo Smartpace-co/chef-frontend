@@ -6,7 +6,7 @@ import { FormGroup } from '@angular/forms';
 import { StudentService } from '@modules/student/services/student.service';
 import { ToasterService } from '@appcore/services/toaster.service';
 import { TeacherService } from '@modules/teacher/services/teacher.service';
-
+ 
 @Component({
   selector: 'app-experiment',
   templateUrl: './experiment.component.html',
@@ -28,6 +28,15 @@ export class ExperimentComponent implements OnInit ,OnDestroy{
   questionIndex: number = 0;
   viewFrom :any;
   content:any;
+  experimentDescList = [];
+  slideConfig = {
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    nextArrow: '<div class=\'nav-btn next-slide\'></div>',
+    prevArrow: '<div class=\'nav-btn prev-slide\'></div>',
+    dots: true,
+    infinite: false,
+  };
   constructor(private toast:ToasterService,private modalService: NgbModal, private studentService: StudentService,
     private utilityService: UtilityService, private router: Router,
     private teacherService : TeacherService) {
@@ -58,13 +67,14 @@ export class ExperimentComponent implements OnInit ,OnDestroy{
   getStudentData(data) {
     this.currentAssignedLesson = data;
     this.experimentData = data.lesson.experiment;
+    this.experimentDescList = this.experimentData.description ? this.experimentData.description.match(/.{1,165}(\s|$)/g) : undefined;
     this.isButtonSection = {
       title: this.experimentData.experimentTitle ? this.experimentData.experimentTitle : undefined
     };
     this.isVisibleNext = false;  
   }
 
- 
+  
 
   onPrevious(): void {
     if (this.content) {

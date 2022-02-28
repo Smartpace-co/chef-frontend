@@ -84,7 +84,6 @@ export class UpcomingAssignmentComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAssignmentList();
-    console.log("assignment list", this.UpcomngAssignmentList);
     this.assignmentListHeaders = [
       { title: 'Id', data: 'id' },
       { title: 'Name', data: 'assignmentTitle' },
@@ -165,8 +164,10 @@ export class UpcomingAssignmentComponent implements OnInit {
 
       this.UpcomngAssignmentList.forEach(element => {
         let currentDate = new Date();
+        
         element.assignmentStartDate = this.utilityService.LessonformatDate(element.startDate);
-        element.duration = element.recipe.estimatedMakeTime;
+        // element.duration = element.recipe.estimatedMakeTime;
+        element.duration = element.lessonTime;
         element.startDate = new Date(element.startDate);
         element.endDate = new Date(element.endDate);
         if (element.startDate.getTime() > currentDate.getTime()) {
@@ -230,11 +231,11 @@ export class UpcomingAssignmentComponent implements OnInit {
   }
 
   editCustmisation(data) {
-
     let currentDate = new Date();
     let lessonStartDate = new Date(data.startDate);
     if (lessonStartDate.getTime() > currentDate.getTime()) {
       data["type"] = "edit";
+      data["assignmentTitle"] = data.assignmentTitle;
       data["classList"] = this.classList;
       data["bookmark"] = data.lesson.bookmarkLesson;
       data["activities"] = data.customSetting.content;
@@ -252,7 +253,6 @@ export class UpcomingAssignmentComponent implements OnInit {
   }
 
   assignmentReport(item) {
-    console.log("item", item);
     this.router.navigate(['teacher/roster-assignment-details', item.id]);
   }
 
@@ -272,7 +272,6 @@ export class UpcomingAssignmentComponent implements OnInit {
   }
 
   openIngredients(item) {
-    console.log("item", item);
     this.teacherService.setAssignmentId(item.id);
     this.router.navigate(['/teacher/order-ingredients']);
   }

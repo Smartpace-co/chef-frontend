@@ -23,12 +23,14 @@ export class StudentHeaderComponent implements OnInit {
         }
         if (roleName) {
           if (roleName === 'teacher' && data.isPaymentRemaining!=true) {
-            this.router.navigate(['teacher/explore-lessons']);
+            this.router.navigate(['teacher/dashboard']);
           }
           else if (roleName === 'student'  && data.isPaymentRemaining!=true) {
             this.router.navigate(['student/student-landing']);
           } else if (roleName === 'district' && data.isPaymentRemaining!=true) {
             this.router.navigate(['district/dashboard']);
+          }else if (roleName === 'school' && data.isPaymentRemaining!=true) {
+            this.router.navigate(['school/dashboard']);
           }
         }
       } else {

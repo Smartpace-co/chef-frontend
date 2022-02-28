@@ -52,7 +52,9 @@
                                                         class="col-sm-4 country-container">
                                                         <div
                                                             [ngClass]="item.isEarned === 1 ? 'map-wraper map-bg':'map-wraper'">
-                                                            <img src="{{item.image}}" class="img-fluid" alt="">
+                                                            <div class="map">
+                                                                <img src="{{item.image}}" class="img-fluid" alt="">
+                                                            </div>
                                                         </div>
                                                         <div class="mt-4 label-wrapper">
                                                             <label class="drop-label">

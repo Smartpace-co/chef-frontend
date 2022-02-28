@@ -7,7 +7,6 @@
   position: relative;
   @include breakpoint(mobile) {
     min-height: calc(100vh - 33rem);
-    padding-top: 0rem;
   }
   .content-wrapper{
     display: flex;

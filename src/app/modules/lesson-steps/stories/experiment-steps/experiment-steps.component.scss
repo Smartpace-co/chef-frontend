@@ -122,15 +122,21 @@
               width: 100%;
               padding: 1rem 0;
               .with-video {
-                @include breakpoint(mobile) {
+                @include breakpoint(iPad) {
                   width: 100%;
                   display: flex;
                   justify-content: center;
                 }
                 .video-wraper {
-                  .vedio {
-                    max-width: 20rem;
+                  min-width: 30rem;
+                  @include breakpoint(mobile){
+                    min-width: 25rem;
+                    margin-top: 1rem;
                   }
+                  .vedio{
+                    width: 100%;
+                  }
+                  
                 }
               }
               &.with-video {
@@ -141,7 +147,7 @@
                   background: $black;
                 }
               }
-              @include breakpoint(mobile) {
+              @include breakpoint(iPad) {
                 margin-left: -2rem;
                 flex-wrap: wrap;
               }

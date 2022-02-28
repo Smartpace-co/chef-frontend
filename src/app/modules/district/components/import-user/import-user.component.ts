@@ -10,6 +10,7 @@ import {
 import { AuthService } from '@modules/auth/services/auth.service';
 import { DistrictService } from '@modules/district/services/district.service';
 import * as _ from 'lodash';
+import { environment } from '@environments/environment';
 @Component({
   selector: 'app-import-user',
   templateUrl: './import-user.component.html',
@@ -35,16 +36,14 @@ export class ImportUserComponent implements OnInit {
   teacherRole: any;
 
   ngOnInit(): void {
-   this.activateUserData = JSON.parse(window.sessionStorage.getItem('currentUser'));
+    this.activateUserData = JSON.parse(window.sessionStorage.getItem('currentUser'));
     this.getMasterRoles();
-    if(this.activateUserData.parentId!=null)
-    {
-      this.parent_id=this.activateUserData.parentId
+    if (this.activateUserData.parentId != null) {
+      this.parent_id = this.activateUserData.parentId
 
     }
-    else
-    {
-      this.parent_id=this.activateUserData.id
+    else {
+      this.parent_id = this.activateUserData.id
 
     }
   }
@@ -180,19 +179,14 @@ export class ImportUserComponent implements OnInit {
    * To download sample .xlsx, .xls, .csv file
    */
   onDownloadFile(): void {
-    let type = this.importType === 'Users' ? 'districtUsers' : this.importType.toLowerCase();
-    this.districtService.downloadFile(type).subscribe(
-      (response) => {
-        if (response) {
-          saveAs(window.URL.createObjectURL(response), `${this.importType}.xlsx`);
-          this.toast.showToast('File downloaded Successfully', '', 'success');
-        }
-      },
-      (error) => {
-        console.log(error);
-        this.toast.showToast('Can not access file', '', 'error');
-      }
-    );
+    let filename = this.importType === 'Users' ? 'districtUsers' : this.importType.toLowerCase();
+    if (this.importType === 'Teachers') {
+      filename = 'teachers';
+    } else if (this.importType === 'Students') {
+      filename = 'students';
+    }
+    saveAs(environment.bucketUrl + `/uploads/` + `${filename}.xlsx`, `${this.importType}.xlsx`);
+    this.toast.showToast('File downloaded Successfully', '', 'success');
   }
 
   /**

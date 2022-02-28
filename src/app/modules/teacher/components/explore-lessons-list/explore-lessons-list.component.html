@@ -7,8 +7,8 @@
         </div> -->
         <div class="d-flex">
             <div class="left-col">
-                <aside class="lesson-filter" [class.active]="classApplied">
-                    <fa-icon [icon]="FilterArrow" class="filterArrow" (click)="toggleClass()"></fa-icon>
+                <aside class="lesson-filter active" >
+                    <fa-icon [icon]="FilterArrow" class="filterArrow"></fa-icon>
                     <app-explore-lessons-sidebar></app-explore-lessons-sidebar>
                 </aside>
             </div>
@@ -48,11 +48,13 @@
                                         <h4 class="lessonList__title">{{item.recipe?.recipeTitle}}</h4>
                                         <div class="lessonList__time">
                                             <label>{{'student.assigned-lessons.duration'| translate }}: </label>
-                                            <strong class="lessonList__time">{{item.recipe?.estimatedMakeTime}}</strong>
+                                            <!-- <strong class="lessonList__time">{{item.recipe?.estimatedMakeTime}}</strong> -->
+                                            <strong class="lessonList__time"> {{item.lessonTime}} minutes</strong>
+                                       
                                         </div>
                                     </div>
                                     <div class="lessonList__info__right">
-                                        <span class="rating">{{ item.rating }} <fa-icon [icon]="Star"></fa-icon></span>
+                                        <span *ngIf="item.rating" class="rating">{{ item.rating }} <fa-icon [icon]="Star"></fa-icon></span>
                                         <span class="bookmark" [class.active]="item.bookmark">
                                             <span (click)="bookmarkClass(item)">
                                                 <fa-icon [icon]="BookmarkIcon" class="addBookmark"></fa-icon>
@@ -81,7 +83,8 @@
                                         <h2 class="moreInfo__title">{{resultLessonInfo.recipe?.recipeTitle}}</h2>
                                         <ul class="moreInfo__tags">
                                             <li>{{resultLessonInfo.recipe.country?.countryName}}</li>
-                                            <li>{{resultLessonInfo.recipe?.estimatedMakeTime}}
+                                            <!-- <li>{{resultLessonInfo.recipe?.estimatedMakeTime}} -->
+                                                <li>{{lessonTime}}
                                                 {{'teacher.assignment.min-label'| translate }}</li>
                                         </ul>
                                     </div>
@@ -91,14 +94,17 @@
                                             <label>{{'school.class.add-class.grade-field' | translate}}: </label>
                                             <strong>{{resultLessonInfo.grade.grade}}</strong>
                                         </li>
-                                        <li>
+                                       <!--  <li>
                                             <label>{{'teacher.explore-lessons.languages'|translate}}:</label>
                                             <strong>{{resultLessonInfo.language?.language}}</strong>
-                                        </li>
+                                        </li> -->
                                         <li>
                                             <label>{{'teacher.explore-lessons.full'|translate}}
                                                 {{'student.assigned-lessons.duration'| translate }}:</label>
-                                            <strong>{{resultLessonInfo.recipe?.estimatedMakeTime}}</strong>
+                                            <!-- <strong>{{resultLessonInfo.recipe?.estimatedMakeTime}}</strong> -->
+                                            <strong> {{lessonTime}} minutes</strong>
+
+                                          
                                         </li>
                                     </ul>
                                     <div class="moreInfo__secondary">
@@ -139,7 +145,120 @@
 
                 <div *ngIf="searchList.length == 0" class="lessonList"
                     [ngClass]="{'': classApplied, 'noSideBar':!classApplied }">
-                    <!-- <h5 class="subtitle">{{'teacher.explore-lessons.featured'|translate}}</h5> -->
+                    <div>
+                        <div class="heading-wraper">
+                            <h5 class="subtitle">{{'teacher.explore-lessons.all'|translate}}</h5>
+                            <a (click)="viewLesson('all')" class="more">See All</a>
+                        </div>
+                        <div class="row">
+                            <div class="main-card col-lg-4 col-sm-6"
+                                *ngFor="let item of allLessonList| filter: term; let i = index">
+                                <div class="lessonList__item">
+                                    <div class="lessonList__image">
+                                        <img [src]="item.recipe?.recipeImage" alt="" class="img-fluid" />
+                                        <div class="grade">
+                                            <span class="grade-fix">{{'school.class.add-class.grade-field' | translate |
+                                                uppercase}}</span>
+                                            <span class="grade-std">{{item.grade.grade}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="lessonList__info">
+                                        <div class="lessonList__info__left">
+                                            <h4 class="lessonList__title">{{item.recipe?.recipeTitle}}</h4>
+                                            <div class="lessonList__time">
+                                                <label>{{'student.assigned-lessons.duration'| translate }}: </label>
+                                                <!-- <strong class="lessonList__time">{{item.recipe?.estimatedMakeTime}}</strong> -->
+                                                <strong class="lessonList__time"> {{item.lessonTime}} minutes</strong>
+                                           
+                                            </div>
+                                        </div>
+                                        <div class="lessonList__info__right">
+                                            <span *ngIf="item?.rating" class="rating">{{ item?.rating}} <fa-icon [icon]="Star"></fa-icon></span>
+                                            <span class="bookmark" [class.active]="item.bookmark">
+                                                <span (click)="bookmarkClass(item)">
+                                                    <fa-icon [icon]="BookmarkIcon" class="addBookmark"></fa-icon>
+                                                    <ng-template [ngIf]="item.bookmark">
+                                                        <fa-icon [icon]="BookmarkIcon"></fa-icon>
+                                                    </ng-template>
+                                                </span>
+                                            </span>
+                                        </div>
+                                        <div class="lessonList__btns">
+                                            <app-button classes="btn btn-primary small-btn" [submit]="true"
+                                                (click)="open(create,item)">
+                                                <span
+                                                    aria-hidden="true">{{'teacher.explore-lessons.assign'|translate}}</span>
+                                            </app-button>
+                                            <a (click)="onInfoClick(item,i)">{{'district.district-schools.info-title' |
+                                                translate}} <fa-icon [icon]="RightArrow"></fa-icon>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="showInfo == i+1"
+                                    [ngClass]="{'lesson-subcard': classApplied, 'lesson-subcard-withoutside':!classApplied }">
+                                    <div class="moreInfo">
+                                        <div class="moreInfo__header">
+                                            <h2 class="moreInfo__title">{{resultLessonInfo.recipe?.recipeTitle}}</h2>
+                                            <ul class="moreInfo__tags">
+                                                <li>{{resultLessonInfo.recipe.country?.countryName}}</li>
+                                                <!-- <li>{{resultLessonInfo.recipe?.estimatedMakeTime}} -->
+                                                    <li>{{lessonTime}}
+                                                    {{'teacher.assignment.min-label'| translate }}</li>
+                                            </ul>
+                                        </div>
+                                        <ul class="moreInfo__primary">
+    
+                                            <li>
+                                                <label>{{'school.class.add-class.grade-field' | translate}}: </label>
+                                                <strong>{{resultLessonInfo.grade.grade}}</strong>
+                                            </li>
+                                            <!-- <li>
+                                                <label>{{'teacher.explore-lessons.languages'|translate}}:</label>
+                                                <strong>{{resultLessonInfo.language?.language}}</strong>
+                                            </li> -->
+                                            <li>
+                                                <label>{{'teacher.explore-lessons.full'|translate}}
+                                                    {{'student.assigned-lessons.duration'| translate }}:</label>
+                                                <!-- <strong>{{resultLessonInfo.recipe?.estimatedMakeTime}}</strong> -->
+                                                <strong> {{lessonTime}} minutes</strong>
+                                            </li>
+                                        </ul>
+                                        <div class="moreInfo__secondary">
+                                            <div class="moreInfo__secondary__left">
+                                                <h6>{{'teacher.explore-lessons.learning-objective'|translate}}</h6>
+                                                <ol class="numbers-list">
+                                                    {{resultLessonInfo?.learningObjectivesForStudent}}
+                                                </ol>
+                                                <h6>{{'student.assigned-lessons.lesson-steps.summary-view.ingredients'|
+                                                    translate }}</h6>
+                                                <p>{{ingrdients}}</p>
+    
+                                                <h6>{{'teacher.explore-lessons.equipments'|translate}}</h6>
+                                                <p>{{equipments}}</p>
+    
+                                            </div>
+                                            <div class="moreInfo__secondary__right">
+                                                <h6>{{'school.class.add-class.standards-field'|translate}}</h6>
+                                                <p class="underline">{{resultLessonInfo.standards}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="moreInfo__btns">
+                                            <app-button classes="btn btn-primary small-btn" (click)="onCancel()"
+                                                [submit]="true">
+                                                <span aria-hidden="true">{{'common.cancel'| translate}}</span>
+                                            </app-button>
+                                            <app-button classes="btn btn-black small-btn ml-3"
+                                                (click)="openAssignModal(create,itemInfo)" [submit]="true">
+                                                <span
+                                                    aria-hidden="true">{{'teacher.explore-lessons.assign'|translate}}</span>
+                                            </app-button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="heading-wraper">
                         <h5 class="subtitle">{{'teacher.explore-lessons.featured'|translate}}</h5>
                         <a (click)="viewLesson('lessonFeatured')" class="more">See All</a>
@@ -161,11 +280,13 @@
                                         <h4 class="lessonList__title">{{item.recipe?.recipeTitle}}</h4>
                                         <div class="lessonList__time">
                                             <label>{{'student.assigned-lessons.duration'| translate }}: </label>
-                                            <strong class="lessonList__time">{{item.recipe?.estimatedMakeTime}}</strong>
+                                            <!-- <strong class="lessonList__time">{{item.recipe?.estimatedMakeTime}}</strong> -->
+                                            <strong class="lessonList__time"> {{item.lessonTime}} minutes</strong>
+                                       
                                         </div>
                                     </div>
                                     <div class="lessonList__info__right">
-                                        <span class="rating">4.5 <fa-icon [icon]="Star"></fa-icon></span>
+                                        <span *ngIf="item?.rating" class="rating">{{ item?.rating}} <fa-icon [icon]="Star"></fa-icon></span>
                                         <span class="bookmark" [class.active]="item.bookmark">
                                             <span (click)="bookmarkClass(item)">
                                                 <fa-icon [icon]="BookmarkIcon" class="addBookmark"></fa-icon>
@@ -194,7 +315,8 @@
                                         <h2 class="moreInfo__title">{{resultLessonInfo.recipe?.recipeTitle}}</h2>
                                         <ul class="moreInfo__tags">
                                             <li>{{resultLessonInfo.recipe.country?.countryName}}</li>
-                                            <li>{{resultLessonInfo.recipe?.estimatedMakeTime}}
+                                            <!-- <li>{{resultLessonInfo.recipe?.estimatedMakeTime}} -->
+                                                <li>{{lessonTime}}
                                                 {{'teacher.assignment.min-label'| translate }}</li>
                                         </ul>
                                     </div>
@@ -204,14 +326,15 @@
                                             <label>{{'school.class.add-class.grade-field' | translate}}: </label>
                                             <strong>{{resultLessonInfo.grade.grade}}</strong>
                                         </li>
-                                        <li>
+                                        <!-- <li>
                                             <label>{{'teacher.explore-lessons.languages'|translate}}:</label>
                                             <strong>{{resultLessonInfo.language?.language}}</strong>
-                                        </li>
+                                        </li> -->
                                         <li>
                                             <label>{{'teacher.explore-lessons.full'|translate}}
                                                 {{'student.assigned-lessons.duration'| translate }}:</label>
-                                            <strong>{{resultLessonInfo.recipe?.estimatedMakeTime}}</strong>
+                                            <!-- <strong>{{resultLessonInfo.recipe?.estimatedMakeTime}}</strong> -->
+                                            <strong> {{lessonTime}} minutes</strong>
                                         </li>
                                     </ul>
                                     <div class="moreInfo__secondary">
@@ -272,12 +395,12 @@
                                             <h4 class="lessonList__title">{{item.recipe?.recipeTitle}}</h4>
                                             <div class="lessonList__time">
                                                 <label>{{'student.assigned-lessons.duration'| translate }}: </label>
-                                                <strong
-                                                    class="lessonList__time">{{item.recipe?.estimatedMakeTime}}</strong>
+                                                <strong class="lessonList__time"> {{item.lessonTime}} minutes</strong>
+                                                    
                                             </div>
                                         </div>
                                         <div class="lessonList__info__right">
-                                            <span class="rating">{{ item.rating }} <fa-icon [icon]="Star"></fa-icon>
+                                            <span *ngIf="item.rating" class="rating">{{ item.rating }} <fa-icon [icon]="Star"></fa-icon>
                                             </span>
                                             <span class="bookmark" [class.active]="item.bookmark">
                                                 <span (click)="bookmarkClass(item)">
@@ -308,7 +431,7 @@
                                             </h2>
                                             <ul class="moreInfo__tags">
                                                 <li>{{resultLessonInfo.recipe.country?.countryName}}</li>
-                                                <li>{{resultLessonInfo.recipe?.estimatedMakeTime}}
+                                                <li>{{lessonTime}}
                                                     {{'teacher.assignment.min-label'| translate }}</li>
                                             </ul>
                                         </div>
@@ -318,14 +441,14 @@
                                                 <label>{{'school.class.add-class.grade-field' | translate}}: </label>
                                                 <strong>{{resultLessonInfo.grade.grade}}</strong>
                                             </li>
-                                            <li>
+                                         <!--    <li>
                                                 <label>{{'teacher.explore-lessons.languages'|translate}}:</label>
                                                 <strong>{{resultLessonInfo.language?.language}}</strong>
-                                            </li>
+                                            </li> -->
                                             <li>
                                                 <label>{{'teacher.explore-lessons.full'|translate}}
                                                     {{'student.assigned-lessons.duration'| translate }}:</label>
-                                                <strong>{{resultLessonInfo.recipe?.estimatedMakeTime}}</strong>
+                                                <strong> {{lessonTime}} minutes</strong>
                                             </li>
                                         </ul>
                                         <div class="moreInfo__secondary">
@@ -366,19 +489,19 @@
 
                     <div class="featureSubject">
                         <div class="heading-wraper">
-                            <h5 class="subtitle">Featured by standard</h5>
+                            <h5 class="subtitle">By standard</h5>
                             <a (click)="viewLesson('lessonStandard')" class="more">See All</a>
                         </div>
                         <div class="row">
-                            <div class="col-lg-4 col-sm-6"
+                            <div class="col-lg-4 col-sm-6 list"
                                 *ngFor="let item of standardList| filter: term; let i = index">
                                 <div class="featureSubject__main ">
                                     <div class="featureSubject__image">
                                         <img src="./assets/images/assignment-image.jpg" alt="img-fluid" />
                                     </div>
                                     <div class="featureSubject__info">
-                                        <h3 class="recommended__title">{{item.standardTitle}}</h3>
-                                        <p class="recommended__lessons">{{item.lessonsLength}} lessons</p>
+                                        <h3 class="featureSubject__title">{{item.standardTitle}}</h3>
+                                        <p class="featureSubject__lessons">{{item.lessonsLength}} lessons</p>
                                     </div>
                                 </div>
                             </div>
@@ -408,7 +531,7 @@
                     <div class="lesson_info__content__top">
                         <h6>{{lessonInfo.recipe.recipeTitle}}</h6>
                         <div class="rating-bookmark">
-                            <span class="rating">4.8 <fa-icon [icon]="Star"></fa-icon></span>
+                            <span *ngIf="lessonInfo?.rating" class="rating"> {{ lessonInfo?.rating }}<fa-icon [icon]="Star"></fa-icon></span>
                             <span class="bookmark" [class.active]="lessonInfo.bookmark">
                                 <span (click)="bookmarkClass(lessonInfo)">
                                     <fa-icon [icon]="BookmarkIcon" class="addBookmark"></fa-icon>
@@ -422,8 +545,10 @@
                     <ul>
                         <li>
                             <label>{{'student.assigned-lessons.duration'| translate }}:</label>
-                            <strong> {{lessonInfo.recipe?.estimatedMakeTime}} {{'teacher.assignment.min-label'|
-                                translate }}</strong>
+                            <!-- <strong> {{lessonInfo.recipe?.estimatedMakeTime}} {{'teacher.assignment.min-label'|
+                                translate }}</strong> -->
+                                <strong> {{lessonInfo.lessonTime}} {{'teacher.assignment.min-label'|
+                                    translate }}</strong>
                         </li>
                         <li>
                             <label>{{'teacher.explore-lessons.grades'|translate}}:</label>
@@ -482,7 +607,7 @@
                         <label>{{'teacher.explore-lessons.start-date'|translate}}</label>
                         <div class="input-group">
                             <input #dpFromDate class="form-control" placeholder="mm-dd-yyyy" name="dpFromDate"
-                                formControlName="fromDate" disabled [value]="fromDate"
+                                formControlName="fromDate" disabled [value]="fromDate" [(ngModel)]="selectedDate"
                                 (input)="fromDate = validateInput(fromDate, dpFromDate.value)">
                             <div class="input-group-append">
                                 <button class="calendarIcon" (click)="datepicker.toggle()" type="button">
@@ -490,7 +615,7 @@
                                 </button>
                             </div>
                         </div>
-                    </div>
+                    </div> 
                     <div class="col-md-6 calendar">
                         <label>{{'student.lesson-report.end-date'| translate }}</label>
                         <div class="input-group">
@@ -528,7 +653,7 @@
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <div class="custom-control custom-checkbox assign-lesson-checkbox">
+                        <div class="custom-control custom-checkbox assign-lesson-checkbox mt-3">
                             <input type="checkbox" class="custom-control-input" id="lesson" name="lesson">
                             <label class="custom-control-label"
                                 for="lesson">{{'teacher.explore-lessons.assign-the-lesson-confirm-text'|translate

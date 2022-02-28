@@ -1,7 +1,7 @@
 @import "../../../../../assets/styles/helpers/variables";
 @import "../../../../../assets/styles/helpers/mixins";
 .story-body-7{
-  background:center no-repeat;
+  background:url("../../../../../assets/images/kitchen-bg.jpg") center no-repeat;
   background-size: cover;
   overflow: hidden;
   min-height: calc(100vh - 24.2rem);

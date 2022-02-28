@@ -33,7 +33,7 @@
             </div>
           </div>
           <div class="col-12">
-            <label>{{'school.school-profile.school-address-label' | translate}}</label>
+            <label>{{'school.school-profile.school-address-label' | translate}} {{'student.profile.optional-label'| translate }}</label>
             <textarea class="form-control schoolForm" placeholder="{{'district.district-profile.district-component.address-field.placeholder'| translate}}" ids="schoolAddress"
               [(ngModel)]="schoolAddress" [ngModelOptions]="{standalone: true}"></textarea>
           </div>
@@ -43,11 +43,12 @@
               fieldControl="pNumber" types="" [form]="addSchoolForm"
               [ngClass]="{ 'is-invalid': formControl.pNumber.touched && formControl.pNumber.errors }">
             </app-input-field>
+            
             <div *ngIf="formControl.pNumber.errors" class="invalid-feedback">
               <div class="error" *ngIf="formControl.pNumber.errors?.required">{{'school.teacher.add-teacher.contact.required'| translate}}</div>
               <div class="error" *ngIf="formControl.pNumber.errors?.pattern">{{'school.teacher.add-teacher.contact.valid'| translate}}</div>
-              <div class="error" *ngIf="formControl.pNumber.errors?.minlength">{{'school.teacher.add-teacher.contact.length'| translate}}</div>
-              <div class="error" *ngIf="formControl.pNumber.errors?.digitValidate">{{'school.teacher.add-teacher.contact.digit-validate'| translate}}</div>
+              <!-- <div class="error" *ngIf="formControl.pNumber.errors?.minlength">{{'school.teacher.add-teacher.contact.length'| translate}}</div> -->
+              <!-- <div class="error" *ngIf="formControl.pNumber.errors?.digitValidate">{{'school.teacher.add-teacher.contact.digit-validate'| translate}}</div> -->
               <div class="error" *ngIf="formControl.pNumber.errors?.contactValidate">
                 <div class="error">{{'school.teacher.add-teacher.contact.exist'| translate}}</div>
               </div>
@@ -63,7 +64,7 @@
               <div class="error" *ngIf="formControl.email.errors?.required">{{'district.district-profile.agent-component.email-field.required'| translate}}</div>
               <div class="error" *ngIf="formControl.email.errors?.pattern">{{'district.district-profile.agent-component.email-field.valid'| translate}}
               </div>
-              <div class="error" *ngIf="formControl.email.errors?.emailValidate">{{'district.district-profile.agent-component.email-field.exists'| translate}}</div>
+              <div class="error" *ngIf="formControl.email.errors?.emailValidate">{{'district.district-profile.agent-component.email-field.exist'| translate}}</div>
             </div>
           </div>
           <div class="col-12">
@@ -80,19 +81,20 @@
             </div>
           </div>
           <div class="col-md-6">
-            <label>{{'school.teacher.add-teacher.contact.label' | translate}}</label>
+            <label>{{'school.teacher.add-teacher.contact.label' | translate}} {{'student.profile.optional-label'| translate }}</label>
             <app-input-field classes="form-control schoolForm" placeholders="{{'school.teacher.add-teacher.contact.placeholder' | translate}}" ids="phoneNumber"
               fieldControl="phoneNumber" types="" [form]="addSchoolForm"
               [ngClass]="{ 'is-invalid': formControl.phoneNumber.touched && formControl.phoneNumber.errors }">
             </app-input-field>
+            
             <div *ngIf="formControl.phoneNumber.errors" class="invalid-feedback">
               <div class="error" *ngIf="formControl.phoneNumber.errors?.pattern">{{'school.teacher.add-teacher.contact.valid' | translate}}</div>
-              <div class="error" *ngIf="formControl.phoneNumber.errors?.minlength">{{'school.teacher.add-teacher.contact.length' | translate}}</div>
-                <div class="error" *ngIf="formControl.phoneNumber.errors?.phoneValidate">{{'school.teacher.add-teacher.contact.digit-validate' | translate}}</div>
+              <!-- <div class="error" *ngIf="formControl.phoneNumber.errors?.minlength">{{'school.teacher.add-teacher.contact.length' | translate}}</div> -->
+                <!-- <div class="error" *ngIf="formControl.phoneNumber.errors?.phoneValidate">{{'school.teacher.add-teacher.contact.digit-validate' | translate}}</div> -->
             </div>
           </div>
           <div class="col-md-6">
-            <label>{{'school.student.add-student.personal-info.contact-info.email.label' | translate}}</label>
+            <label>{{'school.student.add-student.personal-info.contact-info.email.label' | translate}} {{'student.profile.optional-label'| translate }}</label>
             <app-input-field classes="form-control schoolForm" placeholders="{{'district.district-profile.agent-component.email-field.placeholder'| translate}}" ids="emailAddress"
               fieldControl="emailAddress" [form]="addSchoolForm" types=""
               [ngClass]="{ 'is-invalid': formControl.emailAddress.touched && formControl.emailAddress.errors }">
@@ -104,7 +106,7 @@
           </div>
           <div class="col-12">
             <div class="lable-wrapper">
-              <label>{{'school.user-profile.address-title' | translate}}</label>
+              <label>{{'school.user-profile.address-title' | translate}} {{'student.profile.optional-label'| translate }}</label>
               <a (click)="sameAddress()">{{'district.school.address-same' | translate}}</a>
             </div>
             <textarea class="form-control schoolForm" placeholder="{{'district.district-profile.district-component.address-field.placeholder'| translate}}" ids="principalAddress"
@@ -116,11 +118,12 @@
               fieldControl="emergencyContact" [form]="addSchoolForm" types=""
               [ngClass]="{ 'is-invalid': formControl.emergencyContact.touched && formControl.emergencyContact.errors }">
             </app-input-field>
+            
             <div *ngIf="formControl.emergencyContact.errors" class="invalid-feedback">
               <div class="error" *ngIf="formControl.emergencyContact.errors?.required">{{'district.school.emergency-required' | translate}}</div>
               <div class="error" *ngIf="formControl.emergencyContact.errors?.pattern">{{'district.school.emergency-valid' | translate}}</div>
-              <div class="error" *ngIf="formControl.emergencyContact.errors?.contactDigitValidate">{{'district.school.emergency-digit-valid' | translate}}</div>
-              <div class="error" *ngIf="formControl.emergencyContact.errors?.minlength">{{'district.school.emergency-length' | translate}}</div>
+              <!-- <div class="error" *ngIf="formControl.emergencyContact.errors?.contactDigitValidate">{{'district.school.emergency-digit-valid' | translate}}</div> -->
+              <!-- <div class="error" *ngIf="formControl.emergencyContact.errors?.minlength">{{'district.school.emergency-length' | translate}}</div> -->
             </div>
           </div>
         </div>

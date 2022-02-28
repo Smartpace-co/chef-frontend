@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FaConfig } from '@fortawesome/angular-fontawesome';
-import { faSearch, faAngleDoubleLeft, faStar, faChevronRight, faBookmark, faCalendarAlt, faExclamationTriangle, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faAngleDoubleLeft, faStar, faChevronRight, faBookmark, faCalendarAlt, faExclamationTriangle, faInfoCircle, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '@modules/auth/services/auth.service';
 import { ToasterService } from '@appcore/services/toaster.service';
-import { NgbModal, ModalDismissReasons, NgbActiveModal, NgbDate, NgbCalendar, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons, NgbActiveModal, NgbDate, NgbCalendar, NgbDateParserFormatter, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { forEach, identity } from 'lodash';
 import { ClassesService } from '@modules/teacher/services/classes.service';
 import { UtilityService } from '@appcore/services/utility.service';
@@ -26,12 +26,14 @@ export class ExploreAllLessonComponent implements OnInit {
   FilterArrow = faAngleDoubleLeft;
   Star = faStar;
   RightArrow = faChevronRight;
+  leftarrow = faChevronLeft;
   BookmarkIcon = faBookmark;
   term = "";
   tempLessonList = [];
   // searchByParam = '';
   // searchBy = 'Search By';
   // searchByList = [];
+  allLessonList: any;
   lessonList: any;
   topRatedList: any;
   tempTopRatedList = [];
@@ -78,6 +80,8 @@ export class ExploreAllLessonComponent implements OnInit {
   tempStandardList = [];
   lessonType: any;
   lessonItemData: any;
+  selectedDate: any;
+  lessonTime:any;
   constructor(private classService: ClassesService,
     private utilityService: UtilityService,
     public faConfig: FaConfig,
@@ -87,12 +91,18 @@ export class ExploreAllLessonComponent implements OnInit {
     private router: Router,
     public teacherservice: TeacherService,
     private translate: TranslationService,
-    private calendar: NgbCalendar, public formatter: NgbDateParserFormatter) {
+    private calendar: NgbCalendar, public formatter: NgbDateParserFormatter,
+    private config: NgbDatepickerConfig) {
     faConfig.defaultPrefix = 'far';
     let today = calendar.getToday()
     this.fromDate = new NgbDate(today.year, today.month, today.day)
     this.toDate = new NgbDate(today.year, today.month, today.day),
       this.img = './assets/recipe.jpeg';
+      const current = new Date();
+      config.minDate = {
+        year: current.getFullYear(), month:
+          current.getMonth() + 1, day: current.getDate()
+      };
   }
 
   ngOnInit(): void {
@@ -107,7 +117,7 @@ export class ExploreAllLessonComponent implements OnInit {
     this.lessonId = this.teacherservice.getLessonId();
 
     this.localData = JSON.parse(window.sessionStorage.getItem('currentUser'));
-    this.lessonType = this.teacherservice.GetLessonType();
+    this.lessonType = window.sessionStorage.getItem('lessonType')
 
     this.classTitle = this.translate.getStringFromKey('student.add-student.class.placeholder');
     this.settingTitle = this.translate.getStringFromKey('teacher.explore-lessons.select-setting');
@@ -124,13 +134,20 @@ export class ExploreAllLessonComponent implements OnInit {
     //     link: ''
     //   }
     // ];
+    if (this.lessonType === "all") {
+      this.teacherservice.viewMore = true;
+      this.teacherservice.lessonFilterType = 'all';
 
-    console.log("lessontype", this.lessonType);
-    if (this.lessonType === "lessonFeatured") {
+      this.getlessonsData();
+      this.subscription = this.teacherservice.getFilteredALLLessonData().subscribe(data => {
+        this.allLessonList = data.allLessonData;
+      });
+    }
+    else if (this.lessonType === "lessonFeatured") {
       this.teacherservice.viewMore = true;
       this.teacherservice.lessonFilterType = 'lessonFeatured';
 
-      this.getlessonsData();
+      this.getFeaturedlessonsData();
       this.subscription = this.teacherservice.getFilteredLessonData().subscribe(data => {
         this.lessonList = data.lessonData;
       });
@@ -182,7 +199,13 @@ export class ExploreAllLessonComponent implements OnInit {
     if (event.target.value.length > 2) {
       // if (!this.searchByParam) return this.toast.showToast('Please select search by', '', 'error');
       let searchResult = [];
-      if (this.lessonType === "lessonFeatured") {
+      if (this.lessonType === "all") {
+        searchResult = this.allLessonList.filter(obj => obj.recipe.recipeTitle.toLowerCase().search(new RegExp(event.target.value.toLowerCase())) > -1);
+        if (searchResult.length > 0) this.allLessonList = searchResult;
+        else this.allLessonList = [];
+
+      }
+      else if (this.lessonType === "lessonFeatured") {
         searchResult = this.lessonList.filter(obj => obj.recipe.recipeTitle.toLowerCase().search(new RegExp(event.target.value.toLowerCase())) > -1);
         if (searchResult.length > 0) this.lessonList = searchResult;
         else this.lessonList = [];
@@ -198,7 +221,8 @@ export class ExploreAllLessonComponent implements OnInit {
       if (searchResult.length > 0) this.standardList = searchResult;
       else this.standardList = [];
     } else {
-      if (this.lessonType === "lessonFeatured") this.lessonList = this.tempLessonList;
+      if (this.lessonType === "all") this.allLessonList = this.tempLessonList;
+      else if (this.lessonType === "lessonFeatured") this.lessonList = this.tempLessonList;
       else if (this.lessonType === "lessonTopRated") this.topRatedList = this.tempTopRatedList;
       else if (this.lessonType === "lessonStandard") this.standardList = this.tempStandardList;
     }
@@ -206,6 +230,29 @@ export class ExploreAllLessonComponent implements OnInit {
 
   getlessonsData(): void {
     this.teacherservice.getAllLessons(this.viewStatus).subscribe(
+      (response) => {
+        if (response && response.data) {
+          this.allLessonList = response.data.rows;
+          this.allLessonList.forEach((element) => {
+            if (element.bookmarkLesson.length === 0) {
+              element.bookmark = false;
+            } else {
+              this.bookmark = element.bookmarkLesson[0].isBookmarked;
+              element.bookmark = this.bookmark;
+            }
+          });
+          this.tempLessonList = this.allLessonList;
+          // this.getTopRatedLessons();
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  getFeaturedlessonsData(): void {
+    this.teacherservice.getFeaturedLessons(this.viewStatus).subscribe(
       (response) => {
         if (response && response.data) {
           this.lessonList = response.data.rows;
@@ -298,7 +345,8 @@ export class ExploreAllLessonComponent implements OnInit {
               "id": 1,
               "culinaryTechniqueTitle": 'Culinary Technique',
               "estimatedTime": item.recipe.recipeTechniques.map(elem => elem.estimatedTime ? elem.estimatedTime : 0).reduce((a, b) => a + b),
-              "status": item.recipe.recipeTechniques.some(elem => elem.culinaryTechnique.status == true)
+              // "status": item.recipe.recipeTechniques.some(elem => elem.culinaryTechnique.status == true)
+              "status": item.recipe.recipeTechniques.some(elem => elem.status == true)
             }],
           };
           activities.push(cooking);
@@ -460,7 +508,6 @@ export class ExploreAllLessonComponent implements OnInit {
           this.resultLessonInfo = item;
           this.resultLessonInfo["estimatedTotalTime"] = totalTimes;
           this.resultLessonInfo["activities"] = activities;
-          // console.log("resultLessonInfo",this.resultLessonInfo)
         }
       },
       (error) => {
@@ -504,7 +551,6 @@ export class ExploreAllLessonComponent implements OnInit {
           if (_.isArray(res.data)) {
             this.allSettings = res.data;
             this.showCustomList = true
-            // console.log("alldata",this.allSettings);
 
           } else {
             this.allSettings = [res.data];
@@ -567,7 +613,7 @@ export class ExploreAllLessonComponent implements OnInit {
       this.toDate = null;
       this.fromDate = date;
       let dateObj = new NgbDate(this.fromDate.year, this.fromDate.month, this.fromDate.day);
-      this.AssignLesson.controls.fromDate.setValue(dateObj);
+      // this.AssignLesson.controls.fromDate.setValue(dateObj);
     }
   }
 
@@ -590,6 +636,7 @@ export class ExploreAllLessonComponent implements OnInit {
 
   onInfoClick(item, i) {
     this.itemInfo = item;
+    this.lessonTime = item.lessonTime;
     this.teacherservice.getLessonInfo(item.id).subscribe((res) => {
       this.showInfo = i + 1;
       this.selectedIndex = i
@@ -655,6 +702,7 @@ export class ExploreAllLessonComponent implements OnInit {
       this.resultLessonInfo["type"] = "new";
       this.resultLessonInfo["classList"] = this.classList;
       this.teacherservice.setLessonData(this.resultLessonInfo);
+      sessionStorage.setItem('lsData',JSON.stringify(this.resultLessonInfo));
       this.router.navigate(['/teacher/explore-lessons-setting', this.lessonInfo.id]);
     }
 

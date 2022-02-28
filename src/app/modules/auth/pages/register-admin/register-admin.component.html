@@ -34,6 +34,7 @@
               fieldControl="email" [form]="registerAdminForm"
               [ngClass]="{ 'is-invalid': formControl.email.touched && formControl.email.errors }">
             </app-input-field>
+            <p class="mb-3 p-0 ml-5">Note: Please use email address for login</p>
             <div *ngIf="formControl.email.errors" class="invalid-feedback">
               <div class="error" *ngIf="formControl.email.errors?.required">Admin email address is required</div>
               <div class="error" *ngIf="formControl.email.errors?.pattern">Admin email address is not valid</div>
@@ -46,13 +47,13 @@
               ids="phone_number" fieldControl="phone_number" [form]="registerAdminForm"
               [ngClass]="{ 'is-invalid': formControl.phone_number.touched && formControl.phone_number.errors }">
             </app-input-field>
+            
             <div *ngIf="formControl.phone_number.errors" class="invalid-feedback">
-              <div class="error" *ngIf="formControl.phone_number.errors?.required">Phone number is required</div>
-              <div class="error" *ngIf="formControl.phone_number.errors?.pattern">Contact number is not valid(Format
-                - (000)-000-0000)</div>
-              <div class="error" *ngIf="formControl.phone_number.errors?.minlength">Contact number is not
-                valid(Required Minimum Length is 10 digit)</div>
-              <div class="error" *ngIf="formControl.phone_number.errors?.contactDigitValidate">Contact number is not valid(Required length is 10,12,13 digit)</div>
+              <div class="error" *ngIf="formControl.phone_number.errors?.required">Contact number is required</div>
+              <div class="error" *ngIf="formControl.phone_number.errors?.pattern">Contact number is not valid. (Required length is 6 to 18 digits)</div>
+              <!-- <div class="error" *ngIf="formControl.phone_number.errors?.minlength">Contact number is not
+                valid(Required Minimum Length is 10 digit)</div> -->
+              <!-- <div class="error" *ngIf="formControl.phone_number.errors?.contactDigitValidate">Contact number is not valid(Required length is 10,12,13 digit)</div> -->
               <div class="error" *ngIf="formControl.phone_number.errors?.contactValidate">
                 <div class="error">Contact number already exists</div>
               </div>
@@ -78,21 +79,22 @@
             </div>
           </div>
           <div class="col-md-6">
-            <label>Contact person phone number</label>
+            <label>Contact person phone number {{'student.profile.optional-label'| translate }}</label>
             <app-input-field classes="form-control schoolForm" placeholders="Enter Phone Number" types=""
               ids="contact_person_no" fieldControl="contact_person_no" [form]="registerAdminForm"
               [ngClass]="{ 'is-invalid': formControl.contact_person_no.touched && formControl.contact_person_no.errors }">
             </app-input-field>
+            
             <div *ngIf="formControl.contact_person_no.errors" class="invalid-feedback">
               <div class="error" *ngIf="formControl.contact_person_no.errors?.pattern">Contact number is not
-                valid(Format - (000)-000-0000)</div>
-              <div class="error" *ngIf="formControl.contact_person_no.errors?.minlength">Contact number is not
-                valid(Required Minimum Length is 10 digit)</div>
-                <div class="error" *ngIf="formControl.contact_person_no.errors?.digitValidate">Contact number is not valid(Required length is 10,12,13 digit)</div>
+                valid. (Required length is 6 to 18 digits) </div>
+              <!-- <div class="error" *ngIf="formControl.contact_person_no.errors?.minlength">Contact number is not
+                valid(Required Minimum Length is 10 digit)</div> -->
+                <!-- <div class="error" *ngIf="formControl.contact_person_no.errors?.digitValidate">Contact number is not valid(Required length is 10,12,13 digit)</div> -->
             </div>
           </div>
           <div class="col-md-6">
-            <label>Contact Person Email Address </label>
+            <label>Contact Person Email Address {{'student.profile.optional-label'| translate }}</label>
             <app-input-field classes="form-control schoolForm" placeholders="Enter Email Address" types=""
               ids="contact_person_email" fieldControl="contact_person_email" [form]="registerAdminForm"
               [ngClass]="{ 'is-invalid': formControl.contact_person_email.touched && formControl.contact_person_email.errors }">
@@ -153,7 +155,7 @@
         <p class='total-price mb-5'> No of Classes : {{currentPackage?.maxUser}}</p>
         <p class='total-price mb-5'> Valid From: {{ months[currentPackage?.validityFrom] }}</p>
         <p class='total-price mb-5'> Valid Upto: {{months[currentPackage?.validityTo] }}</p>
-
+        <p class='trial-period mb-5'> Trial Period : 7 days</p>
         <!-- <p class="monthly-price">$1.25 per Month</p> -->
       </div>
       <app-button classes="btn btn-primary icon-btn" [submit]="true" (click)="closePackageModal()">

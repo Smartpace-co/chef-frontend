@@ -28,8 +28,8 @@
                   <span class="description">
                     <p class="sub-info  pb-2">{{item.notificationType.title}}</p>
                     <p class="main-info  pb-2">{{item.description}}</p>
-                    <ng-container *ngIf="isSameDay(item); else diffDate">
-                      <p class="sub-info "> {{ item.createdAt |date:'h' }} {{ 'student.notification.hours-ago-label' |
+                    <ng-container *ngIf="utiltiService.isSameDay(item); else diffDate">
+                      <p class="sub-info "> {{ utiltiService.hrCalulator(item.createdAt) }} {{ 'student.notification.hours-ago-label' |
                         translate }} </p>
                     </ng-container>
                     <ng-template #diffDate>

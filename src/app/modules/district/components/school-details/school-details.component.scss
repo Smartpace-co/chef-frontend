@@ -27,7 +27,12 @@
           display: flex;
           align-items: center;
           .photo{
-            max-width: 4.5rem;
+            width: 4.5rem;
+            height: 4.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
           }
           .staff-name{
             margin-left: 1.5rem;
@@ -229,7 +234,7 @@
             margin-top: 2rem;
             align-items: center;
             flex-wrap: wrap;
-            h4{
+            h5{
               color: $blue-shade-3;
               @include breakpoint(mobile){
                 margin-bottom: 1rem;
@@ -269,9 +274,8 @@
           margin-top: 3rem;
           align-items: center;
           flex-wrap: wrap;
-          h4{
+          h5{
             color: $blue-shade-3;
-            font-size: 2.1rem;
             @include breakpoint(mobile){
               margin-bottom: 1rem;
             }
@@ -514,10 +518,9 @@
     }
     margin-bottom:5rem;
     @include breakpoint(tabs) {
-      width: calc(100% - 20rem);
+      width: 100%;
     }
     @include breakpoint(mobile) {
-      width: 100%;
       order: 2;
     }
     .heading-info{
@@ -533,9 +536,10 @@
           flex-wrap: wrap;
         }
         .profile-heading{
-            min-width: 16rem;
+            width: 16rem;
+            margin-right: 0.5rem;
             @include breakpoint(mobile) {
-              min-width: 14rem
+              width: 14rem
             }
             @include breakpoint(sm-mobile) {
               width: 100%;

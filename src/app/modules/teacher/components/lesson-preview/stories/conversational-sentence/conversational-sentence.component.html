@@ -1,7 +1,6 @@
 <app-ingreditent-nav></app-ingreditent-nav>
 <app-lessons-headerbar [lessonHederConfig]="lessonHederConfig"></app-lessons-headerbar>
-  <div *ngIf="isLoad" class="story-body-9"
-  [ngStyle]=" countryBgImg ? {background: ' url(' + countryBgImg + ')'} : {background: ' url(' + './assets/images/kitchen-bg-blur.jpg' + ')'}">
+  <div *ngIf="isLoad" class="story-body-9">
   <div class="container">
     <div class="final-editaion">
       <div class="content-wrapper">
@@ -15,7 +14,7 @@
                 <span class="tip">
                   <img src="./assets/images/right-bottom-tip.svg" alt="" class="img-fluid" />
                 </span>
-              </div>
+              </div> 
             </div>
           </div>
           <div class="left-btn-wrapper">
@@ -24,7 +23,7 @@
               </app-button>
           </div>
           <div class="right-btn-wrapper">
-            <app-button classes="btn small-btn btn-secondary" [submit]="true" (click)="onNext()">
+            <app-button classes="btn small-btn btn-secondary recipe-btn" [submit]="true" (click)="onNext()">
               <span aria-hidden="true">{{'student.assigned-lessons.lesson-steps.yes-iam-ready'| translate }}</span>
             </app-button>
           </div>

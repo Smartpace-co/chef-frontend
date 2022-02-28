@@ -95,8 +95,8 @@ export class ProfileInfoComponent implements OnInit {
       allergens: new FormControl('', []),
       gender: new FormControl('', []),
       ethnicity: new FormControl('', []),
-      grade: new FormControl('', []),
-      dob: new FormControl(this.dob, [Validators.required]),
+      grade: new FormControl('', [Validators.required]),
+      dob: new FormControl('', [Validators.required]),
       medicalCondition: new FormControl('', [])
     });
   }
@@ -211,8 +211,8 @@ export class ProfileInfoComponent implements OnInit {
       this.ProfileInfo.get('grade').setValue(this.currentStudent.grade);
       this.gradeTitle = this.currentStudent.grade.grade;
     }
-    this.ProfileInfo.get('dob').setValue(this.utilityService.formatDate(this.currentStudent.dob));
-    this.selectedDate = this.utilityService.formatDate(this.currentStudent.dob);
+    this.ProfileInfo.get('dob').setValue(this.currentStudent.dob);
+    this.selectedDate = this.currentStudent.dob;
     if (this.currentStudent.allergens) {
       this.ProfileInfo.get('allergens').setValue(this.currentStudent.allergens);
       this.allergens = _.map(this.currentStudent.allergens, item => {
@@ -301,14 +301,12 @@ export class ProfileInfoComponent implements OnInit {
     this.selectedConditionValue = item;
     this.ProfileInfo.get('medicalCondition').setValue(this.selectedConditionValue);
   }
-  onDateSelection(date: NgbDate): void {
-    this.ProfileInfo.controls.dob.setValue(date);
-  }
+
 
   onSelectAllergens(item) {
     this.selectedAllergensValue.push(item);
-    this.selectedCondition = this.selectedAllergensValue;
-    this.ProfileInfo.get('allergens').setValue(this.selectedCondition);
+    this.allergens = this.selectedAllergensValue;
+    this.ProfileInfo.get('allergens').setValue(this.allergens);
   }
 
   onDeSelectAllergens(index) {
@@ -350,7 +348,7 @@ export class ProfileInfoComponent implements OnInit {
       submission.medicalConditionIds = temp;
       submission.firstName = this.ProfileInfo.value.firstName;
       submission.lastName = this.ProfileInfo.value.lastName;
-      submission.dob = this.selectedDate;
+      submission.dob = this.utilityService.formatDate(this.selectedDate);
       submission.gradeId = this.ProfileInfo.value.grade ? this.ProfileInfo.value.grade.id : undefined;
       if (this.selectedAllergensValue) {
         _.forEach(this.selectedAllergensValue, ob => {

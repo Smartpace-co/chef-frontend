@@ -12,11 +12,13 @@ export class RecipeFactComponent implements OnInit {
 
   lessonHederConfig = {};
   assignmentId: string;
-  assignmentData: any;
   recipeImg: string;
   defaultRecipeImg: string;
+  funFactList = [];
+  socialStudiesFactList = [];
+  slickConfig;
+  slideConfig;
   isLoad = false;
-  countryBgImg;
   constructor(private toast: ToasterService, private router: Router, private studentService: StudentService, private utilityService: UtilityService) {
     this.lessonHederConfig['stepBoard'] = null;
     this.defaultRecipeImg = './assets/images/nsima-bent-icon.png';
@@ -49,10 +51,12 @@ export class RecipeFactComponent implements OnInit {
   getStudentData() {
     this.studentService.getAssignedLessonById(parseInt(this.assignmentId)).subscribe(
       (response) => {
-        if (response && response.data) {
-          this.assignmentData = response.data.lesson;
+        if (response && response.data && response.data.lesson) {
           this.recipeImg = response.data.recipe.recipeImage ? response.data.recipe.recipeImage : this.defaultRecipeImg;
-          this.countryBgImg = response.data.recipe.country.backgroundImage;
+          this.funFactList = response.data.lesson.funFact ? response.data.lesson.funFact.match(/.{1,95}(\s|$)/g) : undefined;
+          this.socialStudiesFactList = response.data.lesson.socialStudiesFact ? response.data.lesson.socialStudiesFact.match(/.{1,95}(\s|$)/g) : undefined;
+          this.getSlickConfig();
+          this.getSliderConfig();
           this.isLoad = true;
         }
       },
@@ -62,19 +66,41 @@ export class RecipeFactComponent implements OnInit {
       }
     );
   }
+  getSliderConfig(): void {
+    this.slideConfig = {
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      nextArrow: '<div class=\'nav-btn next-slide\'></div>',
+      prevArrow: '<div class=\'nav-btn prev-slide\'></div>',
+      dots: this.funFactList && this.funFactList.length > 1 ? true : false,
+      infinite: false,
+    };
+
+  }
+  getSlickConfig(): void {
+    this.slickConfig = {
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      nextArrow: '<div class=\'nav-btn next-slide\'></div>',
+      prevArrow: '<div class=\'nav-btn prev-slide\'></div>',
+      dots: this.socialStudiesFactList && this.socialStudiesFactList.length > 1 ? true : false,
+      infinite: false,
+    };
+
+  }
 
   /**
   * on Next click event
  */
   onNext(): void {
-    this.router.navigate(['student/recipe-content']);
+    this.router.navigate(['student/conversional-sentence']);
   }
 
   /**
    * on Previous click event
   */
   onPrevious(): void {
-    this.router.navigate(['student/greeting']);
+    this.router.navigate(['/student/chef-introduction']);
     // this.router.navigate(['student/country-location']);
   }
 

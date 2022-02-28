@@ -171,26 +171,24 @@
                           </app-drop-down>
                         </div>
                         <div class="col-sm-6">
-                          <label>{{'school.class.add-class.grade-field' | translate}} {{'student.profile.optional-label'| translate }}</label>
+                          <label>{{'school.class.add-class.grade-field' | translate}} (*)</label>
                           <app-drop-down fieldControl="grade" class="formDropdown" [dropDownButtonName]="gradeTitle"
                             [dropDownIcon]="gradeIcon" [dropDownItemList]="gradeList"
                             (registerDropdownValueChange)="gradeChange($event)">
                           </app-drop-down>
-                          <!-- <div *ngIf="formControl.grade.errors" class="invalid-feedback">
+                         <div *ngIf="formControl.grade.errors" class="invalid-feedback">
                               <div class="error" *ngIf="formControl.grade.errors?.required">{{'school.class.add-class.grade-required'|translate}}</div>
-                          </div> -->
+                          </div> 
                         </div>
                         <div class="col-sm-6">
                           <label>{{'school.student.add-student.personal-info.birth-date' | translate}} (*)</label>
                           <div class="form-group">
                             <div class="input-group">
-                              <input class="form-control"
-                                placeholder="{{'school.student.add-student.personal-info.date' | translate}}" ids="dob"
-                                name="dp" fieldControl="dob" (dateSelect)="onDateSelection($event)"
-                                [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedDate" ngbDatepicker
-                                #d="ngbDatepicker">
+                              <input class="form-control" [readonly]="true"
+                              placeholder="{{'school.student.add-student.personal-info.date' | translate}}" name="d2" [minDate]="{year: 1980, month:1, day: 1}"
+                              [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedDate" ngbDatepicker #d2="ngbDatepicker"/>
                               <div class="input-group-append">
-                                <button class="calendarIcon" (click)="d.toggle()" type="button">
+                                <button class="calendarIcon" (click)="d2.toggle()" type="button">
                                   <fa-icon [icon]="Calendar"></fa-icon>
                                 </button>
                               </div>

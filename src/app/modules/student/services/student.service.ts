@@ -73,16 +73,16 @@ export class StudentService {
   /**
  * To get student relationship list.
  */
-  getStudentRelationList(filter: any, token?: any): Observable<any> {
-    let params = new HttpParams();
-    if (filter) {
-      params = params.append('type', filter);
-    }
+  getStudentRelationList(token?: any): Observable<any> {
+    // let params = new HttpParams();
+    // if (filter) {
+    //   params = params.append('type', filter);
+    // }
     if (token) {
       var headers_object = new HttpHeaders().set("token", token);
-      return this.http.get<any[]>(`${API_USERS_URL}/master/relation`, { params, headers: headers_object });
+      return this.http.get<any[]>(`${API_USERS_URL}/master/relation`, { headers: headers_object });
     } else {
-      return this.http.get<any[]>(`${API_USERS_URL}/master/relation`, { params });
+      return this.http.get<any[]>(`${API_USERS_URL}/master/relation`);
     }
   }
   /**
@@ -201,12 +201,25 @@ export class StudentService {
   }
 
   /**
+   * To get assigned recipe title by lesson id.
+   */
+  getAssignedRecipeTitle(id: any): Observable<any> {
+    return this.http.get<any[]>(`${API_USERS_URL}/lesson/assignedRecipeTitle/${id}`);
+  }
+
+  /**
   * To get all explore lessons.
   */
-  getExploreLessonList(countryName: string): Observable<any> {
+  getExploreLessonList(countryName?: string, lessonType?: boolean,languageKey?:string): Observable<any> {
     let params = new HttpParams();
     if (countryName) {
       params = params.append('country', countryName);
+    }
+    if (lessonType) {
+      params = params.append('isInternationalRecipe', true.toString());
+    }
+    if (languageKey) {
+      params = params.append('systemLanguageKey', languageKey);
     }
     return this.http.get<any[]>(`${API_USERS_URL}/recipe`, { params });
   }

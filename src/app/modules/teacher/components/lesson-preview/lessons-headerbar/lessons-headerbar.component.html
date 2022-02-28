@@ -244,7 +244,7 @@
               </div>
               <div class="form-group">
                 <div class="input-group">
-                  <input class="form-control" placeholder="Search" ids="dob" name="dp" fieldControl="dob"
+                  <input class="form-control" placeholder="Search" ids="dob" name="dp" fieldControl="dob" [minDate]="{year: 1980, month:1, day: 1}"
                     (change)="onChange()" (dateSelect)="onDateSelection()" [ngModelOptions]="{standalone: true}"
                     [(ngModel)]="selectedSearchValue" ngbDatepicker #d="ngbDatepicker">
                   <div class="input-group-append">

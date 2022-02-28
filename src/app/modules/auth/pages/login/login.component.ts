@@ -78,63 +78,64 @@ export class LoginComponent implements OnInit {
       let loginType = isNotStudentLogin ? 'other' : 'student';
       this.authService.login(this.loginForm.value, loginType).subscribe(
         (data) => {
-         let roleName;
-          
-             if (data && data.role) {
-               roleName = data.role.title.toLowerCase();
-             }
-          //else if (data && data.role) {
-          //   roleName = data.role.title.toLowerCase();
-          // }
-          if(!data.parent_role)
-          {
+          let roleName;
 
-          if (roleName) {
-            if (data.isPaymentRemaining != true) {
-              if (roleName === 'teacher') {
-                this.toast.showToast('Login Successful', '', 'success');
-                this.router.navigate(['teacher/dashboard']);
+          if (data && data.role) {
+            roleName = data.role.title.toLowerCase();
+          }
 
-                // this.router.navigate(['teacher/dashboard']);
+          if (data.is_trial_period_end && data.isPaymentRemaining) {
+            if (data.parentId) {
+              this.toast.showToast('Contact your admin', '', 'error');
+            }
+             if (!data.parentId) {
+              this.showPaymentRequest(data);
+            }
+
+          }
+          else{
+            if (!data.parent_role) {
+              if (roleName) {
+                if (roleName === 'teacher') {
+                  this.toast.showToast('Login Successful', '', 'success');
+                  this.router.navigate(['teacher/dashboard']);
+                }
+  
+                else if (roleName === 'student') {
+                  this.toast.showToast('Login Successful', '', 'success');
+                  this.router.navigate(['student/student-landing']);
+                } else if (roleName === 'district') {
+                  this.toast.showToast('Login Successful', '', 'success');
+                  this.router.navigate(['district/dashboard']);
+                } else if (roleName === 'school') {
+                  this.toast.showToast('Login Successful', '', 'success');
+                  this.router.navigate(['school/dashboard'])
+                }
+              
+            }
+              else {
+                this.toast.showToast('Not a valid user', '', 'warning');
               }
-
-              else if (roleName === 'student') {
-                this.toast.showToast('Login Successful', '', 'success');
-                this.router.navigate(['student/student-landing']);
-              } else if (roleName === 'district') {
-                this.toast.showToast('Login Successful', '', 'success');
-                this.router.navigate(['district/dashboard']);
-              } else if (roleName === 'school') {
-                this.toast.showToast('Login Successful', '', 'success');
-                this.router.navigate(['school/dashboard'])
-              }
-
             }
             else {
-              this.showPaymentRequest(data)
+              if (data.parent_role && data.isPaymentRemaining != true) {
+                if (data.parent_role.title === "District") {
+                  this.toast.showToast('Login Successful', '', 'success');
+                  this.router.navigate(['district/dashboard']);
+                }
+                else if (data.parent_role.title === "School") {
+                  this.toast.showToast('Login Successful', '', 'success');
+                  this.router.navigate(['school/dashboard'])
+                }
+              }
+              else {
+                this.toast.showToast('Contact your admin', '', 'error');
+  
+              }
             }
           }
-          else {
-            this.toast.showToast('Not a valid user', '', 'warning');
-          }
-        }
-        else{
-          if(data.parent_role && data.isPaymentRemaining != true){
-            if (data.parent_role.title === "District") {
-                this.toast.showToast('Login Successful', '', 'success');
-                this.router.navigate(['district/dashboard']);
-             }
-             else if (data.parent_role.title === "School") {
-                this.toast.showToast('Login Successful', '', 'success');
-              this.router.navigate(['school/dashboard'])
-          }
-        }
-        else
-        {
-          this.toast.showToast('Contact your admin', '', 'error');
 
-        }
-        }
+
         },
         (error) => {
           console.log(error);

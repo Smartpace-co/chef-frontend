@@ -595,13 +595,15 @@
                     .search-input{
                       width: 100%;
                       background: transparent;
-                      color: rgba($white, 0.5);
+                      color: $white;
                       font-size: 1.8rem;
                       padding: 0 2rem;
+                      font-weight: 700;
                     }
                     .search-input::placeholder{
                       color: rgba($white, 0.5);
                       font-size: 1.4rem;
+                      font-weight: 700;
                     }
                     .calender-icon{
                       padding-right: 1rem;
@@ -669,6 +671,11 @@
       padding:5rem 3rem;
       max-width:45%;
       text-align: center;
+      @include breakpoint(iPad){
+        max-width: 100%;
+        margin: 0 1rem;
+        padding: 5rem 1rem;
+      }
       h3{
           font-size:2.3rem;
           font-weight: bold;
@@ -682,6 +689,10 @@
           max-width: 60%;
           margin: auto;
           margin-bottom: 2rem;
+          font-weight: 700;
+          @include breakpoint(iPad){
+            max-width: 100%;
+          }
       }
   }
 }
@@ -702,6 +713,7 @@
     .form-input{
       @include breakpoint(sm-mobile){
         margin-top: 2rem;
+        margin: unset;
       }
     }
   }

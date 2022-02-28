@@ -10,6 +10,10 @@
         position: relative;
         padding:8rem 4rem;
         padding-top: 0;
+        @include breakpoint(sm-mobile){
+            padding: 8rem 2rem;
+            padding-top: 0;
+        }
         fieldset{
             max-width:90%;
             @include breakpoint(mobile){

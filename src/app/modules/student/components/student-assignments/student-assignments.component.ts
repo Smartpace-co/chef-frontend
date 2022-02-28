@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { UtilityService } from '@appcore/services/utility.service';
 import { SlickCarouselComponent } from 'ngx-slick-carousel';
 import {
   faArrowDown,
@@ -12,6 +11,7 @@ import {
 import { StudentService } from '@modules/student/services/student.service';
 import * as _ from 'lodash';
 import { ToasterService } from '@appcore/services/toaster.service';
+import { AuthService } from '@modules/auth/services/auth.service';
 @Component({
   selector: 'app-student-assignments',
   templateUrl: './student-assignments.component.html',
@@ -60,12 +60,13 @@ export class StudentAssignmentsComponent implements OnInit {
     ]
   };
 
-  constructor(private utilityService: UtilityService, private activatedRoute: ActivatedRoute, private toast: ToasterService, private router: Router, private actRoute: ActivatedRoute, private modalService: NgbModal, private studentService: StudentService) {
+  constructor(private activatedRoute: ActivatedRoute,private authService:AuthService, private toast: ToasterService, private router: Router, private modalService: NgbModal, private studentService: StudentService) {
     this.defaultRecipeImg = './assets/images/nsima-bent-icon.png';
     this.classId = this.activatedRoute && this.activatedRoute.snapshot.queryParams && this.activatedRoute.snapshot.queryParams.id ? this.activatedRoute.snapshot.queryParams.id : undefined;
   }
 
   ngOnInit(): void {
+    this.authService.setuserlang();
     this.sessionData = JSON.parse(window.sessionStorage.getItem('currentUser'));
     this.getAssignmentList();
   }
@@ -78,8 +79,11 @@ export class StudentAssignmentsComponent implements OnInit {
         let calculatedDay;
         let lessonStatus;
         let dayLabel;
+        let startDayLabel;
+        let futureStartday;
         if (res && res.data && res.data.rows) {
           this.assignmentList = _.map(res.data.rows, item => {
+            // calculate 'due in' label.
             if (item && item.endDate) {
               let d = new Date(item.endDate);
               let d1 = new Date();
@@ -87,6 +91,13 @@ export class StudentAssignmentsComponent implements OnInit {
               isDue = (time_difference / (1000 * 60 * 60 * 24)).toFixed(0);
               dueDate = parseInt(isDue);
               calculatedDay = dueDate === -0 ? 0 : dueDate;
+            }
+            // calculate 'start in' label  
+            if (item && item.startDate) {
+              var sDateDiff = new Date(item.startDate).getTime() - new Date().getTime();
+              let diff = (sDateDiff / (1000 * 60 * 60 * 24)).toFixed(0);
+              let resDate = parseInt(diff);
+              futureStartday = resDate === -0 ? 0 : resDate;
             }
             if (item.studentProgress === null) {
               lessonStatus = 'Start';
@@ -100,18 +111,27 @@ export class StudentAssignmentsComponent implements OnInit {
             } else {
               dayLabel = 'day'
             }
+            if (futureStartday > 1) {
+              startDayLabel = 'days'
+            } else {
+              startDayLabel = 'day'
+            }
             let obj = {
               id: item.id,
-              title: (calculatedDay && calculatedDay > 0 || calculatedDay === 0) ? `due in ${calculatedDay} ${dayLabel}` : 'Expired',//'due in 1 day',
+              title: (calculatedDay && calculatedDay > 0 || calculatedDay === 0) ? `due in ${calculatedDay} ${dayLabel}` : 'Expired',
+              startInFuture: (futureStartday && futureStartday > 0 || futureStartday === 0) ? true : false,
+              otherTitle: (futureStartday && futureStartday > 0 || futureStartday === 0) ? `start in ${futureStartday} ${startDayLabel}` : 'Expired',
               status: lessonStatus,
               icon: item.recipe.recipeImage ? item.recipe.recipeImage : this.defaultRecipeImg,
               menu: item.assignmentTitle,
-              duration: item.recipe.estimatedMakeTime,
-              startedOn: item.studentProgress && item.studentProgress.startedAt ? this.utilityService.formatDate(item.studentProgress.startedAt) : undefined,
-              endedOn: item.studentProgress && item.studentProgress.endedAt ? this.utilityService.formatDate(item.studentProgress.endedAt) : undefined,
-              disabled: (calculatedDay && calculatedDay > 0 || calculatedDay === 0) && (lessonStatus != 'Completed') ? false : true,
+              duration: item.lessonTime,
+              startedOn: item.studentProgress && item.studentProgress.startedAt ? item.studentProgress.startedAt : undefined,
+              endedOn: item.studentProgress && item.studentProgress.endedAt ? item.studentProgress.endedAt : undefined,
+              // disabled: (calculatedDay && calculatedDay > 0 || calculatedDay === 0) && (lessonStatus != 'Completed') ? false : true,
+              disabled:(futureStartday && futureStartday > 0) || (lessonStatus === 'Completed') ? true : false,
               customSetting: item.customSetting,
               lessonId: item.lessonId,
+              isCountryBgImg: item.recipe.country && item.recipe.country.backgroundImage ? true : false,
               percent: item.studentProgress && item.studentProgress.percentCompleted ? item.studentProgress.percentCompleted : undefined
             }
             return obj;
@@ -127,10 +147,8 @@ export class StudentAssignmentsComponent implements OnInit {
   }
   slideChange(event) {
     if (event.wheelDelta >= 0) {
-      console.log('go up');
       this.slickModal.slickPrev()
     } else {
-      console.log('go down');
       this.slickModal.slickNext()
     }
   }
@@ -182,7 +200,11 @@ export class StudentAssignmentsComponent implements OnInit {
               if (item.customSetting && item.customSetting.content) {
                 for (let ob of item.customSetting.content) {
                   if (ob.title === 'Story' && ob.status === true) {
-                    this.router.navigate(['/student/learning-objective']);
+                    if (item.isCountryBgImg) {
+                      this.router.navigate(['/student/country-image']);
+                    } else {
+                      this.router.navigate(['/student/learning-objective']);
+                    }
                     break;
                   } else {
                     this.router.navigate(['student/safety-hygiene']);

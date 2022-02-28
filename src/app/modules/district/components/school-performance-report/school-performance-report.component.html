@@ -18,91 +18,118 @@
         <h4>{{'school.school-reports.school-performance-label' | translate}}.</h4>
         <div class="btn-wrapper">
           <app-button classes="btn btn-primary icon-btn mb-3 mr-3" (click)="open(createClass)">
-            <span aria-hidden="true"><fa-icon [icon]="settings"></fa-icon>{{'school.class-activity-report.change-criteria-button' | translate}}</span>
+            <span aria-hidden="true">
+              <fa-icon [icon]="settings"></fa-icon>{{'school.class-activity-report.change-criteria-button' | translate}}
+            </span>
           </app-button>
-          <app-button classes="btn btn-primary print-icon-btn icon-btn mr-3 mb-3" (click)="generatePDF()" printTitle="Print Title" printSectionId="print-section" ngxPrint>
-            <span aria-hidden="true"><span class="print-icon mr-3"><img src="./assets/images/print-icon.png" alt="" class="img-fluid" id="print-section" /></span>{{'school.billing.print-report' | translate}}</span>
+          <app-button classes="btn btn-primary print-icon-btn icon-btn mr-3 mb-3"
+            (click)="openDownloadModal(downloadReport)" printTitle="Print Title" printSectionId="print-section"
+            ngxPrint>
+            <span aria-hidden="true"><span class="print-icon mr-3"><img src="./assets/images/print-icon.png" alt=""
+                  class="img-fluid" id="print-section" /></span>{{'school.billing.print-report' | translate}}</span>
           </app-button>
         </div>
       </div>
     </div>
     <div class="schools-report-wrapper">
-        <div class="schools-activity">
-          <div class="container"> 
-            <ul id="tabs" class="nav nav-tabs activity-tab-nav" role="tablist">
-              <li class="nav-item">
-                  <a id="tabSchoolsActivity" href="#schoolsActivity" class="nav-link active" data-toggle="tab" role="tab">{{'school.school-reports.school-activity-label' | translate}}</a>
-              </li>
-            </ul>
-          </div>
-          <div id="content" class="tab-content" role="tablist">
-            <div id="schoolsActivity" class="panal-card tab-pane fade show active" role="tabpanel" aria-labelledby="tabSchoolsActivity">
-              <div class="container">  
-                <div class="panal-card-header" role="tab" id="headingInfo">
-                      <h5 class="mb-0">
-                          <a data-toggle="collapse" href="#collapseSchoolsActivity" aria-expanded="true" aria-controls="collapseSchoolsActivity">
-                            School’s  Activity
-                          </a>
-                      </h5>
+      <div class="schools-activity">
+        <div class="container">
+          <ul id="tabs" class="nav nav-tabs activity-tab-nav" role="tablist">
+            <li class="nav-item">
+              <a id="tabSchoolsActivity" href="#schoolsActivity" class="nav-link active" data-toggle="tab"
+                role="tab">{{'school.school-reports.school-activity-label' | translate}}</a>
+            </li>
+          </ul>
+        </div>
+        <div id="content" class="tab-content" role="tablist">
+          <div id="schoolsActivity" class="panal-card tab-pane fade show active" role="tabpanel"
+            aria-labelledby="tabSchoolsActivity">
+            <div class="container">
+              <div class="panal-card-header" role="tab" id="headingInfo">
+                <h5 class="mb-0">
+                  <a data-toggle="collapse" href="#collapseSchoolsActivity" aria-expanded="true"
+                    aria-controls="collapseSchoolsActivity">
+                    School’s Activity
+                  </a>
+                </h5>
+              </div>
+            </div>
+            <div id="collapseSchoolsActivity" class="collapse show" data-parent="#content" role="tabpanel"
+              aria-labelledby="headingInfo">
+              <div class="school-active-details">
+                <div class="roster-filter">
+                  <div class="container">
+                    <ul class="filters-list desktop-only">
+                      <li class="filters-item">
+                        <a (click)="getSchoolPerformanceReport('week')" class="filter active"
+                          [ngClass]="{'active': duration === 'week'}">{{'school.class-activity-report.this-week-label' |
+                          translate}}</a>
+                      </li>
+                      <li class="filters-item">
+                        <a (click)="getSchoolPerformanceReport('month')" class="filter"
+                          [ngClass]="{'active': duration === 'month'}">{{'school.class-activity-report.this-month-label'
+                          | translate}}</a>
+                      </li>
+                      <li class="filters-item">
+                        <a (click)="getSchoolPerformanceReport('quarter')" class="filter"
+                          [ngClass]="{'active': duration === 'quarter'}">{{'school.class-activity-report.this-quarter-label'
+                          | translate}}</a>
+                      </li>
+                      <li class="filters-item">
+                        <a (click)="getSchoolPerformanceReport('year')" class="filter"
+                          [ngClass]="{'active': duration === 'year'}">{{'school.class-activity-report.this-year-label' |
+                          translate}}</a>
+                      </li>
+                    </ul>
+
+                    <div class="filter-droplist">
+                      <app-drop-down class="transparentbg  mobile-only" [dropDownButtonName]="filterTitle"
+                        [dropDownIcon]="" [dropDownItemList]="filterList"></app-drop-down>
+                      <app-drop-down class="transparentbg" (registerDropdownValueChange)="changeView($event)"
+                        [dropDownButtonName]="ViewTitle" [dropDownIcon]="ViewIcon" [dropDownItemList]="ViewList">
+                      </app-drop-down>
+                    </div>
+                    <div (click)="openRead(readReport)" class="report-help">
+                      <a class="help">{{'school.class-activity-report.how-to-read-this-report-label' | translate}}</a>
+                    </div>
                   </div>
                 </div>
-                <div id="collapseSchoolsActivity" class="collapse show" data-parent="#content" role="tabpanel" aria-labelledby="headingInfo">
-                  <div class="school-active-details">
-                    <div class="roster-filter">
-                      <div class="container">
-                        <ul class="filters-list desktop-only">
-                          <li class="filters-item">
-                              <a (click)="getSchoolPerformanceReport('week')" class="filter active" [ngClass]="{'active': duration === 'week'}">{{'school.class-activity-report.this-week-label' | translate}}</a>
-                          </li>
-                          <li class="filters-item">
-                            <a (click)="getSchoolPerformanceReport('month')" class="filter" [ngClass]="{'active': duration === 'month'}">{{'school.class-activity-report.this-month-label' | translate}}</a>
-                          </li>
-                          <li class="filters-item">
-                            <a (click)="getSchoolPerformanceReport('quarter')" class="filter" [ngClass]="{'active': duration === 'quarter'}">{{'school.class-activity-report.this-quarter-label' | translate}}</a>
-                          </li>
-                          <li class="filters-item">
-                            <a (click)="getSchoolPerformanceReport('year')" class="filter" [ngClass]="{'active': duration === 'year'}">{{'school.class-activity-report.this-year-label' | translate}}</a>
-                          </li>
-                        </ul>
+                <div class="container" id="generatePdf">
+                  <div class="legend-card">
+                    <div *ngIf="gridview" class="dist-school-grid">
+                      <div class="row">
+                        <div class="col-lg-4 col-md-6 col-sm-6" *ngFor="let item of schoolList;let i=index;">
+                          <div class="schoolItem">
+                            <div class="schoolItem__heading">
+                              <h6 class="schoolItem__heading__name">{{ item.schoolName}}</h6>
+                              <a class="schoolItem__heading__dots">
+                                <fa-icon [icon]="faDots"></fa-icon>
+                              </a>
+                            </div>
+                            <div class="schoolItem__info-wrapper">
+                              <div class="schoolItem__info-wrapper__photo">
+                                <img src="{{ item.profilePic }}" alt="" class="img-fluid" />
+                              </div>
+                              <div class="schoolItem__info-wrapper__name-id">
+                                <h6 class="schoolItem__info-wrapper__name-id__name">{{ item.teachername}}</h6>
+                                <p class="schoolItem__info-wrapper__name-id__id">
+                                  <label>{{'district.district-schools.id' | translate}}:</label><span>{{ item.schoolId
+                                    }}</span>
+                                </p>
+                              </div>
+                            </div>
+                            <div class="schoolItem__school-info">
+                              <h6>{{'school.class-performance-report.CCSS-label' | translate}}-
+                                {{planList[i].attempted[0]}} %, {{planList[i].proficiency[0]}} %</h6>
+                              <h6>{{'school.class-performance-report.CCSS-MATH-label' | translate}}-
+                                {{planList[i].attempted[1]}} %, {{planList[i].proficiency[1]}} %</h6>
+                              <h6>{{'school.class-performance-report.NGSS-label' | translate}}-
+                                {{planList[i].attempted[2]}} %, {{planList[i].proficiency[2]}} %</h6>
+                              <h6>{{'school.class-performance-report.NCSS-label' | translate}}-
+                                {{planList[i].attempted[3]}} %, {{planList[i].proficiency[3]}} %</h6>
 
-                        <div class="filter-droplist">
-                          <app-drop-down class="transparentbg  mobile-only"
-                            [dropDownButtonName]="filterTitle" [dropDownIcon]="" [dropDownItemList]="filterList"></app-drop-down>
-                          <app-drop-down class="transparentbg" (registerDropdownValueChange)="changeView($event)"
-                            [dropDownButtonName]="ViewTitle" [dropDownIcon]="ViewIcon" [dropDownItemList]="ViewList"></app-drop-down>
-                        </div>
-                        <div (click)="openRead(readReport)" class="report-help">
-                          <a  class="help">{{'school.class-activity-report.how-to-read-this-report-label' | translate}}</a>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="container"  id="generatePdf">
-                      <div class="legend-card">
-                        <div *ngIf="gridview" class="dist-school-grid">
-                            <div class="row">
-                              <div class="col-lg-4 col-md-6 col-sm-6" *ngFor="let item of schoolList;let i=index;">
-                                <div class="schoolItem">
-                                  <div class="schoolItem__heading">
-                                    <h6 class="schoolItem__heading__name">{{ item.schoolName}}</h6>
-                                    <a class="schoolItem__heading__dots"> <fa-icon [icon]="faDots"></fa-icon></a>
-                                  </div>
-                                  <div class="schoolItem__info-wrapper">
-                                    <div class="schoolItem__info-wrapper__photo">
-                                      <img src="{{ item.profilePic }}" alt="" class="img-fluid"/>
-                                    </div>
-                                    <div class="schoolItem__info-wrapper__name-id">
-                                      <h6 class="schoolItem__info-wrapper__name-id__name">{{ item.teachername}}</h6>
-                                      <p class="schoolItem__info-wrapper__name-id__id"> <label>{{'district.district-schools.id' | translate}}:</label><span>{{ item.schoolId }}</span></p> 
-                                    </div>
-                                  </div>
-                                  <div class="schoolItem__school-info">
-                                    <h6>{{'school.class-performance-report.CCSS-label' | translate}}- {{planList[i].attempted[0]}} %, {{planList[i].proficiency[0]}} %</h6>
-                                    <h6>{{'school.class-performance-report.CCSS-MATH-label' | translate}}- {{planList[i].attempted[1]}} %, {{planList[i].proficiency[1]}} %</h6>
-                                    <h6>{{'school.class-performance-report.NGSS-label' | translate}}- {{planList[i].attempted[2]}} %, {{planList[i].proficiency[2]}} %</h6>
-                                    <h6>{{'school.class-performance-report.NCSS-label' | translate}}- {{planList[i].attempted[3]}} %, {{planList[i].proficiency[3]}} %</h6>
-
-                                  </div>
-                                  <!-- <ul class="schoolItem__action">
+                            </div>
+                            <!-- <ul class="schoolItem__action">
                                     <li>
                                       <a>Info<fa-icon [icon]="rightArrow" class="ml-2"></fa-icon></a>
                                     </li>
@@ -113,21 +140,21 @@
                                       <a>Reports<fa-icon [icon]="rightArrow" class="ml-2"></fa-icon></a>
                                     </li>
                                   </ul> -->
-                                </div>
-                              </div>
-                            </div>
-                        </div>
-                        <div *ngIf="listview">
-                          <app-tables  [dataSource]="schoolList"
-                            [tableHeaders]="schoolHeadersList" [page]="1" [pageSize]="10"></app-tables>
+                          </div>
                         </div>
                       </div>
                     </div>
+                    <div *ngIf="listview">
+                      <app-tables [dataSource]="schoolList" [tableHeaders]="schoolHeadersList" [page]="1"
+                        [pageSize]="10"></app-tables>
+                    </div>
                   </div>
                 </div>
+              </div>
             </div>
           </div>
         </div>
+      </div>
     </div>
   </div>
 </div>
@@ -138,14 +165,15 @@
   <div class="modal-body">
     <h3 class="access-label">{{'school.class-activity-report.change-criteria-button' | translate}}</h3>
     <div class="roles-access">
-      <div  class="check-wrapper" *ngFor="let option of schoolCheckboxHeadersList" >
+      <div class="check-wrapper" *ngFor="let option of schoolCheckboxHeadersList">
         <div class="custom-control custom-checkbox">
-          <input type="checkbox" [checked] ="option.check" (click)="hideContentColumns($event,option)" class="custom-control-input">
+          <input type="checkbox" [checked]="option.check" (click)="hideContentColumns($event,option)"
+            class="custom-control-input">
           <label class="custom-control-label">{{option.title}}</label>
         </div>
       </div>
 
-      
+
     </div>
   </div>
 </ng-template>
@@ -157,9 +185,33 @@
     <h3 class="access-label">{{'school.class-activity-report.how-to-read-this-report-label' | translate}}</h3>
     <div class="modal-body journal-body">
       <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s
-        standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
-        type specimen book. </p>     
+        standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
+        a
+        type specimen book. </p>
     </div>
-    
+
+  </div>
+</ng-template>
+
+<ng-template #downloadReport let-modal>
+  <div class="btn-wrapper">
+    <button type="button" class="close" aria-label="Close" (click)="closeDownlaodModal()">
+      <img src="./assets/images/close.png" alt="" class="img-fluid" />
+    </button>
+  </div>
+  <div class="download-pdf">
+    <h4>Download</h4>
+    <div class="download-button">
+      <app-button classes="btn btn-primary print-icon-btn icon-btn" (click)="generatePDF()">
+        <span aria-hidden="true"><span class="print-icon mr-3"><img src="./assets/images/print-icon.png" alt=""
+              class="img-fluid" /></span>{{ 'school.billing.download-pdf' | translate
+          }}</span>
+      </app-button>
+      <app-button classes="btn btn-primary print-icon-btn icon-btn" (click)="printExcelSheet()">
+        <span aria-hidden="true"><span class="print-icon mr-3"><img src="./assets/images/print-icon.png" alt=""
+              class="img-fluid" /></span>{{ 'school.billing.download-excel' | translate
+          }}</span>
+      </app-button>
+    </div>
   </div>
 </ng-template>

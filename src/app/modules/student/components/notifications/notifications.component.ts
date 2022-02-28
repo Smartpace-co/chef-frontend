@@ -1,5 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { UtilityService } from '@appcore/services/utility.service';
 import { ToasterService } from '@appcore/services/toaster.service';
 import {
   faAngleLeft
@@ -20,7 +21,7 @@ export class NotificationsComponent implements OnInit {
   currentUser: any;
   page = 1;
   pageSize = 10;
-  constructor(private config: NgbPaginationConfig, private toast: ToasterService, private notificationService: NotificationService, private location: Location) {
+  constructor(private config: NgbPaginationConfig, private toast: ToasterService, private notificationService: NotificationService, private location: Location, public utiltiService: UtilityService) {
     this.config.boundaryLinks = true;
   }
 
@@ -97,7 +98,4 @@ export class NotificationsComponent implements OnInit {
    * compare dates.
    * @param data 
    */
-  isSameDay(data: any): boolean {
-    return new Date(data.createdAt).getDay() === new Date().getDay();
-  }
 }

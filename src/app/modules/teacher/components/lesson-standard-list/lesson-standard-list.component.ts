@@ -1,18 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FaConfig } from '@fortawesome/angular-fontawesome';
 import { faSearch, faAngleDoubleLeft, faStar, faChevronRight, faBookmark, faCalendarAlt, faExclamationTriangle, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import {  FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '@modules/auth/services/auth.service';
 import { ToasterService } from '@appcore/services/toaster.service';
-import { NgbModal, ModalDismissReasons, NgbActiveModal, NgbDate, NgbCalendar, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { forEach, identity } from 'lodash';
+import { NgbModal, NgbDate, NgbCalendar, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { ClassesService } from '@modules/teacher/services/classes.service';
 import { UtilityService } from '@appcore/services/utility.service';
 import { TeacherService } from '@modules/teacher/services/teacher.service';
 import * as _ from 'lodash';
-import * as moment from 'moment';
-import { title } from 'process';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -88,6 +85,7 @@ export class LessonStandardListComponent implements OnInit {
     this.lessonId = this.teacherservice.getLessonId();
     this.localData = JSON.parse(window.sessionStorage.getItem('currentUser'));
     this.lessonType = this.teacherservice.GetLessonType();
+    this.teacherservice.viewMore = true;
     this.getStandardLesson();
 
   }

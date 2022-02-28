@@ -1,26 +1,39 @@
 <app-ingreditent-nav></app-ingreditent-nav>
 <app-lessons-headerbar [lessonHederConfig]="lessonHederConfig"></app-lessons-headerbar>
 <div class="ingredients-body-1 ingredient-bg">
-  <!-- <app-scroll-down></app-scroll-down> -->
   <div class="container">
-      <div class="card-wihtout-header-white ingredients">
-        <div class="ingredients-wrapper">
-          <div class="ingredients-list" *ngFor="let item of ingredientsList">
-            <div class="profile-pic">
+    <div class="card-wihtout-header-white ingredients">
+      <div class="ingredients-wrapper">
+        <div class="ingredients-list" *ngFor="let item of ingredientsList">
+          <div>
+            <div class="profile-pic-list">
               <img src="{{item.icon}}" alt="" class="img-fluid" />
             </div>
             <p>{{item.quantity}} {{item.unit}}</p>
-            <div class="btn-wrapper">
-              <app-button classes="btn small-btn btn-secondary ingredients-btn disabled-ptr" [submit]="true" (click)="showDetails(item)">
+          </div>
+          <div class="btn-wrapper">
+            <p *ngIf="item.isOptional" class="optional-wraper">{{'school.student.add-student.optional' | translate}}</p>
+            <ng-container *ngIf="item.isSpotlight; else noSpotlight">
+              <app-button classes="btn small-btn btn-secondary ingredients-btn disabled-ptr spotlight" [submit]="true"
+                (click)="showDetails(item)">
                 <span aria-hidden="true">{{item.name}}</span>
               </app-button>
-           </div>
-            <div *ngIf="item.hasSubstitute" class="substitute-btn-wrapper">
-              <a (click)="open(substituteModal,item)"><span class="icon"><fa-icon [icon]="exchange"></fa-icon></span><u>Find a Substitute</u></a>
-            </div>
+            </ng-container>
+            <ng-template #noSpotlight>
+              <app-button classes="btn small-btn btn-secondary ingredients-btn disabled-ptr" [submit]="true"
+                (click)="showDetails(item)">
+                <span aria-hidden="true">{{item.name}}</span>
+              </app-button>
+            </ng-template>
+          </div>
+          <div *ngIf="item.hasSubstitute" class="substitute-btn-wrapper">
+            <a (click)="open(substituteModal,item)"><span class="icon">
+                <fa-icon [icon]="exchange"></fa-icon>
+              </span><u>Find a Substitute</u></a>
           </div>
         </div>
       </div>
+    </div>
   </div>
 </div>
 <app-lessons-footer (onNext)="onNext()" (onPrevious)="onPrevious()"></app-lessons-footer>
@@ -42,3 +55,27 @@
     <button type="button" class="btn btn-primary" (click)="replaceIngredient()">Replace</button>
   </div>
 </ng-template>
+
+
+<!-- <div class="ingredients-body-1 ingredient-bg">
+  <div class="container">
+      <div class="card-wihtout-header-white ingredients">
+        <div class="ingredients-wrapper">
+          <div class="ingredients-list" *ngFor="let item of ingredientsList">
+            <div class="profile-pic">
+              <img src="{{item.icon}}" alt="" class="img-fluid" />
+            </div>
+            <p>{{item.quantity}} {{item.unit}}</p>
+            <div class="btn-wrapper">
+              <app-button classes="btn small-btn btn-secondary ingredients-btn disabled-ptr" [submit]="true" (click)="showDetails(item)">
+                <span aria-hidden="true">{{item.name}}</span>
+              </app-button>
+           </div>
+            <div *ngIf="item.hasSubstitute" class="substitute-btn-wrapper">
+              <a (click)="open(substituteModal,item)"><span class="icon"><fa-icon [icon]="exchange"></fa-icon></span><u>Find a Substitute</u></a>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div> -->

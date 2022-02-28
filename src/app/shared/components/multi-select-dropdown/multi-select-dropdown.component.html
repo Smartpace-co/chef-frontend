@@ -12,7 +12,7 @@
   >
   </ng-multiselect-dropdown>
 </div>
-<div class="multi-select">
+<div *ngIf="!isSelectedShow" class="multi-select">
     <span *ngFor="let item of selectedValue; let i = index">
       <span class="multi-select__item">
         {{ item.item_text }}

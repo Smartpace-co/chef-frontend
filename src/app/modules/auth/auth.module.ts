@@ -22,9 +22,10 @@ import { SchoolAdminComponent } from './pages/register-school/register-school-ad
 import { RegisterTeacherComponent } from './pages/register-teacher/register-teacher.component';
 import { EndComponent } from './pages/end/end.component';
 import { StudentSignUpComponent } from './pages/student-sign-up/student-sign-up.component';
+import { GeneratePasswordComponent } from './pages/generate-password/generate-password.component';
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent, ForgotPasswordComponent, RegisterAdminComponent, VerifyEmailComponent, AuthComponent, AccessCodeComponent, StudentFreeAccessComponent, VerifiedComponent, SignUpComponent, ResetPasswordComponent, ResetPasswordLinkComponent, PasswordChangedComponent, StudentMembershipComponent,SchoolAdminComponent, RegisterTeacherComponent,EndComponent, StudentSignUpComponent],
+  declarations: [LoginComponent, RegisterComponent, ForgotPasswordComponent, RegisterAdminComponent, VerifyEmailComponent, AuthComponent, AccessCodeComponent, StudentFreeAccessComponent, VerifiedComponent, SignUpComponent, ResetPasswordComponent, ResetPasswordLinkComponent, PasswordChangedComponent, StudentMembershipComponent,SchoolAdminComponent, RegisterTeacherComponent,EndComponent, StudentSignUpComponent, GeneratePasswordComponent],
   imports: [CommonModule, AuthRoutingModule, SharedModule, FormsModule, ScaffoldModule]
 })
 export class AuthModule {}

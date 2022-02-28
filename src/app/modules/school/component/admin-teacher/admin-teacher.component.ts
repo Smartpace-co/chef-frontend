@@ -125,6 +125,8 @@ export class AdminTeacherComponent implements OnInit {
   schoolList = [];
   isLoadUser = false;
   term: string;
+  sortById;
+  status;
   profilePic: string;
   createClassForm: FormGroup;
   activateUserData: any;
@@ -140,62 +142,29 @@ export class AdminTeacherComponent implements OnInit {
     this.getAllTeacherList();
   }
 
-  getAllTeacherList(filter?: any, sortBy?: string): void {
-    let obj;
-    let filter1=[]    
-    
+  getAllTeacherList(): void {
     this.schoolService.getSchoolDetailsByUserId(this.activateUserData.id).subscribe(
       (schoolResponse) => {
-        if (schoolResponse && schoolResponse.data) {
-          if(filter)
-    {
-      filter1.push(filter[0])
-      filter1.push(schoolResponse.data[0].id)
-
-    }
-    else
-    {
-      filter1.push(schoolResponse.data[0].id)
-    }
-          this.schoolService.getAllTeacher(filter1, sortBy).subscribe(
+        if (schoolResponse && schoolResponse.data && schoolResponse.data[0].id) {
+          this.schoolService.getAllTeacher(this.status, schoolResponse.data[0].id, this.sortById).subscribe(
             (response) => {
               if (response && response.data && response.data.rows) {
                 this.schoolList = _.map(response.data.rows, item => {
-                  if (item.teacher.gender != null) {
-                    obj = {
-                      id: item.id,
-                      userFirstName: item.teacher.first_name,
-                      userLastName: item.teacher.last_name,
-                      userId: item.teacher.id,
-                      email: item.email,
-                      gender: item.teacher.gender.charAt(0).toUpperCase() + item.teacher.gender.slice(1),
-                      contactNumber: item.phone_number,
-                      userPhoto: item.profile_image || this.profilePic,
-                      status: item.status === true ? 'Active' : 'Inactive',
-                      role: item.role.title,
-                      roleID: item.role.id
-                    }
+                  let obj = {
+                    id: item.id,
+                    userFirstName: item.teacher.first_name,
+                    userLastName: item.teacher.last_name,
+                    userId: item.teacher.id,
+                    email: item.email,
+                    gender: item && item.teacher && item.teacher.gender ? item.teacher.gender.charAt(0).toUpperCase() + item.teacher.gender.slice(1) : undefined,
+                    contactNumber: item.phone_number,
+                    userPhoto: item.profile_image || this.profilePic,
+                    status: item.status === true ? 'Active' : 'Inactive',
+                    role: item.role.title,
+                    roleID: item.role.id,
+                    dots: "..."
                   }
-                  else {
-                    obj = {
-                      id: item.id,
-                      userFirstName: item.teacher.first_name,
-                      userLastName: item.teacher.last_name,
-                      userId: item.teacher.id,
-                      email: item.email,
-                      gender: item.teacher.gender,
-                      contactNumber: item.phone_number,
-                      userPhoto: item.profile_image || this.profilePic,
-                      status: item.status === true ? 'Active' : 'Inactive',
-                      role: item.role.title,
-                      roleID: item.role.id
-                    }
-                  }
-
                   return obj;
-                });
-                this.schoolList.forEach(element => {
-                  element.dots = "..."
                 });
                 this.isLoadUser = true;
               }
@@ -228,19 +197,14 @@ export class AdminTeacherComponent implements OnInit {
 
   teacherFilter(item: any): void {
     this.userTitle = item.menu;
-    if (item && item.id) {
-      this.getAllTeacherList(item.id);
-    } else {
-      this.getAllTeacherList();
-    }
+    this.userTitle = item.menu;
+    this.status = item.id;
+    this.getAllTeacherList();
   }
   teacherIdFilter(event): void {
     this.SortByIdTitle = event.menu;
-    if (event && event.value) {
-      this.getAllTeacherList(undefined, event.value);
-    } else {
-      this.getAllTeacherList();
-    }
+    this.sortById = event.value;
+    this.getAllTeacherList();
   }
 
   importUser(): void {

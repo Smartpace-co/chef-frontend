@@ -1,0 +1,90 @@
+@import "../../../../../assets/styles/helpers/variables";
+@import "../../../../../assets/styles/helpers/mixins";
+.active-action-body {
+  background: url("../../../../../assets/images/kitchen-bg.jpg") center no-repeat;
+  background-size: cover;
+  position: relative;
+  overflow: hidden;
+  .container {
+    @include breakpoint(tabs) {
+      padding: 0;
+    }
+    .final-editaion {
+      min-height: calc(100vh - 14rem);
+      display: flex;
+      overflow: hidden;
+      align-items: center;
+      justify-content: center;
+      margin-top: -10rem;
+      @include breakpoint(tabs) {
+        padding-top: 0rem;
+        margin-top: 0;
+      }
+      @include breakpoint(mobile) {
+        padding-bottom: 10rem;
+      }
+      .content-wrapper {
+        .card-wihtout-header-blue {
+          position: relative;
+          display: inline-block;
+          margin: 0 auto;
+          max-width: 70rem;
+          padding: 4rem;
+          min-width: 30rem;
+          @include breakpoint(tabs) {
+            max-width: 40rem;
+            padding: 2rem;
+          }
+          @include breakpoint(sm-mobile) {
+            max-width: 34rem;
+          }
+          .reference-heading {
+            color: $yellow-shade-1;
+            margin-bottom: 2rem;
+            text-align: center;
+          }
+          .reference-inner {
+            max-height: 20rem;
+            overflow: auto;
+            &::-webkit-scrollbar {
+              width: 1rem;
+              height: 1rem;
+            }
+            &::-webkit-scrollbar-thumb {
+              background: $yellow-shade-5;
+            }
+            .reference-list-wraper {
+              list-style-type: disc;
+              padding-left: 2rem;
+              .reference-list {
+                margin: 1rem 0;
+                a {
+                  font-size: 1.4rem;
+                  font-weight: 700;
+                  &:hover {
+                    color: rgba($color: $white, $alpha: 0.6);
+                  }
+                }
+              }
+            }
+          }
+        }
+        .final-editaion-img-wrapper {
+          max-width: 29rem;
+          position: absolute;
+          display: block;
+          margin-left: auto;
+          left: 0;
+          bottom: -5rem;
+          @include breakpoint(mobile) {
+            max-width: 20rem;
+          }
+          @include breakpoint(mobile) {
+            left: -7rem;
+            bottom: -8rem;
+          }
+        }
+      }
+    }
+  }
+}

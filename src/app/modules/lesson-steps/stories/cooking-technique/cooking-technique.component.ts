@@ -23,6 +23,7 @@ export class CookingTechniqueComponent implements OnInit {
   isLoad = false;
   currentAssignedLesson;
   isVisibleNext = true;
+  slideConfig;
   constructor(private router: Router, private toast: ToasterService, private sanitizer: DomSanitizer, private studentService: StudentService, private utilityService: UtilityService) {
     this.lessonHederConfig['stepBoard'] = {
       stepNumber: 'Step 5',
@@ -37,14 +38,6 @@ export class CookingTechniqueComponent implements OnInit {
     let previousTime = this.utilityService.calculateTimeBetweenDates();
     this.updateLessonProgress(previousTime);
   }
-  slideConfig = {
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    nextArrow: '<div class=\'nav-btn next-slide\'></div>',
-    prevArrow: '<div class=\'nav-btn prev-slide\'></div>',
-    dots: true,
-    infinite: false,
-  };
 
   updateLessonProgress(time: any): void {
     let submission = {
@@ -69,19 +62,18 @@ export class CookingTechniqueComponent implements OnInit {
         if (response && response.data && response.data.recipe.recipeTechniques) {
           this.currentAssignedLesson = response.data;
           this.isVisibleNext = false;
-          // this.cookingTechniqueList = response.data.recipe.recipeTechniques;
-          this.cookingTechniqueList = _.filter(response.data.recipe.recipeTechniques, item => {
-            if (item && (item.dialogue || item.animationLink)) {
-              return item;
+          this.cookingTechniqueList = _.map(response.data.recipe.recipeTechniques, item => {
+            let secureUrl;
+            if (item && item.culinaryTechnique && item.culinaryTechnique.video) {
+              secureUrl = this.sanitizer.bypassSecurityTrustResourceUrl(item.culinaryTechnique.video);
             }
+            let ob = {
+              description: item.culinaryTechnique.description,
+              link: secureUrl
+            }
+            return ob;
           });
-          // if (response.data.recipe.recipeTechniques[0].dialogue) {
-          //   // let stringDialogue = response.data.recipe.recipeTechniques[0].dialogue.replace(/<[^>]+>/g, '');
-          //   this.cookingTechniqueList.push(response.data.recipe.recipeTechniques[0].dialogue);// stringDialogue.match(/.{1,220}/g);
-          // }
-          // if (response.data.recipe.recipeTechniques[0] && response.data.recipe.recipeTechniques[0].animationLink) {
-          //   this.videoUrl = response.data.recipe.recipeTechniques[0].animationLink;
-          // }
+          this.getSliderConfig();
           this.isLoad = true;
         }
       },
@@ -91,7 +83,17 @@ export class CookingTechniqueComponent implements OnInit {
       }
     );
   }
+  getSliderConfig(): void {
+    this.slideConfig = {
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      nextArrow: '<div class=\'nav-btn next-slide\'></div>',
+      prevArrow: '<div class=\'nav-btn prev-slide\'></div>',
+      dots: this.cookingTechniqueList && this.cookingTechniqueList.length > 1 ? true : false,
+      infinite: false,
+    };
 
+  }
   onPrevious(): void {
     if (this.currentAssignedLesson) {
       if (!_.isEmpty(this.currentAssignedLesson.recipe.preparationSteps))
@@ -105,7 +107,4 @@ export class CookingTechniqueComponent implements OnInit {
     this.router.navigate(['student/cooking-steps']);
   }
 
-  getSanitizeUrl(urlData: any) {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(urlData);
-  }
 }

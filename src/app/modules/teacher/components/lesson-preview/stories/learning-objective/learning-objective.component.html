@@ -1,10 +1,7 @@
 <app-ingreditent-nav></app-ingreditent-nav>
 <app-lessons-headerbar [lessonHederConfig]="lessonHederConfig"></app-lessons-headerbar>
-<!-- <div class="story-body-11"> -->
-  <div *ngIf="isLoad" class="story-body-11"
-   [ngStyle]=" countryBgImg ? {background: ' url(' + countryBgImg + ')'} : {background: ' url(' + './assets/images/kitchen-bg-blur.jpg' + ')'}">
+  <div *ngIf="isLoad" class="story-body-11">
   <div class="blur-bg">
-    <!-- <app-scroll-down></app-scroll-down> -->
     <div class="container">
       <div class="final-editaion">
         <div class="content-wrapper">
@@ -22,7 +19,7 @@
             <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
           </span>
           <span class="bowl">
-            <img src="./assets/images/Bowl.png" alt="" class="img-fluid" />
+            <img [src]="recipeImg" alt="" class="img-fluid" />
           </span>
         </div>
       </div>
@@ -30,3 +27,4 @@
   </div>
 </div>
 <app-lessons-footer [showPrevious]="showPrevious" (onNext)="onNext()"></app-lessons-footer>
+ 

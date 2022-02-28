@@ -1,0 +1,45 @@
+<app-lessons-headerbar [lessonHederConfig]="lessonHederConfig"></app-lessons-headerbar>
+<div *ngIf="isLoad" class="story-body-1">
+    <app-scroll-down></app-scroll-down>
+    <!-- <div class="mr-4">
+        <span *ngIf="">
+            <audio controls controlsList="nodownload">
+                <source [src]="" type="audio/mp3">
+            </audio>
+        </span>
+    </div> -->
+    <div class="container">
+        <div class="final-editaion chef-introduction">
+            <div class="content-wrapper">
+                <span class="final-editaion-img-wrapper">
+                    <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
+
+                    <div class="left-tooltip-wrapper">
+                        <div class="speech-tooltip md-tooltip right-bottom-tip">
+                            <div class="speech-tooltip-inner">
+                                <p class="message">
+                                    <ngx-slick-carousel [config]="slideConfig">
+                                        <ul *ngFor="let obj of chefIntro" ngxSlickItem>
+                                            <li>
+                                                <p>{{ obj.text }}</p>
+                                            </li>
+                                        </ul>
+                                    </ngx-slick-carousel>
+                                </p>
+                                <span class="tip">
+                                    <img src="./assets/images/right-bottom-tip.svg" alt="" class="img-fluid" />
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </span>
+            </div>
+            <div class="content-wrapper">
+                <span class="table-img-wrapper">
+                    <img src="./assets/images/table.png" alt="" class="img-fluid" />
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<app-lessons-footer (onNext)="onNext()" (onPrevious)="onPrevious()"></app-lessons-footer>

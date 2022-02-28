@@ -39,7 +39,7 @@
                 &:before {
                     width: 1.4rem;
                     height: 1rem;
-                    left: .8rem;
+                    left: 0.8rem;
                     top: 1.5rem;
                 }
             }
@@ -75,7 +75,10 @@
             padding: 2.3rem 2.7rem;
             min-height: 17rem;
             margin-bottom: 3rem;
-
+            min-height: 90%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
             .title {
                 font-size: 1.8rem;
                 font-weight: 700;
@@ -115,7 +118,7 @@
                     }
 
                     .icon {
-                        margin-left: .5rem;
+                        margin-left: 0.5rem;
                     }
 
                     &:nth-child(2) {
@@ -126,20 +129,19 @@
                         }
                     }
                 }
-
             }
         }
     }
 }
-.form-create-class{
-    label{
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: $light-blue-shade;
-      padding-left: 3rem;
+.form-create-class {
+    label {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: $light-blue-shade;
+        padding-left: 3rem;
     }
-  }
-  .footer-btns{
+}
+.footer-btns {
     margin-top: 2rem;
     justify-content: center;
-  }
+}

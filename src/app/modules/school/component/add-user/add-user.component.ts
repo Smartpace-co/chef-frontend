@@ -122,21 +122,26 @@ export class AddUserComponent implements OnInit {
      *   
      */
     validPhoneNumber(control: AbstractControl): any {
-      let isValid = control.value.match(CustomRegex.phoneNumberPattern);
-      let contactNo = control.value;
-      if (control.value.length === 10 && isValid && isValid.input) {
-        if (this.isEdit && this.currentUser && this.currentUser.phone_number === control.value) {
-          contactNo = undefined;
-        }
-        if (contactNo) {
-          this.schoolService.contactValidator(control.value).subscribe(
-            (data) => {
-            },
-            (error) => {
-              console.log(error);
-              this.addUserForm.controls['contactNumber'].setErrors({ 'contactValidate': true });
-            }
-          );
+      if (control && control.value) {
+        let isValid = control.value.match(CustomRegex.phoneNumberPattern);
+        let contactNo = control.value;
+        // if (control.value && control.value.length === 11 || control.value.length > 13) {
+        //   return { 'contactDigitValidate': true }
+        // }
+        if (isValid && isValid.input) {
+          if (this.isEdit && this.currentUser && this.currentUser.phone_number === control.value) {
+            contactNo = undefined;
+          }
+          if (contactNo) {
+            this.schoolService.contactValidator(contactNo).subscribe(
+              (data) => {
+              },
+              (error) => {
+                console.log(error);
+                this.addUserForm.controls['contactNumber'].setErrors({ 'contactValidate': true });
+              }
+            );
+          }
         }
       }
     }

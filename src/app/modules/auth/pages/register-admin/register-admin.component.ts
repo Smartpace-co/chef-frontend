@@ -41,7 +41,6 @@ export class RegisterAdminComponent implements OnInit {
     //  private modalService: NgbModal,
   ) {
     this.months=CustomRegex.months;
-    console.log(this.months)
     if (this.actRoute.snapshot && this.actRoute.snapshot.queryParams) {
       let queryString = Object.keys(this.actRoute.snapshot.queryParams)[0];
       if (queryString) {
@@ -68,11 +67,11 @@ export class RegisterAdminComponent implements OnInit {
       ]),
       phone_number: new FormControl("", [Validators.required,
       Validators.pattern(CustomRegex.phoneNumberPattern),
-      Validators.minLength(10),
+      // Validators.minLength(10),
       this.validPhoneNumber.bind(this),
       ]),
       contact_person_name: new FormControl("", [Validators.required]),
-      contact_person_no: new FormControl("", [Validators.pattern(CustomRegex.phoneNumberPattern), Validators.minLength(10), this.validContactPersonNumber.bind(this)]),
+      contact_person_no: new FormControl("", [Validators.pattern(CustomRegex.phoneNumberPattern)]),
       contact_person_email: new FormControl("", [Validators.pattern(CustomRegex.emailPattern)]),
       package: new FormControl("", [Validators.required]),
       // status: new FormControl('active', [Validators.required])
@@ -156,9 +155,9 @@ export class RegisterAdminComponent implements OnInit {
   validPhoneNumber(control: AbstractControl): any {
     if (control && control.value) {
       let isValid = control.value.match(CustomRegex.phoneNumberPattern);
-      if (control.value && control.value.length === 11 || control.value.length > 13) {
-        return { 'contactDigitValidate': true }
-      }
+      // if (control.value && control.value.length === 11 || control.value.length > 13) {
+      //   return { 'contactDigitValidate': true }
+      // }
       if (isValid && isValid.input) {
         this.districtService.contactValidator(control.value).subscribe(
           (data) => {
@@ -176,11 +175,11 @@ export class RegisterAdminComponent implements OnInit {
  * To check valid phone number for contact person.
  *   
  */
-  validContactPersonNumber(control: AbstractControl): any {
-    if (control.value && control.value.length === 11 || control.value.length > 13) {
-      return { 'digitValidate': true }
-    }
-  }
+  // validContactPersonNumber(control: AbstractControl): any {
+  //   if (control.value && control.value.length === 11 || control.value.length > 13) {
+  //     return { 'digitValidate': true }
+  //   }
+  // }
 
   /**
    * On package dropdown value change
@@ -251,9 +250,13 @@ export class RegisterAdminComponent implements OnInit {
   
                 this.authService.createStripePaymentSession(stripeData,this.token).subscribe((dt) => {
                   sessionStorage.removeItem("priceId")
-                  this.stripe.redirectToCheckout({
+                  setTimeout(() => {
+                    this.toast.showToast('Yay! You just successfully signed up for Chef Koochooloo! Check your email for next steps.', '', 'success');
+                    this.router.navigate(['/auth/login']);
+                  }, 1000);
+                 /*  this.stripe.redirectToCheckout({
                     sessionId: dt.data,
-                  })
+                  }) */
                   })
             // this.toast.showToast('We sent an email with a verification link to ' + this.registerAdminForm.value.adminEmailAddress, '', 'success');
             // this.router.navigate(['/']);

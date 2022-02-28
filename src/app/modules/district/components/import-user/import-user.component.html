@@ -19,12 +19,12 @@
           <div class="import-File">
             <input type="file" id="actual-btn" (change)="onFileSelected($event)" accept=".xlsx, .xls, .csv" hidden />
             <label for="actual-btn">
-              <a><u>{{'school.users.import-users.browse-label'|translate}}</u></a>{{'school.users.import-users.browse-label-desc'|translate}}!
+              <a>{{'school.users.import-users.browse-label'|translate}}</a>{{'school.users.import-users.browse-label-desc'|translate}}!
             </label>
           </div>
         </div>
         <div class="mt-3" (click)="onDownloadFile()">
-          <a><u>Download sample file</u></a>
+          <a class="download-link">Download sample file</a>
         </div>
         <div class="upload-in-progress" *ngIf="selectedFileName">
           <span class="selected-file">

@@ -15,6 +15,7 @@ import * as _ from 'lodash';
 import html2canvas from 'html2canvas';
 import jspdf from 'jspdf';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { ExcelService } from '../../../../shared/services/excel.service';
 
 @Component({
   selector: 'app-class-performance-report',
@@ -253,7 +254,8 @@ export class ClassPerformanceReportComponent implements OnInit {
   ];
   closeModal: any;
   closeModal1: any;
-  constructor(private schoolService: SchoolService,private modalService: NgbModal) {}
+  downlaodModal: any;
+  constructor(private schoolService: SchoolService,private modalService: NgbModal, private excelService: ExcelService) {}
 
   ngOnInit(): void {
     this.activateUserData = JSON.parse(window.sessionStorage.getItem('currentUser'));
@@ -267,6 +269,13 @@ export class ClassPerformanceReportComponent implements OnInit {
   }
   closeOpenModal1() {
     this.closeModal1.close();
+  }
+
+  openDownloadModal(content) {
+    this.downlaodModal = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true, windowClass: 'dist-modal' });
+  }
+  closeDownlaodModal() {
+    this.downlaodModal.close();
   }
 
   changeView(event) {
@@ -362,6 +371,44 @@ export class ClassPerformanceReportComponent implements OnInit {
       pdf.save('class_performance_report.pdf');
     });
   }
+  printExcelSheet(): void {
+    let newArray = [];
+    let i = 1;
+    if (this.standard) {
+      for (let element of this.standardsProficiencyList) {
+        let obj = {};
+        obj["SL.No."] = i++;
+        for (let elm in element) {
+          if (elm === "grade") obj["Grade"] = element[elm];
+          if (elm === "className") obj["Class Title"] = element[elm];
+          if (elm === "schoolName") obj["School Title"] = element[elm];
+          if (elm === "ELA") obj["CCSS-ELA PROFICIENCY"] = element[elm];
+          if (elm === "MATH") obj["CCSS-MATH PROFICIENCY"] = element[elm];
+          if (elm === "NGSS") obj["NGSS PROFICIENCY"] = element[elm];
+          if (elm === "NCSS") obj["NCSS PROFICIENCY"] = element[elm];
+        }
+        newArray.push(obj);
+      }
+      this.excelService.exportAsExcelFile(newArray, 'Standard Proficiency');
+    }
+
+    if (!this.standard) {
+      for (let element of this.studentReportsList) {
+        let obj = {};
+        obj["SL.No."] = i++;
+        for (let elm in element) {
+          if (elm === "grade") obj["Grade"] = element[elm];
+          if (elm === "className") obj["Class Title"] = element[elm];
+          if (elm === "schoolName") obj["School Title"] = element[elm];
+          if (elm === "students") obj["Number of Students"] = element[elm];
+        }
+        newArray.push(obj);
+      }
+      this.excelService.exportAsExcelFile(newArray, 'Class Proficiency');
+    }
+    this.closeDownlaodModal();
+  }
+
   hideContentColumns(e, value) {
     if (this.standard) {
       this.standardsProficiencyHeadersList = this.standardsProficiencyHeadersList.filter(function (obj) {

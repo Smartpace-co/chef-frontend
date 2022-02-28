@@ -10,9 +10,11 @@
     padding: 10rem;
     @include breakpoint(tabs){
       padding: 5rem;
+      padding-bottom: 10rem;
     }
     @include breakpoint(mobile){
       padding: 0rem;
+      padding-bottom: 10rem;
     }
     .legend-card-white{
       @include breakpoint(mobile){

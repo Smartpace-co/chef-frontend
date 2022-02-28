@@ -3,7 +3,7 @@
     <app-scroll-down></app-scroll-down>
     <div class="mr-4 assessment-body-1-audio">
         <span *ngIf="questionData?.questionTrack">
-            <audio controls autoplay controlsList="nodownload">
+            <audio controls controlsList="nodownload">
                 <source [src]="questionData?.questionTrack" type="audio/mp3">
             </audio>
         </span>

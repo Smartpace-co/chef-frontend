@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -51,7 +52,7 @@ export class AddTeacherComponent implements OnInit {
  
 
   constructor(private router: Router,
-    private toast: ToasterService, private authService: AuthService,
+    private toast: ToasterService, private authService: AuthService,private location: Location,
     private activatedRoute: ActivatedRoute, private schoolService: SchoolService) {
     this.teacherID = this.activatedRoute.snapshot.queryParams && this.activatedRoute.snapshot.queryParams.id;
     this.isEdit = this.teacherID ? true : false;
@@ -168,22 +169,27 @@ export class AddTeacherComponent implements OnInit {
    * To check valid phone number
    *   
    */
-  validPhoneNumber(control: AbstractControl): any {
-    let isValid = control.value.match(CustomRegex.phoneNumberPattern);
-    let contactNo = control.value;
-    if (control.value.length === 10 && isValid && isValid.input) {
-      if (this.isEdit && this.currentTeacher && this.currentTeacher.phone_number === control.value) {
-        contactNo = undefined;
-      }
-      if (contactNo) {
-        this.schoolService.contactValidator(contactNo).subscribe(
-          (data) => {
-          },
-          (error) => {
-            console.log(error);
-            this.addTeacherForm.controls['contactNumber'].setErrors({ 'contactValidate': true });
-          }
-        );
+  validPhoneNumber(control: AbstractControl): any {     
+    if (control && control.value) {
+      let isValid = control.value.match(CustomRegex.phoneNumberPattern);
+      let contactNo = control.value;
+      // if (control.value && control.value.length === 11 || control.value.length > 13) {
+      //   return { 'contactDigitValidate': true }
+      // }
+      if (isValid && isValid.input) {
+        if (this.isEdit && this.currentTeacher && this.currentTeacher.phone_number === control.value) {
+          contactNo = undefined;
+        }
+        if (contactNo) {
+          this.schoolService.contactValidator(contactNo).subscribe(
+            (data) => {
+            },
+            (error) => {
+              console.log(error);
+              this.addTeacherForm.controls['contactNumber'].setErrors({ 'contactValidate': true });
+            }
+          );
+        }
       }
     }
   }
@@ -229,7 +235,8 @@ export class AddTeacherComponent implements OnInit {
   }
 
   onCancel(): void {
-    this.router.navigate(['/school/admin-teacher']);
+    this.location.back();
+    // this.router.navigate(['/school/admin-teacher']);
   }
   isDisableSave(): any {
     if (this.addTeacherForm.invalid) {

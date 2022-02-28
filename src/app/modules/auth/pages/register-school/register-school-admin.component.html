@@ -8,17 +8,21 @@
             <h5 class="department-heading">Admin Info</h5>
           </div>
           <div class="col-md-6">
-            <label>District</label>
+            <label>{{'school.school-profile.district-label'| translate}} {{'student.profile.optional-label'| translate }}</label>
+            <app-input-field classes="form-control" types="text" placeholders="{{'common.enter'|translate}} {{'district.district-profile.district-component.name-field.label'| translate}}" ids="district"
+            formControlName="district" [form]="registerAdminForm">
+            </app-input-field>
+            <!-- <label>District</label>
             <select class="form-control form-control-lg form-control-solid" placeholder="Select district"
               name="district" (change)="changeDistrict($event)" formControlName="district">
               <option value="" disabled>Select District </option>
               <option value="{{district.id}}" *ngFor="let district of districtList">
                 {{district.menu}}</option>
-            </select>
+            </select> 
 
             <div *ngIf="formControl.district.errors" class="invalid-feedback">
               <div class="error" *ngIf="formControl.district.errors?.required">District is required</div>
-            </div>
+            </div> -->
           </div>
 
           <div class="col-12">
@@ -54,6 +58,7 @@
               ids="adminEmailAddress" fieldControl="adminEmailAddress" [form]="registerAdminForm"
               [ngClass]="{ 'is-invalid': formControl.adminEmailAddress.touched && formControl.adminEmailAddress.errors }">
             </app-input-field>
+            <p class="mb-3 p-0 ml-5">Note: Please use email address for login</p>
             <div *ngIf="formControl.adminEmailAddress.errors" class="invalid-feedback">
               <div class="error" *ngIf="formControl.adminEmailAddress.errors?.required">Admin email address is required
               </div>
@@ -69,13 +74,13 @@
               ids="adminPhoneNumber" fieldControl="adminPhoneNumber" [form]="registerAdminForm"
               [ngClass]="{ 'is-invalid': formControl.adminPhoneNumber.touched && formControl.adminPhoneNumber.errors }">
             </app-input-field>
+            
             <div *ngIf="formControl.adminPhoneNumber.errors" class="invalid-feedback">
               <div class="error" *ngIf="formControl.adminPhoneNumber.errors?.required">Contact number required</div>
-              <div class="error" *ngIf="formControl.adminPhoneNumber.errors?.pattern">Contact number not valid(Format
-                - (000)-000-0000)</div>
-              <div class="error" *ngIf="formControl.adminPhoneNumber.errors?.minlength">Contact number not
-                valid(Required Length is 10 digit)</div>
-              <!-- <div class="error" *ngIf="formControl.adminPhoneNumber.errors?.contactDigitValidate">Contact number is not
+              <div class="error" *ngIf="formControl.adminPhoneNumber.errors?.pattern">Contact number not valid.(Required length is 6 to 18 digits)</div>
+              <!-- <div class="error" *ngIf="formControl.adminPhoneNumber.errors?.minlength">Contact number not
+                valid(Required Length is 10 digit)</div> -->
+              <!-- <div class="error" *ngIf="formControl.adminPhoneNumber.errors?.contactPnumberValidate">Contact number is not
                 valid(Valid lengths are 10, 12 and 13 digit)</div> -->
               <div class="error" *ngIf="formControl.adminPhoneNumber.errors?.contactValidate">
                 <div class="error">Contact number is already exists</div>
@@ -111,11 +116,11 @@
               ids="contactPersonNumber" fieldControl="contactPersonNumber" [form]="registerAdminForm"
               [ngClass]="{ 'is-invalid': formControl.contactPersonNumber.touched && formControl.contactPersonNumber.errors }">
             </app-input-field>
+            
             <div *ngIf="formControl.contactPersonNumber.errors" class="invalid-feedback">
-              <div class="error" *ngIf="formControl.contactPersonNumber.errors?.pattern">Contact number is not
-                valid(Format - (000)-000-0000)</div>
-              <div class="error" *ngIf="formControl.contactPersonNumber.errors?.minlength">Contact number is not
-                valid(Reuired Length is 10 digit)</div>
+              <div class="error" *ngIf="formControl.contactPersonNumber.errors?.pattern">Contact number is not valid.(Required length is 6 to 18 digits)</div>
+              <!-- <div class="error" *ngIf="formControl.contactPersonNumber.errors?.minlength">Contact number is not
+                valid(Reuired Length is 10 digit)</div> -->
               <!-- <div class="error" *ngIf="formControl.contactPersonNumber.errors?.contactDigitValidate">Contact number is
                 not
                 valid(Valid lengths are 10, 12 and 13 digit)</div> -->
@@ -170,6 +175,7 @@
         <p class='total-price mb-5'> No of Classes : {{currentPackage?.maxUser}}</p>
         <p class='total-price mb-5'> Valid From: {{ months[currentPackage?.validityFrom] }}</p>
         <p class='total-price mb-5'> Valid Upto: {{months[currentPackage?.validityTo] }}</p>
+        <p class='trial-period mb-5'> Trial Period : 7 days</p>
         <!-- <p class="monthly-price">$1.25 per Month</p> -->
       </div>
       <app-button classes="btn btn-primary icon-btn" [submit]="true" (click)="closePackageModal()">

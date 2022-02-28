@@ -6,7 +6,7 @@
         <app-button classes="btn btn-primary icon-btn mb-3 mr-3">
           <span aria-hidden="true"><fa-icon [icon]="settings"></fa-icon>{{'school.class-activity-report.change-criteria-button' | translate}}</span>
         </app-button>
-        <app-button classes="btn btn-primary print-icon-btn icon-btn mr-3 mb-3" (click)="generatePDF()" printTitle="Print Title" printSectionId="print-section" ngxPrint>
+        <app-button classes="btn btn-primary print-icon-btn icon-btn mr-3 mb-3" (click)="openDownloadModal(downloadReport)" printTitle="Print Title" printSectionId="print-section" ngxPrint>
           <span aria-hidden="true"><span class="print-icon mr-3"><img src="./assets/images/print-icon.png" alt="" class="img-fluid" id="print-section" /></span>{{'school.billing.print-report' | translate}}</span>
         </app-button>
       </div>
@@ -95,5 +95,28 @@
         type specimen book. </p>     
     </div>
     
+  </div>
+</ng-template>
+
+<ng-template #downloadReport let-modal>
+  <div class="btn-wrapper">
+    <button type="button" class="close" aria-label="Close" (click)="closeDownlaodModal()">
+      <img src="./assets/images/close.png" alt="" class="img-fluid" />
+    </button>
+  </div>
+  <div class="download-pdf">
+    <h4>Download</h4>
+    <div class="download-button">
+      <app-button classes="btn btn-primary print-icon-btn icon-btn" (click)="generatePDF()">
+        <span aria-hidden="true"><span class="print-icon mr-3"><img src="./assets/images/print-icon.png" alt=""
+              class="img-fluid" /></span>{{ 'school.billing.download-pdf' | translate
+          }}</span>
+      </app-button>
+      <app-button classes="btn btn-primary print-icon-btn icon-btn" (click)="printExcelSheet()">
+        <span aria-hidden="true"><span class="print-icon mr-3"><img src="./assets/images/print-icon.png" alt=""
+              class="img-fluid" /></span>{{ 'school.billing.download-excel' | translate
+          }}</span>
+      </app-button>
+    </div>
   </div>
 </ng-template>

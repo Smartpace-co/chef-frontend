@@ -8,6 +8,7 @@ import { Location } from '@angular/common';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import {
   faAngleDoubleLeft,
+  faChevronLeft,
   faChevronRight,
   faHome
 } from '@fortawesome/free-solid-svg-icons';
@@ -32,6 +33,7 @@ export class StudentNavComponent implements OnInit {
   @Input() isExplore = false;
   @Output() onClassInfo: EventEmitter<any> = new EventEmitter();
   RightArrow = faChevronRight;
+  leftArrow = faChevronLeft;
   home = faHome;
   public isCollapsed = true;
   userData;
@@ -218,7 +220,13 @@ export class StudentNavComponent implements OnInit {
   }
 
   onBackButtonClick(): void {
-    this.location.back();
+    if (this.router.url === '/student/explore-lesson') {
+      this.router.navigate(['/student/student-landing']);
+    } else if (this.router.url === '/student/assignment') {
+      this.router.navigate(['/student/student-landing']);
+    } else {
+      this.location.back();
+    }
   }
   openJournalList(): void {
     // setTimeout(() => {

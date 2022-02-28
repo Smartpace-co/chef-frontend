@@ -67,11 +67,15 @@ export class ExperimentStepsComponent implements OnInit {
             title: this.experimentData.experimentTitle ? this.experimentData.experimentTitle : undefined
           };
           this.experimentSteps = _.map(this.experimentData.experimentSteps, item => {
+            let secureUrl;
+            if (item && item.link) {
+              secureUrl = this.sanitizer.bypassSecurityTrustResourceUrl(item.link);
+            }
             let obj = {
               id: cnt,
               info: item.text,
               image: item.image ? item.image : this.defaultLessonImage,
-              start: item.link,
+              videoUrl: secureUrl,
             }
             cnt = cnt + 1;
             return obj;
@@ -101,7 +105,4 @@ export class ExperimentStepsComponent implements OnInit {
     this.router.navigate(['/student/experiment-description']);
   }
 
-  getSanitizeUrl(url) {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
-  }
 }

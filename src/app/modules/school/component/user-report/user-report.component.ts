@@ -19,6 +19,7 @@ import * as _ from 'lodash';
 import html2canvas from 'html2canvas';
 import jspdf from 'jspdf';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { ExcelService } from '../../../../shared/services/excel.service';
 
 @Component({
   selector: 'app-user-report',
@@ -37,7 +38,8 @@ export class UserReportComponent implements OnInit {
   downloadIcon = faCloudDownloadAlt;
   rightIcon = faAngleDoubleRight;
   filterTitle = 'This Week';
-  closeModal1:any
+  closeModal1: any;
+  downlaodModal: any;
   filterList = [
     {
       id: '1',
@@ -197,7 +199,7 @@ export class UserReportComponent implements OnInit {
   duration = 'week';
   clicked: boolean = false;
   activateUserData: any;
-  constructor(private schoolService: SchoolService, private modalService: NgbModal) {}
+  constructor(private schoolService: SchoolService, private modalService: NgbModal, private excelService: ExcelService) { }
 
   ngOnInit(): void {
     this.activateUserData = JSON.parse(window.sessionStorage.getItem('currentUser'));
@@ -231,21 +233,21 @@ export class UserReportComponent implements OnInit {
     });
   }
   getInactiveUsers(duration) {
-    let count=0;
+    let count = 0;
     this.schoolService.getAllInactiveUser(0, duration).subscribe((res) => {
       if (res && res['data']) {
-       count=count+res['data'].count
+        count = count + res['data'].count
       }
     });
     this.schoolService.getNewStudents(0, duration).subscribe((res) => {
       if (res && res['data']) {
-        count=count+res['data'].count
+        count = count + res['data'].count
 
       }
     });
     this.schoolService.getNewTeacher(0, duration).subscribe((res) => {
       if (res && res['data']) {
-        count=count+res['data'].count       
+        count = count + res['data'].count
         this.reportDataList[1].data = count;
 
       }
@@ -255,119 +257,122 @@ export class UserReportComponent implements OnInit {
     this.closeModal1 = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true, windowClass: 'dist-modal' });
   }
 
-  
+  openDownloadModal(content) {
+    this.downlaodModal = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true, windowClass: 'dist-modal' });
+  }
+  closeDownlaodModal() {
+    this.downlaodModal.close();
+  }
+
+
+
   getAverageSessionTime(duration) {
-    let teacherCount=0,studentCount=0,totalMins;
-   let mins=0, teacherMins=0,hrs=0
-    let averageTeacherMins=0,averageStudentMins=0;
-    this.schoolService.getNewStudents(1,duration).subscribe((response) => {
+    let teacherCount = 0, studentCount = 0, totalMins;
+    let mins = 0, teacherMins = 0, hrs = 0
+    let averageTeacherMins = 0, averageStudentMins = 0;
+    this.schoolService.getNewStudents(1, duration).subscribe((response) => {
       _.map(response.data.rows, (item) => {
         this.schoolService.getTopActiveSessionStudents(duration, item.id).subscribe((res) => {
           if (res && res.data) {
-            studentCount=res.data.count;
+            studentCount = res.data.count;
             _.map(res.data.rows, (objItem) => {
-              if (objItem.session_mins != null || objItem.session_mins != NaN) mins =mins + objItem.session_mins;
+              if (objItem.session_mins != null || objItem.session_mins != NaN) mins = mins + objItem.session_mins;
 
             });
-            averageStudentMins=mins/studentCount;
-            totalMins=averageStudentMins
+            if(studentCount){
+              averageStudentMins = mins / studentCount;
+              totalMins = averageStudentMins
+            }
           }
         });
       });
     });
 
-      this.schoolService.getNewTeacher(1,duration).subscribe((response) => {
-        _.map(response.data.rows, (item) => {
-          this.schoolService.getTopActiveSessionTeachers(duration,item.id).subscribe((res) => {
-            if (res && res.data) {
-              teacherCount=res.data.count;
-              _.map(res.data.rows, (objItem) => {
-                if (objItem.session_mins != null || objItem.session_mins != NaN)
-                 teacherMins = teacherMins + objItem.session_mins
-              });
-              averageTeacherMins=teacherMins/teacherCount;
-              totalMins=((totalMins+averageStudentMins)/60).toFixed(4)
-              this.reportDataList[2].data=totalMins +" hr";
+    this.schoolService.getNewTeacher(1, duration).subscribe((response) => {
+      _.map(response.data.rows, (item) => {
+        this.schoolService.getTopActiveSessionTeachers(duration, item.id).subscribe((res) => {
+          if (res && res.data) {
+            teacherCount = res.data.count;
+            _.map(res.data.rows, (objItem) => {
+              if (objItem.session_mins != null || objItem.session_mins != NaN)
+                teacherMins = teacherMins + objItem.session_mins
+            });
+            if(teacherCount){
+              averageTeacherMins = teacherMins / teacherCount;
+              totalMins = ((totalMins + averageStudentMins) / 60).toFixed(4)
+              this.reportDataList[2].data = totalMins + " hr";
             }
-          });
+          }
         });
       });
+    });
   }
 
   getTopActiveTeachers(duration) {
-   
-        this.schoolService.getNewTeacher(1,duration).subscribe((response) => {
-         
-          this.teacherList = _.map(response.data.rows, (item) => {
-           let obj = {
-               id: item.teacher.id,
-               name: item.teacher.first_name+" "+item.teacher.last_name,
-               score: 0,
-               time: ""
-           };
 
-           this.schoolService.getTopActiveSessionTeachers(duration,item.id).subscribe((res) => {
-            obj.score=res.data.count;
-            let mins=0;
-            _.map(res.data.rows, (objItem) => {
-              if (objItem.session_mins != null || objItem.session_mins != NaN)
-              mins=mins+objItem.session_mins/obj.score
-             
-            });
-            obj.time=mins.toFixed(4);
-           });
-         
-           return obj;
+    this.schoolService.getNewTeacher(1, duration).subscribe((response) => {
+
+      this.teacherList = _.map(response.data.rows, (item) => {
+        let obj = {
+          id: item.teacher.id,
+          name: item.teacher.first_name + " " + item.teacher.last_name,
+          score: 0,
+          time: ""
+        };
+
+        this.schoolService.getTopActiveSessionTeachers(duration, item.id).subscribe((res) => {
+          obj.score = res.data.count;
+          let mins = 0;
+          _.map(res.data.rows, (objItem) => {
+            if (objItem.session_mins != null || objItem.session_mins != NaN)
+              mins = mins + objItem.session_mins / obj.score
+
+          });
+          obj.time = mins.toFixed(4);
         });
-        });
-     
+
+        return obj;
+      });
+    });
+
   }
 
   getTopActiveStudents(duration) {
- 
-        this.schoolService.getAllStudents(1).subscribe((response) => {
-         
-          this.studentList = _.map(response.data.rows, (item) => {
-            let obj = {
-              id: item.id,
-              name: item.firstName+" "+item.lastName,
-              grade:'',
-              score: 0,
-              time: ""
-          };
-            if(item.grade!=null)
-            {
-              obj.grade=item.grade.grade
+
+    this.schoolService.getAllStudents(1).subscribe((response) => {
+
+      this.studentList = _.map(response.data.rows, (item) => {
+        let obj = {
+          id: item.id,
+          name: item.firstName + " " + item.lastName,
+          grade: '',
+          score: 0,
+          time: ""
+        };
+        if (item.grade != null) {
+          obj.grade = item.grade.grade
+        }
+
+
+        this.schoolService.getTopActiveSessionStudents(duration, item.id).subscribe((res) => {
+          if (res && res.data) {
+            obj.score = res.data.count;
+            if (obj.score == 0) {
+              this.studentList.filter((obj1) => {
+                return obj.score == 0;
+              });
             }
-          
-
-           this.schoolService.getTopActiveSessionStudents(duration,item.id).subscribe((res) => {
-             if(res && res.data)
-             {
-               obj.score=res.data.count;
-               if(obj.score==0)
-               {
-                 this.studentList.filter((obj1)=>{
-                   return obj.score==0;
-                 });
-               }
-               let mins=0;
-               _.map(res.data.rows, (objItem) => {
- 
-                 mins=mins+objItem.session_mins/obj.score
-              
-               });
-               obj.time=mins.toFixed(4);
-             }
-            
-
-            
+            let mins = 0;
+            _.map(res.data.rows, (objItem) => {
+              mins = mins + objItem.session_mins / obj.score
             });
-         
-           return obj;
+            obj.time = mins.toFixed(4);
+          }
         });
-        });
-     
+        return obj;
+      });
+    });
+
   }
 
   generatePDF() {
@@ -382,5 +387,45 @@ export class UserReportComponent implements OnInit {
 
       pdf.save('user_report.pdf');
     });
+  }
+
+  printExcelSheet(): void {
+    let newArray = [];
+    let i = 1;
+    if (this.studentList.length) {
+      for (let element of this.studentList) {
+        let obj = {};
+        obj["SL.No."] = i++;
+        for (let elm in element) {
+          if (elm === "id") obj["Student Id"] = element[elm];
+          if (elm === "name") obj["Name"] = element[elm];
+          if (elm === "grade") obj["Grade"] = element[elm];
+          if (elm === "score") obj["Score"] = element[elm];
+          if (elm === "time") obj["Time"] = element[elm];
+        }
+        newArray.push(obj);
+      }
+      // this.excelService.exportAsExcelFile(newArray, 'Active Students List');
+    }
+
+    let teacherRows = [];
+    let j = 1;
+    if (this.teacherList.length) {
+      for (let element of this.teacherList) {
+        let obj = {};
+        obj["SL.No."] = j++;
+        for (let elm in element) {
+          // if (elm === "id") obj["teacher Id"] = element[elm];
+          if (elm === "name") obj["Teacher Name"] = element[elm];
+          if (elm === "score") obj["Score"] = element[elm];
+          if (elm === "time") obj["Time"] = element[elm];
+        }
+        teacherRows.push(obj);
+      }
+      // this.excelService.exportAsExcelFile(teacherRows, 'Teacher Activity Report');
+      this.excelService.exportMuliSheetExcelFile(newArray, teacherRows, 'Active Students List', 'Teacher Activity Report', 'User Report');
+
+    }
+    this.closeDownlaodModal();
   }
 }

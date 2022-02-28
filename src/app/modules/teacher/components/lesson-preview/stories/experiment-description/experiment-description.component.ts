@@ -63,6 +63,6 @@ export class ExperimentDescriptionComponent implements OnInit ,OnDestroy{
    * on Next click event
   */
   onNext(): void {
-    this.router.navigate(['/teacher/experiment-question']);
+    this.router.navigate(['/teacher/start-experiment']);
   }
 }

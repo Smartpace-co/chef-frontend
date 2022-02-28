@@ -52,6 +52,20 @@ export class StudentSignUpComponent implements OnInit {
   selectedCondition = null;
   selectedAllergensValue = [];
   selectedAllergen = null;
+  // guardianTitle = 'Select Parent/Guardian';
+  // guardianIcon = '';
+  // guardianList = [
+  //   {
+  //     id: '1',
+  //     menu: 'Parent',
+  //     type: 'parent'
+  //   },
+  //   {
+  //     id: '2',
+  //     menu: 'Guardian',
+  //     type: 'guardian'
+  //   }
+  // ];
   genderTitle = 'Select Gender';
   genderIcon = '';
   genderList = [
@@ -96,17 +110,18 @@ export class StudentSignUpComponent implements OnInit {
     this.signInStudent = new FormGroup({
       lastName: new FormControl('', [Validators.required, Validators.pattern(CustomRegex.namePatteren)]),
       firstName: new FormControl('', [Validators.required, Validators.pattern(CustomRegex.namePatteren)]),
-      dob: new FormControl(this.dob, [Validators.required]),
-      userName: new FormControl('', [Validators.required, this.validateUserName.bind(this), Validators.pattern(CustomRegex.namePatteren)]),
+      dob: new FormControl('', [Validators.required]),
+      userName: new FormControl('', [Validators.required, this.validateUserName.bind(this)]),
       contactPersonName: new FormControl('', [Validators.required]),
       contactPersonEmail: new FormControl('', [Validators.email, Validators.required, Validators.pattern(CustomRegex.emailPattern)]),
-      contactPersonNumber: new FormControl('', [Validators.required, Validators.pattern(CustomRegex.phoneNumberPattern), Validators.minLength(10), this.validatePhoneNumber.bind(this)]),
+      contactPersonNumber: new FormControl('', [Validators.required, Validators.pattern(CustomRegex.phoneNumberPattern)]),
       allergens: new FormControl('', []),
       district: new FormControl(''),
       school: new FormControl('', [Validators.pattern(CustomRegex.namePatteren)]),
       gender: new FormControl('', []),
       ethnicity: new FormControl('', []),
-      grade: new FormControl(''),
+      grade: new FormControl('',[Validators.required]),
+      // guardian: new FormControl('', Validators.required),
       relationship: new FormControl('', [Validators.required]),
       medicalCondition: new FormControl('', [])
     });
@@ -147,8 +162,8 @@ export class StudentSignUpComponent implements OnInit {
       }
       this.signInStudent.get('firstName').setValue(this.currentStudent.firstName);
       this.signInStudent.get('lastName').setValue(this.currentStudent.lastName);
-      this.signInStudent.get('dob').setValue(this.utilityService.formatDate(this.currentStudent.dob));
-      this.selectedDate = this.utilityService.formatDate(this.currentStudent.dob);
+      this.signInStudent.get('dob').setValue(this.currentStudent.dob);
+      this.selectedDate = this.currentStudent.dob;
       if (this.currentStudent.gender && this.currentStudent.gender.menu) {
         this.signInStudent.get('gender').setValue(this.currentStudent.gender);
         this.genderTitle = this.currentStudent.gender.menu;
@@ -166,6 +181,8 @@ export class StudentSignUpComponent implements OnInit {
       this.signInStudent.get('contactPersonName').setValue(this.currentStudent.contactPersonName);
       this.signInStudent.get('relationship').setValue(this.currentStudent.relationship);
       this.relationshipTitle = this.currentStudent.relationship.menu;
+      // this.signInStudent.get('guardian').setValue(this.currentStudent.guardian);
+      // this.guardianTitle = this.currentStudent.guardian.menu;
       this.signInStudent.get('contactPersonNumber').setValue(this.currentStudent.contactPersonNumber);
       if (this.currentStudent.allergens) {
         this.signInStudent.get('allergens').setValue(this.currentStudent.allergens);
@@ -183,13 +200,13 @@ export class StudentSignUpComponent implements OnInit {
   get formControl() {
     return this.signInStudent.controls;
   }
-  validatePhoneNumber(control: AbstractControl): any {
-    if (control && control.value) {
-      if (control.value.length === 11 || control.value.length > 13) {
-        return { 'contactDigitValidate': true }
-      }
-    }
-  }
+  // validatePhoneNumber(control: AbstractControl): any {
+  //   if (control && control.value) {
+  //     if (control.value.length === 11 || control.value.length > 13) {
+  //       return { 'contactDigitValidate': true }
+  //     }
+  //   }
+  // }
   /**
 * To check valid userName
 *  
@@ -197,8 +214,10 @@ export class StudentSignUpComponent implements OnInit {
   validateUserName(control: AbstractControl): any {
     if (control && control.value) {
       let uName = control.value;
-      // let isValid = control.value.match(CustomRegex.schoolNamePattern);
       if (uName && this.token) {
+        if (uName.match(CustomRegex.emailPattern)) {
+          return { 'invalidUserName': true }
+        }
         this.studentService.studentUserNameValidator(control.value, this.token).subscribe(
           (data) => {
           },
@@ -267,7 +286,7 @@ export class StudentSignUpComponent implements OnInit {
   }
 
   getRelationships(): void {
-    this.studentService.getStudentRelationList('parent', this.token).subscribe(
+    this.studentService.getStudentRelationList(this.token).subscribe(
       (response) => {
         if (response && response.data) {
           this.relationshipList = _.map(response.data, ele => {
@@ -343,6 +362,16 @@ export class StudentSignUpComponent implements OnInit {
       }
     );
   }
+
+  // guardianChange(event) {
+  //   this.guardianTitle = event.menu;
+  //   this.signInStudent.get('guardian').setValue(event);
+  //   if (event && event.type) {
+  //     this.relationshipTitle = 'Select Relationship';
+  //     this.signInStudent.get('relationship').setValue(null);
+  //     this.getRelationships(event.type);
+  //   }
+  // }
 
   districtChange(event) {
     // this.districtTitle = event.menu;

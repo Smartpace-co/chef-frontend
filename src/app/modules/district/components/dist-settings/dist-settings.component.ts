@@ -149,7 +149,6 @@ export class DistSettingsComponent implements OnInit {
       this.districtService.showContactInformationToStudent().subscribe(
         (response) => {
           if (response) {
-           console.log(response) 
           };
         });
       }   

@@ -149,15 +149,11 @@ export class StudentsListComponent implements OnInit {
   }
 
   getStudentData() {
-    console.log("Inside student get data");
-    // console.log(searchParam);
     this.teacherService.getStudentData(this.selectedClassId).subscribe((data: any) => 
     {
 
-      console.log(data);
       this.StudentList = data.data.class_students;
 
-      console.log(this.StudentList);
       this.studentHeaders = [
         {
           "title": "Student Id",
@@ -188,11 +184,8 @@ export class StudentsListComponent implements OnInit {
   }
 
   filterStudentData(searchParam) {
-    console.log("Inside search student data");
-    console.log(searchParam);
     if(isNaN(searchParam) && searchParam.length < 3) return;
     this.studentsService.filterStudentData(searchParam).subscribe((data: any) => {
-      console.log(data);
       if(data.data.count == 0) {
         // this.toast.showToast('No data found', '', 'error');
       } else {
@@ -211,7 +204,6 @@ export class StudentsListComponent implements OnInit {
   getColorList(){
     this.teacherService.getColorList().subscribe((response)=>{
       // this.colorList = response.data;
-      console.log("clist", response);
       if (response && response.data && response.data) {
         this.colorList = _.map(response.data, item => {
           let obj = {
@@ -244,7 +236,6 @@ export class StudentsListComponent implements OnInit {
 
   }
   onColorChange(event) {
-    console.log("event", event);
     this.createClass.get('groupColorId').setValue(event.id);
     this.colorvalue = event.colorCode;
   }
@@ -319,14 +310,12 @@ export class StudentsListComponent implements OnInit {
   getStudentInfo(student) {
     this.StudentList.forEach((element, index) => {
 
-      console.log(element);
       if (element.studentId == student.studentId) {
         if (!Array.isArray(element.studentName)) {
           element.studentName = element.firstName + ' ' + element.lastName;
         }
         this.profileInfo = element;
 
-        console.log( this.profileInfo);
         this.studIndex = index;
       }
     });

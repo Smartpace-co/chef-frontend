@@ -55,15 +55,29 @@ export class DiscussionForumComponent implements OnInit {
     return this.newTopicForm.controls;
   }
   open(content) {
-    this.closeModal = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true, windowClass: 'create-class-modal' });
-
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true,windowClass: 'create-class-modal' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+      if(result === 'Save'){
+        this.onSave();
+      }else{
+        this.resetForm();
+      }
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      this.resetForm();
+    });
   }
-  closeOpenModal() {
-    this.closeModal.close();
-    this.description = "";
-    this.resetForm();
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
   resetForm() {
+    this.description = "";
     this.newTopicForm.reset();
   }
   getAllDiscussionForumTopics() {
@@ -109,7 +123,7 @@ export class DiscussionForumComponent implements OnInit {
               (data) => {
                 if (data) {
                   this.toast.showToast(`${formData.topic} : Discussion forum added successfully.`, '', 'success');
-                  this.closeOpenModal();
+                  this.resetForm();
                   this.getAllDiscussionForumTopics();
                 }
               },

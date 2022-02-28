@@ -76,3 +76,4 @@ export class RecipeContentComponent implements OnInit,OnDestroy {
     this.router.navigate(['teacher/recipe-fact']);
   }
 }
+

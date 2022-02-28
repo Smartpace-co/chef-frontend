@@ -1,16 +1,16 @@
 @import "../../../../../../../assets/styles/helpers/variables";
 @import "../../../../../../../assets/styles/helpers/mixins";
 .story-body-1{
-  // background:url("../../../../../../../assets/images/kitchen-bg.jpg") center no-repeat;
-  background:center no-repeat;
+   background:url("../../../../../../../assets/images/kitchen-bg.jpg") center no-repeat;
+  // background:center no-repeat;
   background-size: cover;
-  min-height: calc(100vh - 24.2rem);
+  min-height: calc(100vh - 10rem);
   position: relative;
   display: flex;
   align-items: flex-end;
   flex-wrap: wrap;
   justify-content: flex-end;
-  @include breakpoint(mobile) {
+  @include breakpoint(mobile) { 
     min-height: calc(100vh - 33rem);
   }
   .container{

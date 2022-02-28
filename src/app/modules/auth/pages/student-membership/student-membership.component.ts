@@ -10,6 +10,7 @@ import { ToasterService } from '@appcore/services/toaster.service';
 import * as _ from 'lodash';
 import { AuthService } from '@modules/auth/services/auth.service';
 import { environment } from '@environments/environment';
+import { UtilityService } from '@appcore/services/utility.service';
 declare var Stripe;
 @Component({
   selector: 'app-student-sign-up',
@@ -49,7 +50,7 @@ export class StudentMembershipComponent implements OnInit {
   isLoad = true;
   currentStudent;
   selectedPlan;
-  constructor(private toast: ToasterService, private authService: AuthService, private studentService: StudentService, private modalService: NgbModal, private router: Router) { }
+  constructor(private utilityService:UtilityService,private toast: ToasterService, private authService: AuthService, private studentService: StudentService, private modalService: NgbModal, private router: Router) { }
 
   ngOnInit(): void {
     this.stripe = Stripe(environment.public_key);
@@ -149,14 +150,13 @@ export class StudentMembershipComponent implements OnInit {
       submission['customSchoolName'] = this.currentStudent.school;
       submission['gender'] = this.currentStudent.gender ? this.currentStudent.gender.menu : undefined;
       submission['ethnicityId'] = this.currentStudent.ethnicity ? this.currentStudent.ethnicity.id : undefined;
-      submission['contactType'] = 'parent';
       submission['contactPersonRelationId'] = this.currentStudent.relationship ? this.currentStudent.relationship.id : undefined;
       submission['contactPersonEmail'] = this.currentStudent.contactPersonEmail;
       _.forEach(this.currentStudent.medicalCondition, ob => {
         temp.push(ob.item_id);
       });
       submission['medicalConditionIds'] = temp;
-      submission['dob'] = this.currentStudent.dob;
+      submission['dob'] = this.utilityService.formatDate(this.currentStudent.dob);
       submission['gradeId'] = this.currentStudent.grade.id;
       _.forEach(this.currentStudent.allergens, ob => {
         tempAllergens.push(ob.item_id);
@@ -175,9 +175,13 @@ export class StudentMembershipComponent implements OnInit {
             }
 
             this.authService.createStripePaymentSession(stripeData, this.currentStudent.token).subscribe((dt) => {
-              this.stripe.redirectToCheckout({
+              setTimeout(() => {
+                this.toast.showToast('Yay! You just successfully signed up for Chef Koochooloo! Check your email for next steps.', '', 'success');
+                this.router.navigate(['/auth/login']);
+              }, 1000);
+              /*   this.stripe.redirectToCheckout({
                 sessionId: dt.data,
-              })
+              }) */
             })
             // this.toast.showToast('Student registered successfully', '', 'success');
             // this.router.navigate(['/']);

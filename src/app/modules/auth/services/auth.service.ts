@@ -76,6 +76,11 @@ export class AuthService {
         if (response.data.language) {
           window.sessionStorage.setItem('userlanguage', response.data.language.key);
           this.languageSubject.next(response.data.language.key)
+          this.setuserlang();
+        }
+        else{
+          window.sessionStorage.setItem('userlanguage', 'en');
+          this.setuserlang();
         }
         this.currentUserSubject.next(response.data);
         return response.data;
@@ -276,11 +281,9 @@ export class AuthService {
   * @param data 
   */
   public registerTeacher(data: any, token: any): Observable<any> {
-    console.log(token);
     if (token) {
       var headers_object = new HttpHeaders().set('token', token);
     }
-    console.log(headers_object);
     const url = `${API_USERS_URL}/teacher`;
     return this.http.post(url, data, { headers: headers_object });
   }
@@ -289,9 +292,7 @@ export class AuthService {
    *Function to set the user language 
    */
   setuserlang() {
-    let x = sessionStorage.getItem('userlanguage') || 'en';
-    console.log(x);
-    this.translate.use(sessionStorage.getItem('userlanguage') || 'en');
+   this.translate.use(sessionStorage.getItem('userlanguage') || 'en');
   }
 
   /**
