@@ -4,7 +4,7 @@ import { ToasterService } from '@appcore/services/toaster.service';
 import { UtilityService } from '@appcore/services/utility.service';
 import { StudentService } from '@modules/student/services/student.service';
 import * as _ from 'lodash';
-
+import { AuthService } from '@modules/auth/services/auth.service';
 @Component({
   selector: 'app-ingredient',
   templateUrl: './ingredient.component.html',
@@ -27,7 +27,8 @@ export class IngredientComponent implements OnInit {
     private studentService: StudentService,
     private toast: ToasterService,
     private utilityService: UtilityService,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute,private authService: AuthService,) {
+      this.authService.setuserlang();
     this.defaultIngredientImg = './assets/images/nsima-bent-icon.png';
   }
 

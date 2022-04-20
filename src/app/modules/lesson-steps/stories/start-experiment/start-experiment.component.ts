@@ -4,6 +4,7 @@ import { ToasterService } from '@appcore/services/toaster.service';
 import { UtilityService } from '@appcore/services/utility.service';
 import { StudentService } from '@modules/student/services/student.service';
 import * as _ from 'lodash';
+import { AuthService } from '@modules/auth/services/auth.service';
 
 @Component({
   selector: 'app-start-experiment',
@@ -17,7 +18,8 @@ export class StartExperimentComponent implements OnInit {
   isCooking = false;
   lesson;
   isVisibleNext = true;
-  constructor(private router: Router, private studentService: StudentService, private utilityService: UtilityService, private toast: ToasterService) {
+  constructor(private router: Router, private studentService: StudentService, private utilityService: UtilityService, private toast: ToasterService,private authService: AuthService,) {
+    this.authService.setuserlang();
   }
   ngOnInit(): void {
     this.assignmentId = localStorage.getItem('assignmentId');

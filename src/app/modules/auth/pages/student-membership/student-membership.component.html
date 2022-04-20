@@ -84,9 +84,7 @@
     <h4>{{selectedPlan?.planName}} Membership</h4>
   </div>
   <div class="modal-body journal-body">
-    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s
-      standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
-      type specimen book. </p>
+    <p [innerHTML]="selectedPlan?.description"></p>
     <h6 class="Total">Total Price : ${{selectedPlan?.totalPrice}}</h6>
     <h6 class="TrialPeriod">Trial Period : 7 days</h6>
     <!-- <p class="month">{{selectedPlan?.monthlyPrice}}</p> -->

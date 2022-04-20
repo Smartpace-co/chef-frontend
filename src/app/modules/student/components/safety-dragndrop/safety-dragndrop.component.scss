@@ -151,3 +151,53 @@
       }
     }
   }
+
+  .response-header{
+    &.modal-header{
+      border-bottom: none;
+      padding: 0;
+    }
+  }
+  .response-footer{
+    &.modal-footer{
+      border-top: none;
+      justify-content: center;
+    }
+  }
+  .response-body{
+    .response-wrapper{
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      .check-mark{
+        flex-basis: 100%;
+        text-align: center;
+        .icon{
+          display: inline-block;
+          border: 0.8rem solid $white;
+          border-radius: 50%;
+          font-size: 5rem;
+          width: 8rem;
+          height: 8rem;
+          text-align: center;
+          background-color: $ring-blue;
+        }
+        &.wrong-ans{
+          .icon{
+            background-color: $alert;
+          }
+        }
+      }
+      h1{
+        padding: 2rem;
+        @include breakpoint(mobile) {
+          padding: 2rem 1rem;
+          font-size: 2.4rem;
+        }
+      }
+      .btn-wrapper{
+        flex-basis: 100%;
+        text-align: center;
+      }
+    }
+  }

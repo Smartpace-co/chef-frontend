@@ -102,7 +102,7 @@ export class StudentSignUpComponent implements OnInit {
   public assetPath = environment.assetUrl;
   ngOnInit(): void {
     if (this.isParams) {
-      this.roleID = parseInt(this.queryParamObj.paramRoleID);
+      this.roleID = parseInt(this.queryParamObj.role_id);
     } else {
       this.roleID = parseInt(localStorage.getItem('rolID'));
     }

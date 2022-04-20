@@ -1,17 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,AfterContentChecked } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToasterService } from '@appcore/services/toaster.service';
 import { UtilityService } from '@appcore/services/utility.service';
 import { StudentService } from '@modules/student/services/student.service';
 import * as _ from 'lodash';
-
+import { AuthService } from '@modules/auth/services/auth.service';
+import { TranslationService } from '@appcore/services/translation.service';
 @Component({
   selector: 'app-cooking-preparation',
   templateUrl: './cooking-preparation.component.html',
   styleUrls: ['./cooking-preparation.component.scss']
 })
-export class CookingPreparationComponent implements OnInit {
+export class CookingPreparationComponent implements OnInit, AfterContentChecked {
 
   lessonHederConfig = {};
   isVisibleNext = true;
@@ -24,10 +25,11 @@ export class CookingPreparationComponent implements OnInit {
   currentAssignedLesson;
   lesson;
   defaultLessonImage: string;
-  constructor(private router: Router,private sanitizer: DomSanitizer, private toast: ToasterService, private studentService: StudentService, private utilityService: UtilityService) {
+  constructor(private router: Router,private sanitizer: DomSanitizer, private toast: ToasterService, private studentService: StudentService, private utilityService: UtilityService,private authService: AuthService,private translate: TranslationService) {
+    this.authService.setuserlang();
     this.lessonHederConfig['stepBoard'] = {
-      stepNumber: 'Step 4',
-      stepTitle: 'Cooking Preparation',
+      stepNumber: this.translate.getStringFromKey('student.assigned-lessons.lesson-steps.summary-view.step')+' 4',
+      stepTitle: this.translate.getStringFromKey('student.assigned-lessons.lesson-steps.summary-view.cooking-preparation'),
       stepLogo: './assets/images/knife.png'
     };
     this.defaultLessonImage = './assets/images/default-lesson.png';
@@ -39,6 +41,13 @@ export class CookingPreparationComponent implements OnInit {
     this.getRecipesPreparationList();
     let previousTime = this.utilityService.calculateTimeBetweenDates();
     this.updateLessonProgress(previousTime);
+  }
+  ngAfterContentChecked() : void{
+    this.lessonHederConfig['stepBoard'] = {
+      stepNumber: this.translate.getStringFromKey('student.assigned-lessons.lesson-steps.summary-view.step')+' 4',
+      stepTitle: this.translate.getStringFromKey('student.assigned-lessons.lesson-steps.summary-view.cooking-preparation'),
+      stepLogo: './assets/images/knife.png'
+    };
   }
 
   updateLessonProgress(time: any): void {

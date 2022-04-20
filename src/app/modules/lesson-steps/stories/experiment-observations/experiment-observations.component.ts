@@ -5,7 +5,7 @@ import { UtilityService } from '@appcore/services/utility.service';
 import { JournalComponent } from '@modules/student/components/journal/journal.component';
 import { StudentService } from '@modules/student/services/student.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
+import { AuthService } from '@modules/auth/services/auth.service';
 @Component({
   selector: 'app-experiment-observations',
   templateUrl: './experiment-observations.component.html',
@@ -14,7 +14,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class ExperimentObservationsComponent implements OnInit {
   isButtonSection = {};
   assignmentId: string;
-  constructor(private router: Router, private modalService: NgbModal, private utilityService: UtilityService, private studentService: StudentService, private toast: ToasterService) {
+  constructor(private router: Router, private modalService: NgbModal, private utilityService: UtilityService, private studentService: StudentService, private toast: ToasterService,private authService: AuthService,) {
+    this.authService.setuserlang();
   }
   ngOnInit(): void {
     this.assignmentId = localStorage.getItem('assignmentId');

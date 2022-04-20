@@ -95,10 +95,17 @@
                         <label>{{'school.class.add-class.grade-field' | translate}}</label>
                         <p>{{currentClass?.grade.grade}}</p>
                       </li>
-                      <li>
+                      <li *ngIf="standards && !subjects; else elseBlock ">
                         <label>{{'school.class.add-class.standards-field' | translate}}</label>
                         <p>{{standards}}</p>
                       </li>
+                      <ng-template #elseBlock>
+                        <li >
+                          <label>{{'school.class.add-class.subjects-field' | translate}}</label>
+                          <p>{{subjects}}</p>
+                        </li>
+                      </ng-template>
+                      
                     </ul>
                   </div>
                   <div class="col-lg-4 col-12 edit-school" (click)="openEditClassModal(editClass)">
@@ -598,12 +605,22 @@
         </div>
         <div class="row">
           <div class="col-md-12">
-            <label>{{'school.class.add-class.standards-field'|translate}} (*)</label>
+           <!--  <label>{{'school.class.add-class.standards-field'|translate}} (*)</label>
             <app-multi-select-dropdown [dropDownItemList]="standardList" [selectedItems]="selectedStandard"
               [placeholderText]="'Select learning standards'" fieldControl="standard" [selectedValue]="selectedValue"
               (onSelectValue)="onSelectStandrd($event)" (onDeSelectValue)="onDeSelectStandard($event)"
               (onSelectAllValue)="onSelectAllStandard($event)" (onDeselectAllValue)="onDeselectAllStandard($event)">
-            </app-multi-select-dropdown>
+            </app-multi-select-dropdown> -->
+
+            <label>{{'school.class.add-class.subjects-field'|translate}} (*)</label>
+            <app-multi-select-dropdown [dropDownItemList]="subjectList" [selectedItems]="selectedSubject"
+              fieldControl="subject" 
+              [selectedValue]="selectedSubjectValue"
+              (onSelectValue)="onSelectSubject($event)" 
+              (onDeSelectValue)="onDeSelectSubject($event)"
+              (onSelectAllValue)="onSelectAllSubject($event)"
+              (onDeselectAllValue)="onDeselectAllSubject($event)"
+              ></app-multi-select-dropdown>
           </div>
         </div>
         <div class="row">

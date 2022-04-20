@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input,AfterContentChecked } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToasterService } from '@appcore/services/toaster.service';
 import { UtilityService } from '@appcore/services/utility.service';
@@ -7,12 +7,14 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { StudentService } from '@modules/student/services/student.service';
 import * as _ from 'lodash';
+import { TranslationService } from '@appcore/services/translation.service';
+import { AuthService } from '@modules/auth/services/auth.service';
 @Component({
   selector: 'app-safety-hygiene',
   templateUrl: './safety-hygiene.component.html',
   styleUrls: ['./safety-hygiene.component.scss']
 })
-export class SafetyHygieneComponent implements OnInit {
+export class SafetyHygieneComponent implements OnInit,AfterContentChecked {
 
   lessonHederConfig = {};
   check = faCheck;
@@ -27,12 +29,9 @@ export class SafetyHygieneComponent implements OnInit {
   currentAssignedLesson;
   audioTrack;
   showPrevious = true; // To hide previous button
-  constructor(private router: Router, private studentService: StudentService, private toast: ToasterService, private utilityService: UtilityService) {
-    this.lessonHederConfig['stepBoard'] = {
-      stepNumber: 'Step 2',
-      stepTitle: 'Safety and Hygiene',
-      stepLogo: './assets/images/wash-your-hands.png'
-    }
+  constructor(private router: Router, private studentService: StudentService, private toast: ToasterService, private utilityService: UtilityService,private translate: TranslationService,private authService: AuthService,) {
+    this.authService.setuserlang();
+    
   }
 
   ngOnInit(): void {
@@ -41,6 +40,13 @@ export class SafetyHygieneComponent implements OnInit {
     this.getStudentData();
     let previousTime = this.utilityService.calculateTimeBetweenDates();
     this.updateLessonProgress(previousTime);
+  }
+  ngAfterContentChecked():void{
+    this.lessonHederConfig['stepBoard'] = {
+      stepNumber: this.translate.getStringFromKey('student.assigned-lessons.lesson-steps.summary-view.step') +' 2',
+      stepTitle: this.translate.getStringFromKey('student.assigned-lessons.lesson-steps.summary-view.safety-and-hygiene'),
+      stepLogo: './assets/images/wash-your-hands.png'
+    }
   }
 
   updateLessonProgress(time: any): void {

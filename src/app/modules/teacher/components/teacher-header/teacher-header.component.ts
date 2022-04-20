@@ -67,7 +67,7 @@ export class TeacherHeaderComponent implements OnInit, OnDestroy {
   check = faCheck;
   teacherId: number;
   selectedValue = [];
-  selectedStandard = null
+  selectedSubject = null
   PerformanceTitle = "Performance";
   membershipUserRoleId: any;
   closeModal1;
@@ -120,23 +120,12 @@ export class TeacherHeaderComponent implements OnInit, OnDestroy {
   selectedClassAccesCode: any;
   membershipUserId: any;
   closeModal;
-  standardList = [];
+  subjectList = [];
   classLabel = 'create';
   teacherDetails: any;
   teacherData:any;
   PerformanceList = [];
-  elaStandardList=[];
-  mathStandardList=[];
-  ngssStandardList=[];
-  ncssStandardList=[];
-  selectedElaStandardValue=[];
-  selectedElaStandard= null;
-  selectedMathStandardValue=[];
-  selectedMathStandard=null;
-  selectedNgssStandardValue=[];
-  selectedNgssStandard=null;
-  selectedNcssStandardValue=[];
-  selectedNcssStandard=null;
+
   constructor(
     private router: Router,
     private authService: AuthService,
@@ -315,7 +304,7 @@ export class TeacherHeaderComponent implements OnInit, OnDestroy {
     // Get the sessionStoarge data
     this.getTeacherData();
     this.getGradeList();
-    this.getStandardList();
+    this.getSubjectList();
 
   }
 
@@ -327,11 +316,8 @@ export class TeacherHeaderComponent implements OnInit, OnDestroy {
       title: new FormControl('', [Validators.required]),
       grade_id: new FormControl('', [Validators.required]),
       assigned_teacher_ids: new FormControl('', [Validators.required]),
-      ela_standard_ids: new FormControl(''),
-      math_standard_ids: new FormControl(''),
-      ngss_standard_ids: new FormControl(''),
-      ncss_standard_ids: new FormControl(''),
-      assigned_standard_ids: new FormControl('',[Validators.required]),
+      assigned_standard_subject_group_ids: new FormControl('',[Validators.required]),
+      assigned_standard_ids:new  FormControl([]),
       assigned_student_ids: new FormControl([]),
       status: new FormControl(true, [Validators.required])
     });
@@ -346,31 +332,6 @@ export class TeacherHeaderComponent implements OnInit, OnDestroy {
     });
   }
 
-  // getTeacherProfile(): void {
-  //   this.teacherService.getTeacherProfile().subscribe(
-  //     (response) => {
-  //       if (response && response.data) {
-  //         let userData = response.data;
-  //         console.log("Teacher Data", userData);
-  //         let obj = {
-  //           name: userData.district_admin.admin_account_name,
-  //           address: userData.district_admin.admin_address,
-  //           img: userData.profile_image || this.profilePic,
-  //           district: userData.district_admin.name,
-  //           gender: userData.district_admin.admin_gender,
-  //           phone: userData.phone_number,
-  //           email: userData.email
-  //         }
-  //         this.userDetails = obj;
-  //         // this.teacherService.setProfileObs(this.userDetails);
-  //       }
-  //     },
-  //     (error) => {
-  //       console.log(error);
-  //       this.toast.showToast(error.error.message, '', 'error');
-  //     }
-  //   );
-  // }
   /**
    * This method will get class list of logged-in teacher-user for showing header and sub header
    */
@@ -384,7 +345,7 @@ export class TeacherHeaderComponent implements OnInit, OnDestroy {
             id: item.id,
             menu: item.title,
             classGrade: item.grade_id,
-            classStandards: item.selectedStandard,
+            classSubjects: item.selectedSubject,
             classStatus: item.status,
             access_code: item.access_code,
             type: 'classList',
@@ -443,39 +404,27 @@ export class TeacherHeaderComponent implements OnInit, OnDestroy {
    * @param classID
    */
   getClassInfo(classID) {
-    // this.standardList = [];
+    // this.subjectList = [];
     // Get class detail of given id
     this.selectedValue = []; // clear selected value of multiselect
-    // this.selectedStandard = null;
+    // this.selectedSubject = null;
     this.classService.getClassInfo(classID).subscribe((response: any) => {
       if (response && response.data) {
         if (response.data.id === classID) {
           this.createClass.get('title').setValue(response.data.title);
           this.createClass.get('grade_id').setValue(response.data.grade.id);
           this.GradeTitle = response.data.grade.grade;
-          if (response.data.class_standards.length > 0) {
-          response.data.class_standards.forEach((data) => {
+          if (response.data.class_standard_subject_groups.length > 0) {
+          response.data.class_standard_subject_groups.forEach((data) => {
               this.selectedValue.push({
                 item_id: data.id,
-                item_text: data.standardTitle,
+                item_text: data.subjectTitle,
                 subject:data.subject
               });
             });
-          this.selectedElaStandard=this.selectedValue.filter((dt)=>dt.subject.subjectTitle == 'ELA')
-          this.selectedElaStandardValue=this.selectedElaStandard.map(obj => obj);
-          this.createClass.get('ela_standard_ids').setValue(this.selectedElaStandard.map(obj => obj.item_id));
-
-          this.selectedMathStandard=this.selectedValue.filter((dt)=>dt.subject.subjectTitle == 'MATH')
-          this.selectedMathStandardValue=this.selectedMathStandard.map(obj => obj)
-          this.createClass.get('math_standard_ids').setValue(this.selectedMathStandard.map(obj => obj.item_id));
-
-          this.selectedNgssStandard=this.selectedValue.filter((dt)=>dt.subject.subjectTitle == 'NGSS')
-          this.selectedNgssStandardValue=this.selectedNgssStandard.map(obj => obj)
-          this.createClass.get('ngss_standard_ids').setValue(this.selectedNgssStandard.map(obj => obj));
-
-          this.selectedNcssStandard=this.selectedValue.filter((dt)=>dt.subject.subjectTitle == 'NCSS');
-          this.selectedNcssStandardValue=this.selectedNcssStandard.map(obj => obj)
-          this.createClass.get('ncss_standard_ids').setValue(this.selectedNcssStandard.map(obj => obj.item_id));
+   
+          this.selectedSubject = this.selectedValue;
+          this.createClass.get('assigned_standard_subject_group_ids').setValue(this.selectedSubject.map(obj => obj.item_id));
 
           }
           this.createClass.get('status').setValue(response.data.status);
@@ -600,40 +549,20 @@ export class TeacherHeaderComponent implements OnInit, OnDestroy {
   }
 
 
-  getStandardList() {
-    const elastandard = this.districtService.getELAStandards();
-    const mathstandard = this.districtService.getMathStandards();
-    const ngssStandard = this.districtService.getNGSSStandards();
-    const ncssStandard = this.districtService.getNCSSStandards();
-    forkJoin([elastandard, mathstandard, ngssStandard, ncssStandard]).subscribe(res => {
-      this.elaStandardList = _.map(res[0].data, item => {
-        let obj = {
-          item_id: item.id,
-          item_text: item.standardTitle
+  getSubjectList() {
+    this.classService.getSubjectList().subscribe((response: any) => {
+      if (response && response.data) {
+        this.subjectList = _.map(response.data, item => {
+          let obj = {
+            item_id: item.id,
+         item_text: item.subjectTitle,
         }
         return obj;
       });
-      this.mathStandardList = _.map(res[1].data, item => {
-        let obj = {
-          item_id: item.id,
-          item_text: item.standardTitle
-        }
-        return obj;
-      });
-      this.ngssStandardList = _.map(res[2].data, item => {
-        let obj = {
-          item_id: item.id,
-          item_text: item.standardTitle
-        }
-        return obj;
-      });
-      this.ncssStandardList = _.map(res[3].data, item => {
-        let obj = {
-          item_id: item.id,
-          item_text: item.standardTitle
-        }
-        return obj;
-      });
+      }
+    }, (error) => {
+      console.log(error);
+      this.toast.showToast(error.error.message, '', 'error');
       
     });
   }
@@ -649,7 +578,7 @@ export class TeacherHeaderComponent implements OnInit, OnDestroy {
       //  return;
     } else {
       if (this.classLabel === 'create') {
-        let omitArray = ["ela_standard_ids","math_standard_ids","ngss_standard_ids","ncss_standard_ids"];
+        let omitArray = [];
         if (this.localData.parentId) {
           this.id = this.localData.parentId
   
@@ -681,8 +610,8 @@ export class TeacherHeaderComponent implements OnInit, OnDestroy {
           this.toast.showToast(error.error.message, '', 'error');
         });
       } else if (this.classLabel === 'edit') {
-
-        const submission = _.omit(this.createClass.value, ["district_id", "school_id", "assigned_student_ids","ela_standard_ids","math_standard_ids","ngss_standard_ids","ncss_standard_ids"]);
+        const submission = _.omit(this.createClass.value, ["district_id", "school_id", "assigned_student_ids"]);
+        //const submission = _.omit(this.createClass.value, ["district_id", "school_id", "assigned_student_ids","ela_subject_ids","math_subject_ids","ngss_subject_ids","ncss_subject_ids"]);
 
         this.classService.updateClass(this.selectedClassListID, submission).subscribe((response: any) => {
           if (response && response.data && response.status === 200) {
@@ -872,33 +801,35 @@ export class TeacherHeaderComponent implements OnInit, OnDestroy {
     this.createClass.get('grade_id').setValue(event.id);
   }
 
-  onSelectStandrd(item) {
+  onSelectSubject(item) {
     this.selectedValue.push(item);
-    this.selectedStandard = this.selectedValue;
-    // assign selected standards id to array
-    this.createClass.get('assigned_standard_ids').setValue(this.selectedStandard.map(obj => obj.item_id));
+    this.selectedSubject = this.selectedValue;
+    this.createClass.get('assigned_standard_subject_group_ids').setValue(this.selectedSubject.map(obj => obj.item_id));
   }
 
-  onDeSelectStandard(index) {
-    // this.selectedValue = [];
-    this.selectedStandard.splice(index, 1);
-    this.selectedValue = this.selectedStandard;
-    // assign selected standards id to array
-    this.createClass.get('assigned_standard_ids').setValue(this.selectedStandard.map(obj => obj.item_id));
+  onDeSelectSubject(index) {
+    this.selectedValue = [];
+    this.selectedSubject = this.selectedSubject.filter(function (obj) {
+      return obj.item_id !== index.item_id;
+    });
+    this.selectedValue = this.selectedSubject;
+  /*   this.selectedSubject.splice(index, 1);
+    this.selectedValue = this.selectedSubject; */
+    this.createClass.get('assigned_standard_subject_group_ids').setValue(this.selectedSubject.map(obj => obj.item_id));
   }
 
-  onSelectAllStandard(item) {
+  onSelectAllSubject(item) {
     this.selectedValue = [];
     this.selectedValue = item;
-    this.selectedStandard = this.selectedValue;
+    this.selectedSubject = this.selectedValue;
 
-    // assign selected standards id to array
-    this.createClass.get('assigned_standard_ids').setValue(this.selectedStandard.map(obj => obj.item_id));
+    // assign selected subjects id to array
+    this.createClass.get('assigned_standard_subject_group_ids').setValue(this.selectedSubject.map(obj => obj.item_id));
   }
 
-  onDeselectAllStandard(item) {
+  onDeselectAllSubject(item) {
     this.selectedValue = item;
-    this.createClass.get('assigned_standard_ids').setValue('');
+    this.createClass.get('assigned_standard_subject_group_ids').setValue('');
   }
 
 
@@ -908,25 +839,13 @@ export class TeacherHeaderComponent implements OnInit, OnDestroy {
   }
 
   resetForm() {
-    // this.createClass.reset();
-    this.selectedElaStandardValue=[];
-    this.selectedElaStandard= null;
-    this.selectedMathStandardValue=[];
-    this.selectedMathStandard=null;
-    this.selectedNgssStandardValue=[];
-    this.selectedNgssStandard=null;
-    this.selectedNcssStandardValue=[];
-    this.selectedNcssStandard=null;
-    // this.standardList = [];
+    this.selectedValue = [];
+    this.selectedSubject = null;
     this.classLabel = 'create';
     this.GradeTitle = 'Select Grade';
     this.createClass.controls.title.setValue('');
     this.createClass.controls.grade_id.setValue('');
     this.createClass.controls.status.setValue(true);
-    this.createClass.controls.ela_standard_ids.setValue('');
-    this.createClass.controls.math_standard_ids.setValue('');
-    this.createClass.controls.ngss_standard_ids.setValue('');
-    this.createClass.controls.ncss_standard_ids.setValue('');
   }
 
   closePopup(): void {
@@ -951,26 +870,25 @@ export class TeacherHeaderComponent implements OnInit, OnDestroy {
 
   }
 
-  onSelect(item, type) {
+/*   onSelect(item, type) {
     switch (type) {
       case 'ela':
-        this.selectedElaStandardValue.push(item);
-        this.selectedElaStandard= this.selectedElaStandardValue;   
+        this.selectedElaSubjectValue.push(item);
+        this.selectedElaSubject= this.selectedElaSubjectValue;   
         this.onChange()
         break;
       case 'math':
-        this.selectedMathStandardValue.push(item);
-        this.selectedMathStandard= this.selectedMathStandardValue;   
+        this.selectedMathSubjectValue.push(item);
+        this.selectedMathSubject= this.selectedMathSubjectValue;   
         this.onChange()     
         break;
       case 'ngss':
-        this.selectedNgssStandardValue.push(item);
-        this.selectedNgssStandard= this.selectedNgssStandardValue; 
-        this.onChange()       
+        this.selectedNgssSubjectValue.push(item);
+        this.selectedNgssSubject= this.selectedNgssSubjectValue; 
         break;
       case 'ncss':
-        this.selectedNcssStandardValue.push(item);
-        this.selectedNcssStandard= this.selectedNcssStandardValue; 
+        this.selectedNcssSubjectValue.push(item);
+        this.selectedNcssSubject= this.selectedNcssSubjectValue; 
         this.onChange()       
         break;
 
@@ -980,36 +898,36 @@ export class TeacherHeaderComponent implements OnInit, OnDestroy {
   onDeSelect(index, type) {
     switch (type) {
       case 'ela':
-        this.selectedElaStandardValue = [];
-        this.selectedElaStandard = this.selectedElaStandard.filter(function (obj) {
+        this.selectedElaSubjectValue = [];
+        this.selectedElaSubject = this.selectedElaSubject.filter(function (obj) {
           return obj.item_id !== index.item_id;
         });
-        this.selectedElaStandardValue = this.selectedElaStandard;
+        this.selectedElaSubjectValue = this.selectedElaSubject;
         this.onChange()
 
         break;
       case 'math':
-        this.selectedMathStandardValue = [];
-        this.selectedMathStandard = this.selectedMathStandard.filter(function (obj) {
+        this.selectedMathSubjectValue = [];
+        this.selectedMathSubject = this.selectedMathSubject.filter(function (obj) {
           return obj.item_id !== index.item_id;
         });
-        this.selectedMathStandardValue = this.selectedMathStandard;
+        this.selectedMathSubjectValue = this.selectedMathSubject;
         this.onChange()
         break;
       case 'ngss':
-        this.selectedNgssStandardValue = [];
-        this.selectedNgssStandard = this.selectedNgssStandard.filter(function (obj) {
+        this.selectedNgssSubjectValue = [];
+        this.selectedNgssSubject = this.selectedNgssSubject.filter(function (obj) {
           return obj.item_id !== index.item_id;
         });
-        this.selectedNgssStandardValue = this.selectedNgssStandard;
+        this.selectedNgssSubjectValue = this.selectedNgssSubject;
         this.onChange()
         break;
       case 'ncss':
-        this.selectedNcssStandardValue = [];
-        this.selectedNcssStandard = this.selectedNcssStandard.filter(function (obj) {
+        this.selectedNcssSubjectValue = [];
+        this.selectedNcssSubject = this.selectedNcssSubject.filter(function (obj) {
           return obj.item_id !== index.item_id;
         });
-        this.selectedNcssStandardValue = this.selectedNcssStandard;
+        this.selectedNcssSubjectValue = this.selectedNcssSubject;
         this.onChange()
         break;
 
@@ -1021,27 +939,27 @@ export class TeacherHeaderComponent implements OnInit, OnDestroy {
   onSelectAll(item, type) {
     switch (type) {
       case 'ela':
-        this.selectedElaStandardValue = [];
-        this.selectedElaStandardValue = item;
-        this.selectedElaStandard = this.selectedElaStandardValue;
+        this.selectedElaSubjectValue = [];
+        this.selectedElaSubjectValue = item;
+        this.selectedElaSubject = this.selectedElaSubjectValue;
         this.onChange()
         break;
       case 'math':
-        this.selectedMathStandardValue = [];
-        this.selectedMathStandardValue = item;
-        this.selectedMathStandard = this.selectedMathStandardValue;
+        this.selectedMathSubjectValue = [];
+        this.selectedMathSubjectValue = item;
+        this.selectedMathSubject = this.selectedMathSubjectValue;
         this.onChange()
         break;
       case 'ngss':
-        this.selectedNgssStandardValue = [];
-        this.selectedNgssStandardValue = item;
-        this.selectedNgssStandard = this.selectedNgssStandardValue;
+        this.selectedNgssSubjectValue = [];
+        this.selectedNgssSubjectValue = item;
+        this.selectedNgssSubject = this.selectedNgssSubjectValue;
         this.onChange()
         break;
       case 'ncss':
-        this.selectedNcssStandardValue = [];
-        this.selectedNcssStandardValue = item;
-        this.selectedNcssStandard = this.selectedNcssStandardValue;
+        this.selectedNcssSubjectValue = [];
+        this.selectedNcssSubjectValue = item;
+        this.selectedNcssSubject = this.selectedNcssSubjectValue;
         this.onChange()
         break;
 
@@ -1051,30 +969,31 @@ export class TeacherHeaderComponent implements OnInit, OnDestroy {
   onDeselectAll(item, type) {
     switch (type) {
       case 'ela':
-        this.selectedElaStandardValue = item;
+        this.selectedElaSubjectValue = item;
         this.onChange()
 
         break;
       case 'math':
-        this.selectedMathStandardValue = item;
+        this.selectedMathSubjectValue = item;
         this.onChange()
 
         break;
       case 'ngss':
-        this.selectedNgssStandardValue = item;
+        this.selectedNgssSubjectValue = item;
         this.onChange()
 
         break;
       case 'ncss':
-        this.selectedNcssStandardValue = item;
+        this.selectedNcssSubjectValue = item;
         this.onChange()
         break;
 
     }
   }
   onChange(){
-    let contentArray=this.selectedElaStandardValue.concat(this.selectedMathStandardValue,this.selectedNgssStandardValue,this.selectedNcssStandardValue)
-    this.createClass.controls['assigned_standard_ids'].patchValue( contentArray.map(res=>res.item_id))
+    let contentArray=this.selectedElaSubjectValue.concat(this.selectedMathSubjectValue,this.selectedNgssSubjectValue,this.selectedNcssSubjectValue)
+    this.createClass.controls['assigned_standard_subject_group_ids'].patchValue( contentArray.map(res=>res.item_id))
     
   }
+   */
 }

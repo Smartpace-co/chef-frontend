@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild, AfterContentChecked } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UtilityService } from '@appcore/services/utility.service';
 import { StudentsService } from '@modules/teacher/services/students.service';
@@ -14,13 +14,14 @@ import { DynamicFormComponent } from '@modules/lesson-steps/dynamic-form/dynamic
 import { StudentService } from '@modules/student/services/student.service';
 import { ToasterService } from '@appcore/services/toaster.service';
 import { Location } from '@angular/common';
-
+import { AuthService } from '@modules/auth/services/auth.service';
+import { TranslationService } from '@appcore/services/translation.service';
 @Component({
   selector: 'app-assessment-question',
   templateUrl: './assessment-question.component.html',
   styleUrls: ['./assessment-question.component.scss']
 })
-export class AssessmentQuestionComponent implements OnInit {
+export class AssessmentQuestionComponent implements OnInit, AfterContentChecked {
   @ViewChild('dynamicComponent') dynamicComponent: DynamicFormComponent;
   @ViewChild('correctAnsModal') CorrectAnsModal: ElementRef;
   @Input() showPrevious: boolean;
@@ -62,12 +63,8 @@ export class AssessmentQuestionComponent implements OnInit {
     private location: Location,
     private activatedRoute: ActivatedRoute,
     private studentService: StudentService,
-    private utilityService: UtilityService) {
-    this.lessonHederConfig['stepBoard'] = {
-      stepNumber: 'Step 9',
-      stepTitle: 'Assessment',
-      stepLogo: './assets/images/assessment-icon.png'
-    }
+    private utilityService: UtilityService,private authService: AuthService,private translate: TranslationService) {
+    this.authService.setuserlang();
     this.panelIndex = this.activatedRoute.snapshot.queryParams && this.activatedRoute.snapshot.queryParams.index;
   }
 
@@ -293,6 +290,11 @@ export class AssessmentQuestionComponent implements OnInit {
   }
 
   ngAfterContentChecked(): void {
+    this.lessonHederConfig['stepBoard'] = {
+      stepNumber: this.translate.getStringFromKey('student.assigned-lessons.lesson-steps.summary-view.step')+' 9',
+      stepTitle: this.translate.getStringFromKey('student.assigned-lessons.lesson-steps.summary-view.assessment'),
+      stepLogo: './assets/images/assessment-icon.png'
+    }
     if (this.assignmentData && this.AllQuestionsList.length - 1 === this.questionIndex) {
       this.showNext = false;
     } else {

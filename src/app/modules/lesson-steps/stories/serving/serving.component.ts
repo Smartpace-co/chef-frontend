@@ -1,16 +1,17 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, AfterContentChecked } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToasterService } from '@appcore/services/toaster.service';
 import { UtilityService } from '@appcore/services/utility.service';
 import { StudentService } from '@modules/student/services/student.service';
 import * as _ from 'lodash';
-
+import { AuthService } from '@modules/auth/services/auth.service';
+import { TranslationService } from '@appcore/services/translation.service';
 @Component({
   selector: 'app-serving',
   templateUrl: './serving.component.html',
   styleUrls: ['./serving.component.scss']
 })
-export class ServingComponent implements OnInit {
+export class ServingComponent implements OnInit, AfterContentChecked {
 
   lessonHederConfig = {};
   assignmentId: string;
@@ -21,12 +22,8 @@ export class ServingComponent implements OnInit {
   currentAssignedLesson;
   lesson;
   audioTrack;
-  constructor(private router: Router, private toast: ToasterService, private studentService: StudentService, private utilityService: UtilityService) {
-    this.lessonHederConfig['stepBoard'] = {
-      stepNumber: 'Step 8',
-      stepTitle: 'Serving',
-      stepLogo: './assets/images/plate-icon.png'
-    }
+  constructor(private router: Router, private toast: ToasterService, private studentService: StudentService, private utilityService: UtilityService,private authService: AuthService,private translate: TranslationService) {
+    this.authService.setuserlang();
   }
 
   ngOnInit(): void {
@@ -35,6 +32,14 @@ export class ServingComponent implements OnInit {
     this.getServingData();
     let previousTime = this.utilityService.calculateTimeBetweenDates();
     this.updateLessonProgress(previousTime);
+  }
+
+  ngAfterContentChecked():void{
+    this.lessonHederConfig['stepBoard'] = {
+      stepNumber:this.translate.getStringFromKey('student.assigned-lessons.lesson-steps.summary-view.step')+ ' 8',
+      stepTitle:this.translate.getStringFromKey('student.assigned-lessons.lesson-steps.summary-view.serving') ,
+      stepLogo: './assets/images/plate-icon.png'
+    }
   }
 
   updateLessonProgress(time: any): void {

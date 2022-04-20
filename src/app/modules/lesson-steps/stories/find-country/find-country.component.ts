@@ -5,7 +5,7 @@ import { UtilityService } from '@appcore/services/utility.service';
 import { StudentService } from '@modules/student/services/student.service';
 import * as d3 from 'd3';
 import * as topojson from 'topojson';
-
+import { AuthService } from '@modules/auth/services/auth.service';
 @Component({
   selector: 'app-find-country',
   templateUrl: './find-country.component.html',
@@ -34,7 +34,8 @@ export class FindCountryComponent implements OnInit, AfterViewInit {
     private router: Router,
     private utilityService: UtilityService,
     private toast: ToasterService,
-    private studentService: StudentService) {
+    private studentService: StudentService,private authService: AuthService,) {
+      this.authService.setuserlang();
     this.lessonHederConfig['stepBoard'] = null;
   }
 

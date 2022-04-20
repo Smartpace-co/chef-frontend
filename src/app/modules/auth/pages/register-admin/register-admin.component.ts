@@ -40,6 +40,7 @@ export class RegisterAdminComponent implements OnInit {
     private districtService: DistrictService,
     //  private modalService: NgbModal,
   ) {
+    sessionStorage.removeItem("priceId")
     this.months=CustomRegex.months;
     if (this.actRoute.snapshot && this.actRoute.snapshot.queryParams) {
       let queryString = Object.keys(this.actRoute.snapshot.queryParams)[0];
@@ -53,7 +54,7 @@ export class RegisterAdminComponent implements OnInit {
   ngOnInit(): void {
     this.stripe = Stripe(environment.public_key);
     if (this.isParams) {
-      this.roleID = parseInt(this.queryParamObj.paramRoleID);
+      this.roleID = parseInt(this.queryParamObj.role_id);
     } else {
       this.roleID = parseInt(localStorage.getItem('rolID'));
     }
@@ -97,6 +98,9 @@ export class RegisterAdminComponent implements OnInit {
                   this.allPackages = res.data;
                 } else {
                   this.allPackages = [res.data];
+                }
+                if(isPrivate){
+                  sessionStorage.setItem("priceId",res.data.priceId);
                 }
                 this.packageList = _.map(this.allPackages, item => {
                   let obj = {

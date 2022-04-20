@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit {
     }
   ]
   paymentModal: any;
+  paymentFailedMsg : string ;
   constructor(private router: Router, private studentService: StudentService, private authService: AuthService, private toast: ToasterService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
@@ -71,6 +72,7 @@ export class LoginComponent implements OnInit {
    * function call for login and its validation
    */
   login() {
+    this.paymentFailedMsg = '';
     if (this.loginForm.invalid) {
       return;
     } else {
@@ -170,9 +172,13 @@ export class LoginComponent implements OnInit {
 
   checkout() {
     this.authService.createStripePaymentSession(this.stripeData, '').subscribe((dt) => {
-      this.stripe.redirectToCheckout({
-        sessionId: dt.data,
-      })
+      if(dt.error){
+        this.paymentFailedMsg = dt.message;
+      }else{
+        this.stripe.redirectToCheckout({
+          sessionId: dt.data,
+        })
+      }
     })
   }
 }

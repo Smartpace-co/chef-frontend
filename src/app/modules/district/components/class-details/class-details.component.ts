@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ClassesService } from '@modules/teacher/services/classes.service';
 import {
   faAngleLeft,
   faEdit,
@@ -179,6 +180,7 @@ export class ClassDetailsComponent implements OnInit {
   gradeList = [];
   stdList = [];
   standards: string;
+  subjects : string;
   userForm: FormGroup;
   // addStudentForm: FormGroup;
   deleteClassForm: FormGroup;
@@ -188,12 +190,16 @@ export class ClassDetailsComponent implements OnInit {
   inactiveStudents:any;
   newStudents=0
   mins=0;
+  subjectList = [];
+  selectedSubjectValue = [];
+  selectedSubject = null;
   constructor(
     private modalService: NgbModal,
     private districtService: DistrictService,
     private toast: ToasterService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private classService : ClassesService
   ) {
     this.classID = this.activatedRoute.snapshot.queryParams && this.activatedRoute.snapshot.queryParams.id;
     this.tabTitle = this.activatedRoute.snapshot.queryParams && this.activatedRoute.snapshot.queryParams.action ? this.activatedRoute.snapshot.queryParams.action : 'Info';
@@ -215,7 +221,8 @@ export class ClassDetailsComponent implements OnInit {
       teacherName: new FormControl('', [Validators.required]),
       title: new FormControl('', [Validators.required, this.validateClassName.bind(this)]),
       grade: new FormControl([], [Validators.required]),
-      standards: new FormControl('', [Validators.required]),
+      standards: new FormControl(''),
+      subjects : new FormControl('', [Validators.required]),
       students: new FormControl('')
     });
     this.userForm = new FormGroup({
@@ -231,7 +238,7 @@ export class ClassDetailsComponent implements OnInit {
 
     this.getTopActiveStudents("week")
     this.getInactiveStudents()
-
+    this.getSubjectList()
   }
   get formControl() {
     return this.editClassForm.controls;
@@ -289,6 +296,18 @@ export class ClassDetailsComponent implements OnInit {
       return obj;
     });
     this.selectedValue = this.selectedStandard;
+
+    this.editClassForm.get('subjects').setValue(this.currentClass.class_standard_subject_groups.map(obj => obj.id));
+    this.selectedSubject = _.map(this.currentClass.class_standard_subject_groups, item => {
+      let obj = {
+        item_id: item.id,
+        item_text: item.subjectTitle
+      }
+      return obj;
+    });
+    this.selectedSubjectValue = this.selectedSubject;
+
+    
     this.editClassForm.get('students').setValue(this.currentClass.class_students);
     this.selectedStudent = _.map(this.currentClass.class_students, item => {
       let obj = {
@@ -319,6 +338,11 @@ export class ClassDetailsComponent implements OnInit {
             stdArr.push(item.standardTitle)
           });
           this.standards = stdArr.join(',');
+          let subArr = [];
+          _.forEach(this.currentClass.class_standard_subject_groups, item => {
+            subArr.push(item.subjectTitle)
+          });
+          this.subjects = subArr.join(',');
           this.isLoadClass = true;
         }
       },
@@ -505,12 +529,13 @@ export class ClassDetailsComponent implements OnInit {
     _.forEach(this.selectedStudentValue, item => {
       students.push(item.item_id);
     });
-    if (stdList.length > 0 && teacher.length > 0) {
+    if (teacher.length > 0) {
       let formData = this.editClassForm.value;
       let submission = {
         title: formData.title,
         grade_id: formData.grade.id,
         school_id: formData.school && formData.school.id ? formData.school.id : undefined,
+        assigned_standard_subject_group_ids : formData.subjects,
         assigned_teacher_ids: teacher,
         assigned_standard_ids: stdList,
         assigned_student_ids: students
@@ -552,6 +577,55 @@ export class ClassDetailsComponent implements OnInit {
       this.selectedStudent = null;
       this.selectedStudentValue = []
     }
+  }
+
+  getSubjectList() {
+    this.classService.getSubjectList().subscribe((response: any) => {
+      if (response && response.data) {
+        this.subjectList = _.map(response.data, item => {
+          let obj = {
+            item_id: item.id,
+         item_text: item.subjectTitle,
+        }
+        return obj;
+      });
+      }
+    }, (error) => {
+      console.log(error);
+      this.toast.showToast(error.error.message, '', 'error');
+      
+    });
+  }
+
+  onSelectSubject(item) {
+    this.selectedSubjectValue.push(item);
+    this.selectedSubject = this.selectedSubjectValue;
+    this.editClassForm.get('subjects').setValue(this.selectedSubject.map(obj => obj.item_id));
+  }
+
+  onDeSelectSubject(index) {
+    this.selectedSubjectValue = [];
+    this.selectedSubject = this.selectedSubject.filter(function (obj) {
+      return obj.item_id !== index.item_id;
+    });
+    this.selectedSubjectValue = this.selectedSubject;
+  /*   this.selectedSubject.splice(index, 1);
+    this.selectedValue = this.selectedSubject; */
+    this.editClassForm.get('subjects').setValue(this.selectedSubject.map(obj => obj.item_id));
+  }
+
+  onSelectAllSubject(item) {
+    this.selectedSubjectValue = [];
+    this.selectedSubjectValue = item;
+    this.selectedSubject = this.selectedSubjectValue;
+
+    // assign selected subjects id to array
+    this.editClassForm.get('subjects').setValue(this.selectedSubject.map(obj => obj.item_id));
+  }
+
+  onDeselectAllSubject(item) {
+    this.selectedSubjectValue = item;
+    this.editClassForm.get('subjects').setValue('');
   }
 
   onSelectStandrd(item) {

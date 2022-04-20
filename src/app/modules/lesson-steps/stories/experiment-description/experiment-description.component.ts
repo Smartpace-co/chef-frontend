@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ToasterService } from '@appcore/services/toaster.service';
 import { UtilityService } from '@appcore/services/utility.service';
 import { StudentService } from '@modules/student/services/student.service';
-
+import { AuthService } from '@modules/auth/services/auth.service';
 @Component({
   selector: 'app-experiment-description',
   templateUrl: './experiment-description.component.html',
@@ -16,7 +16,8 @@ export class ExperimentDescriptionComponent implements OnInit {
   experimentFacts = [];
   isVisibleNext = true;
   slideConfig;
-  constructor(private router: Router, private utilityService: UtilityService, private studentService: StudentService, private toast: ToasterService) {
+  constructor(private router: Router, private utilityService: UtilityService, private studentService: StudentService, private toast: ToasterService,private authService: AuthService,) {
+    this.authService.setuserlang();
   }
 
   ngOnInit(): void {

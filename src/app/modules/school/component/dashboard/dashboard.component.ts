@@ -3,6 +3,7 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 import { Router } from '@angular/router';
 import { CustomRegex } from '@appcore/validators/custom-regex';
 import * as _ from 'lodash';
+import { ClassesService } from '@modules/teacher/services/classes.service';
 import { 
   faAngleDoubleRight,
   faHome,
@@ -296,12 +297,17 @@ export class DashboardComponent implements OnInit {
   schoolDetails:any
   closeResult = '';
   loggedInUser;
+
+  subjectList = [];
+  selectedSubjectValue = [];
+  selectedSubject = null;
  // strikeCheckout:any = null; 
   constructor(private authService:AuthService,
     private schoolService:SchoolService,
     private router:Router,
     private toast: ToasterService,
-    private modalService: NgbModal) { }
+    private modalService: NgbModal,
+    private classService : ClassesService) { }
 
   ngOnInit(): void {
     this.loggedInUser =  JSON.parse(window.sessionStorage.getItem('currentUser'));
@@ -335,7 +341,8 @@ export class DashboardComponent implements OnInit {
       teacherName: new FormControl('', [Validators.required]),
       title: new FormControl('', [Validators.required, this.validateClassName.bind(this)]),
       grade: new FormControl([], [Validators.required]),
-      standards: new FormControl('', [Validators.required]),
+      standards: new FormControl(''),
+      subjects: new FormControl('', [Validators.required]),
       students: new FormControl('')
     });
     this.authService.setuserlang();
@@ -344,6 +351,7 @@ export class DashboardComponent implements OnInit {
     this.getInactiveStudents();
     this.getTopActiveStudents('week');
     this.getSessionReport()
+    this.getSubjectList();
   }
   get formControl() {
     return this.createClassForm.controls;
@@ -437,6 +445,8 @@ export class DashboardComponent implements OnInit {
     this.selectedStudentValue = [];
     this.selectedValue = [];
     this.selectedTeacherValue = [];
+    this.selectedSubjectValue = [];
+    this.selectedSubject = null;
   }
   
   validateClassName(control: AbstractControl): any {
@@ -461,6 +471,55 @@ export class DashboardComponent implements OnInit {
    gradeChange(event) {
     this.gradeTitle = event.menu;
     this.createClassForm.get('grade').setValue(event);
+  }
+
+  getSubjectList() {
+    this.classService.getSubjectList().subscribe((response: any) => {
+      if (response && response.data) {
+        this.subjectList = _.map(response.data, item => {
+          let obj = {
+            item_id: item.id,
+         item_text: item.subjectTitle,
+        }
+        return obj;
+      });
+      }
+    }, (error) => {
+      console.log(error);
+      this.toast.showToast(error.error.message, '', 'error');
+      
+    });
+  }
+
+  onSelectSubject(item) {
+    this.selectedSubjectValue.push(item);
+    this.selectedSubject = this.selectedSubjectValue;
+    this.createClassForm.get('subjects').setValue(this.selectedSubject.map(obj => obj.item_id));
+  }
+
+  onDeSelectSubject(index) {
+    this.selectedSubjectValue = [];
+    this.selectedSubject = this.selectedSubject.filter(function (obj) {
+      return obj.item_id !== index.item_id;
+    });
+    this.selectedSubjectValue = this.selectedSubject;
+  /*   this.selectedSubject.splice(index, 1);
+    this.selectedValue = this.selectedSubject; */
+    this.createClassForm.get('subjects').setValue(this.selectedSubject.map(obj => obj.item_id));
+  }
+
+  onSelectAllSubject(item) {
+    this.selectedSubjectValue = [];
+    this.selectedSubjectValue = item;
+    this.selectedSubject = this.selectedSubjectValue;
+
+    // assign selected subjects id to array
+    this.createClassForm.get('subjects').setValue(this.selectedSubject.map(obj => obj.item_id));
+  }
+
+  onDeselectAllSubject(item) {
+    this.selectedSubjectValue = item;
+    this.createClassForm.get('subjects').setValue('');
   }
 
   onSelectStandrd(item) {
@@ -703,10 +762,11 @@ export class DashboardComponent implements OnInit {
       let submission = {
         title: formData.title,
         parent_id: this.activateUserData.id,
-        district_id: JSON.parse(localStorage.getItem('districtDetails')).id,
+        district_id: JSON.parse(localStorage.getItem('schoolDetails')).district_id,
         grade_id: formData.grade.id,
         school_id: this.schoolDetails.id,
         assigned_teacher_ids: teacher,
+        assigned_standard_subject_group_ids : formData.subjects,
         assigned_standard_ids: stdList,
         assigned_student_ids: students
       };

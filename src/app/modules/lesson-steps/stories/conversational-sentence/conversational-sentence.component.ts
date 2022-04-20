@@ -4,6 +4,7 @@ import { ToasterService } from '@appcore/services/toaster.service';
 import { UtilityService } from '@appcore/services/utility.service';
 import { StudentService } from '@modules/student/services/student.service';
 import * as _ from 'lodash';
+import { AuthService } from '@modules/auth/services/auth.service';
 @Component({
   selector: 'app-conversational-sentence',
   templateUrl: './conversational-sentence.component.html',
@@ -18,7 +19,8 @@ export class ConversationalSentenceComponent implements OnInit {
   currentAssignedLesson;
   lesson;
   isLoad = false;
-  constructor(private toast: ToasterService, private utilityService: UtilityService, private router: Router, private studentService: StudentService) {
+  constructor(private toast: ToasterService, private utilityService: UtilityService, private router: Router, private studentService: StudentService,private authService: AuthService,) {
+    this.authService.setuserlang();
     this.lessonHederConfig['stepBoard'] = null;
   }
 

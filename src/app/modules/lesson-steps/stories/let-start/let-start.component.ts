@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ToasterService } from '@appcore/services/toaster.service';
 import { UtilityService } from '@appcore/services/utility.service';
 import { StudentService } from '@modules/student/services/student.service';
-
+import { AuthService } from '@modules/auth/services/auth.service';
 @Component({
   selector: 'app-let-start',
   templateUrl: './let-start.component.html',
@@ -12,7 +12,8 @@ import { StudentService } from '@modules/student/services/student.service';
 export class LetStartComponent implements OnInit {
   lessonHederConfig = {};
   assignmentId: string;
-  constructor(private router: Router, private utilityService: UtilityService, private studentService: StudentService, private toast: ToasterService) {
+  constructor(private router: Router, private utilityService: UtilityService, private studentService: StudentService, private toast: ToasterService,private authService: AuthService,) {
+    this.authService.setuserlang();
     this.lessonHederConfig['stepBoard'] = null;
   }
 

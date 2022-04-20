@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterContentChecked } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToasterService } from '@appcore/services/toaster.service';
 import { UtilityService } from '@appcore/services/utility.service';
 import { StudentService } from '@modules/student/services/student.service';
 import * as _ from 'lodash';
+import { AuthService } from '@modules/auth/services/auth.service';
+import { TranslationService } from '@appcore/services/translation.service';
 
 @Component({
   selector: 'app-student-action-activity',
   templateUrl: './student-action-activity.component.html',
   styleUrls: ['./student-action-activity.component.scss']
 })
-export class StudentActionActivityComponent implements OnInit {
+export class StudentActionActivityComponent implements OnInit, AfterContentChecked {
   isButtonSection = {};
   activity;
   assignmentId: string;
@@ -18,16 +20,20 @@ export class StudentActionActivityComponent implements OnInit {
   isVisiblePrevious = true;
   lesson;
   currentAssignedLesson;
-  constructor(private toast: ToasterService, private router: Router, private studentService: StudentService, private utilityService: UtilityService) {
-    this.isButtonSection = {
-      title: 'Take Action Activity'
-    };
+  constructor(private toast: ToasterService, private router: Router, private studentService: StudentService, private utilityService: UtilityService,private authService: AuthService,private translate: TranslationService) {
+    this.authService.setuserlang();
+    
   }
 
   ngOnInit(): void {
     this.assignmentId = localStorage.getItem('assignmentId');
     this.lesson = localStorage.getItem('lessonType');
     this.getActionActivity();
+  }
+  ngAfterContentChecked(): void {
+    this.isButtonSection = {
+      title: this.translate.getStringFromKey('student.assigned-lessons.lesson-steps.take-action-activity')
+    };
   }
 
   getActionActivity() {

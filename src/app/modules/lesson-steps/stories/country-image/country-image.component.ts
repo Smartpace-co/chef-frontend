@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { ToasterService } from '@appcore/services/toaster.service';
 import { UtilityService } from '@appcore/services/utility.service';
 import { StudentService } from '@modules/student/services/student.service';
-
+import { AuthService } from '@modules/auth/services/auth.service';
+import { TranslationService } from '@appcore/services/translation.service';
 @Component({
   selector: 'app-country-image',
   templateUrl: './country-image.component.html',
@@ -16,7 +17,8 @@ export class CountryImageComponent implements OnInit {
   countryBgImg;
   styleOb: any;
   showPrevious = false; // To hide previous button
-  constructor(private router: Router, private utilityService: UtilityService, private studentService: StudentService, private toast: ToasterService) {
+  constructor(private router: Router, private utilityService: UtilityService, private studentService: StudentService, private toast: ToasterService,private authService: AuthService,private translate: TranslationService) {
+    this.authService.setuserlang();
   }
 
   ngOnInit(): void {
@@ -56,7 +58,7 @@ export class CountryImageComponent implements OnInit {
           }
           this.lessonHederConfig['stepBoard'] = {
             stepTitle: response.data.recipe.country.countryName,
-            stepTopTitle:'Welcome'
+            stepTopTitle:this.translate.getStringFromKey('header-content.welcome')
           };
           this.isLoad = true;
         }

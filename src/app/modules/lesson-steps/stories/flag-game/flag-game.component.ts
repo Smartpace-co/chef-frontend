@@ -5,7 +5,7 @@ import { UtilityService } from '@appcore/services/utility.service';
 import { faCheck, faChevronRight, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { StudentService } from '@modules/student/services/student.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
+import { AuthService } from '@modules/auth/services/auth.service';
 @Component({
   selector: 'app-flag-game',
   templateUrl: './flag-game.component.html',
@@ -24,7 +24,8 @@ export class FlagGameComponent implements OnInit {
   isRightAns = false;
   countryName;
   allFlags = [];
-  constructor(private router: Router, private utilityService: UtilityService, private modalService: NgbModal, private studentService: StudentService, private toast: ToasterService) {
+  constructor(private router: Router, private utilityService: UtilityService, private modalService: NgbModal, private studentService: StudentService, private toast: ToasterService,private authService: AuthService,) {
+    this.authService.setuserlang();
   }
 
   ngOnInit(): void {

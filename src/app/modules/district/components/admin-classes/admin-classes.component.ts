@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ClassesService } from '@modules/teacher/services/classes.service';
 import {
   faChevronRight,
   faPlus,
@@ -133,11 +134,15 @@ export class AdminClassesComponent implements OnInit {
   closeModal1;
   sortBy;
   classStatus;
+  subjectList = [];
+  selectedSubjectValue = [];
+  selectedSubject = null;
   constructor(
     private router: Router,
     private toast: ToasterService,
     private districtService: DistrictService,
     private modalService: NgbModal,
+    private classService : ClassesService
   ) { }
 
   ngOnInit(): void {
@@ -148,17 +153,20 @@ export class AdminClassesComponent implements OnInit {
     this.getAllGradeList();
     this.getStudentList(undefined,false);
     this.getAllLearningStandards();
+    this.getSubjectList();
     this.createClassForm = new FormGroup({
       school: new FormControl(''),
       teacherName: new FormControl('', [Validators.required]),
       title: new FormControl('', [Validators.required, this.validateClassName.bind(this)]),
       grade: new FormControl([], [Validators.required]),
-      standards: new FormControl('', [Validators.required]),
+      standards: new FormControl(''),
+      subjects: new FormControl('', [Validators.required]),
       students: new FormControl('')
     });
     this.accessCodeForm = new FormGroup({
       teacher: new FormControl('', [Validators.required])
     });
+    
   }
   get formControl() {
     return this.createClassForm.controls;
@@ -276,10 +284,13 @@ export class AdminClassesComponent implements OnInit {
     this.createClassForm.reset();
     this.selectedTeacher = null;
     this.selectedStandard = null;
+    
     this.selectedStudent = null;
     this.selectedStudentValue = [];
     this.selectedValue = [];
     this.selectedTeacherValue = [];
+    this.selectedSubjectValue = [];
+    this.selectedSubject = null;
     this.getStudentList(undefined,false);
     this.getAllActiveTeachers(undefined,false);
   }
@@ -311,6 +322,7 @@ export class AdminClassesComponent implements OnInit {
         parent_id: this.activateUserData.id,
         district_id: JSON.parse(localStorage.getItem('districtDetails')).id,
         grade_id: formData.grade.id,
+        assigned_standard_subject_group_ids : formData.subjects,
         school_id: formData.school.id,
         assigned_teacher_ids: teacher,
         assigned_standard_ids: stdList,
@@ -440,6 +452,37 @@ export class AdminClassesComponent implements OnInit {
     this.createClassForm.get('grade').setValue(event);
   }
 
+  onSelectSubject(item) {
+    this.selectedSubjectValue.push(item);
+    this.selectedSubject = this.selectedSubjectValue;
+    this.createClassForm.get('subjects').setValue(this.selectedSubject.map(obj => obj.item_id));
+  }
+
+  onDeSelectSubject(index) {
+    this.selectedSubjectValue = [];
+    this.selectedSubject = this.selectedSubject.filter(function (obj) {
+      return obj.item_id !== index.item_id;
+    });
+    this.selectedSubjectValue = this.selectedSubject;
+  /*   this.selectedSubject.splice(index, 1);
+    this.selectedValue = this.selectedSubject; */
+    this.createClassForm.get('subjects').setValue(this.selectedSubject.map(obj => obj.item_id));
+  }
+
+  onSelectAllSubject(item) {
+    this.selectedSubjectValue = [];
+    this.selectedSubjectValue = item;
+    this.selectedSubject = this.selectedSubjectValue;
+
+    // assign selected subjects id to array
+    this.createClassForm.get('subjects').setValue(this.selectedSubject.map(obj => obj.item_id));
+  }
+
+  onDeselectAllSubject(item) {
+    this.selectedSubjectValue = item;
+    this.createClassForm.get('subjects').setValue('');
+  }
+
   onSelectStandrd(item) {
     this.selectedValue.push(item);
     this.selectedStandard = this.selectedValue;
@@ -541,6 +584,7 @@ export class AdminClassesComponent implements OnInit {
       this.getStudentList(event.id);
       this.selectedTeacher = null;
       this.selectedStandard = null;
+      this.selectedSubject = null;
       this.selectedStudent = null;
       this.selectedStudentValue = [];
       this.selectedValue = [];
@@ -554,5 +598,24 @@ export class AdminClassesComponent implements OnInit {
   }
   closePopup(): void {
     this.closeModal1.close();
+  }
+
+  getSubjectList() {
+    this.classService.getSubjectList().subscribe((response: any) => {
+      if (response && response.data) {
+        this.subjectList = _.map(response.data, item => {
+          let obj = {
+            item_id: item.id,
+         item_text: item.subjectTitle,
+        }
+        
+        return obj;
+      });
+      }
+    }, (error) => {
+      console.log(error);
+      this.toast.showToast(error.error.message, '', 'error');
+      
+    });
   }
 }

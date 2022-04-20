@@ -53,7 +53,7 @@ export class ExploreLessonsSidebarComponent implements OnInit {
       (res) => {
         this.prepareFilterArray(res.data)
       }, (error) => {
-        this.toast.showToast(error, '', '');
+        this.toast.showToast(error.error.message, '', 'error');
       }
     )
     const elastandard = this.districtService.getELAStandards();
@@ -324,7 +324,7 @@ export class ExploreLessonsSidebarComponent implements OnInit {
         this.teacherService.sendFilteredAllLessonData(this.allLessonList);
 
       }, (error) => {
-        this.toast.showToast(error, '', 'error');
+        this.toast.showToast(error.error.message, '', 'error');
       }
     )
   }
@@ -354,7 +354,7 @@ export class ExploreLessonsSidebarComponent implements OnInit {
         // }
 
       }, (error) => {
-        this.toast.showToast(error, '', 'error');
+        this.toast.showToast(error.error.message, '', 'error');
       }
     )
   }
@@ -377,7 +377,7 @@ export class ExploreLessonsSidebarComponent implements OnInit {
         this.teacherService.sendFilteredTopRatedLessonData(this.topRatedList);
 
       }, (error) => {
-        this.toast.showToast(error, '', 'error');
+        this.toast.showToast(error.error.message, '', 'error');
       }
     )
   }
@@ -401,7 +401,7 @@ export class ExploreLessonsSidebarComponent implements OnInit {
         this.teacherService.sendFilteredStanardLessonData(this.standardLesonList);
 
       }, (error) => {
-        this.toast.showToast(error, '', 'error');
+        this.toast.showToast(error.error.message, '', 'error');
       }
     )
   }

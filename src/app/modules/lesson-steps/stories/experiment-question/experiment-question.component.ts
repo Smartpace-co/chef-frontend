@@ -9,7 +9,7 @@ import { DynamicExperimentQuestionsComponent } from '@modules/lesson-steps/dynam
 import { StudentService } from '@modules/student/services/student.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import * as _ from 'lodash';
-
+import { AuthService } from '@modules/auth/services/auth.service';
 @Component({
   selector: 'app-experiment-question',
   templateUrl: './experiment-question.component.html',
@@ -51,7 +51,8 @@ export class ExperimentQuestionComponent implements OnInit {
     private location: Location,
     private utilityService: UtilityService,
     private activatedRoute: ActivatedRoute,
-    private studentService: StudentService) {
+    private studentService: StudentService,private authService: AuthService,) {
+      this.authService.setuserlang();
     this.panelIndex = this.activatedRoute.snapshot.queryParams && this.activatedRoute.snapshot.queryParams.index;
   }
 

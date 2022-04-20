@@ -1,15 +1,17 @@
-import { Component, OnInit, Input, HostListener } from '@angular/core';
+import { Component, OnInit, Input, HostListener, AfterContentChecked } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToasterService } from '@appcore/services/toaster.service';
 import { UtilityService } from '@appcore/services/utility.service';
 import { StudentService } from '@modules/student/services/student.service';
 import * as _ from 'lodash';
+import { AuthService } from '@modules/auth/services/auth.service';
+import { TranslationService } from '@appcore/services/translation.service';
 @Component({
   selector: 'app-cleaning',
   templateUrl: './cleaning.component.html',
   styleUrls: ['./cleaning.component.scss']
 })
-export class CleaningComponent implements OnInit {
+export class CleaningComponent implements OnInit, AfterContentChecked {
 
   scrollTop = 0;
   isChecked: boolean;
@@ -25,12 +27,8 @@ export class CleaningComponent implements OnInit {
   audioTrack;
   defaultLessonImage: string;
   constructor(private router: Router, private toast: ToasterService,
-    private studentService: StudentService, private utilityService: UtilityService) {
-    this.lessonHederConfig['stepBoard'] = {
-      stepNumber: 'Step 7',
-      stepTitle: 'Cleaning',
-      stepLogo: './assets/images/wash-your-hands.png'
-    }
+    private studentService: StudentService, private utilityService: UtilityService,private authService: AuthService,private translate: TranslationService) {
+    this.authService.setuserlang();
     this.defaultLessonImage = './assets/images/default-lesson.png';
   }
 
@@ -41,7 +39,13 @@ export class CleaningComponent implements OnInit {
     let previousTime = this.utilityService.calculateTimeBetweenDates();
     this.updateLessonProgress(previousTime);
   }
-
+  ngAfterContentChecked():void{
+    this.lessonHederConfig['stepBoard'] = {
+      stepNumber:this.translate.getStringFromKey('student.assigned-lessons.lesson-steps.summary-view.step')+ ' 7',
+      stepTitle:this.translate.getStringFromKey('student.assigned-lessons.lesson-steps.summary-view.cleaning') ,
+      stepLogo: './assets/images/wash-your-hands.png'
+    }
+  }
   updateLessonProgress(time: any): void {
     let submission = {
       currentScreen: this.router.url.split('/student')[1],

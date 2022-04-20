@@ -15,7 +15,7 @@
         <app-input-field classes="form-control" types="email" placeholders="Email Address/Username" ids="email"
           fieldControl="email" [form]="loginForm"
           [ngClass]="{ 'is-invalid': formControl.email.touched && formControl.email.errors }"></app-input-field>
-          <p class="mb-3 p-0 ml-5">Note: Please enter username for student login</p>
+          <p class="mb-3 p-0 ml-5">Note: Please enter username (not email address) to access the student account</p>
         <div *ngIf="formControl.email.errors" class="invalid-feedback">
           <div class="error" *ngIf="formControl.email.errors?.required">Email is required</div>
         </div>
@@ -112,5 +112,6 @@
         <span aria-hidden="true">Pay</span>
       </app-button>
     </div>
+    <p style="color: #f56f6f;margin-top: 13px;" *ngIf="paymentFailedMsg">{{'Note : '+paymentFailedMsg}}</p>
   </div>
 </ng-template>

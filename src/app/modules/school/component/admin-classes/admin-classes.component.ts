@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ClassesService } from '@modules/teacher/services/classes.service';
 import {
   faChevronRight,
   faPlus,
@@ -137,13 +138,17 @@ export class AdminClassesComponent implements OnInit {
   schoolDetails: any;
   sortBy;
   classStatus;
+  subjectList = [];
+  selectedSubjectValue = [];
+  selectedSubject = null;
   constructor(
     private router: Router,
     private toast: ToasterService,
     private schoolService: SchoolService,
     private authService : AuthService,
     private modalService: NgbModal,
-    private translate : TranslateService
+    private translate : TranslateService,
+    private classService : ClassesService
   ) { }
 
   ngOnInit(): void {
@@ -153,12 +158,13 @@ export class AdminClassesComponent implements OnInit {
     this.getAllGradeList();
     this.getAllLearningStandards();
     this.getStudentList();
-
+    this.getSubjectList();
     this.createClassForm = new FormGroup({
       teacherName: new FormControl('', [Validators.required]),
       title: new FormControl('', [Validators.required, this.validateClassName.bind(this)]),
       grade: new FormControl([], [Validators.required]),
-      standards: new FormControl('', [Validators.required]),
+      standards: new FormControl(''),
+      subjects: new FormControl('', [Validators.required]),
       students: new FormControl('')
 
     });
@@ -325,6 +331,8 @@ export class AdminClassesComponent implements OnInit {
     this.selectedStandard = null;
     this.selectedValue = [];
     this.selectedTeacherValue = [];
+    this.selectedSubjectValue = [];
+    this.selectedSubject = null;
   }
   editClass(item: any, action?: any): void {
     this.router.navigate(['/school/class-details'], { queryParams: { id: item.classId, action } });
@@ -372,6 +380,7 @@ export class AdminClassesComponent implements OnInit {
               school_id: this.schoolDetails.id,
               grade_id: formData.grade.id,
               assigned_teacher_ids: teacher,
+              assigned_standard_subject_group_ids : formData.subjects,
               assigned_standard_ids: studentList,
               number_of_students: 0,//TODO need to remove                                                  
               assigned_student_ids: student//TODO need to remove
@@ -488,6 +497,55 @@ export class AdminClassesComponent implements OnInit {
   gradeChange(event) {
     this.gradeTitle = event.menu;
     this.createClassForm.get('grade').setValue(event);
+  }
+  getSubjectList() {
+    this.classService.getSubjectList().subscribe((response: any) => {
+      if (response && response.data) {
+        this.subjectList = _.map(response.data, item => {
+          let obj = {
+            item_id: item.id,
+         item_text: item.subjectTitle,
+        }
+        
+        return obj;
+      });
+      }
+    }, (error) => {
+      console.log(error);
+      this.toast.showToast(error.error.message, '', 'error');
+      
+    });
+  }
+
+  onSelectSubject(item) {
+    this.selectedSubjectValue.push(item);
+    this.selectedSubject = this.selectedSubjectValue;
+    this.createClassForm.get('subjects').setValue(this.selectedSubject.map(obj => obj.item_id));
+  }
+
+  onDeSelectSubject(index) {
+    this.selectedSubjectValue = [];
+    this.selectedSubject = this.selectedSubject.filter(function (obj) {
+      return obj.item_id !== index.item_id;
+    });
+    this.selectedSubjectValue = this.selectedSubject;
+  /*   this.selectedSubject.splice(index, 1);
+    this.selectedValue = this.selectedSubject; */
+    this.createClassForm.get('subjects').setValue(this.selectedSubject.map(obj => obj.item_id));
+  }
+
+  onSelectAllSubject(item) {
+    this.selectedSubjectValue = [];
+    this.selectedSubjectValue = item;
+    this.selectedSubject = this.selectedSubjectValue;
+
+    // assign selected subjects id to array
+    this.createClassForm.get('subjects').setValue(this.selectedSubject.map(obj => obj.item_id));
+  }
+
+  onDeselectAllSubject(item) {
+    this.selectedSubjectValue = item;
+    this.createClassForm.get('subjects').setValue('');
   }
 
   onSelectStandrd(item) {

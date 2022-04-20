@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ToasterService } from '@appcore/services/toaster.service';
 import { UtilityService } from '@appcore/services/utility.service';
 import { StudentService } from '@modules/student/services/student.service';
-
+import { AuthService } from '@modules/auth/services/auth.service';
 @Component({
   selector: 'app-country-location',
   templateUrl: './country-location.component.html',
@@ -14,7 +14,8 @@ export class CountryLocationComponent implements OnInit {
   assignmentId: string;
   assignmentData: any;
   countryName: string;
-  constructor(private router: Router, private studentService: StudentService, private toast: ToasterService, private utilityService: UtilityService) {
+  constructor(private router: Router, private studentService: StudentService, private toast: ToasterService, private utilityService: UtilityService,private authService: AuthService,) {
+    this.authService.setuserlang();
     this.lessonHederConfig['stepBoard'] = null;
   }
 

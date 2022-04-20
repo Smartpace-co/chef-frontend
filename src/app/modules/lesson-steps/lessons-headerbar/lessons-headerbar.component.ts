@@ -63,7 +63,7 @@ export class LessonsHeaderbarComponent implements OnInit {
    collpase the print menus when click outside
    */
   outsideClickListner(target: any): void {
-    if (!this.printBox.nativeElement.contains(target)) {
+    if (!this.printBox?.nativeElement.contains(target)) {
       this.isCollapsed = true;
     }
   }

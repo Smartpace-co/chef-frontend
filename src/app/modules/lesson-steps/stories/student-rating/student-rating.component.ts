@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,AfterContentChecked  } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToasterService } from '@appcore/services/toaster.service';
 import { UtilityService } from '@appcore/services/utility.service';
 import { StudentService } from '@modules/student/services/student.service';
+import { AuthService } from '@modules/auth/services/auth.service';
+import { TranslationService } from '@appcore/services/translation.service';
 @Component({
   selector: 'app-student-rating',
   templateUrl: './student-rating.component.html',
   styleUrls: ['./student-rating.component.scss']
 })
-export class StudentRatingComponent implements OnInit {
+export class StudentRatingComponent implements OnInit, AfterContentChecked {
   isButtonSection = {};
   lessonId: string;
   assignmentId: string;
@@ -17,10 +19,8 @@ export class StudentRatingComponent implements OnInit {
   assignmentTitle: string;
   public stars: boolean[] = Array(3).fill(false);
 
-  constructor(private router: Router, private utilityService: UtilityService, private toast: ToasterService, private studentService: StudentService) {
-    this.isButtonSection = {
-      title: 'Feedback'
-    };
+  constructor(private router: Router, private utilityService: UtilityService, private toast: ToasterService, private studentService: StudentService,private authService: AuthService,private translate: TranslationService) {
+    this.authService.setuserlang();
   }
   ratings = [
     {
@@ -44,6 +44,12 @@ export class StudentRatingComponent implements OnInit {
     this.assignmentId = localStorage.getItem('assignmentId');
     this.getLessonData();
     this.updateLessonProgress();
+  }
+
+  ngAfterContentChecked(): void {
+    this.isButtonSection = {
+      title: this.translate.getStringFromKey('school.report-issue.feedback-label')
+    };
   }
   getLessonData(): void {
     this.studentService.getAssignedLessonById(parseInt(this.assignmentId)).subscribe(

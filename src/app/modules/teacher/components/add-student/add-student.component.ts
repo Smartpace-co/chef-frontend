@@ -155,9 +155,7 @@ export class AddStudentComponent implements OnInit {
     this.getMedicalConditionList();
     this.getAllRoles();
 
-    if (this.classlabel == "Edit") {
-      this.getStudentInfoById(this.studId);
-    }
+    
 
     // this.GuardianList = [
     //   {
@@ -203,7 +201,6 @@ export class AddStudentComponent implements OnInit {
     this.studentService.getStudentById(id).subscribe((studData: any) => {
       this.currentStudent = studData.data;
       studData = studData.data;
-
       if (studData.districtId && this.localData.parentId) {
         this.AddStudent.get('districtId').setValue(studData.districtId);
         this.DistrictTitle = studData.districtId ? this.DistrictList.filter(obj => obj.id == studData.districtId)[0].menu : this.DistrictTitle;
@@ -352,9 +349,13 @@ validateUserName(control: AbstractControl): any {
         }
 
       }
+      if (this.classlabel == "Edit") {
+        this.getStudentInfoById(this.studId);
+      }
     }, (error) => {
       this.toast.showToast(error.error.message, '', 'error');
     });
+    
   }
 
   getSchoolList(districtId, schoolId) {
@@ -626,7 +627,8 @@ validateUserName(control: AbstractControl): any {
   onSelectClass(item) {
     this.selectedValue.push(item);
     this.selectedClass = this.selectedValue;
-    this.AddStudent.get('classIds').setValue(this.selectedClass);
+    this.AddStudent.get('classIds').setValue(this.selectedClass.map(obj=>obj.item_id));
+    //studData.classes.map(obj => obj.id
   }
 
   onDeSelectClass(index) {
@@ -636,14 +638,14 @@ validateUserName(control: AbstractControl): any {
       return obj.item_id !== index.item_id;
     });
     this.selectedValue = this.selectedClass;
-    this.AddStudent.get('classIds').setValue(this.selectedClass);
+    this.AddStudent.get('classIds').setValue(this.selectedClass.map(obj=>obj.item_id));
   }
 
   onSelectAllClass(item) {
     this.selectedValue = [];
     this.selectedValue = item;
     this.selectedClass = this.selectedValue;
-    this.AddStudent.get('classIds').setValue(this.selectedClass);
+    this.AddStudent.get('classIds').setValue(this.selectedClass.map(obj=>obj.item_id));
   }
 
   onDeselectAllClass(item) {

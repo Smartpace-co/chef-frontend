@@ -1,16 +1,18 @@
-import { Component, OnInit, HostListener, Renderer2, Input } from '@angular/core';
+import { Component, OnInit, HostListener, Renderer2, Input, AfterContentChecked } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToasterService } from '@appcore/services/toaster.service';
 import { UtilityService } from '@appcore/services/utility.service';
 import { StudentService } from '@modules/student/services/student.service';
+import { AuthService } from '@modules/auth/services/auth.service';
+import { TranslationService } from '@appcore/services/translation.service';
 import * as _ from 'lodash';
 @Component({
   selector: 'app-cooking-steps',
   templateUrl: './cooking-steps.component.html',
   styleUrls: ['./cooking-steps.component.scss']
 })
-export class CookingStepsComponent implements OnInit {
+export class CookingStepsComponent implements OnInit, AfterContentChecked {
 
   lessonHederConfig = {};
   scrollTop = 0;
@@ -25,12 +27,8 @@ export class CookingStepsComponent implements OnInit {
   lesson;
   audioTrack;
   defaultLessonImage: string;
-  constructor(private router: Router, private sanitizer: DomSanitizer, private toast: ToasterService, private activatedRoute: ActivatedRoute, private studentService: StudentService, private utilityService: UtilityService) {
-    this.lessonHederConfig['stepBoard'] = {
-      stepNumber: 'Step 6',
-      stepTitle: 'Cooking Steps',
-      stepLogo: './assets/images/knife.png'
-    };
+  constructor(private router: Router, private sanitizer: DomSanitizer, private toast: ToasterService, private activatedRoute: ActivatedRoute, private studentService: StudentService, private utilityService: UtilityService,private authService: AuthService,private translate: TranslationService) {
+    this.authService.setuserlang();
     this.defaultLessonImage = './assets/images/default-lesson.png';
   }
 
@@ -40,6 +38,14 @@ export class CookingStepsComponent implements OnInit {
     this.getCookingSteps();
     let previousTime = this.utilityService.calculateTimeBetweenDates();
     this.updateLessonProgress(previousTime);
+  }
+
+  ngAfterContentChecked():void{
+    this.lessonHederConfig['stepBoard'] = {
+      stepNumber: this.translate.getStringFromKey('student.assigned-lessons.lesson-steps.summary-view.step')+' 6',
+      stepTitle:this.translate.getStringFromKey('student.assigned-lessons.lesson-steps.summary-view.cooking-steps'),
+      stepLogo: './assets/images/knife.png'
+    };
   }
 
   updateLessonProgress(time: any): void {

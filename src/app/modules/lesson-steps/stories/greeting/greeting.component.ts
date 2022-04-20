@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ToasterService } from '@appcore/services/toaster.service';
 import { UtilityService } from '@appcore/services/utility.service';
 import { StudentService } from '@modules/student/services/student.service';
-
+import { AuthService } from '@modules/auth/services/auth.service';
 @Component({
   selector: 'app-greeting',
   templateUrl: './greeting.component.html',
@@ -17,7 +17,9 @@ export class GreetingComponent implements OnInit {
   isLoad = false;
   linguisticList = [];
   slideConfig;
-  constructor(private router: Router, private toast: ToasterService, private utilityService: UtilityService, private studentService: StudentService) {
+  constructor(private router: Router, private toast: ToasterService, private utilityService: UtilityService, private studentService: StudentService
+    ,private authService: AuthService,) {
+      this.authService.setuserlang();
     this.lessonHederConfig['stepBoard'] = null;
   }
 

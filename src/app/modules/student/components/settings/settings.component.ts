@@ -6,6 +6,7 @@ import {
 import { AuthService } from '@modules/auth/services/auth.service';
 import { StudentService } from '@modules/student/services/student.service';
 import * as _ from 'lodash';
+import { TranslationService } from '@appcore/services/translation.service';
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
@@ -14,7 +15,11 @@ import * as _ from 'lodash';
 export class SettingsComponent implements OnInit {
   LeftArrow = faAngleLeft;
   constructor(private toast: ToasterService,
-    private authService: AuthService, private studentService: StudentService) { }
+              private authService: AuthService, 
+              private studentService: StudentService,
+              private translate: TranslationService) { 
+                
+              }
   languageTitle = 'English';
   languageSettingId = null;
   currentUser: any;
@@ -38,6 +43,8 @@ export class SettingsComponent implements OnInit {
   ngOnInit(): void {
     this.currentUser = JSON.parse(window.sessionStorage.getItem("currentUser"));
     this.getSystemLanguageList();
+    this.authService.setuserlang();
+  
   }
   /**
   * To get system languages
@@ -55,6 +62,7 @@ export class SettingsComponent implements OnInit {
             return obj;
           });
           this.settingsDetails();
+          
         }
       },
       (error) => {
@@ -77,19 +85,21 @@ export class SettingsComponent implements OnInit {
           let mappedLanguage = [];
           mappedNotificationSetting = _.map(response.data, item => {
             if (item.key === 'notiNewStudentAssignment') {
-              item['notification'] = 'Notify me when there is a new assignment';
+              item['notification'] = this.translate.getStringFromKey('school.setting.notifications-notes.notiNewStudentAssignment');
+              'Notify me when there is a new assignment';
             } else if (item.key === 'notiCompleteStudentAssignment') {
-              item['notification'] = 'Notify me when I complete assignments';
+              item['notification'] =this.translate.getStringFromKey('school.setting.notifications-notes.notiCompleteStudentAssignment');
             } else if (item.key === 'notiMembershipPaymentIsDue') {
               if(this.currentUser.parentId==null)
               {
-                item['notification'] = 'Notify me when membership payment is due';
-
+                item['notification'] = this.translate.getStringFromKey('school.setting.notifications-notes.notiMembershipPaymentIsDue');
               }
             
             } else if (item.key === 'notiAppUpdateAvailable') {
-              item['notification'] = 'Notify me when there are application updates available';
+              item['notification'] = this.translate.getStringFromKey('school.setting.notifications-notes.notiAppUpdateAvailable');
+              
             }
+            
             return item;
           });
           this.notificationSetting = _.filter(mappedNotificationSetting, item => {
@@ -97,19 +107,23 @@ export class SettingsComponent implements OnInit {
               return item;
             }
           });
+
+          
+          
           mappedParentNotification = _.map(response.data, item => {
             if (item.key === 'sendNotiToParent') {
-              this.isParentNotification = 'Send notifications to parents';
+              this.isParentNotification = this.translate.getStringFromKey('school.setting.parent-notifications-header-notes');
               this.parentNotiObj = item;
               this.isParentEnabled = item.isEnable;
             } else if (item.key === 'performanceReportReadyToParent') {
-              item['value'] = 'When my performance report is ready';
+              item['value'] = this.translate.getStringFromKey('school.setting.parent-notifications-notes.performanceReportReadyToParent');
             } else if (item.key === 'completeStudentAssignmentToParent') {
-              item['value'] = 'When I complete assignments';
+              item['value'] = this.translate.getStringFromKey('school.setting.parent-notifications-notes.completeStudentAssignmentToParent');
+              
             } else if (item.key === 'membershipPaymentIsDueToParent') {
-              item['value'] = 'When membership payment is due';
+              item['value'] = this.translate.getStringFromKey('school.setting.parent-notifications-notes.membershipPaymentIsDueToParent');
             } else if (item.key === 'notiAppUpdateAvailableToParent') {
-              item['value'] = 'When there are application updates available';
+              item['value'] = this.translate.getStringFromKey('school.setting.parent-notifications-notes.notiAppUpdateAvailableToParent');
             }
             return item;
           });
@@ -139,14 +153,18 @@ export class SettingsComponent implements OnInit {
             }
             return item;
           });
+        
         }
+        
       },
       (error) => {
         console.log(error);
         this.toast.showToast(error.error.message, '', 'error');
       }
     );
+    
   }
+
   onSettingsUpdate(item: any, isParent?: boolean): void {
     let data = {
       settings: []

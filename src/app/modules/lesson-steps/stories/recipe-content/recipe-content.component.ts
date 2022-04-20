@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ToasterService } from '@appcore/services/toaster.service';
 import { UtilityService } from '@appcore/services/utility.service';
 import { StudentService } from '@modules/student/services/student.service';
+import { AuthService } from '@modules/auth/services/auth.service';
 @Component({
   selector: 'app-recipe-content',
   templateUrl: './recipe-content.component.html',
@@ -18,7 +19,8 @@ export class RecipeContentComponent implements OnInit {
   recipeIngredients = [];
   isLoad = false;
   lesson;
-  constructor(private router: Router, private toast: ToasterService, private studentService: StudentService, private utilityService: UtilityService) {
+  constructor(private router: Router, private toast: ToasterService, private studentService: StudentService, private utilityService: UtilityService,private authService: AuthService,) {
+    this.authService.setuserlang();
     this.lessonHederConfig['stepBoard'] = null;
     this.defaultRecipeImg = './assets/images/nsima-bent-icon.png';
   }

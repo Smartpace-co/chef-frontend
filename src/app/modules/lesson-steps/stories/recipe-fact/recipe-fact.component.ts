@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ToasterService } from '@appcore/services/toaster.service';
 import { UtilityService } from '@appcore/services/utility.service';
 import { StudentService } from '@modules/student/services/student.service';
+import { AuthService } from '@modules/auth/services/auth.service';
 @Component({
   selector: 'app-recipe-fact',
   templateUrl: './recipe-fact.component.html',
@@ -19,7 +20,8 @@ export class RecipeFactComponent implements OnInit {
   slickConfig;
   slideConfig;
   isLoad = false;
-  constructor(private toast: ToasterService, private router: Router, private studentService: StudentService, private utilityService: UtilityService) {
+  constructor(private toast: ToasterService, private router: Router, private studentService: StudentService, private utilityService: UtilityService,private authService: AuthService,) {
+    this.authService.setuserlang();
     this.lessonHederConfig['stepBoard'] = null;
     this.defaultRecipeImg = './assets/images/nsima-bent-icon.png';
   }

@@ -5,6 +5,7 @@ import { ToasterService } from '@appcore/services/toaster.service';
 import * as _ from 'lodash';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
 import { UtilityService } from '@appcore/services/utility.service';
+import { AuthService } from '@modules/auth/services/auth.service';
 @Component({
   selector: 'app-experiment',
   templateUrl: './experiment.component.html',
@@ -26,7 +27,8 @@ export class ExperimentComponent implements OnInit {
   slideConfig;
   isVisiblePrevious = true;
   experimentDescList = [];
-  constructor(private toast: ToasterService, private utilityService: UtilityService, private studentService: StudentService, private router: Router) {
+  constructor(private toast: ToasterService, private utilityService: UtilityService, private studentService: StudentService, private router: Router,private authService: AuthService,) {
+    this.authService.setuserlang();
   }
 
   ngOnInit(): void {

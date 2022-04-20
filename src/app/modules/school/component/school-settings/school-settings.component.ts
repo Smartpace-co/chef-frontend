@@ -3,6 +3,7 @@ import { ToasterService } from '@appcore/services/toaster.service';
 import { SchoolService } from '@modules/school/services/school.service';
 import { AuthService } from '@modules/auth/services/auth.service';
 import * as _ from 'lodash';
+import { TranslationService } from '@appcore/services/translation.service';
 
 @Component({
   selector: 'app-school-settings',
@@ -17,11 +18,11 @@ export class SchoolSettingsComponent implements OnInit {
   languageTitle = 'English';
   languageList=[];
   settingsList = [];
-  constructor(private schoolService: SchoolService, private toast: ToasterService, public authService: AuthService) { }
+  constructor(private schoolService: SchoolService, private toast: ToasterService, public authService: AuthService,private translate: TranslationService) { }
 
   ngOnInit(): void {
     this.getSystemLanguageList();
-    this.getSettingsList();
+    
   }
 
   /**
@@ -39,6 +40,7 @@ export class SchoolSettingsComponent implements OnInit {
             }
             return obj;
           });
+          this.getSettingsList();
         }
       },
       (error) => {
@@ -66,16 +68,18 @@ export class SchoolSettingsComponent implements OnInit {
             } else if (item.key === 'notiCourseAnnouncements') {
               item['notification'] = 'Course announcements';
             } else */if (item.key === 'notiStudentPerformanceAlerts') {
-              item['notification'] = 'Student performance alerts';
+              item['notification'] =  this.translate.getStringFromKey('district.settings.notification.notiStudentPerformanceAlerts');
             } else if (item.key === 'notiNewCoursesAvailable') {
-              item['notification'] = 'New lessons available';
+              item['notification'] =  this.translate.getStringFromKey('district.settings.notification.notiNewCoursesAvailable');
             } else if (item.key === 'notiLatestStudentSubmissionWork') {
-              item['notification'] = 'Latest student submission work';
-            } else if (item.key === 'notiOpenEndedQuestionResponsesToBeGraded') {
-              item['notification'] = 'Open ended question responses to be graded';
+              item['notification'] =  this.translate.getStringFromKey('district.settings.notification.notiLatestStudentSubmissionWork');
+            /* } else if (item.key === 'notiOpenEndedQuestionResponsesToBeGraded') {
+              item['notification'] = item['notification'] = this.translate.getStringFromKey('district.settings.notification.notiOpenEndedQuestionResponsesToBeGraded'); */
             } else if (item.key === 'notiReceiveAllNotificationsAsEmails') {
-              item['notification'] = 'Receive all notifications as emails';
+              item['notification'] =  this.translate.getStringFromKey('district.settings.notification.notiReceiveAllNotificationsAsEmails');
             }
+
+            
             return item;
           });
           this.notificationList = _.filter(mappedNotification, item => {
@@ -84,8 +88,9 @@ export class SchoolSettingsComponent implements OnInit {
             }
           });
           mappedDataPrivacy = _.map(response.data, item => {
+            
             if (item.key === 'dataPrivacyShowContactInformationStudent') {
-              item['privacy'] = 'Show contact information to students';
+              item['privacy'] =  this.translate.getStringFromKey('district.settings.privacy.dataPrivacyShowContactInformationStudent');
             } /*else if (item.key === 'dataPrivacyAllowStudentsToEmailMe') {
               item['privacy'] = 'Allow students to email me';
             } else if (item.key === 'dataPrivacyShowWorkingInformationToStudent') {

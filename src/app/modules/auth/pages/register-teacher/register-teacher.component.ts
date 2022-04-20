@@ -43,6 +43,7 @@ export class RegisterTeacherComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private modalService: NgbModal
   ) {
+    sessionStorage.removeItem("priceId")
     this.months = CustomRegex.months;
     if (this.activatedRoute.snapshot && this.activatedRoute.snapshot.queryParams) {
       let queryString = Object.keys(this.activatedRoute.snapshot.queryParams)[0];
@@ -57,7 +58,7 @@ export class RegisterTeacherComponent implements OnInit {
   ngOnInit(): void {
     this.stripe = Stripe(environment.public_key);
     if (this.isParams) {
-      this.roleID = parseInt(this.queryParamObj.paramRoleID);
+      this.roleID = parseInt(this.queryParamObj.role_id);
     } else {
       this.roleID = parseInt(localStorage.getItem('rolID'));
     }
@@ -148,6 +149,9 @@ export class RegisterTeacherComponent implements OnInit {
                   this.allPackages = res.data;
                 } else {
                   this.allPackages = [res.data];
+                }
+                if(isPrivate){
+                  sessionStorage.setItem("priceId",res.data.priceId);
                 }
                 this.packageList = _.map(this.allPackages, item => {
                   let obj = {

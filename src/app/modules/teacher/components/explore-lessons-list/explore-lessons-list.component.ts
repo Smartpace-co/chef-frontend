@@ -76,6 +76,7 @@ export class ExploreLessonsListComponent implements OnInit {
   standardList: any;
   selectedDate: any;
   lessonTime:any;
+  lessonType: any;
   constructor(private classService: ClassesService,
     private utilityService: UtilityService,
     public faConfig: FaConfig,
@@ -102,6 +103,7 @@ export class ExploreLessonsListComponent implements OnInit {
 
   ngOnInit(): void {
     let today = this.calendar.getToday();
+    this.lessonType = this.teacherservice.GetLessonType();
     this.fromDate = this.dateValue(new NgbDate(today.year, today.month, today.day));
     this.toDate = this.dateValue(new NgbDate(today.year, today.month, today.day));
 
@@ -874,4 +876,12 @@ export class ExploreLessonsListComponent implements OnInit {
       }
     ]
   };
+
+  getLessons(item) {
+    this.lessonType = "lessonStandard";
+    sessionStorage.setItem('lessonType', this.lessonType);
+    this.teacherservice.setLessonType(this.lessonType);
+    this.teacherservice.setStandardLessons(item);
+    this.router.navigate(['/teacher/explore-all-lesson']);
+  }
 }

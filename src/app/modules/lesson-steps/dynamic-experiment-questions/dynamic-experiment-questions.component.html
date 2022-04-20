@@ -57,7 +57,7 @@
             <span aria-hidden="true">Reference</span>
           </app-button>
           <app-button *ngIf="questionData?.hint" classes="btn btn-secondary" [submit]="true" (click)="showHint()">
-            <span aria-hidden="true">Hint</span>
+            <span aria-hidden="true">{{'student.assigned-lessons.lesson-steps.hint'| translate }}</span>
           </app-button>
         </div>
       </div>

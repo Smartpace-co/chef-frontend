@@ -1,8 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ElementRef, HostBinding, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { UtilityService } from '@appcore/services/utility.service';
 import { StudentService } from '@modules/student/services/student.service';
 import { ToasterService } from '@appcore/services/toaster.service';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { faCheck, faChevronRight, faTimes } from '@fortawesome/free-solid-svg-icons';
 import * as _ from 'lodash';
 import { promise } from 'protractor';
 
@@ -12,6 +14,11 @@ import { promise } from 'protractor';
   styleUrls: ['./safety-dragndrop.component.scss']
 })
 export class SafetyDragndropComponent implements OnInit {
+  @ViewChild('correctAnsModal') CorrectAnsModal: ElementRef;
+  check = faCheck;
+  close = faTimes;
+  RightArrow = faChevronRight;
+
   isButtonSection = {}
   lessonHederConfig = {};
   sessionData: any;
@@ -34,7 +41,7 @@ export class SafetyDragndropComponent implements OnInit {
   form: any;
 
 
-  constructor(private router: Router, private utilityService: UtilityService,private toast:ToasterService, private studentsService: StudentService) {
+  constructor(private router: Router, private modalService: NgbModal, private utilityService: UtilityService,private toast:ToasterService, private studentsService: StudentService) {
     this.lessonHederConfig['stepBoard'] = {
       //stepNumber: 'Level 1',
       stepTitle: 'Level 1'
@@ -157,16 +164,18 @@ export class SafetyDragndropComponent implements OnInit {
         counter++;
         if (counter == this.assignmentQuestion[i].subQuestions.length) {
           let count = i + 1;
-          this.toast.showToast('You have successfully answered ', '', 'success');
-        //  alert('You have successfully cleared Stage ' + count);
+          //this.toast.showToast('You have successfully answered ', '', 'success');
+          //  alert('You have successfully cleared Stage ' + count);
+          this.modalService.open(this.CorrectAnsModal, { ariaLabelledBy: 'modal-basic-title', centered: true }).result.then((result) => {
           this.isVisibleNext = false;
           this.questionsAttempted++;
           this.finalAnswerArray = [];
           this.answerArray = [];
           this.fillArray = false;
+          this.onNext();
+          });
+        }else {
         }
-        else {
-      }
       } else {
         let xyz = 0
         this.finalAnswerArray.forEach(element => {

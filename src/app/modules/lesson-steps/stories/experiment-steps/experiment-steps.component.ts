@@ -8,7 +8,7 @@ import { ToasterService } from '@appcore/services/toaster.service';
 import * as _ from 'lodash';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
 import { DomSanitizer } from '@angular/platform-browser';
-
+import { AuthService } from '@modules/auth/services/auth.service';
 @Component({
   selector: 'app-experiment-steps',
   templateUrl: './experiment-steps.component.html',
@@ -28,7 +28,8 @@ export class ExperimentStepsComponent implements OnInit {
   experimentSteps = [];
   defaultLessonImage:string;
   constructor(private toast: ToasterService, private modalService: NgbModal, private studentService: StudentService,
-    private sanitizer: DomSanitizer, private router: Router, private utilityService: UtilityService) {
+    private sanitizer: DomSanitizer, private router: Router, private utilityService: UtilityService,private authService: AuthService,) {
+      this.authService.setuserlang();
       this.defaultLessonImage = './assets/images/default-lesson.png';
   }
 

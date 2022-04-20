@@ -36,6 +36,14 @@
         "error": "Error",
         "date-pattern-error": "Fecha incorrecta"
     },
+    "menus":{
+        "dashboard":"Tablero",
+        "settings":"Ajustes",
+        "profile":"Profile",
+        "membership":"Afiliación",
+        "achievements":"Logros",
+        "signout" :"Desconectar"
+    },
     "table-component": {
         "show": "mostrar",
         "you": "Tú",
@@ -65,11 +73,22 @@
             "sort-by-student-name": "Sort by Student Name"
         },
         "status": {
-            "all": "Todos {{label}}",
+            "all": "Todos",
             "active": "Activo",
             "inactive": "Inactivo"
         },
-        "sort-by": "Ordenar por"
+        "sort":{
+            "ascending":"Ascendente",
+            "descending":"Descendente"
+          },
+          "sort-by-grade-none": "Ordenar por grado: Ninguno",
+          "sort-by-userId-none": "Ordenar por ID de usuario: Ninguna",
+          "sort-by-studentId-none": "Ordenar por ID de estudiante: Ninguno",
+          "sort-by-teacher-none": "Ordenar por ID de Maestros: Ninguno",
+          "sort-by-grade":"Ordenar por grado",
+          "sort-by-userid":"Ordenar por ID de usuario",
+          "sort-by-teacher":"Ordenar por ID de Maestros",
+          "sort-by-student": "Ordenar por ID de estudiante"       
     },
     "header-content": {
         "app-title": {
@@ -153,7 +172,7 @@
                     "label": "Teléfono",
                     "placeholder": "Ingresar número teléfonico",
                     "required": "numero telefónico es necesario",
-                    "pattern": "El número de teléfono no es válido (La longitud requerida es de 6 a 18 dígitos)",
+                    "pattern": "El número de teléfono no es válido (formato - (000) -000-0000)",
                     "minlength": "Numero de teléfono inválido( es necesario a 10 digitos)",
                     "validate": "El numero de telefono ya existe"
                 },
@@ -183,16 +202,30 @@
                     "label": "Género",
                     "male-label": "Masculino",
                     "female-label": "Mujer",
+                    "other-label": "Otra",
+                    "select-label":"Seleccione género",
                     "required": "El género es obligatorio"
                 },
                 "phone-field": {
                     "label": "Teléfono",
                     "placeholder": "Ingresar número teléfonico",
                     "required": "numero telefónico es necesario",
-                    "pattern": "El número de teléfono no es válido (La longitud requerida es de 6 a 18 dígitos)",
+                    "pattern": "El número de teléfono no es válido (formato - (000) -000-0000)",
                     "minlength": "Numero de teléfono inválido( es necesario a 10 digitos)",
                     "validate": "El numero de telefono ya existe"
                 }
+            }
+        },
+        "settings": {
+            "notification": {
+                "notiStudentPerformanceAlerts": "Alertas de rendimiento de los estudiantes",
+                "notiNewCoursesAvailable":"Nuevas lecciones disponibles",
+                "notiLatestStudentSubmissionWork":"Últimos trabajos presentados por los estudiantes",
+                "notiOpenEndedQuestionResponsesToBeGraded": "Open ended question responses to be graded",
+                "notiReceiveAllNotificationsAsEmails": "Recibir todas las notificaciones como correos electrónicos"
+            },
+            "privacy": {
+                "dataPrivacyShowContactInformationStudent": "Mostrar información de contacto a los estudiantes"
             }
         },
         "district-schools": {
@@ -249,12 +282,12 @@
                 "contact": {
                     "label": "Numero de contacto",
                     "placeholder": "Ingresar numero de contacto",
-                    "valid": "Numero de contacto no es valido (La longitud requerida es de 6 a 18 dígitos)",
+                    "valid": "Numero de contacto no es valido (Formato - (000)-000-0000)",
                     "length": "Numero de contacto no es valido(es necesario a 10 digitos)",
                     "required": "Numero de contacto es requerido",
                     "exist": "El número de contacto ya existe"
                 },
-                "status": "estado"
+                "status": "Estado"
             },
             "teacher-list": {
                 "list-status": "estado",
@@ -270,6 +303,7 @@
         },
         "student": {
             "add-student": {
+                "add-student-label": "Agregar Estudiante",
                 "student-label": "Estudiante",
                 "optional": "(Optional)",
                 "class": {
@@ -314,7 +348,10 @@
                         }
                     }
                 }
-            }
+            },
+            "student-list": {
+                "import-student": "Importar Estudiante"
+              }
         },
         "users": {
             "add-user": {
@@ -389,13 +426,14 @@
                 "class-title-required": "El titulo de la clase es obligatorio",
                 "class-exist": "La clase ya existe",
                 "standards-field": "Estándares",
+                "subjects-field": "Sujetas",
                 "access-code-label": "Código de acceso",
                 "access-code-desc": "Para ingresar a una clase, ingrese el código provisto por su maestro",
                 "exceeded-package-desc": "Ha excedido su paquete, porfavor actualice su paquete."
             },
             "class-details": {
                 "administrator-label": "administrator",
-                "setting-label": "Setting",
+                "setting-label": "Ajustes",
                 "your-class-settings-label": "Your class settings",
                 "your-class-reports": "Your class reports",
                 "class-owner-label": "Class Owner",
@@ -433,14 +471,32 @@
             "report-issue-placeholder": "Please describe the issue you are experiencing"
         },
         "setting": {
+            "setting-page-label": "Configuración",
             "notification-label": "Anuncios",
-            "data-privacy-label": "Data Privacy",
-            "language-label": "Language",
-            "set-languge-label": "Set your preferred language",
+            "data-privacy-label": "Privacidad de los datos",
+            "parent-notification-label": "Notificación a los padres",
+            "language-label": "Idioma",
+            "set-languge-label": "Establezca su idioma preferido",
             "content-setting": {
                 "content-setting-label": "Your content store settings",
                 "content-setting-desc": "Customize what your teachers and students can see while exploring lessons. Some of these setting might be pre-set based on your membership plan with Chef Koochooloo and cannot change. In case you would like to customize your membership plan, please contact your Chef Koochooloo representative"
+            },
+            "notifications-notes" : {
+                "notiNewStudentAssignment" : "Notificarme cuando haya una nueva asignación",
+                "notiCompleteStudentAssignment" : "Notificarme cuando complete las tareas",
+                "notiMembershipPaymentIsDue" : "Notify me when membership payment is due",
+                "notiAppUpdateAvailable" : "Notifíqueme cuando haya actualizaciones de la aplicación disponibles"
+            },
+        
+            "parent-notifications-header-notes" : "Enviar notificaciones a los padres",
+        
+            "parent-notifications-notes" : {
+                "performanceReportReadyToParent" : "Cuando mi informe de resultados esta listo",
+                "completeStudentAssignmentToParent" : "Cuando termino mis tareas",
+                "membershipPaymentIsDueToParent" : "Cuándo se debe pagar la afiliación",
+                "notiAppUpdateAvailableToParent" : "Cuando hay actualizaciones de la aplicación disponibles"
             }
+
         },
         "classSettings": {
             "classShowPerformanceReportStudent": "Show performance report to students",
@@ -454,7 +510,50 @@
         },
         "get-help": {
             "label": "Get Help"
-        }
+        },
+        "class-activity-report":{
+            "label":"Activity reports for all classes",
+            "change-criteria-button":"Change Criteria",
+            "class-activity-label":"Class Activity",
+            "teacher-activity-label":"Teacher Activity",
+            "this-week-label":"This Week",
+            "this-month-label":"This Month",
+            "this-quarter-label":"This Quarter",
+            "this-year-label":"This Year",
+            "how-to-read-this-report-label":"How to read this report",
+            "time-label":"Time",
+            "sessions-label":"Sessions",
+            "average-time-label":"Average-time"
+      
+        
+          },
+          "class-performance-report":{
+            "label":"Performance reports for all classes",
+            "standard-proficiency-label":"Standards Proficiency",
+            "student-reports-label":"Student Report",
+            "CCSS-label":"CCSS",
+            "CCSS-MATH-label":"CCSS-MATH",
+            "NGSS-label":"NGSS",
+            "NCSS-label":"NCSS"
+      
+          },
+          "troubleshooting":{
+            "troubleshooting-label":"Troubleshooting",
+            "troubleshoot-your-issues-label":"Troubleshoot your issues"
+          },
+          "user-reports":{
+            "user-reports-label":"User Reports",
+            "top-active-teachers-label":"Top Active Teachers",
+            "top-active-students-label":"Top Active Students"
+          },
+          "school-reports":{
+            "school-activity-label":"School’s  Activity",
+            "activity-report-of-your-school-label":"Activity reports of your schools",
+            "school-performance-label":"Performance reports of your schools"
+          },
+          "content-reports":{
+            "performance-report-label":"Performance Report",
+            "activity-report-label":"Activity Report"       }
     },
     "teacher": {
         "dashboard": {
@@ -614,14 +713,14 @@
         },
         "settings": {
             "notification": {
-                "notiStudentPerformanceAlerts": "Student performance alerts",
-                "notiAssignmentSubmissions": "Assignment submissions",
+                "notiStudentPerformanceAlerts": "Alertas de rendimiento de los estudiantes",
+                "notiAssignmentSubmissions": "Envíos de tareas",
                 "notiOpenEndedQuestionResponsesToBeGraded": "Open ended question responses to be graded",
-                "notiReceiveAllNotificationsAsEmails": "Receive all notifications as emails"
+                "notiReceiveAllNotificationsAsEmails": "Recibir todas las notificaciones como correos electrónicos"
             },
             "privacy": {
-                "dataPrivacyShowContactInformationStudent": "Show contact information to students",
-                "dataPrivacyAllowStudentsToEmailMe": "Allow students to email me"
+                "dataPrivacyShowContactInformationStudent": "Mostrar información de contacto a los estudiantes",
+                "dataPrivacyAllowStudentsToEmailMe": "Permitir que los estudiantes me envíen un correo electrónico"
             }
         },
         "classSettings": {
@@ -688,73 +787,77 @@
             "classmates-label": "Classmates"
         },
         "assigned-lessons": {
-            "assignments-label": "Asignaciones",
-            "duration": "Duration",
-            "started-on": "Started on",
-            "completed-on": "Completed on",
-            "lesson-report": "Lesson Report",
-            "start": "Start",
-            "swipe-or-click-arrow": "Swipe or click arrow",
+            "assignments-label": "Asignación de tareas",
+            "duration": "Duración",
+            "started-on": "Empezó el",
+            "completed-on": "Finalizado el",
+            "lesson-report": "Informe de la lección",
+            "start": "inicio",
+            "swipe-or-click-arrow": "deslizar o pulsar la flecha",
             "please-scroll-down-label": "Please scroll down to see more assignments.",
-            "to-explore-the-globe": "to explore the globe",
-            "scroll-down-label": "Scroll down to go to next step",
-            "print-page": "Print Page",
-            "print-assessment": "Print Assessment",
-            "previous-btn-label": "Previous",
-            "try-it-again": "Try it again",
-            "add-your-observation": "Add Your Observation",
+            "to-explore-the-globe": "para explorar el globo",
+            "scroll-down-label": "Desplácese hacia abajo para ir al siguiente paso",
+            "print-page": "Imprimir página",
+            "print-assessment": "Imprimir la evaluación",
+            "previous-btn-label": "Anterior",
+            "try-it-again": "Inténtar de nuevo",
+            "add-your-observation": "Añadir su observación",
             "mins-label": "Mins",
             "lesson-steps": {
                 "summary-view": {
                     "goal-for-lesson":"Objetivos de esta lección",
-                    "overview": "Overview",
-                    "find": "Find",
-                    "philippines": "Philippines",
-                    "on-the": "On The",
-                    "globe": "Globe",
-                    "step-number-label": "Step {{number}}",
-                    "story": "Story",
-                    "safety-and-hygiene": "Safety and Hygiene",
-                    "get": "Get",
-                    "started": "Started",
-                    "know-about": "Know About",
-                    "your-recipe": "Your Recipe",
-                    "always-listen": "Always Listen",
-                    "to-your-big-chef": "To Your Big Chef",
-                    "wash-your": "Wash Your",
-                    "hands-with": "Hands With",
-                    "soap": "Soap",
-                    "ingredients-and-tools-sign": "Ingredients & Tools",
-                    "ingredients": "Ingredients",
-                    "for-recipe": "For Recipe",
-                    "your-tools-and": "Your Tools And",
-                    "big-chefs-tools": "Big Chef’s Tools",
-                    "follow": "Follow",
-                    "steps-and-sign": "Steps &",
-                    "cooking": "Cooking",
-                    "cooking-preparation": "Cooking Preparation",
-                    "watch-and": "Watch And",
-                    "learn-from": "Learn From",
-                    "the-video": "The Video",
+                    "overview": "Resumen",
+                    "find": "Buscar",
+                    "philippines": "Filipinas",
+                    "on-the": "Sobre el",
+                    "globe": "Globo",
+                    "step-number-label": "Paso {{number}}",
+                    "step" : "Paso",
+                    "story": "Historia",
+                    "safety-and-hygiene": "Seguridad e higiene",
+                    "get": "Conseguir",
+                    "started": "Empezó",
+                    "know-about": "Saber sobre",
+                    "your-recipe": "Tu receta",
+                    "always-listen": "Escuchar siempre",
+                    "to-your-big-chef": "A tu gran chef",
+                    "wash-your": "Limpiar tus",
+                    "hands-with": "Manos con",
+                    "soap": "jabón",
+                    "ingredients-and-tools-sign": "Ingredientes y herramientas",
+                    "ingredients": "Ingredientes",
+                    "sensory-exercise" : "Sensory Exercise",
+                    "for-recipe": "Para la receta",
+                    "your-tools-and": "Tus herramientas y",
+                    "big-chefs-tools": "Herramientas del Gran Chef",
+                    "follow": "Seguir",
+                    "steps-and-sign": "Pasos y",
+                    "cooking": "Concinando",
+                    "cooking-preparation": "Preparación de la cocina",
+                    "cooking-technique": "Cooking Technique",
+                    "cooking-steps": "Cooking Steps",
+                    "watch-and": "Mirar y",
+                    "learn-from": "Aprender de",
+                    "the-video": "El vídeo",
                     "culinary": "Culinary",
-                    "explore-some": "Explore Some",
-                    "fun-activities-in": "Fun Activities In",
-                    "the-free-time": "The Free Time",
-                    "steps": "Steps",
-                    "cleaning": "Cleaning",
-                    "clean-your": "Clean Your",
-                    "table-and": "Table And",
-                    "space-label": "Space",
-                    "around-you": "Around You",
-                    "serving": "Serving",
-                    "serve-the-label": "Serve The",
-                    "recipe-you": "Recipe You",
-                    "cooked": "Cooked",
-                    "complete": "Complete",
-                    "lesson": "Lesson",
-                    "take-label": "Take",
-                    "assessment": "Assessment",
-                    "you-are-here": "You are here!",
+                    "explore-some": "Explorar algunas",
+                    "fun-activities-in": "Actividades divertidas en",
+                    "the-free-time": "El tiempo libre",
+                    "steps": "Pasos",
+                    "cleaning": "Limpiando",
+                    "clean-your": "Limpiar tu",
+                    "table-and": "Mesa y ",
+                    "space-label": "Espacio",
+                    "around-you": "Alrededor de ti",
+                    "serving": "Sirviendo a",
+                    "serve-the-label": "Servir al",
+                    "recipe-you": "Receta que tu",
+                    "cooked": "Cocinaste",
+                    "complete": "Completa",
+                    "lesson": "Lección",
+                    "take-label": "Tomar",
+                    "assessment": "Evaluación",
+                    "you-are-here": "Estás aquí!",
                     "zero-label": "0",
                     "one-label": "1",
                     "two-label": "2",
@@ -766,73 +869,73 @@
                     "eight-label": "8",
                     "nine-label": "9"
                 },
-                "let-start-text": "Now we know about today's recipe,let's get cooking!",
-                "yes-iam-ready": "Yes, I am ready!",
-                "go-over-the-recipe-again": "Go over it again.",
-                "season": "Season",
-                "nutrients": "Nutrients",
-                "little-chef": "Little Chef",
-                "big-chef": "Big Chef",
-                "experiment-warning-label": "WARNING! Perform this experiment only under the supervision of a Big Chef.",
-                "start-experiment-text": "Should we go to the next step?",
+                "let-start-text": "Ahora que ya conocemos la receta de hoy, ¡pongámonos a cocinar!",
+                "yes-iam-ready": "Sí, estoy listo(a)!",
+                "go-over-the-recipe-again": "Repasa la receta de nuevo.",
+                "season": "Temporada",
+                "nutrients": "Nutrientes",
+                "little-chef": "Pequeño Chef",
+                "big-chef": "Gran Chef",
+                "experiment-warning-label": "¡CUIDADO! Realice este experimento sólo bajo la supervisión de un Gran Chef.",
+                "start-experiment-text": "¿Pasamos al siguiente paso?",
                 "go-exp-again": "Go over it again.",
-                "response": "Response",
+                "response": "Respuesta",
                 "please-try-again": "Please try again.",
-                "experiment-question-label": "Experiment Question",
-                "take-action-activity": "Take Action Activity",
-                "hint": "Hint",
-                "reference": "Reference",
-                "view-measurement-sheet": "View US measurement reference sheet",
-                "guess-the-flag": "Guess The Flag",
-                "flag-question": "Do you know which of this flags belongs to",
-                "rating-text": "Overall, how would you rate {{ title }} recipe?",
-                "no-stamps": "There are no any new stamps.",
-                "select-to-earn-stamps": "Please select to earn more stamps.",
-                "congratulations-label": "Congratulations !",
-                "you-have-earned-these": "You have earned these stamps.",
+                "experiment-question-label": "Pregunta de experimento",
+                "take-action-activity": "Actividad de Acción",
+                "hint": "Pista",
+                "reference": "Referencia",
+                "view-measurement-sheet": "Ver la ficha de referencia de las mediciones EE.UU.",
+                "guess-the-flag": "Adivina la bandera",
+                "flag-question": "¿Sabe cuál de estas banderas pertenece a",
+                "rating-text": "En general, ¿cómo calificarías la receta de {{ title }}?",
+                "no-stamps": "No hay ningún sello nuevo.",
+                "select-to-earn-stamps": "Por favor, seleccione para ganar más sellos.",
+                "congratulations-label": "Enhorabuena!",
+                "you-have-earned-these": "Te has ganado estos sellos.",
                 "learn-more-label": "Learn more"
             }
         },
         "lesson-report": {
-            "start-and": "Start And",
-            "end-date": "End Date",
-            "skill-proficiency-label": "Skill Proficiency",
-            "completed": "Completed",
-            "question": "Question",
-            "answer": "Answer",
-            "correct": "Correct",
-            "in-correct": "Incorrect",
-            "incorrect-attempts": "Incorrect Attempts",
-            "number-of-attempts": "Number of Attempts",
-            "completed-exp-activities-label": "Performed experiments and activities"
+            "start-and": "Inicio y",
+            "end-date": "Fecha de fin",
+            "skill-proficiency-label": "Finalizado",
+            "completed": "Finalizado",
+            "question": "Pregunta",
+            "answer": "Respuesta",
+            "correct": "Correcto",
+            "in-correct": "Incorrecto",
+            "incorrect-attempts": "Intentos incorrectos",
+            "number-of-attempts": "Número de intentos",
+            "completed-exp-activities-label": "experimentos y actividades realizadas"
         },
         "journal": {
-            "journal-label": "Journal",
-            "journal-desc": "You can always access your journal from here!",
-            "add-a-note": "Add A Note"
+            "journal-label": "Diario",
+            "journal-desc": "Siempre puedes acceder a tu diario desde aquí.",
+            "add-a-note": "Añadir una nota"
         },
         "explore-lessons": {
-            "explore": "Explora",
+            "explore": "Explorar",
             "recipes": "Recetas",
             "filter-by-student-grade":"Filtrar por grado del estudiante"
         },
         "activities-and-games": {
             "mini-games": {
-                "mini-game-tab": "Mini Games",
-                "flag-match-label": "Flag match",
-                "drag-and-drop-label": "Drag and drop",
-                "image-flip-label": "Image flip",
-                "drag-drop-tools-label": "Drag and drop these tools to their corresponding images",
-                "drag-drop-techniques-label": "Drag and drop these cooking techniques to their corresponding images",
-                "drag-drop-dishes-label": "Drag and drop these dishes to their corresponding images"
+                "mini-game-tab": "Minijuegos",
+                "flag-match-label": "Coincidencia de banderas",
+                "drag-and-drop-label": "Arrastrar y soltar",
+                "image-flip-label": "Volteo de imagen",
+                "drag-drop-tools-label": "Arrastre y suelte estas herramientas a sus correspondientes imágenes",
+                "drag-drop-techniques-label": "Arrastre y suelte estas técnicas de cocina a sus correspondientes imágenes",
+                "drag-drop-dishes-label": "Arrastre y suelte estos platos a sus correspondientes imágenes"
             },
             "health-and-wellness-activities": {
-                "health-and-wellness-activities-tab": "Health and Wellness Activities",
-                "track-water-intake": "Track water intake",
-                "track-exercise-time": "Track exercise time",
-                "track-fruits-and-veggies": "Track fruits and veggies",
-                "track-water-intake-label": "Click or touch the number of water glasses you drink in a day.",
-                "done-label": "Done",
+                "health-and-wellness-activities-tab": "Actividades de salud y bienestar",
+                "track-water-intake": "Controlar el consumo de agua",
+                "track-exercise-time": "Control de tiempo de ejercicio",
+                "track-fruits-and-veggies": "Controlar frutas y verduras",
+                "track-water-intake-label": "Haz clic o toca el número de vasos de agua que bebes en un día.",
+                "done-label": "Hecho",
                 "add-exercise-time-label": "Add the time you spent on this exercise"
             }
         },

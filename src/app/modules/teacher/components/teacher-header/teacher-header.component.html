@@ -185,50 +185,18 @@
 
                 </div>
                 <div class="row">
-                    <div class="col-md-12 mt-4">
-                        <label>Common Core ELA Standards</label>
-                        <app-multi-select-dropdown [isSelectedShow]="false" [dropDownItemList]="elaStandardList"  [selectedValue]="selectedElaStandardValue"
-                            [selectedItems]="selectedElaStandard" [placeholderText]="'Select Standards'"
-                            (onSelectValue)="onSelect($event,'ela')"
-                            (onDeSelectValue)="onDeSelect($event,'ela')"
-                            (onSelectAllValue)="onSelectAll($event,'ela')"
-                            (onDeselectAllValue)="onDeselectAll($event,'ela')">
-                        </app-multi-select-dropdown>
-                    </div>
-                    <div class="col-md-12 mt-4">
-                        <label>Common Core Math Standards</label>
-                        <app-multi-select-dropdown [isSelectedShow]="false" [dropDownItemList]="mathStandardList" [selectedValue]="selectedMathStandardValue"
-                            [selectedItems]="selectedMathStandard" [placeholderText]="'Select Standards'"
-                            (onSelectValue)="onSelect($event,'math')"
-                            (onDeSelectValue)="onDeSelect($event,'math')"
-                            (onSelectAllValue)="onSelectAll($event,'math')"
-                            (onDeselectAllValue)="onDeselectAll($event,'math')">
-                        </app-multi-select-dropdown>
-                    </div>
-                    <div class="col-md-12 mt-4">
-                        <label>New Generation Science Standards</label>
-                        <app-multi-select-dropdown [isSelectedShow]="false" [dropDownItemList]="ngssStandardList" [selectedValue]="selectedNgssStandardValue"
-                        [selectedItems]="selectedNgssStandard" [placeholderText]="'Select Standards'"
-                        (onSelectValue)="onSelect($event,'ngss')"
-                        (onDeSelectValue)="onDeSelect($event,'ngss')"
-                        (onSelectAllValue)="onSelectAll($event,'ngss')"
-                        (onDeselectAllValue)="onDeselectAll($event,'ngss')">
-                        </app-multi-select-dropdown>
-                    </div>
-                    <div class="col-md-12 mt-4">
-                        <label>National Curriculum Standards for Social Studies</label>
-                        <app-multi-select-dropdown [isSelectedShow]="false" [dropDownItemList]="ncssStandardList" [selectedValue]="selectedNcssStandardValue"
-                            [selectedItems]="selectedNcssStandard" [placeholderText]="'Select Standards'"
-                            (onSelectValue)="onSelect($event,'ncss')"
-                            (onDeSelectValue)="onDeSelect($event,'ncss')"
-                            (onSelectAllValue)="onSelectAll($event,'ncss')"
-                            (onDeselectAllValue)="onDeselectAll($event,'ncss')">>
-                        </app-multi-select-dropdown>
-                    </div>
+                    <div class="col-md-12">
+                        <label>{{'school.class.add-class.subjects-field'|translate}} (*)</label>
+                        <app-multi-select-dropdown [dropDownItemList]="subjectList" [selectedItems]="selectedSubject"
+                            fieldControl="subject" [selectedValue]="selectedValue"
+                            (onSelectValue)="onSelectSubject($event)" (onDeSelectValue)="onDeSelectSubject($event)"
+                            (onSelectAllValue)="onSelectAllSubject($event)"
+                            (onDeselectAllValue)="onDeselectAllSubject($event)"
+                            ></app-multi-select-dropdown>
                 </div>
-
+                </div>
                 <div class="row">
-                    <div class="col-md-12 mt-4">
+                    <div class="col-md-12">
                         <div class="custom-control custom-radio">
                             <app-radio classes="custom-control-input" types="radio" fieldControl="status"
                                 [form]="createClass" names="status" [values]="true">

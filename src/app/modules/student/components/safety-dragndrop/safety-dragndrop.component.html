@@ -45,3 +45,27 @@
 
 <app-lessons-footer  [isVisiblePrevious]="isVisiblePrevious" (onNext)="onNext()"
   (onPrevious)="onPrevious()"></app-lessons-footer>
+
+  <ng-template #correctAnsModal let-modal>
+    <div class="modal-header response-header">
+    </div>
+    <div class="modal-body response-body">
+      <div class="response-wrapper">
+          <div class="check-mark">
+            <span class="icon">
+              <fa-icon [icon]="check"></fa-icon>
+            </span>
+          </div>
+        
+        <h1>Correct </h1>
+        <div class="btn-wrapper mt-3">
+          <app-button classes="btn btn-secondary icon-btn" [submit]="true" (click)="modal.close('Next')">
+              <span aria-hidden="true">{{'table-component.next'| translate}}<fa-icon [icon]="RightArrow"></fa-icon></span>
+            <ng-template #isNextBtn>
+              <span aria-hidden="true">{{'common.close'| translate}}</span>
+            </ng-template>
+          </app-button>
+        </div>
+      </div>
+    </div>
+  </ng-template>

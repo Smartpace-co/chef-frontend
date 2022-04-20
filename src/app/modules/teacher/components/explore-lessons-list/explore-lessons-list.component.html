@@ -501,7 +501,7 @@
                                     </div>
                                     <div class="featureSubject__info">
                                         <h3 class="featureSubject__title">{{item.standardTitle}}</h3>
-                                        <p class="featureSubject__lessons">{{item.lessonsLength}} lessons</p>
+                                        <a (click)="getLessons(item)" class="featureSubject__lessons">{{item.lessonsLength}} lessons</a>
                                     </div>
                                 </div>
                             </div>

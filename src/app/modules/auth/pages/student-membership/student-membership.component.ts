@@ -104,6 +104,7 @@ export class StudentMembershipComponent implements OnInit {
           this.planList = _.map(allPackages, item => {
             let obj = {
               id: item.id,
+              description:item.description,
               planName: item.packageTitle,
               totalPrice: item.price,
               priceId:item.priceId

@@ -30,9 +30,12 @@ export class SummaryViewComponent implements OnInit {
   countryBgImg;
   LeftArrow = faAngleLeft;
   constructor(private studentService: StudentService, private router: Router, private toast: ToasterService, private location: Location, private authService: AuthService,
-    private utilityService: UtilityService) { }
+    private utilityService: UtilityService) { 
+      this.authService.setuserlang();
+    }
 
   ngOnInit(): void {
+    
     if (this.router.url === '/student/summary-view') {
       this.studentService.previousUrl$.subscribe((previousUrl: string) => {
         this.previousUrl = previousUrl;

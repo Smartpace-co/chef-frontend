@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ToasterService } from '@appcore/services/toaster.service';
 import { UtilityService } from '@appcore/services/utility.service';
 import { StudentService } from '@modules/student/services/student.service';
-
+import { AuthService } from '@modules/auth/services/auth.service';
 @Component({
   selector: 'app-learning-objective',
   templateUrl: './learning-objective.component.html',
@@ -25,12 +25,13 @@ export class LearningObjectiveComponent implements OnInit {
   learnObjString: string;
   audioTrack;
   lesson;
-  constructor(private router: Router, private toast: ToasterService, private studentService: StudentService, private utilityService: UtilityService) {
+  constructor(private router: Router, private toast: ToasterService, private studentService: StudentService, private utilityService: UtilityService,private authService:AuthService) {
     this.lessonHederConfig['stepBoard'] = null;
     this.defaultRecipeImg = './assets/images/nsima-bent-icon.png';
   }
 
   ngOnInit(): void {
+    this.authService.setuserlang();
     this.assignmentId = localStorage.getItem('assignmentId')
     this.getStudentData();
     this.lesson = localStorage.getItem('lessonType');

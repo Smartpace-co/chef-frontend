@@ -12,7 +12,9 @@
     "download": "Download",
     "delete": "Delete",
     "upload": "Upload",
-    "error":"Error"
+    "error":"Error",
+    "english":"English",
+    "spanish":"Spanish"
   },
   "table-component": {
     "show": "Show",
@@ -40,11 +42,22 @@
       "sort-by-student-name": "Sort by Student Name"
     },
     "status": {
-      "all": "All {{label}}",
+      "all": "All",
       "active": "Active",
       "inactive": "Inactive"
     },
-    "sort-by": "Sort by"
+    "sort":{
+      "ascending":"Ascending",
+      "descending":"Descending"
+    },
+    "sort-by-grade-none": "Sort by Grade:None",
+    "sort-by-userId-none": "Sort by User ID:None",
+    "sort-by-studentId-none": "Sort by Student ID:None",
+    "sort-by-teacher-none": "Sort by Teacher ID:None",
+    "sort-by-grade":"Sort by Grade",
+    "sort-by-userid":"Sort by User ID",
+    "sort-by-teacher":"Sort by Teacher ID",
+    "sort-by-student":"Sort by Student ID"
   },
   "header-content": {
     "app-title": {
@@ -135,6 +148,9 @@
         },
         "entity-type": "Entity Type"
       },
+
+
+      
       "agent-component": {
         "info-title": "Agent Information",
         "agent-profile-title": "Update Agent Profile",
@@ -162,6 +178,8 @@
           "label": "Gender",
           "male-label": "Male",
           "female-label": "Female",
+          "other-label": "Other",
+          "select-label":"Select Gender",
           "required": "Gender is Required"
         },
         "phone-field": {
@@ -174,6 +192,19 @@
         }
       }
     },
+    "settings":{
+      "notification": {
+        "notiStudentPerformanceAlerts": "Student performance alerts",
+        "notiNewCoursesAvailable":"New lessons available",
+        "notiLatestStudentSubmissionWork":"Latest student submission work",
+        "notiOpenEndedQuestionResponsesToBeGraded": "Open ended question responses to be graded",
+        "notiReceiveAllNotificationsAsEmails": "Receive all notifications as emails"
+      },
+      "privacy": {
+        "dataPrivacyShowContactInformationStudent": "Show contact information to students"
+      }
+    },
+    
     "district-schools": {
       "id": "ID",
       "active-schools": "active schools",
@@ -411,6 +442,7 @@
         "class-title-required": "Class Title is required",
         "class-exist": "Class already exists",
         "standards-field": "Standards",
+        "subjects-field": "Subjects",
         "access-code-label": "Access Code",
         "access-code-desc": "To enter a class, enter the code provided by your teacher",
         "exceeded-package-desc": "You have exceeded your package please upgrade your package.",
@@ -471,7 +503,22 @@
       "content-setting": {
         "content-setting-label": "Your content store settings",
         "content-setting-desc": "Customize what your teachers and students can see while exploring lessons. Some of these setting might be pre-set based on your membership plan with Chef Koochooloo and cannot change. In case you would like to customize your membership plan, please contact your Chef Koochooloo representative"
-      }
+      },
+      "notifications-notes" : {
+        "notiNewStudentAssignment" : "Notify me when there is a new assignment",
+        "notiCompleteStudentAssignment" : "Notify me when I complete assignments",
+        "notiMembershipPaymentIsDue" : "Notify me when membership payment is due",
+        "notiAppUpdateAvailable" : "Notify me when there are application updates available"
+    },
+
+    "parent-notifications-header-notes" : "Send notifications to parents",
+
+    "parent-notifications-notes" : {
+        "performanceReportReadyToParent" : "When my performance report is ready",
+        "completeStudentAssignmentToParent" : "When I complete assignments",
+        "membershipPaymentIsDueToParent" : "When membership payment is due",
+        "notiAppUpdateAvailableToParent" : "When there are application updates available"
+    }
     },
     "faq": {
       "faq-label": "Frequently Asked Questions"
@@ -835,6 +882,7 @@
           "on-the": "On The",
           "globe": "Globe",
           "step-number-label": "Step {{number}}",
+          "step" : "Step",
           "story": "Story",
           "safety-and-hygiene": "Safety and Hygiene",
           "get": "Get",
@@ -848,13 +896,16 @@
           "soap": "Soap",
           "ingredients-and-tools-sign": "Ingredients & Tools",
           "ingredients": "Ingredients",
+          "sensory-exercise" : "Sensory Exercise",
           "for-recipe": "For Recipe",
           "your-tools-and": "Your Tools And",
           "big-chefs-tools": "Big Chef’s Tools",
           "follow": "Follow",
           "steps-and-sign": "Steps &",
-          "cooking": "Cooking",
+          "cooking": "Concinando",
           "cooking-preparation": "Cooking Preparation",
+          "cooking-technique": "Cooking Technique",
+          "cooking-steps": "Cooking Steps",
           "watch-and": "Watch And",
           "learn-from": "Learn From",
           "the-video": "The Video",

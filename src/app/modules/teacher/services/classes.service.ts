@@ -8,7 +8,7 @@ import { environment } from '@environments/environment';
 import { AnyARecord } from 'dns';
 
 const API_USERS_URL = `${environment?.apiBaseUrl}`;
-
+const API_CMS_ADMIN = `${environment?.cmsApiBaseUrl}`;
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +37,10 @@ export class ClassesService {
 
   getStandardList(): Observable<any> {
     return this.http.get<any[]>(`${API_USERS_URL}/master/standard`);
+  }
+
+  getSubjectList(): Observable<any> {
+    return this.http.get<any[]>(`${API_CMS_ADMIN}/subject?filters[root]=[{"f":"status","v":true}]`);
   }
 
   getClassList(id) {

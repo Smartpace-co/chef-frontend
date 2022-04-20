@@ -34,6 +34,7 @@ export class TeacherSettingComponent implements OnInit {
   ngOnInit(): void {
     this.localData = JSON.parse(window.sessionStorage.getItem('currentUser'));
     this.getTeacherData();
+    this.authService.setuserlang();
   }
 
   getTeacherData() {
@@ -41,7 +42,7 @@ export class TeacherSettingComponent implements OnInit {
       if (response && response.data) {
         this.teacherId = response.data.teacher.id;
         this.getSystemLanguageList();
-        this.settingsDetails();
+        
       }
     }, (error) => {
       console.log(error);
@@ -64,6 +65,7 @@ export class TeacherSettingComponent implements OnInit {
             }
             return obj;
           });
+          this.settingsDetails();
         }
       },
       (error) => {
@@ -71,6 +73,7 @@ export class TeacherSettingComponent implements OnInit {
         this.toast.showToast(error.error.message, '', 'error');
       }
     );
+   
   }
 
 
@@ -93,8 +96,8 @@ export class TeacherSettingComponent implements OnInit {
               item['notification'] = this.translate.getStringFromKey('teacher.settings.notification.notiStudentPerformanceAlerts');
             } else if (item.key === 'notiAssignmentSubmissions') {
               item['notification'] = this.translate.getStringFromKey('teacher.settings.notification.notiAssignmentSubmissions');
-            } else if (item.key === 'notiOpenEndedQuestionResponsesToBeGraded') {
-              item['notification'] = this.translate.getStringFromKey('teacher.settings.notification.notiOpenEndedQuestionResponsesToBeGraded');
+            /* } else if (item.key === 'notiOpenEndedQuestionResponsesToBeGraded') {
+              item['notification'] = this.translate.getStringFromKey('teacher.settings.notification.notiOpenEndedQuestionResponsesToBeGraded'); */
             } else if (item.key === 'notiReceiveAllNotificationsAsEmails') {
               item['notification'] = this.translate.getStringFromKey('teacher.settings.notification.notiReceiveAllNotificationsAsEmails');
             }

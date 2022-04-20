@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, AfterContentChecked } from '@angular/core';
 import { Router } from '@angular/router';
 import { UtilityService } from '@appcore/services/utility.service';
 import { StudentsService } from '@modules/teacher/services/students.service';
@@ -9,12 +9,14 @@ import {
 import { StudentService } from '@modules/student/services/student.service';
 import * as _ from 'lodash';
 import { ToasterService } from '@appcore/services/toaster.service';
+import { AuthService } from '@modules/auth/services/auth.service';
+import { TranslationService } from '@appcore/services/translation.service';
 @Component({
   selector: 'app-ingredient-list',
   templateUrl: './ingredient-list.component.html',
   styleUrls: ['./ingredient-list.component.scss']
 })
-export class IngredientListComponent implements OnInit {
+export class IngredientListComponent implements OnInit,AfterContentChecked {
 
   lessonHederConfig = {};
   ingredientsList: any;
@@ -30,12 +32,9 @@ export class IngredientListComponent implements OnInit {
   isCooking = false;
   isCulinary = false;
   defaultIngredientImg: string;
-  constructor(private router: Router, private toast: ToasterService, private studentService: StudentService, private utilityService: UtilityService, private modalService: NgbModal) {
-    this.lessonHederConfig['stepBoard'] = {
-      stepNumber: 'Step 3',
-      stepTitle: 'Ingredients',
-      stepLogo: './assets/images/Vegetarian_Stew.png'
-    }
+  constructor(private router: Router, private toast: ToasterService, private studentService: StudentService, private utilityService: UtilityService, private modalService: NgbModal,private authService: AuthService,private translate: TranslationService,) {
+    this.authService.setuserlang();
+    
     this.defaultIngredientImg = './assets/images/nsima-bent-icon.png';
   }
   ngOnInit(): void {
@@ -44,6 +43,13 @@ export class IngredientListComponent implements OnInit {
     this.getIngredientList();
     let previousTime = this.utilityService.calculateTimeBetweenDates();
     this.updateLessonProgress(previousTime);
+  }
+  ngAfterContentChecked():void{
+    this.lessonHederConfig['stepBoard'] = {
+      stepNumber: this.translate.getStringFromKey('student.assigned-lessons.lesson-steps.summary-view.step')+' 3',
+      stepTitle: this.translate.getStringFromKey('student.assigned-lessons.lesson-steps.summary-view.ingredients'),
+      stepLogo: './assets/images/Vegetarian_Stew.png'
+    }
   }
   updateLessonProgress(time: any): void {
     let submission = {

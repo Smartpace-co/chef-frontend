@@ -4,7 +4,7 @@ import { ToasterService } from '@appcore/services/toaster.service';
 import { UtilityService } from '@appcore/services/utility.service';
 import { StudentService } from '@modules/student/services/student.service';
 import * as _ from 'lodash';
-
+import { AuthService } from '@modules/auth/services/auth.service';
 @Component({
   selector: 'app-chef-introduction',
   templateUrl: './chef-introduction.component.html',
@@ -18,7 +18,8 @@ export class ChefIntroductionComponent implements OnInit {
   chefIntro = [];
   slideConfig;
 
-  constructor(private router: Router, private utilityService: UtilityService, private studentService: StudentService, private toast: ToasterService) {
+  constructor(private router: Router, private utilityService: UtilityService, private studentService: StudentService, private toast: ToasterService,private authService: AuthService,) {
+    this.authService.setuserlang();
     this.lessonHederConfig['stepBoard'] = null;
   }
 

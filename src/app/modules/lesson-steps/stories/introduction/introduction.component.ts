@@ -5,7 +5,7 @@ import * as topojson from 'topojson';
 import { ToasterService } from '@appcore/services/toaster.service';
 import { UtilityService } from '@appcore/services/utility.service';
 import { StudentService } from '@modules/student/services/student.service';
-
+import { AuthService } from '@modules/auth/services/auth.service';
 @Component({
   selector: 'app-introduction',
   templateUrl: './introduction.component.html',
@@ -33,7 +33,9 @@ export class IntroductionComponent implements OnInit, AfterViewInit {
     private router: Router,
     private utilityService: UtilityService,
     private toast: ToasterService,
-    private studentService: StudentService) {
+    private studentService: StudentService,private authService: AuthService,
+    ) {
+      this.authService.setuserlang();
     this.lessonHederConfig['stepBoard'] = null;
   }
 

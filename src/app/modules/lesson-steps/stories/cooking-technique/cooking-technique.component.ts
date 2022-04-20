@@ -1,16 +1,18 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, AfterContentChecked } from '@angular/core';
 import { Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { UtilityService } from '@appcore/services/utility.service';
 import { StudentService } from '@modules/student/services/student.service';
 import * as _ from 'lodash';
 import { ToasterService } from '@appcore/services/toaster.service';
+import { AuthService } from '@modules/auth/services/auth.service';
+import { TranslationService } from '@appcore/services/translation.service';
 @Component({
   selector: 'app-cooking-technique',
   templateUrl: './cooking-technique.component.html',
   styleUrls: ['./cooking-technique.component.scss']
 })
-export class CookingTechniqueComponent implements OnInit {
+export class CookingTechniqueComponent implements OnInit, AfterContentChecked {
 
   index: number;
   lessonHederConfig = {};
@@ -24,12 +26,8 @@ export class CookingTechniqueComponent implements OnInit {
   currentAssignedLesson;
   isVisibleNext = true;
   slideConfig;
-  constructor(private router: Router, private toast: ToasterService, private sanitizer: DomSanitizer, private studentService: StudentService, private utilityService: UtilityService) {
-    this.lessonHederConfig['stepBoard'] = {
-      stepNumber: 'Step 5',
-      stepTitle: 'Cooking Technique',
-      stepLogo: './assets/images/culinary-icon.png'
-    }
+  constructor(private router: Router, private toast: ToasterService, private sanitizer: DomSanitizer, private studentService: StudentService, private utilityService: UtilityService,private authService: AuthService,private translate: TranslationService) {
+    this.authService.setuserlang();
   }
 
   ngOnInit(): void {
@@ -37,6 +35,13 @@ export class CookingTechniqueComponent implements OnInit {
     this.getCookingTechnique();
     let previousTime = this.utilityService.calculateTimeBetweenDates();
     this.updateLessonProgress(previousTime);
+  }
+  ngAfterContentChecked():void{
+    this.lessonHederConfig['stepBoard'] = {
+      stepNumber: this.translate.getStringFromKey('student.assigned-lessons.lesson-steps.summary-view.step')+' 5',
+      stepTitle:this.translate.getStringFromKey('student.assigned-lessons.lesson-steps.summary-view.cooking-technique'),
+      stepLogo: './assets/images/culinary-icon.png'
+    }
   }
 
   updateLessonProgress(time: any): void {

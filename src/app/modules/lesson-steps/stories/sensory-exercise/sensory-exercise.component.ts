@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,AfterContentChecked } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToasterService } from '@appcore/services/toaster.service';
 import { UtilityService } from '@appcore/services/utility.service';
 import { StudentService } from '@modules/student/services/student.service';
 import * as _ from 'lodash';
-
+import { AuthService } from '@modules/auth/services/auth.service';
+import { TranslationService } from '@appcore/services/translation.service';
 @Component({
   selector: 'app-sensory-exercise',
   templateUrl: './sensory-exercise.component.html',
   styleUrls: ['./sensory-exercise.component.scss']
 })
-export class SensoryExerciseComponent implements OnInit {
+export class SensoryExerciseComponent implements OnInit,AfterContentChecked {
 
   descriptiveAnswer;
   lessonHederConfig = {};
@@ -19,12 +20,8 @@ export class SensoryExerciseComponent implements OnInit {
   isVisibleNext = true;
   questionData;
   lesson;
-  constructor(private router: Router, private utilityService: UtilityService, private studentService: StudentService, private toast: ToasterService) {
-    this.lessonHederConfig['stepBoard'] = {
-      // stepNumber: 'Step 3',
-      stepTitle: 'Sensory Exercise',
-      stepLogo: './assets/images/bulb.png'
-    }
+  constructor(private router: Router, private utilityService: UtilityService, private studentService: StudentService, private toast: ToasterService,private authService: AuthService,private translate: TranslationService) {
+    this.authService.setuserlang();
   }
 
   ngOnInit(): void {
@@ -33,6 +30,13 @@ export class SensoryExerciseComponent implements OnInit {
     let previousTime = this.utilityService.calculateTimeBetweenDates();
     this.updateLessonProgress(previousTime);
     this.getLessonData();
+  }
+  ngAfterContentChecked():void{
+    this.lessonHederConfig['stepBoard'] = {
+      // stepNumber: 'Step 3',
+      stepTitle: this.translate.getStringFromKey('student.assigned-lessons.lesson-steps.summary-view.sensory-exercise'),
+      stepLogo: './assets/images/bulb.png'
+    }
   }
 
   updateLessonProgress(time: any): void {

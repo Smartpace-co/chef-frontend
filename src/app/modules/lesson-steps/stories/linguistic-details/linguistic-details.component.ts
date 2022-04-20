@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ToasterService } from '@appcore/services/toaster.service';
 import { UtilityService } from '@appcore/services/utility.service';
 import { StudentService } from '@modules/student/services/student.service';
+import { AuthService } from '@modules/auth/services/auth.service';
 @Component({
   selector: 'app-linguistic-details',
   templateUrl: './linguistic-details.component.html',
@@ -14,7 +15,8 @@ export class LinguisticDetailsComponent implements OnInit {
   lessonData: any;
   linguisticList = [];
   slideConfig;
-  constructor(private router: Router, private utilityService: UtilityService, private toast: ToasterService, private studentService: StudentService) {
+  constructor(private router: Router, private utilityService: UtilityService, private toast: ToasterService, private studentService: StudentService,private authService: AuthService,) {
+    this.authService.setuserlang();
     this.lessonHederConfig['stepBoard'] = null;
   }
 

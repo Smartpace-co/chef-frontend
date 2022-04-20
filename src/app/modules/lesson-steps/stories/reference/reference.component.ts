@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToasterService } from '@appcore/services/toaster.service';
 import { StudentService } from '@modules/student/services/student.service';
-
+import { AuthService } from '@modules/auth/services/auth.service';
 @Component({
   selector: 'app-reference',
   templateUrl: './reference.component.html',
@@ -13,7 +13,9 @@ export class ReferenceComponent implements OnInit {
   showNext = false;
   assignmentId;
   referenceLinks = [];
-  constructor(private toast: ToasterService, private router: Router, private studentService: StudentService) { }
+  constructor(private toast: ToasterService, private router: Router, private studentService: StudentService,private authService: AuthService,) { 
+    this.authService.setuserlang();
+  }
 
   ngOnInit(): void {
     this.lesson = localStorage.getItem('lessonType');

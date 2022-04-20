@@ -3,6 +3,7 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 import { Router } from '@angular/router';
 import { CustomRegex } from '@appcore/validators/custom-regex';
 import * as _ from 'lodash';
+import { ClassesService } from '@modules/teacher/services/classes.service';
 import {
   faAngleDoubleRight,
   faHome,
@@ -69,6 +70,8 @@ export class DashboardComponent implements OnInit {
   schoolList = [];
   teacherList = [];
   selectedValue = [];
+  selectedSubjectValue = [];
+  selectedSubject = null;
   selectedStandard = null;
   selectedTeacherValue = [];
   selectedTeacher = null;
@@ -295,14 +298,15 @@ export class DashboardComponent implements OnInit {
   schoolTitle = 'Select School';
   classesListtitle = 'All Classes';
   SortByGradeTitle = 'Sort by Grade';
-
+  subjectList = [];
   // strikeCheckout:any = null;
   constructor(
     private authService: AuthService,
     private districtService: DistrictService,
     private router: Router,
     private toast: ToasterService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private classService : ClassesService,
   ) {}
 
   ngOnInit(): void {
@@ -317,7 +321,8 @@ export class DashboardComponent implements OnInit {
       teacherName: new FormControl('', [Validators.required]),
       title: new FormControl('', [Validators.required, this.validateClassName.bind(this)]),
       grade: new FormControl([], [Validators.required]),
-      standards: new FormControl('', [Validators.required]),
+      standards: new FormControl(''),
+      subjects: new FormControl('', [Validators.required]),
       students: new FormControl('')
     });
     this.authService.setuserlang();
@@ -327,6 +332,7 @@ export class DashboardComponent implements OnInit {
     this.getUsersCount();
     this.getPracticeAndGrowthReport();
     this.getSessionReport();
+    this.getSubjectList();
   }
   get formControl() {
     return this.createClassForm.controls;
@@ -407,10 +413,12 @@ export class DashboardComponent implements OnInit {
     this.schoolTitle = 'Select school';
     this.createClassForm.reset();
     this.selectedTeacher = null;
+    this.selectedSubject = null;
     this.selectedStandard = null;
     this.selectedStudent = null;
     this.selectedStudentValue = [];
     this.selectedValue = [];
+    this.selectedSubjectValue = [];
     this.selectedTeacherValue = [];
     this.getStudentList(undefined,false);
     this.getAllActiveTeachers(undefined,false);
@@ -437,6 +445,37 @@ export class DashboardComponent implements OnInit {
   gradeChange(event) {
     this.gradeTitle = event.menu;
     this.createClassForm.get('grade').setValue(event);
+  }
+
+  onSelectSubject(item) {
+    this.selectedSubjectValue.push(item);
+    this.selectedSubject = this.selectedSubjectValue;
+    this.createClassForm.get('subjects').setValue(this.selectedSubject.map(obj => obj.item_id));
+  }
+
+  onDeSelectSubject(index) {
+    this.selectedSubjectValue = [];
+    this.selectedSubject = this.selectedSubject.filter(function (obj) {
+      return obj.item_id !== index.item_id;
+    });
+    this.selectedSubjectValue = this.selectedSubject;
+  /*   this.selectedSubject.splice(index, 1);
+    this.selectedValue = this.selectedSubject; */
+    this.createClassForm.get('subjects').setValue(this.selectedSubject.map(obj => obj.item_id));
+  }
+
+  onSelectAllSubject(item) {
+    this.selectedSubjectValue = [];
+    this.selectedSubjectValue = item;
+    this.selectedSubject = this.selectedSubjectValue;
+
+    // assign selected subjects id to array
+    this.createClassForm.get('subjects').setValue(this.selectedSubject.map(obj => obj.item_id));
+  }
+
+  onDeselectAllSubject(item) {
+    this.selectedSubjectValue = item;
+    this.createClassForm.get('subjects').setValue('');
   }
 
   onSelectStandrd(item) {
@@ -528,6 +567,7 @@ export class DashboardComponent implements OnInit {
       this.getStudentList(event.id);
       this.selectedTeacher = null;
       this.selectedStandard = null;
+      this.selectedSubject = null;
       this.selectedStudent = null;
       this.selectedStudentValue = [];
       this.selectedValue = [];
@@ -637,6 +677,7 @@ export class DashboardComponent implements OnInit {
     );
   }
   onSave(): void {
+    console.log(this.createClassForm)
     this.activateUserData = JSON.parse(window.sessionStorage.getItem('currentUser'));
     if (this.createClassForm.invalid) {
       // return;
@@ -661,6 +702,7 @@ export class DashboardComponent implements OnInit {
         district_id: JSON.parse(localStorage.getItem('districtDetails')).id,
         grade_id: formData.grade.id,
         school_id: formData.school.id,
+        assigned_standard_subject_group_ids : formData.subjects,
         assigned_teacher_ids: teacher,
         assigned_standard_ids: stdList,
         assigned_student_ids: students
@@ -742,5 +784,24 @@ export class DashboardComponent implements OnInit {
         console.log(error);
       })
   }
+
+  getSubjectList() {
+    this.classService.getSubjectList().subscribe((response: any) => {
+      if (response && response.data) {
+        this.subjectList = _.map(response.data, item => {
+          let obj = {
+            item_id: item.id,
+         item_text: item.subjectTitle,
+        }
+        return obj;
+      });
+      }
+    }, (error) => {
+      console.log(error);
+      this.toast.showToast(error.error.message, '', 'error');
+      
+    });
+  }
     
+  
 }

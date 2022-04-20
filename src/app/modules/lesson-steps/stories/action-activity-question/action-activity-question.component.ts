@@ -1,18 +1,20 @@
 import { Location } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterContentChecked } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToasterService } from '@appcore/services/toaster.service';
 import { UtilityService } from '@appcore/services/utility.service';
 import { DynamicActivityQuestionsComponent } from '@modules/lesson-steps/dynamic-activity-questions/dynamic-activity-questions.component';
 import { StudentService } from '@modules/student/services/student.service';
 import * as _ from 'lodash';
+import { AuthService } from '@modules/auth/services/auth.service';
+import { TranslationService } from '@appcore/services/translation.service';
 
 @Component({
   selector: 'app-action-activity-question',
   templateUrl: './action-activity-question.component.html',
   styleUrls: ['./action-activity-question.component.scss']
 })
-export class ActionActivityQuestionComponent implements OnInit {
+export class ActionActivityQuestionComponent implements OnInit, AfterContentChecked {
   @ViewChild('dynamicActionActivityQuestionsComponent') dynamicComponent: DynamicActivityQuestionsComponent;
 
   isButtonSection = {};
@@ -25,10 +27,8 @@ export class ActionActivityQuestionComponent implements OnInit {
   questionIndex: number = 0;
   isVisiblePrevious = true;
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private location: Location,
-    private toast: ToasterService, private studentService: StudentService, private utilityService: UtilityService) {
-    this.isButtonSection = {
-      title: 'Take Action Activity'
-    };
+    private toast: ToasterService, private studentService: StudentService, private utilityService: UtilityService,private authService: AuthService,private translate: TranslationService) {
+    this.authService.setuserlang();
     this.panelIndex = this.activatedRoute.snapshot.queryParams && this.activatedRoute.snapshot.queryParams.index;
   }
 
@@ -170,6 +170,9 @@ export class ActionActivityQuestionComponent implements OnInit {
   }
 
   ngAfterContentChecked(): void {
+    this.isButtonSection = {
+      title: this.translate.getStringFromKey('student.assigned-lessons.lesson-steps.take-action-activity')
+    };
     if (this.questionIndex > 0) {
       this.isVisiblePrevious = true;
     }
