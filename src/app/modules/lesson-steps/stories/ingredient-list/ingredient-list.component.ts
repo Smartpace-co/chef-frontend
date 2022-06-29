@@ -72,6 +72,7 @@ export class IngredientListComponent implements OnInit,AfterContentChecked {
   getIngredientList() {
     this.studentService.getAssignedLessonById(parseInt(this.assignmentId)).subscribe(
       (response) => {
+        console.log("gredientsList: ", response);
         if (response && response.data && response.data.recipe.recipeIngredients) {
           this.currentAssignedLesson = response.data;
           this.isVisibleNext = false;
@@ -109,40 +110,41 @@ export class IngredientListComponent implements OnInit,AfterContentChecked {
   }
 
   onNext(): void {
-    if (this.currentAssignedLesson && this.currentAssignedLesson.defaultSetting === false && this.currentAssignedLesson.customSetting && this.currentAssignedLesson.customSetting.content) {
-      for (let ob of this.currentAssignedLesson.customSetting.content) {
-        if (ob.title === 'Cooking' && ob.status === true) {
-          this.isCooking = true;
-          let culinary = _.find(ob.cooking, function (item) { return item.culinaryTechniqueTitle === 'Culinary Technique'; });
-          if (culinary && culinary.status === true) {
-            this.isCulinary = true;
-          }
-        } else if (ob.title === 'Learning Activities' && ob.status === true) {
-          let isSensoryExercise = _.find(ob.Activities, function (item) { return item.lable === 'Sensory Learning Exercise'; });
-          if (isSensoryExercise && isSensoryExercise.status === true && this.currentAssignedLesson.lesson && this.currentAssignedLesson.lesson.multiSensoryQuestions && !_.isEmpty(this.currentAssignedLesson.lesson.multiSensoryQuestions.question.trim())) {
-            this.router.navigate(['/student/sensory-exercise']);
-            break;
-          }
-        } else if (ob.title != 'Story' && this.isCooking) {
-          if (!_.isEmpty(this.currentAssignedLesson.recipe.preparationSteps)) {
-            this.router.navigate(['/student/cooking-preparation']);
-          } else if (this.isCulinary) {
-            this.router.navigate(['/student/cooking-technique']);
-          } else {
-            this.router.navigate(['/student/cooking-steps']);
-          }
-          break;
-        }
-      }
-    } else if (this.lesson === 'Explore' || this.currentAssignedLesson.defaultSetting === true) {
-      if (this.currentAssignedLesson.lesson && this.currentAssignedLesson.lesson.multiSensoryQuestions && !_.isEmpty(this.currentAssignedLesson.lesson.multiSensoryQuestions.question.trim())) {
-        this.router.navigate(['/student/sensory-exercise']);
-      } else if (!_.isEmpty(this.currentAssignedLesson.recipe.preparationSteps)) {
-        this.router.navigate(['/student/cooking-preparation']);
-      } else {
-        this.router.navigate(['/student/cooking-technique']);
-      }
-    }
+    this.router.navigate(['/student/tool-list']);
+    // if (this.currentAssignedLesson && this.currentAssignedLesson.defaultSetting === false && this.currentAssignedLesson.customSetting && this.currentAssignedLesson.customSetting.content) {
+    //   for (let ob of this.currentAssignedLesson.customSetting.content) {
+    //     if (ob.title === 'Cooking' && ob.status === true) {
+    //       this.isCooking = true;
+    //       let culinary = _.find(ob.cooking, function (item) { return item.culinaryTechniqueTitle === 'Culinary Technique'; });
+    //       if (culinary && culinary.status === true) {
+    //         this.isCulinary = true;
+    //       }
+    //     } else if (ob.title === 'Learning Activities' && ob.status === true) {
+    //       let isSensoryExercise = _.find(ob.Activities, function (item) { return item.lable === 'Sensory Learning Exercise'; });
+    //       if (isSensoryExercise && isSensoryExercise.status === true && this.currentAssignedLesson.lesson && this.currentAssignedLesson.lesson.multiSensoryQuestions && !_.isEmpty(this.currentAssignedLesson.lesson.multiSensoryQuestions.question.trim())) {
+    //         this.router.navigate(['/student/sensory-exercise']);
+    //         break;
+    //       }
+    //     } else if (ob.title != 'Story' && this.isCooking) {
+    //       if (!_.isEmpty(this.currentAssignedLesson.recipe.preparationSteps)) {
+    //         this.router.navigate(['/student/cooking-preparation']);
+    //       } else if (this.isCulinary) {
+    //         this.router.navigate(['/student/cooking-technique']);
+    //       } else {
+    //         this.router.navigate(['/student/cooking-steps']);
+    //       }
+    //       break;
+    //     }
+    //   }
+    // } else if (this.lesson === 'Explore' || this.currentAssignedLesson.defaultSetting === true) {
+    //   if (this.currentAssignedLesson.lesson && this.currentAssignedLesson.lesson.multiSensoryQuestions && !_.isEmpty(this.currentAssignedLesson.lesson.multiSensoryQuestions.question.trim())) {
+    //     this.router.navigate(['/student/sensory-exercise']);
+    //   } else if (!_.isEmpty(this.currentAssignedLesson.recipe.preparationSteps)) {
+    //     this.router.navigate(['/student/cooking-preparation']);
+    //   } else {
+    //     this.router.navigate(['/student/cooking-technique']);
+    //   }
+    // }
   }
 
   replaceIngredient(): void {

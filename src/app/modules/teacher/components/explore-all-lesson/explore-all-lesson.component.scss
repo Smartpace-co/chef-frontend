@@ -653,3 +653,19 @@
     }
 }
 
+.recipeModel {
+    .modal-dialog {
+        width: 90% !important;
+        max-width: 900px !important;
+    }
+
+    .modal-content {
+        padding: 0;
+        overflow: hidden;
+    }
+}
+
+.disable-click {
+    opacity: .8;
+    pointer-events: none;
+}

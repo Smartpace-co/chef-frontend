@@ -224,6 +224,30 @@ export class StudentService {
     return this.http.get<any[]>(`${API_USERS_URL}/recipe`, { params });
   }
 
+    /**
+    * To get all suggested explore lessons.
+    */
+  getSuggestedForYouLessonList(countryName?: string, gradeId?: number, lessonTime?: number, lessonType?: boolean, languageKey?: string): Observable<any> {
+      let params = new HttpParams();
+      if (countryName) {
+        params = params.append('country', countryName);
+      }
+      if (lessonType) {
+        params = params.append('isInternationalRecipe', true.toString());
+      }
+      if (gradeId) {
+        params = params.append('gradeId', gradeId.toString());
+      }
+      if (lessonTime) {
+        params = params.append('lessonTime', lessonTime.toString());
+      }
+      if (languageKey) {
+        params = params.append('systemLanguageKey', languageKey);
+      }
+      return this.http.get<any[]>(`${API_USERS_URL}/suggestedRecipe`, { params });
+    }
+
+  
   /**
    * Add a note in journal
    */

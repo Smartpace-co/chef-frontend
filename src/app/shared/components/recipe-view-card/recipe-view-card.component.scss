@@ -1,0 +1,106 @@
+@import "../../../../assets/styles/helpers/variables";
+@import "../../../../assets/styles/helpers/mixins";
+
+.recipe-view {
+  background: #fed600;
+  padding: 2rem;
+  color: #000;
+
+  p {
+    padding: 0;
+  }
+
+  &>div {
+    margin-top: 10px;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    @include breakpoint(sm-mobile) {
+      flex-direction: column;
+      row-gap: 10px;
+    }
+
+    .list {
+      display: flex;
+      align-self: self-start;
+    }
+
+    .info {
+      background: #000;
+      color: #fff;
+      padding: 0.5rem 1rem 0.3rem;
+      border-radius: 0.5rem;
+      margin: 0 0.5rem;
+      font-size: 1.1rem;
+      line-height: 1.4rem;
+      font-weight: 600;
+
+      &+& {
+        margin-left: 10px;
+      }
+    }
+  }
+
+  &__content {
+
+    span,
+    p {
+      font-size: 13px;
+      color: #676767;
+      font-weight: 400;
+    }
+
+    &>div {
+      margin-top: 25px
+    }
+  }
+
+  &__imgR {
+    width: 100%;
+    height: 200px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+
+  &__footer {
+    text-align: right;
+    margin-top: 5rem !important;
+  }
+}
+
+.type-2 {
+  font-size: 24px;
+
+  @include breakpoint(iPad) {
+    font-size: 18px;
+  }
+}
+
+.type-6 {
+  font-size: 15px;
+}
+
+.recipe__step span {
+  color: #000;
+}
+
+.recipe__step+.recipe__step {
+  margin-top: 12px;
+}
+
+.recipe__icon {
+  display: inline-block;
+  color: black !important;
+  font-size: 14px !important;
+  margin-top: 10px;
+  cursor: pointer;
+}

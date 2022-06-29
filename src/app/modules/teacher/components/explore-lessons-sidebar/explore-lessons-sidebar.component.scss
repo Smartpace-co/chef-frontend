@@ -30,9 +30,19 @@
         }
         .checklist{
             margin:2rem 0;
+           
         }
+
     }
  }
  label{
      font-weight: 700;
+ }
+
+ .checkList-search {
+    margin-top: 10px;
+    width: 100%;
+    font-size: 16px;
+    border-radius: 10px;
+    padding: 4px 10px;
  }

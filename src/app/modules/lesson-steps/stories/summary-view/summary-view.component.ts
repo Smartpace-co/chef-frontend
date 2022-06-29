@@ -185,45 +185,46 @@ export class SummaryViewComponent implements OnInit {
   }
 
   navigateTostep(path) {
-    // switch (path) {
-    //   case 1: {
-    //     this.router.navigate(['student/learning-objective']);
-    //     break;
-    //   }
-    //   case 2: {
-    //     this.router.navigate(['student/safety-hygiene']);
-    //     break;
-    //   }
-    //   case 3: {
-    //     this.router.navigate(['student/ingredient-list']);
-    //     break;
-    //   }
-    //   case 4: {
-    //     this.router.navigate(['student/cooking-preparation']);
-    //     break;
-    //   }
-    //   case 5: {
-    //     this.router.navigate(['student/cooking-technique']);
-    //     break;
-    //   }
-    //   case 6: {
-    //     this.router.navigate(['student/cooking-steps']);
-    //     break;
-    //   }
-    //   case 7: {
-    //     this.router.navigate(['student/cleaning']);
-    //     break;
-    //   }
-    //   case 8: {
-    //     this.router.navigate(['student/serving']);
-    //     break;
-    //   }
-    //   case 9: {
-    //     this.router.navigate(['student/assessment-question']);
-    //     break;
-    //   }
-    //   default: break;
-    // }
+    console.log("path: ", path);
+    switch (path) {
+      case 1: {
+        this.router.navigate(['student/learning-objective']);
+        break;
+      }
+      case 2: {
+        this.router.navigate(['student/safety-hygiene']);
+        break;
+      }
+      case 3: {
+        this.router.navigate(['student/ingredient-list']);
+        break;
+      }
+      case 4: {
+        this.router.navigate(['student/cooking-preparation']);
+        break;
+      }
+      case 5: {
+        this.router.navigate(['student/cooking-technique']);
+        break;
+      }
+      case 6: {
+        this.router.navigate(['student/cooking-steps']);
+        break;
+      }
+      case 7: {
+        this.router.navigate(['student/cleaning']);
+        break;
+      }
+      case 8: {
+        this.router.navigate(['student/serving']);
+        break;
+      }
+      case 9: {
+        this.router.navigate(['student/assessment-question']);
+        break;
+      }
+      default: break;
+    }
   }
 
   /**

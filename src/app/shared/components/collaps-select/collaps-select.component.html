@@ -1,0 +1,75 @@
+<div class="filter-category">
+
+  <div (click)="onToggle()" class="category-item" [attr.aria-expanded]="isCollapsed">
+    {{ cat.name }}
+    <fa-icon [icon]="dropIcon"></fa-icon>
+  </div>
+  <div [formGroup]="form" #collapse="ngbCollapse" [(ngbCollapse)]="!isCollapsed">
+    <ng-container *ngIf="search">
+      <input  (input)="handleChangeItem($event)" type="text" class="checkList-search" placeholder="search" />
+      <ul class="checklist">
+        <ng-container *ngIf="cat.data | filterBy:searchTerms:'value' as dataF">
+          <li *ngFor="let item of dataF | slice: 0:itemCount">
+            <div class="custom-control custom-checkbox">
+              <input
+                type="checkbox"
+                class="custom-control-input"
+                id="{{item.id + item.value}}"
+                [value]="item.id"
+                (change)="onCheckboxChange($event)"
+              />
+              <label class="custom-control-label" for="{{ item.id + item.value }}">{{ item.value }}</label>
+            </div>
+          </li>
+          <ng-container *ngIf="!(dataF.length <= 5)">
+            <span *ngIf="itemCount < dataF.length" (click)="showMore()">
+              <fa-icon [icon]="Plus"></fa-icon> {{ 'table-component.show' | translate }} {{ 'district.dashboard.more' | translate }}</span
+            >
+            <span *ngIf="itemCount >= dataF.length" (click)="showLess()">
+              <fa-icon [icon]="Minus"></fa-icon> {{ 'table-component.show' | translate }} {{ 'teacher.explore-lessons.less' | translate }}</span
+            >
+          </ng-container>
+        </ng-container>
+    
+      </ul>
+    </ng-container>
+
+    <ul *ngIf="!search" class="checklist">
+      <li *ngFor="let item of cat.data | slice: 0:itemCount">
+        <div class="custom-control custom-checkbox">
+          <input
+            *ngIf="!isRadio"
+            [type]="'checkbox'"
+            class="custom-control-input"
+            id="{{item.id + item.value}}"
+            [value]="item.id"
+            (change)="onCheckboxChange($event)"
+          />
+          <!-- [checked]="isChecked && radioControl.value == i.value" -->
+          <ng-container *ngIf="isRadio">
+            <input
+              #seasonRadio
+              [type]="'checkbox'"
+              name="seasons"
+              class="custom-control-input"
+              id="{{item.id + item.value}}"
+              [value]="item.id"
+              (change)="onRadioChange($event)"
+            />
+
+          </ng-container>
+          <label class="custom-control-label" for="{{ item.id + item.value }}">{{ item.value }}</label>
+        </div>
+      </li>
+  
+      <ng-container *ngIf="!(cat.data.length <= 5)">
+        <span *ngIf="itemCount < cat.data.length" (click)="showMore()">
+          <fa-icon [icon]="Plus"></fa-icon> {{ 'table-component.show' | translate }} {{ 'district.dashboard.more' | translate }}</span
+        >
+        <span *ngIf="itemCount >= cat.data.length" (click)="showLess()">
+          <fa-icon [icon]="Minus"></fa-icon> {{ 'table-component.show' | translate }} {{ 'teacher.explore-lessons.less' | translate }}</span
+        >
+      </ng-container>
+    </ul>
+  </div>
+</div>

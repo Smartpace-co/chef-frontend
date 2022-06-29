@@ -28,6 +28,9 @@ import { NgxStripeModule } from 'ngx-stripe';
 import { PaymentSuccessComponent } from './components/payment-success/payment-success.component';
 import { PaymentCancelComponent } from './components/payment-cancel/payment-cancel.component';
 import { CheckoutPageComponent } from './components/checkout-page/checkout-page.component';
+import { CollapsSelectComponent } from './components/collaps-select/collaps-select.component';
+import { FilterByPipe } from './pipes/filter-by.pipe';
+import { RecipeViewCardComponent } from './components/recipe-view-card/recipe-view-card.component';
 
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -52,6 +55,9 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     PaymentSuccessComponent,
     PaymentCancelComponent,
     CheckoutPageComponent,
+    CollapsSelectComponent,
+    FilterByPipe,
+    RecipeViewCardComponent,
 
   ],
 
@@ -93,7 +99,11 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     FontAwesomeModule,
     SlickCarouselModule,
     MultiSelectDropdownComponent,
-    VjsPlayerComponent
+    VjsPlayerComponent,
+    CollapsSelectComponent,
+    FilterByPipe,
+    NgMultiSelectDropDownModule,
+    RecipeViewCardComponent
   ],
   providers: [SortByPipe,
   ]

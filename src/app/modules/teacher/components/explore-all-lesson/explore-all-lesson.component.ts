@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FaConfig } from '@fortawesome/angular-fontawesome';
 import { faSearch, faAngleDoubleLeft, faStar, faChevronRight, faBookmark, faCalendarAlt, faExclamationTriangle, faInfoCircle, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -19,7 +19,8 @@ import { TranslationService } from '@appcore/services/translation.service';
 @Component({
   selector: 'app-explore-all-lesson',
   templateUrl: './explore-all-lesson.component.html',
-  styleUrls: ['./explore-all-lesson.component.scss']
+  styleUrls: ['./explore-all-lesson.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ExploreAllLessonComponent implements OnInit {
   SearchIcon = faSearch;
@@ -37,6 +38,8 @@ export class ExploreAllLessonComponent implements OnInit {
   lessonList: any;
   topRatedList: any;
   tempTopRatedList = [];
+  suggestedForYouList: any;
+  tempSuggestedForYouList = [];
   Calendar = faCalendarAlt;
   exclamationTriangle = faExclamationTriangle;
   classTitle = 'Select class';
@@ -53,6 +56,7 @@ export class ExploreAllLessonComponent implements OnInit {
   infoCircle = faInfoCircle;
   subscription: Subscription;
   topRatedSubscription: Subscription;
+  suggestedForYouSubscription: Subscription;
   standardLessonSubscription: Subscription;
   AssignLesson: FormGroup;
   // Date Picker
@@ -82,6 +86,10 @@ export class ExploreAllLessonComponent implements OnInit {
   lessonItemData: any;
   selectedDate: any;
   lessonTime:any;
+
+  recipeDetails;
+  defaultRecipeImg;
+
   constructor(private classService: ClassesService,
     private utilityService: UtilityService,
     public faConfig: FaConfig,
@@ -103,6 +111,8 @@ export class ExploreAllLessonComponent implements OnInit {
         year: current.getFullYear(), month:
           current.getMonth() + 1, day: current.getDate()
       };
+
+    this.defaultRecipeImg = '/assets/images/nsima-bent-icon.png';
   }
 
   ngOnInit(): void {
@@ -121,19 +131,7 @@ export class ExploreAllLessonComponent implements OnInit {
 
     this.classTitle = this.translate.getStringFromKey('student.add-student.class.placeholder');
     this.settingTitle = this.translate.getStringFromKey('teacher.explore-lessons.select-setting');
-    // this.searchBy = this.translate.getStringFromKey('teacher.assignment.search-by');
-    // this.searchByList = [
-    //   {
-    //     id: 'lessonTitle',
-    //     menu: this.translate.getStringFromKey('teacher.explore-lessons.lesson-title'),
-    //     link: ''
-    //   },
-    //   {
-    //     id: 'recipeTitle',
-    //     menu: this.translate.getStringFromKey('teacher.explore-lessons.recipe'),
-    //     link: ''
-    //   }
-    // ];
+
     if (this.lessonType === "all") {
       this.teacherservice.viewMore = true;
       this.teacherservice.lessonFilterType = 'all';
@@ -164,6 +162,13 @@ export class ExploreAllLessonComponent implements OnInit {
       this.getStandardLesson();
       this.standardLessonSubscription = this.teacherservice.getFilteredStanardLessonData().subscribe(data => {
         this.standardList = data.standardData;
+      });
+    } else if (this.lessonType === "suggestedForYou") {
+      this.teacherservice.viewMore = true;
+      this.teacherservice.lessonFilterType = 'suggestedForYou';
+      this.getSuggestedForYouLessons();
+      this.suggestedForYouSubscription = this.teacherservice.getFilteredSuggestedForYouLessonData().subscribe(data => {
+        this.suggestedForYouList = data.suggestedForYouData;
       });
     }
     this.getCustomList();
@@ -215,6 +220,11 @@ export class ExploreAllLessonComponent implements OnInit {
         if (searchResult.length > 0) this.topRatedList = searchResult;
         else this.topRatedList = [];
 
+      }  else if (this.lessonType === "suggestedForYou") {
+        searchResult = this.suggestedForYouList.filter(obj => obj.recipe.recipeTitle.toLowerCase().search(new RegExp(event.target.value.toLowerCase())) > -1);
+        if (searchResult.length > 0) this.suggestedForYouList = searchResult;
+        else this.suggestedForYouList = [];
+
       } else if (this.lessonType === "lessonStandard") {
         searchResult = this.standardList.filter(obj => obj.recipe.recipeTitle.toLowerCase().search(new RegExp(event.target.value.toLowerCase())) > -1);
       }
@@ -225,6 +235,7 @@ export class ExploreAllLessonComponent implements OnInit {
       else if (this.lessonType === "lessonFeatured") this.lessonList = this.tempLessonList;
       else if (this.lessonType === "lessonTopRated") this.topRatedList = this.tempTopRatedList;
       else if (this.lessonType === "lessonStandard") this.standardList = this.tempStandardList;
+      else if (this.lessonType === "suggestedForYou") this.suggestedForYouList = this.tempSuggestedForYouList;
     }
   }
 
@@ -288,6 +299,29 @@ export class ExploreAllLessonComponent implements OnInit {
             }
           });
           this.tempTopRatedList = this.topRatedList;
+          // this.getStandardLesson();
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  getSuggestedForYouLessons(): void {
+    this.teacherservice.getSuggestedForYouLessons(this.viewStatus).subscribe(
+      (response) => {
+        if (response && response.data) {
+          this.suggestedForYouList = response.data;
+          this.suggestedForYouList.forEach((element) => {
+            if (element.bookmarkLesson.length === 0) {
+              element.bookmark = false;
+            } else {
+              this.bookmark = element.bookmarkLesson[0].isBookmarked;
+              element.bookmark = this.bookmark;
+            }
+          });
+          this.tempSuggestedForYouList = this.suggestedForYouList;
           // this.getStandardLesson();
         }
       },
@@ -634,21 +668,63 @@ export class ExploreAllLessonComponent implements OnInit {
     return parsed && this.calendar.isValid(NgbDate.from(parsed)) ? NgbDate.from(parsed) : currentValue;
   }
 
-  onInfoClick(item, i) {
+  // onInfoClick(item, i) {
+  //   this.itemInfo = item;
+  //   this.lessonTime = item.lessonTime;
+  //   this.teacherservice.getLessonInfo(item.id).subscribe((res) => {
+  //     this.showInfo = i + 1;
+  //     this.selectedIndex = i
+  //     let count = this.classApplied ? 3 : 4;
+  //     this.showInfo = Math.floor(this.selectedIndex / count) == 0 ? 1 : Math.floor(this.selectedIndex / count) * count + 1;
+  //     this.resultLessonInfo = res.data;
+  //     this.resultLessonInfo.learningObjectivesForStudent = this.resultLessonInfo.learningObjectivesForStudent.replace(/&nbsp;|<[^>]+>/g, '');
+  //     this.ingrdients = this.resultLessonInfo.recipe.recipeIngredients.map(x => x.ingredient.ingredientTitle).join(",");
+  //     this.equipments = this.resultLessonInfo.experiment.experimentTools.map(x => x.tool.toolTitle).join(",");
+  //   }), (error) => {
+  //     console.log(error);
+  //   }
+  // }
+
+  
+  onInfoClick(content, item) {
     this.itemInfo = item;
     this.lessonTime = item.lessonTime;
     this.teacherservice.getLessonInfo(item.id).subscribe((res) => {
-      this.showInfo = i + 1;
-      this.selectedIndex = i
-      let count = this.classApplied ? 3 : 4;
-      this.showInfo = Math.floor(this.selectedIndex / count) == 0 ? 1 : Math.floor(this.selectedIndex / count) * count + 1;
-      this.resultLessonInfo = res.data;
-      this.resultLessonInfo.learningObjectivesForStudent = this.resultLessonInfo.learningObjectivesForStudent.replace(/&nbsp;|<[^>]+>/g, '');
-      this.ingrdients = this.resultLessonInfo.recipe.recipeIngredients.map(x => x.ingredient.ingredientTitle).join(",");
-      this.equipments = this.resultLessonInfo.experiment.experimentTools.map(x => x.tool.toolTitle).join(",");
+      let { 
+        recipe, 
+        grade, 
+        learningObjectivesForStudent, 
+        experiment,
+        standards } = res.data;
+
+      this.recipeDetails = {
+        grade: grade.grade,
+        lessonTime: item.lessonTime,
+        objective: learningObjectivesForStudent,
+        name: recipe.recipeTitle,
+        nameAlternative: recipe.alternativeName, 
+        countryName: recipe.country ? recipe.country.countryName : "",
+        image: recipe.recipeImage || this.defaultRecipeImg,
+
+        ingredients: this.handleIngredient(recipe.recipeIngredients),
+        equipments: experiment ? this.handleEquipments(experiment.experimentTools) : [],
+        standards: standards,
+      }
+      this.closeModal = this.modalService.open(content, { windowClass: "recipeModel" , ariaLabelledBy: 'modal-basic-title', centered: true });
+
     }), (error) => {
       console.log(error);
     }
+  }
+
+  private handleIngredient(arr: any[]){
+    if(arr.length < 1) return [];
+    return arr.reduce((acc,curr)=> ([...acc, curr.ingredient.ingredientTitle]) , []);
+  }
+
+  private handleEquipments(arr: any[]){
+    if(arr.length < 1) return [];
+    return arr.reduce((acc,curr)=> ([...acc, curr.tool.toolTitle]) , []);
   }
 
   onCancel() {

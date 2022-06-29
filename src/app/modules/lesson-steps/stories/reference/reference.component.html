@@ -11,13 +11,90 @@
                             <li class="reference-list"><a href="{{ item.link }}" target="_blank">{{ item.link }}</a></li>
                         </ul>
                     </div>
+
+
+                    <div class="explore-lessons">
+                    <div class="suggestedForYou">
+                            <h5 class="reference-heading">{{'teacher.explore-lessons.suggested-for-you'|translate}}</h5>
+                        <div class="row">
+                            <div class="main-card col-lg-4 col-sm-6"
+                                *ngFor="let item of suggestedForYouList; let i = index">
+                                <div class="lessonList__item">
+                                    <div class="lessonList__image">
+                                        <img [src]="item.image" alt="" class="img-fluid" />
+                                        <div class="grade">
+                                            <span class="grade-fix">{{'school.class.add-class.grade-field' | translate |
+                                                uppercase}}</span>
+                                            <span class="grade-std">{{item.gradeId}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="lessonList__info">
+                                        <div class="lessonList__info__left">
+                                            <h4 class="lessonList__title">{{item.menu}}</h4>
+                                            <div class="lessonList__time">
+                                                <label>{{'student.assigned-lessons.duration'| translate }}: </label>
+                                                <strong class="lessonList__time"> {{item.duration}} minutes</strong>
+            
+                                            </div>
+                                        </div>
+                                        <div class="lessonList__info__right">
+                                            
+                                        </div>
+                                        <div class="lessonList__btns">
+                                            
+                                            <a (click)="open(startModal,item)">{{'student.assigned-lessons.start' | translate}} <fa-icon [icon]="RightArrow"></fa-icon></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 </div>
                 <span class="final-editaion-img-wrapper">
                     <img src="./assets/images/final-editaion.png" alt="" class="img-fluid" />
                 </span>
+
+                
             </div>
         </div>
     </div>
+
+
+    
+    
 </div>
 <app-lessons-footer [showNext]="false" [showPrevious]="false" [dynamicBtn]="true" [dynamicBtnName]="'Go back to home'"
     (onDynamicBtnClick)="goToAssignedLessonList()"></app-lessons-footer>
+
+
+<ng-template #startModal let-modal>
+    <div class="modal-header start-assignment-header">
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <img src="./assets/images/close.png" alt="" class="img-fluid" />
+        </button>
+    </div>
+    <div class="modal-body start-assignment-body">
+        <div class="row">
+            <div class="legend-card-white btn-card-white">
+                <div class="assignment-start">
+                    <div class="image-wrapper">
+                        <img src="{{selectedRecipe?.image}}" alt="" class="img-fluid" />
+                    </div>
+                    <h4>
+                        <span>{{selectedRecipe?.menu}}</span>
+                        <p>{{'student.assigned-lessons.duration'| translate }} {{selectedRecipe?.duration}}
+                            {{'student.assigned-lessons.mins-label'| translate }} </p>
+                    </h4>
+                </div>
+                <div class="btn-wrapper">
+                    <app-button classes="btn btn-primary mr-4 icon-btn" [submit]="true"
+                        (click)="selfAssignLesson(selectedRecipe)">
+                        <span aria-hidden="true">{{'student.assigned-lessons.start'| translate }}<fa-icon
+                                [icon]="RightArrow"></fa-icon></span>
+                    </app-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

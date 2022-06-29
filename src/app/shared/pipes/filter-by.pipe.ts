@@ -15,7 +15,16 @@ export class FilterByPipe implements PipeTransform {
     }
 
     return items.filter(function (data) {
-      return data.name.toLowerCase().includes(searchTerm.toLowerCase());
+      if(data.name){
+        return data.name.toLowerCase().includes(searchTerm.toLowerCase());
+        
+      } else if(labelKey){
+        return data[labelKey].toLowerCase().includes(searchTerm.toLowerCase());
+      }
+      else {
+        return data.toLowerCase().includes(searchTerm.toLowerCase());
+
+      }
     });
   }
 }

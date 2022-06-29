@@ -140,7 +140,6 @@ export class LoginComponent implements OnInit {
 
         },
         (error) => {
-          console.log(error);
           this.toast.showToast(error.error.message, '', 'error');
         }
       );

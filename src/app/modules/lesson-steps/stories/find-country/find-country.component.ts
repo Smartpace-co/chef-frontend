@@ -6,6 +6,7 @@ import { StudentService } from '@modules/student/services/student.service';
 import * as d3 from 'd3';
 import * as topojson from 'topojson';
 import { AuthService } from '@modules/auth/services/auth.service';
+import { GlobeService } from '@modules/student/services/globe.sevice';
 @Component({
   selector: 'app-find-country',
   templateUrl: './find-country.component.html',
@@ -34,7 +35,10 @@ export class FindCountryComponent implements OnInit, AfterViewInit {
     private router: Router,
     private utilityService: UtilityService,
     private toast: ToasterService,
-    private studentService: StudentService,private authService: AuthService,) {
+    private studentService: StudentService,
+    private authService: AuthService,
+    private globeService: GlobeService
+    ) {
       this.authService.setuserlang();
     this.lessonHederConfig['stepBoard'] = null;
   }
@@ -80,7 +84,7 @@ export class FindCountryComponent implements OnInit, AfterViewInit {
           this.svg.selectAll('.focused').classed('focused', this.focused = false);
         }));
 
-    d3.json('assets/world.json').then((data) => {
+    this.globeService.getWorldData().subscribe((data) => {
       this.world = data;
       this.countries = topojson.feature(this.world, this.world.objects.countries).features;
 

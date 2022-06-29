@@ -281,6 +281,60 @@
                 margin-bottom:3rem;
             }
         }
+        .suggestedForYou{
+            margin-top:3rem;
+            .explore-landing-header{
+                display: flex;
+                justify-content: space-between;
+                a{
+                    font-weight: 700;
+                }
+            }
+            &__main{
+                display: flex;
+                // align-items: stretch;
+                // overflow-x: auto;
+                // width:100%;
+                @include breakpoint (iPad){
+                    flex-wrap: wrap;
+                }
+            }
+            &__item{
+                background: $primary;
+                border:1px solid $border-color;
+                border-radius:1.2rem;
+                padding: 2rem;
+                width:calc((100% - 2rem) / 3);
+                margin-right:1rem;
+                display: flex;
+                flex-direction: column;
+                &:last-child{
+                    margin-right: 0;
+                }
+                @include breakpoint (iPad){
+                    width: calc((100% - 1rem) / 2);
+                    margin-bottom:2rem;
+                    &:nth-child(2n){
+                        margin-right: 0;
+                    }
+                    &:last-child{
+                        margin-bottom: 0;
+                    }
+                }
+                @include breakpoint (smallmobile){
+                    width:100%;
+                    margin-right: 0;
+                }
+            }
+            &__title{
+                font-size:1.8rem;   
+                width: 80%;
+            }
+            &__icon{
+                margin-left: auto;
+                margin-bottom:3rem;
+            }
+        }
         .featureSubject{
             margin-top:3rem;
             .explore-landing-header{
@@ -573,6 +627,12 @@
         overflow: unset;
     }
 }
+
+
+.featureSubject__lessons{
+    font-weight: 700;
+}
+
 .assign-lesson-form{
     .modal-title{
         text-align: left;
@@ -669,6 +729,20 @@
 }
 
 
-.featureSubject__lessons{
-    font-weight: 700;
+
+.recipeModel {
+    .modal-dialog {
+        width: 90% !important;
+        max-width: 900px !important;
+    }
+
+    .modal-content {
+        padding: 0;
+        overflow: hidden;
+    }
+}
+
+.disable-click {
+    opacity: .8;
+    pointer-events: none;
 }

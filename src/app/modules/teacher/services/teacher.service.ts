@@ -17,6 +17,7 @@ export class TeacherService {
   private allLessonSubject = new Subject<any>();
   private lessonSubject = new Subject<any>();
   private topRatedLessonSubject = new Subject<any>();
+  private suggestedForYouLessonSubject = new Subject<any>();
   private stanardLessonSubject = new Subject<any>();
   private userlanguage: BehaviorSubject<any> = new BehaviorSubject('en');
   lessonId: number;
@@ -154,15 +155,17 @@ export class TeacherService {
   getNotificationCount(): Observable<any> {
     return this.subject.asObservable();
   }
-  sendFilteredAllLessonData(data: any) {
+
+  sendFilteredAllLessonData(data: any) { // Sidebar AllData
+  
     this.allLessonSubject.next({ allLessonData: data });
   }
 
-  getFilteredALLLessonData(): Observable<any> {
+  getFilteredALLLessonData(): Observable<any> { /// 
     return this.allLessonSubject.asObservable();
   }
 
-  sendFilteredLessonData(data: any) {
+  sendFilteredLessonData(data: any) { ////// used Sidbar Feature
     this.lessonSubject.next({ lessonData: data });
   }
 
@@ -176,6 +179,14 @@ export class TeacherService {
 
   getFilteredTopRatedLessonData(): Observable<any> {
     return this.topRatedLessonSubject.asObservable();
+  }
+
+  sendFilteredSuggestedForYouLessonData(data: any) {
+    this.suggestedForYouLessonSubject.next({ suggestedForYouData: data });
+  }
+
+  getFilteredSuggestedForYouLessonData(): Observable<any> {
+    return this.suggestedForYouLessonSubject.asObservable();
   }
 
 
@@ -242,12 +253,20 @@ export class TeacherService {
     return this.http.get<any[]>(`${API_USERS_URL}/lesson?viewMore=${this.viewMore}`);
   }
 
+  getAllLessonsMore(): Observable<any> {
+    return this.http.get<any[]>(`${API_USERS_URL}/lesson?viewMore=${true}`);
+  }
+
   getFeaturedLessons(viewstatus): Observable<any> {
     return this.http.get<any[]>(`${API_USERS_URL}/lesson?isFeatured=true&viewMore=${this.viewMore}`);
   }
 
   getTopRatedLessons(viewstatus): Observable<any> {
     return this.http.get<any[]>(`${API_USERS_URL}/lesson/topRated?viewMore=${this.viewMore}`);
+  }
+
+  getSuggestedForYouLessons(viewstatus): Observable<any> {
+    return this.http.get<any[]>(`${API_USERS_URL}/lesson/suggestedForYou?viewMore=${this.viewMore}`);
   }
 
   getStandardsList(viewstatus): Observable<any> {

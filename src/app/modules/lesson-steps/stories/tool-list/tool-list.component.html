@@ -1,0 +1,32 @@
+<app-lessons-headerbar [lessonHederConfig]="lessonHederConfig"></app-lessons-headerbar>
+
+<div class="ingredients-body-1 ingredient-bg">
+  <app-scroll-down></app-scroll-down>
+  <div class="container">
+    <div class="card-wihtout-header-white ingredients">
+      <div class="ingredients-wrapper">
+        <div class="ingredients-list" *ngFor="let item of toolsList">
+          <div>
+            <div class="profile-pic-list">
+              <img src="{{item.icon}}" alt="" class="img-fluid" />
+            </div>
+            <p>{{ item.type }}</p>
+          </div>
+          <div class="btn-wrapper">
+            <p *ngIf="item.isOptional" class="optional-wraper">{{'school.student.add-student.optional' | translate}}</p>
+            <ng-container >
+              <app-button classes="btn small-btn btn-secondary ingredients-btn disabled-ptr" [submit]="true"
+                >
+                <span aria-hidden="true">{{item.name}}</span>
+              </app-button>
+            </ng-container>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-lessons-footer [isVisiblePrevious]="false" [isVisibleNext]="false" (onNext)="onNext()" (onPrevious)="onPrevious()">
+</app-lessons-footer>

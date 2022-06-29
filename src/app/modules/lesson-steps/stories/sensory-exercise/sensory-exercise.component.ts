@@ -117,18 +117,19 @@ export class SensoryExerciseComponent implements OnInit,AfterContentChecked {
    * on click of previous
    */
   onPrevious(): void {
-    if (this.currentAssignedLesson.customSetting && this.currentAssignedLesson.customSetting.content) {
-      for (let ob of this.currentAssignedLesson.customSetting.content) {
-        if (ob.title === 'Cooking' && ob.status === true) {
-          this.router.navigate(['/student/ingredient-list']);
-          break;
-        } else if (ob.title === 'Story' && ob.status === true) {
-          this.router.navigate(['/student/conversional-sentence'])
-        }
-      }
-    } else if (this.lesson === 'Explore') {
-      this.router.navigate(['/student/ingredient-list']);
-    }
+    this.router.navigate(['/student/tool-list']);
+    // if (this.currentAssignedLesson.customSetting && this.currentAssignedLesson.customSetting.content) {
+    //   for (let ob of this.currentAssignedLesson.customSetting.content) {
+    //     if (ob.title === 'Cooking' && ob.status === true) {
+    //       this.router.navigate(['/student/ingredient-list']);
+    //       break;
+    //     } else if (ob.title === 'Story' && ob.status === true) {
+    //       this.router.navigate(['/student/conversional-sentence'])
+    //     }
+    //   }
+    // } else if (this.lesson === 'Explore') {
+    //   this.router.navigate(['/student/ingredient-list']);
+    // }
   }
 
   /**

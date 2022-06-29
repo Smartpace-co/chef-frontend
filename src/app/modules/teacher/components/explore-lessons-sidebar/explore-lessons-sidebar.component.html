@@ -1,82 +1,64 @@
-
 <div class="lesson-filter-main">
-    <h6 class="filter-title">
-        <fa-icon [icon]="FilterIcon"></fa-icon> {{'teacher.explore-lessons.filter-options-label'|translate }}
-    </h6>
-    <!-- <div class="standards-drop">
-        <label>Standards</label>
-        <app-drop-down fieldControl="" class="formDropdown" [dropDownButtonName]="StandardsTitle"
-            [dropDownIcon]="StandardsIcon" [dropDownItemList]="StandardsList"></app-drop-down>
-    </div>
-    <ul class="checklist">
-        <li>
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="Bookmarked" name="example1">
-                <label class="custom-control-label" for="Bookmarked">Bookmarked lessons</label>
-            </div>
-        </li>
-    </ul> -->
+  <h6 class="filter-title"><fa-icon [icon]="FilterIcon"></fa-icon> {{ 'teacher.explore-lessons.filter-options-label' | translate }}</h6>
 
-    <div class="filter-category" *ngFor="let item of FilterList; let i =index">
-        <div (click)="toggle(item)" class="category-item" [attr.aria-expanded]="item.isCollapsed">{{item.category}}
-            <fa-icon [icon]="dropIcon"></fa-icon>
+  <form [formGroup]="CategoryesForm" *ngIf="!!categoryTypes">
+    <app-collaps-select fieldControl="grades" [form]="CategoryesForm" [cat]="categoryTypes['grades']"></app-collaps-select>
+    <app-collaps-select
+      fieldControl="countries"
+      [form]="CategoryesForm"
+      [search]="true"
+      [cat]="categoryTypes['countries']"
+    ></app-collaps-select>
+    <app-collaps-select
+      fieldControl="culinaryTechniques"
+      [form]="CategoryesForm"
+      [search]="true"
+      [cat]="categoryTypes['culinaryTechniques']"
+    ></app-collaps-select>
+    <app-collaps-select
+      fieldControl="ingredients"
+      [form]="CategoryesForm"
+      [search]="true"
+      [cat]="categoryTypes['ingredients']"
+    ></app-collaps-select>
+    <app-collaps-select
+      fieldControl="cookingDuration"
+      [form]="CategoryesForm"
+      [search]="true"
+      [cat]="categoryTypes['cookingTime']"
+    ></app-collaps-select>
+
+    <div class="filter-category">
+      <div (click)="toggleStandards()" class="category-item" [attr.aria-expanded]="isStandardsShow">
+        {{ categoryTypes['standards'].name }}
+        <fa-icon [icon]="dropIcon"></fa-icon>
+      </div>
+      <div  #collapse="ngbCollapse" [(ngbCollapse)]="!isStandardsShow">
+        <div class="mt-5" *ngFor="let option of StandardOptions" >
+          <label>{{option.title}}</label>
+            <ng-multiselect-dropdown
+              [ngClass]="option.dataSelected?.length > 0 ? 'multiselected' : ''"
+              [ngModelOptions]="{standalone: true}"
+              [placeholder]="'Select Standards'"
+              [data]="option.data"
+              [(ngModel)]="option.dataSelected"
+              [settings]="dropdownSettings"
+              (onSelect)="onSelect(option.type)"
+              (onSelectAll)="onSelectAll(option.type)"
+              (onDeSelect)="onDeSelect(option.type)"
+              (onDeSelectAll)="onDeselectAll(option.type)"
+            >
+            </ng-multiselect-dropdown>
         </div>
-        <div #collapse="ngbCollapse" [(ngbCollapse)]="!item.isCollapsed">
-            <ul *ngIf="item.reqkey!='standards'"class="checklist">
-                <li *ngFor="let category of item.categoryList | slice:0:catLength;">
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="{{category.id}}" name="{{category.id}}"
-                        (change)="onChange(category)" [checked] = "category?.selected"> 
-                        <label class="custom-control-label" for="{{category.id}}">{{category.label}}</label>
-                    </div>
-                </li>
-                <span *ngIf="catLength < item.categoryList.length" (click)="showMore()"> <fa-icon [icon]="Plus"></fa-icon> {{'table-component.show'| translate}} {{'district.dashboard.more'|translate}}</span>
-                <span *ngIf="catLength == item.categoryList.length" (click)="showLess()"> <fa-icon [icon]="Minus"></fa-icon> {{'table-component.show'| translate}} {{'teacher.explore-lessons.less'|translate }}</span>
-            </ul>
-            <div *ngIf="item.reqkey=='standards'">
-                <div class="mt-5">
-                    <label>Common Core ELA Standards</label>
-                    <app-multi-select-dropdown [isSelectedShow]="true" [dropDownItemList]="elaStandardList"  [selectedValue]="selectedElaStandardValue"
-                        [selectedItems]="selectedElaStandard" [placeholderText]="'Select Standards'"
-                        (onSelectValue)="onSelect($event,'ela',item)"
-                        (onDeSelectValue)="onDeSelect($event,'ela',item)"
-                        (onSelectAllValue)="onSelectAll($event,'ela',item)"
-                        (onDeselectAllValue)="onDeselectAll($event,'ela',item)">
-                    </app-multi-select-dropdown>
-                </div>
-                <div class="mt-5">
-                    <label>Common Core Math Standards</label>
-                    <app-multi-select-dropdown [isSelectedShow]="true" [dropDownItemList]="mathStandardList" [selectedValue]="selectedMathStandardValue"
-                        [selectedItems]="selectedMathStandard" [placeholderText]="'Select Standards'"
-                        (onSelectValue)="onSelect($event,'math',item)"
-                        (onDeSelectValue)="onDeSelect($event,'math',item)"
-                        (onSelectAllValue)="onSelectAll($event,'math',item)"
-                        (onDeselectAllValue)="onDeselectAll($event,'math',item)">
-                    </app-multi-select-dropdown>
-                </div>
-                <div class="mt-5">
-                    <label>New Generation Science Standards</label>
-                    <app-multi-select-dropdown [isSelectedShow]="true" [dropDownItemList]="ngssStandardList" [selectedValue]="selectedNgssStandardValue"
-                    [selectedItems]="selectedNgssStandard" [placeholderText]="'Select Standards'"
-                    (onSelectValue)="onSelect($event,'ngss',item)"
-                    (onDeSelectValue)="onDeSelect($event,'ngss',item)"
-                    (onSelectAllValue)="onSelectAll($event,'ngss',item)"
-                    (onDeselectAllValue)="onDeselectAll($event,'ngss',item)">
-                    </app-multi-select-dropdown>
-                </div>
-                <div class="mt-5">
-                    <label>National Curriculum Standards for Social Studies</label>
-                    <app-multi-select-dropdown [isSelectedShow]="true" [dropDownItemList]="ncssStandardList" [selectedValue]="selectedNcssStandardValue"
-                        [selectedItems]="selectedNcssStandard" [placeholderText]="'Select Standards'"
-                        (onSelectValue)="onSelect($event,'ncss',item)"
-                        (onDeSelectValue)="onDeSelect($event,'ncss',item)"
-                        (onSelectAllValue)="onSelectAll($event,'ncss',item)"
-                        (onDeselectAllValue)="onDeselectAll($event,'ncss',item)">>
-                    </app-multi-select-dropdown>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+
+    <app-collaps-select fieldControl="nutrients" [form]="CategoryesForm" [cat]="categoryTypes['nutrients']"></app-collaps-select>
+    <app-collaps-select
+      [isRadio]="true"
+      fieldControl="seasonal"
+      [form]="CategoryesForm"
+      [cat]="categoryTypes['seasonal']"
+    ></app-collaps-select>
+  </form>
 </div>
-
-<!--  -->

@@ -133,6 +133,12 @@
           "configurations": {
             "production": {
               "browserTarget": "chef-frontend:build:production"
+            },
+            "staging": {
+              "browserTarget": "chef-frontend:build:staging"
+            },
+            "uat": {
+              "browserTarget": "chef-frontend:build:uat"
             }
           }
         },

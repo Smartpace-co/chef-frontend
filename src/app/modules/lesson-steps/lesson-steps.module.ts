@@ -43,6 +43,8 @@ import { StudentRatingComponent } from './stories/student-rating/student-rating.
 import { CountryImageComponent } from './stories/country-image/country-image.component';
 import { ChefIntroductionComponent } from './stories/chef-introduction/chef-introduction.component';
 import { ReferenceComponent } from './stories/reference/reference.component';
+import { ToolComponent } from './stories/tool/tool.component';
+import { ToolListComponent } from './stories/tool-list/tool-list.component';
 @NgModule({
   declarations: [LessonsHeaderbarComponent, LessonsFooterComponent, CookingPreparationComponent,
     CleaningComponent, ServingComponent,
@@ -55,7 +57,7 @@ import { ReferenceComponent } from './stories/reference/reference.component';
     IngredientComponent,
     CookingTechniqueComponent, StudentRatingComponent,
     CookingStepsComponent, ExperimentComponent, ExperimentStepsComponent,
-    AssessmentQuestionComponent, StudentActionActivityComponent, ScrollDownComponent, DynamicFormComponent, DynamicExperimentQuestionsComponent, LinguisticDetailsComponent, LetStartComponent, ExperimentObservationsComponent, ExperimentDescriptionComponent, StartExperimentComponent, ExperimentQuestionComponent, DynamicActivityQuestionsComponent, ActionActivityQuestionComponent, SensoryExerciseComponent, StampsComponent, CountryImageComponent, ChefIntroductionComponent, ReferenceComponent],
+    AssessmentQuestionComponent, StudentActionActivityComponent, ScrollDownComponent, DynamicFormComponent, DynamicExperimentQuestionsComponent, LinguisticDetailsComponent, LetStartComponent, ExperimentObservationsComponent, ExperimentDescriptionComponent, StartExperimentComponent, ExperimentQuestionComponent, DynamicActivityQuestionsComponent, ActionActivityQuestionComponent, SensoryExerciseComponent, StampsComponent, CountryImageComponent, ChefIntroductionComponent, ReferenceComponent, ToolComponent, ToolListComponent],
 
   imports: [
     CommonModule,

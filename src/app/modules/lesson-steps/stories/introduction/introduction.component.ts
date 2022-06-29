@@ -6,6 +6,7 @@ import { ToasterService } from '@appcore/services/toaster.service';
 import { UtilityService } from '@appcore/services/utility.service';
 import { StudentService } from '@modules/student/services/student.service';
 import { AuthService } from '@modules/auth/services/auth.service';
+import { GlobeService } from '@modules/student/services/globe.sevice';
 @Component({
   selector: 'app-introduction',
   templateUrl: './introduction.component.html',
@@ -33,7 +34,9 @@ export class IntroductionComponent implements OnInit, AfterViewInit {
     private router: Router,
     private utilityService: UtilityService,
     private toast: ToasterService,
-    private studentService: StudentService,private authService: AuthService,
+    private studentService: StudentService,
+    private authService: AuthService,
+    private globeService: GlobeService
     ) {
       this.authService.setuserlang();
     this.lessonHederConfig['stepBoard'] = null;
@@ -44,6 +47,8 @@ export class IntroductionComponent implements OnInit, AfterViewInit {
     this.getStudentData();
     let previousTime = this.utilityService.calculateTimeBetweenDates();
     this.updateLessonProgress(previousTime);
+
+    this.countryData = this.globeService.getCountriesList();
   }
 
 
@@ -81,7 +86,7 @@ export class IntroductionComponent implements OnInit, AfterViewInit {
           this.svg.selectAll('.focused').classed('focused', this.focused = false);
         }));
 
-    d3.json('assets/world.json').then((data) => {
+    this.globeService.getWorldData().subscribe((data) => {
       this.world = data;
       this.countries = topojson.feature(this.world, this.world.objects.countries).features;
 
@@ -102,16 +107,13 @@ export class IntroductionComponent implements OnInit, AfterViewInit {
           }))
 
         .on('mouseover', (event, d) => {
-          d3.tsv('assets/names.tsv').then((dt) => {
-            this.countryData = dt;
-            this.countryData.forEach(element => {
-              if (element.id == d.id) {
-                d3.select(this.countryTooltip).text(element.name)
-                  .style('display', 'block')
-                  .style('opacity', 1);
-                // d3.selectAll(".focused").classed("focused", this.focused = false);
-              }
-            });
+          this.countryData.forEach(element => {
+            if (element.iso_n3 == d.id) {
+              d3.select(this.countryTooltip).text(element.name)
+                .style('display', 'block')
+                .style('opacity', 1);
+              // d3.selectAll(".focused").classed("focused", this.focused = false);
+            }
           });
         })
         .on('mouseout', (event, d) => {

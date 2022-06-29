@@ -1,7 +1,103 @@
 <app-student-nav [isExplore]="true" [chefIcon]="true" [backBtn]="true" [ShowMenu]="true"></app-student-nav>
 <div class="container">
+    <div class="explore-lessons">
+        <div class="suggestedForYou">
+            <!-- <h5 class="subtitle">{{'teacher.explore-lessons.top-rated'|translate}}</h5> -->
+            <div class="heading-wraper">
+                <div class="explore-search mb-4">
+                    <!-- Use FormControl -->
+                    <div> 
+                        <fa-icon [icon]="SearchIcon"></fa-icon>
+                        <input (keyup)="onKeyup($event)" autocomplete="off" [formControl]="searchTerm" class="form-control" type="text" name="term" 
+                            placeholder="Search" (focus)="onFocus()" (blur)="onBlur()" />                        
+                    </div>
+
+                    <ul *ngIf="isInputFocused" class="auto-list">
+                        <ng-container *ngIf="lessonsFilter.length > 0">
+                            <li *ngFor="let item of lessonsFilter" (click)="onClickItem(item.id)" class="auto-item auto-item--active">{{item.recipeTitle}}</li>
+                        </ng-container>
+                        <ng-container *ngIf="lessonsFilter.length === 0">
+                            <li class="auto-item">No Item Found</li>
+                        </ng-container>    
+                    </ul>
+                </div>
+
+                <ng-container *ngIf="isSuggested">
+                    <h5 class="subtitle">{{'teacher.explore-lessons.suggested-for-you'|translate}}</h5>
+                </ng-container>
+                <ng-container *ngIf="!isSuggested">
+                    <h5 class="subtitle">Result Search:</h5>
+                </ng-container>
+                
+            </div>
+            <div class="suggested__cards">
+                <div *ngFor="let item of suggestedForYouList; let i = index">
+                    <div class="lessonList__item">
+                        <div class="lessonList__image">
+                            <img [src]="item.image" alt="" class="img-fluid" />
+                            <div class="grade">
+                                <span class="grade-fix">{{'school.class.add-class.grade-field' | translate |
+                                    uppercase}}</span>
+                                <span class="grade-std">{{item.gradeId}}</span>
+                            </div>
+                        </div>
+                        <div class="lessonList__info">
+                            <div class="lessonList__info__left">
+                                <h4 class="lessonList__title">{{item.menu}}</h4>
+                                <div class="lessonList__time">
+                                    <label>{{'student.assigned-lessons.duration'| translate }}: </label>
+                                    <strong class="lessonList__time"> {{item.duration}} minutes</strong>
+                                </div>
+                            </div>
+                            <div class="lessonList__info__right">
+                
+                            </div>
+                            <div class="lessonList__btns">                
+                                <a (click)="open(startModal,item)">{{'student.assigned-lessons.start' | translate}} <fa-icon [icon]="RightArrow"></fa-icon></a>
+                                <a [class.disable-click]="isLoading" (click)="openRecipe(recipeDetailModal,item)">View Recipe <fa-icon [icon]="RightArrow"></fa-icon></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="recipies__selected"  *ngIf="isSelectedCountry">
+                    <div class="recipies-wrapper">
+                        <h3 *ngIf="!!selectedCountry" class="country__title">{{selectedCountry}}</h3>
+                        <ul class="recipies-wrapper__list">
+                            <li class="recipies-heading">
+                                <div class="count ml-3">
+                                    <span>{{recipesList.length}}</span>{{'student.explore-lessons.recipes'| translate }}
+                                    <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" [checked] ="filterByGrade" (change)="filterLessonsByGrade($event)" >
+                                    <label class="custom-control-label" for="">{{'student.explore-lessons.filter-by-student-grade'|translate}}</label>
+                                </div>
+                                </div>
+                            </li>
+                            <div class="recipies-lists">
+                                <li *ngFor="let item of recipesList" (click)="open(startModal,item)">
+                                    <div class="image-wrapper">
+                                        <img src="{{item.image}}" alt="" class="img-fluid" />
+                                    </div>
+                                    <div class="recipes-info ml-3">
+                                        <p class="recipes mb-2">{{item.menu  | uppercase}}</p>
+                                        <p class="duration">{{'student.assigned-lessons.duration'| translate}} {{item.duration}} {{'student.assigned-lessons.mins-label'|
+                                            translate }} </p>
+                                    </div>
+                                </li>
+                                <li *ngIf="recipesList && recipesList.length === 0">
+                                    <div class="ml-3">
+                                        <span>{{'table-component.no-record'| translate}}</span>
+                                    </div>
+                                </li>
+                            </div>
+                        </ul>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+
     <div class="explore-lesson">
-        <div class="heading-wraper">
+        <div class="heading-wraper explor_postions">
             <!-- <h1>Explore</h1> -->
             <div class="explore-filter">
                 <div class="country-filter">
@@ -108,38 +204,14 @@
         <div class="globe">
             <div #globeContainer></div>
         </div>
-        <div class="recipies-wrapper card-wihtout-header-white" *ngIf="isSelectedCountry">
-            <ul>
-                <li class="recipies-heading">
-                    <div class="count ml-3">
-                        <span>{{recipesList.length}}</span>{{'student.explore-lessons.recipes'| translate }}
-                        <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" [checked] ="filterByGrade" (change)="filterLessonsByGrade($event)" >
-                        <label class="custom-control-label" for="">{{'student.explore-lessons.filter-by-student-grade'|translate}}</label>     
-                    </div> 
-                    </div>
-                </li>
-                <div class="recipies-lists">
-                    <li *ngFor="let item of recipesList" (click)="open(startModal,item)">
-                        <div class="image-wrapper">
-                            <img src="{{item.image}}" alt="" class="img-fluid" />
-                        </div>
-                        <div class="recipes-info ml-3">
-                            <p class="recipes mb-2">{{item.menu  | uppercase}}</p>
-                            <p class="duration">{{'student.assigned-lessons.duration'| translate}} {{item.duration}} {{'student.assigned-lessons.mins-label'|
-                                translate }} </p>
-                        </div>
-                    </li>
-                    <li *ngIf="recipesList && recipesList.length === 0">
-                        <div class="ml-3">
-                            <span>{{'table-component.no-record'| translate}}</span>
-                        </div>
-                    </li>
-                </div>
-            </ul>
-        </div>
     </div>
+
 </div>
+
+<ng-template #recipeDetailModal let-modal>
+    <app-recipe-view-card [data]="recipeDetails" [modal]="modal"></app-recipe-view-card>
+</ng-template>
+
 <ng-template #startModal let-modal>
     <div class="modal-header start-assignment-header">
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">

@@ -1,4 +1,4 @@
-<div class="container">
+  <div class="container">
     <div class="row dashboard-head-info">
         <div class="col-md-12">
             <h4 *ngIf="currentUser" class="user-name">Hi {{ currentUser }}!</h4>
@@ -19,8 +19,8 @@
               </div>
           </div>
       </div>
-       <div class="col-md-4">
-             <div class="data-card card">
+      <div class="col-md-4">
+            <div class="data-card card">
                 <div class="data-wrapper">
                     <div class="logo"><img src="./assets/images/total-teacher.svg" class="img-fluid" alt=""></div>
                     <div class="count"><h2>{{teachersCount}}</h2></div>
@@ -33,7 +33,7 @@
                 </div> 
             </div>
         </div>
-       
+      
         <div class="col-md-4">
             <div class="data-card card">
                 <div class="data-wrapper">
@@ -78,7 +78,7 @@
                       </g>
                   </svg>
               </div>
-                               <ul class="chart-info">
+                              <ul class="chart-info">
                   <li>
                       <span class="chart-indicator blue"></span>
                       <span class="chart-title">{{'school.class-performance-report.CCSS-MATH-label' | translate}}</span>
@@ -154,7 +154,7 @@
                     <span class="chart-count red">{{growthData?.ncss}}%</span>
                 </li>
             </ul>
-           
+          
               <!-- <div class="view-repots">
                   <a>View Full Report <fa-icon [icon]="NextArrow"></fa-icon></a>
               </div> -->
@@ -165,7 +165,7 @@
                 <h3 class="chart-title" [translate]="'district.dashboard.time-spent'"></h3>
                 <div class="chart donut-chart">
                   <svg viewBox='0 0 32 32'>
-  
+
                     <g stroke-width='10'>
                         <circle cx='16' cy='16' r='16' class="circle1"
                             [attr.stroke-dasharray]="donutChart[0].strokeDasharray"
@@ -207,9 +207,9 @@
             </div>
         </div>
     </div>
-</div>
+  </div>
 
-<ng-template #createClass let-modal>
+  <ng-template #createClass let-modal>
   <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
     <img src="./assets/images/close.png" alt="" class="img-fluid" />
   </button>
@@ -296,7 +296,7 @@
       </form>
     </div>
   </div>
-</ng-template>
+  </ng-template>
   <ng-template #proceedMembershipClassModal let-modal>
     <button type="button" class="close" aria-label="Close" (click)="closePopup()">
       <img src="./assets/images/close.png" alt="" class="img-fluid" />

@@ -150,7 +150,7 @@
       },
 
 
-      
+
       "agent-component": {
         "info-title": "Agent Information",
         "agent-profile-title": "Update Agent Profile",
@@ -204,7 +204,7 @@
         "dataPrivacyShowContactInformationStudent": "Show contact information to students"
       }
     },
-    
+
     "district-schools": {
       "id": "ID",
       "active-schools": "active schools",
@@ -649,6 +649,7 @@
       "learning-objective": "Learning Objective",
       "equipments": "Equipments",
       "top-rated": "Top Rated",
+      "suggested-for-you": "Suggested For You",
       "grades": "Grades",
       "assignment-title": {
         "assignment-title-field": "Assignment Title",
@@ -895,14 +896,16 @@
           "hands-with": "Hands With",
           "soap": "Soap",
           "ingredients-and-tools-sign": "Ingredients & Tools",
+          "tools-sign": "Tools",
           "ingredients": "Ingredients",
+          "tools": "Tools",
           "sensory-exercise" : "Sensory Exercise",
           "for-recipe": "For Recipe",
           "your-tools-and": "Your Tools And",
           "big-chefs-tools": "Big Chef’s Tools",
           "follow": "Follow",
           "steps-and-sign": "Steps &",
-          "cooking": "Concinando",
+          "cooking": "cooking",
           "cooking-preparation": "Cooking Preparation",
           "cooking-technique": "Cooking Technique",
           "cooking-steps": "Cooking Steps",
@@ -937,7 +940,8 @@
           "six-label": "6",
           "seven-label": "7",
           "eight-label": "8",
-          "nine-label": "9"
+          "nine-label": "9",
+          "tenth-label": "10"
         },
         "let-start-text": "Now we know about today's recipe,let's get cooking!",
         "yes-iam-ready": "Yes, I am ready!",
@@ -957,9 +961,9 @@
         "reference": "Reference",
         "view-measurement-sheet": "View US measurement reference sheet",
         "guess-the-flag": "Guess The Flag",
-        "flag-question": "Do you know which of this flags belongs to",
+        "flag-question": "Do you know which of these flags belongs to",
         "rating-text": "Overall, how would you rate {{ title }} recipe?",
-        "no-stamps": "There are no any new stamps.",
+        "no-stamps": "there are no new stamps.",
         "select-to-earn-stamps": "Please select to earn more stamps.",
         "congratulations-label": "Congratulations !",
         "you-have-earned-these": "You have earned these stamps.",

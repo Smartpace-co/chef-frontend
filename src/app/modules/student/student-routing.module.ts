@@ -67,6 +67,8 @@ import { OrderIngredientsComponent } from './components/order-ingredients/order-
 import { CountryImageComponent } from '@modules/lesson-steps/stories/country-image/country-image.component';
 import { ChefIntroductionComponent } from '@modules/lesson-steps/stories/chef-introduction/chef-introduction.component';
 import { ReferenceComponent } from '@modules/lesson-steps/stories/reference/reference.component';
+import { ToolListComponent } from '@modules/lesson-steps/stories/tool-list/tool-list.component';
+import { ToolComponent } from '@modules/lesson-steps/stories/tool/tool.component';
 
 
 const routes: Routes = [
@@ -193,6 +195,16 @@ const routes: Routes = [
       {
         path: 'ingredient/:id',
         component: IngredientComponent,
+        canActivate: [StudentAuthGuard]
+      },
+      {
+        path: 'tool-list',
+        component: ToolListComponent,
+        canActivate: [StudentAuthGuard]
+      },
+      {
+        path: 'tool/:id',
+        component: ToolComponent,
         canActivate: [StudentAuthGuard]
       },
       {

@@ -1,4 +1,4 @@
-<div class="container">
+  <div class="container">
     <div class="row dashboard-head-info">
         <div class="col-md-12">
             <h4 *ngIf="currentUser" class="user-name">Hi {{ currentUser }}.</h4>
@@ -77,7 +77,7 @@
                     </g>
                 </svg>
             </div>
-                             <ul class="chart-info">
+                            <ul class="chart-info">
                 <li>
                     <span class="chart-indicator blue"></span>
                     <span class="chart-title">{{'school.class-performance-report.CCSS-MATH-label' | translate}}</span>
@@ -153,7 +153,7 @@
                   <span class="chart-count red">{{growthData?.ncss}}%</span>
               </li>
           </ul>
-         
+        
             <!-- <div class="view-repots">
                 <a>View Full Report <fa-icon [icon]="NextArrow"></fa-icon></a>
             </div> -->
@@ -206,9 +206,9 @@
           </div>
       </div>
   </div>
-</div>
+  </div>
 
-<ng-template #createClass let-modal>
+  <ng-template #createClass let-modal>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <img src="./assets/images/close.png" alt="" class="img-fluid" />
     </button>

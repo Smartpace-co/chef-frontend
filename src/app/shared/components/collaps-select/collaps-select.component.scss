@@ -1,0 +1,51 @@
+@import "../../../../assets/styles/helpers/variables";
+@import "../../../../assets/styles/helpers/mixins";
+
+.filter-title {
+  margin-bottom: 2.5rem;
+
+  fa-icon {
+    color: $secondary;
+  }
+}
+
+.filter-category {
+  margin-bottom: 2rem;
+
+  .category-item {
+    color: $secondary;
+    font-weight: 700;
+    position: relative;
+    cursor: pointer;
+
+    fa-icon {
+      position: absolute;
+      right: 0;
+      color: $white;
+    }
+
+    &[aria-expanded='true'] {
+      fa-icon {
+        transform: rotate(-180deg);
+      }
+    }
+  }
+
+  .checklist {
+    margin: 2rem 0;
+
+  }
+
+}
+
+label {
+  font-weight: 700;
+}
+
+.checkList-search {
+  margin-top: 10px;
+  width: 100%;
+  font-size: 16px;
+  border-radius: 10px;
+  padding: 4px 10px;
+}

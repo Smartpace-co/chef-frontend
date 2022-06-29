@@ -42,7 +42,7 @@ export class ClassesService {
   getSubjectList(): Observable<any> {
     return this.http.get<any[]>(`${API_CMS_ADMIN}/subject?filters[root]=[{"f":"status","v":true}]`);
   }
-
+  
   getClassList(id) {
     return this.http.get<any[]>(`${API_USERS_URL}/class?teacherId=${id}`);
   }

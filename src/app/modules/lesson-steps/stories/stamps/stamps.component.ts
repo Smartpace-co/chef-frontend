@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ToasterService } from '@appcore/services/toaster.service';
 import { StudentService } from '@modules/student/services/student.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { AuthService } from '@modules/auth/services/auth.service';
+
 @Component({
   selector: 'app-stamps',
   templateUrl: './stamps.component.html',
@@ -22,9 +22,8 @@ export class StampsComponent implements OnInit {
   assignmentId;
   // loadItems = false;
   currentStamp;
-  constructor(private router: Router, private modalService: NgbModal, private toast: ToasterService,private studentService: StudentService,private authService: AuthService,) {
-    this.authService.setuserlang();
-   }
+  constructor(private router: Router, private modalService: NgbModal, private toast: ToasterService,
+    private studentService: StudentService) { }
 
   ngOnInit(): void {
     this.lesson = localStorage.getItem('lessonType');
