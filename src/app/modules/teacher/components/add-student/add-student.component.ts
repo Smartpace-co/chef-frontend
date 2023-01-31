@@ -622,7 +622,6 @@ validateUserName(control: AbstractControl): any {
     this.SchoolTitle = event.menu;
     this.AddStudent.get('schoolId').setValue(event.id);
     this.getClassListBySchool(event.id);
-    // this.getClassList();
   }
   onSelectClass(item) {
     this.selectedValue.push(item);

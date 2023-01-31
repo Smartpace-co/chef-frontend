@@ -1,19 +1,20 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CustomRegex } from '@appcore/validators/custom-regex';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '@modules/auth/services/auth.service';
 import { environment } from 'src/environments/environment';
 import { ToasterService } from '@appcore/services/toaster.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { StudentService } from '@modules/student/services/student.service';
+import { getNavigateToByRole } from '@modules/auth/services/utils';
 declare var Stripe;
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, AfterViewInit {
   @ViewChild('paymentModal') paymentMdl: ElementRef;
   loginForm: FormGroup;
   guidForm: FormGroup;
@@ -63,9 +64,42 @@ export class LoginComponent implements OnInit {
       commentAndNotes: new FormControl('', [Validators.required]),
     });
   }
+  
+  ngAfterViewInit(): void {
+    this.handleShowPaymentCleverUser();
+  }
 
   get formControl() {
     return this.loginForm.controls;
+  }
+
+  handleShowPaymentCleverUser(){
+
+    const show = localStorage.getItem('show-payment-request-from-redirect');
+    if(show && show === '1'){
+      // in this case, dataUser stored in sessionStorage
+      const dataStr = sessionStorage.getItem('currentUser');
+      const user = JSON.parse(dataStr);
+      console.log("user: ", user);
+      this.showPaymentRequest(user);
+      localStorage.removeItem('show-payment-request-from-redirect'); // No needed
+    }
+  }
+
+  redirectClever(){    
+    const uri = encodeURIComponent(environment.cleverRedirectURI);
+
+    let link = `https://clever.com/oauth/authorize?response_type=code&redirect_uri=${uri}&client_id=${environment.cleverClientId}`;
+  
+    /**
+     * To work local
+     * 1. first, you have to get a "clever_token" by run your code with real link to skip redirect_url by clever
+     * 2. use clever_token in your server
+     */
+    if(!environment.production){
+      link = `http://localhost:3001/oauth/clever`;
+    }
+    window.location.href = link;
   }
 
   /**

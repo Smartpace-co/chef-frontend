@@ -67,7 +67,7 @@
             User Agreement, Privacy Policy, and Cookie Policy.</p>
         </div>
         <div class="agree-signup-btn-wrapper">
-          <app-button classes="btn  btn-primary" [submit]="true" (click)="onSignUp()" [disabled]="isInvalid()">
+          <app-button [loading]="isLoading" classes="btn  btn-primary" [submit]="true" (click)="onSignUp()" [disabled]="isInvalid()">
             <span aria-hidden="true">Agree and
               Sign Up</span>
           </app-button>

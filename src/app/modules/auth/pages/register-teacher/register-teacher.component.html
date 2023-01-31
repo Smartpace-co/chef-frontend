@@ -40,7 +40,7 @@
             <label>First name (*)</label>
             <app-input-field classes="form-control teacherForm" placeholders="Enter Teacher First Name" types=""
               ids="first_name" fieldControl="first_name" [form]="registerTeacherForm"
-              [ngClass]="{ 'is-invalid': formControl.first_name.touched && formControl.first_name.errors }">
+              [ngClass]="{ 'input-readonly': isReadOnly, 'is-invalid': formControl.first_name.touched && formControl.first_name.errors }">
             </app-input-field>
             <div *ngIf="formControl.first_name.errors" class="invalid-feedback">
               <div class="error" *ngIf="formControl.first_name.errors?.required">Teacher first name is required
@@ -54,7 +54,7 @@
             <label>Last name (*)</label>
             <app-input-field classes="form-control teacherForm" placeholders="Enter Teacher Last Name" types=""
               ids="last_name" fieldControl="last_name" [form]="registerTeacherForm"
-              [ngClass]="{ 'is-invalid': formControl.last_name.touched && formControl.last_name.errors }">
+              [ngClass]="{'input-readonly': isReadOnly, 'is-invalid': formControl.last_name.touched && formControl.last_name.errors }">
             </app-input-field>
             <div *ngIf="formControl.last_name.errors" class="invalid-feedback">
               <div class="error" *ngIf="formControl.last_name.errors?.required">Teacher last name is required
@@ -68,7 +68,7 @@
             <label>Email Address (*)</label>
             <app-input-field classes="form-control teacherForm" placeholders="Enter Email Address" types="" ids="email"
               fieldControl="email" [form]="registerTeacherForm"
-              [ngClass]="{ 'is-invalid': formControl.email.touched && formControl.email.errors }">
+              [ngClass]="{'input-readonly': isReadOnly, 'is-invalid': formControl.email.touched && formControl.email.errors }">
             </app-input-field>
             <p class="mb-3 p-0 ml-5">Note: Please use email address for login</p>
             <div *ngIf="formControl.email.errors" class="invalid-feedback">
@@ -164,10 +164,10 @@
         </div>
       </form>
       <div class="form-btn-wrapper">
-        <app-button classes="btn btn-secondary mr-4 btn-form" [submit]="true" (click)="onCancel()">
+        <app-button [loading]="isLoading" classes="btn btn-secondary mr-4 btn-form" [submit]="true" (click)="onCancel()">
           <span aria-hidden="true">Cancel</span>
         </app-button>
-        <app-button classes="btn btn-primary btn-form" [submit]="true" [disabled]="registerTeacherForm.invalid"
+        <app-button [loading]="isLoading" classes="btn btn-primary btn-form" [submit]="true" [disabled]="registerTeacherForm.invalid"
           (click)="onSave()">
           <span aria-hidden="true">Save</span>
         </app-button>

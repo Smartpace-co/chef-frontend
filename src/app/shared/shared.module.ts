@@ -31,7 +31,7 @@ import { CheckoutPageComponent } from './components/checkout-page/checkout-page.
 import { CollapsSelectComponent } from './components/collaps-select/collaps-select.component';
 import { FilterByPipe } from './pipes/filter-by.pipe';
 import { RecipeViewCardComponent } from './components/recipe-view-card/recipe-view-card.component';
-
+import { SplashScreenComponent } from './components/splash-screen/splash-screen.component';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient);
@@ -58,6 +58,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     CollapsSelectComponent,
     FilterByPipe,
     RecipeViewCardComponent,
+    SplashScreenComponent,
 
   ],
 
@@ -103,7 +104,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     CollapsSelectComponent,
     FilterByPipe,
     NgMultiSelectDropDownModule,
-    RecipeViewCardComponent
+    RecipeViewCardComponent,
+    SplashScreenComponent
   ],
   providers: [SortByPipe,
   ]

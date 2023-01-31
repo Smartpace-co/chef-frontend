@@ -19,8 +19,13 @@ import { StudentSignUpComponent } from './pages/student-sign-up/student-sign-up.
 import { SchoolAdminComponent } from './pages/register-school/register-school-admin.component';
 import { RegisterTeacherComponent } from './pages/register-teacher/register-teacher.component';
 import { GeneratePasswordComponent } from './pages/generate-password/generate-password.component';
+import { CleverRedirectComponent } from './pages/clever-redirect/clever-redirect.component';
 
 const routes: Routes = [
+  {
+    path: 'clever-redirect',
+    component: CleverRedirectComponent
+  },
   {
     path: '',
     component: AuthComponent,

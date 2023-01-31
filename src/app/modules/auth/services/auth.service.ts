@@ -7,12 +7,14 @@ import { User } from '../../../models/user';
 import * as _ from 'lodash';
 import { UtilityService } from '@appcore/services/utility.service';
 import { environment } from '@environments/environment';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { Console } from 'console';
 import { IdleTimeoutManager } from "idle-timer-manager";
 import { Router } from '@angular/router';
 import { ToasterService } from '@appcore/services/toaster.service';
+import { handleRoleImages } from './utils';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 const API_USERS_URL = `${environment?.apiBaseUrl}`;
 const CMS_API_URL = `${environment?.cmsApiBaseUrl}`;
@@ -23,18 +25,35 @@ export class AuthService {
   private languageSubject: BehaviorSubject<any>;
   public currentUser: Observable<User>;
   public activateUserData: any;
+  private rolesMasterSubject: BehaviorSubject<any>;
+  private cleverSinupDataTemp: any;
   sessionToken: string;
   sessionData: any;
   timer;
+
   constructor(private http: HttpClient, private router: Router, private utilityService: UtilityService,
-    private toast: ToasterService, private translate: TranslateService) {
+    private toast: ToasterService, private translate: TranslateService, private modalService: NgbModal) {
+
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(window.sessionStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
     this.languageSubject = new BehaviorSubject<User>(JSON.parse(window.sessionStorage.getItem('currentUser'))?.language?.key || 'en');
+    this.rolesMasterSubject = new BehaviorSubject<any>([]);
+  }
+
+  public setCleverSinupDataTemp(data):void {
+    this.cleverSinupDataTemp = data;
+  }
+
+  public getCleverSinupDataTemp():any {
+    return this.cleverSinupDataTemp;
   }
 
   public get currentUserValue(): User {
     return this.currentUserSubject.value;
+  }
+
+  syncUserWithClever(userId: number, type: string): Observable<any> {
+    return this.http.post(`${API_USERS_URL}/clever/user/sync-data`, { userId, type });
   }
 
   getLanguage(): Observable<any> {
@@ -43,6 +62,52 @@ export class AuthService {
   setLanguage(lang: any) {
     this.languageSubject.next(lang);
   }
+
+  setUserData(data: any) {
+    window.sessionStorage.setItem('currentUser', JSON.stringify(data));
+    if (data.language) {
+      window.sessionStorage.setItem('userlanguage', data.language.key);
+      this.languageSubject.next(data.language.key)
+      this.setuserlang();
+    }
+    else{
+      window.sessionStorage.setItem('userlanguage', 'en');
+      this.setuserlang();
+    }
+    this.currentUserSubject.next(data);
+  }
+
+  setTimerSession(timeInSec: number) {
+    this.timer = new IdleTimeoutManager({
+      timeout: timeInSec, 
+      onExpired: () => {
+        this.logoutUser().subscribe(
+          (data) => {
+            this.toast.showToast('Your session has expired!', '', 'error');
+          },
+          (error) => {
+            console.log(error);
+            this.toast.showToast(error.error.message, '', 'error');
+          }
+        );
+      }
+    });
+  }
+  
+  cleverTryLogin(rediectSecret: string){
+    return this.http.post(`${API_USERS_URL}/clever/login`, {rediectSecret})
+    .pipe(map((response)=> {
+      return response;
+    }))
+  }
+
+  cleverLogin(data: any){
+    // set Timer for login
+    this.setTimerSession(2700); // //will expire after 45 min
+    // set Data
+    this.setUserData(data);
+  }
+
   /**
    * User Login => If user logged in with valid payload, save the currentUser into sessionStorage.
    * @param submission
@@ -59,7 +124,7 @@ export class AuthService {
     return this.http.post<User>(url, finalSubmission).pipe(
       map((response: any) => {
         this.timer = new IdleTimeoutManager({
-          timeout: 2700, //will expire after 45 min
+          timeout: 2700, 
           onExpired: () => {
             this.logoutUser().subscribe(
               (data) => {
@@ -162,8 +227,8 @@ export class AuthService {
    *  
    */
   getAllPackageList(packageType: any, token: string, id?: any, customFields?: any, rid?: any): Observable<any> {
-
     let url = id ? `${CMS_API_URL}/subscriptionPackage/${id}` : `${CMS_API_URL}/subscriptionPackage`;
+    console.log("getALlPackagesList: url: ", url);
     var headers_object = new HttpHeaders().set('token', token);
     let params = new HttpParams();
     let packge, role, sts;
@@ -174,8 +239,11 @@ export class AuthService {
     if (rid) {
       role = `{ "f": "packageFor", "v": ${rid} }`;
     }
+
     let validityFilter = `{ "f": "validityTo", "v": ${new Date().getMonth() + 1}, "o": "gte" }`;
+    
     params = params.append('filters[root]', `[${packge},${sts},${role},${validityFilter}]`);
+    
     if (customFields) {
       params = params.append('fields[root]', `["id","price","priceId","packageTitle","description","maxUser","validityFrom","validityTo"]`);
     }
@@ -217,6 +285,37 @@ export class AuthService {
     submission['currentPassword'] = data.current_password;
     submission['newPassword'] = data.new_password;
     return this.http.put<boolean>(`${API_USERS_URL}/changepassword`, submission);
+  }
+
+  /**
+   * To get master roles. we use rolesMasterSubject as Observer
+   * #Note: don't us (getAllMasterRoleDetails), because it related with another secion, refactor later
+   *
+  */
+  loadAllMasterRole(): any {
+    this.http.get<any[]>(`${API_USERS_URL}/masterrole`)
+     .pipe(map((res: any)=> {
+       const data = res ? res.data : [];
+       return handleRoleImages(data);
+     })).subscribe((roles)=> {
+      this.rolesMasterSubject.next(roles);
+     })
+  }
+
+  getRolesMaster(): Observable<any>{
+    return this.rolesMasterSubject.asObservable();
+  }
+
+  getRolesMasterId(type: string): Observable<any>{
+    return this.rolesMasterSubject.asObservable().pipe(map((res: any[])=> {
+      let roleId = '';
+      res.forEach(el=> {
+        if(el.title === type){
+          roleId = el.id;
+        }
+      })
+      return roleId;
+    }));
   }
 
   /**
@@ -286,6 +385,16 @@ export class AuthService {
     }
     const url = `${API_USERS_URL}/teacher`;
     return this.http.post(url, data, { headers: headers_object });
+  }
+
+  public cleverRegisterTeacher(data: any, token: any, userId: any): Observable<any> {
+    if (token) {
+      var headers_object = new HttpHeaders().set('token', token);
+    }
+    const url = `${API_USERS_URL}/clever/teacher/${userId}`;
+    return this.http.put(url, data, { headers: headers_object }).pipe(tap((res)=> {
+      localStorage.removeItem('user-temp');
+    }));
   }
 
   /**

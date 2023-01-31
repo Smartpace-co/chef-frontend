@@ -56,3 +56,96 @@
  .ngx-dropdown-container .ngx-dropdown-list-container {
      min-width: 180px;
  }
+
+
+.btn-disabled {
+   cursor: not-allowed;
+}
+
+.btn-disabled > * {
+   pointer-events: none;
+}
+
+
+////////////// Clever Button Syltes
+.controls-clever {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.controls-clever--singup {
+   margin-bottom: 30px;
+}
+
+.hr-line {
+  position: relative;;
+  height: 1px;
+  width: 100%;
+  background: #ddd;
+  margin: 20px 0;
+}
+
+.hr-line--singup {
+   margin-top: 0;
+}
+
+.hr-line--or {
+  width: 80%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.hr-line--or:after {
+  content: 'OR';
+  width: 40px;
+  height: 20px;
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  background-color: #4c68e3; // min
+  text-align: center;
+
+  @include breakpoint(tabs){
+      background-color: #024093;
+  }
+}
+
+
+.btn__clever {
+  width: 200px;
+  height: 45px;
+  cursor: pointer;
+  border: 0;
+  transition: all 0.4s;
+}
+
+.btn__clever--login {
+   background: url('./assets/images/clever/button-login-light.png');
+   background-position: center;
+   background-size: contain;
+   background-repeat: no-repeat;
+}
+
+.btn__clever--login:hover,
+.btn__clever--login:active {
+   background: url('./assets/images/clever/button-login-dark.png');
+   background-position: center;
+   background-size: contain;
+   background-repeat: no-repeat;
+}
+
+.btn__clever--signup {
+   background: url('./assets/images/clever/button-signup-light.png');
+   background-position: center;
+   background-size: contain;
+   background-repeat: no-repeat;
+}
+
+.btn__clever--signup:hover,
+.btn__clever--signup:active {
+   background: url('./assets/images/clever/button-signup-dark.png');
+   background-position: center;
+   background-size: contain;
+   background-repeat: no-repeat;
+}

@@ -34,6 +34,11 @@
                     </li>
                 </ul>
 
+                <div *ngIf="isLoading" class="indicator-wrap">
+                    <div  class="indicator-sync">
+                        <fa-icon [icon]="SyncIcon"></fa-icon>
+                    </div>
+                </div>
                 <div class="user-dropdown desktop-only">
                     <div class="user-image">
                         <img src="{{teacherDetails?.profile_image}}" alt="" class="img-fluid" />

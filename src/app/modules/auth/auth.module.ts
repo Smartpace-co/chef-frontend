@@ -23,9 +23,10 @@ import { RegisterTeacherComponent } from './pages/register-teacher/register-teac
 import { EndComponent } from './pages/end/end.component';
 import { StudentSignUpComponent } from './pages/student-sign-up/student-sign-up.component';
 import { GeneratePasswordComponent } from './pages/generate-password/generate-password.component';
+import { CleverRedirectComponent } from './pages/clever-redirect/clever-redirect.component';
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent, ForgotPasswordComponent, RegisterAdminComponent, VerifyEmailComponent, AuthComponent, AccessCodeComponent, StudentFreeAccessComponent, VerifiedComponent, SignUpComponent, ResetPasswordComponent, ResetPasswordLinkComponent, PasswordChangedComponent, StudentMembershipComponent,SchoolAdminComponent, RegisterTeacherComponent,EndComponent, StudentSignUpComponent, GeneratePasswordComponent],
+  declarations: [LoginComponent, RegisterComponent, ForgotPasswordComponent, RegisterAdminComponent, VerifyEmailComponent, AuthComponent, AccessCodeComponent, StudentFreeAccessComponent, VerifiedComponent, SignUpComponent, ResetPasswordComponent, ResetPasswordLinkComponent, PasswordChangedComponent, StudentMembershipComponent,SchoolAdminComponent, RegisterTeacherComponent,EndComponent, StudentSignUpComponent, GeneratePasswordComponent, CleverRedirectComponent],
   imports: [CommonModule, AuthRoutingModule, SharedModule, FormsModule, ScaffoldModule]
 })
 export class AuthModule {}

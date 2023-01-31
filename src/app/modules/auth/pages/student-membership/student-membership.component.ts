@@ -50,6 +50,8 @@ export class StudentMembershipComponent implements OnInit {
   isLoad = true;
   currentStudent;
   selectedPlan;
+  isLoading: boolean = false;
+
   constructor(private utilityService:UtilityService,private toast: ToasterService, private authService: AuthService, private studentService: StudentService, private modalService: NgbModal, private router: Router) { }
 
   ngOnInit(): void {
@@ -139,6 +141,7 @@ export class StudentMembershipComponent implements OnInit {
     }
   }
   onSignUp(): void {
+    this.isLoading = true;
     let temp = [];
     let tempAllergens = [];
     let submission = {};
@@ -166,33 +169,62 @@ export class StudentMembershipComponent implements OnInit {
       submission['customDistrictName'] = this.currentStudent.district;
       submission['packageId'] = this.selectedPlan.id;
       submission['roleId'] = this.currentStudent.roleId;
-      this.studentService.studentRegister(submission, this.currentStudent.token).subscribe(
-        (dt) => {
-          if (dt) {
-            let stripeData = {
-              subscribeId: dt.data.subscribeId,
-              customerId: dt.data.customerId,
-              priceId: this.selectedPlan.priceId
-            }
+      /**
+       * Clever Signup
+       */
+      if(this.currentStudent.isUserClever){
+        submission['priceId'] = this.selectedPlan.priceId;
+        submission['userName'] = 'tempUserName';
 
-            this.authService.createStripePaymentSession(stripeData, this.currentStudent.token).subscribe((dt) => {
-              setTimeout(() => {
-                this.toast.showToast('Yay! You just successfully signed up for Chef Koochooloo! Check your email for next steps.', '', 'success');
-                this.router.navigate(['/auth/login']);
-              }, 1000);
-              /*   this.stripe.redirectToCheckout({
-                sessionId: dt.data,
-              }) */
-            })
-            // this.toast.showToast('Student registered successfully', '', 'success');
-            // this.router.navigate(['/']);
-          }
-        },
-        (error) => {
-          console.log(error);
-          this.toast.showToast(error.error.message, '', 'error');
+        try{
+          this.studentService.cleverRegisterStudent(submission, this.currentStudent.token , this.currentStudent.id).subscribe(
+            (dt) =>{
+              this.isLoading = false;
+              this.authService.setCleverSinupDataTemp(dt.data);
+              this.router.navigate(['auth/clever-redirect'], { queryParams: { 'clever-secret': 'signup' } })
+            },
+            (error)=> {
+              console.log(error)
+              this.isLoading = false;
+              this.toast.showToast(error.error.message, '', 'error');
+            }
+          )
+
+        } catch(err){
+          console.log(err)
+          this.isLoading = false;
+          this.toast.showToast(err.error.message, '', 'error');
+
         }
-      );
+      }else {
+        this.studentService.studentRegister(submission, this.currentStudent.token).subscribe(
+          (dt) => {
+            if (dt) {
+              let stripeData = {
+                subscribeId: dt.data.subscribeId,
+                customerId: dt.data.customerId,
+                priceId: this.selectedPlan.priceId
+              }
+  
+              this.authService.createStripePaymentSession(stripeData, this.currentStudent.token).subscribe((dt) => {
+                setTimeout(() => {
+                  this.toast.showToast('Yay! You just successfully signed up for Chef Koochooloo! Check your email for next steps.', '', 'success');
+                  this.router.navigate(['/auth/login']);
+                }, 1000);
+                /*   this.stripe.redirectToCheckout({
+                  sessionId: dt.data,
+                }) */
+              })
+              // this.toast.showToast('Student registered successfully', '', 'success');
+              // this.router.navigate(['/']);
+            }
+          },
+          (error) => {
+            console.log(error);
+            this.toast.showToast(error.error.message, '', 'error');
+          }
+        );
+      }
     } else {
       this.toast.showToast('Please enter information for required fields', '', 'error');
     }

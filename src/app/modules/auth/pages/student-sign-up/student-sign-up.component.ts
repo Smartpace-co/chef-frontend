@@ -11,6 +11,7 @@ import * as _ from 'lodash';
 import { UtilityService } from '@appcore/services/utility.service';
 import { AuthService } from '@modules/auth/services/auth.service';
 import { DistrictService } from '@modules/district/services/district.service';
+import { BehaviorSubject } from 'rxjs';
 @Component({
   selector: 'app-student-sign-up',
   templateUrl: './student-sign-up.component.html',
@@ -100,11 +101,19 @@ export class StudentSignUpComponent implements OnInit {
   token: any;
   signInStudent: FormGroup;
   public assetPath = environment.assetUrl;
+  gradeListSubject: BehaviorSubject<any>;
+  isGradeSelected: boolean = false;
+  isUserClever: boolean = false;
+  studentId!: number;
+
   ngOnInit(): void {
+    this.gradeListSubject = new BehaviorSubject<any>([]);
     if (this.isParams) {
       this.roleID = parseInt(this.queryParamObj.role_id);
     } else {
-      this.roleID = parseInt(localStorage.getItem('rolID'));
+      this.authService.getRolesMasterId('Student').subscribe(res=> {
+        this.roleID = res; 
+      })
     }
     this.getToken();
     this.signInStudent = new FormGroup({
@@ -125,6 +134,54 @@ export class StudentSignUpComponent implements OnInit {
       relationship: new FormControl('', [Validators.required]),
       medicalCondition: new FormControl('', [])
     });
+
+    this.checkStudentClever();
+
+    
+  }
+
+
+  checkStudentClever(){
+    const user = localStorage.getItem('user-temp') as any;
+    if(user ){
+      const userData = user !== 'undefined' ? JSON.parse(user) : {};
+      if(!userData.is_completed){
+        this.setInitValues(userData);
+        this.isUserClever = true;
+        this.studentId = userData.id;
+        this.signInStudent.get('userName').setValidators(null);
+      }
+    }
+  }
+
+  setInitValues(data: any): void {  
+
+    this.signInStudent.get('firstName').setValue(data['first_name']);
+    this.signInStudent.get('lastName').setValue(data['last_name']);
+    // handle grade
+
+    this.gradeListSubject.subscribe((list: any[])=> {
+      if(list.length){
+        const cleverGrade = data['grade'];
+        const isNum = !isNaN(cleverGrade);
+
+        const currGrade = list.find((g)=> {
+          if(isNum){
+            return g.id === Number(cleverGrade)
+          }else {
+            return g.menu === cleverGrade;
+          }
+        })
+
+        if(currGrade){
+          // Assign value based on list
+          this.signInStudent.get('grade').setValue(currGrade);
+          this.gradeTitle = currGrade.menu;
+          this.isGradeSelected = true;
+        }
+      }
+
+    })
   }
 
   getToken(): void {
@@ -276,6 +333,7 @@ export class StudentSignUpComponent implements OnInit {
             }
             return obj;
           });
+          this.gradeListSubject.next(this.gradeList);
         }
       },
       (error) => {
@@ -395,6 +453,7 @@ export class StudentSignUpComponent implements OnInit {
   }
 
   gradeChange(event) {
+    console.log("grade: ", event);
     this.gradeTitle = event.menu;
     this.signInStudent.get('grade').setValue(event);
   }
@@ -472,8 +531,14 @@ export class StudentSignUpComponent implements OnInit {
       dataToSave['isValidForm'] = !this.signInStudent.invalid;
       dataToSave['roleId'] = this.roleID;
       dataToSave['packageId'] = this.queryParamObj && this.queryParamObj.packageId ? parseInt(this.queryParamObj.packageId) : undefined;
-      dataToSave['queryParamUrl'] = this.actRoute.snapshot && this.actRoute.snapshot.queryParams ? this.actRoute.snapshot.queryParams : undefined,
-        this.studentService.setFormData(dataToSave);
+      dataToSave['queryParamUrl'] = this.actRoute.snapshot && this.actRoute.snapshot.queryParams ? this.actRoute.snapshot.queryParams : undefined;
+      
+      if(this.isUserClever){
+        dataToSave['isUserClever'] = true;
+        dataToSave['id'] = this.studentId;
+      }
+      
+      this.studentService.setFormData(dataToSave);
       this.router.navigate(['/auth/student-membership']);
     }
   }

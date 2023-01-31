@@ -1,17 +1,18 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-drop-down',
   templateUrl: './drop-down.component.html',
   styleUrls: []
 })
-export class DropDownComponent implements OnInit {
+export class DropDownComponent implements OnInit, OnChanges {
   @Input() dropDownButtonName;
   @Input() dropDownItemList;
   @Input() dropDownIcon;
   @Input() dropDownMenuIcon;
   @Input() disableDropDownItem;
   @Input() isSetting;
+  @Input() selected;
   @Output() registerDropdownValueChange = new EventEmitter();
   disableGray: boolean;
 
@@ -25,6 +26,13 @@ export class DropDownComponent implements OnInit {
     }
     else{
       this.disableGray=false
+    }
+
+  }
+  
+  ngOnChanges(): void { 
+    if(this.selected){
+      this.disableGray = false;
     }
   }
 

@@ -666,5 +666,9 @@ export class TeacherService {
   archiveAssignmentLesson(id: number): Observable<any> {
     return this.http.put(`${API_USERS_URL}/assignment/archieve/${id}`, '');
   }
+  
+  syncClassesByTeacher(userId: number, email: string): Observable<any> {
+    return this.http.post(`${API_USERS_URL}/clever/teacher/sync-data`, { userId, email });
+  }
 
 }

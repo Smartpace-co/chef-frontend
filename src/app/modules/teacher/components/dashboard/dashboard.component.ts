@@ -48,8 +48,15 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.subscription = this.teacherService.getNavChangeEmitter()
-      .subscribe(item => this.selectedNavItem(item));
+    this.subscription = this.teacherService.getNavChangeEmitter().subscribe(
+      (item) => {
+        return this.selectedNavItem(item);
+      },
+      (error) => {
+        console.log('error Subs: ', error);
+      }
+    );
+
     this.classId = this.teacherService.getSelectedClassId();
     this.getNeedHelpStudent(this.classId);
     this.authService.setuserlang();

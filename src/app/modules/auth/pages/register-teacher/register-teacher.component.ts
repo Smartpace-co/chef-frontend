@@ -10,6 +10,15 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as _ from 'lodash';
 declare var Stripe;
 
+interface TeacherCleverTypes {
+  id?: number;
+  is_completed?: boolean;
+  email?: string;
+  first_name?: string;
+  last_name?: string;
+  cleverRole?: string;
+}
+
 @Component({
   selector: 'app-register-teacher',
   templateUrl: './register-teacher.component.html',
@@ -35,6 +44,10 @@ export class RegisterTeacherComponent implements OnInit {
   schoolList = [];
   stripe: any;
   months: any;
+  teacherCleverData: TeacherCleverTypes | null = null;
+  checkEmail: boolean = true;
+  isLoading: boolean = false;
+
   constructor(
     private authService: AuthService,
     private toast: ToasterService,
@@ -51,7 +64,7 @@ export class RegisterTeacherComponent implements OnInit {
         this.queryParamObj = this.authService.queryParamsToJSON(queryString);
         this.isParams = true;
       }
-    }
+    }    
     // this.roleID = this.activatedRoute.snapshot.queryParams && this.activatedRoute.snapshot.queryParams.role_id;
   }
 
@@ -60,9 +73,15 @@ export class RegisterTeacherComponent implements OnInit {
     if (this.isParams) {
       this.roleID = parseInt(this.queryParamObj.role_id);
     } else {
-      this.roleID = parseInt(localStorage.getItem('rolID'));
+      this.authService.getRolesMasterId('Teacher').subscribe(res=> {
+        this.roleID = res;
+        if(res){
+          this.getPackageList();
+        }
+      })
     }
-    this.getPackageList();
+
+
     this.registerTeacherForm = new FormGroup({
       // district_id: new FormControl(""),
       // school_id: new FormControl(""),
@@ -90,7 +109,34 @@ export class RegisterTeacherComponent implements OnInit {
       package: new FormControl("", [Validators.required]),
       status: new FormControl(true, [Validators.required])
     })
+
     this.loadMasters();
+
+    this.checkTeacherClever();    
+  }
+
+  get isReadOnly (){
+    return !!this.teacherCleverData;
+  }
+  
+  setInitValues(data: TeacherCleverTypes): void {    
+    this.registerTeacherForm.get('first_name').setValue(data['first_name']);
+    this.registerTeacherForm.get('last_name').setValue(data['last_name']);
+    this.registerTeacherForm.get('email').setValue(data.email);
+  }
+
+  checkTeacherClever(){
+    const user = localStorage.getItem('user-temp') as any;
+    if(user ){
+      this.checkEmail = false;
+      const userData = user !== 'undefined' ? JSON.parse(user) : {};
+      if(userData.id){
+        this.teacherCleverData = userData;
+        this.setInitValues(this.teacherCleverData);
+      }
+    }else {
+      this.checkEmail = true;
+    }
   }
 
 
@@ -137,11 +183,13 @@ export class RegisterTeacherComponent implements OnInit {
   getPackageList(): void {
     let customFields = true;
     this.packageId = this.queryParamObj && this.queryParamObj.packageId ? parseInt(this.queryParamObj.packageId) : undefined;
+    console.log('getPackageListpackageId; ', this.packageId);
     let isPrivate = this.packageId ? true : false;
     this.authService.getGuestUserToken().subscribe(
       (response) => {
         this.token = response.data.guestToken;
         if (this.token) {
+           // #TODO: this.packageId this undefined it occure a bug
           this.authService.getAllPackageList(isPrivate, this.token, this.packageId, customFields, this.roleID).subscribe(
             (res) => {
               if (res) {
@@ -188,6 +236,8 @@ export class RegisterTeacherComponent implements OnInit {
    *  
    */
   validateEmail(control: AbstractControl): any {
+    if(!this.checkEmail) return true;
+
     let isValid = control.value.match(CustomRegex.emailPattern);
     if (isValid && isValid.input) {
       this.districtService.emailValidator(control.value).subscribe(
@@ -213,7 +263,6 @@ export class RegisterTeacherComponent implements OnInit {
   //     }
   //   }
   // }
-
 
   /**
   * To check valid phone number
@@ -306,10 +355,12 @@ export class RegisterTeacherComponent implements OnInit {
     );
   }
 
+
   /**
    * On submit registration details.
    */
   onSave(): void {
+    this.isLoading = true;
     var token;
     if (this.registerTeacherForm.invalid) {
       return;
@@ -333,33 +384,58 @@ export class RegisterTeacherComponent implements OnInit {
       submission['status'] = false;
       submission['package_id'] = this.registerTeacherForm.value.package.id;
       submission['role_id'] = parseInt(this.roleID);
-      this.authService.registerTeacher(submission, this.token).subscribe(
-        (dt) => {
-          if (dt) {
-            let stripeData = {
-              subscribeId: dt.data.subscribeId,
-              customerId: dt.data.teacher.customerId,
-              priceId: sessionStorage.getItem("priceId")
+      
+      if(this.teacherCleverData?.id && !this.teacherCleverData?.is_completed){
+
+        submission['priceId'] = sessionStorage.getItem("priceId");
+        const userId = this.teacherCleverData?.id;
+
+        try{
+          this.authService.cleverRegisterTeacher(submission, this.token, userId ).subscribe(
+            (dt)=> {
+              this.isLoading = false;
+              this.authService.setCleverSinupDataTemp(dt.data);
+              this.router.navigate(['auth/clever-redirect'], { queryParams: { 'clever-secret': 'signup' } })
             }
-            this.authService.createStripePaymentSession(stripeData, this.token).subscribe((dt) => {
-              sessionStorage.removeItem("priceId")
-              setTimeout(() => {
-                this.toast.showToast('Yay! You just successfully signed up for Chef Koochooloo! Check your email for next steps.', '', 'success');
-                this.router.navigate(['/auth/login']);
-              }, 1000);
-             /*  this.stripe.redirectToCheckout({
-                sessionId: dt.data,
-              }) */
-            })
-            // this.toast.showToast('We sent an email with a verification link to ' + this.registerTeacherForm.value.email, '', 'success');
-            // this.router.navigate(['/auth/sign-up']);
-          }
-        },
-        (error) => {
-          console.log(error);
-          this.toast.showToast(error.error.message, '', 'error');
+          )
+        }catch(err){
+          this.isLoading = false;
+          this.toast.showToast(err.error.message, '', 'error');
         }
-      );
+
+
+      }else {
+        this.authService.registerTeacher(submission, this.token).subscribe(
+          (dt) => {
+            if (dt) {
+  
+              let stripeData = {
+                subscribeId: dt.data.subscribeId, // 
+                customerId: dt.data.teacher.customerId,
+                priceId: sessionStorage.getItem("priceId")
+              }
+  
+              this.authService.createStripePaymentSession(stripeData, this.token).subscribe((dt) => {
+                sessionStorage.removeItem("priceId")
+                setTimeout(() => {
+                  this.toast.showToast('Yay! You just successfully signed up for Chef Koochooloo! Check your email for next steps.', '', 'success');
+                  this.router.navigate(['/auth/login']);
+                }, 1000);
+               /*  this.stripe.redirectToCheckout({
+                  sessionId: dt.data,
+                }) */
+              })
+              // this.toast.showToast('We sent an email with a verification link to ' + this.registerTeacherForm.value.email, '', 'success');
+              // this.router.navigate(['/auth/sign-up']);
+            }
+          },
+          (error) => {
+            console.log(error);
+            this.toast.showToast(error.error.message, '', 'error');
+          }
+        );
+      }
+
     }
   }
 

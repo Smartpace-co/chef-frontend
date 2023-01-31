@@ -439,3 +439,37 @@ header{
         }
     }
 }
+
+.indicator-wrap {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.indicator-sync {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    background-color: #188038;
+    border: 2px solid transparent;
+
+    border-left-color: #fed600;
+    border-right-color: #fed600;
+    
+    border-top-color: red;
+    border-bottom-color: red;
+}
+
+.indicator-sync .ng-fa-icon {
+    animation: SyncSpin 2s linear infinite;
+ }
+ 
+ @keyframes SyncSpin {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(360deg); }
+    100% { transform: rotate(-360deg); }
+  }

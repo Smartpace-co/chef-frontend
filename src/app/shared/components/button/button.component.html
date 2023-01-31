@@ -3,6 +3,7 @@
   [class]="classes"
   [type]="type"
   [disabled]="disabled || loading"
+  [ngClass]="{'btn-disabled': loading}"
 >
   <ng-container>
     <ng-content></ng-content>

@@ -25,7 +25,8 @@ import {
   faUsers,
   faTimes,
   faSearch,
-  faCheck
+  faCheck,
+  faSync
 } from '@fortawesome/free-solid-svg-icons';
 declare var $: any;
 import { UtilityService } from '@appcore/services/utility.service';
@@ -72,6 +73,7 @@ export class TeacherHeaderComponent implements OnInit, OnDestroy {
   membershipUserRoleId: any;
   closeModal1;
   id:any
+  SyncIcon = faSync;
 
   // stickyNote = faStickyNote;
   // eye = faEye;
@@ -125,6 +127,9 @@ export class TeacherHeaderComponent implements OnInit, OnDestroy {
   teacherDetails: any;
   teacherData:any;
   PerformanceList = [];
+  isLoading: boolean = false;
+  userId: number;
+  isCleverUser: boolean = false;
 
   constructor(
     private router: Router,
@@ -144,13 +149,34 @@ export class TeacherHeaderComponent implements OnInit, OnDestroy {
   }
   ngOnInit(): void {
     this.localData = JSON.parse(window.sessionStorage.getItem('currentUser'));
+    this.userId =this.localData.id;
+    this.isCleverUser = this.localData.from_clever || false;
     this.teacherService.getProfileObs().subscribe(profile => this.teacherDetails = profile);
     // if (this.localData.language) this.teacherService.setUserLanguage(this.localData.language.key);
     this.authService.getLanguage().subscribe((lang: any) => {
       if (lang) {
-        this.SettingTitle = this.translate.getStringFromKey('teacher.dashboard.more-action'),
-          this.PerformanceTitle = this.translate.getStringFromKey('teacher.dashboard.performance'),
-          this.GradeTitle = this.translate.getStringFromKey('school.class.add-class.grade-field-placeholder'),
+        this.SettingTitle = this.translate.getStringFromKey('teacher.dashboard.more-action');
+          this.PerformanceTitle = this.translate.getStringFromKey('teacher.dashboard.performance');
+          this.GradeTitle = this.translate.getStringFromKey('school.class.add-class.grade-field-placeholder');
+          
+          const signoutObj = {
+            id: '9',
+            menu: this.translate.getStringFromKey('teacher.profile-menu.signout'),
+            value: 'signout',
+            link: '',
+            icon: faSignOutAlt,
+            isSubscriptionPause: false
+          };
+
+          const cleverSync = {
+            id: '9',
+            menu: 'Sync Class with Clever',
+            value: 'sync',
+            link: '',
+            icon: faSync,
+            isSubscriptionPause: false
+          }
+          
           this.ProfileMenuList = [
             {
               id: '1',
@@ -214,16 +240,16 @@ export class TeacherHeaderComponent implements OnInit, OnDestroy {
               link: 'teacher/get-help',
               icon: faLifeRing,
               isSubscriptionPause: false
-            },
-            {
-              id: '9',
-              menu: this.translate.getStringFromKey('teacher.profile-menu.signout'),
-              value: 'signout',
-              link: '',
-              icon: faSignOutAlt,
-              isSubscriptionPause: false
-            }
+            } 
           ];
+
+
+          if(this.localData.from_clever){
+            const newEl = [cleverSync, {...signoutObj, id: '10'}]
+            this.ProfileMenuList = this.ProfileMenuList.concat(newEl)
+          }else {
+            this.ProfileMenuList.push(signoutObj)
+          }
 
         this.PerformanceList = [
           {
@@ -305,6 +331,23 @@ export class TeacherHeaderComponent implements OnInit, OnDestroy {
     this.getTeacherData();
     this.getGradeList();
     this.getSubjectList();
+
+  }
+
+  syncData(){
+    this.isLoading = true;
+    let email = this.localData.email;
+    this.teacherService.syncClassesByTeacher(this.userId, email).subscribe((res)=> {
+      this.isLoading = false;
+      const newData = {...this.localData, ...res.data}
+      sessionStorage.setItem('currentUser', JSON.stringify(newData));
+      this.toast.showToast(res.message, '', 'success');
+      window.location.reload();
+    },
+    (error)=> {
+      this.isLoading = false;
+      this.toast.showToast(error.error.message, '', 'error');
+    })
 
   }
 
@@ -751,6 +794,8 @@ export class TeacherHeaderComponent implements OnInit, OnDestroy {
       this.router.navigate(['teacher/billing']);
     } else if (event.value === 'membership') {
       this.router.navigate(['teacher/membership-details']);
+    } else if( event.value === 'sync'){
+      this.syncData();
     }
   }
 

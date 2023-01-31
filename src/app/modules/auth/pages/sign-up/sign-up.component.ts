@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToasterService } from '@appcore/services/toaster.service';
 import { AuthService } from '@modules/auth/services/auth.service';
+import { environment } from 'src/environments/environment';
+
 import * as _ from 'lodash';
 
 @Component({
@@ -23,47 +25,37 @@ export class SignUpComponent implements OnInit {
     private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.isLoad = false;
+
     this.getAllRole();
+
+  }
+
+  redirectClever(){    
+    const uri = encodeURIComponent(environment.cleverRedirectURI);
+
+    let link = `https://clever.com/oauth/authorize?response_type=code&redirect_uri=${uri}&client_id=${environment.cleverClientId}`;
+  
+    /**
+     * To work local
+     * 1. first, you have to get a "clever_token" by run your code with real link to skip redirect_url by clever
+     * 2. use clever_token in your server
+     */
+    if(!environment.production){
+      link = `http://localhost:3001/oauth/clever`;
+    }
+    window.location.href = link;
   }
 
   getAllRole(): void {
-    this.authService.getAllMasterRoleDetails().subscribe(
-      (response) => {
-        let mappedData = [];
-        if (response && response.data) {
-          mappedData = _.map(response.data, item => {
-            item.value = item.title;
-            let roleName = item.title.toLowerCase();
-            if (roleName === 'student') {
-              item.img = './assets/images/kevin.png';
-              item.alignment = 'bottom'
-            } else if (roleName === 'teacher') {
-              item.img = './assets/images/teacher-1.png',
-                item.alignment = 'bottom'
-            } else if (roleName === 'school') {
-              item.img = './assets/images/school.png',
-                item.alignment = 'centered'
-            } else if (roleName === 'district') {
-              item.img = './assets/images/district.png',
-                item.alignment = 'centered'
-            }
-            return item;
-          });
 
-          _.forEach(mappedData, ele => {
-            if (ele && ele.img && !_.isEmpty(ele.img)) {
-              this.roleDetails.push(ele);
-            }
-          });
-          this.isLoad = true;
-        }
-      },
-      (error) => {
-        console.log(error);
-        this.toast.showToast(error.error.message, '', 'error');
-        this.isLoad = false;
-      }
-    );
+    this.authService.getRolesMaster().subscribe(res=> {
+      this.isLoad = true;
+      this.roleDetails = res;
+    }, (error)=> {
+      this.toast.showToast(error.error.message, '', 'error');
+    })
+
   }
 
   getRole(item: any): void {

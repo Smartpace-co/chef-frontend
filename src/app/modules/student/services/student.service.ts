@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
 import { User } from '@models/user';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 const API_USERS_URL = `${environment?.apiBaseUrl}`;
 const API_CMS_ADMIN=`${environment?.cmsApiBaseUrl}`;
@@ -44,6 +44,19 @@ export class StudentService {
   }
   setFormData(data: any) {
     this.formData.next(data);
+  }
+
+  /**
+ * To sign-up Clever Student.
+ */
+  cleverRegisterStudent(studentData: any, token: string, studentId: any): Observable<any> {
+    return this.http.put(`${API_USERS_URL}/clever/student/${studentId}`, studentData, {
+      headers: {
+        token
+      }
+    }).pipe(tap((res)=> {
+      localStorage.removeItem('user-temp');
+    }));;
   }
 
   /**

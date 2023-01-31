@@ -48,7 +48,7 @@
               </div>
               <div class="col-md-4">
                 <label>Grade (*)</label>
-                <app-drop-down fieldControl="grade" class="formDropdown" [dropDownButtonName]="gradeTitle"
+                <app-drop-down fieldControl="grade" class="formDropdown" [selected]="isGradeSelected" [dropDownButtonName]="gradeTitle"
                   [dropDownIcon]="gradeIcon" [dropDownItemList]="gradeList"
                   (registerDropdownValueChange)="gradeChange($event)"></app-drop-down>
                   <div *ngIf="formControl.grade.errors" class="invalid-feedback">
@@ -114,7 +114,7 @@
                     [dropDownIcon]="ethnicityIcon" [dropDownItemList]="ethnicityList"
                     (registerDropdownValueChange)="ethnicityChange($event)"></app-drop-down>
                 </div>
-                <div class="col-md-6">
+                <div *ngIf="!isUserClever" class="col-md-6">
                   <label>Username (*)</label>
                   <app-input-field classes="form-control" types="text" placeholders="Enter username" ids="userName"
                     fieldControl="userName" [form]="signInStudent"
